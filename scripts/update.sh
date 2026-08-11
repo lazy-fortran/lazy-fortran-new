@@ -9,7 +9,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 need git
 
 for want in repos oracle; do
-    while IFS=$'\t' read -r name url path clone; do
+    while IFS=$'\t' read -r name _ path _; do
         [ -n "$name" ] || continue
         dir="$(resolve_repo "$path")"
         [ -d "$dir/.git" ] || continue

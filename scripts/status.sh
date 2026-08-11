@@ -10,7 +10,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 section() {
     local want="$1" title="$2" any=0
     printf '\n%s\n' "$title"
-    while IFS=$'\t' read -r name url path clone; do
+    while IFS=$'\t' read -r name _ path _; do
         [ -n "$name" ] || continue
         any=1
         repo_state "$name" "$(resolve_repo "$path")"

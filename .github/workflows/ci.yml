@@ -27,7 +27,6 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq shellcheck
-          # lib.sh is sourced, so its unused-variable warnings are expected.
           shellcheck --severity=warning --external-sources scripts/*.sh
 
       - name: Verify the pinned normative document

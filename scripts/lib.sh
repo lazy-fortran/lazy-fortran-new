@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Shared helpers. Sourced, not executed.
 #
 # The TOML we write here is deliberately flat: [section.name] headers and
@@ -9,6 +10,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK="${LAZY_FORTRAN_WORKSPACE:-$(dirname "$ROOT")}"
+# shellcheck disable=SC2034  # read by fetch.sh, which sources this file
 CACHE="$ROOT/.cache"
 
 # Where a checkout actually lives.
