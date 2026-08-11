@@ -1,0 +1,22 @@
+name        = "E0004-R000004-j3-24-007-broad-standardir-roundtrip"
+url         = "https://github.com/lazy-fortran/standard-new/tree/f87a2ef"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0004/R000004/j3-24-007.standardir.roundtrip.sx"
+sha256      = "0b4bdbf3c34b6ed1ebb5f03d2be3dbcfce0fd947771e755f3f92f8db16b6b761"
+bytes       = 171304
+origin      = "MECHANICAL"
+format      = "StandardIR SX format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new sxroundtrip"
+generator_commit = "f87a2ef"
+retrieved   = "2026-08-12"
+input       = ".cache/runs/E0004/R000003/j3-24-007.standardir.sx"
+input_sha256 = "0b4bdbf3c34b6ed1ebb5f03d2be3dbcfce0fd947771e755f3f92f8db16b6b761"
+records     = 495
+byte_identical = true
+purpose     = "Canonical SX parser/writer round-trip for the broad StandardIR projection"
+
+# Regenerate and verify with:
+#   research/experiments/E0004-broad-syntax-extraction/check-standardir.sh
+# Verify its hash and byte identity with sha256sum, cmp and wc.

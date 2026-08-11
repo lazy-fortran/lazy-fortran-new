@@ -12,7 +12,7 @@ output="${2:-$root/.cache/runs/E0001/R000006/j3-24-007.standardir.sx}"
 source_hash="${3:-7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2}"
 
 mkdir -p "$(dirname "$output")"
-(cd "$standard" && fo exec pdfstandardir "$productions" "$output" "$source_hash")
+(cd "$standard" && fo exec pdfstandardir "$productions" "$output" "$source_hash" 5)
 
 test "$(wc -l < "$output")" = 25
 test "$(rg -c '^\(syntax ' "$output")" = 24

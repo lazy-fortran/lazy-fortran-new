@@ -1,0 +1,23 @@
+name        = "E0004-R000003-j3-24-007-broad-standardir"
+url         = "https://github.com/lazy-fortran/standard-new/tree/f87a2ef"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0004/R000003/j3-24-007.standardir.sx"
+sha256      = "0b4bdbf3c34b6ed1ebb5f03d2be3dbcfce0fd947771e755f3f92f8db16b6b761"
+bytes       = 171304
+origin      = "MECHANICAL"
+format      = "StandardIR SX format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new pdfstandardir"
+generator_commit = "f87a2ef"
+retrieved   = "2026-08-12"
+pages       = "67-580"
+clause      = "6-15"
+records     = 495
+syntax_objects = 494
+source_hash_on_every_record = true
+purpose     = "Structured broad StandardIR projection with tokens, sequences, optional/repeated groups and provenance"
+
+# Regenerate and verify with:
+#   research/experiments/E0004-broad-syntax-extraction/check-standardir.sh
+# Verify its hash and counts with sha256sum, stat, wc and rg.

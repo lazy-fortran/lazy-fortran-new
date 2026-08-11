@@ -1,0 +1,27 @@
+name        = "E0004-R000002-j3-24-007-broad-productions"
+url         = "https://github.com/lazy-fortran/standard-new/tree/f87a2ef"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0004/R000002/j3-24-007.productions.jsonl"
+sha256      = "18584ef9f34fa244fa2a410585a64b9962abbcb292209c3e6f6cfac763df0b11"
+bytes       = 197316
+origin      = "MECHANICAL"
+format      = "standard-new pdfproductions JSONL format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new"
+generator_commit = "f87a2ef"
+retrieved   = "2026-08-12"
+pages       = "67-580"
+canonical_source = ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"
+canonical_source_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+records     = 1049
+production_lines = 1048
+production_starts = 494
+production_continuations = 554
+prose_continuations = 0
+invalid_json_records = 0
+purpose     = "Broad syntax-line corpus for clauses 6--15 with cross-line grammar continuations restored"
+
+# Regenerate the payload and run its independent oracle with:
+#   research/experiments/E0004-broad-syntax-extraction/check-productions.sh
+# Verify its hash and counts with sha256sum, stat, wc, rg and jq.

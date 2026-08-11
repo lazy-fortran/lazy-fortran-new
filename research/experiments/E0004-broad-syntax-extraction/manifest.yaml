@@ -9,8 +9,8 @@ opened: "2026-08-11"
 closed: ""
 
 repos:
-  lazy-fortran-new: "cc409f5"
-  standard-new: "1388c1e2affeeb99900e5bfa2273ae916f6e9277"
+  lazy-fortran-new: "a2819ba"
+  standard-new: "f87a2ef"
   oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
@@ -19,7 +19,7 @@ repos:
 inputs:
   standard: j3-24-007
   pages: [67, 580]
-  profile: clauses-6-to-15-syntax-v1
+  profile: clauses-6-to-15-syntax-v2
 
 variables:
   continuation_boundary:
@@ -28,6 +28,7 @@ variables:
     - prose-heading
     - numbered-paragraph
     - constraint
+    - cross-line-grammar-group
   escaping: [ascii, backslash, quotation-mark]
 
 metrics:
@@ -37,6 +38,8 @@ metrics:
   - prose_continuations
   - invalid_json_records
   - provenance_failures
+  - syntax_objects
+  - sx_roundtrip_failures
 
 denominator: >
   Every R-numbered production selected from PDF pages 67--580 before
@@ -44,9 +47,10 @@ denominator: >
   experiment and are not counted as failures.
 
 independent_oracle: >
-  Fixed R601, R602 and R603 boundary witnesses from the pinned PDF, the
-  predeclared production count, jq parsing of every record, and a synthetic
-  backslash input whose expected JSON value is independently specified.
+  Fixed R601, R602 and R603 boundary witnesses from the pinned PDF, restored
+  cross-line grammar witnesses R871 and R1136, the predeclared production
+  count, jq parsing of every record, fixed StandardIR shapes for R603, R705,
+  R706, R779, R780, R871, R1043 and R1136, and a byte-identical SX round-trip.
 
 toolchain:
   record_in_run: true
@@ -59,6 +63,7 @@ falsifiable_by: >
 
 gate: >
   Recover the predeclared production set with valid JSON, no boundary witness
-  failures, and complete source spans for every retained record.
+  failures, complete source spans, structured multi-token StandardIR and a
+  byte-identical SX round-trip.
 
 analysis: research/experiments/E0004-broad-syntax-extraction/analyse.sh

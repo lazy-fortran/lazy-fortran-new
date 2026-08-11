@@ -1,8 +1,8 @@
 # Roadmap
 
-Snapshot: 2026-08-11. Baseline: `lazy-fortran-new` at `b61c96b`, CI green;
-`standard-new` at `b332702`, with layout, canonical-text and clause-5 line
-extraction, CI green.
+Snapshot: 2026-08-12. Baseline: `lazy-fortran-new` at `a2819ba`, CI green;
+`standard-new` at `f87a2ef`, with layout, canonical-text, production-line and
+StandardIR extraction, CI green.
 
 Live status belongs to each repository. This file records cross-repository
 order, the steps in each phase, and the gate that ends it, so that facts are
@@ -16,11 +16,14 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 
 **Phase 0 complete.** Phase 1 is in progress. `standard-new` now extracts
 UTF-8 bytes and text rectangles for every page of the pinned PDF, writes a
-canonical geometric text projection, emits provenance-bearing clause-5
-production lines for pages 53--56, writes a first StandardIR SX slice, and
-round-trips that SX byte-for-byte. The generated grammar and semantic rules do
-not exist yet. E0001 and E0004 are running, while E0002--E0003 remain draft
-experiments. E0012 remains a later Phase 2 experiment.
+canonical geometric text projection, and mechanically projects the
+R-numbered syntax span on pages 67--580. The E0004 check scripts report 494
+production starts and 1,048 production lines in JSONL, followed by 494
+provenance-bearing StandardIR SX objects and a byte-identical round-trip
+(`research/experiments/E0004-broad-syntax-extraction/check-productions.sh` and
+`check-standardir.sh`). The generated grammar and semantic rules do not exist
+yet. E0001 and E0004 are running, while E0002--E0003 remain draft experiments.
+E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -117,8 +120,11 @@ The first StandardIR SX slice is `R000006`; regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-standardir.sh`.
 The SX round-trip is `R000007`; regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-sx-roundtrip.sh`.
-The broad syntax-line corpus is `E0004/R000001`; regenerate and check it with
+The broad syntax-line corpus is `E0004/R000002`; regenerate and check it with
 `research/experiments/E0004-broad-syntax-extraction/check-productions.sh`.
+The broad StandardIR projection and its SX round-trip are `E0004/R000003` and
+`E0004/R000004`; regenerate and check them with
+`research/experiments/E0004-broad-syntax-extraction/check-standardir.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
 separation, so the canonicalizer preserves the Poppler bytes and derives a
 normalized view rather than overwriting the source extraction.
@@ -174,7 +180,7 @@ evidence for the thesis.
 - [x] Parse the standard's own grammar notation
 - [x] Emit StandardIR syntax objects with full provenance: document, clause,
       rule, page, span hash
-- [ ] Count eligible productions before extraction and report extracted,
+- [x] Count eligible productions before extraction and report extracted,
       rejected, ambiguous and skipped productions separately
 - [ ] Round-trip: production → StandardIR → normalized production, compared
       structurally
@@ -215,9 +221,9 @@ evidence for the thesis.
 
 ### Phase 1 experiments
 
-- [ ] E0001 (E1) manifest written and metrics named **before** extraction starts
-- [ ] E0002 (E2) manifest likewise
-- [ ] E0003 (E3) manifest likewise
+- [x] E0001 (E1) manifest written and metrics named **before** extraction starts
+- [x] E0002 (E2) manifest likewise
+- [x] E0003 (E3) manifest likewise
 - [x] E0004 broad syntax extraction manifest, denominator and oracle recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
