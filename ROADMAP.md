@@ -92,16 +92,21 @@ whole phase.
 - [x] Extend `fortpdf` with `poppler_page_get_text_layout`: glyphs plus
       rectangles
 - [x] Dump glyphs and geometry for the clause-5 syntax pages of 24-007
-- [ ] Determine whether `R501` and its right-hand side, including continuation
+- [x] Determine whether `R501` and its right-hand side, including continuation
       lines, are reconstructable from geometry alone
-- [ ] Exercise at least one additional production shape and one held-out page
+- [x] Exercise at least one additional production shape and one held-out page
       layout before declaring the geometry probe positive
-- [ ] Record the finding as a run, whichever way it goes
+- [x] Record the finding as a run, whichever way it goes
 - [ ] If negative: decision record naming the fallback (OCR, alternative
       library, J3 sources) before any further extraction work
 
 The first complete document layout dump is `R000001`; regenerate it with
 `(cd ../standard-new && fo exec pdfextract ../lazy-fortran-new/.cache/j3-24-007.pdf ../lazy-fortran-new/.cache/runs/E0001/R000001/j3-24-007.layout)`.
+The geometry probe is `R000002`; regenerate it with
+`research/experiments/E0001-standard-to-grammar/probe-layout.sh`.
+The raw text has missing inter-word spaces where rectangle gaps carry the
+separation, so the canonicalizer must preserve bytes and derive a normalized
+view rather than overwrite the source extraction.
 
 ### 1.1 The `text/` package (D0011)
 
