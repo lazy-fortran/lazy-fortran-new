@@ -1,155 +1,366 @@
 # Roadmap
 
-Snapshot: 2026-08-11. Baseline: initial commit of this repository.
+Snapshot: 2026-08-11. Baseline: `lazy-fortran-new` initial commit, CI green;
+`standard-new` at the `fortpdf` scaffold, CI green.
 
-Live status belongs to each repository. This file records cross-repository order
-and the gate that ends each phase, so that facts are not copied into several
-places and left to rot. Any count appearing here names the command that
-regenerates it.
+Live status belongs to each repository. This file records cross-repository
+order, the steps in each phase, and the gate that ends it, so that facts are
+not copied into several places and left to rot. Any count appearing here names
+the command that regenerates it.
+
+A checked box means the thing exists and was observed working, not that someone
+intended it. A phase ends when its gate is demonstrated by a named artifact.
 
 ## Current position
 
-Phase 0, in progress. No extraction pipeline exists. `standard-new` is scaffolded
-but implements nothing beyond a PDF page-count smoke test.
+**Phase 0 complete.** Phase 1 not started. The laboratory, the wiring and the
+`standard-new` scaffold exist; no extraction pipeline does.
 
-## Phase gates
+---
 
-A phase ends when its gate is demonstrated by a named artifact, not when the work
-feels finished.
+## Phase 0. Laboratory
 
-### Phase 0. Laboratory
+- [x] Meta-repository created, public, MIT
+- [x] `AGENTS.md` with `CLAUDE.md` symlinked, house-style deltas only
+- [x] `WHITEPAPER.md`, `DESIGN.md`, `LESSONS.md`, `RESEARCH.md`, `README.md`
+- [x] `docs/`: literature, provenance, glossary, self-hosting,
+      text-representation
+- [x] Historical evidence mined at commit level, with counter-evidence, all 84
+      cited hashes verified resolvable
+- [x] `repos.toml` and the bootstrap/status/update/fetch/experiment/index
+      scripts
+- [x] J3/24-007 pinned by URL and SHA-256, never vendored (D0002)
+- [x] Fetch verifier proven able to fail on a corrupted hash, and to accept a
+      matching one
+- [x] `scripts/selftest.sh` with eight gates, run in CI
+- [x] `standard-new` scaffolded: fpm project, `fortpdf` over poppler-glib,
+      `pdfinfo`
+- [x] `fortpdf` test suite with fixtures of known page count, proven able to
+      fail
+- [x] Page count agreed by three independent readers: `fortpdf`, an independent
+      Go extractor, and a raw `/Type/Page` count
+- [x] Text-representation policy with a mechanical gate and its negative
+      control (D0011)
+- [x] Decision records D0001–D0012, append-only lifecycle, generated index
+- [x] CI green on both repositories
 
-Establish this repository and the wiring. Record the architecture and the
-historical evidence. Scaffold `standard-new`.
+**Gate: met.** `scripts/fetch.sh j3-24-007` verifies and fails loudly on a
+corrupted hash; `scripts/status.sh` reports every repository in `repos.toml`;
+`standard-new` builds and reports a page count cross-checked against an
+independent extractor.
 
-**Gate.** `scripts/fetch.sh j3-24-007` verifies the pinned document and fails
-loudly against a corrupted hash; `scripts/status.sh` reports every repository in
-`repos.toml`; `standard-new` builds under `fo` and reports the page count of a
-PDF, cross-checked against an independent extractor.
+---
 
-### Phase 1. `standard-new`: document to StandardIR
+## Phase 1. `standard-new`: document to StandardIR
 
-Bootstrap step 0 belongs here: the SX seed reader and writer in Bootstrap Core,
-then the schema generator, before any extraction. `docs/self-hosting.md` §19
-gives the ordering.
+The first scientific result, and the reason this phase precedes any compiler
+work. Ordering follows `docs/self-hosting.md` §19: the seed and the schema
+machinery come before extraction, because extraction output must land in
+canonical form.
 
-The first scientific result, and the reason this phase comes before any compiler
-work.
+### 1.0 Extraction risk probe
 
-1. Pin J3/24-007 by URL and hash; fetch and verify.
-2. Layout-aware extraction through `poppler` from Fortran; canonical text plus
-   glyph geometry.
-3. Differential check of the text layer against an independent extractor.
-4. Mechanical extraction of R-numbered productions; parse the standard's own
-   grammar notation.
-5. Round-trip: production → StandardIR → normalized production, compared
-   structurally.
-6. Define minimal StandardIR; generate a syntax grammar from it.
-7. Three-way comparison against the `standard` `.g4` corpus, the kaby76 corpus,
-   LFortran and Flang; adjudicate every disagreement against the document and
-   record the verdict.
-8. Formalize the first semantic constraints; compare mechanical, small-model and
-   large-model formalization on the same clauses.
-9. Generate test families mechanically; build the rule dependency graph.
+Runs first and in parallel with 1.1, because it can invalidate the shape of the
+whole phase.
+
+- [ ] Extend `fortpdf` with `poppler_page_get_text_layout`: glyphs plus
+      rectangles
+- [ ] Dump glyphs and geometry for the clause-5 syntax pages of 24-007
+- [ ] Determine whether `R501` and its right-hand side, including continuation
+      lines, are reconstructable from geometry alone
+- [ ] Record the finding as a run, whichever way it goes
+- [ ] If negative: decision record naming the fallback (OCR, alternative
+      library, J3 sources) before any further extraction work
+
+### 1.1 The `text/` package (D0011)
+
+- [ ] `byte_buffer`, `byte_span`
+- [ ] `byte_builder` with geometric growth
+- [ ] `writer_t` with file, memory, hash and counting backends
+- [ ] `interner` with case-insensitive Fortran identity resolved once
+- [ ] `utf8_boundary`
+- [ ] Property tests, and each one observed failing against a broken variant
+
+### 1.2 SX seed reader and writer (D0006, D0009)
+
+- [ ] Seed reader in Bootstrap Core over the arena node type
+- [ ] Canonical writer: one spelling per operation, normalized fields
+- [ ] Round-trip properties: `parse(write(t)) = t`, `write(parse(c)) = c`
+- [ ] Fuzzed trees and a malformed-input corpus
+- [ ] Content hashing: parse → validate → normalize → serialize → SHA-256
+
+### 1.3 Schema language and generator
+
+The first place the project generates rather than writes, so the first real
+evidence for the thesis.
+
+- [ ] `.sxs` schema language: primitive, record, sum, list, optional, enum
+- [ ] Generator emitting Fortran types, reader, writer, validator, visitor,
+      equality, hashing, printer
+- [ ] StandardIR schema
+- [ ] ImplIR schema, eight types and two constructors (D0012)
+- [ ] Generated code compiles clean and round-trips
+- [ ] Origin label `MECHANICAL` recorded for every generated artifact
+
+### 1.4 Extraction to canonical text
+
+- [ ] Layout-aware extraction from 24-007 into a canonical UTF-8 artifact
+- [ ] Artifact hashed and pinned; spans reference it, prose never duplicated
+      into StandardIR (D0011 §6)
+- [ ] Differential check of the text layer against an independent extractor,
+      with disagreements recorded rather than smoothed over
+- [ ] BOM, ligature, hyphenation and column-order handling decided and tested
+
+### 1.5 Syntax extraction
+
+- [ ] Recognize R-numbered productions in the canonical text
+- [ ] Parse the standard's own grammar notation
+- [ ] Emit StandardIR syntax objects with full provenance: document, clause,
+      rule, page, span hash
+- [ ] Round-trip: production → StandardIR → normalized production, compared
+      structurally
+- [ ] Report the fraction extracted with zero model calls (**E1**)
+
+### 1.6 Three-way comparison and adjudication (D0005)
+
+- [ ] Generate a syntax grammar from StandardIR
+- [ ] Compare against the `standard` `.g4` corpus, the kaby76 corpus, LFortran
+      and Flang
+- [ ] Adjudicate every disagreement against 24-007
+- [ ] Classify each: ours wrong, theirs wrong, document ambiguous
+- [ ] Publish the defect rate per hand-maintained grammar, and the ambiguity
+      bucket as a finding about the standard
+
+### 1.7 Semantic formalization
+
+- [ ] StandardIR constraints, definitions, relations and rules over Core 0
+      clauses
+- [ ] Mechanical formalization patterns first
+- [ ] Small-model then larger-model escalation on the residue, one run record
+      per attempt including failures
+- [ ] `unresolved` and `disputed` states exercised on real clauses, not just
+      supported in principle
+- [ ] Acceptance rule enforced: independent formalizations normalize to the
+      same form and witnesses agree with at least two oracles
+- [ ] Report the mechanical fraction and the minimum model size per rule
+      (**E2**, **E3**)
+
+### 1.8 Tests and dependencies
+
+- [ ] Generate test families per rule: minimal valid witness, minimal invalid
+      neighbour, boundaries, each alternative, dependency combinations
+- [ ] Mutation testing over the generated checkers
+- [ ] Rule dependency graph, and profile closure computed from it
+
+### Phase 1 experiments
+
+- [ ] E1 manifest written and metrics named **before** extraction starts
+- [ ] E2 manifest likewise
+- [ ] E3 manifest likewise
+- [ ] `scripts/index.sh` reports all three from run records
 
 **Gate.** E1 and E2 report, from run records rather than by hand: the fraction
 of syntax extracted with zero model calls, the fraction of semantics formalized
 mechanically, the minimum model size per remaining rule, and the three-way
 disagreement rate with adjudications.
 
-### Phase 2. `fortfront-new`: generated frontend
+---
 
-Generate lexer, parser and AST schema from StandardIR. Generate semantic checks.
-Introduce ImplIR v0 and run the first small-model synthesis experiments. Expose
-the semantic contract of `DESIGN.md` §5 by construction. Emit standard Fortran.
-Benchmark parsing against FortFront, LFortran and Flang.
+## Phase 2. `fortfront-new`: generated frontend
 
-**Gate.** The contract-completeness check passes (every StandardIR semantic
-rule's implementation reads only facts the contract exposes), parsing
-throughput is measured against at least two established frontends on a pinned
-corpus, and the generated SX reader agrees with the seed on the whole corpus.
+- [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
+- [ ] Generate the lexer from the lexical specification
+- [ ] Generate at least two parser strategies from StandardIR syntax
+- [ ] Benchmark them on a pinned corpus; keep the fastest correct one
+- [ ] Generate the AST schema
+- [ ] Generate semantic checks by direct specialization where possible (D0007)
+- [ ] ImplIR v0: type checker, normalizer, interpreter, Fortran emitter
+- [ ] Differential test: ImplIR interpreter against emitted-and-compiled
+      Fortran
+- [ ] First small-model synthesis runs on the residue (**E4**)
+- [ ] Record the fraction of rules needing ImplIR, the headline trend metric
+- [ ] Expose the semantic contract of `DESIGN.md` §5 by construction
+- [ ] Contract-completeness check: every rule's implementation reads only facts
+      the contract exposes
+- [ ] Standard-Fortran emitter, streaming (D0011 §9)
+- [ ] Regenerate the SX parser from a StandardIR description of SX
+- [ ] Differential-test generated reader against the seed over the whole corpus
+- [ ] **E12**: scope-graph resolution against Fortran modules, host
+      association, USE renaming and only-lists, interfaces, generic resolution
+- [ ] E12 go/no-go recorded; if no-go, decision record for the Fortran-specific
+      resolver
+- [ ] Parsing throughput measured against FortFront, LFortran and Flang
+      (**E5**, **E6**)
 
-E12 reports here: whether generic scope-graph resolution handles Fortran's
-binding structure, or whether a Fortran-specific resolver is needed.
+**Gate.** The contract-completeness check passes, parsing throughput is
+measured against at least two established frontends on a pinned corpus, and the
+generated SX reader agrees with the seed on the whole corpus.
 
-### Phase 3. Modern Fortran Core 0
+---
 
-Define Core 0 as a rule-ID selection with dependency closure. Implement enough
-rules to handle programs, modules, procedures, arrays, allocatables and control
-flow. Generate the rule-coverage report.
+## Phase 3. Modern Fortran Core 0
+
+- [ ] Core 0 defined as a rule-ID selection with computed dependency closure
+- [ ] Bootstrap Core defined the same way, as a strict subset (D0008)
+- [ ] Rules implemented for programs, modules, procedures, arrays,
+      allocatables, control flow
+- [ ] Rule-coverage report generated from run records
+- [ ] Accept/reject corpus baseline committed, so no change silently narrows
+      the language (imported from `fortfront`'s rejection gate)
+- [ ] Skipped cases reported separately from passed ones, both rates published
 
 **Gate.** Core 0 accepts and correctly analyses a pinned corpus of small
-programs, with coverage generated from run records and skipped cases reported
-separately from passed ones.
+programs, with coverage generated rather than typed.
 
-### Phase 4. `ffc-new`: MIR and driver
+---
 
-One MIR. Correct lowering, generated rank and type specialization, simple
-optimizations, and performance search over representations.
+## Phase 4. `ffc-new`: MIR and driver
+
+- [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
+- [ ] One MIR, operations added only with a recorded justification
+- [ ] Lowering from the typed frontend representation
+- [ ] Rank and type specialization generated from specification
+- [ ] **Acceptance test for the generated-lowering claim**: add a rank, observe
+      that no consumer needed an edit (`LESSONS.md` §4)
+- [ ] Simple optimizations
+- [ ] Performance search over representations: symbol table, AST layout, arena
+      strategy (**E9**)
+- [ ] Command-line driver
+- [ ] LLVM path as differential oracle and performance baseline only
+- [ ] **First self-host milestone**: the new compiler compiles the meta-tools —
+      SX reader, StandardIR engine, ImplIR checker, generators (D0010)
+- [ ] Bootstrap Core sufficiency reported; growth recorded as an E10 result,
+      not treated as a failure
 
 **Gate.** Generated programs run correctly on a pinned corpus, with rank
-specialization generated rather than written, demonstrated by adding a rank and
-observing that no consumer needed an edit.
+specialization generated rather than written and demonstrated by the
+add-a-rank test.
 
-**First self-host milestone, and it comes before full self-hosting**: the new
-compiler compiles the meta-tools — SX reader, StandardIR engine, ImplIR
-checker, the generators. That answers whether Bootstrap Core suffices for
-nontrivial compiler infrastructure while there is still time to act on the
-answer (D0010).
+---
 
-### Phase 5. `fortback-new`: generated backend
+## Phase 5. `fortback-new`: generated backend
 
-Target descriptions for RISC-V and AArch64 from their official machine-readable
-specifications. Generated instruction tables, encoder, decoder and object
-writer. Synthesized instruction selection. Translation validation against Sail
-where available.
+- [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
+- [ ] Target description language, derived from the ISA specifications rather
+      than transcribed
+- [ ] RISC-V: `riscv-opcodes` pinned by hash; generated instruction tables,
+      encoder, decoder
+- [ ] AArch64: ARM Machine Readable Architecture pinned; the same generated
+      from it
+- [ ] Object writers: ELF, then Mach-O
+- [ ] Instruction selection synthesized, not written (**E11**)
+- [ ] Translation validation against the Sail model where the semantics permit
+- [ ] Behavioural oracles wired: Spike, QEMU, hardware where available
+- [ ] Differential execution against LLVM output on a pinned corpus
+- [ ] E11 reports the cost difference between two well-specified ISAs
 
 **Gate.** A generated program compiles to native code on both ISAs and passes
-differential execution against LLVM output; E11 reports the cost difference
-between the two ISAs.
+differential execution against LLVM output.
 
-### Phase 6. Self-hosting
+---
 
-Expand Core 0 until the compiler can be written entirely within it. Build A with
-gfortran, B with A, C with B; require convergence.
+## Phase 6. Self-hosting
 
-**Gate.** The canonical generated compiler source from B and from C is
-identical. Object and binary identity under reproducible build conditions is
-the later criterion. Stage equality establishes reproducibility and not trusting
-trust; diverse double compilation is named as future work in
-`docs/self-hosting.md` §21 and is not planned.
+- [ ] Core 0 expanded until the compiler is expressible entirely within it
+- [ ] gfortran builds compiler-0
+- [ ] compiler-0 builds compiler-1
+- [ ] compiler-1 builds compiler-2, from identical generated source and
+      configuration
+- [ ] Canonical generated compiler source from stages 1 and 2 compared
+- [ ] Object and binary identity attempted under reproducible build conditions
+- [ ] **E10**: the smallest Fortran profile sufficient to implement its own
+      compiler, reported
+- [ ] Meta-language fixpoint procedure exercised on a real breaking change to
+      StandardIR or ImplIR (D0010)
 
-### Phase 7. x86-64
+**Gate.** The canonical generated compiler source from stages 1 and 2 is
+identical. Stage equality establishes reproducibility, not trusting trust;
+diverse double compilation is named as future work in `docs/self-hosting.md`
+§21 and is not planned.
 
-The hardest target, deliberately last: encodings from Intel XED data files,
-semantics from no authoritative source, translation validation impractical. E11
-gains its third data point.
+---
 
-### Phase 8. Broader Fortran
+## Phase 7. x86-64
 
-Core 1, Core 2, broad F2023, then F2028 as it stabilizes. Legacy remains a
-separate optional profile.
+Deliberately last: no official machine-readable encoding specification, no
+authoritative semantics, translation validation impractical.
 
-### Phase 9. Downstream tools
+- [ ] Intel XED data files and Zydis tables pinned by hash
+- [ ] Encodings generated from them; disagreements between the two adjudicated
+- [ ] uops.info pinned for latency and throughput cost modelling
+- [ ] Instruction selection synthesized
+- [ ] Differential execution against LLVM and against hardware
+- [ ] E11 gains its third data point, and the specification-quality hypothesis
+      is confirmed or refuted
 
-FortAD, static analysis, formatter, language server, source-to-source extensions
-and automatic modernization, all on the same frontend. The goal is that no
-downstream tool ever implements Fortran semantics again.
+---
+
+## Phase 8. Broader Fortran
+
+- [ ] Core 1 profile
+- [ ] Core 2 profile
+- [ ] Broad F2023 coverage
+- [ ] Second document: J3/26-007 extracted through the same pipeline, measuring
+      the diff cost between revisions
+- [ ] Legacy features as a separate optional profile, never in Core
+
+---
+
+## Phase 9. Downstream tools
+
+- [ ] FortAD on the generated frontend, consuming facts rather than
+      reconstructing them (`LESSONS.md` §2)
+- [ ] Static analysis
+- [ ] Formatter, using the lossless-edit mode (D0011 §10)
+- [ ] Language server
+- [ ] Source-to-source extensions and automatic modernization
+- [ ] Lazy Fortran extensions as layered specifications over ISO StandardIR
+
+**Gate.** No downstream tool implements Fortran semantics independently.
+
+---
+
+## Continuous, not a phase
+
+These run alongside everything and have no completion box, but they can be
+neglected, so they are listed.
+
+- [ ] `docs/literature.md`: verify the ~30 citations recorded from memory;
+      three are checked. **Read Lämmel & Verhoef before E1's related work** —
+      E1 automates the loop that paper describes semi-automatically, and the
+      framing of the first result depends on getting that relationship right
+- [ ] Prose passes: `LESSONS.md`, `DESIGN.md`, `README.md`, `AGENTS.md` and the
+      two new design notes have not had an adversarial pass; only
+      `WHITEPAPER.md` has
+- [ ] `docs/provenance.md` consultation log kept current as permissive sources
+      are read
+- [ ] Every new gate ships with a negative control
+- [ ] Every published number names the command that regenerates it
+
+---
 
 ## Ordering constraints
 
+- Phase 1.0 runs before 1.4 and can invalidate the phase. Nothing downstream of
+  extraction is built until the probe answers.
+- Phases 1.1 to 1.3 are independent of the standard and can proceed in parallel
+  with the probe.
 - Phase 2 does not start before E1 and E2 report. The measurement is the point
-  of Phase 1, and building the frontend first would consume the evidence.
+  of Phase 1, and building the frontend first consumes the evidence.
 - Phase 5 does not start before Phase 4 has a stable MIR, or the target
-  description will be shaped by a moving interface.
-- Phase 6 gates on Core 0 being sufficient, which is discovered during Phases 3
-  to 5 and may force Core 0 to grow. That growth is a result worth recording
-  (E10), not a scheduling failure.
+  description is shaped by a moving interface.
+- Phase 6 gates on Core 0 sufficiency, discovered during Phases 3 to 5, and may
+  force Core 0 to grow. That growth is the E10 result, not a scheduling
+  failure.
 - x86-64 is not brought forward for convenience. If native development hardware
   becomes a real obstacle, that is a decision record, not a quiet reordering.
+- A repository is created when its phase starts, not before. No `fortgen-new`
+  on speculation (`docs/self-hosting.md` §22).
 
 ## Deliberately deferred
 
 Coarrays, parameterized derived types, full polymorphic object orientation,
 fixed form, and every legacy storage feature listed in `WHITEPAPER.md` §15.
-GPU targets. Anything requiring a service, a database or a dashboard.
+GPU targets. Certified parsing and diverse double compilation, named as future
+work in `docs/self-hosting.md` §21. Anything requiring a service, a database or
+a dashboard.
