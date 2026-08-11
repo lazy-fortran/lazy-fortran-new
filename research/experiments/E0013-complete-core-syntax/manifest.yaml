@@ -1,0 +1,96 @@
+id: "E0013"
+title: "Complete core syntax extraction including assumed syntax rules"
+question: >
+  Can one mechanical pass over the contiguous core syntax span of J3/24-007
+  recover every R-numbered production, including its assumed-syntax prelude,
+  as provenance-bearing JSONL, StandardIR SX and normalized production JSONL
+  without manual intervention?
+status: running         # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "42fed8d"
+  standard-new: "7abd7b1"
+  oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
+  oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+  oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  pages: [45, 580]
+  profile: core-syntax-pages-45-to-580-v1
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  continuation_boundary:
+    - grammar-token
+    - alternative
+    - prose-heading
+    - numbered-paragraph
+    - constraint
+    - cross-line-grammar-group
+  representations:
+    - production-jsonl
+    - standardir-sx
+    - normalized-production-jsonl
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model calls; all three projections are mechanical."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - eligible_productions
+  - extracted_productions
+  - parse_failures
+  - prose_continuations
+  - invalid_json_records
+  - provenance_failures
+  - syntax_objects
+  - sx_roundtrip_failures
+  - normalized_roundtrip_failures
+  - full_document_scope_difference
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  Every R-numbered production selected from physical PDF pages 45--580 before
+  extraction begins. The full-document audit over pages 1--688 must identify
+  no production start omitted from this core span except productions
+  explicitly named by a scope decision.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >
+  Fixed R401/R402/R403 assumed-syntax witnesses, fixed R501/R516/R601/R603 and
+  R1547 witnesses, the predeclared production count, jq parsing of every
+  record, the full-document set-difference audit, source hash on every
+  StandardIR object, byte-identical SX round-trip, and fixed normalized
+  notation for the witnesses.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  A production in the selected page span is omitted or attached to prose, a
+  full-document production is outside the selected set without a named scope
+  decision, an expected record cannot be parsed as JSON or SX, a source span
+  is incomplete, or normalized notation differs at a fixed witness.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >
+  Recover the predeclared production set with valid JSON, complete source
+  spans, exact full-document scope difference, structured StandardIR,
+  byte-identical SX and normalized-production round-trips for every selected
+  production.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/experiments/E0013-complete-core-syntax/analyse.sh

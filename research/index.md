@@ -14,6 +14,7 @@ Runs recorded: 16
 | E0004 | running | 5 | Can the R-numbered syntax productions in the lexical-to-program-unit span |
 | E0005 | running | 4 | Can one mechanical pass over the contiguous syntax span of J3/24-007 recover |
 | E0012 | draft | 0 | Does language-independent scope-graph resolution handle Fortran's modules, |
+| E0013 | running | 0 | Can one mechanical pass over the contiguous core syntax span of J3/24-007 |
 
 ## Run status
 
@@ -44,6 +45,7 @@ Runs recorded: 16
 | [D0011](decisions/D0011-text-representation.md) | accepted |  | Text is bytes, spans and IDs, not Fortran character values |
 | [D0012](decisions/D0012-implir-type-set.md) | accepted | Amends D0007 | The ImplIR v0 type set |
 | [D0013](decisions/D0013-four-corpus-grammar-comparison.md) | accepted | Amends D0005 | Four-corpus grammar comparison denominator |
+| [D0014](decisions/D0014-core-syntax-boundary.md) | accepted |  | Core syntax boundary includes assumed syntax |
 
 ## Pinned artifacts
 
