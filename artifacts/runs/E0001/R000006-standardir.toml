@@ -1,0 +1,23 @@
+name        = "E0001-R000006-j3-24-007-standardir"
+url         = "https://github.com/lazy-fortran/standard-new/tree/843c5fa"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0001/R000006/j3-24-007.standardir.sx"
+sha256      = "41670b99755b494e14989f739d93d6b9f8fd0c87d8ecafc15d219ae6d9d9cf38"
+bytes       = 9890
+origin      = "MECHANICAL"
+format      = "canonical StandardIR SX format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new"
+generator_commit = "843c5fa601c47c70aaacd43100604236b8875061"
+retrieved   = "2026-08-11"
+pages       = "53-56"
+input       = ".cache/runs/E0001/R000005/j3-24-007.productions.jsonl"
+input_sha256 = "3aa1f5ab8c8db5416b7dbb93fcb1cf35e9700eebf83a9ccb2223ff72a2db486d"
+lines       = 25
+syntax_objects = 24
+purpose     = "Machine-readable StandardIR syntax objects with canonical SX and source spans"
+
+# Regenerate the payload and run its structural oracle with:
+#   research/experiments/E0001-standard-to-grammar/check-standardir.sh
+# Verify its hash and counts with sha256sum, stat, wc and rg.

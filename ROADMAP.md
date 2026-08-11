@@ -16,10 +16,11 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 
 **Phase 0 complete.** Phase 1 is in progress. `standard-new` now extracts
 UTF-8 bytes and text rectangles for every page of the pinned PDF, writes a
-canonical geometric text projection, and emits provenance-bearing clause-5
-production lines for pages 53--56. StandardIR, SX and generated grammar do not
-exist yet. E0001 is running, while E0002--E0003 remain draft experiments.
-E0012 remains a later Phase 2 experiment.
+canonical geometric text projection, emits provenance-bearing clause-5
+production lines for pages 53--56, and writes a first StandardIR SX slice.
+The seed reader, generated grammar and semantic rules do not exist yet. E0001
+is running, while E0002--E0003 remain draft experiments. E0012 remains a later
+Phase 2 experiment.
 
 ---
 
@@ -112,6 +113,8 @@ The version-2 layout dump is `R000004`; regenerate it with the `R000001`
 command, changing the run directory to `R000004`.
 The first production-line slice is `R000005`; regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-productions.sh`.
+The first StandardIR SX slice is `R000006`; regenerate and check it with
+`research/experiments/E0001-standard-to-grammar/check-standardir.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
 separation, so the canonicalizer preserves the Poppler bytes and derives a
 normalized view rather than overwriting the source extraction.
@@ -164,8 +167,8 @@ evidence for the thesis.
 ### 1.5 Syntax extraction
 
 - [x] Recognize R-numbered productions in the canonical text
-- [ ] Parse the standard's own grammar notation
-- [ ] Emit StandardIR syntax objects with full provenance: document, clause,
+- [x] Parse the standard's own grammar notation
+- [x] Emit StandardIR syntax objects with full provenance: document, clause,
       rule, page, span hash
 - [ ] Count eligible productions before extraction and report extracted,
       rejected, ambiguous and skipped productions separately
