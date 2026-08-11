@@ -1,0 +1,22 @@
+name        = "E0013-R000003-j3-24-007-complete-core-standardir-roundtrip"
+url         = "https://github.com/lazy-fortran/standard-new/tree/7abd7b1"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0013/R000003/j3-24-007.standardir.roundtrip.sx"
+sha256      = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+bytes       = 182146
+origin      = "MECHANICAL"
+format      = "StandardIR SX format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new sxroundtrip"
+generator_commit = "7abd7b1"
+retrieved   = "2026-08-12"
+input       = ".cache/runs/E0013/R000002/j3-24-007.standardir.sx"
+input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+records     = 523
+byte_identical = true
+purpose     = "Canonical SX parser/writer round-trip for the complete core StandardIR projection"
+
+# Regenerate and verify with:
+#   research/experiments/E0013-complete-core-syntax/check-core-syntax.sh
+# Verify its hash and byte identity with sha256sum, cmp and wc.

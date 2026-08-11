@@ -50,7 +50,7 @@ jq -r -s '.[] | select(.kind == "production-start") | .rule' "$productions" \
     | LC_ALL=C sort > "$core_rules"
 jq -r -s '.[] | select(.kind == "production-start") | .rule' "$scope_audit" \
     | LC_ALL=C sort > "$all_rules"
-test "$(comm -23 "$all_rules" "$core_rules")" = $'R401\nR402\nR403'
+test -z "$(comm -23 "$all_rules" "$core_rules")"
 test -z "$(comm -13 "$all_rules" "$core_rules")"
 
 (cd "$standard" && fo exec pdfstandardir "$productions" "$standardir" \

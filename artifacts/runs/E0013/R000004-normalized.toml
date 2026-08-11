@@ -1,0 +1,23 @@
+name        = "E0013-R000004-j3-24-007-complete-core-normalized-productions"
+url         = "https://github.com/lazy-fortran/standard-new/tree/7abd7b1"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0013/R000004/j3-24-007.normalized.jsonl"
+sha256      = "8ca9e2e0dc9d889b6e2897dea48a7ae64852ae8662eec268388d755f44bf7078"
+bytes       = 83694
+origin      = "MECHANICAL"
+format      = "normalized-production JSONL format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new sxnormalize"
+generator_commit = "7abd7b1"
+retrieved   = "2026-08-12"
+pages       = "45-580"
+input       = ".cache/runs/E0013/R000002/j3-24-007.standardir.sx"
+input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+records     = 523
+normalized_productions = 522
+purpose     = "Structural reconstruction of normalized production notation from the complete core StandardIR SX corpus"
+
+# Regenerate and verify with:
+#   research/experiments/E0013-complete-core-syntax/check-core-syntax.sh
+# Verify its hash and counts with sha256sum, stat, wc, jq and fixed witnesses.

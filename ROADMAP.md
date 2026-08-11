@@ -1,6 +1,6 @@
 # Roadmap
 
-Snapshot: 2026-08-12. Baseline: `lazy-fortran-new` at `176f16d`, CI green;
+Snapshot: 2026-08-12. Baseline: `lazy-fortran-new` at `db58d77`, CI green;
 `standard-new` at `7abd7b1`, with layout, canonical-text, production-line and
 StandardIR extraction, CI green.
 
@@ -14,22 +14,17 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 
 ## Current position
 
-**Phase 0 complete.** Phase 1 is in progress. `standard-new` now extracts
-UTF-8 bytes and text rectangles for every page of the pinned PDF, writes a
-canonical geometric text projection, and mechanically projects the
-R-numbered syntax span on pages 67--580. The E0004 check scripts report 494
-production starts and 1,048 production lines in JSONL, followed by 494
-provenance-bearing StandardIR SX objects and a byte-identical round-trip
-(`research/experiments/E0004-broad-syntax-extraction/check-productions.sh` and
-`check-standardir.sh`). The reverse normalizer reconstructs 494 normalized
-production records from SX, checked by
-`research/experiments/E0004-broad-syntax-extraction/check-normalized.sh`.
-The contiguous E0005 pass closes the physical-page gap and reports 519
-production starts, 1,181 production lines, 519 StandardIR objects and 519
-normalized production records (`research/experiments/E0005-core-syntax-extraction/check-core-syntax.sh`).
-The generated grammar and semantic rules do not exist yet. E0001 and E0004
-are running, while E0002--E0003 remain draft experiments. E0012 remains a
-later Phase 2 experiment.
+**Phase 0 complete.** Phase 1 is in progress. `standard-new` extracts UTF-8
+bytes and text rectangles for every page of the pinned PDF, writes a
+canonical geometric text projection, and mechanically projects the complete
+numbered syntax span on pages 45--580. E0013 audits pages 1--688 and reports
+522 production starts with no scope difference; its gate also reports 1,184
+production lines, 522 provenance-bearing StandardIR SX objects, a
+byte-identical round-trip and 522 normalized production records
+(`research/experiments/E0013-complete-core-syntax/check-core-syntax.sh`).
+E0004 and E0005 remain historical comparison runs. The generated grammar and
+semantic rules do not exist yet. E0001 and E0004 are running, while E0002--E0003
+remain draft experiments. E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -136,6 +131,10 @@ it with `research/experiments/E0004-broad-syntax-extraction/check-normalized.sh`
 The contiguous core-syntax corpus is `E0005/R000001` through `R000004`;
 regenerate and check all four projections with
 `research/experiments/E0005-core-syntax-extraction/check-core-syntax.sh`.
+The complete core-syntax scope audit and corpus are `E0013/R000017` through
+`R000021`, with the scope artifact at `E0013/R000000`; regenerate and check
+them with
+`research/experiments/E0013-complete-core-syntax/check-core-syntax.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
 separation, so the canonicalizer preserves the Poppler bytes and derives a
 normalized view rather than overwriting the source extraction.
@@ -237,6 +236,7 @@ evidence for the thesis.
 - [x] E0003 (E3) manifest likewise
 - [x] E0004 broad syntax extraction manifest, denominator and oracle recorded
 - [x] E0005 contiguous core syntax extraction manifest, denominator and oracle recorded
+- [x] E0013 complete core syntax extraction, scope audit, denominator and oracle recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

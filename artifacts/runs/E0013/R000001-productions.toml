@@ -1,0 +1,27 @@
+name        = "E0013-R000001-j3-24-007-complete-core-productions"
+url         = "https://github.com/lazy-fortran/standard-new/tree/7abd7b1"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0013/R000001/j3-24-007.productions.jsonl"
+sha256      = "bd55cf01238c609b3dc21c7117ad731dd3b3f7fbf2a055e4751234fa3d17ebb5"
+bytes       = 222441
+origin      = "MECHANICAL"
+format      = "standard-new pdfproductions JSONL format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new"
+generator_commit = "7abd7b1"
+retrieved   = "2026-08-12"
+pages       = "45-580"
+canonical_source = ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"
+canonical_source_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+records     = 1185
+production_lines = 1184
+production_starts = 522
+production_continuations = 662
+prose_continuations = 0
+invalid_json_records = 0
+purpose     = "Provenance-bearing lossless syntax-line records for the complete selected core syntax span"
+
+# Regenerate and run its independent oracle with:
+#   research/experiments/E0013-complete-core-syntax/check-core-syntax.sh
+# Verify its hash and counts with sha256sum, stat, wc, rg and jq.
