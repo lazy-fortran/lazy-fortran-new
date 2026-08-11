@@ -24,6 +24,9 @@ provenance-bearing StandardIR SX objects and a byte-identical round-trip
 `check-standardir.sh`). The reverse normalizer reconstructs 494 normalized
 production records from SX, checked by
 `research/experiments/E0004-broad-syntax-extraction/check-normalized.sh`.
+The contiguous E0005 pass closes the physical-page gap and reports 519
+production starts, 1,181 production lines, 519 StandardIR objects and 519
+normalized production records (`research/experiments/E0005-core-syntax-extraction/check-core-syntax.sh`).
 The generated grammar and semantic rules do not exist yet. E0001 and E0004
 are running, while E0002--E0003 remain draft experiments. E0012 remains a
 later Phase 2 experiment.
@@ -130,6 +133,9 @@ The broad StandardIR projection and its SX round-trip are `E0004/R000003` and
 `research/experiments/E0004-broad-syntax-extraction/check-standardir.sh`.
 The normalized production projection is `E0004/R000005`; regenerate and check
 it with `research/experiments/E0004-broad-syntax-extraction/check-normalized.sh`.
+The contiguous core-syntax corpus is `E0005/R000001` through `R000004`;
+regenerate and check all four projections with
+`research/experiments/E0005-core-syntax-extraction/check-core-syntax.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
 separation, so the canonicalizer preserves the Poppler bytes and derives a
 normalized view rather than overwriting the source extraction.
@@ -230,6 +236,7 @@ evidence for the thesis.
 - [x] E0002 (E2) manifest likewise
 - [x] E0003 (E3) manifest likewise
 - [x] E0004 broad syntax extraction manifest, denominator and oracle recorded
+- [x] E0005 contiguous core syntax extraction manifest, denominator and oracle recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

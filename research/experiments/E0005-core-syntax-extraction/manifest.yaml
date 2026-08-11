@@ -1,0 +1,73 @@
+id: "E0005"
+title: "Contiguous core syntax extraction"
+question: >
+  Can one mechanical pass over the contiguous syntax span of J3/24-007 recover
+  every R-numbered production from the PDF as provenance-bearing JSONL,
+  StandardIR SX and normalized production JSONL without manual intervention?
+status: running         # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "f904c28"
+  standard-new: "7abd7b1"
+  oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
+  oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+  oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
+
+inputs:
+  standard: j3-24-007
+  pages: [53, 580]
+  profile: core-syntax-pages-53-to-580-v1
+
+variables:
+  continuation_boundary:
+    - grammar-token
+    - alternative
+    - prose-heading
+    - numbered-paragraph
+    - constraint
+    - cross-line-grammar-group
+  representations:
+    - production-jsonl
+    - standardir-sx
+    - normalized-production-jsonl
+
+metrics:
+  - eligible_productions
+  - extracted_productions
+  - parse_failures
+  - prose_continuations
+  - invalid_json_records
+  - provenance_failures
+  - syntax_objects
+  - sx_roundtrip_failures
+  - normalized_roundtrip_failures
+
+denominator: >
+  Every R-numbered production selected from physical PDF pages 53--580 before
+  extraction begins. Productions outside this contiguous syntax span are
+  excluded from this experiment and are not counted as failures.
+
+independent_oracle: >
+  Fixed R501, R516, R601, R603 and R1547 witnesses from the pinned PDF, the
+  predeclared production count, jq parsing of every record, source hash on
+  every StandardIR object, byte-identical SX round-trip, and fixed normalized
+  notation for the first, gap, lexical and final witnesses.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  A production in the selected page span is omitted or attached to prose, an
+  expected record cannot be parsed as JSON or SX, a source span is incomplete,
+  or normalized notation differs at a fixed witness.
+
+gate: >
+  Recover the predeclared production set with valid JSON, complete source
+  spans, structured StandardIR, byte-identical SX and normalized-production
+  round-trips for every selected production.
+
+analysis: research/experiments/E0005-core-syntax-extraction/analyse.sh

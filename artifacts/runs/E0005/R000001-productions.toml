@@ -1,0 +1,27 @@
+name        = "E0005-R000001-j3-24-007-core-syntax-productions"
+url         = "https://github.com/lazy-fortran/standard-new/tree/7abd7b1"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0005/R000001/j3-24-007.productions.jsonl"
+sha256      = "86a391c76fb2463b68f53b6f15a0d7370fdf3a87e68ce1ee54706ffa5b00060d"
+bytes       = 221953
+origin      = "MECHANICAL"
+format      = "standard-new pdfproductions JSONL format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new"
+generator_commit = "7abd7b1"
+retrieved   = "2026-08-12"
+pages       = "53-580"
+canonical_source = ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"
+canonical_source_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+records     = 1182
+production_lines = 1181
+production_starts = 519
+production_continuations = 662
+prose_continuations = 0
+invalid_json_records = 0
+purpose     = "Contiguous core syntax corpus from physical PDF pages 53--580"
+
+# Regenerate and run its independent oracle with:
+#   research/experiments/E0005-core-syntax-extraction/check-core-syntax.sh
+# Verify its hash and counts with sha256sum, stat, wc, rg and jq.

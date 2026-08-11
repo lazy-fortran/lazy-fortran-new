@@ -1,0 +1,23 @@
+name        = "E0005-R000002-j3-24-007-core-standardir"
+url         = "https://github.com/lazy-fortran/standard-new/tree/7abd7b1"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0005/R000002/j3-24-007.standardir.sx"
+sha256      = "a53842cf9aa6a85309f5f097e264c57a477d548b6a4342462dbb36cda8b718fd"
+bytes       = 181349
+origin      = "MECHANICAL"
+format      = "StandardIR SX format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new pdfstandardir"
+generator_commit = "7abd7b1"
+retrieved   = "2026-08-12"
+pages       = "53-580"
+clause      = "5-15"
+records     = 520
+syntax_objects = 519
+source_hash_on_every_record = true
+purpose     = "Structured StandardIR projection for the contiguous core syntax corpus"
+
+# Regenerate and verify with:
+#   research/experiments/E0005-core-syntax-extraction/check-core-syntax.sh
+# Verify its hash and counts with sha256sum, stat, wc and rg.
