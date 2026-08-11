@@ -8,7 +8,7 @@ Runs recorded: 0
 
 | ID | Status | Runs | Question |
 |---|---|---|---|
-| _none yet_ | | | |
+| E0012 | draft | 0 | Does language-independent scope-graph resolution handle Fortran's modules, |
 
 ## Run status
 
@@ -24,11 +24,20 @@ Runs recorded: 0
 
 ## Decisions
 
-- [D0001-no-submodules](decisions/D0001-no-submodules.md) — accepted
-- [D0002-no-vendored-artifacts](decisions/D0002-no-vendored-artifacts.md) — accepted
-- [D0003-fortran-everywhere](decisions/D0003-fortran-everywhere.md) — accepted
-- [D0004-generated-backend](decisions/D0004-generated-backend.md) — accepted
-- [D0005-grammars-are-comparisons](decisions/D0005-grammars-are-comparisons.md) — accepted
+| ID | Status | Relation | Title |
+|---|---|---|---|
+| [D0001](decisions/D0001-no-submodules.md) | accepted |  | Cross-repository wiring without git submodules |
+| [D0002](decisions/D0002-no-vendored-artifacts.md) | accepted |  | Nothing external is vendored |
+| [D0003](decisions/D0003-fortran-everywhere.md) | accepted |  | Fortran everywhere, C libraries through ISO_C_BINDING |
+| [D0004](decisions/D0004-generated-backend.md) | accepted |  | A generated backend, RISC-V and AArch64 first |
+| [D0005](decisions/D0005-grammars-are-comparisons.md) | accepted |  | Grammars as comparisons, and effort not measured |
+| [D0006](decisions/D0006-sx-serialization.md) | accepted |  | One canonical S-expression serialization for both IRs |
+| [D0007](decisions/D0007-implir-is-residual.md) | accepted |  | ImplIR is residual, not a mandatory layer |
+| [D0008](decisions/D0008-bootstrap-core.md) | accepted |  | Bootstrap Core, a profile smaller than Core 0 |
+| [D0009](decisions/D0009-fortran-seed.md) | accepted | Amends D0003 | A tiny Fortran SX reader as the bootstrap seed |
+| [D0010](decisions/D0010-fixpoint-bootstrap.md) | accepted |  | Fixpoint criteria for the compiler and the meta-languages |
+| [D0011](decisions/D0011-text-representation.md) | accepted |  | Text is bytes, spans and IDs, not Fortran character values |
+| [D0012](decisions/D0012-implir-type-set.md) | accepted | Amends D0007 | The ImplIR v0 type set |
 
 ## Pinned artifacts
 

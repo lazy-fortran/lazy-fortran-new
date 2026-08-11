@@ -102,28 +102,40 @@ cannot be published about.
 
 ## Decisions
 
-`research/decisions/D<NNNN>-<slug>.md`:
+`research/decisions/D<NNNN>-<slug>.md`, from `TEMPLATE.md`. Four sections:
+Context, Decision, Rejected, Reversal condition.
 
-```markdown
-# D0003, No git submodules
+**The body is immutable once accepted.** Context, Decision, Rejected and
+Reversal condition are never rewritten. This is the same rule that governs
+runs, for the same reason: a reversal condition can only be checked against
+what was actually believed at the time, and an edited record silently becomes
+a description of what we believe now.
 
-Date: 2026-08-11
-Status: accepted        # proposed | accepted | superseded by D#### 
+To change a decision, write a new record. The Status line of the old file is
+the only part that may then be edited, and only to point at the successor.
 
-## Context
-What situation forced a choice.
+### Status vocabulary
 
-## Decision
-What was chosen.
+| Status | Meaning |
+|---|---|
+| `proposed` | Written, not yet in force. Body may still change. |
+| `accepted` | In force. Body frozen. |
+| `superseded by D####` | Replaced wholesale. The successor makes the choice. |
+| `amended by D####` | Still in force, with the successor narrowing or extending it. |
+| `retracted` | Withdrawn without replacement. The successor explains why nothing replaces it. |
 
-## Rejected
-What else was considered, and why not. Be specific; "too complex" is not a
-reason.
+The successor carries the matching header: `Supersedes:`, `Amends:` or
+`Retracts:`. Both directions are recorded so the chain reads forwards and
+backwards, and `scripts/index.sh` generates the live table from the headers
+rather than from a hand-maintained list.
 
-## Reversal condition
-What evidence would make this wrong. A decision with no reversal condition is a
-preference, and should be written as one.
-```
+### Writing a successor
+
+Say what the earlier reasoning got wrong, not merely what is now preferred. A
+successor that only states the new choice loses the most useful thing in the
+record: the failure mode that was not anticipated. If the earlier decision was
+right on the evidence available and wrong on evidence that arrived later, say
+that too, because it is the difference between a mistake and a discovery.
 
 Decisions that change the plan are linked from `ROADMAP.md`.
 

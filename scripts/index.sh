@@ -31,7 +31,7 @@ count_field() {   # count_field FIELD VALUE
         [ -d "$d" ] || continue
         found=1
         id=$(basename "$d" | cut -d- -f1)
-        status=$(awk -F': *' '/^status:/{print $2; exit}' "$d/manifest.yaml" 2>/dev/null)
+        status=$(awk -F": *" "/^status:/{sub(/ *#.*/, \"\", \$2); print \$2; exit}" "$d/manifest.yaml" 2>/dev/null)
         question=$(awk '/^question:/{getline; sub(/^[ \t]*/,""); print; exit}' \
                    "$d/manifest.yaml" 2>/dev/null)
         n=$(count_field experiment "$id")
@@ -64,15 +64,19 @@ count_field() {   # count_field FIELD VALUE
     [ "$any" = 1 ] || printf '| _no artifacts yet_ | |\n'
 
     printf '\n## Decisions\n\n'
+    printf '| ID | Status | Relation | Title |\n|---|---|---|---|\n'
     found=0
     for f in "$ROOT"/research/decisions/D[0-9][0-9][0-9][0-9]-*.md; do
         [ -f "$f" ] || continue
         found=1
-        printf -- '- [%s](decisions/%s) — %s\n' \
-            "$(basename "$f" .md)" "$(basename "$f")" \
-            "$(awk -F': *' '/^Status:/{print $2; exit}' "$f")"
+        id=$(basename "$f" | cut -d- -f1)
+        title=$(sed -n '1s/^# D[0-9]*\.\? *//p' "$f")
+        status=$(awk -F': *' '/^Status:/{print $2; exit}' "$f")
+        rel=$(awk -F': *' '/^(Supersedes|Amends|Retracts):/{printf "%s %s; ", $1, $2}' "$f")
+        printf '| [%s](decisions/%s) | %s | %s | %s |\n' \
+            "$id" "$(basename "$f")" "${status:-?}" "${rel%; }" "${title:-?}"
     done
-    [ "$found" = 1 ] || printf -- '- _none yet_\n'
+    [ "$found" = 1 ] || printf '| _none yet_ | | | |\n'
 
     printf '\n## Pinned artifacts\n\n'
     printf '| Name | Bytes | Licence | Purpose |\n|---|---|---|---|\n'

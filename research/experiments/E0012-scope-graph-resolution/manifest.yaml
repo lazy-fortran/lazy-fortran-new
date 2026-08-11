@@ -1,0 +1,54 @@
+id: "E0012"
+title: "Scope-graph resolution against Fortran binding structure"
+question: >
+  Does language-independent scope-graph resolution handle Fortran's modules,
+  host association, USE association with renaming and only-lists, interfaces
+  and generic resolution, without Fortran-specific escape hatches in the
+  generic resolver?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-11"
+closed: ""
+
+repos:
+  lazy-fortran-new: ""
+  standard-new: ""
+
+inputs:
+  standard: j3-24-007
+  profile: bootstrap-core
+
+# One condition: the generic resolver either suffices or it does not. The
+# variable is which binding construct is under test.
+variables:
+  construct:
+    - module-public-private
+    - host-association
+    - use-rename
+    - use-only
+    - interface-block
+    - generic-resolution
+    - submodule
+    - block-construct
+
+metrics:
+  - resolved_correctly          # against a hand-checked expectation set
+  - escape_hatches_required     # Fortran-specific additions to the generic resolver
+  - resolver_loc                # size of the generic machinery
+  - query_time_us
+
+# The gate. State it before running, so the answer cannot be renegotiated after.
+#
+#   PASS  every construct resolves with zero Fortran-specific escape hatches
+#         in the generic resolver; language-specific behaviour lives entirely
+#         in how scopes and edges are constructed.
+#   FAIL  any construct needs the generic resolver changed on Fortran's behalf.
+#
+# A FAIL is a result, not a setback. The fallback is a Fortran-specific
+# resolver, and the finding is worth reporting either way: scope graphs have
+# been demonstrated on languages with module systems, and Fortran's USE
+# renaming plus generic resolution is a harder case than most.
+falsifiable_by: >
+  Any construct that cannot be resolved without adding Fortran-specific logic
+  to the language-independent resolver.
+
+analysis: ""

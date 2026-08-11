@@ -29,6 +29,10 @@ PDF, cross-checked against an independent extractor.
 
 ### Phase 1. `standard-new`: document to StandardIR
 
+Bootstrap step 0 belongs here: the SX seed reader and writer in Bootstrap Core,
+then the schema generator, before any extraction. `docs/self-hosting.md` §19
+gives the ordering.
+
 The first scientific result, and the reason this phase comes before any compiler
 work.
 
@@ -61,9 +65,12 @@ the semantic contract of `DESIGN.md` §5 by construction. Emit standard Fortran.
 Benchmark parsing against FortFront, LFortran and Flang.
 
 **Gate.** The contract-completeness check passes (every StandardIR semantic
-rule's implementation reads only facts the contract exposes), and parsing
+rule's implementation reads only facts the contract exposes), parsing
 throughput is measured against at least two established frontends on a pinned
-corpus.
+corpus, and the generated SX reader agrees with the seed on the whole corpus.
+
+E12 reports here: whether generic scope-graph resolution handles Fortran's
+binding structure, or whether a Fortran-specific resolver is needed.
 
 ### Phase 3. Modern Fortran Core 0
 
@@ -84,6 +91,12 @@ optimizations, and performance search over representations.
 specialization generated rather than written, demonstrated by adding a rank and
 observing that no consumer needed an edit.
 
+**First self-host milestone, and it comes before full self-hosting**: the new
+compiler compiles the meta-tools — SX reader, StandardIR engine, ImplIR
+checker, the generators. That answers whether Bootstrap Core suffices for
+nontrivial compiler infrastructure while there is still time to act on the
+answer (D0010).
+
 ### Phase 5. `fortback-new`: generated backend
 
 Target descriptions for RISC-V and AArch64 from their official machine-readable
@@ -100,7 +113,11 @@ between the two ISAs.
 Expand Core 0 until the compiler can be written entirely within it. Build A with
 gfortran, B with A, C with B; require convergence.
 
-**Gate.** B and C are bit-identical.
+**Gate.** The canonical generated compiler source from B and from C is
+identical. Object and binary identity under reproducible build conditions is
+the later criterion. Stage equality establishes reproducibility and not trusting
+trust; diverse double compilation is named as future work in
+`docs/self-hosting.md` §21 and is not planned.
 
 ### Phase 7. x86-64
 

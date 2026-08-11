@@ -46,16 +46,25 @@ cmd_new() {
     note '  - name the metrics now, not after seeing the data'
 }
 
+# Runs belonging to one experiment. Zero is a normal answer, so a grep miss
+# must not take the script down through pipefail.
+count_runs() {
+    local id="$1" n
+    n=$(cat "$RUNS"/*.jsonl 2>/dev/null | grep -c "\"experiment\":\"$id\"" || true)
+    printf '%s\n' "${n:-0}"
+}
+
 cmd_list() {
     printf '%-8s %-10s %-6s %s\n' ID STATUS RUNS QUESTION
     local d id status runs question
     for d in "$EXP"/E[0-9][0-9][0-9][0-9]-*/; do
         [ -d "$d" ] || continue
         id=$(basename "$d" | cut -d- -f1)
-        status=$(awk -F': *' '/^status:/{print $2; exit}' "$d/manifest.yaml" 2>/dev/null)
+        status=$(awk -F': *' '/^status:/{sub(/ *#.*/, "", $2); print $2; exit}' \
+                 "$d/manifest.yaml" 2>/dev/null)
         question=$(awk '/^question:/{getline; sub(/^[ \t]*/,""); print; exit}' \
                    "$d/manifest.yaml" 2>/dev/null)
-        runs=$(grep -ho "\"experiment\":\"$id\"" "$RUNS"/*.jsonl 2>/dev/null | wc -l)
+        runs=$(count_runs "$id")
         printf '%-8s %-10s %-6s %s\n' "$id" "${status:-?}" "$runs" "${question:-?}"
     done
 }
@@ -63,9 +72,10 @@ cmd_list() {
 cmd_runs() {
     local id="$1"
     [ -n "$id" ] || die 'usage: experiment.sh runs E0003'
-    grep -ho "\"run\":\"[^\"]*\"" \
-        <(grep -h "\"experiment\":\"$id\"" "$RUNS"/*.jsonl 2>/dev/null) \
-        | sed 's/.*:"//; s/"//' | sort
+    cat "$RUNS"/*.jsonl 2>/dev/null \
+        | grep "\"experiment\":\"$id\"" \
+        | grep -o "\"run\":\"[^\"]*\"" \
+        | sed 's/.*:"//; s/"//' | sort || true
 }
 
 case "${1:-}" in

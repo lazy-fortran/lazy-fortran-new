@@ -45,11 +45,13 @@ StandardIR constraints and semantics
     │  profile selection + dependency closure
     ▼
 Core 0 rule set
-    │  deterministic generation, else search, else smallest capable model
-    ▼
-ImplIR
-    │  mechanical emission
-    ▼
+    │  interpret, else specialize, else synthesize
+    ├──────────────────────────────────┐
+    ▼                                  ▼
+specialized Fortran                  ImplIR
+    │                                  │  mechanical emission
+    └──────────────┬───────────────────┘
+                   ▼
 generated modern Fortran ─────────── benchmark candidates, select fastest verified
     │
     ▼
@@ -127,8 +129,13 @@ supported outcome, not a failure to be papered over.
 Answers *how the compiler locally implements this rule*. Constructive, tiny, and
 aimed at generators and small models rather than at people.
 
-Types: `bool`, `int`, `status`, `node`, `symbol`, `type`, `scope`, `value`,
-`block`, `list<T>`, `optional<T>`.
+**Residual, not mandatory.** Most StandardIR constraints compile straight to a
+checker, and specialization covers more. ImplIR handles what neither reaches.
+The fraction of rules that need it is a headline metric and should fall over
+time. See `docs/self-hosting.md` and D0007.
+
+Types: `bool`, `int`, `status`, `node`, `symbol`, `type`, `scope`, `name`,
+`list<T>`, `optional<T>`. No `string` and no `value` (D0011, D0012).
 
 Statements: `let`, `set`, `if`/`else`, `for ... in`, `return`.
 

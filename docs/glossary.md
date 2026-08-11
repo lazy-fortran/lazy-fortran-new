@@ -12,6 +12,10 @@ recorded. The third case is a result about the standard.
 observable output. The only permitted use of GPL-licensed compilers here. See
 `docs/provenance.md`.
 
+**Bootstrap Core**: the restricted Fortran profile the meta-tools are written
+in, smaller than the user-facing Core 0, so the generated compiler can compile
+them early. See D0008.
+
 **Core 0**, the initial Modern Fortran profile. A strict subset of standard
 Fortran, so every Core 0 program is a valid standard program. Defined as a set of
 StandardIR rule IDs with dependency closure, not as a separate grammar. Its
@@ -25,6 +29,11 @@ and FFC are oracles. None is normative; StandardIR is.
 **ffc-new**, the driver and middle end: typed frontend output to MIR to
 optimization, plus the command line. ISA-independent.
 
+**Fixpoint**: the criterion for a self-bootstrapping change: for the compiler,
+that stages two and three produce identical canonical source; for a
+meta-language change, that the new tool regenerates an equivalent version of
+itself. See D0010.
+
 **fortback-new**, the backend: machine-readable target description to generated
 encoder, decoder, object writer and instruction selection. ISA-specific.
 
@@ -35,7 +44,8 @@ analysis, typed semantic result, standard-Fortran emitter.
 `poppler` for layout-aware PDF extraction. First code in the project.
 
 **ImplIR**: the tiny procedural language that expresses how a rule is
-implemented locally. Its defining constraint is that its complete grammar and
+implemented locally, used only for the residue that cannot be specialized
+mechanically from StandardIR (D0007). Its defining constraint is that its complete grammar and
 semantics fit in a prompt. Audience: generators, synthesis systems and small
 models, not people. See `DESIGN.md` §4.
 
@@ -81,6 +91,14 @@ unresolved feature is a supported outcome, not a defect.
 Append-only. Corrections are new runs. Failures are kept, because deleting them
 destroys the denominator.
 
+**Seed**: the hand-written SX reader in Bootstrap Fortran that the bootstrap
+starts from. Later regenerated from a StandardIR description of SX and kept as
+the differential oracle for its replacement. See D0009.
+
+**Specialization**: compiling a declarative StandardIR rule into procedural
+code, the middle path between interpreting the rule and synthesizing ImplIR for
+it. The Statix work on specializing scope-resolution queries is the precedent.
+
 **StandardIR**: the declarative representation of what the language means,
 derived from the normative document with provenance per entry. Not
 implementation code. See `DESIGN.md` §3.
@@ -90,11 +108,15 @@ alongside, never instead of, the evaluated rate. `ffc`'s gfortran-dg row reads
 32.4% evaluated and 19.8% strict, and the difference is the whole reason for the
 convention.
 
-**Trusted base**: what is never generated and is accepted as given: hardware
-and the ISA specification's own correctness, the OS and C library, the bootstrap
-compiler, bound C libraries, and the verification tools. Stated explicitly so
-the project's claim is not mistaken for a stronger one. See `WHITEPAPER.md` §19.
+**SX**: the canonical S-expression serialization shared by StandardIR and
+ImplIR. A tree format, not Lisp: no precedence, no macros, no reader
+evaluation, no quotation. See D0006.
 
 **Translation validation**: proving that one particular compilation preserved
 semantics, rather than proving the compiler always does. Achievable against an
 executable ISA model such as Sail; the reason RISC-V comes first.
+
+**Trusted base**: what is never generated and is accepted as given: hardware
+and the ISA specification's own correctness, the OS and C library, the bootstrap
+compiler, bound C libraries, and the verification tools. Stated explicitly so
+the project's claim is not mistaken for a stronger one. See `WHITEPAPER.md` §19.

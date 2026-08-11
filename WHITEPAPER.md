@@ -31,17 +31,21 @@ translation validation.
 normative Fortran standard
           ↓
       StandardIR
-          ↓
- deterministic generation, or synthesis
-          ↓
-        ImplIR
-          ↓
- verification and benchmarking
-          ↓
- generated modern Fortran
-          ↓
- generated compiler
+          │
+          ├──→ mechanical generation or specialization ──┐
+          │                                              │
+          └──→ residual synthesis ──→ ImplIR ────────────┤
+                                                         ▼
+                                        verification and benchmarking
+                                                         ↓
+                                             generated modern Fortran
+                                                         ↓
+                                                 generated compiler
 ```
+
+StandardIR is expressive enough that most semantic checks compile directly.
+ImplIR is the residual implementation language for the rest, not a layer every
+rule passes through (D0007).
 
 The compiler is written in generated modern Fortran and is intended eventually
 to compile itself.
@@ -375,6 +379,14 @@ StandardIR it is constructive and procedural, and it is deliberately tiny. Its
 audience is deterministic generators, synthesis systems, small models and
 mechanical verifiers, not human programmers.
 
+**It is residual.** A constraint such as `require rank(x) = 0` fully determines
+its own checker and compiles mechanically; routing it through synthesis would
+buy nothing and would make the model-generated fraction 100 per cent by
+construction, destroying the measurement. Three paths exist and are tried in
+order: interpret the declarative rule, specialize it into procedural Fortran,
+or synthesize ImplIR. `docs/self-hosting.md` gives the design and D0007 the
+decision.
+
 ### The case for a tiny DSL
 
 A model may have seen billions of tokens of Python and little Fortran. A new DSL
@@ -707,7 +719,11 @@ is what turns "mostly generated" from an impression into a count.
   model?
 - **E2.** How much semantic formalization can be mechanical?
 - **E3.** What is the minimum model size per semantic rule?
-- **E4.** Does ImplIR reduce required model capability and cost?
+- **E4.** Does ImplIR reduce required model capability and cost, on the
+  residue that cannot be specialized mechanically?
+- **E12.** Does language-independent scope-graph resolution handle Fortran's
+  modules, host association, USE renaming and generic resolution without
+  Fortran-specific escape hatches?
 - **E5.** Can generated specialized parsers match or beat established compilers?
 - **E6.** Can rule-derived semantic checks outperform conventional pass
   structures?
@@ -750,8 +766,11 @@ silently guess.
 **StandardIR becomes another programming language.** Keep a few declarative
 record forms. Reject convenience features until a clause requires one.
 
-**ImplIR grows into another LLVM.** It exists for tiny implementation fragments.
-Machine semantics belong in the target description, not here.
+**ImplIR grows into another LLVM.** It exists for tiny implementation
+fragments. Machine semantics belong in the target description, not here, and
+the toolchain is deliberately not implementable in it: a parser generator would
+need strings, maps, sets, I/O, recursion and filesystem access, at which point
+it is another programming language and its value to small models is gone.
 
 **Generated code is slow.** Generate multiple candidates and benchmark.
 Generated source need not resemble hand-written source.

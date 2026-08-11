@@ -31,6 +31,8 @@ decision record first.
 - `research/corpora/`: corpus manifests, never corpus contents.
 - `artifacts/`: manifests only. See the provenance gate below.
 - `papers/`: one directory per paper, each pinning the runs it reports.
+- `docs/self-hosting.md`: the two IRs, their serialization, and the bootstrap.
+- `docs/text-representation.md`: how text is held, and why not as strings.
 - `docs/literature.md`: prior art, with what each reference is used for.
 - `docs/provenance.md`: licence classes, the consultation log, artifact pins.
 - `docs/glossary.md`: terms as this project uses them.
@@ -166,10 +168,27 @@ legally, not just tidily.
 
 ### Add a decision
 
-1. `research/decisions/D<NNNN>-<slug>.md`, using the template.
+1. `research/decisions/D<NNNN>-<slug>.md`, from `TEMPLATE.md`.
 2. Record what was decided, what was rejected, and what evidence would reverse
    it. A decision with no reversal condition is a preference.
-3. Link it from `ROADMAP.md` if it changes the plan.
+3. Link it from `ROADMAP.md` if it changes the plan, then run
+   `scripts/index.sh`.
+
+### Change a decision
+
+The body of an accepted decision is immutable, for the same reason runs are:
+a reversal condition can only be checked against what was actually believed at
+the time.
+
+1. Write a new record carrying `Supersedes:`, `Amends:` or `Retracts:` with the
+   old ID.
+2. Say what the earlier reasoning got wrong, not only what is now preferred.
+3. Edit the old file's `Status:` line, and nothing else, to point at the
+   successor.
+4. Run `scripts/index.sh`. The decision table is generated from the headers.
+
+Statuses: `proposed`, `accepted`, `superseded by D####`, `amended by D####`,
+`retracted`. `RESEARCH.md` defines them.
 
 ## Documentation rules
 

@@ -218,6 +218,93 @@ testable rather than merely plausible.
 - **ACM Artifact Review and Badging.** The bar a paper from this project should
   clear without extra effort, because the run records already exist.
 
+## 11. Schemas, meta-languages and specification-driven implementation
+
+The prior art behind `docs/self-hosting.md`. Each entry states what we take and
+what we deliberately leave.
+
+- **Wang, D. C., Appel, A. W., Korn, J. L., Serra, C. S. "The Zephyr Abstract
+  Syntax Description Language."** USENIX DSL 1997.
+  <https://www.usenix.org/conference/dsl-97/zephyr-abstract-syntax-description-language>
+  Built to describe compiler IRs and generate data structures and serialization
+  for C, C++, Java and ML. **We take the data model** — sum types, product
+  types, lists, optional and primitive fields — **and not the toolchain**
+  (D0006).
+- **WebAssembly text format.**
+  <https://webassembly.github.io/spec/core/text/conventions.html> The
+  specification renders abstract syntax into S-expressions with the text
+  grammar kept close to the abstract syntax. The precedent for SX being a tree
+  serialization rather than a language.
+- **LLVM TableGen.** <https://llvm.org/docs/TableGen/ProgRef.html> Declarative
+  records generating instruction descriptions, register information, selection
+  patterns and Clang AST definitions. Right direction, and a warning: classes,
+  inheritance, template arguments, multiclasses, loops and conditionals are what
+  our representation must not become.
+- **MLIR Operation Definition Specification.**
+  <https://mlir.llvm.org/docs/DefiningDialects/Operations/> The same pattern for
+  dialect operations.
+- **K Framework.** <https://kframework.org/> Language semantics, type systems
+  and analysis tools as executable rewrite rules. The model for expressing
+  dynamic semantics relationally if we need them.
+- **Sewell, P. et al. Ott.**
+  <https://www.cl.cam.ac.uk/~pes20/ott/> Motivated explicitly by the difficulty
+  of maintaining full-scale semantic definitions; generates proof-assistant
+  definitions and documentation from one specification.
+- **Spoofax.** <https://spoofax.dev/> Declarative meta-languages for syntax,
+  static semantics and transformation, generating parsers, type checkers and
+  editor services. Demonstrates the reach of the approach, and the size of
+  system it takes.
+
+## 12. Scope graphs and Statix — the specialization precedent
+
+The closest published analogue to this project's declarative-plus-specialized
+split, and the direct prior art for D0007.
+
+- **Néron, P., Tolmach, A., Visser, E., Wachsmuth, G. "A Theory of Name
+  Resolution."** ESOP 2015.
+  <https://research.tudelft.nl/en/publications/a-theory-of-name-resolution/>
+  Splits name resolution into language-specific scope construction and a
+  language-independent resolution calculus. **The hypothesis E12 tests against
+  Fortran's modules, host association and USE renaming.**
+- **Konat, G., Kats, L., Wachsmuth, G., Visser, E. "Declarative Name Binding
+  for Type System Specifications."** SLE 2012.
+  <https://research.tudelft.nl/en/publications/declarative-name-binding-for-type-system-specifications/>
+- **Antwerpen, H. van, Poulsen, C. B., Rouvoet, A., Visser, E. "Scopes as
+  Types."** OOPSLA 2018.
+  <https://research.tudelft.nl/en/publications/scopes-as-types/> Statix: static
+  semantics as declarative constraints over scope graphs, with executable type
+  checking derived from them.
+- **"Specializing Scope Graph Resolution Queries."** SLE 2022.
+  <https://research.tudelft.nl/en/publications/specializing-scope-graph-resolution-queries/>
+  **The single most relevant citation in this file.** Specializes declarative
+  resolution queries into a procedural intermediate query language, reporting
+  query resolution up to 7.7× faster and total type-checking time reduced by
+  roughly 38 to 48 per cent. It is the published demonstration that keeping
+  semantics declarative and specializing for speed are compatible, which is the
+  premise of D0007 and of `WHITEPAPER.md` §21.
+
+## 13. Bootstrapping and self-hosting
+
+- **Konat, G., Erdweg, S., Visser, E. "Bootstrapping Domain-Specific
+  Meta-Languages in Language Workbenches."** GPCE 2016.
+  <https://research.tudelft.nl/en/publications/bootstrapping-domain-specific-meta-languages-in-language-workbenc/>
+  Fixpoint compilation for systems whose compilers depend on their own DSLs and
+  generators. **The precedent for the meta-language fixpoint criterion in
+  D0010**, and the reason that criterion exists separately from the compiler
+  one.
+- **CakeML.** <https://cakeml.org/> A formally verified compiler that
+  bootstraps itself; the stronger compiler self-hosting example.
+- **Pottier, F. Menhir reference manual.**
+  <https://gallium.inria.fr/~fpottier/menhir/manual.html> Generates a parser
+  together with a proof of correctness and completeness with respect to its
+  grammar, used in CompCert. Named as future work in `docs/self-hosting.md`
+  §21, not planned.
+- **Wheeler, D. A. "Fully Countering Trusting Trust through Diverse
+  Double-Compiling."** PhD dissertation, 2009.
+  <https://dwheeler.com/trusting-trust/dissertation/html/wheeler-trusting-trust-ddc.html>
+  The actual answer to trusting trust, which stage-2/stage-3 equality is not.
+  Also named as future work, not planned.
+
 ---
 
 ## Gaps to close
