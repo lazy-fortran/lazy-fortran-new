@@ -1,0 +1,25 @@
+name        = "E0001-R000005-j3-24-007-productions"
+url         = "https://github.com/lazy-fortran/standard-new/tree/b332702"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0001/R000005/j3-24-007.productions.jsonl"
+sha256      = "3aa1f5ab8c8db5416b7dbb93fcb1cf35e9700eebf83a9ccb2223ff72a2db486d"
+bytes       = 24541
+origin      = "MECHANICAL"
+format      = "standard-new pdfproductions JSONL format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new"
+generator_commit = "b332702"
+retrieved   = "2026-08-11"
+pages       = "53-56"
+canonical_source = ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"
+canonical_source_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+records     = 133
+production_lines = 132
+production_starts = 24
+production_continuations = 108
+purpose     = "Provenance-bearing lossless syntax-line records for the clause-5 extraction slice"
+
+# Regenerate the payload and run its independent oracle with:
+#   research/experiments/E0001-standard-to-grammar/check-productions.sh
+# Verify its hash and counts with sha256sum, stat, wc, rg and jq.

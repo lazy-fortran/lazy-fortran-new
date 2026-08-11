@@ -1,0 +1,21 @@
+name        = "E0001-R000004-j3-24-007-layout-v2"
+url         = "https://github.com/lazy-fortran/standard-new/tree/7189929"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0001/R000004/j3-24-007.layout"
+sha256      = "c012785990fc1dd1e5778855e8c9c22439fe4db64f0688797feb8b0b3da4b41b"
+bytes       = 171035399
+origin      = "MECHANICAL"
+format      = "standard-new pdfextract format 2 with UTF-8 byte spans"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new"
+generator_commit = "7189929"
+retrieved   = "2026-08-11"
+pages       = 688
+text_bytes  = 1865192
+glyphs      = 1859035
+purpose     = "Raw Poppler layout input retaining UTF-8 byte spans and rectangles for canonical projection"
+
+# Regenerate the payload with:
+#   (cd ../standard-new && fo exec pdfextract ../lazy-fortran-new/.cache/j3-24-007.pdf ../lazy-fortran-new/.cache/runs/E0001/R000004/j3-24-007.layout)
+# Verify its hash, byte count and record counts with sha256sum, stat, wc and rg.

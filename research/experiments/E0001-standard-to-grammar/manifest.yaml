@@ -9,8 +9,8 @@ opened: "2026-08-11"
 closed: ""
 
 repos:
-  lazy-fortran-new: "bf852ac867aa1045aecb041918d02a9e7b66b29a"
-  standard-new: "730f9eacbf0d8f1716c03a58395712fcd6cb275e"
+  lazy-fortran-new: "b61c96be6e4658129365280ef11e1112da1ccbaf"
+  standard-new: "b3327027611a43d51c616607d8ef22c88482a17d"
   oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
@@ -18,8 +18,14 @@ repos:
 
 inputs:
   standard: j3-24-007
-  pages: clause-5-syntax-pages
+  pages: [53, 54, 55, 56]
   profile: syntax-clause-5-v1
+
+slice:
+  canonical_artifact: artifacts/runs/E0001/R000003-canonical-text.toml
+  production_artifact: artifacts/runs/E0001/R000005-productions.toml
+  expected_production_starts: 24  # jq count in check-productions.sh
+  expected_records: 133           # jq length in check-productions.sh
 
 variables:
   production_shape:

@@ -1,7 +1,8 @@
 # Roadmap
 
-Snapshot: 2026-08-11. Baseline: `lazy-fortran-new` initial commit, CI green;
-`standard-new` at the layout-aware `fortpdf` extractor, CI green.
+Snapshot: 2026-08-11. Baseline: `lazy-fortran-new` at `b61c96b`, CI green;
+`standard-new` at `b332702`, with layout, canonical-text and clause-5 line
+extraction, CI green.
 
 Live status belongs to each repository. This file records cross-repository
 order, the steps in each phase, and the gate that ends it, so that facts are
@@ -14,10 +15,11 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 ## Current position
 
 **Phase 0 complete.** Phase 1 is in progress. `standard-new` now extracts
-UTF-8 bytes and text rectangles for every page of the pinned PDF; no canonical
-text normalization or grammar recovery exists yet. E0001 is running, while
-E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
-experiment.
+UTF-8 bytes and text rectangles for every page of the pinned PDF, writes a
+canonical geometric text projection, and emits provenance-bearing clause-5
+production lines for pages 53--56. StandardIR, SX and generated grammar do not
+exist yet. E0001 is running, while E0002--E0003 remain draft experiments.
+E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -104,9 +106,15 @@ The first complete document layout dump is `R000001`; regenerate it with
 `(cd ../standard-new && fo exec pdfextract ../lazy-fortran-new/.cache/j3-24-007.pdf ../lazy-fortran-new/.cache/runs/E0001/R000001/j3-24-007.layout)`.
 The geometry probe is `R000002`; regenerate it with
 `research/experiments/E0001-standard-to-grammar/probe-layout.sh`.
+The canonical text is `R000003`; regenerate it with
+`(cd ../standard-new && fo exec pdfcanonical ../lazy-fortran-new/.cache/j3-24-007.pdf ../lazy-fortran-new/.cache/runs/E0001/R000003/j3-24-007.canonical.txt ../lazy-fortran-new/.cache/runs/E0001/R000003/j3-24-007.pages.index)`.
+The version-2 layout dump is `R000004`; regenerate it with the `R000001`
+command, changing the run directory to `R000004`.
+The first production-line slice is `R000005`; regenerate and check it with
+`research/experiments/E0001-standard-to-grammar/check-productions.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
-separation, so the canonicalizer must preserve bytes and derive a normalized
-view rather than overwrite the source extraction.
+separation, so the canonicalizer preserves the Poppler bytes and derives a
+normalized view rather than overwriting the source extraction.
 
 ### 1.1 The `text/` package (D0011)
 
@@ -144,10 +152,10 @@ evidence for the thesis.
 
 ### 1.4 Extraction to canonical text
 
-- [ ] Layout-aware extraction from 24-007 into a canonical UTF-8 artifact
-- [ ] Artifact hashed and pinned; spans reference it, prose never duplicated
+- [x] Layout-aware extraction from 24-007 into a canonical UTF-8 artifact
+- [x] Artifact hashed and pinned; spans reference it, prose never duplicated
       into StandardIR (D0011 §6)
-- [ ] Differential check of the text layer against an independent extractor,
+- [x] Differential check of the text layer against an independent extractor,
       with disagreements recorded rather than smoothed over
 - [ ] Completeness, parse failure, provenance failure and skipped-page counts
       are reported against a predeclared page and production denominator
@@ -155,7 +163,7 @@ evidence for the thesis.
 
 ### 1.5 Syntax extraction
 
-- [ ] Recognize R-numbered productions in the canonical text
+- [x] Recognize R-numbered productions in the canonical text
 - [ ] Parse the standard's own grammar notation
 - [ ] Emit StandardIR syntax objects with full provenance: document, clause,
       rule, page, span hash
