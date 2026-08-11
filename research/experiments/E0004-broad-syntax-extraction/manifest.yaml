@@ -1,0 +1,64 @@
+id: "E0004"
+title: "Broad normative syntax extraction"
+question: >
+  Can the R-numbered syntax productions in the lexical-to-program-unit span
+  of J3/24-007 be separated from normative prose and retained as valid,
+  provenance-bearing JSONL without manual intervention?
+status: running         # draft | running | reported | abandoned
+opened: "2026-08-11"
+closed: ""
+
+repos:
+  lazy-fortran-new: "cc409f5"
+  standard-new: "1388c1e2affeeb99900e5bfa2273ae916f6e9277"
+  oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
+  oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+  oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
+
+inputs:
+  standard: j3-24-007
+  pages: [67, 580]
+  profile: clauses-6-to-15-syntax-v1
+
+variables:
+  continuation_boundary:
+    - grammar-token
+    - alternative
+    - prose-heading
+    - numbered-paragraph
+    - constraint
+  escaping: [ascii, backslash, quotation-mark]
+
+metrics:
+  - eligible_productions
+  - extracted_productions
+  - parse_failures
+  - prose_continuations
+  - invalid_json_records
+  - provenance_failures
+
+denominator: >
+  Every R-numbered production selected from PDF pages 67--580 before
+  extraction begins. Productions outside this page set are excluded from this
+  experiment and are not counted as failures.
+
+independent_oracle: >
+  Fixed R601, R602 and R603 boundary witnesses from the pinned PDF, the
+  predeclared production count, jq parsing of every record, and a synthetic
+  backslash input whose expected JSON value is independently specified.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  Prose or paragraph numbers remain attached to a production, an expected
+  record cannot be parsed as JSON, or the fixed production denominator changes
+  without a source or extraction-rule explanation.
+
+gate: >
+  Recover the predeclared production set with valid JSON, no boundary witness
+  failures, and complete source spans for every retained record.
+
+analysis: research/experiments/E0004-broad-syntax-extraction/analyse.sh

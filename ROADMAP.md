@@ -19,8 +19,8 @@ UTF-8 bytes and text rectangles for every page of the pinned PDF, writes a
 canonical geometric text projection, emits provenance-bearing clause-5
 production lines for pages 53--56, writes a first StandardIR SX slice, and
 round-trips that SX byte-for-byte. The generated grammar and semantic rules do
-not exist yet. E0001 is running, while E0002--E0003 remain draft experiments.
-E0012 remains a later Phase 2 experiment.
+not exist yet. E0001 and E0004 are running, while E0002--E0003 remain draft
+experiments. E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -117,6 +117,8 @@ The first StandardIR SX slice is `R000006`; regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-standardir.sh`.
 The SX round-trip is `R000007`; regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-sx-roundtrip.sh`.
+The broad syntax-line corpus is `E0004/R000001`; regenerate and check it with
+`research/experiments/E0004-broad-syntax-extraction/check-productions.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
 separation, so the canonicalizer preserves the Poppler bytes and derives a
 normalized view rather than overwriting the source extraction.
@@ -216,7 +218,8 @@ evidence for the thesis.
 - [ ] E0001 (E1) manifest written and metrics named **before** extraction starts
 - [ ] E0002 (E2) manifest likewise
 - [ ] E0003 (E3) manifest likewise
-- [ ] `scripts/index.sh` reports all three from run records
+- [x] E0004 broad syntax extraction manifest, denominator and oracle recorded
+- [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
 syntax coverage and the fraction extracted with zero model calls, complete

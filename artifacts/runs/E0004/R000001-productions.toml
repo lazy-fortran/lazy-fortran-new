@@ -1,0 +1,26 @@
+name        = "E0004-R000001-j3-24-007-broad-productions"
+url         = "https://github.com/lazy-fortran/standard-new/tree/1388c1e"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0004/R000001/j3-24-007.productions.jsonl"
+sha256      = "964f8e9bf0d5d2cc4c7ff987bc49595b7c80c0c1dc02e3a6db5632ad42494fec"
+bytes       = 194574
+origin      = "MECHANICAL"
+format      = "standard-new pdfproductions JSONL format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new"
+generator_commit = "1388c1e2affeeb99900e5bfa2273ae916f6e9277"
+retrieved   = "2026-08-11"
+pages       = "67-580"
+canonical_source = ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"
+canonical_source_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+records     = 1035
+production_lines = 1034
+production_starts = 494
+prose_continuations = 0
+invalid_json_records = 0
+purpose     = "Broad syntax-line corpus for clauses 6--15, before profile selection and StandardIR assembly"
+
+# Regenerate the payload and run its independent oracle with:
+#   research/experiments/E0004-broad-syntax-extraction/check-productions.sh
+# Verify its hash and counts with sha256sum, stat, wc, rg and jq.
