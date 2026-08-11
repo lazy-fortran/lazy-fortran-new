@@ -1,7 +1,7 @@
 # Roadmap
 
 Snapshot: 2026-08-11. Baseline: `lazy-fortran-new` initial commit, CI green;
-`standard-new` at the `fortpdf` scaffold, CI green.
+`standard-new` at the layout-aware `fortpdf` extractor, CI green.
 
 Live status belongs to each repository. This file records cross-repository
 order, the steps in each phase, and the gate that ends it, so that facts are
@@ -13,9 +13,11 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 
 ## Current position
 
-**Phase 0 complete.** Phase 1 has not started. The laboratory, the wiring and
-the `standard-new` scaffold exist; no extraction pipeline does. E0001--E0003
-are defined as draft experiments. E0012 remains a later Phase 2 experiment.
+**Phase 0 complete.** Phase 1 is in progress. `standard-new` now extracts
+UTF-8 bytes and text rectangles for every page of the pinned PDF; no canonical
+text normalization or grammar recovery exists yet. E0001 is running, while
+E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
+experiment.
 
 ---
 
@@ -87,9 +89,9 @@ compares two implementations of the same behavior is insufficient.
 Runs first and in parallel with 1.1, because it can invalidate the shape of the
 whole phase.
 
-- [ ] Extend `fortpdf` with `poppler_page_get_text_layout`: glyphs plus
+- [x] Extend `fortpdf` with `poppler_page_get_text_layout`: glyphs plus
       rectangles
-- [ ] Dump glyphs and geometry for the clause-5 syntax pages of 24-007
+- [x] Dump glyphs and geometry for the clause-5 syntax pages of 24-007
 - [ ] Determine whether `R501` and its right-hand side, including continuation
       lines, are reconstructable from geometry alone
 - [ ] Exercise at least one additional production shape and one held-out page
@@ -97,6 +99,9 @@ whole phase.
 - [ ] Record the finding as a run, whichever way it goes
 - [ ] If negative: decision record naming the fallback (OCR, alternative
       library, J3 sources) before any further extraction work
+
+The first complete document layout dump is `R000001`; regenerate it with
+`(cd ../standard-new && fo exec pdfextract ../lazy-fortran-new/.cache/j3-24-007.pdf ../lazy-fortran-new/.cache/runs/E0001/R000001/j3-24-007.layout)`.
 
 ### 1.1 The `text/` package (D0011)
 

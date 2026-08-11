@@ -4,13 +4,13 @@ question: >
   Can the syntax productions in the clause-5 pages of J3/24-007 be recovered
   into canonical StandardIR with complete provenance and zero model calls for
   the mechanically recoverable cases?
-status: draft            # draft | running | reported | abandoned
+status: running         # draft | running | reported | abandoned
 opened: "2026-08-11"
 closed: ""
 
 repos:
-  lazy-fortran-new: "b1cb050a306dec4db0a15c7d446b163a22891162"
-  standard-new: "691de5803d7b89e65182b207ca62cecdb04fc102"
+  lazy-fortran-new: "bf852ac867aa1045aecb041918d02a9e7b66b29a"
+  standard-new: "730f9eacbf0d8f1716c03a58395712fcd6cb275e"
   oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
