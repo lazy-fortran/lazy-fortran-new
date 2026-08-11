@@ -1,0 +1,23 @@
+name        = "E0004-R000005-j3-24-007-normalized-productions"
+url         = "https://github.com/lazy-fortran/standard-new/tree/7abd7b1"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0004/R000005/j3-24-007.normalized.jsonl"
+sha256      = "66ab898484dee6282807059b37dce89d769870b9f3dfb4c39a9909b5ba6caa4a"
+bytes       = 78175
+origin      = "MECHANICAL"
+format      = "normalized-production JSONL format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new sxnormalize"
+generator_commit = "7abd7b1"
+retrieved   = "2026-08-12"
+input       = ".cache/runs/E0004/R000003/j3-24-007.standardir.sx"
+input_sha256 = "0b4bdbf3c34b6ed1ebb5f03d2be3dbcfce0fd947771e755f3f92f8db16b6b761"
+records     = 495
+normalized_productions = 494
+origin_label = "MECHANICAL"
+purpose     = "Independent structural reconstruction of normalized production notation from StandardIR SX"
+
+# Regenerate and verify with:
+#   research/experiments/E0004-broad-syntax-extraction/check-normalized.sh
+# Verify its hash and counts with sha256sum, stat, wc, jq and fixed witnesses.

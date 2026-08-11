@@ -1,7 +1,7 @@
 # Roadmap
 
-Snapshot: 2026-08-12. Baseline: `lazy-fortran-new` at `a2819ba`, CI green;
-`standard-new` at `f87a2ef`, with layout, canonical-text, production-line and
+Snapshot: 2026-08-12. Baseline: `lazy-fortran-new` at `176f16d`, CI green;
+`standard-new` at `7abd7b1`, with layout, canonical-text, production-line and
 StandardIR extraction, CI green.
 
 Live status belongs to each repository. This file records cross-repository
@@ -21,9 +21,12 @@ R-numbered syntax span on pages 67--580. The E0004 check scripts report 494
 production starts and 1,048 production lines in JSONL, followed by 494
 provenance-bearing StandardIR SX objects and a byte-identical round-trip
 (`research/experiments/E0004-broad-syntax-extraction/check-productions.sh` and
-`check-standardir.sh`). The generated grammar and semantic rules do not exist
-yet. E0001 and E0004 are running, while E0002--E0003 remain draft experiments.
-E0012 remains a later Phase 2 experiment.
+`check-standardir.sh`). The reverse normalizer reconstructs 494 normalized
+production records from SX, checked by
+`research/experiments/E0004-broad-syntax-extraction/check-normalized.sh`.
+The generated grammar and semantic rules do not exist yet. E0001 and E0004
+are running, while E0002--E0003 remain draft experiments. E0012 remains a
+later Phase 2 experiment.
 
 ---
 
@@ -125,6 +128,8 @@ The broad syntax-line corpus is `E0004/R000002`; regenerate and check it with
 The broad StandardIR projection and its SX round-trip are `E0004/R000003` and
 `E0004/R000004`; regenerate and check them with
 `research/experiments/E0004-broad-syntax-extraction/check-standardir.sh`.
+The normalized production projection is `E0004/R000005`; regenerate and check
+it with `research/experiments/E0004-broad-syntax-extraction/check-normalized.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
 separation, so the canonicalizer preserves the Poppler bytes and derives a
 normalized view rather than overwriting the source extraction.
@@ -182,7 +187,7 @@ evidence for the thesis.
       rule, page, span hash
 - [x] Count eligible productions before extraction and report extracted,
       rejected, ambiguous and skipped productions separately
-- [ ] Round-trip: production → StandardIR → normalized production, compared
+- [x] Round-trip: production → StandardIR → normalized production, compared
       structurally
 - [ ] Report the fraction extracted with zero model calls (**E1**)
 

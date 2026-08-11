@@ -9,8 +9,8 @@ opened: "2026-08-11"
 closed: ""
 
 repos:
-  lazy-fortran-new: "a2819ba"
-  standard-new: "f87a2ef"
+  lazy-fortran-new: "176f16d"
+  standard-new: "7abd7b1"
   oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
@@ -40,6 +40,7 @@ metrics:
   - provenance_failures
   - syntax_objects
   - sx_roundtrip_failures
+  - normalized_roundtrip_failures
 
 denominator: >
   Every R-numbered production selected from PDF pages 67--580 before
@@ -50,7 +51,8 @@ independent_oracle: >
   Fixed R601, R602 and R603 boundary witnesses from the pinned PDF, restored
   cross-line grammar witnesses R871 and R1136, the predeclared production
   count, jq parsing of every record, fixed StandardIR shapes for R603, R705,
-  R706, R779, R780, R871, R1043 and R1136, and a byte-identical SX round-trip.
+  R706, R779, R780, R871, R1043 and R1136, a byte-identical SX round-trip,
+  and fixed normalized-notation witnesses for the same cross-line cases.
 
 toolchain:
   record_in_run: true
@@ -63,7 +65,8 @@ falsifiable_by: >
 
 gate: >
   Recover the predeclared production set with valid JSON, no boundary witness
-  failures, complete source spans, structured multi-token StandardIR and a
-  byte-identical SX round-trip.
+  failures, complete source spans, structured multi-token StandardIR, a
+  byte-identical SX round-trip and structural StandardIR-to-production
+  normalization.
 
 analysis: research/experiments/E0004-broad-syntax-extraction/analyse.sh
