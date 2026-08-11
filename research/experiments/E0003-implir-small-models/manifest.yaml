@@ -1,0 +1,91 @@
+id: "E0003"
+title: "ImplIR and minimum model size"
+question: >
+  Does expressing the residual semantic-rule implementations in ImplIR reduce
+  the smallest model that can produce an accepted implementation compared with
+  the equivalent Fortran representation?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-11"
+closed: ""
+
+repos:
+  lazy-fortran-new: "b1cb050a306dec4db0a15c7d446b163a22891162"
+  standard-new: "691de5803d7b89e65182b207ca62cecdb04fc102"
+  oracle-gcc: "395e3d8131c189cd58e8c8061cdc77d1c44e3822"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+  oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
+
+inputs:
+  standard: j3-24-007
+  profile: core0-v1
+  rules: E0002-accepted-residue
+
+variables:
+  representation: [fortran, implir]
+  dense_primary:
+    - Qwen/Qwen3-0.6B
+    - Qwen/Qwen3-1.7B
+    - Qwen/Qwen3-4B
+    - Qwen/Qwen3-8B
+    - Qwen/Qwen3-14B
+  gemma_controls:
+    - google/gemma-4-E2B-it
+    - google/gemma-4-E4B-it
+    - google/gemma-4-12B-it
+    - google/gemma-4-26B-A4B-it
+    - google/gemma-4-31B-it
+  qwen_controls:
+    - Qwen/Qwen3.5-27B
+    - Qwen/Qwen3.5-35B-A3B
+
+metrics:
+  - accepted
+  - attempts
+  - parse_failures
+  - type_failures
+  - verification_failures
+  - mutation_failures
+  - input_tokens
+  - output_tokens
+  - wall_s
+  - cost_usd
+  - minimum_accepted_model
+  - total_parameters
+  - active_parameters
+  - checkpoint_revision
+  - quantization
+  - thinking_mode
+
+denominator: >
+  Every rule accepted into the E0002 residual set, with the same rule set
+  tested in both representations across the pinned Qwen3 dense ladder and all
+  failed attempts retained. Gemma 4 and Qwen3.5 controls are reported by family
+  and architecture class. They do not enter the primary dense minimum-size
+  curve.
+
+independent_oracle: >
+  ImplIR interpreter results must agree with independently compiled Fortran,
+  fixed rule witnesses and the E0002 oracle set. Parser and emitter agreement
+  alone is insufficient.
+
+model_selection: >
+  The Qwen3 dense checkpoints are the same-family capability ladder. Gemma 4
+  supplies dense E2B, E4B, 12B and 31B checkpoints plus the 26B-A4B MoE
+  checkpoint. Qwen3.5 supplies 27B dense and 35B-A3B MoE controls. Each
+  checkpoint revision, quantization, context limit, thinking mode and decoding
+  configuration is pinned before the first run. No model is labeled SOTA by
+  this experiment.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  ImplIR requires equal or larger models, or its repair and verification rates
+  do not improve over the Fortran representation on the same residual rules.
+
+gate: >
+  Report accepted and failed attempts, minimum accepted model size, cost and
+  verification outcomes for both representations.
+
+analysis: research/experiments/E0003-implir-small-models/analyse.sh

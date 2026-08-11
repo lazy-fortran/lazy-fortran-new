@@ -36,11 +36,37 @@ inputs:
 
 variables:
   representation: [fortran, implir]
-  model: ["0.5b", "1.5b", "3b", "7b", "14b"]
+  dense_primary:
+    - Qwen/Qwen3-0.6B
+    - Qwen/Qwen3-1.7B
+    - Qwen/Qwen3-4B
+    - Qwen/Qwen3-8B
+    - Qwen/Qwen3-14B
+  gemma_controls:
+    - google/gemma-4-E2B-it
+    - google/gemma-4-E4B-it
+    - google/gemma-4-12B-it
+    - google/gemma-4-26B-A4B-it
+    - google/gemma-4-31B-it
+  qwen_controls:
+    - Qwen/Qwen3.5-27B
+    - Qwen/Qwen3.5-35B-A3B
 
 metrics: [accepted, attempts, input_tokens, output_tokens, wall_s, cost_usd]
 
-analysis: research/experiments/E0003-implir-model-scaling/analyse.sh
+analysis: research/experiments/E0003-implir-small-models/analyse.sh
+
+denominator: >
+  The complete predeclared set of eligible rules. Report exclusions and
+  skipped rules separately from failures and accepted results.
+
+independent_oracle: >
+  The fixed behavioral or structural oracle used to accept a result. A
+  round-trip between two implementations of the same algorithm is not enough.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
 ```
 
 Two rules about the question field. State it so it can come out either way, an
@@ -51,6 +77,10 @@ metric is not made after seeing the data.
 `scripts/experiment.sh new "<question>"` allocates the next ID and writes the
 manifest from the template.
 
+Repository experiment IDs are zero-padded, such as `E0001`. The shorthand E1
+may appear in prose and paper titles, but manifests, run records and links use
+the full ID.
+
 ---
 
 ## Runs
@@ -60,7 +90,7 @@ Every attempt is a run. One JSON object per line, appended to
 greppable and safe to append to concurrently.
 
 ```json
-{"run":"R000341","experiment":"E0003","rule":"C851","method":"LLM","model":"qwen-1.5b","representation":"implir","standard_commit":"abc1234","generator_commit":"def5678","origin":"LLM","status":"accepted","attempts":2,"input_tokens":1834,"output_tokens":194,"wall_s":1.43,"cost_usd":0.0004,"verification":{"parse":true,"typecheck":true,"tests":true,"mutation":true},"prompt":"artifacts/model/E0003/R000341.prompt.txt","response":"artifacts/model/E0003/R000341.response.txt"}
+{"run":"R000341","experiment":"E0003","rule":"C851","method":"LLM","model":"Qwen/Qwen3-4B","family":"qwen3-dense","representation":"implir","standard_commit":"abc1234","generator_commit":"def5678","oracle_commits":{"gfortran":"...","lfortran":"..."},"toolchain":{"compiler":"...","fo":"...","poppler":"..."},"origin":"LLM","status":"accepted","attempts":2,"input_tokens":1834,"output_tokens":194,"wall_s":1.43,"cost_usd":0.0004,"verification":{"parse":true,"typecheck":true,"tests":true,"mutation":true},"prompt":"artifacts/model/E0003/R000341.prompt.txt","response":"artifacts/model/E0003/R000341.response.txt"}
 ```
 
 **Runs are append-only.** A run record is never edited after it is written. A
@@ -203,6 +233,11 @@ without them.
 **Name the denominator.** A pass rate states what was skipped. A rate computed
 over total-minus-skipped is reported alongside the strict rate, never instead of
 it.
+
+**Name the independent oracle.** Generated code is accepted against fixed
+expected bytes, a seed implementation, a behavioral oracle, or an independently
+constructed witness set. Agreement between two generated consumers alone does
+not establish correctness.
 
 **Every number names its command.** A figure in any document is accompanied by
 the command that regenerates it, or it is not written down.

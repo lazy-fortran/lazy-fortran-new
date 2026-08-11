@@ -31,3 +31,9 @@ Any rate computed over a corpus states its denominator, and reports skipped
 cases separately from passed ones. `ffc`'s gfortran-dg row reads 32.4%
 evaluated and 19.8% strict because skipped files are 39% of the suite. A single
 number would have been misleading in a way nobody intended.
+
+Phase 1 also has a small pinned corpus before the large comparison corpora are
+used. It contains representative clause-5 pages, hand-checked canonical SX
+fixtures, malformed SX inputs, and the expected StandardIR for the thin
+vertical slice. The fixtures are independent expected values, not output
+captured from the implementation under test.

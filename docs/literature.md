@@ -38,8 +38,9 @@ contribution has to be stated relative to it.
 - **Lämmel, R. and Zaytsev, V. "An Introduction to Grammar Convergence."** IFM
   2009. <https://doi.org/10.1007/978-3-642-00255-7_17> Establishing that
   independently produced grammars for one language agree, by transformation to a
-  common form. **Directly applicable to the three-way comparison** between our
-  generated grammar, the old `.g4` corpus and the kaby76 corpus.
+  common form. **Directly applicable to the four-corpus comparison** between our
+  generated grammar, the old `.g4` corpus, the kaby76 corpus, LFortran and
+  Flang.
 - **Lämmel, R. and Zaytsev, V. "Recovering Grammar Relationships for the Java
   Language Specification."** SCAM 2009 / SQJ 2011. The same exercise on a real
   standards document.

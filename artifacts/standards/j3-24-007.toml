@@ -6,7 +6,7 @@ bytes     = 9970124
 pages     = 688
 licence   = "J3/ISO. Freely downloadable; not redistributable. Never vendored."
 retrieved = "2026-08-11"
-purpose   = "Primary normative source for StandardIR extraction (E1, E2)"
+purpose   = "Primary normative source for StandardIR extraction (E0001, E0002)"
 
 # Technically near-identical to ISO/IEC 1539-1:2023, which is not freely
 # available. This is the document the project formalizes, and every StandardIR

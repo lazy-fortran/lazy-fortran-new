@@ -1,0 +1,66 @@
+id: "E0001"
+title: "Standard syntax to generated grammar"
+question: >
+  Can the syntax productions in the clause-5 pages of J3/24-007 be recovered
+  into canonical StandardIR with complete provenance and zero model calls for
+  the mechanically recoverable cases?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-11"
+closed: ""
+
+repos:
+  lazy-fortran-new: "b1cb050a306dec4db0a15c7d446b163a22891162"
+  standard-new: "691de5803d7b89e65182b207ca62cecdb04fc102"
+  oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
+  oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+  oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
+
+inputs:
+  standard: j3-24-007
+  pages: clause-5-syntax-pages
+  profile: syntax-clause-5-v1
+
+variables:
+  production_shape:
+    - single_line
+    - continuation_line
+    - alternative_list
+    - nested_grouping
+
+metrics:
+  - eligible_productions
+  - extracted_productions
+  - parse_failures
+  - provenance_failures
+  - ambiguous_productions
+  - skipped_productions
+  - zero_model_call_productions
+  - canonical_roundtrips
+  - independently_adjudicated
+  - disagreement_rate_by_oracle
+
+denominator: >
+  Every R-numbered production selected from the pinned clause-5 page set before
+  extraction begins. Page and production exclusions are listed separately.
+
+independent_oracle: >
+  Fixed canonical text and StandardIR fixtures hand-checked against J3/24-007,
+  plus structural adjudication against the pinned standard, kaby76, LFortran
+  and Flang comparison corpora. Existing grammars are comparison sources, not
+  normative inputs.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  The pipeline cannot recover the predeclared production set with complete
+  provenance, or independent adjudication shows the generated grammar is
+  systematically wrong after the extraction rules stabilize.
+
+gate: >
+  Report complete coverage, failures, zero-model-call fraction and the
+  disagreement rate for each of the four comparison corpora.
+
+analysis: research/experiments/E0001-standard-to-grammar/analyse.sh

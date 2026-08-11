@@ -18,12 +18,32 @@ inputs:
 # The axes being varied. Omit the key if there is only one condition.
 variables: {}
 
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: ""
+
 # Name these before running anything. Choosing a metric after seeing the data
 # is how an experiment becomes a demonstration.
 metrics: []
 
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: ""
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: ""
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
 # What result would disappoint you? If nothing would, this is not an experiment.
 falsifiable_by: ""
+
+# The condition that closes the experiment and the evidence it must report.
+gate: ""
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: ""

@@ -1,0 +1,63 @@
+id: "E0002"
+title: "Normative prose to StandardIR"
+question: >
+  What fraction of the predeclared Core 0 semantic rules can be formalized
+  mechanically, and how much of the remaining set can be accepted by
+  independent formalization and oracle agreement?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-11"
+closed: ""
+
+repos:
+  lazy-fortran-new: "b1cb050a306dec4db0a15c7d446b163a22891162"
+  standard-new: "691de5803d7b89e65182b207ca62cecdb04fc102"
+  oracle-gcc: "395e3d8131c189cd58e8c8061cdc77d1c44e3822"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+  oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
+
+inputs:
+  standard: j3-24-007
+  profile: core0-v1
+  rules: pending-standardir-extraction
+
+variables:
+  method:
+    - mechanical
+    - independent_formalization
+    - small_model
+    - larger_model
+
+metrics:
+  - eligible_rules
+  - mechanical_rules
+  - independently_formalized_rules
+  - unresolved_rules
+  - disputed_rules
+  - skipped_rules
+  - witness_agreement_by_oracle
+  - minimum_model_size
+
+denominator: >
+  Every Core 0 rule in the pinned profile after dependency closure is computed.
+  Rules without enough source evidence are classified as unresolved or
+  disputed, never removed from the denominator.
+
+independent_oracle: >
+  Two independently constructed formalizations must normalize to the same
+  StandardIR, and accepted witnesses must agree with at least two pinned
+  behavioral oracles: gfortran and LFortran or Flang.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  The mechanical fraction is negligible, or independent formalizations and
+  oracle witnesses cannot establish a stable interpretation for a substantial
+  part of the predeclared rule set.
+
+gate: >
+  Report the full rule denominator, mechanical fraction, unresolved and
+  disputed fractions, and oracle agreement from append-only run records.
+
+analysis: research/experiments/E0002-prose-to-standardir/analyse.sh

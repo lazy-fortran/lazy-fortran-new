@@ -13,8 +13,9 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 
 ## Current position
 
-**Phase 0 complete.** Phase 1 not started. The laboratory, the wiring and the
-`standard-new` scaffold exist; no extraction pipeline does.
+**Phase 0 complete.** Phase 1 has not started. The laboratory, the wiring and
+the `standard-new` scaffold exist; no extraction pipeline does. E0001--E0003
+are defined as draft experiments. E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -58,6 +59,29 @@ work. Ordering follows `docs/self-hosting.md` §19: the seed and the schema
 machinery come before extraction, because extraction output must land in
 canonical form.
 
+### Startup contract and thin slice
+
+These prerequisites freeze what Phase 1 will measure and provide one small
+path through the whole proposed boundary. They must be completed before broad
+extraction or semantic formalization.
+
+- [ ] E0001, E0002 and E0003 manifests define their denominator, exclusions,
+      independent oracle, pinned commits, toolchain record and analysis command
+- [ ] `bootstrap-core` and `core0-v1` are represented as exact StandardIR rule
+      selections with computed dependency closure
+- [ ] A minimal Phase 1 corpus is pinned, including representative clause-5
+      pages, hand-checked canonical SX fixtures and malformed SX inputs
+- [ ] One vertical slice works: PDF page → canonical text → one production
+      with a continuation line → StandardIR → SX → generated Fortran → seed and
+      independent validation
+- [ ] The slice records source, artifact hashes, origin labels and the tool and
+      oracle versions needed to reproduce it
+
+**Startup gate.** The slice passes against fixed expected bytes and structured
+results, and its run record reports extraction completeness, parse failures,
+provenance coverage and independent-oracle agreement. A round-trip that only
+compares two implementations of the same behavior is insufficient.
+
 ### 1.0 Extraction risk probe
 
 Runs first and in parallel with 1.1, because it can invalidate the shape of the
@@ -68,6 +92,8 @@ whole phase.
 - [ ] Dump glyphs and geometry for the clause-5 syntax pages of 24-007
 - [ ] Determine whether `R501` and its right-hand side, including continuation
       lines, are reconstructable from geometry alone
+- [ ] Exercise at least one additional production shape and one held-out page
+      layout before declaring the geometry probe positive
 - [ ] Record the finding as a run, whichever way it goes
 - [ ] If negative: decision record naming the fallback (OCR, alternative
       library, J3 sources) before any further extraction work
@@ -79,13 +105,15 @@ whole phase.
 - [ ] `writer_t` with file, memory, hash and counting backends
 - [ ] `interner` with case-insensitive Fortran identity resolved once
 - [ ] `utf8_boundary`
-- [ ] Property tests, and each one observed failing against a broken variant
+- [ ] Property tests plus fixed byte-level fixtures, and each one observed
+      failing against a broken variant
 
 ### 1.2 SX seed reader and writer (D0006, D0009)
 
 - [ ] Seed reader in Bootstrap Core over the arena node type
 - [ ] Canonical writer: one spelling per operation, normalized fields
 - [ ] Round-trip properties: `parse(write(t)) = t`, `write(parse(c)) = c`
+- [ ] Independent canonical SX fixtures and malformed-input expectations
 - [ ] Fuzzed trees and a malformed-input corpus
 - [ ] Content hashing: parse → validate → normalize → serialize → SHA-256
 
@@ -100,6 +128,8 @@ evidence for the thesis.
 - [ ] StandardIR schema
 - [ ] ImplIR schema, eight types and two constructors (D0012)
 - [ ] Generated code compiles clean and round-trips
+- [ ] Generated readers and writers agree with the seed and the fixed SX
+      fixtures, not only with each other
 - [ ] Origin label `MECHANICAL` recorded for every generated artifact
 
 ### 1.4 Extraction to canonical text
@@ -109,6 +139,8 @@ evidence for the thesis.
       into StandardIR (D0011 §6)
 - [ ] Differential check of the text layer against an independent extractor,
       with disagreements recorded rather than smoothed over
+- [ ] Completeness, parse failure, provenance failure and skipped-page counts
+      are reported against a predeclared page and production denominator
 - [ ] BOM, ligature, hyphenation and column-order handling decided and tested
 
 ### 1.5 Syntax extraction
@@ -117,19 +149,21 @@ evidence for the thesis.
 - [ ] Parse the standard's own grammar notation
 - [ ] Emit StandardIR syntax objects with full provenance: document, clause,
       rule, page, span hash
+- [ ] Count eligible productions before extraction and report extracted,
+      rejected, ambiguous and skipped productions separately
 - [ ] Round-trip: production → StandardIR → normalized production, compared
       structurally
 - [ ] Report the fraction extracted with zero model calls (**E1**)
 
-### 1.6 Three-way comparison and adjudication (D0005)
+### 1.6 Comparison and adjudication (D0005, D0013)
 
 - [ ] Generate a syntax grammar from StandardIR
-- [ ] Compare against the `standard` `.g4` corpus, the kaby76 corpus, LFortran
-      and Flang
+- [ ] Compare against four external corpora: the `standard` `.g4` corpus,
+      kaby76, LFortran and Flang
 - [ ] Adjudicate every disagreement against 24-007
 - [ ] Classify each: ours wrong, theirs wrong, document ambiguous
-- [ ] Publish the defect rate per hand-maintained grammar, and the ambiguity
-      bucket as a finding about the standard
+- [ ] Publish the defect rate per comparison corpus, with the denominator and
+      the document-ambiguous bucket
 
 ### 1.7 Semantic formalization
 
@@ -142,6 +176,8 @@ evidence for the thesis.
       supported in principle
 - [ ] Acceptance rule enforced: independent formalizations normalize to the
       same form and witnesses agree with at least two oracles
+- [ ] Count eligible Core 0 rules before formalization and report resolved,
+      unresolved, disputed and skipped rules separately
 - [ ] Report the mechanical fraction and the minimum model size per rule
       (**E2**, **E3**)
 
@@ -154,15 +190,16 @@ evidence for the thesis.
 
 ### Phase 1 experiments
 
-- [ ] E1 manifest written and metrics named **before** extraction starts
-- [ ] E2 manifest likewise
-- [ ] E3 manifest likewise
+- [ ] E0001 (E1) manifest written and metrics named **before** extraction starts
+- [ ] E0002 (E2) manifest likewise
+- [ ] E0003 (E3) manifest likewise
 - [ ] `scripts/index.sh` reports all three from run records
 
-**Gate.** E1 and E2 report, from run records rather than by hand: the fraction
-of syntax extracted with zero model calls, the fraction of semantics formalized
-mechanically, the minimum model size per remaining rule, and the three-way
-disagreement rate with adjudications.
+**Gate.** E0001--E0003 report, from run records rather than by hand: complete
+syntax coverage and the fraction extracted with zero model calls, complete
+semantic coverage and the fraction formalized mechanically, the minimum model
+size per remaining rule, and the four-corpus disagreement rates with
+adjudications.
 
 ---
 
@@ -345,8 +382,8 @@ neglected, so they are listed.
   extraction is built until the probe answers.
 - Phases 1.1 to 1.3 are independent of the standard and can proceed in parallel
   with the probe.
-- Phase 2 does not start before E1 and E2 report. The measurement is the point
-  of Phase 1, and building the frontend first consumes the evidence.
+- Phase 2 does not start before E0001--E0003 report. The measurement is the
+  point of Phase 1, and building the frontend first consumes the evidence.
 - Phase 5 does not start before Phase 4 has a stable MIR, or the target
   description is shaped by a moving interface.
 - Phase 6 gates on Core 0 sufficiency, discovered during Phases 3 to 5, and may

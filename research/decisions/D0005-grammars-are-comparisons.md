@@ -1,7 +1,7 @@
 # D0005. Grammars as comparisons, and effort not measured
 
 Date: 2026-08-11
-Status: accepted
+Status: amended by D0013
 
 ## Context
 

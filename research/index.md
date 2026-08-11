@@ -8,6 +8,9 @@ Runs recorded: 0
 
 | ID | Status | Runs | Question |
 |---|---|---|---|
+| E0001 | draft | 0 | Can the syntax productions in the clause-5 pages of J3/24-007 be recovered |
+| E0002 | draft | 0 | What fraction of the predeclared Core 0 semantic rules can be formalized |
+| E0003 | draft | 0 | Does expressing the residual semantic-rule implementations in ImplIR reduce |
 | E0012 | draft | 0 | Does language-independent scope-graph resolution handle Fortran's modules, |
 
 ## Run status
@@ -30,7 +33,7 @@ Runs recorded: 0
 | [D0002](decisions/D0002-no-vendored-artifacts.md) | accepted |  | Nothing external is vendored |
 | [D0003](decisions/D0003-fortran-everywhere.md) | accepted |  | Fortran everywhere, C libraries through ISO_C_BINDING |
 | [D0004](decisions/D0004-generated-backend.md) | accepted |  | A generated backend, RISC-V and AArch64 first |
-| [D0005](decisions/D0005-grammars-are-comparisons.md) | accepted |  | Grammars as comparisons, and effort not measured |
+| [D0005](decisions/D0005-grammars-are-comparisons.md) | amended by D0013 |  | Grammars as comparisons, and effort not measured |
 | [D0006](decisions/D0006-sx-serialization.md) | accepted |  | One canonical S-expression serialization for both IRs |
 | [D0007](decisions/D0007-implir-is-residual.md) | accepted |  | ImplIR is residual, not a mandatory layer |
 | [D0008](decisions/D0008-bootstrap-core.md) | accepted |  | Bootstrap Core, a profile smaller than Core 0 |
@@ -38,9 +41,10 @@ Runs recorded: 0
 | [D0010](decisions/D0010-fixpoint-bootstrap.md) | accepted |  | Fixpoint criteria for the compiler and the meta-languages |
 | [D0011](decisions/D0011-text-representation.md) | accepted |  | Text is bytes, spans and IDs, not Fortran character values |
 | [D0012](decisions/D0012-implir-type-set.md) | accepted | Amends D0007 | The ImplIR v0 type set |
+| [D0013](decisions/D0013-four-corpus-grammar-comparison.md) | accepted | Amends D0005 | Four-corpus grammar comparison denominator |
 
 ## Pinned artifacts
 
 | Name | Bytes | Licence | Purpose |
 |---|---|---|---|
-| j3-24-007 | 9970124 | J3/ISO. Freely downloadable; not redistributable. Never vendored. | Primary normative source for StandardIR extraction (E1, E2) |
+| j3-24-007 | 9970124 | J3/ISO. Freely downloadable; not redistributable. Never vendored. | Primary normative source for StandardIR extraction (E0001, E0002) |
