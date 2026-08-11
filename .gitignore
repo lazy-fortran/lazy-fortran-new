@@ -1,0 +1,23 @@
+# Fetched external artifacts. Never committed; pinned in artifacts/*.toml and
+# retrieved by scripts/fetch.sh. If something here ends up tracked, the
+# provenance gate in AGENTS.md has been broken.
+.cache/
+*.rejected
+*.part
+
+# Sibling checkouts, if anyone clones them inside this tree instead of beside it
+/standard-new/
+/fortfront-new/
+/ffc-new/
+/fortback-new/
+
+# Build output from any Fortran that appears here later
+build/
+*.mod
+*.smod
+*.o
+*.a
+
+# Editor and OS noise
+*~
+.DS_Store

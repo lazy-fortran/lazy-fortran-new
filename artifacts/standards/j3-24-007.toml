@@ -1,0 +1,27 @@
+name      = "j3-24-007"
+title     = "Fortran 2023 working draft (J3/24-007)"
+url       = "https://j3-fortran.org/doc/year/24/24-007.pdf"
+sha256    = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+bytes     = 9970124
+pages     = 688
+licence   = "J3/ISO. Freely downloadable; not redistributable. Never vendored."
+retrieved = "2026-08-11"
+purpose   = "Primary normative source for StandardIR extraction (E1, E2)"
+
+# Technically near-identical to ISO/IEC 1539-1:2023, which is not freely
+# available. This is the document the project formalizes, and every StandardIR
+# entry cites it by clause, rule number and page.
+#
+# Identity and page count confirmed 2026-08-11 by three independent readers,
+# which agreed on 688: standard-new's fortpdf (poppler), helpy's Go extractor
+# (pdfcpu), and a direct count of /Type/Page objects in the raw file.
+#
+# Embedded metadata: title "J3/SD-007", author "INCITS/Fortran", subject
+# "Information technology - Programming languages - Fortran", producer
+# "MiKTeX pdfTeX-1.40.21", created 2023-12-18. Note that the embedded title is
+# the standing-document name rather than the paper number; the paper number
+# comes from the retrieval URL.
+#
+# Reproduce with:
+#   scripts/fetch.sh j3-24-007
+#   (cd ../standard-new && fo exec pdfinfo ../lazy-fortran-new/.cache/j3-24-007.pdf)

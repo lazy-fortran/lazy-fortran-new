@@ -1,0 +1,13 @@
+# Line endings. Everything textual here is LF.
+* text=auto eol=lf
+
+# Run records are append-only and merged by concatenation, never by three-way
+# merge. union keeps both sides of a concurrent append instead of producing a
+# conflict that someone resolves by deleting one side's data.
+research/runs/*.jsonl merge=union
+
+# Generated; do not present as a reviewable diff.
+research/index.md linguist-generated=true
+
+# No Git LFS. Nothing large is committed here at all; artifacts/ holds
+# manifests and scripts/fetch.sh downloads into a gitignored cache.

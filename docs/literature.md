@@ -1,0 +1,237 @@
+# Literature
+
+The prior art this project must be positioned against, and the sources it builds
+on. Each entry states what it is used for here. Where a copy exists on disk, the
+path is given.
+
+This file is maintained from the first commit rather than assembled before
+publication. An idea that turns out to have been published in 1996 is cheaper to
+discover now.
+
+**Verification status.** Entries marked ✓ have had their bibliographic details
+checked against the publisher or author page. Unmarked entries are recorded from
+knowledge and need a verification pass before any of them appears in a paper.
+Nothing in this file is a substitute for reading the work.
+
+**Zotero.** `~/Zotero/zotero.sqlite` is a plasma-physics library and contains
+almost nothing relevant; the three exceptions are noted below. Check it before
+adding anything anyway.
+
+---
+
+## 1. Grammar recovery from specifications, the direct prior art for E1
+
+This is the closest existing work to the first phase of this project, and E1's
+contribution has to be stated relative to it.
+
+- ✓ **Lämmel, R. and Verhoef, C. "Semi-automatic grammar recovery."** *Software:
+  Practice and Experience* 31(15), 1395-1438, 2001.
+  <https://doi.org/10.1002/spe.423>. PDF at <https://www.cs.vu.nl/~x/ge/ge.pdf>.
+  Extracts grammars from compilers and language reference manuals through raw
+  extraction, static error resolution, test-driven correction, then
+  modularization and beautification. **The method this project automates.** Our
+  claim must be about what changes when the correction loop is mechanical and
+  the provenance is preserved per rule, not about having had the idea.
+- ✓ **Lämmel, R. and Verhoef, C. "Cracking the 500-Language Problem."** *IEEE
+  Software*, Nov/Dec 2001. <https://www.cs.vu.nl/grammarware/500/500.pdf>
+  The economic argument for grammar recovery at scale.
+- **Lämmel, R. and Zaytsev, V. "An Introduction to Grammar Convergence."** IFM
+  2009. <https://doi.org/10.1007/978-3-642-00255-7_17> Establishing that
+  independently produced grammars for one language agree, by transformation to a
+  common form. **Directly applicable to the three-way comparison** between our
+  generated grammar, the old `.g4` corpus and the kaby76 corpus.
+- **Lämmel, R. and Zaytsev, V. "Recovering Grammar Relationships for the Java
+  Language Specification."** SCAM 2009 / SQJ 2011. The same exercise on a real
+  standards document.
+- **Zaytsev, V. "Grammar Zoo: A corpus of experimental grammarware."** *Science
+  of Computer Programming* 98, 2015. A corpus of recovered grammars; useful as a
+  model for how to publish ours.
+- **Engineering of Grammarware.** <https://www.cs.vu.nl/grammarware/>, the
+  group's collected work. Read before writing E1's related-work section.
+- **"Kajal: Extracting Grammar of a Source Code Using Large Language Models."**
+  arXiv:2412.08842, 2024. <https://arxiv.org/abs/2412.08842> LLM-based grammar
+  extraction. Recent and adjacent; check what it measures before claiming
+  novelty for the model-assisted parts of E1.
+
+## 2. Formalizing prose standards
+
+The general problem of turning a natural-language standard into something
+executable. Every one of these is a data point on how much effort it takes by
+hand, which is the baseline our mechanical fraction is measured against.
+
+- **Memarian, K. et al. "Into the depths of C: elaborating the de facto
+  standards."** PLDI 2016 (Cerberus). The most honest account of what a prose
+  standard actually leaves undetermined, and of the gap between the standard and
+  what compilers do.
+- **Ellison, C. and Roșu, G. "An executable formal semantics of C with
+  applications."** POPL 2012. The K framework applied to a full language.
+- **Watt, C. "Mechanising and verifying the WebAssembly specification."** CPP
+  2018. WebAssembly is the counter-example worth citing: a modern standard
+  designed with a formal semantics from the start. Useful for arguing what
+  Fortran's standard could have been.
+- **Milner, R., Tofte, M., Harper, R., MacQueen, D. *The Definition of Standard
+  ML (Revised).*** MIT Press, 1997. The canonical fully formal language
+  definition.
+- **Mosses, P. D.** Action semantics and semantics-directed compiler generation.
+  The older tradition this project sits in; worth citing to show the idea is not
+  new and to say precisely what is.
+
+## 3. Machine-readable instruction set specifications, the basis for `fortback-new`
+
+- ✓ **Armstrong, A., Bauereiss, T., Campbell, B., Reid, A., Gray, K. E., Norton,
+  R. M., Mundkur, P., Wassell, M., French, J., Pulte, C., Flur, S., Stark, I.,
+  Krishnaswami, N., Sewell, P. "ISA Semantics for ARMv8-A, RISC-V, and
+  CHERI-MIPS."** *Proc. ACM Program. Lang.* 3, POPL, Article 71, January 2019,
+  31 pages. <https://doi.org/10.1145/3290384>. PDF at
+  <https://www.cl.cam.ac.uk/~pes20/sail/sail-popl2019.pdf>, tool at
+  <https://github.com/rems-project/sail>.
+  Sail models are complete enough to boot Linux, and generate emulators in C and
+  OCaml plus definitions for Isabelle, HOL4 and Coq. **This is why RISC-V is the
+  first backend target**: an official, executable formal semantics makes
+  translation validation of generated machine code achievable.
+- **Reid, A. "Trustworthy specifications of ARM v8-A and v8-M system level
+  architecture."** FMCAD 2016. How ARM's machine-readable architecture was
+  produced and validated.
+- **Reid, A. et al. "Who guards the guards? Formal validation of the ARM v8-M
+  processor specification."** OOPSLA 2017.
+- **riscv-opcodes**. <https://github.com/riscv/riscv-opcodes>. Machine-readable
+  encodings, BSD.
+- **ARM Machine Readable Architecture**, official A64 encodings plus ASL
+  semantics.
+- **Intel XED**. <https://github.com/intelxed/xed>, Apache-2.0. Data files are
+  the practical encoding source for x86-64, in the absence of an official
+  machine-readable specification.
+- **Zydis**. MIT. A second independent x86-64 encoding table, therefore a
+  comparison rather than a source.
+- **uops.info**, measured latency and throughput; the input for cost modelling
+  where no vendor data exists.
+
+## 4. Verified and validated compilation
+
+- **Leroy, X. "Formal verification of a realistic compiler."** *CACM* 52(7),
+  2009 (CompCert). The reference point for what "verified compiler" means, and
+  the reason §19 of the whitepaper states the trusted base explicitly rather
+  than implying a stronger claim.
+- **Pnueli, A., Siegel, M., Singerman, E. "Translation validation."** TACAS
+  1998. Validating one compilation rather than the compiler, the right shape
+  for a generated backend.
+- **Necula, G. "Translation validation for an optimizing compiler."** PLDI 2000.
+- **Lopes, N. et al. "Alive2: bounded translation validation for LLVM."** PLDI
+  2021. The practical modern version, and the model for what `fortback-new`
+  should attempt against Sail.
+
+## 5. Synthesis, search and superoptimization
+
+- **Solar-Lezama, A.** Program synthesis by sketching (PhD, 2008) and the CEGIS
+  loop. The method for whitepaper category 2, "searchable".
+- **Bansal, S. and Aiken, A. "Automatic generation of peephole
+  superoptimizers."** ASPLOS 2006. Generating instruction-selection patterns by
+  search rather than by hand.
+- **Souper**. <https://github.com/google/souper>. A working superoptimizer over
+  LLVM IR; useful as a comparison for generated peephole quality.
+- **Torlak, E. and Bodik, R.** Rosette. Solver-aided languages; relevant if
+  ImplIR ever needs a symbolic backend.
+
+## 6. Separating correctness from performance
+
+- **Ragan-Kelley, J. et al. "Halide: a language and compiler for optimizing
+  parallelism, locality, and recomputation in image processing pipelines."**
+  PLDI 2013. **The strongest citation for whitepaper §21**: algorithm and
+  schedule as separate artifacts, with the schedule searched. The direct
+  analogue of specification-determines-correctness, generator-searches-for-speed.
+- **Frigo, M. and Johnson, S. G. "The design and implementation of FFTW3."**
+  *Proc. IEEE* 93(2), 2005. Generated code plus empirical selection, in
+  production, for two decades.
+- **Whaley, R. C. and Dongarra, J. ATLAS.** Autotuning as the standard method in
+  numerical libraries.
+
+## 7. Test adequacy, mutation and differential testing
+
+The evidence base for `LESSONS.md` §6 and for E7.
+
+- **DeMillo, R., Lipton, R., Sayward, F. "Hints on test data selection: help for
+  the practicing programmer."** *IEEE Computer* 11(4), 1978. The origin of
+  mutation testing.
+- **Papadakis, M. et al. "Mutation testing advances: an analysis and survey."**
+  *Advances in Computers*, 2019. What is known about mutation's effectiveness
+  and cost.
+- **Yang, X., Chen, Y., Eide, E., Regehr, J. "Finding and understanding bugs in
+  C compilers."** PLDI 2011 (Csmith). Random differential testing of compilers,
+  and the canonical demonstration that mature compilers are full of bugs.
+- **Le, V., Afshari, M., Su, Z. "Compiler validation via equivalence modulo
+  inputs."** PLDI 2014 (EMI). Metamorphic testing for compilers; directly
+  applicable and cheap.
+- **Chen, J. et al.** Surveys of compiler testing. For E7's related work.
+
+## 8. Constrained generation and model scale, the ImplIR hypothesis
+
+The literature that makes "a smaller output language needs a smaller model"
+testable rather than merely plausible.
+
+- **Poesia, G. et al. "Synchromesh: reliable code generation from pre-trained
+  language models."** ICLR 2022. Constrained decoding into a restricted target.
+- **Scholak, T., Schucher, N., Bahdanau, D. "PICARD: parsing incrementally for
+  constrained auto-regressive decoding from language models."** EMNLP 2021.
+- **Geng, S. et al. "Grammar-constrained decoding for structured NLP tasks."**
+  EMNLP 2023. The general mechanism; relevant to whether ImplIR generation
+  should be grammar-constrained at decode time rather than repaired afterwards.
+- **Chen, M. et al. "Evaluating large language models trained on code."** arXiv
+  2107.03374, 2021 (Codex/HumanEval). The measurement conventions E3 and E4
+  should follow or explicitly depart from.
+- **Hoffmann, J. et al. "Training compute-optimal large language models."** 2022
+  (Chinchilla). Needed to talk about "model scale" precisely rather than by
+  parameter count alone.
+- **Austin, J. et al. "Program synthesis with large language models."** arXiv
+  2108.07732, 2021.
+
+## 9. Fortran context
+
+- ✓ **Kedward, L. J. et al. "The State of Fortran."** *Computing in Science &
+  Engineering*, 2022. On disk:
+  `~/Zotero/storage/7MPHMESD/Kedward et al. - 2022 - The State of Fortran.pdf`.
+  The survey to cite when motivating the work.
+- **ISO/IEC 1539-1:2023**, the published standard. Not freely available; not
+  vendored.
+- **J3/24-007**, the Fortran 2023 final working draft, freely available,
+  technically near-identical to the published standard. **The normative source
+  for this project.** Pinned in `artifacts/standards/j3-24-007.toml`.
+- **J3/26-007**, the Fortran 2028 working draft. On disk at
+  `~/code/standard/validation/pdfs/Fortran2028_J3_26-007.pdf`. A moving target;
+  used to test that the pipeline generalizes across revisions, not as the
+  primary source.
+- **Metcalf, M., Reid, J., Cohen, M., Bader, R. *Modern Fortran Explained:
+  Incorporating Fortran 2023.*** Oxford University Press, 2023. On disk in
+  `~/Nextcloud/` (note the leading space in the filename). The standard's
+  intent in readable form; useful when adjudicating an ambiguity.
+- **Markus, A. "Design patterns and Fortran 90/95."** 2006. On disk:
+  `~/Zotero/storage/M8WRJ3VH/`.
+- **kaby76/fortran**. <https://github.com/kaby76/fortran>. Third-party ANTLR
+  grammars for multiple Fortran revisions. One of the three independent
+  comparisons in E1. Already fetched by `standard/validation/tools/`.
+
+## 10. Provenance and reproducibility
+
+- **Wilkinson, M. D. et al. "The FAIR Guiding Principles for scientific data
+  management and stewardship."** *Scientific Data* 3, 2016.
+- **RO-Crate**. <https://www.researchobject.org/ro-crate/>. The export format
+  for a publication snapshot. Deliberately not part of daily work.
+- **ACM Artifact Review and Badging.** The bar a paper from this project should
+  clear without extra effort, because the run records already exist.
+
+---
+
+## Gaps to close
+
+Things that should be here and are not yet. Each is a search someone owes.
+
+- Prior work on generating a compiler frontend from a standards document
+  specifically, as opposed to grammar recovery in general. If it exists, E1's
+  framing changes.
+- Fortran-specific compiler testing and conformance-suite literature.
+- Empirical work on how much of a compiler is boilerplate, anyone who has
+  measured this before, in any language.
+- Attribute grammars and semantics-directed compiler generation, treated
+  properly rather than by gesture at Knuth 1968.
+- Recent work on LLM-assisted formalization of standards in other domains
+  (protocols, hardware, legal text), which likely has the closest methodology
+  even though the subject differs.

@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      # Never let a missing credential turn into a hung git prompt.
+      GIT_TERMINAL_PROMPT: 0
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Repository gates
+        run: scripts/selftest.sh
+
+      - name: Shellcheck
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq shellcheck
+          # lib.sh is sourced, so its unused-variable warnings are expected.
+          shellcheck --severity=warning --external-sources scripts/*.sh
+
+      - name: Verify the pinned normative document
+        # Network-dependent, so it must not silently pass when the network is
+        # absent: a check that does nothing when a resource is missing is worse
+        # than one that fails.
+        run: scripts/fetch.sh j3-24-007

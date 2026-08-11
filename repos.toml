@@ -1,0 +1,113 @@
+# Repository wiring for the Lazy Fortran compiler-generation program.
+#
+# [repos.*]   production components of this program
+# [oracle.*]  independent implementations used for comparison and evidence
+#
+# Paths are relative to the parent of this repository, so checkouts are
+# siblings. No git submodules: scripts/bootstrap.sh clones what is missing and
+# scripts/status.sh reports where each one stands. See D0001.
+#
+# `read` records whether this project's authors may read the source, which is a
+# licensing question and not a capability one. See docs/provenance.md.
+#   read = "source"      permissive or ours; read freely, log the instance
+#   read = "behaviour"   GPL; run the binary, never read the implementation
+
+[repos.laboratory]
+url  = "https://github.com/lazy-fortran/lazy-fortran-new"
+path = "lazy-fortran-new"
+role = "Research, wiring, evidence, papers. This repository."
+
+[repos.standard]
+url  = "https://github.com/lazy-fortran/standard-new"
+path = "standard-new"
+role = "Normative document to StandardIR and derived artifacts."
+
+[repos.frontend]
+url  = "https://github.com/lazy-fortran/fortfront-new"
+path = "fortfront-new"
+role = "Generated frontend: lexer, parser, AST, semantics, emitter."
+
+[repos.compiler]
+url  = "https://github.com/lazy-fortran/ffc-new"
+path = "ffc-new"
+role = "Driver and middle end: MIR, optimization, command line."
+
+[repos.backend]
+url  = "https://github.com/lazy-fortran/fortback-new"
+path = "fortback-new"
+role = "Target description to generated encoder, object writer, ISel."
+
+# ---------------------------------------------------------------------------
+# Oracles. None of these constrains any interface in the repositories above.
+# ---------------------------------------------------------------------------
+
+[oracle.standard]
+url     = "https://github.com/lazy-fortran/standard"
+path    = "standard"
+licence = "MIT"
+read    = "source"
+role    = "34 hand-written ANTLR grammars. One of three independent grammar comparisons. Not a source: productions are never copied into StandardIR."
+
+[oracle.fortfront]
+url     = "https://github.com/lazy-fortran/fortfront"
+path    = "fortfront"
+licence = "MIT"
+read    = "source"
+role    = "Current frontend. Semantic-fact oracle and parsing performance baseline."
+
+[oracle.ffc]
+url     = "https://github.com/lazy-fortran/ffc"
+path    = "ffc"
+licence = "MIT"
+read    = "source"
+role    = "Current compiler. Behavioural oracle and conformance-harness prior art."
+
+[oracle.fortad]
+url     = "https://github.com/lazy-fortran/fortad"
+path    = "fortad"
+licence = "MIT"
+read    = "source"
+role    = "Differentiation tool. Its roadmap states the semantic contract a frontend owes its consumers."
+
+[oracle.fluff]
+url     = "https://github.com/lazy-fortran/fluff"
+path    = "fluff"
+licence = "MIT"
+read    = "source"
+role    = "Static analyzer. Source of the test-integrity evidence in LESSONS.md."
+
+[oracle.liric]
+url     = "https://github.com/krystophny/liric"
+path    = "liric"
+licence = "MIT"
+read    = "source"
+role    = "Hand-written native backend. Prior art proving the class is tractable, and the dependency fortback-new exists to avoid."
+
+[oracle.lfortran]
+url     = "https://github.com/lfortran/lfortran"
+path    = "lfortran"
+licence = "BSD-3-Clause"
+read    = "source"
+role    = "Differential oracle. Its ASR physical-type lattice is the evidence for LESSONS.md section 4."
+
+[oracle.flang]
+url     = "https://github.com/llvm/llvm-project"
+path    = "llvm-project"
+licence = "Apache-2.0 WITH LLVM-exception"
+read    = "source"
+role    = "Differential oracle and independent grammar comparison. Not cloned by default: large."
+clone   = false
+
+[oracle.gcc]
+url     = "https://gcc.gnu.org/git/gcc.git"
+path    = "gcc"
+licence = "GPL-3.0-or-later"
+read    = "behaviour"
+role    = "gfortran as a behavioural oracle, and the gfortran.dg corpus. Implementation source is never read while authoring the corresponding component."
+
+[oracle.kaby76]
+url     = "https://github.com/kaby76/fortran"
+path    = "kaby76-fortran"
+licence = "MIT"
+read    = "source"
+role    = "Third-party ANTLR Fortran grammars. The independent third leg of the grammar comparison in E1."
