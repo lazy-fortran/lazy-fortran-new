@@ -17,10 +17,10 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 **Phase 0 complete.** Phase 1 is in progress. `standard-new` now extracts
 UTF-8 bytes and text rectangles for every page of the pinned PDF, writes a
 canonical geometric text projection, emits provenance-bearing clause-5
-production lines for pages 53--56, and writes a first StandardIR SX slice.
-The seed reader, generated grammar and semantic rules do not exist yet. E0001
-is running, while E0002--E0003 remain draft experiments. E0012 remains a later
-Phase 2 experiment.
+production lines for pages 53--56, writes a first StandardIR SX slice, and
+round-trips that SX byte-for-byte. The generated grammar and semantic rules do
+not exist yet. E0001 is running, while E0002--E0003 remain draft experiments.
+E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -115,6 +115,8 @@ The first production-line slice is `R000005`; regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-productions.sh`.
 The first StandardIR SX slice is `R000006`; regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-standardir.sh`.
+The SX round-trip is `R000007`; regenerate and check it with
+`research/experiments/E0001-standard-to-grammar/check-sx-roundtrip.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
 separation, so the canonicalizer preserves the Poppler bytes and derives a
 normalized view rather than overwriting the source extraction.
@@ -132,7 +134,7 @@ normalized view rather than overwriting the source extraction.
 ### 1.2 SX seed reader and writer (D0006, D0009)
 
 - [ ] Seed reader in Bootstrap Core over the arena node type
-- [ ] Canonical writer: one spelling per operation, normalized fields
+- [x] Canonical writer: one spelling per operation, normalized fields
 - [ ] Round-trip properties: `parse(write(t)) = t`, `write(parse(c)) = c`
 - [ ] Independent canonical SX fixtures and malformed-input expectations
 - [ ] Fuzzed trees and a malformed-input corpus

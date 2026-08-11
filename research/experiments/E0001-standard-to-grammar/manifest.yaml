@@ -9,8 +9,8 @@ opened: "2026-08-11"
 closed: ""
 
 repos:
-  lazy-fortran-new: "bb4966f"
-  standard-new: "843c5fa601c47c70aaacd43100604236b8875061"
+  lazy-fortran-new: "cbe5fd8"
+  standard-new: "bf7d43d64d0f437a1a98480d90a29d49e8702ad7"
   oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
@@ -25,6 +25,7 @@ slice:
   canonical_artifact: artifacts/runs/E0001/R000003-canonical-text.toml
   production_artifact: artifacts/runs/E0001/R000005-productions.toml
   standardir_artifact: artifacts/runs/E0001/R000006-standardir.toml
+  sx_roundtrip_artifact: artifacts/runs/E0001/R000007-sx-roundtrip.toml
   expected_production_starts: 24  # jq count in check-productions.sh
   expected_records: 133           # jq length in check-productions.sh
 

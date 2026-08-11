@@ -1,0 +1,20 @@
+name        = "E0001-R000007-j3-24-007-standardir-roundtrip"
+url         = "https://github.com/lazy-fortran/standard-new/tree/bf7d43d"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0001/R000007/j3-24-007.standardir.sx"
+sha256      = "41670b99755b494e14989f739d93d6b9f8fd0c87d8ecafc15d219ae6d9d9cf38"
+bytes       = 9890
+origin      = "MECHANICAL"
+format      = "canonical SX round-trip format 1"
+source      = "E0001-R000006-standardir"
+source_sha256 = "41670b99755b494e14989f739d93d6b9f8fd0c87d8ecafc15d219ae6d9d9cf38"
+generator   = "standard-new"
+generator_commit = "bf7d43d64d0f437a1a98480d90a29d49e8702ad7"
+retrieved   = "2026-08-11"
+lines       = 25
+syntax_objects = 24
+purpose     = "Byte-identical canonical SX rewrite proving the seed reader and writer agree on the extraction slice"
+
+# Regenerate the payload and run its independent oracle with:
+#   research/experiments/E0001-standard-to-grammar/check-sx-roundtrip.sh
+# Verify its hash and counts with sha256sum, stat, wc and rg.
