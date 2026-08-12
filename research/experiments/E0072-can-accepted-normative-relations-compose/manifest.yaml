@@ -1,0 +1,69 @@
+id: "E0072"
+title: "Composition of adjudicated relations with D0019 records"
+question: >
+  Can accepted normative relations compose with D0019 records without turning semantic facts into parser-only aliases?
+status: draft         # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "9a9e8d0"
+  standard-new: "c6cd889"
+
+inputs:
+  standard: j3-24-007
+  d0019_records: E0043-R000001
+  adjudicated_relations: E0071-R000001
+  syntax: E0013-R000002
+  decisions: [D0019, D0024, D0027, D0028]
+
+variables:
+  relation_inputs: [d0019-records, adjudicated-relations]
+  parser_projection: [aliases-and-lexical-facts-only]
+  model_calls: [zero]
+
+model_selection: "No experimental model calls; composition and parser projection are deterministic."
+
+metrics:
+  - d0019_records
+  - adjudicated_relation_records
+  - merged_fact_records
+  - retained_relations
+  - unresolved_records
+  - semantic_facts_not_parser_aliases
+  - parser_projection_records
+  - source_hash_matches
+  - projection_difference
+  - independent_difference
+  - negative_control
+
+denominator: >
+  The 182 typed D0019 records plus every accepted E0071 relation record. No
+  semantic relation is discarded because it cannot be projected into a parser.
+  The five retained E0071 candidates and the 151 E0070 unresolved names remain
+  outside the accepted fact set.
+
+independent_oracle: >
+  Rerun E0043 and E0071 from their pinned inputs. A separate awk merge checks
+  every base record and accepted relation, source hashes, duplicate fact keys,
+  and the independent parser-projection map. Semantic-role facts must remain
+  in the fact table and absent from parser-only aliases. A controlled mutation
+  of one accepted relation must fail the fact-count validator.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  The gate fails if either predecessor changes, a base or relation record is
+  dropped, source hashes differ, a semantic fact enters parser-only projection,
+  projection maps disagree, or the negative control passes.
+
+gate: >
+  Reproduce E0043 and E0071, compose 182 base records with all 37 accepted
+  relations, retain the five rejected candidates and 151-name residue, derive
+  aliases and lexical parser facts only, and pass independent composition and
+  mutation checks.
+
+analysis: research/experiments/E0072-can-accepted-normative-relations-compose/analyse.sh
