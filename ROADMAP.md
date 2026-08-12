@@ -82,6 +82,9 @@ interner identity and UTF-8 properties
 E0029 verifies independent SX canonical fixtures, parse/write/parse structure
 and malformed-input expectations
 (`research/experiments/E0029-does-the-sx-seed-preserve-canonical-tree/analyse.sh`).
+E0030 verifies SX validation, writer-backed canonical serialization and a fixed
+SHA-256 content hash
+(`research/experiments/E0030-does-canonical-sx-hashing-remain-stable-/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -229,7 +232,9 @@ normalized view rather than overwriting the source extraction.
       (E0029; regenerate with
       `research/experiments/E0029-does-the-sx-seed-preserve-canonical-tree/analyse.sh`)
 - [ ] Fuzzed trees and a malformed-input corpus
-- [ ] Content hashing: parse → validate → normalize → serialize → SHA-256
+- [x] Content hashing: parse → validate → normalize → serialize → SHA-256
+      (E0030; regenerate with
+      `research/experiments/E0030-does-canonical-sx-hashing-remain-stable-/analyse.sh`)
 
 ### 1.3 Schema language and generator (D0016)
 
