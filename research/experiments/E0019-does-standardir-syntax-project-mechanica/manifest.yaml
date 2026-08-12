@@ -2,13 +2,13 @@ id: "E0019"
 title: "StandardIR to tree-sitter grammar.js projection"
 question: >
   Does StandardIR syntax project mechanically to a provenance-bearing tree-sitter grammar.js?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "7db476a"
+  lazy-fortran-new: "b3046ef"
   standard-new: "27406a7"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

@@ -1,0 +1,29 @@
+name        = "E0019-R000001-j3-24-007-tree-sitter"
+url         = "https://github.com/lazy-fortran/standard-new/tree/27406a7"
+sha256      = "bd470be7859d660c179a73cca6764a47140dd12c87c4e0f4104abc51e384afc5"
+bytes       = 138394
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+retrieved   = "2026-08-12"
+purpose     = "tree-sitter grammar.js syntax projection of every complete-core StandardIR object"
+path        = ".cache/runs/E0019/R000001/fortran2023.js"
+origin      = "MECHANICAL"
+format      = "tree-sitter grammar.js with StandardIR provenance comments"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+input       = ".cache/runs/E0013/R000002/j3-24-007.standardir.sx"
+input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+generator   = "standard-new sxtreesitter"
+generator_commit = "27406a7"
+checker     = "research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh"
+checker_commit = "b3046ef"
+syntax_records = 522
+treesitter_productions = 522
+provenance_comments = 522
+source_hash_matches = 522
+lhs_mapping_difference = 0
+fixed_witnesses = true
+zero_model_calls = true
+
+# Regenerate and verify with:
+#   research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

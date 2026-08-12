@@ -43,6 +43,9 @@ E0018 reports a Bison projection of the same 522 records with exact ordered
 provenance and lhs agreement, 695 deterministic helper productions and zero
 model calls
 (`research/experiments/E0018-does-standardir-syntax-project-mechanica/analyse.sh`).
+E0019 reports a tree-sitter grammar.js projection of the same 522 records with
+exact ordered provenance and lhs agreement and zero model calls
+(`research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -233,8 +236,9 @@ evidence for the thesis.
       `research/experiments/E0017-does-standardir-syntax-project-mechanica/analyse.sh`)
 - [x] Generate Bison `.y` from StandardIR (E0018; regenerate with
       `research/experiments/E0018-does-standardir-syntax-project-mechanica/analyse.sh`)
-- [ ] Generate tree-sitter where useful, and the specialized parser-generator
-      input
+- [x] Generate tree-sitter grammar.js from StandardIR (E0019; regenerate with
+      `research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh`)
+- [ ] Generate the specialized parser-generator input
 - [ ] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit
 - [ ] Compare permitted grammar artifacts and parser behavior against LFortran
@@ -293,6 +297,8 @@ evidence for the thesis.
       recorded
 - [x] E0018 Bison projection, provenance, helper lowering and independent
       structural oracle recorded
+- [x] E0019 tree-sitter projection, provenance and independent structural
+      oracle recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
