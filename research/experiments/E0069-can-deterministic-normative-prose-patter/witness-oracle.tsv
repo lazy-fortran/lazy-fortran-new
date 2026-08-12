@@ -1,0 +1,6 @@
+term	classification	source_substring	purpose
+digit	lexical-class	The ten digits define the syntactic class digit.	known lexical definition
+letter	lexical-class	The set of letters defines the syntactic class letter.	known lexical definition
+xyz	metavariable	where the letters xyz stand for any syntactic class phrase	known assumed-rule metavariable
+program-name	unresolved	program-name shall not be included in the end-program-stmt	negative evidence is not an alias
+subroutine-name	semantic-role	The name of the subroutine is subroutine-name.	known semantic role
