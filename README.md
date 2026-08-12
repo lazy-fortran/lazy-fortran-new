@@ -71,9 +71,13 @@ dependency closure and deterministic EBNF, ANTLR4, Bison and tree-sitter
 projections. The current extraction gate reports 522/522 numbered production
 starts with zero model calls. The byte/span text layer, canonical SX reader and
 writer, flat SX arena, schema parser and first deterministic Fortran schema type
-emitter also exist. Semantic StandardIR formalization and the composite parser
-input are the next major Phase 1 boundaries; `ROADMAP.md` carries the exact
-reproducible gates and current decision state.
+emitter also exist. The accepted composite projection contains 519 generated
+records from 522 source records and zero unresolved target names. E0056 makes
+ANTLR4 and Bison generation succeed and records a tree-sitter conflict
+boundary. D0029 selects the specialized direct parser as the production target.
+Regenerate these figures with `papers/standard-to-grammar/analyse.sh` and
+`research/index.md` with `scripts/index.sh`. The StandardIR schema and
+composite parser input remain the next major Phase 1 boundaries.
 
 ## Licence
 

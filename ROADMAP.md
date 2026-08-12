@@ -419,10 +419,9 @@ evidence for the thesis.
       left recursion and nullable wrappers, retaining target warnings and the
       remaining tree-sitter boundary (E0056, regenerate with
       `research/experiments/E0056-can-deterministic-target-normalizers-rem/analyse.sh`)
-- [ ] Decide whether the expanding tree-sitter ambiguity set deserves a
-      general conflict projection or remains an export/differential boundary
-      (E0056 next unresolved group: `r_int_x2D_literal_x2D_constant` versus
-      `r_kind_x2D_param`)
+- [x] Select the specialized direct parser as the production target and keep
+      tree-sitter as a generated export and differential oracle ([D0029](research/decisions/D0029-specialized-direct-parser-production-target.md), based on E0056's 13 conflict groups and next unresolved group
+      `r_int_x2D_literal_x2D_constant` versus `r_kind_x2D_param`)
 - [ ] Decide whether ANTLR4 and Bison exports must be warning-free, then
       remove or explicitly classify their retained target warnings (E0056:
       18 and 206, respectively)

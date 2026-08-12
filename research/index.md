@@ -58,6 +58,7 @@ Runs recorded: 65
 | E0054 | reported | 1 | Can deterministic lexical projection candidates expose the D0027 tradeoff without selecting one? |
 | E0055 | reported | 1 | Can the accepted D0024, D0026 and D0027 projections produce target-valid composite parser inputs? |
 | E0056 | reported | 1 | Can deterministic target normalizers remove the E0055 structural export boundary? |
+| E0057 | draft | 0 | Can accepted composite StandardIR emit a provenance-bearing direct parser wiring skeleton |
 
 ## Run status
 
@@ -105,6 +106,7 @@ Runs recorded: 65
 | [D0026](decisions/D0026-overlapping-resolution-facts.md) | accepted |  | Overlapping resolution facts |
 | [D0027](decisions/D0027-lexical-primitive-projection.md) | accepted |  | Projection of lexical primitive records |
 | [D0028](decisions/D0028-default-decision-principles.md) | accepted |  | Default decision principles and autonomous resolution |
+| [D0029](decisions/D0029-specialized-direct-parser-production-target.md) | accepted |  | Specialized direct parser is the production target |
 
 ### Proposed decisions
 

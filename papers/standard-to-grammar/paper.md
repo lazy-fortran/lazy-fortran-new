@@ -5,47 +5,25 @@ set in `papers/standard-to-grammar/runs.txt`.
 
 ## Abstract
 
-Language standards contain formal syntax, lexical notation, and prose.
-Compiler frontends must turn those materials into executable structure. This paper reports a
-deterministic pipeline that extracts syntax from the J3/24-007 Fortran 2023
-working draft into StandardIR and projects that representation into several
-grammar formats. The pipeline preserves document, clause, rule, page, span,
-and source-hash provenance. It uses no model calls in the reported extraction
-or projection runs. The result covers 522 numbered
-productions from 45-580 selected pages, with the same production set found
-in the complete 1-688-page document. The same StandardIR records are
-projected into 4 grammar formats. The projection is deliberately
-stopped at its validity boundary: target tools expose 181
-unresolved names, and the audit traces those names to 472
-occurrences in 346 referring rules. The contribution is a
-reproducible method and a measured boundary between mechanical syntax extraction
-and the source-adjudication work required for a complete parser. The first
-source-controlled D0019 slice contains 182 records, including
-3 aliases, 4 lexical classes, and
-1 metanotation entry. It retains
-174 unresolved records.
-The R402 closure applies the assumed suffix-name rule to
-49 absent terms and retains 128 unresolved records.
-The lexical witness slice classifies 25 lexical records,
-projects 21 token references, and retains
-2 Unicode cases unresolved.
-The combined D0019 slice contains 49 aliases,
-25 lexical classes, 107 unresolved records,
-and 116 composite SX witnesses.
-The initial accepted fixed errata overlay repairs 7 punctuation
-boundaries, with 6 comma repairs and 1 colon repair.
-An additional source-witnessed entry is included in the extended derived
-overlay used for the normalization result below.
-The resulting audit has 178 names and the R401/R403
-inventory contains 100 records: 80 R401 list
-terms and 20 R403 scalar terms. Their representation remains
-deferred to D0024.
-E0049 composes the accepted records into a 522-record
-candidate input with 3 overlapping R402/R403 terms. Its
-composition status is verification_failure.
-E0050 compares 3 pending representations for the
-3 overlap terms. Selection remains
-deferred_D0024_D0026.
+Language standards contain formal syntax, lexical notation, and prose. This
+paper measures a deterministic pipeline that extracts syntax from the J3/24-007
+Fortran 2023 working draft into StandardIR and projects the same records into
+EBNF, ANTLR4, Bison, and tree-sitter formats. Every syntax record retains its
+document, clause, rule number, page, byte span, and source hash. The extraction
+finds 522 numbered productions on 45-580 selected pages,
+with the same production set found in the complete 1-688-page
+document. The raw grouped projection exposes 181 unresolved
+names. Source-controlled typed resolution, fixed errata, lexical facts, and
+assumed syntax expansions produce a 519-record
+composite input from 522 source records, including
+80 R401 expansions, 20 R403
+expansions, and 3 compositional overlaps. The
+accepted input has zero unresolved target names. Deterministic target
+normalization makes ANTLR4 and Bison generation succeed while tree-sitter
+reaches an explicit 13-group conflict boundary.
+The reported runs use zero model calls. The paper's claim is limited to
+provenance-preserving extraction, typed source adjudication, and deterministic
+projection. It does not claim a complete parser or compiler.
 
 ## 1. Scope and claim
 
@@ -260,6 +238,24 @@ whether to derive a general conflict-projection mechanism or to stop using
 tree-sitter as a production target while retaining it as an export and
 differential oracle. The source representation and deterministic wiring do not
 change in either case.
+
+## 7. Conclusion
+
+The pinned J3 document yields a source-linked StandardIR syntax corpus with
+complete coverage of the selected numbered production span. The same records
+support four deterministic grammar projections. Typed resolution records and
+fixed errata preserve the distinction between source facts, derived parser
+aliases, and unresolved or disputed terms. The accepted composite projection
+removes the unresolved-name boundary without model calls. Target normalization
+then closes the compact ANTLR4 and Bison generation failures and records the
+remaining tree-sitter ambiguity as a reproducible target boundary.
+
+This result supports the repository's main engineering claim. The standard can
+remain the maintained semantic source while generated representations carry
+the wiring and provenance. The next implementation milestone is a specialized
+parser-generator input and a thin source-linked diagnostic demonstration. Its
+success will be measured against the same pinned records and independent
+oracles.
 
 ## References
 

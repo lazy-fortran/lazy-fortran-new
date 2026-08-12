@@ -5,47 +5,25 @@ set in `papers/standard-to-grammar/runs.txt`.
 
 ## Abstract
 
-Language standards contain formal syntax, lexical notation, and prose.
-Compiler frontends must turn those materials into executable structure. This paper reports a
-deterministic pipeline that extracts syntax from the J3/24-007 Fortran 2023
-working draft into StandardIR and projects that representation into several
-grammar formats. The pipeline preserves document, clause, rule, page, span,
-and source-hash provenance. It uses no model calls in the reported extraction
-or projection runs. The result covers @PRODUCTION_STARTS@ numbered
-productions from @CORE_PAGES@ selected pages, with the same production set found
-in the complete @DOCUMENT_PAGES@-page document. The same StandardIR records are
-projected into @PROJECTION_COUNT@ grammar formats. The projection is deliberately
-stopped at its validity boundary: target tools expose @UNRESOLVED_NAMES@
-unresolved names, and the audit traces those names to @UNRESOLVED_OCCURRENCES@
-occurrences in @UNRESOLVED_RULES@ referring rules. The contribution is a
-reproducible method and a measured boundary between mechanical syntax extraction
-and the source-adjudication work required for a complete parser. The first
-source-controlled D0019 slice contains @RESOLUTION_RECORDS@ records, including
-@RESOLUTION_ALIASES@ aliases, @RESOLUTION_LEXICAL@ lexical classes, and
-@RESOLUTION_METAVARIABLE@ metanotation entry. It retains
-@RESOLUTION_UNRESOLVED@ unresolved records.
-The R402 closure applies the assumed suffix-name rule to
-@R402_ALIASES@ absent terms and retains @R402_UNRESOLVED@ unresolved records.
-The lexical witness slice classifies @LEXICAL_CLASSES@ lexical records,
-projects @LEXICAL_PROJECTION@ token references, and retains
-@UNICODE_EXCLUSIONS@ Unicode cases unresolved.
-The combined D0019 slice contains @COMBINED_ALIASES@ aliases,
-@COMBINED_LEXICAL@ lexical classes, @COMBINED_UNRESOLVED@ unresolved records,
-and @COMBINED_WITNESSES@ composite SX witnesses.
-The initial accepted fixed errata overlay repairs @ERRATA_REPAIRS@ punctuation
-boundaries, with @ERRATA_COMMAS@ comma repairs and @ERRATA_COLONS@ colon repair.
-An additional source-witnessed entry is included in the extended derived
-overlay used for the normalization result below.
-The resulting audit has @EXPANSION_AUDIT_NAMES@ names and the R401/R403
-inventory contains @EXPANSION_RECORDS@ records: @R401_RECORDS@ R401 list
-terms and @R403_RECORDS@ R403 scalar terms. Their representation remains
-@EXPANSION_REPRESENTATION@.
-E0049 composes the accepted records into a @COMPOSITE_SYNTAX_RECORDS@-record
-candidate input with @COMPOSITE_CONFLICTS@ overlapping R402/R403 terms. Its
-composition status is @COMPOSITE_STATUS@.
-E0050 compares @CANDIDATE_STRATEGIES@ pending representations for the
-@CANDIDATE_OVERLAP_TERMS@ overlap terms. Selection remains
-@CANDIDATE_SELECTION@.
+Language standards contain formal syntax, lexical notation, and prose. This
+paper measures a deterministic pipeline that extracts syntax from the J3/24-007
+Fortran 2023 working draft into StandardIR and projects the same records into
+EBNF, ANTLR4, Bison, and tree-sitter formats. Every syntax record retains its
+document, clause, rule number, page, byte span, and source hash. The extraction
+finds @PRODUCTION_STARTS@ numbered productions on @CORE_PAGES@ selected pages,
+with the same production set found in the complete @DOCUMENT_PAGES@-page
+document. The raw grouped projection exposes @UNRESOLVED_NAMES@ unresolved
+names. Source-controlled typed resolution, fixed errata, lexical facts, and
+assumed syntax expansions produce a @ACCEPTED_PROJECTION_GENERATED@-record
+composite input from @ACCEPTED_PROJECTION_SOURCE@ source records, including
+@ACCEPTED_PROJECTION_R401@ R401 expansions, @ACCEPTED_PROJECTION_R403@ R403
+expansions, and @ACCEPTED_PROJECTION_OVERLAPS@ compositional overlaps. The
+accepted input has zero unresolved target names. Deterministic target
+normalization makes ANTLR4 and Bison generation succeed while tree-sitter
+reaches an explicit @NORMALIZED_TARGET_CONFLICTS@-group conflict boundary.
+The reported runs use zero model calls. The paper's claim is limited to
+provenance-preserving extraction, typed source adjudication, and deterministic
+projection. It does not claim a complete parser or compiler.
 
 ## 1. Scope and claim
 
@@ -255,16 +233,34 @@ E0055 shows that the next work is target normalization: eliminate or represent
 the pre-existing empty-rule, left-recursion and conflict boundaries while
 keeping StandardIR and deterministic wiring authoritative.
 E0056 completes the compact recursion and nullability normalization and
-identifies the next tree-sitter conflict boundary. The next decision is
-whether to derive a general conflict-projection mechanism or to stop using
-tree-sitter as a production target while retaining it as an export and
-differential oracle. The source representation and deterministic wiring do not
-change in either case.
+identifies the next tree-sitter conflict boundary. D0029 selects the
+specialized direct parser as the production target. EBNF, ANTLR4, Bison and
+tree-sitter remain generated exports and differential oracles, so their
+target-specific conflict metadata does not enter the authoritative
+representation.
+
+## 7. Conclusion
+
+The pinned J3 document yields a source-linked StandardIR syntax corpus with
+complete coverage of the selected numbered production span. The same records
+support four deterministic grammar projections. Typed resolution records and
+fixed errata preserve the distinction between source facts, derived parser
+aliases, and unresolved or disputed terms. The accepted composite projection
+removes the unresolved-name boundary without model calls. Target normalization
+then closes the compact ANTLR4 and Bison generation failures and records the
+remaining tree-sitter ambiguity as a reproducible target boundary.
+
+This result supports the repository's main engineering claim. The standard can
+remain the maintained semantic source while generated representations carry
+the wiring and provenance. The next implementation milestone is a specialized
+parser-generator input and a thin source-linked diagnostic demonstration. Its
+success will be measured against the same pinned records and independent
+oracles.
 
 ## References
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0028 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0029 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
