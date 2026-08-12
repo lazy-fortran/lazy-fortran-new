@@ -1,0 +1,19 @@
+{
+  "name": "phase1-modern-fortran-expression-subtrees-v0",
+  "version": 1,
+  "purpose": "Declared real-source witnesses for recursive token-level expression subtrees",
+  "base_corpus": "phase1-modern-fortran-expressions-v0",
+  "repository": "fortfront",
+  "repository_commit": "b8cb5926fd82ed299d00e8c50eaa41587f55237d",
+  "licence": "MIT repository fixture files",
+  "witnesses": [
+    {"path": "examples/f90/if_multiline_guard.f90", "sha256": "000ee09e3654f867aa0baed41b2d4345ffc184fe36d5fff4be60ef56a5c8b4c6", "start_line": 6, "end_line": 6, "role": "expr", "expected_base_nodes": 19, "expected_leaf_nodes": 7, "expected_kind_counts": {"name": 0, "literal": 5, "operator": 2}},
+    {"path": "examples/f90/if_multiline_guard.f90", "sha256": "000ee09e3654f867aa0baed41b2d4345ffc184fe36d5fff4be60ef56a5c8b4c6", "start_line": 9, "end_line": 10, "role": "logical-expr", "expected_base_nodes": 19, "expected_leaf_nodes": 5, "expected_kind_counts": {"name": 4, "literal": 0, "operator": 1}},
+    {"path": "examples/f90/issue_2254_free_form_continuation.f90", "sha256": "71a8556a5e17d74fa1a6ac2023e8ad773bdd065dd7792ef1279ba0e87b9a40d3", "start_line": 5, "end_line": 6, "role": "expr", "expected_base_nodes": 9, "expected_leaf_nodes": 3, "expected_kind_counts": {"name": 0, "literal": 2, "operator": 1}},
+    {"path": "examples/f90/control_flow_nested_select_case.f90", "sha256": "5c34ae6ce99b2cc6d991a818656d20f5fd47083fa3881193bec0486ba10d229d", "start_line": 8, "end_line": 8, "role": "case-selector", "expected_base_nodes": 19, "expected_leaf_nodes": 1, "expected_kind_counts": {"name": 0, "literal": 1, "operator": 0}},
+    {"path": "examples/f90/issue_1861_nested_do_print.f90", "sha256": "2a6123684c514d48b165d7b67f33c380bf28f30358008aa4b22ae1a952d7a58e", "start_line": 8, "end_line": 8, "role": "expr", "expected_base_nodes": 18, "expected_leaf_nodes": 5, "expected_kind_counts": {"name": 2, "literal": 1, "operator": 2}},
+    {"path": "examples/f90/named_constructs.f90", "sha256": "04437c9415d0ae94aa20e089902809c9e91900d5f641a18478a2cf0c418db024", "start_line": 13, "end_line": 13, "role": "expr", "expected_base_nodes": 60, "expected_leaf_nodes": 3, "expected_kind_counts": {"name": 2, "literal": 0, "operator": 1}},
+    {"path": "examples/f90/named_constructs.f90", "sha256": "04437c9415d0ae94aa20e089902809c9e91900d5f641a18478a2cf0c418db024", "start_line": 11, "end_line": 11, "role": "logical-expr", "expected_base_nodes": 60, "expected_leaf_nodes": 3, "expected_kind_counts": {"name": 1, "literal": 1, "operator": 1}},
+    {"path": "examples/f90/named_constructs.f90", "sha256": "04437c9415d0ae94aa20e089902809c9e91900d5f641a18478a2cf0c418db024", "start_line": 23, "end_line": 23, "role": "case-expr", "expected_base_nodes": 60, "expected_leaf_nodes": 1, "expected_kind_counts": {"name": 1, "literal": 0, "operator": 0}}
+  ]
+}

@@ -1,0 +1,73 @@
+id: "E0065"
+title: "Generated recursive expression subtrees from real-source witnesses"
+question: >
+  Can explicit expression-role nodes be extended with deterministic name,
+  literal and operator children while preserving source provenance for real
+  Fortran witnesses?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "163a42d"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-expression-subtrees-v0
+  predecessor: E0064-R000001
+  decisions: [D0021, D0023, D0028, D0029, D0030, D0031]
+
+variables:
+  operation: [expression-role-to-token-subtree]
+  representation: [generated-fortran-flat-node-array]
+  leaf_roles: [name, literal, operator]
+  query: [role-and-source-span-to-expression-node]
+
+model_selection: "No model calls. Witness selection, token classification, subtree wiring, provenance lookup and query checks are deterministic generated operations."
+
+metrics:
+  - witness_files
+  - expression_witnesses
+  - base_expression_nodes
+  - leaf_nodes
+  - name_nodes
+  - literal_nodes
+  - operator_nodes
+  - source_linked_leaves
+  - subtree_parent_links
+  - subtree_link_errors
+  - max_subtree_depth
+  - known_witness_queries
+  - unknown_witness_rejected
+  - fortran_compile_status
+  - runtime_test_status
+  - malformed_nesting_rejected
+
+denominator: >
+  The eight real-source expression witnesses declared by
+  phase1-modern-fortran-expression-subtrees-v0.json and their 28 expected
+  token-level leaf nodes. Each leaf retains a StandardIR rule and source
+  reference.
+
+independent_oracle: >
+  The JSON manifest supplies source hashes, witness spans, expression roles and
+  exact leaf counts by kind. E0064 independently validates the expression-role
+  forest and its source queries. This operation checks every witness root and
+  leaf source reference, traverses every leaf chain, rejects an unknown witness
+  query and runs a malformed nesting control through the predecessor.
+
+falsifiable_by: >
+  A source hash changes, E0064 fails, a witness root is missing, a token leaf is
+  lost or duplicated, a leaf is detached, its StandardIR source is missing or
+  mismatched, an unknown witness is accepted, generated Fortran fails to
+  compile or run, or malformed nesting is accepted.
+
+gate: >
+  Validate token-level recursive expression subtrees and source-linked witness
+  queries. This does not claim complete operator-precedence parsing, semantic
+  analysis or complete AST coverage.
+
+analysis: research/experiments/E0065-can-generated-expression-subtrees-preserve-/analyse.sh
