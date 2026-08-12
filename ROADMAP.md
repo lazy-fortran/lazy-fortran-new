@@ -448,8 +448,11 @@ evidence for the thesis.
       including the `submodule` keyword-like identifier case, with generated
       source-linked diagnostics (E0061, regenerate with
       `research/experiments/E0061-can-generated-parser-accept-complete-/analyse.sh`)
-- [ ] Add continuation and nested-construct witnesses, then validate broader
-      parser acceptance with the generated direct parser
+- [x] Assemble logical statements and validate nested construct closure over
+      continuation and named-construct witnesses (E0062, regenerate with
+      `research/experiments/E0062-can-generated-parser-handle-constructs-/analyse.sh`)
+- [ ] Add richer expression continuations and broader construct families,
+      then validate parser acceptance on a larger source set
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

@@ -41,6 +41,10 @@ The complete-source slice classifies @COMPLETE_EXPECTED_LINES@ meaningful lines
 across @COMPLETE_CORPUS_FILES@ pinned files. It links
 @COMPLETE_LINKED_LINES@ lines to StandardIR source records and compiles with
 status @COMPLETE_COMPILE@.
+The logical-construct slice assembles @CONSTRUCT_PHYSICAL_LINES@ meaningful
+physical lines into @CONSTRUCT_LOGICAL@ logical statements across
+@CONSTRUCT_CORPUS_FILES@ files. It records the continuation and nesting result
+with compile status @CONSTRUCT_COMPILE@.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -156,6 +160,10 @@ E0061 fills the complete-source operation for the declared corpus. It
 classifies @COMPLETE_EXPECTED_LINES@ meaningful lines, including the lexical
 distinction between a `submodule (...)` statement and a `submodule = ...`
 assignment. Each result retains its source line and StandardIR source span.
+E0062 extends the operation to logical statements. It joins free-form
+continuations and validates nested `do`, `if`, `select case`, `block`, and
+`associate` constructs. Each result retains its physical source range and
+StandardIR source span.
 
 ### 2.3 Verification
 
@@ -305,6 +313,11 @@ E0061 then covers every meaningful line in the five declared files. All
 @COMPLETE_CLASSIFIED_LINES@ lines are classified and source-linked, and the
 unsupported-line mutation is rejected. This is complete-source coverage for a
 small corpus. It is not a general Fortran parser.
+E0062 assembles @CONSTRUCT_LOGICAL@ logical statements from
+@CONSTRUCT_PHYSICAL_LINES@ physical lines, with two continuation joins and
+zero nesting errors. The mismatched-close mutation is rejected. This supplies
+the next local operation boundary while expression parsing and semantic
+checking remain open.
 
 ## 7. Conclusion
 
@@ -322,8 +335,10 @@ remain the maintained semantic source while generated representations carry
 the wiring and provenance. E0060 confirms a bounded statement operation
 against real source. E0061 extends that operation across every meaningful line
 in the declared files and preserves the source-linked diagnostic path. The next
-milestone adds continuation and nested-construct witnesses before broader
-parser acceptance is measured.
+in the declared files and preserves the source-linked diagnostic path. E0062
+adds logical-statement assembly and construct closure. The next milestone
+adds richer expression continuations and broader construct families before
+parser acceptance is measured on a larger source set.
 
 ## References
 

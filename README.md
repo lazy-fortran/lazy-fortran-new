@@ -81,8 +81,9 @@ first top-level operation over five pinned real-source files, and E0060
 validates ten declared statement witnesses with source-linked diagnostics.
 E0061 classifies all 72 meaningful lines in those five files and preserves the
 `submodule` keyword-like identifier case. The remaining Phase 1 boundary is
-adding continuation and nested-construct witnesses before broader parser
-acceptance. Regenerate these figures with
+assembling logical statements, extending construct families, and measuring
+broader parser acceptance. E0062 joins two free-form continuations and checks
+nested construct closure over 73 logical statements. Regenerate these figures with
 `papers/standard-to-grammar/analyse.sh` and
 `research/index.md` with `scripts/index.sh`.
 

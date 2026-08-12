@@ -316,6 +316,24 @@ The following rows are extracted from the accepted projection run records.
 | Unsupported mutation rejected | 1 |
 | Complete-source boundary | complete_source_operation_validated |
 
+## E0062 generated logical-statement operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Meaningful physical lines | 75 |
+| Logical statements | 73 |
+| Classified logical statements | 73 |
+| Source-linked statements | 73 |
+| Continuation joins | 2 |
+| Nesting errors | 0 |
+| Maximum nesting depth | 2 |
+| GNU Fortran accepted files | 5 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Malformed nesting rejected | 1 |
+| Logical-construct boundary | logical_construct_operation_validated |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

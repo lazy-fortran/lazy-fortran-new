@@ -41,6 +41,10 @@ The complete-source slice classifies 72 meaningful lines
 across 5 pinned files. It links
 72 lines to StandardIR source records and compiles with
 status 0.
+The logical-construct slice assembles 75 meaningful
+physical lines into 73 logical statements across
+5 files. It records the continuation and nesting result
+with compile status 0.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -156,6 +160,10 @@ E0061 fills the complete-source operation for the declared corpus. It
 classifies 72 meaningful lines, including the lexical
 distinction between a `submodule (...)` statement and a `submodule = ...`
 assignment. Each result retains its source line and StandardIR source span.
+E0062 extends the operation to logical statements. It joins free-form
+continuations and validates nested `do`, `if`, `select case`, `block`, and
+`associate` constructs. Each result retains its physical source range and
+StandardIR source span.
 
 ### 2.3 Verification
 
@@ -305,6 +313,11 @@ E0061 then covers every meaningful line in the five declared files. All
 72 lines are classified and source-linked, and the
 unsupported-line mutation is rejected. This is complete-source coverage for a
 small corpus. It is not a general Fortran parser.
+E0062 assembles 73 logical statements from
+75 physical lines, with two continuation joins and
+zero nesting errors. The mismatched-close mutation is rejected. This supplies
+the next local operation boundary while expression parsing and semantic
+checking remain open.
 
 ## 7. Conclusion
 
@@ -322,8 +335,10 @@ remain the maintained semantic source while generated representations carry
 the wiring and provenance. E0060 confirms a bounded statement operation
 against real source. E0061 extends that operation across every meaningful line
 in the declared files and preserves the source-linked diagnostic path. The next
-milestone adds continuation and nested-construct witnesses before broader
-parser acceptance is measured.
+in the declared files and preserves the source-linked diagnostic path. E0062
+adds logical-statement assembly and construct closure. The next milestone
+adds richer expression continuations and broader construct families before
+parser acceptance is measured on a larger source set.
 
 ## References
 
@@ -650,6 +665,24 @@ The following rows are extracted from the accepted projection run records.
 | Runtime test status | 0 |
 | Unsupported mutation rejected | 1 |
 | Complete-source boundary | complete_source_operation_validated |
+
+## E0062 generated logical-statement operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Meaningful physical lines | 75 |
+| Logical statements | 73 |
+| Classified logical statements | 73 |
+| Source-linked statements | 73 |
+| Continuation joins | 2 |
+| Nesting errors | 0 |
+| Maximum nesting depth | 2 |
+| GNU Fortran accepted files | 5 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Malformed nesting rejected | 1 |
+| Logical-construct boundary | logical_construct_operation_validated |
 
 ## E0054 D0027 lexical candidate comparison
 

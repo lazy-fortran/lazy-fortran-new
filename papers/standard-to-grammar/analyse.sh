@@ -112,6 +112,7 @@ assert_run R000067 '.status == "accepted" and .experiment == "E0058" and .verifi
 assert_run R000068 '.status == "accepted" and .experiment == "E0059" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_units == 8 and .verification.classified_units == 8 and .verification.source_linked_units == 8 and .verification.unit_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "top_level_local_operation_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000069 '.status == "accepted" and .experiment == "E0060" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_witnesses == 10 and .verification.classified_witnesses == 10 and .verification.source_linked_witnesses == 10 and .verification.witness_mismatches == 0 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "statement_witness_operation_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000070 '.status == "accepted" and .experiment == "E0061" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_meaningful_lines == 72 and .verification.classified_meaningful_lines == 72 and .verification.source_linked_lines == 72 and .verification.line_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_mutation_rejected == 1 and .verification.target_boundary == "complete_source_operation_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000071 '.status == "accepted" and .experiment == "E0062" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.physical_meaningful_lines == 75 and .verification.expected_logical_statements == 73 and .verification.classified_logical_statements == 73 and .verification.source_linked_statements == 73 and .verification.continuation_joins == 2 and .verification.nesting_errors == 0 and .verification.max_nesting_depth == 2 and .verification.statement_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "logical_construct_operation_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -312,6 +313,19 @@ complete_compile=$(metric R000070 '.verification.fortran_compile_status')
 complete_runtime=$(metric R000070 '.verification.runtime_test_status')
 complete_mutation=$(metric R000070 '.verification.unsupported_mutation_rejected')
 complete_boundary=$(metric R000070 '.verification.target_boundary')
+construct_corpus_files=$(metric R000071 '.verification.corpus_files')
+construct_physical_lines=$(metric R000071 '.verification.physical_meaningful_lines')
+construct_logical=$(metric R000071 '.verification.expected_logical_statements')
+construct_classified=$(metric R000071 '.verification.classified_logical_statements')
+construct_linked=$(metric R000071 '.verification.source_linked_statements')
+construct_joins=$(metric R000071 '.verification.continuation_joins')
+construct_nesting_errors=$(metric R000071 '.verification.nesting_errors')
+construct_max_depth=$(metric R000071 '.verification.max_nesting_depth')
+construct_gfortran_accepted=$(metric R000071 '.verification.gfortran_accepted')
+construct_compile=$(metric R000071 '.verification.fortran_compile_status')
+construct_runtime=$(metric R000071 '.verification.runtime_test_status')
+construct_mutation=$(metric R000071 '.verification.malformed_nesting_rejected')
+construct_boundary=$(metric R000071 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -645,6 +659,24 @@ EOF
 | Unsupported mutation rejected | $complete_mutation |
 | Complete-source boundary | $complete_boundary |
 
+## E0062 generated logical-statement operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | $construct_corpus_files |
+| Meaningful physical lines | $construct_physical_lines |
+| Logical statements | $construct_logical |
+| Classified logical statements | $construct_classified |
+| Source-linked statements | $construct_linked |
+| Continuation joins | $construct_joins |
+| Nesting errors | $construct_nesting_errors |
+| Maximum nesting depth | $construct_max_depth |
+| GNU Fortran accepted files | $construct_gfortran_accepted |
+| Fortran compile status | $construct_compile |
+| Runtime test status | $construct_runtime |
+| Malformed nesting rejected | $construct_mutation |
+| Logical-construct boundary | $construct_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -775,6 +807,14 @@ rendered=${rendered//@COMPLETE_LINKED_LINES@/$complete_linked_lines}
 rendered=${rendered//@COMPLETE_COMPILE@/$complete_compile}
 rendered=${rendered//@COMPLETE_RUNTIME@/$complete_runtime}
 rendered=${rendered//@COMPLETE_BOUNDARY@/$complete_boundary}
+rendered=${rendered//@CONSTRUCT_CORPUS_FILES@/$construct_corpus_files}
+rendered=${rendered//@CONSTRUCT_PHYSICAL_LINES@/$construct_physical_lines}
+rendered=${rendered//@CONSTRUCT_LOGICAL@/$construct_logical}
+rendered=${rendered//@CONSTRUCT_CLASSIFIED@/$construct_classified}
+rendered=${rendered//@CONSTRUCT_LINKED@/$construct_linked}
+rendered=${rendered//@CONSTRUCT_COMPILE@/$construct_compile}
+rendered=${rendered//@CONSTRUCT_RUNTIME@/$construct_runtime}
+rendered=${rendered//@CONSTRUCT_BOUNDARY@/$construct_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"
