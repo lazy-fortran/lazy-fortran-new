@@ -84,7 +84,10 @@ fact. Source-controlled adjudication then accepts @ADJUDICATED_ACCEPTED@
 typed relations from @ADJUDICATED_CANDIDATES@ candidate spans and retains
 @ADJUDICATED_RETAINED@ false-positive or residual records. All
 @ADJUDICATED_EVIDENCE@ adjudication rows have source evidence and the pinned
-source hash.
+source hash. Composition then combines the D0019 table and the accepted
+relations into @COMPOSITION_MERGED@ provenance-bearing fact rows. It keeps
+@COMPOSITION_SEMANTIC@ semantic facts out of parser aliases while deriving
+@COMPOSITION_PROJECTION@ deterministic parser-projection rows.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -352,6 +355,10 @@ E0071 adjudicates all @ADJUDICATED_CANDIDATES@ candidate spans: it accepts
 @ADJUDICATED_ACCEPTED@ typed relations and retains @ADJUDICATED_RETAINED@
 records. It makes no parser projection, and its independent difference is
 @ADJUDICATED_DIFFERENCE@.
+E0072 composes those relations with the D0019 records. It produces
+@COMPOSITION_MERGED@ fact rows and @COMPOSITION_PROJECTION@ parser-projection
+rows, while keeping @COMPOSITION_SEMANTIC@ semantic facts outside parser-only
+aliases.
 
 ## 5. Reproducibility and limitations
 
@@ -369,12 +376,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment composes the E0071 accepted relations with the existing
-D0019 resolution records into a partial parser input, while retaining the five
-adjudicated false positives and the 151-name E0070 residue. It must not turn
-the adjudication oracle into parser-only wiring. Later operations may resume
-after a retained diagnostic only when a compact constructive rule and an
-independent witness exist.
+The next experiment validates the E0072 composed projection against the
+ANTLR4, Bison, tree-sitter, and direct-parser generators while retaining the
+semantic fact table separately. It must preserve the five adjudicated false
+positives and the 151-name E0070 residue. Later operations may resume after a
+retained diagnostic only when a compact constructive rule and an independent
+witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -384,6 +391,9 @@ parser and its generated wiring remain unchanged while source-controlled
 adjudication determines which candidates are valid StandardIR relations. E0071
 accepts @ADJUDICATED_ACCEPTED@ typed relations and retains
 @ADJUDICATED_RETAINED@ candidate records.
+E0072 composes @COMPOSITION_MERGED@ facts and derives
+@COMPOSITION_PROJECTION@ parser rows without lowering
+@COMPOSITION_SEMANTIC@ semantic relations into aliases.
 
 ## 7. Conclusion
 
@@ -424,7 +434,10 @@ milestone is deterministic composition of the accepted relations with the
 existing parser input.
 E0071 supplies that adjudication boundary: @ADJUDICATED_ACCEPTED@ relations
 are source-supported, while @ADJUDICATED_RETAINED@ candidates remain
-unresolved or rejected.
+unresolved or rejected. E0072 supplies the composition boundary:
+@COMPOSITION_MERGED@ fact rows are retained with provenance and
+@COMPOSITION_PROJECTION@ parser rows are derived without semantic-role
+aliasing.
 
 ## References
 

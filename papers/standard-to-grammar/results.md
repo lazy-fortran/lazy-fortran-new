@@ -519,6 +519,23 @@ The following rows are extracted from the accepted projection run records.
 | Controlled mutation | observed_failure |
 | Adjudication boundary | source_controlled_bounded_prose_adjudication |
 
+## E0072 D0019 and adjudicated-relation composition
+
+| Quantity | Value |
+|---|---:|
+| D0019 base records | 182 |
+| Adjudicated relation records | 37 |
+| Merged fact records | 219 |
+| Retained adjudicated candidates | 5 |
+| E0070 unresolved residue | 151 |
+| Semantic facts excluded from parser aliases | 29 |
+| Parser projection records | 11 |
+| Records with source hash | 219 |
+| Parser projection difference | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+| Composition boundary | d0019_adjudicated_relation_composition |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

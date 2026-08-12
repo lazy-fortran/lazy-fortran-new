@@ -486,8 +486,12 @@ evidence for the thesis.
       with independent source checks (E0071, regenerate with
       `research/experiments/E0071-can-source-controlled-adjudication-separ/analyse.sh`)
 - [ ] Compose the E0071 accepted relations with the existing D0019 records
-      into a partial parser input while retaining all rejected and unresolved
-      names
+- [x] Compose the E0071 accepted relations with the existing D0019 records:
+      219 provenance-bearing fact rows, 29 semantic facts kept out of parser
+      aliases, and 11 deterministic parser-projection rows (E0072, regenerate
+      with `research/experiments/E0072-can-accepted-normative-relations-compose/analyse.sh`)
+- [ ] Validate the composed projection against all generated export targets and
+      the direct parser while retaining the semantic fact table separately
 - [ ] Resume after retained residues and enlarge supported complete-source
       statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and

@@ -122,6 +122,7 @@ assert_run R000077 '.status == "accepted" and .experiment == "E0068" and .verifi
 assert_run R000078 '.status == "accepted" and .experiment == "E0069" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.candidate_spans == 9 and .verification.alias_names == 0 and .verification.lexical_class_names == 2 and .verification.metavariable_names == 1 and .verification.semantic_role_names == 4 and .verification.ambiguous_names == 0 and .verification.unresolved_after_patterns == 174 and .verification.source_linked_candidates == 9 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "deterministic_normative_prose_evidence_measured"'
 assert_run R000079 '.status == "accepted" and .experiment == "E0070" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.logical_units == 5064 and .verification.table_rows == 39 and .verification.candidate_spans == 42 and .verification.candidate_names == 30 and .verification.new_names_over_e0069 == 23 and .verification.alias_names == 0 and .verification.lexical_class_names == 7 and .verification.metavariable_names == 1 and .verification.semantic_role_names == 22 and .verification.ambiguous_names == 0 and .verification.unresolved_after_patterns == 151 and .verification.source_linked_candidates == 42 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "bounded_normative_prose_evidence_measured"'
 assert_run R000080 '.status == "accepted" and .experiment == "E0071" and .verification.zero_model_calls == true and .verification.candidate_spans == 42 and .verification.accepted_records == 37 and .verification.retained_records == 5 and .verification.accepted_alias_records == 0 and .verification.accepted_lexical_class_records == 7 and .verification.accepted_metavariable_records == 1 and .verification.accepted_semantic_role_records == 29 and .verification.source_hash_matches == 42 and .verification.source_evidence_matches == 42 and .verification.candidate_inventory_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "source_controlled_bounded_prose_adjudication"'
+assert_run R000081 '.status == "accepted" and .experiment == "E0072" and .verification.zero_model_calls == true and .verification.d0019_records == 182 and .verification.adjudicated_relation_records == 37 and .verification.merged_fact_records == 219 and .verification.retained_relations == 5 and .verification.unresolved_records == 151 and .verification.semantic_facts_not_parser_aliases == 29 and .verification.parser_projection_records == 11 and .verification.source_hash_matches == 219 and .verification.projection_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "d0019_adjudicated_relation_composition"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -474,6 +475,18 @@ adjudicated_inventory_difference=$(metric R000080 '.verification.candidate_inven
 adjudicated_difference=$(metric R000080 '.verification.independent_difference')
 adjudicated_negative=$(metric R000080 '.verification.negative_control')
 adjudicated_boundary=$(metric R000080 '.verification.target_boundary')
+composition_d0019=$(metric R000081 '.verification.d0019_records')
+composition_relations=$(metric R000081 '.verification.adjudicated_relation_records')
+composition_merged=$(metric R000081 '.verification.merged_fact_records')
+composition_retained=$(metric R000081 '.verification.retained_relations')
+composition_unresolved=$(metric R000081 '.verification.unresolved_records')
+composition_semantic=$(metric R000081 '.verification.semantic_facts_not_parser_aliases')
+composition_projection=$(metric R000081 '.verification.parser_projection_records')
+composition_hashes=$(metric R000081 '.verification.source_hash_matches')
+composition_projection_difference=$(metric R000081 '.verification.projection_difference')
+composition_difference=$(metric R000081 '.verification.independent_difference')
+composition_negative=$(metric R000081 '.verification.negative_control')
+composition_boundary=$(metric R000081 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -1010,6 +1023,23 @@ EOF
 | Controlled mutation | $adjudicated_negative |
 | Adjudication boundary | $adjudicated_boundary |
 
+## E0072 D0019 and adjudicated-relation composition
+
+| Quantity | Value |
+|---|---:|
+| D0019 base records | $composition_d0019 |
+| Adjudicated relation records | $composition_relations |
+| Merged fact records | $composition_merged |
+| Retained adjudicated candidates | $composition_retained |
+| E0070 unresolved residue | $composition_unresolved |
+| Semantic facts excluded from parser aliases | $composition_semantic |
+| Parser projection records | $composition_projection |
+| Records with source hash | $composition_hashes |
+| Parser projection difference | $composition_projection_difference |
+| Independent difference | $composition_difference |
+| Controlled mutation | $composition_negative |
+| Composition boundary | $composition_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1265,6 +1295,18 @@ rendered=${rendered//@ADJUDICATED_INVENTORY_DIFFERENCE@/$adjudicated_inventory_d
 rendered=${rendered//@ADJUDICATED_DIFFERENCE@/$adjudicated_difference}
 rendered=${rendered//@ADJUDICATED_NEGATIVE@/$adjudicated_negative}
 rendered=${rendered//@ADJUDICATED_BOUNDARY@/$adjudicated_boundary}
+rendered=${rendered//@COMPOSITION_D0019@/$composition_d0019}
+rendered=${rendered//@COMPOSITION_RELATIONS@/$composition_relations}
+rendered=${rendered//@COMPOSITION_MERGED@/$composition_merged}
+rendered=${rendered//@COMPOSITION_RETAINED@/$composition_retained}
+rendered=${rendered//@COMPOSITION_UNRESOLVED@/$composition_unresolved}
+rendered=${rendered//@COMPOSITION_SEMANTIC@/$composition_semantic}
+rendered=${rendered//@COMPOSITION_PROJECTION@/$composition_projection}
+rendered=${rendered//@COMPOSITION_HASHES@/$composition_hashes}
+rendered=${rendered//@COMPOSITION_PROJECTION_DIFFERENCE@/$composition_projection_difference}
+rendered=${rendered//@COMPOSITION_DIFFERENCE@/$composition_difference}
+rendered=${rendered//@COMPOSITION_NEGATIVE@/$composition_negative}
+rendered=${rendered//@COMPOSITION_BOUNDARY@/$composition_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

@@ -84,7 +84,10 @@ fact. Source-controlled adjudication then accepts 37
 typed relations from 42 candidate spans and retains
 5 false-positive or residual records. All
 42 adjudication rows have source evidence and the pinned
-source hash.
+source hash. Composition then combines the D0019 table and the accepted
+relations into 219 provenance-bearing fact rows. It keeps
+29 semantic facts out of parser aliases while deriving
+11 deterministic parser-projection rows.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -352,6 +355,10 @@ E0071 adjudicates all 42 candidate spans: it accepts
 37 typed relations and retains 5
 records. It makes no parser projection, and its independent difference is
 0.
+E0072 composes those relations with the D0019 records. It produces
+219 fact rows and 11 parser-projection
+rows, while keeping 29 semantic facts outside parser-only
+aliases.
 
 ## 5. Reproducibility and limitations
 
@@ -369,12 +376,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment composes the E0071 accepted relations with the existing
-D0019 resolution records into a partial parser input, while retaining the five
-adjudicated false positives and the 151-name E0070 residue. It must not turn
-the adjudication oracle into parser-only wiring. Later operations may resume
-after a retained diagnostic only when a compact constructive rule and an
-independent witness exist.
+The next experiment validates the E0072 composed projection against the
+ANTLR4, Bison, tree-sitter, and direct-parser generators while retaining the
+semantic fact table separately. It must preserve the five adjudicated false
+positives and the 151-name E0070 residue. Later operations may resume after a
+retained diagnostic only when a compact constructive rule and an independent
+witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -384,6 +391,9 @@ parser and its generated wiring remain unchanged while source-controlled
 adjudication determines which candidates are valid StandardIR relations. E0071
 accepts 37 typed relations and retains
 5 candidate records.
+E0072 composes 219 facts and derives
+11 parser rows without lowering
+29 semantic relations into aliases.
 
 ## 7. Conclusion
 
@@ -424,7 +434,10 @@ milestone is deterministic composition of the accepted relations with the
 existing parser input.
 E0071 supplies that adjudication boundary: 37 relations
 are source-supported, while 5 candidates remain
-unresolved or rejected.
+unresolved or rejected. E0072 supplies the composition boundary:
+219 fact rows are retained with provenance and
+11 parser rows are derived without semantic-role
+aliasing.
 
 ## References
 
@@ -959,6 +972,23 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 | Adjudication boundary | source_controlled_bounded_prose_adjudication |
+
+## E0072 D0019 and adjudicated-relation composition
+
+| Quantity | Value |
+|---|---:|
+| D0019 base records | 182 |
+| Adjudicated relation records | 37 |
+| Merged fact records | 219 |
+| Retained adjudicated candidates | 5 |
+| E0070 unresolved residue | 151 |
+| Semantic facts excluded from parser aliases | 29 |
+| Parser projection records | 11 |
+| Records with source hash | 219 |
+| Parser projection difference | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+| Composition boundary | d0019_adjudicated_relation_composition |
 
 ## E0054 D0027 lexical candidate comparison
 

@@ -1,0 +1,38 @@
+name        = "E0072-R000001-d0019-relation-composition-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/e29f19f"
+sha256      = "a08f5b95e9d0f5e885e0d036bea2afcb041eadfb8873e24e5a2519a81cdd47c8"
+bytes       = 304
+licence     = "MIT adapter; source document retains its own licence"
+retrieved   = "2026-08-12"
+purpose     = "Summary of composing E0071 source relations with the D0019 resolution records"
+path        = ".cache/runs/E0072/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+generator   = "lazy-fortran-new E0072 D0019 relation composition"
+generator_commit = "e29f19f"
+checker     = "research/experiments/E0072-can-accepted-normative-relations-compose/analyse.sh"
+checker_commit = "e29f19f"
+d0019_records = 182
+adjudicated_relation_records = 37
+merged_fact_records = 219
+retained_relations = 5
+unresolved_records = 151
+semantic_facts_not_parser_aliases = 29
+parser_projection_records = 11
+source_hash_matches = 219
+projection_difference = 0
+independent_difference = 0
+negative_control = "observed_failure"
+composite_resolution_facts_sha256 = "9da21d15972d2ba559690fedcacbe6f58593d307227e4c210e44bf6a49118a08"
+composite_resolution_facts_bytes = 44029
+parser_projection_sha256 = "02e93bd803fab374c0b399dd2cbb52d018da0902c5964609eba8534383f60ab6"
+parser_projection_bytes = 571
+retained_candidates_sha256 = "cc563af740affdb68f3f764ce5b5ca5b2a41e460ac25f182a71df4230eda8f40"
+retained_candidates_bytes = 54895
+
+# Regenerate and verify with:
+#   research/experiments/E0072-can-accepted-normative-relations-compose/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.
