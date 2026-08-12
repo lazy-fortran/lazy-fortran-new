@@ -117,7 +117,8 @@ experiment.
 - [x] Fetch verifier proven able to fail on a corrupted hash, and to accept a
       matching one
 - [x] `scripts/selftest.sh` with eight gates, run in CI
-- [x] Commit-reference checker and optional pre-commit hook (D0017)
+- [x] Commit-reference checker and optional pre-commit hook (D0017; validates
+      active experiment and artifact pins without rewriting them)
 - [x] `standard-new` scaffolded: fpm project, `fortpdf` over poppler-glib,
       `pdfinfo`
 - [x] `fortpdf` test suite with fixtures of known page count, proven able to
