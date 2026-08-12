@@ -110,6 +110,8 @@ E0051 validates the same partial candidate in ANTLR4, Bison and tree-sitter.
 All three reject it. ANTLR4 and Bison expose identical unresolved-name sets.
 tree-sitter exposes an earlier malformed sequence caused by flattened repaired
 punctuation inside an optional group.
+E0052 preserves those repaired groups. tree-sitter then reaches the same
+unresolved-symbol boundary as ANTLR4 and Bison.
 
 ### 2.3 Verification
 
@@ -162,8 +164,8 @@ verification failure. E0050 records the representation tradeoff without
 selecting a strategy. E0051 shows that target-tool rejection persists. ANTLR4
 and Bison report @TARGET_UNRESOLVED_NAMES@ identical unresolved names. tree-sitter stops at a
 structural `seq(, ...)` error in the generated optional-group projection. The
-next implementation slice is to preserve that group structure through the
-erratum rewrite and rerun the validators.
+E0052 removes that structural error by preserving two source-derived optional
+groups. All three tools then expose the unresolved-name boundary.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -187,10 +189,10 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next implementation experiment should repair the deterministic SX
-composition that produces `seq(, ...)` for the `where-construct-stmt` rule.
-The repaired candidate should then be rerun through all three target
-validators. The R401/R403 representation decision remains separate. E0048
+The next implementation experiment should resolve the 103-name residue while
+retaining the grouped erratum transformation. E0052 removes the deterministic
+`seq(, ...)` composition error and reruns all three target validators. The
+R401/R403 representation decision remains separate. E0048
 supplies the complete 80/20 inventory, E0049 supplies the candidate and its
 retained failure, and E0050 supplies the explicit tradeoff matrix. The choice
 is proposed in [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md)

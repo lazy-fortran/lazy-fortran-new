@@ -1,0 +1,41 @@
+name = "E0052-R000001-grouped-erratum-composition"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/e6ba1ad/research/experiments/E0052-can-grouped-erratum-composition-preserve"
+sha256 = "737f6db9e4213ff36b5023dd864b18378869a14c296e1845f9daabad42eb5d69"
+bytes = 776
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for preserving repaired reference-plus-punctuation groups in the partial parser input"
+path = ".cache/runs/E0052/R000001/summary.tsv"
+origin = "DIFFERENTIAL"
+format = "tab-separated grouped-composition target-validation summary"
+generator = "E0052 analyse.sh"
+generator_commit = "e6ba1ad"
+checker = "research/experiments/E0052-can-grouped-erratum-composition-preserve/analyse.sh"
+checker_commit = "e6ba1ad"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+normalized_resolution_sha256 = "e284b4e9b2b14176a0743103084ae53f0535157896a29e27026fdc2d12331a5e"
+grouped_input_sha256 = "2f415053c9421069290af855a645605aca1b6f7c0b192706280f41895abeeead"
+antlr_grammar_sha256 = "e1450490a160ef7d90b5fd3aae3e31d0af86894e01bfd897023c4a7a4d1797e6"
+bison_grammar_sha256 = "2d8b5fc15922729d12adf66a2450c57aa4ff623800150fb2db12f18a933218ab"
+treesitter_grammar_sha256 = "cf2312b9c11c0a26974c3e299156b7c6a9a4c95f56614a61e618fd118faab341"
+optional_errata_witnesses_sha256 = "014960845a68d9a3eb3d0e9fed8d9b57acf57242edeaed5b86c487e29f2465a9"
+optional_errata_witnesses_bytes = 58
+final_syntax_records = 522
+errata_repairs = 8
+grouped_optional_repairs = 2
+antlr_definitions = 502
+bison_definitions = 502
+treesitter_definitions = 502
+antlr_status = 1
+bison_status = 1
+treesitter_status = 1
+treesitter_structural_error = 0
+antlr_unresolved_rule_names = 103
+bison_unresolved_symbol_names = 103
+antlr_bison_unresolved_set_difference = 0
+negative_control = "observed_failure"
+target_boundary = "verification_failure_unresolved_names"
+
+# Regenerate and verify with:
+#   research/experiments/E0052-can-grouped-erratum-composition-preserve/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

@@ -165,6 +165,21 @@ The following rows are extracted from the accepted projection run records.
 | All target statuses reject | 1 |
 | Controlled definition mutation | observed_failure |
 
+## E0052 grouped erratum composition
+
+| Quantity | Value |
+|---|---:|
+| Errata repairs | 8 |
+| Optional grouping witnesses | 2 |
+| ANTLR4 exit status | 1 |
+| Bison exit status | 1 |
+| tree-sitter exit status | 1 |
+| tree-sitter structural error | 0 |
+| ANTLR4 unresolved names | 103 |
+| Bison unresolved names | 103 |
+| ANTLR4/Bison unresolved-set difference | 0 |
+| Controlled grouping mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |

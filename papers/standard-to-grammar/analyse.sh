@@ -102,6 +102,7 @@ assert_run R000057 '.status == "accepted" and .experiment == "E0048" and .verifi
 assert_run R000058 '.status == "verification_failure" and .experiment == "E0049" and .verification.zero_model_calls == true and .verification.source_resolution_records == 182 and .verification.errata_repairs == 8 and .verification.resolved_projection_records == 70 and .verification.expansion_records == 100 and .verification.family_resolution_conflicts == 3 and .verification.conflict_set_difference == 0 and .verification.final_syntax_records == 522 and .verification.representation_selection == "deferred_D0024" and .verification.negative_control == "observed_failure"'
 assert_run R000059 '.status == "accepted" and .experiment == "E0050" and .verification.zero_model_calls == true and .verification.candidate_strategies == 3 and .verification.overlap_terms == 3 and .verification.r401_records == 80 and .verification.r403_records == 20 and .verification.candidate_rows == 9 and .verification.lossy_alias_precedence_rows == 3 and .verification.lossless_expansion_precedence_rows == 3 and .verification.lossless_unresolved_composite_rows == 3 and .verification.parser_ready_candidates == 1 and .verification.representation_selection == "deferred_D0024_D0026" and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000060 '.status == "verification_failure" and .experiment == "E0051" and .verification.zero_model_calls == true and .verification.final_syntax_records == 522 and .verification.antlr_definitions == 502 and .verification.bison_definitions == 502 and .verification.treesitter_definitions == 502 and .verification.antlr_status == 1 and .verification.antlr_unresolved_rule_names == 103 and .verification.bison_status == 1 and .verification.bison_unresolved_symbol_names == 103 and .verification.treesitter_status == 1 and .verification.treesitter_structural_error == 1 and .verification.antlr_bison_unresolved_set_difference == 0 and .verification.target_status_agreement == 1 and .verification.negative_control == "observed_failure"'
+assert_run R000061 '.status == "verification_failure" and .experiment == "E0052" and .verification.zero_model_calls == true and .verification.final_syntax_records == 522 and .verification.errata_repairs == 8 and .verification.grouped_optional_repairs == 2 and .verification.antlr_definitions == 502 and .verification.bison_definitions == 502 and .verification.treesitter_definitions == 502 and .verification.antlr_status == 1 and .verification.bison_status == 1 and .verification.treesitter_status == 1 and .verification.treesitter_structural_error == 0 and .verification.antlr_unresolved_rule_names == 103 and .verification.bison_unresolved_symbol_names == 103 and .verification.antlr_bison_unresolved_set_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -194,6 +195,16 @@ target_treesitter_structural=$(metric R000060 '.verification.treesitter_structur
 target_set_difference=$(metric R000060 '.verification.antlr_bison_unresolved_set_difference')
 target_status_agreement=$(metric R000060 '.verification.target_status_agreement')
 target_negative_control=$(metric R000060 '.verification.negative_control')
+grouped_errata_repairs=$(metric R000061 '.verification.errata_repairs')
+grouped_optional_repairs=$(metric R000061 '.verification.grouped_optional_repairs')
+grouped_antlr_status=$(metric R000061 '.verification.antlr_status')
+grouped_bison_status=$(metric R000061 '.verification.bison_status')
+grouped_treesitter_status=$(metric R000061 '.verification.treesitter_status')
+grouped_treesitter_structural=$(metric R000061 '.verification.treesitter_structural_error')
+grouped_antlr_unresolved=$(metric R000061 '.verification.antlr_unresolved_rule_names')
+grouped_bison_unresolved=$(metric R000061 '.verification.bison_unresolved_symbol_names')
+grouped_set_difference=$(metric R000061 '.verification.antlr_bison_unresolved_set_difference')
+grouped_negative_control=$(metric R000061 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -375,6 +386,21 @@ EOF
 | ANTLR4/Bison unresolved-set difference | $target_set_difference |
 | All target statuses reject | $target_status_agreement |
 | Controlled definition mutation | $target_negative_control |
+
+## E0052 grouped erratum composition
+
+| Quantity | Value |
+|---|---:|
+| Errata repairs | $grouped_errata_repairs |
+| Optional grouping witnesses | $grouped_optional_repairs |
+| ANTLR4 exit status | $grouped_antlr_status |
+| Bison exit status | $grouped_bison_status |
+| tree-sitter exit status | $grouped_treesitter_status |
+| tree-sitter structural error | $grouped_treesitter_structural |
+| ANTLR4 unresolved names | $grouped_antlr_unresolved |
+| Bison unresolved names | $grouped_bison_unresolved |
+| ANTLR4/Bison unresolved-set difference | $grouped_set_difference |
+| Controlled grouping mutation | $grouped_negative_control |
 
 ## External behavioral baseline
 
