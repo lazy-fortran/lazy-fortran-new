@@ -76,9 +76,9 @@ Runs recorded: 46
 | [D0016](decisions/D0016-deterministic-structural-generation.md) | accepted |  | Deterministic structural generation and local synthesis holes |
 | [D0017](decisions/D0017-commit-pins-and-live-status.md) | accepted |  | Immutable experiment pins and live repository status |
 | [D0018](decisions/D0018-composite-parser-input.md) | accepted |  | Composite parser input, not raw syntax exports |
-| [D0019](decisions/D0019-composite-parser-symbols.md) | proposed |  | Proposed composite parser-symbol resolution |
-| [D0020](decisions/D0020-canonical-extraction-edge-policy.md) | proposed |  | Canonical extraction edge policy |
-| [D0021](decisions/D0021-schema-value-serialization.md) | proposed |  | Schema value serialization for generated APIs |
+| [D0019](decisions/D0019-composite-parser-symbols.md) | accepted |  | Composite parser-symbol resolution |
+| [D0020](decisions/D0020-canonical-extraction-edge-policy.md) | accepted |  | Canonical extraction edge policy |
+| [D0021](decisions/D0021-schema-value-serialization.md) | accepted |  | Schema value serialization for generated APIs |
 
 ## Pinned artifacts
 
