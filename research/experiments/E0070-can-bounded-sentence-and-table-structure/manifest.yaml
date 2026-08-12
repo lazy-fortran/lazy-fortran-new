@@ -1,0 +1,93 @@
+id: "E0070"
+title: "Bounded sentence and table normative-prose resolution"
+question: >
+  Can bounded sentence and table structure recover additional normative relations mechanically?
+status: running          # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "a7bdf91"
+  standard-new: "c6cd889"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  unresolved_audit: artifacts/runs/E0022/R000001-reference-audit.toml
+  canonical_text: artifacts/runs/E0001/R000003-canonical-text.toml
+  predecessor: E0069-R000001
+  witness_oracle: research/experiments/E0070-can-bounded-sentence-and-table-structure/witness-oracle.tsv
+  decisions: [D0028, D0035]
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  recognizer: [bounded-logical-sentences, bounded-table-rows]
+  model_calls: [zero]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model calls; sentence joining and table-row extraction are deterministic."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - unresolved_names
+  - logical_units
+  - table_rows
+  - candidate_spans
+  - candidate_names
+  - new_names_over_e0069
+  - alias_names
+  - lexical_class_names
+  - metavariable_names
+  - semantic_role_names
+  - ambiguous_names
+  - unresolved_after_patterns
+  - source_linked_candidates
+  - independent_difference
+  - negative_control
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  Every distinct unresolved reference name in the pinned E0022 audit. Canonical
+  lines are joined only within a bounded paragraph until a new numbered
+  paragraph, blank line, page boundary or table boundary. Tables are scanned
+  only between an explicit Table header and the next numbered paragraph. No
+  name is discarded because it lacks a match.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+  independent_oracle: >
+  The primary pass emits bounded logical sentence units and table rows. A
+  separate audit-driven grep/awk traversal recomputes candidate term/kind pairs
+  from those units. The fixed witness oracle checks a cross-line entry-name
+  relation, a table punctuation row, an existing lexical definition, and a
+  negative program-name case. A controlled source mutation must remove the
+  table witness.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  The 181-name denominator or source hash changes, paragraph joining crosses a
+  declared boundary, table state runs beyond its header and terminator, a
+  candidate lacks source location, the primary and independent candidate sets
+  differ, the table witness is not removed by mutation, or the negative
+  control passes.
+
+# The condition that closes the experiment and the evidence it must report.
+  gate: >
+  Verify the pinned source and audit, emit all bounded logical units and table
+  rows with source locations, classify exact candidate relations without
+  accepting them as StandardIR facts, independently reproduce the candidate
+  set and fixed witnesses, compare the result with E0069, and retain the
+  unresolved residue for later model escalation.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/experiments/E0070-can-bounded-sentence-and-table-structure/analyse.sh

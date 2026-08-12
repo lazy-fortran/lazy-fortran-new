@@ -1,0 +1,6 @@
+term	structure	classification	logical_substring	purpose
+entry-name	sentence	semantic-role	The name of the function is entry-name	cross-line name relation
+result-name	sentence	semantic-role	the name of its result is result-name	cross-line name relation
+.	table	lexical-class	. Decimal point or period	table character name
+digit	sentence	lexical-class	The ten digits define the syntactic class digit	predecessor lexical witness
+program-name	sentence	unresolved	program-name shall not be included in the end-program-stmt	negative non-alias evidence
