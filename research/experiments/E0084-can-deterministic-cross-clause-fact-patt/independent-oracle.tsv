@@ -1,0 +1,7 @@
+constraint_id	source_phrase	predicate	required_facts	provided_facts
+C795	type-name shall be the name of an accessible derived type.	(and (resolved type-name) (accessible type-name) (derived-type type-name))	resolved-symbol type-fact accessibility-fact	checked-derived-type
+C1404	If module-nature is INTRINSIC, module-name shall be the name of an intrinsic module.	(implies (eq module-nature INTRINSIC) (intrinsic-module module-name))	parsed-module-nature resolved-module-name module-kind-fact	checked-intrinsic-module
+C1405	If module-nature is NON_INTRINSIC, module-name shall be the name of a nonintrinsic module.	(implies (eq module-nature NON_INTRINSIC) (nonintrinsic-module module-name))	parsed-module-nature resolved-module-name module-kind-fact	checked-nonintrinsic-module
+C1526	A procedure-name shall be a generic name or the name of a procedure.	(or (generic-name procedure-name) (procedure-name procedure-name))	resolved-symbol symbol-kind-fact	checked-procedure-name
+C1587	Named constants in scalar-expr shall have been declared earlier in the scoping unit or made accessible by use	(or (declared-earlier named-constant) (use-accessible named-constant))	parsed-scalar-expr declaration-fact use-association-fact	checked-constant-reference
+C1590	A given dummy-arg-name shall not appear more than once in a given dummy-arg-name-list.	(unique dummy-arg-name-list)	parsed-dummy-arg-name-list names-fact	checked-unique-dummy-args
