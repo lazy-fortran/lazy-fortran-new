@@ -13,7 +13,7 @@ applicable.
 ## Abstract
 
 Compiler construction is dominated by manually maintained implementation code. A
-language standard describes the intended language in several hundred pages;
+language standard describes the intended language in several hundred pages.
 implementations expand that into hundreds of thousands or millions of lines
 covering lexing, parsing, semantic analysis, intermediate representations,
 optimization, ABI handling, code generation, diagnostics and testing.
@@ -63,7 +63,7 @@ compiler can be derived rather than written. How much is an open number, and
 the point of sections 25 and 26 is to produce it rather than to assume it. The
 project's own working target is that fewer than one rule in twenty needs a
 model, and fewer than one in a hundred needs a person, both measured per
-StandardIR rule; those figures are hypotheses, not results.
+StandardIR rule. Those figures are hypotheses, not results.
 
 ---
 
@@ -106,9 +106,9 @@ In summary:
    named after the consumers that asked. The downstream consumer wrote the
    required contract into its own roadmap because the frontend did not have one.
 3. **Rank, type and representation combinatorics defeat conventions.** Explicit
-   rank-one-to-four ladders across reductions, arrays, components and sections;
-   13% of one repository's insertions; 58% of its source in include fragments
-   its own standards document forbids.
+   rank-one-to-four ladders across reductions, arrays, components and sections.
+   The pattern accounted for 13% of one repository's insertions and 58% of its
+   source in include fragments that its own standards document forbids.
 4. **Declaring the representation lattice is not enough.** See §2.4 below. This
    is the correction that most changes the design.
 5. **Text handling and accidental quadratic behaviour dominate real cost.**
@@ -380,7 +380,7 @@ audience is deterministic generators, synthesis systems, small models and
 mechanical verifiers, not human programmers.
 
 **It is residual.** A constraint such as `require rank(x) = 0` fully determines
-its own checker and compiles mechanically; routing it through synthesis would
+its own checker and compiles mechanically. Routing it through synthesis would
 buy nothing and would make the model-generated fraction 100 per cent by
 construction, destroying the measurement. Three paths exist and are tried in
 order: interpret the declarative rule, specialize it into procedural Fortran,
@@ -452,9 +452,10 @@ that trajectory directly.
 
 ## 12. Generation hierarchy
 
-Deterministic generation; then symbolic search, SMT or CEGIS; then the smallest
-model, escalating through model scales; then human intervention only if
-unavoidable. Stop at the cheapest accepted solution and record which
+Deterministic generation comes first. Symbolic search, SMT or CEGIS follows.
+The smallest model comes next, escalating through model scales. Human
+intervention is used only if unavoidable. Stop at the cheapest accepted solution
+and record which
 level produced the artifact.
 
 This hierarchy applies to two separate generation tasks.
@@ -518,7 +519,7 @@ other.
 gfortran, LLVM Flang, LFortran, FortFront and FFC serve as independent oracles
 over accept and reject decisions, diagnostics, runtime behaviour, source
 round-trips and ABI behaviour. Differences produce automatically minimized
-reproducers. No existing compiler is normative; StandardIR is.
+reproducers. No existing compiler is normative. StandardIR is.
 
 One boundary is legal rather than technical. gfortran is GPL. It is used as a
 behavioural oracle only (run the binary, compare the output), and its source is
@@ -667,11 +668,11 @@ not on the production path.
 
 The following are never generated, and are trusted as given:
 
-- the hardware, and the ISA specification's own correctness;
-- the operating system and the C library;
-- the bootstrap compiler used to build the first generated compiler;
+- the hardware, and the ISA specification's own correctness,
+- the operating system and the C library,
+- the bootstrap compiler used to build the first generated compiler,
 - the C libraries bound through `ISO_C_BINDING`, principally `poppler` at the
-  top of the pipeline;
+  top of the pipeline,
 - the verification tools themselves, including any solver.
 
 What the architecture claims is narrower: **no layer is a hand-written
@@ -686,9 +687,9 @@ Perform a transformation before the information it needs has been destroyed.
 `matmul(A, x)` carries meaning that disappears once it becomes scalar pointer
 arithmetic. `R(y, p) = 0` carries information useful for implicit
 differentiation that disappears if only the numerical iteration solving it is
-visible. Symbolic transformation and array algebra belong high; differentiation
-belongs at the highest semantic level where it is possible; loop fusion belongs
-in MIR; vectorization lower; instruction selection and peephole work at the
+visible. Symbolic transformation and array algebra belong high. Differentiation
+belongs at the highest semantic level where it is possible. Loop fusion belongs
+in MIR. Vectorization belongs lower. Instruction selection and peephole work at the
 machine level. This mirrors the experience of source-level versus late IR-level
 automatic differentiation.
 
@@ -723,20 +724,20 @@ generated.
 
 Implementation is in Fortran, with C libraries reached through `ISO_C_BINDING`.
 A component may remain someone else's C library only when writing it would
-require on the order of a hundred thousand lines. PDF rendering qualifies; PDF text extraction
+require on the order of a hundred thousand lines. PDF rendering qualifies. PDF text extraction
 does not, once `poppler` is bound.
 
 ImplIR additionally supports experimental deterministic emitters to C and Rust,
 so the same algorithm can be compared across implementation languages without
-measuring model familiarity. Fortran is the project; C and Rust are controls.
+measuring model familiarity. Fortran is the project. C and Rust are controls.
 
 ---
 
 ## 23. Self-hosting
 
-Build the generated compiler with gfortran to get
-compiler A; compile the compiler's own source with A to get B; with B to get C;
-require convergence. The compiler is written within Modern Fortran Core, so
+Build the generated compiler with gfortran to get compiler A. Compile the
+compiler's own source with A to get B, then with B to get C. Require convergence.
+The compiler is written within Modern Fortran Core, so
 self-hosting simultaneously demonstrates the compiler's viability, modern
 Fortran's general-purpose viability, and the sufficiency of the chosen profile.
 
@@ -790,7 +791,7 @@ helped a person write the surrounding research or generator design.
 Compiler completeness and implementation origin are tracked together: syntax
 rules covered, semantic rules formalized, and of those, how many were
 mechanically implemented, search-synthesized, model-generated or left
-unresolved; how many are verified and how many are mutation-covered.
+unresolved. Also track how many are verified and how many are mutation-covered.
 
 Performance: parsing throughput, files per second, peak resident memory,
 compiler build time, binary size, generated-program runtime and size.

@@ -190,7 +190,7 @@ explicitly limits its syntax rules, and E0021 records the resulting validator
 failure for unresolved lexical and name classes. The specialized parser input is
 therefore a composite projection of syntax, lexical/token definitions,
 constraints, prose restrictions, profile closure and reference-resolution
-states. It is the composite input—not an isolated export—that must be accepted
+states. It is the composite input, not an isolated export, that must be accepted
 by a target parser generator (D0018).
 
 The four comparison corpora remain comparison sources. The old `standard`
@@ -255,11 +255,11 @@ The single largest departure from the existing toolchain. The frontend exposes
 resolved semantic facts by construction, generated from StandardIR, rather than
 accumulating queries as consumers discover they need them.
 
-Per entity and per reference, at minimum: resolved symbol; resolved procedure
-and the generic candidate chosen; actual-to-dummy mapping; type, kind, rank,
-shape, bounds; intent, optionality; allocatable, pointer, target; dynamic type;
-SELECT TYPE and SELECT RANK narrowing in each arm; allocation source and mold;
-ownership and lifetime; component path; procedure-pointer target; source range;
+Per entity and per reference, at minimum: resolved symbol, resolved procedure
+and the generic candidate chosen, actual-to-dummy mapping, type, kind, rank,
+shape, bounds, intent, optionality, allocatable, pointer, target, dynamic type,
+SELECT TYPE and SELECT RANK narrowing in each arm, allocation source and mold,
+ownership and lifetime, component path, procedure-pointer target, source range,
 and the StandardIR rule that justifies each of these.
 
 The design rule: **no consumer may need to answer a semantic question by
@@ -381,8 +381,8 @@ No single mechanism is trusted.
 ## 11. The trusted base
 
 Never generated, trusted as given: hardware and the correctness of the ISA
-specification itself; the operating system and C library; the bootstrap compiler;
-C libraries bound through `ISO_C_BINDING`, principally `poppler`; and the
+specification itself, the operating system and C library, the bootstrap compiler,
+C libraries bound through `ISO_C_BINDING`, principally `poppler`, and the
 verification tools including any solver.
 
 The claim the architecture supports is narrower than "verified compiler" and
