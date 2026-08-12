@@ -386,6 +386,9 @@ evidence for the thesis.
       partial input, retaining the R402/R403 overlap as a verification failure
       (E0049, regenerate with
       `research/experiments/E0049-can-accepted-resolutions-and-fixed-errat/analyse.sh`)
+- [x] Compare the pending D0024/D0026 representations without selecting one
+      (E0050, regenerate with
+      `research/experiments/E0050-can-deterministic-candidate-representati/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with

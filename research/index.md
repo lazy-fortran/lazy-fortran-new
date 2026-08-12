@@ -51,6 +51,7 @@ Runs recorded: 58
 | E0047 | reported | 1 | Can source-controlled punctuation witnesses repair references whose comma or colon was absorbed into the StandardIR reference name without changing the source text? |
 | E0048 | reported | 1 | Can the fixed errata overlays normalize the remaining punctuation boundary and enumerate every R401/R403 expansion-family term without selecting its parser representation? |
 | E0049 | reported | 1 | Can accepted resolutions and fixed errata compose into one partial parser input while retaining the D0024 expansion boundary? |
+| E0050 | reported | 0 | Can deterministic candidate representations expose the D0024 and D0026 tradeoff without accepting one? |
 
 ## Run status
 
