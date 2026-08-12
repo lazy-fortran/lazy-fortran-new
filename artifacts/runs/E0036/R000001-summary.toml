@@ -1,0 +1,29 @@
+name        = "E0036-R000001-sx-schema-type-emission"
+url         = "https://github.com/lazy-fortran/standard-new/tree/0c716e5"
+sha256      = "dfe624d98642d6b38c5828fd3251b778f3a25530a7dae1eb6ba8eb673be801af"
+bytes       = 310
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for deterministic schema type declaration emission"
+path        = ".cache/runs/E0036/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated schema type-emission summary"
+generator   = "standard-new schema_codegen and fixed schema specification"
+generator_commit = "0c716e5"
+checker     = "research/experiments/E0036-does-deterministic-schema-generation-emi/analyse.sh"
+checker_commit = "207d5a1"
+text_policy_self_test = 0
+text_policy = 0
+schema_parser = 0
+codegen_test = 0
+runtime_checked_codegen_test = 0
+formatting = 0
+full_pipeline = 0
+declaration_forms_checked = 6
+expected_source_lines_checked = 10
+cyclic_dependency_cases_checked = 1
+independent_oracle_mutation = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0036-does-deterministic-schema-generation-emi/analyse.sh
+# Verify its hash and size with sha256sum and stat.
