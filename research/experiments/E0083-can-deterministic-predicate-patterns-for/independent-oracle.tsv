@@ -1,0 +1,9 @@
+constraint_id	source_phrase	predicate	required_facts	provided_facts
+C601	The maximum length of a name is 63 characters.	(le (name-length name) 63)	parsed-name	checked-name-length
+C603	At least one digit in a label shall be nonzero.	(exists digit-in-label (ne (value digit-in-label) 0))	parsed-label	checked-label-digits
+C718	A scalar-int-constant-name shall be a named constant of type integer.	(and (named-constant scalar-int-constant-name) (type-is scalar-int-constant-name integer))	resolved-symbol type-fact	checked-kind-constant
+C719	The value of kind-param shall be nonnegative.	(ge (value kind-param) 0)	constant-expression-value	checked-nonnegative-kind
+C721	If both kind-param and exponent-letter appear, exponent-letter shall be E.	(implies (and (present kind-param) (present exponent-letter)) (eq exponent-letter E))	parsed-kind-param parsed-exponent-letter	checked-exponent-letter
+C725	The int-literal-constant shall not include a kind-param.	(not (has-kind-param int-literal-constant))	parsed-int-literal	checked-int-literal-kind
+C7117	digit shall have one of the values 0 or 1.	(in digit (0 1))	parsed-digit	checked-digit-domain
+C7118	digit shall have one of the values 0 through 7.	(in digit (0 1 2 3 4 5 6 7))	parsed-digit	checked-digit-domain
