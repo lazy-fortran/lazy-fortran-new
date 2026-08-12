@@ -54,12 +54,12 @@ links. Its generated query finds 5 known witnesses and
 rejects 1 unknown witness.
 The recursive subtree slice validates 28 token leaves across
 eight expression witnesses, with 28 source-linked leaves and
-8 known witness queries; its unknown-witness rejection is
+8 known witness queries. Its unknown-witness rejection is
 1.
 The precedence-tree slice adds 10 internal nodes and
 17 leaves across 7 expression witnesses,
 with 27 source-linked nodes and 7 known
-precedence queries; its unknown-query rejection is 1.
+precedence queries. Its unknown-query rejection is 1.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -78,6 +78,13 @@ fetched into an ignored cache by `scripts/fetch.sh`. The extraction target is
 the numbered syntax span in the document. StandardIR is the canonical
 intermediate representation. EBNF, ANTLR4, Bison, and tree-sitter are derived
 exports, not maintained sources.
+
+The closest prior work is semi-automatic grammar recovery from manuals and
+compiler artifacts [2]. That work combines extraction, correction, testing and
+modularization. This paper measures a narrower boundary: numbered syntax from
+a pinned standards document, per-record provenance, deterministic target
+projection, and the first generated parser operations over real Fortran files.
+The Fortran context is surveyed by Kedward et al. [3].
 
 ## 2. Method
 
@@ -353,8 +360,13 @@ milestone enlarges the expression corpus and tests parser acceptance.
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0032 in this repository.
-3. The structural comparison and behavioral oracle sources listed in
+2. R. Lämmel and C. Verhoef, "Semi-automatic grammar recovery," *Software:
+   Practice and Experience* 31(15), 1395--1438 (2001),
+   <https://doi.org/10.1002/spe.423>.
+3. L. J. Kedward et al., "The State of Fortran," *Computing in Science &
+   Engineering* (2022).
+4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0032 in this repository.
+5. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
 # Generated results
