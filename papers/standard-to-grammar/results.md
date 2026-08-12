@@ -678,6 +678,36 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 
+## E0080 generated expression and precedence facade
+
+| Quantity | Value |
+|---|---:|
+| Profile rows | 151 |
+| Profile parser targets | 0 |
+| Expression source files | 6 |
+| Expression witnesses | 9 |
+| GNU Fortran files accepted | 6 |
+| Internal nodes | 23 |
+| Leaf nodes | 31 |
+| Binary nodes | 20 |
+| Unary nodes | 1 |
+| Array-constructor nodes | 0 |
+| Function-reference nodes | 2 |
+| Name nodes | 18 |
+| Literal nodes | 13 |
+| Source-linked nodes | 54 |
+| Parent links | 54 |
+| Link errors | 0 |
+| Tree mismatches | 0 |
+| Known queries | 9 |
+| Unknown queries rejected | 1 |
+| Maximum expression depth | 8 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Unsupported operator rejected | 1 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

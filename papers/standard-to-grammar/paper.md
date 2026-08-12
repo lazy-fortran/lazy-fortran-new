@@ -116,6 +116,11 @@ E0079 drives a generated complete-parser facade from that profile. It checks
 72 complete-source records and
 73 AST nodes, all with source links, and retains
 1 source-linked diagnostic for the mutation.
+E0080 extends the facade to 9 expression witnesses
+over 6 files. It validates
+54 source-linked expression nodes and
+9 known queries while rejecting
+1 unknown query.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -414,6 +419,10 @@ the complete-source and AST operations over their pinned corpora. It preserves
 72 source-linked complete-source records,
 73 source-linked AST nodes and
 1 source-linked diagnostic.
+E0080 extends the same profile metadata to generated expression and precedence
+operations. The facade preserves 54 source-linked
+nodes and 54 parent links over the declared witness
+set. Its unsupported-operator mutation is rejected.
 
 ## 5. Reproducibility and limitations
 
@@ -440,6 +449,9 @@ AST output and source-linked diagnostics checked independently.
 E0079 has completed that facade check. The next experiment should extend the
 same profile-owned wiring to expression and precedence operations over a
 combined real-source corpus, with the local semantic boundary still explicit.
+E0080 has completed that expression and precedence extension for the declared
+witness set. The next experiment should inventory Core 0 semantic relations
+and constraints from source-linked clauses before semantic rule generation.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -473,6 +485,11 @@ E0079 drives a generated facade from the composed profile. It validates
 1 source-linked diagnostic with zero independent
 difference. The next boundary is generated expression and precedence
 composition over the real-source corpus.
+E0080 extends the facade to 9 expression witnesses
+and 54 source-linked nodes, with
+9 known queries and
+1 rejected unknown query. The next boundary is
+mechanical semantic-relation inventory.
 
 ## 7. Conclusion
 
@@ -539,6 +556,10 @@ source-linked AST nodes, with 68 parent links, 68 child links and one
 source-linked diagnostic. The result is a composition boundary, not a claim
 of complete Fortran coverage. The next milestone is expression and
 precedence composition under the same profile-owned wiring.
+E0080 validates the profile-owned expression and precedence facade over 9
+witnesses and 54 source-linked nodes, with 54 parent links, 9 known queries and
+one rejected unknown query. The next milestone is source-linked Core 0 semantic
+relation and constraint inventory.
 
 ## References
 
@@ -1230,6 +1251,36 @@ The following rows are extracted from the accepted projection run records.
 | GNU Fortran AST files accepted | 5 |
 | Fortran compile status | 0 |
 | Runtime test status | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
+## E0080 generated expression and precedence facade
+
+| Quantity | Value |
+|---|---:|
+| Profile rows | 151 |
+| Profile parser targets | 0 |
+| Expression source files | 6 |
+| Expression witnesses | 9 |
+| GNU Fortran files accepted | 6 |
+| Internal nodes | 23 |
+| Leaf nodes | 31 |
+| Binary nodes | 20 |
+| Unary nodes | 1 |
+| Array-constructor nodes | 0 |
+| Function-reference nodes | 2 |
+| Name nodes | 18 |
+| Literal nodes | 13 |
+| Source-linked nodes | 54 |
+| Parent links | 54 |
+| Link errors | 0 |
+| Tree mismatches | 0 |
+| Known queries | 9 |
+| Unknown queries rejected | 1 |
+| Maximum expression depth | 8 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Unsupported operator rejected | 1 |
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 

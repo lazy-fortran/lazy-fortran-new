@@ -130,6 +130,7 @@ assert_run R000085 '.status == "accepted" and .experiment == "E0076" and .verifi
 assert_run R000086 '.status == "accepted" and .experiment == "E0077" and .verification.zero_model_calls == true and .verification.candidate_spans == 3 and .verification.accepted_records == 0 and .verification.retained_records == 3 and .verification.accepted_semantic_role_records == 0 and .verification.source_hash_matches == 3 and .verification.source_evidence_matches == 3 and .verification.candidate_inventory_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000087 '.status == "accepted" and .experiment == "E0078" and .verification.zero_model_calls == true and .verification.residue_records == 151 and .verification.retained_candidate_records == 3 and .verification.unresolved_no_evidence_records == 148 and .verification.source_hash_matches == 151 and .verification.parser_target_records == 0 and .verification.parser_leaks == 0 and .verification.integrated_syntax_records == 522 and .verification.dispatch_rows == 522 and .verification.dispatch_provenance_rows == 522 and .verification.integrated_hash_difference == 0 and .verification.dispatch_hash_difference == 0 and .verification.export_antlr_validator_status == 1 and .verification.export_bison_validator_status == 1 and .verification.export_treesitter_validator_status == 1 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000088 '.status == "accepted" and .experiment == "E0079" and .verification.zero_model_calls == true and .verification.profile_rows == 151 and .verification.profile_parser_targets == 0 and .verification.profile_source_hashes == 151 and .verification.complete_source_files == 5 and .verification.complete_accepted_records == 72 and .verification.complete_source_linked_records == 72 and .verification.ast_source_files == 5 and .verification.ast_nodes == 73 and .verification.ast_source_linked_nodes == 73 and .verification.ast_parent_links == 68 and .verification.ast_child_links == 68 and .verification.ast_link_errors == 0 and .verification.diagnostic_records == 1 and .verification.diagnostic_source_linked == 1 and .verification.gfortran_complete_accepted == 5 and .verification.gfortran_ast_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000089 '.status == "accepted" and .experiment == "E0080" and .verification.zero_model_calls == true and .verification.profile_rows == 151 and .verification.profile_parser_targets == 0 and .verification.expression_source_files == 6 and .verification.expression_witnesses == 9 and .verification.gfortran_accepted == 6 and .verification.internal_nodes == 23 and .verification.leaf_nodes == 31 and .verification.binary_nodes == 20 and .verification.unary_nodes == 1 and .verification.array_nodes == 0 and .verification.function_reference_nodes == 2 and .verification.name_nodes == 18 and .verification.literal_nodes == 13 and .verification.source_linked_nodes == 54 and .verification.subtree_parent_links == 54 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.coverage_query_hits == 9 and .verification.unknown_query_rejected == 1 and .verification.max_expression_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_operator_rejected == 1 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -601,6 +602,31 @@ complete_parser_compile=$(metric R000088 '.verification.fortran_compile_status')
 complete_parser_runtime=$(metric R000088 '.verification.runtime_test_status')
 complete_parser_difference=$(metric R000088 '.verification.independent_difference')
 complete_parser_negative=$(metric R000088 '.verification.negative_control')
+expression_facade_profile_rows=$(metric R000089 '.verification.profile_rows')
+expression_facade_profile_targets=$(metric R000089 '.verification.profile_parser_targets')
+expression_facade_files=$(metric R000089 '.verification.expression_source_files')
+expression_facade_witnesses=$(metric R000089 '.verification.expression_witnesses')
+expression_facade_gfortran=$(metric R000089 '.verification.gfortran_accepted')
+expression_facade_internal=$(metric R000089 '.verification.internal_nodes')
+expression_facade_leaf=$(metric R000089 '.verification.leaf_nodes')
+expression_facade_binary=$(metric R000089 '.verification.binary_nodes')
+expression_facade_unary=$(metric R000089 '.verification.unary_nodes')
+expression_facade_array=$(metric R000089 '.verification.array_nodes')
+expression_facade_calls=$(metric R000089 '.verification.function_reference_nodes')
+expression_facade_names=$(metric R000089 '.verification.name_nodes')
+expression_facade_literals=$(metric R000089 '.verification.literal_nodes')
+expression_facade_linked=$(metric R000089 '.verification.source_linked_nodes')
+expression_facade_parents=$(metric R000089 '.verification.subtree_parent_links')
+expression_facade_errors=$(metric R000089 '.verification.subtree_link_errors')
+expression_facade_mismatches=$(metric R000089 '.verification.tree_mismatches')
+expression_facade_queries=$(metric R000089 '.verification.coverage_query_hits')
+expression_facade_unknown=$(metric R000089 '.verification.unknown_query_rejected')
+expression_facade_depth=$(metric R000089 '.verification.max_expression_depth')
+expression_facade_compile=$(metric R000089 '.verification.fortran_compile_status')
+expression_facade_runtime=$(metric R000089 '.verification.runtime_test_status')
+expression_facade_mutation=$(metric R000089 '.verification.unsupported_operator_rejected')
+expression_facade_difference=$(metric R000089 '.verification.independent_difference')
+expression_facade_negative=$(metric R000089 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1296,6 +1322,36 @@ EOF
 | Independent difference | $complete_parser_difference |
 | Controlled mutation | $complete_parser_negative |
 
+## E0080 generated expression and precedence facade
+
+| Quantity | Value |
+|---|---:|
+| Profile rows | $expression_facade_profile_rows |
+| Profile parser targets | $expression_facade_profile_targets |
+| Expression source files | $expression_facade_files |
+| Expression witnesses | $expression_facade_witnesses |
+| GNU Fortran files accepted | $expression_facade_gfortran |
+| Internal nodes | $expression_facade_internal |
+| Leaf nodes | $expression_facade_leaf |
+| Binary nodes | $expression_facade_binary |
+| Unary nodes | $expression_facade_unary |
+| Array-constructor nodes | $expression_facade_array |
+| Function-reference nodes | $expression_facade_calls |
+| Name nodes | $expression_facade_names |
+| Literal nodes | $expression_facade_literals |
+| Source-linked nodes | $expression_facade_linked |
+| Parent links | $expression_facade_parents |
+| Link errors | $expression_facade_errors |
+| Tree mismatches | $expression_facade_mismatches |
+| Known queries | $expression_facade_queries |
+| Unknown queries rejected | $expression_facade_unknown |
+| Maximum expression depth | $expression_facade_depth |
+| Fortran compile status | $expression_facade_compile |
+| Runtime test status | $expression_facade_runtime |
+| Unsupported operator rejected | $expression_facade_mutation |
+| Independent difference | $expression_facade_difference |
+| Controlled mutation | $expression_facade_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1568,6 +1624,31 @@ rendered=${rendered//@COMPLETE_PARSER_COMPILE@/$complete_parser_compile}
 rendered=${rendered//@COMPLETE_PARSER_RUNTIME@/$complete_parser_runtime}
 rendered=${rendered//@COMPLETE_PARSER_DIFFERENCE@/$complete_parser_difference}
 rendered=${rendered//@COMPLETE_PARSER_NEGATIVE@/$complete_parser_negative}
+rendered=${rendered//@EXPRESSION_FACADE_PROFILE_ROWS@/$expression_facade_profile_rows}
+rendered=${rendered//@EXPRESSION_FACADE_PROFILE_TARGETS@/$expression_facade_profile_targets}
+rendered=${rendered//@EXPRESSION_FACADE_FILES@/$expression_facade_files}
+rendered=${rendered//@EXPRESSION_FACADE_WITNESSES@/$expression_facade_witnesses}
+rendered=${rendered//@EXPRESSION_FACADE_GFORTRAN@/$expression_facade_gfortran}
+rendered=${rendered//@EXPRESSION_FACADE_INTERNAL@/$expression_facade_internal}
+rendered=${rendered//@EXPRESSION_FACADE_LEAF@/$expression_facade_leaf}
+rendered=${rendered//@EXPRESSION_FACADE_BINARY@/$expression_facade_binary}
+rendered=${rendered//@EXPRESSION_FACADE_UNARY@/$expression_facade_unary}
+rendered=${rendered//@EXPRESSION_FACADE_ARRAY@/$expression_facade_array}
+rendered=${rendered//@EXPRESSION_FACADE_CALLS@/$expression_facade_calls}
+rendered=${rendered//@EXPRESSION_FACADE_NAMES@/$expression_facade_names}
+rendered=${rendered//@EXPRESSION_FACADE_LITERALS@/$expression_facade_literals}
+rendered=${rendered//@EXPRESSION_FACADE_LINKED@/$expression_facade_linked}
+rendered=${rendered//@EXPRESSION_FACADE_PARENTS@/$expression_facade_parents}
+rendered=${rendered//@EXPRESSION_FACADE_ERRORS@/$expression_facade_errors}
+rendered=${rendered//@EXPRESSION_FACADE_MISMATCHES@/$expression_facade_mismatches}
+rendered=${rendered//@EXPRESSION_FACADE_QUERIES@/$expression_facade_queries}
+rendered=${rendered//@EXPRESSION_FACADE_UNKNOWN@/$expression_facade_unknown}
+rendered=${rendered//@EXPRESSION_FACADE_DEPTH@/$expression_facade_depth}
+rendered=${rendered//@EXPRESSION_FACADE_COMPILE@/$expression_facade_compile}
+rendered=${rendered//@EXPRESSION_FACADE_RUNTIME@/$expression_facade_runtime}
+rendered=${rendered//@EXPRESSION_FACADE_MUTATION@/$expression_facade_mutation}
+rendered=${rendered//@EXPRESSION_FACADE_DIFFERENCE@/$expression_facade_difference}
+rendered=${rendered//@EXPRESSION_FACADE_NEGATIVE@/$expression_facade_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

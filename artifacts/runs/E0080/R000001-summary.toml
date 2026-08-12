@@ -1,0 +1,52 @@
+name        = "E0080-R000001-generated-expression-facade-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/89e1173"
+sha256      = "122283f5b3c3912c85da56222d6920ff240bb3062beefea670cc54566367b3fc"
+bytes       = 1076
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-12"
+purpose     = "Summary of generated expression and precedence facade composition from the E0078 profile"
+path        = ".cache/runs/E0080/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "lazy-fortran-new E0080 generated expression facade"
+generator_commit = "89e1173"
+checker     = "research/experiments/E0080-can-the-e0079-profile-owned-facade-exten/analyse.sh"
+checker_commit = "89e1173"
+profile_rows = 151
+profile_parser_targets = 0
+expression_source_files = 6
+expression_witnesses = 9
+gfortran_accepted = 6
+internal_nodes = 23
+leaf_nodes = 31
+binary_nodes = 20
+unary_nodes = 1
+array_nodes = 0
+function_reference_nodes = 2
+name_nodes = 18
+literal_nodes = 13
+source_linked_nodes = 54
+subtree_parent_links = 54
+subtree_link_errors = 0
+tree_mismatches = 0
+coverage_query_hits = 9
+unknown_query_rejected = 1
+max_expression_depth = 8
+fortran_compile_status = 0
+runtime_test_status = 0
+unsupported_operator_rejected = 1
+independent_difference = 0
+negative_control = "observed_failure"
+zero_model_calls = true
+profile_sha256 = "2927a6cf597c90a000182b8907bfdedf360657576559e5ae12edf712cadb9c1e"
+corpus_sha256 = "5d082bb65470f9f8bc7e53079193cedf487de2351ac8f416d3097a2f8929d19a"
+generated_facade_sha256 = "4b6cba9f74ab4fd9a763b086c11f1a133b1dc3b176e85834b4555b22c3408bcc"
+test_program_sha256 = "68b18a28ce63830efdaf92321ca95d35e1fdf370e0507194db3d0cac765ce867"
+e79_summary_sha256 = "f41cbfeb30bcd0aa5b79569bb309e67a2f341735120533fa3c5f5e0ac65a572d"
+e67_summary_sha256 = "0838207a87997bb5608c19cc3937de43d94629e044ae29dcd70be13b4625b876"
+
+# Regenerate and verify with:
+#   research/experiments/E0080-can-the-e0079-profile-owned-facade-exten/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

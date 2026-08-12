@@ -518,9 +518,13 @@ evidence for the thesis.
       source-linked AST nodes, 68 parent and child links, and one source-linked
       diagnostic (E0079, regenerate with
       `research/experiments/E0079-can-the-e0078-composed-profile-drive-a-g/analyse.sh`)
-- [ ] Extend the E0079 facade to generated expression and precedence operations
-      over a combined real-source corpus, preserving profile-owned wiring and
-      source-linked diagnostics
+- [x] Extend the E0079 facade to generated expression and precedence operations
+      over a combined real-source corpus: 9 witnesses, 54 source-linked nodes,
+      54 parent links, 9 known queries and one rejected unknown query (E0080,
+      regenerate with
+      `research/experiments/E0080-can-the-e0079-profile-owned-facade-exten/analyse.sh`)
+- [ ] Inventory source-linked Core 0 semantic relations and constraints before
+      attempting generated semantic rule bodies
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

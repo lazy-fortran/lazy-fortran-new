@@ -2,9 +2,9 @@ id: "E0080"
 title: "Generated expression and precedence facade from the E0079 profile"
 question: >
   Can the E0079 profile-owned facade extend to generated expression and precedence coverage?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
