@@ -126,8 +126,8 @@ adjudication and not a normative input.
 ## 6. Next experiment
 
 The next experiment extends the source-controlled D0019 seed across the
-remaining unresolved inventory. It must add lexical token rules, resolve or
-mark disputed every selected term, and apply the resulting records to the full
+remaining unresolved inventory. It must add lexical token rules, resolve each
+selected term or mark it disputed, and apply the resulting records to the full
 composite input. The ANTLR4, Bison, and tree-sitter validators then provide
 target-specific checks. A complete parser input will be claimed only after the
 unresolved and disputed sets are reported, every selected alias has provenance,
