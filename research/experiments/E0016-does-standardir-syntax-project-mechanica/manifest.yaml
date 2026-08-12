@@ -2,13 +2,13 @@ id: "E0016"
 title: "StandardIR to canonical EBNF projection"
 question: >
   Does StandardIR syntax project mechanically to canonical EBNF with provenance and independent structural agreement?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "4f6bb8c"
+  lazy-fortran-new: "6392816"
   standard-new: "427df73"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

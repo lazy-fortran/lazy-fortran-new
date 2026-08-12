@@ -33,6 +33,9 @@ D0015 records the required profile-projection boundary. E0015 reports a
 graph-level eligibility projection with 313 retained rules, 27 pruned edges,
 zero non-closed references and 115 unresolved names requiring adjudication
 (`research/experiments/E0015-can-core-0-feature-eligibility-prune-exc/analyse.sh`).
+E0016 reports a canonical EBNF projection of all 522 complete-core StandardIR
+syntax records with exact ordered provenance agreement and zero model calls
+(`research/experiments/E0016-does-standardir-syntax-project-mechanica/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. The generated grammar and
 semantic rules do not exist yet. E0001 and E0004 are running, while E0002--E0003
 remain draft experiments. E0012 remains a later Phase 2 experiment.
@@ -54,7 +57,7 @@ remain draft experiments. E0012 remains a later Phase 2 experiment.
 - [x] Fetch verifier proven able to fail on a corrupted hash, and to accept a
       matching one
 - [x] `scripts/selftest.sh` with eight gates, run in CI
-- [ ] Commit-reference checker and optional pre-commit hook (D0017)
+- [x] Commit-reference checker and optional pre-commit hook (D0017)
 - [x] `standard-new` scaffolded: fpm project, `fortpdf` over poppler-glib,
       `pdfinfo`
 - [x] `fortpdf` test suite with fixtures of known page count, proven able to
@@ -215,8 +218,9 @@ evidence for the thesis.
 
 ### 1.6 Comparison and adjudication (D0005, D0013)
 
-- [ ] Generate canonical EBNF or BNF from StandardIR, with rule and provenance
-      annotations
+- [x] Generate canonical EBNF from StandardIR, with rule and provenance
+      annotations (E0016; regenerate with
+      `research/experiments/E0016-does-standardir-syntax-project-mechanica/analyse.sh`)
 - [ ] Generate ANTLR4 `.g4`, Bison `.y`, tree-sitter where useful, and the
       specialized parser-generator input
 - [ ] Compare the generated syntax against the `standard` `.g4` corpus and
@@ -271,6 +275,8 @@ evidence for the thesis.
       graph oracle recorded
 - [x] E0015 explicit feature exclusions, graph projection and unresolved-name
       classification recorded
+- [x] E0016 canonical EBNF projection, provenance and independent structural
+      oracle recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
