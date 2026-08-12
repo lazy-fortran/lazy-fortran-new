@@ -13,6 +13,7 @@ e78_summary="$root/.cache/runs/E0078/R000001/summary.tsv"
 complete_summary="$root/.cache/runs/E0068/R000001/summary.tsv"
 ast_summary="$root/.cache/runs/E0063/R000001/summary.tsv"
 diagnostic_module="$root/.cache/runs/E0058/R000001/generated_parser_diagnostics.f90"
+complete_parser_module="$root/.cache/runs/E0061/R000001/generated_complete_source_parser.f90"
 complete_module="$root/.cache/runs/E0068/R000001/generated_lossless_complete_source_acceptance.f90"
 ast_module="$root/.cache/runs/E0063/R000001/generated_ast_records.f90"
 logical_module="$root/.cache/runs/E0062/R000001/generated_logical_construct_parser.f90"
@@ -34,6 +35,7 @@ trap 'rm -rf "$tmp"' EXIT
 test -f "$profile" || die 'E0078 composition profile is missing'
 test "$(sha256sum "$profile" | cut -d' ' -f1)" = "$expected_profile_hash" || die 'E0078 profile hash differs'
 test "$(sha256sum "$e78_summary" | cut -d' ' -f1)" = "$expected_e78_summary_hash" || die 'E0078 summary hash differs'
+test -f "$complete_parser_module" || die 'generated complete-source parser module is missing'
 
 profile_rows="$(awk 'END {print NR - 1}' "$profile")"
 profile_parser_targets="$(awk -F '\t' 'NR > 1 && $4 != "-" {n++} END {print n + 0}' "$profile")"
@@ -124,7 +126,7 @@ gfortran -std=f2018 -fsyntax-only "$mutation" >"$outdir/gfortran-mutation.log" 2
     printf '%s\n' '    type(acceptance_record_t) :: records(256)'
     printf '%s\n' '    type(ast_node_t) :: nodes(128)'
     printf '%s\n' '    integer :: accepted_total, source_linked_total, ast_total, ast_linked_total'
-    printf '%s\n' '    integer :: diagnostic_total, node_count, roots, parents, children, errors, depth, ierr'
+    printf '%s\n' '    integer :: diagnostic_total, node_count, roots, parents, children, errors, depth'
     printf '%s\n' '    accepted_total = 0; source_linked_total = 0; ast_total = 0; ast_linked_total = 0; diagnostic_total = 0'
     printf '%s\n' '    if (trim(profile_sha256) /= "'$expected_profile_hash'") error stop "profile hash mismatch"'
     printf '%s\n' '    if (profile_rows /= 151 .or. profile_parser_targets /= 0) error stop "profile metadata mismatch"'
@@ -190,7 +192,7 @@ gfortran -std=f2018 -fsyntax-only "$mutation" >"$outdir/gfortran-mutation.log" 2
 
 set +e
 gfortran -ffree-line-length-none -Wall -Wextra -Werror \
-    "$diagnostic_module" "$logical_module" "$complete_module" "$ast_module" \
+    "$diagnostic_module" "$complete_parser_module" "$logical_module" "$complete_module" "$ast_module" \
     "$outdir/generated_complete_parser_operation.f90" \
     "$outdir/test_generated_complete_parser_operation.f90" \
     -o "$outdir/test_generated_complete_parser_operation" >"$outdir/fortran.log" 2>&1
