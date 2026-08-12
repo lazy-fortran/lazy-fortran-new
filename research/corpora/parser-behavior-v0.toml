@@ -1,0 +1,19 @@
+name = "parser-behavior-v0"
+version = 1
+purpose = "Differential frontend-behavior fixtures for E0041"
+licence = "MIT fixture descriptions"
+contents = "Generated in a temporary directory by the E0041 analysis script; no source corpus is committed."
+generator = "research/experiments/E0041-do-lfortran-flang-and-gfortran-agree-on-/analyse.sh"
+case_count = 10
+cases = [
+  "minimal-program",
+  "module-use",
+  "derived-type",
+  "interface-block",
+  "array-section",
+  "do-concurrent",
+  "select-rank",
+  "coarray-declaration",
+  "invalid-unclosed-program",
+  "invalid-expression"
+]

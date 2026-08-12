@@ -109,6 +109,9 @@ the independent reference codec
 E0040 verifies generated validators and structural equality against fixed valid,
 invalid and mutation cases, with zero lint warnings
 (`research/experiments/E0040-do-generated-validators-and-equality-pre/analyse.sh`).
+E0041 compares LFortran, Flang and gfortran on ten generated parser-behavior
+fixtures. All three agree on accepted versus rejected input
+(`research/experiments/E0041-do-lfortran-flang-and-gfortran-agree-on-/analyse.sh`).
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
@@ -359,9 +362,11 @@ evidence for the thesis.
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020; regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
-- [ ] Compare permitted grammar artifacts and parser behavior against LFortran
-      and Flang
-- [ ] Compare parser behavior against gfortran as a GPL behavioral oracle only
+- [x] Compare permitted grammar artifacts and parser behavior against LFortran
+      and Flang (E0041; regenerate with
+      `research/experiments/E0041-do-lfortran-flang-and-gfortran-agree-on-/analyse.sh`)
+- [x] Compare parser behavior against gfortran as a GPL behavioral oracle only
+      (E0041)
 - [x] Record structural comparison adapters for the house grammar, kaby76,
       LFortran and Flang, labeling them separately from behavioral results
       (E0020)
@@ -425,6 +430,7 @@ evidence for the thesis.
 - [x] E0038 approved schema-value contract and reference codec recorded
 - [x] E0039 generated schema reader and writer differential recorded
 - [x] E0040 generated schema validation and equality differential recorded
+- [x] E0041 LFortran, Flang and gfortran parser behavior differential recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

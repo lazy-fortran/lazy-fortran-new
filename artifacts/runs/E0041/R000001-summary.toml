@@ -1,0 +1,31 @@
+name        = "E0041-R000001-parser-behavior-differential"
+url         = "https://github.com/lazy-fortran/standard-new/tree/531e590"
+sha256      = "81ab7e460d5f881957df09e0a7e457cd4e9838eef9e5e4f2591e446231051b87"
+bytes       = 535
+licence     = "MIT fixture descriptions and implementation"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for LFortran, Flang and gfortran parser behavior differential"
+path        = ".cache/runs/E0041/R000001/summary.tsv"
+origin      = "DIFFERENTIAL"
+format      = "tab-separated compiler behavior summary"
+generator   = "research/experiments/E0041-do-lfortran-flang-and-gfortran-agree-on-/analyse.sh"
+generator_commit = "4f063c8"
+checker     = "research/experiments/E0041-do-lfortran-flang-and-gfortran-agree-on-/analyse.sh"
+checker_commit = "4f063c8"
+cases_declared = 10
+compiler_invocations = 30
+lfortran_accepted = 8
+flang_accepted = 8
+gfortran_accepted = 8
+all_three_agree_cases = 10
+disagreement_cases = 0
+raw_status_difference_cases = 2
+missing_results = 0
+diagnostic_files = 30
+lfortran_repo_commit = "caf87b660f803148f000046392a5da803f9fc630"
+flang_repo_commit = "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
+gcc_repo_commit = "395e3d8131c189cd58e8c8061cdc77d1c44e3822"
+
+# Regenerate and verify with:
+#   research/experiments/E0041-do-lfortran-flang-and-gfortran-agree-on-/analyse.sh
+# Verify its hash and size with sha256sum and stat.
