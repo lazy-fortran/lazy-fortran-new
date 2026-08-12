@@ -32,6 +32,8 @@ projects 21 token references, and retains
 The combined D0019 slice contains 49 aliases,
 25 lexical classes, 107 unresolved records,
 and 116 composite SX witnesses.
+The accepted fixed errata overlay repairs 7 punctuation
+boundaries, with 6 comma repairs and 1 colon repair.
 
 ## 1. Scope and claim
 
@@ -82,6 +84,8 @@ the standard's lexical, operator, and literal rules. It leaves ambiguous dash
 and quotation marks unresolved under D0020.
 The combined slice reruns the accepted R402 and lexical witnesses, checks their
 overlap, and projects their union into one partial parser input.
+The D0025 overlay then applies 7 source-provenanced punctuation repairs
+to the derived parser input while retaining the original StandardIR records.
 
 ### 2.3 Verification
 
@@ -125,6 +129,9 @@ normalization decision.
 E0046 composes the accepted R402 and lexical families. It reduces the retained
 unresolved set to 107 records while leaving expansion and
 semantic classes outside the slice.
+The fixed errata overlay supplies bounded source repairs. Its entries are
+LLM-originated and accepted under D0025. The generated application remains
+mechanical.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -162,7 +169,7 @@ composite input. Semantic constraints remain a separate phase.
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0024 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0025 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
@@ -257,6 +264,16 @@ The following rows are extracted from the accepted projection run records.
 | Lexical-class records | 25 |
 | Unresolved records retained | 107 |
 | Composite SX syntax witnesses | 116 |
+| Independent difference | 0 |
+| Controlled negative mutation | observed_failure |
+
+## D0025 fixed errata overlay
+
+| Quantity | Value |
+|---|---:|
+| Errata repairs | 7 |
+| Comma repairs | 6 |
+| Colon repairs | 1 |
 | Independent difference | 0 |
 | Controlled negative mutation | observed_failure |
 

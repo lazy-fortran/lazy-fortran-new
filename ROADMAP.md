@@ -376,6 +376,9 @@ evidence for the thesis.
 - [x] Compose the accepted R402 and lexical D0019 resolution slices (E0046,
       regenerate with
       `research/experiments/E0046-can-the-accepted-r402-and-lexical-d0019-/analyse.sh`)
+- [x] Apply the accepted fixed errata overlay to the seven punctuation
+      boundaries (E0047, regenerate with
+      `research/experiments/E0047-can-source-controlled-punctuation-witnes/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with

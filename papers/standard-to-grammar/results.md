@@ -92,6 +92,16 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled negative mutation | observed_failure |
 
+## D0025 fixed errata overlay
+
+| Quantity | Value |
+|---|---:|
+| Errata repairs | 7 |
+| Comma repairs | 6 |
+| Colon repairs | 1 |
+| Independent difference | 0 |
+| Controlled negative mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |

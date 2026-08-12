@@ -65,6 +65,7 @@ assert_run R000052 '.status == "accepted" and .experiment == "E0043" and .verifi
 assert_run R000053 '.status == "accepted" and .experiment == "E0044" and .verification.zero_model_calls == true and .verification.alias_records == 49 and .verification.explicit_definition_conflicts == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000054 '.status == "accepted" and .experiment == "E0045" and .verification.zero_model_calls == true and .verification.lexical_class_records == 25 and .verification.unicode_exclusions_retained == 2 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000055 '.status == "accepted" and .experiment == "E0046" and .verification.zero_model_calls == true and .verification.alias_records == 49 and .verification.lexical_class_records == 25 and .verification.unresolved_records == 107 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000056 '.status == "accepted" and .experiment == "E0047" and .verification.zero_model_calls == true and .verification.errata_origin == "LLM" and .verification.errata_decision == "D0025" and .verification.source_repair_records == 7 and .verification.input_syntax_records == 522 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -109,6 +110,11 @@ combined_unresolved=$(metric R000055 '.verification.unresolved_records')
 combined_witnesses=$(metric R000055 '.verification.composite_syntax_witnesses')
 combined_difference=$(metric R000055 '.verification.independent_difference')
 combined_negative_control=$(metric R000055 '.verification.negative_control')
+errata_repairs=$(metric R000056 '.verification.source_repair_records')
+errata_commas=$(metric R000056 '.verification.comma_repairs')
+errata_colons=$(metric R000056 '.verification.colon_repairs')
+errata_difference=$(metric R000056 '.verification.independent_difference')
+errata_negative_control=$(metric R000056 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -218,6 +224,16 @@ EOF
 | Independent difference | $combined_difference |
 | Controlled negative mutation | $combined_negative_control |
 
+## D0025 fixed errata overlay
+
+| Quantity | Value |
+|---|---:|
+| Errata repairs | $errata_repairs |
+| Comma repairs | $errata_commas |
+| Colon repairs | $errata_colons |
+| Independent difference | $errata_difference |
+| Controlled negative mutation | $errata_negative_control |
+
 ## External behavioral baseline
 
 | Quantity | Value |
@@ -255,6 +271,9 @@ rendered=${rendered//@COMBINED_ALIASES@/$combined_aliases}
 rendered=${rendered//@COMBINED_LEXICAL@/$combined_lexical}
 rendered=${rendered//@COMBINED_UNRESOLVED@/$combined_unresolved}
 rendered=${rendered//@COMBINED_WITNESSES@/$combined_witnesses}
+rendered=${rendered//@ERRATA_REPAIRS@/$errata_repairs}
+rendered=${rendered//@ERRATA_COMMAS@/$errata_commas}
+rendered=${rendered//@ERRATA_COLONS@/$errata_colons}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

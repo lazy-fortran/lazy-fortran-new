@@ -24,7 +24,11 @@ the authoritative source hash unchanged.
 
 ## Result
 
-Pending the first run against the corrected fixed errata overlay.
+The command matched all seven canonical source excerpts and repaired seven
+references in the 522 syntax records. Six repairs insert a comma token and one
+inserts a colon token. The repaired input and generated grammar have stable
+hashes recorded in the run artifact. The independent boundary difference is 0,
+and the mutated punctuation witness produced the expected validation failure.
 
 ## Boundary
 

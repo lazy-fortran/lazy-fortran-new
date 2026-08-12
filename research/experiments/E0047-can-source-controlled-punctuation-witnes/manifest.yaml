@@ -2,9 +2,9 @@ id: "E0047"
 title: "Source-controlled punctuation boundary repair"
 question: >
   Can source-controlled punctuation witnesses repair references whose comma or colon was absorbed into the StandardIR reference name without changing the source text?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:

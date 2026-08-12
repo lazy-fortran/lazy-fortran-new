@@ -1,0 +1,36 @@
+name = "E0047-R000001-punctuation-boundary-repair"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/a3b115e/research/experiments/E0047-can-source-controlled-punctuation-witnes"
+sha256 = "13a084c6946a5b9b9a6f8aaea836d8a566a5c5411ae40989f2bc81d8c1a4b9a5"
+bytes = 376
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for source-controlled comma and colon boundary repair in derived parser input"
+path = ".cache/runs/E0047/R000001/summary.tsv"
+origin = "MECHANICAL"
+format = "tab-separated punctuation boundary repair summary"
+generator = "E0047 analyse.sh"
+generator_commit = "a3b115e"
+checker = "research/experiments/E0047-can-source-controlled-punctuation-witnes/analyse.sh"
+checker_commit = "a3b115e"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+errata_sha256 = "df1a5320637f2e850e59a680a4467287193c48ee789585dff5aea438b4eaef99"
+errata_origin = "LLM"
+errata_decision = "D0025"
+source_repair_records = 7
+comma_repairs = 6
+colon_repairs = 1
+input_syntax_records = 522
+source_witness_matches = 7
+repair_replacements = 7
+repaired_input_sha256 = "fe9f60cdde57ce9c3bdd0f0f406166c31193cb118e0444c5ccddd8128af91605"
+repaired_input_bytes = 182040
+repaired_grammar_sha256 = "2d06825aaf8cf360827e3596efdadab154e0fd47c64a6f5f4c445c2f75b6acdb"
+repaired_grammar_bytes = 128208
+independent_difference = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0047-can-source-controlled-punctuation-witnes/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.
