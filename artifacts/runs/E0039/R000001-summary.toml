@@ -1,0 +1,32 @@
+name        = "E0039-R000001-generated-schema-reader-writer-differential"
+url         = "https://github.com/lazy-fortran/standard-new/tree/44be898"
+sha256      = "2905054c02d40b8d64b06c6ea23def273439c39f2bec087411056aff693d943b"
+bytes       = 412
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for generated schema reader and writer differential"
+path        = ".cache/runs/E0039/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated generated schema API summary"
+generator   = "standard-new schema_codegen and schema_value_runtime"
+generator_commit = "44be898"
+checker     = "research/experiments/E0039-do-generated-schema-readers-and-writers-/analyse.sh"
+checker_commit = "6f8c773"
+text_policy_self_test = 0
+text_policy = 0
+schema_parser = 0
+schema_codegen = 0
+generated_api = 0
+runtime_checked_generated_api = 0
+driver = 0
+generated_byte_identity = 0
+generated_formatting = 0
+full_pipeline = 0
+canonical_api_cases_checked = 10
+negative_api_cases_checked = 2
+generated_source_bytes = 20294
+generated_source_sha256 = "681a1e876f297d63eaef206e016755a2eee12ff4c7756f2b9b7da6914b6f067f"
+
+# Regenerate and verify with:
+#   research/experiments/E0039-do-generated-schema-readers-and-writers-/analyse.sh
+# Verify its hash and size with sha256sum and stat.

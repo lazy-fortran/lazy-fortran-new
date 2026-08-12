@@ -103,6 +103,9 @@ byte-for-byte and that the generated module passes the normal pipeline
 E0038 verifies the approved schema-value contract over six declaration forms,
 nine canonical values, three invalid values and byte-stable regenerated source
 (`research/experiments/E0038-does-the-approved-schema-value-contract-/analyse.sh`).
+E0039 verifies generated typed readers and writers against fixed SX values and
+the independent reference codec
+(`research/experiments/E0039-do-generated-schema-readers-and-writers-/analyse.sh`).
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
@@ -281,6 +284,9 @@ evidence for the thesis.
       `research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh`)
 - [ ] Generator emitting Fortran types, reader, writer, validator, visitor,
       equality, hashing, printer
+- [x] Generated typed readers and writers agree with fixed SX values and the
+      reference codec (E0039; regenerate with
+      `research/experiments/E0039-do-generated-schema-readers-and-writers-/analyse.sh`)
 - [x] Canonical schema-value encoding for generated APIs (D0021; E0038)
 - [ ] StandardIR schema
 - [ ] ImplIR schema, eight types and two constructors (D0012)
@@ -410,6 +416,7 @@ evidence for the thesis.
 - [x] E0036 deterministic schema type-emission differential recorded
 - [x] E0037 generated schema source-tree regeneration recorded
 - [x] E0038 approved schema-value contract and reference codec recorded
+- [x] E0039 generated schema reader and writer differential recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
