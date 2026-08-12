@@ -2,13 +2,13 @@ id: "E0045"
 title: "Source-controlled lexical operator and literal-marker witnesses"
 question: >
   Can source-controlled lexical witnesses close the unresolved operator and literal-marker references without normalizing Unicode or punctuation by guesswork?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "cf2e7b6"
+  lazy-fortran-new: "b109583"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

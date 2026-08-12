@@ -370,6 +370,9 @@ evidence for the thesis.
 - [ ] Define the composite parser-generator input: syntax, lexical/token
       definitions, constraints, prose restrictions, profile closure and
       resolution states (typed resolution policy accepted in D0019)
+- [ ] Choose the typed representation for R401/R403 assumed syntax expansions
+      ([D0024](research/decisions/D0024-assumed-syntax-expansions.md)). Retain
+      those terms unresolved until the choice is accepted
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with

@@ -1,0 +1,45 @@
+name        = "E0045-R000001-lexical-witness-projection"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/b109583/research/experiments/E0045-can-source-controlled-lexical-witnesses-"
+sha256      = "97f52b12c810f5d009ff490d97e487d3d69d178ff5029098c5d0530f24073848"
+bytes       = 517
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for source-controlled lexical operator and literal-marker resolution"
+path        = ".cache/runs/E0045/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated typed resolution and lexical projection summary"
+generator   = "E0045 analyse.sh"
+generator_commit = "b109583"
+checker     = "research/experiments/E0045-can-source-controlled-lexical-witnesses-/analyse.sh"
+checker_commit = "b109583"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+unresolved_audit_sha256 = "28eb6876a77345cd85de14cf23a1d9027beefc2cb7a4de5756a9f28c40d1a449"
+base_seed_sha256 = "97571cef3a15cbcd68d4b591c18333a8396153deb51dec14ac69b59c75aab896"
+lexical_seed_sha256 = "5d0e54d90b684ea38f5a24c307e3b5aba2c90fd2b012cba8e341dde6b1789e37"
+resolution_records = 182
+resolution_records_sha256 = "ae9508105d81252b2d2badb3b75631792e4c983df6ce9dc9ec57f6897b97dc13"
+resolution_records_bytes = 34985
+alias_records = 3
+lexical_class_records = 25
+metavariable_records = 1
+semantic_role_records = 0
+unresolved_records = 153
+disputed_records = 0
+source_hash_matches = 182
+lexical_projection_records = 21
+unicode_exclusions_retained = 2
+lexical_input_sha256 = "cdfe52765407a0349310daceeaf31813e62d55b542d0744b854530a9945c551a"
+lexical_input_bytes = 966
+composite_syntax_witnesses = 34
+composite_input_sha256 = "3cc77c3107a2df58c0e1f90340e18428ee483301af6baeb2b8317df100a5aba8"
+composite_input_bytes = 10876
+composite_grammar_sha256 = "fc40ee0015710d9ee38d264af115392158461fd379582e694bd8eefdc6655896"
+composite_grammar_bytes = 6976
+independent_difference = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0045-can-source-controlled-lexical-witnesses-/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

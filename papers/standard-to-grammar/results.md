@@ -70,6 +70,17 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled negative mutation | observed_failure |
 
+## D0019 lexical witness slice
+
+| Quantity | Value |
+|---|---:|
+| Lexical-class records | 25 |
+| Lexical token projection records | 21 |
+| Unicode exclusions retained unresolved | 2 |
+| Composite SX syntax witnesses | 34 |
+| Independent difference | 0 |
+| Controlled negative mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |

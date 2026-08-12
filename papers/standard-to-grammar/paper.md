@@ -26,6 +26,9 @@ source-controlled D0019 slice contains 182 records, including
 174 unresolved records.
 The R402 closure applies the assumed suffix-name rule to
 49 absent terms and retains 128 unresolved records.
+The lexical witness slice classifies 25 lexical records,
+projects 21 token references, and retains
+2 Unicode cases unresolved.
 
 ## 1. Scope and claim
 
@@ -71,6 +74,9 @@ applies this policy to source-controlled witnesses and preserves the remaining
 unresolved terms in the same record table. The R402 closure then applies the
 same source rule to every absent term whose spelling ends in `-name`, after an
 independent check for explicit StandardIR definitions.
+The lexical witness slice extends the table with token spellings sourced from
+the standard's lexical, operator, and literal rules. It leaves ambiguous dash
+and quotation marks unresolved under D0020.
 
 ### 2.3 Verification
 
@@ -108,6 +114,9 @@ retaining unresolved records. It is evidence for the resolution record contract,
 not completion of the composite parser input. The R402 closure expands the
 alias projection to the full selected suffix-name set and leaves
 128 unresolved records for the next slice.
+The lexical witness slice closes selected operator and literal-marker
+references while retaining the two Unicode cases that lack an authoritative
+normalization decision.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -132,20 +141,22 @@ adjudication and not a normative input.
 ## 6. Next experiment
 
 The next experiment extends the source-controlled D0019 resolution beyond the
-R402 suffix-name closure. It must add lexical token rules, resolve each
-selected term or mark it disputed, and apply the resulting records to the full
-composite input. Assumed list and scalar rules, punctuation references, and
-source-extraction edge cases remain in scope. The ANTLR4, Bison, and tree-sitter
-validators then provide target-specific checks. A complete parser input will be
-claimed only after the unresolved and disputed sets are reported, every
-selected alias has provenance, and the target tools accept the generated
+R402 suffix-name closure. The lexical witness slice is reported separately and
+keeps the ambiguous Unicode cases unresolved. The R401 and R403 representation
+choice for assumed list and scalar rules is proposed in
+[D0024](../../research/decisions/D0024-assumed-syntax-expansions.md). The next
+slice should resolve those terms only after that choice is accepted, then apply
+the resulting records to the full composite input. The ANTLR4, Bison, and
+tree-sitter validators provide target-specific checks. A complete parser input
+will be claimed only after the unresolved and disputed sets are reported,
+every selected alias has provenance, and the target tools accept the generated
 composite input. Semantic constraints remain a separate phase.
 
 ## References
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0021 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0024 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
@@ -218,6 +229,17 @@ The following rows are extracted from the accepted projection run records.
 | Explicit-definition conflicts | 0 |
 | Alias projection records | 49 |
 | Composite SX syntax witnesses | 94 |
+| Independent difference | 0 |
+| Controlled negative mutation | observed_failure |
+
+## D0019 lexical witness slice
+
+| Quantity | Value |
+|---|---:|
+| Lexical-class records | 25 |
+| Lexical token projection records | 21 |
+| Unicode exclusions retained unresolved | 2 |
+| Composite SX syntax witnesses | 34 |
 | Independent difference | 0 |
 | Controlled negative mutation | observed_failure |
 
