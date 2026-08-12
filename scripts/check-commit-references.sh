@@ -100,5 +100,39 @@ while IFS= read -r manifest; do
     ' "$manifest")
 done < <(find "$ROOT/research/experiments" -name manifest.yaml -print | sort)
 
+# Artifact manifests retain the producer and checker pins after an experiment
+# is reported. They are historical evidence too, so validate them without
+# trying to replace them with the current checkout's HEAD.
+standard_dir=$(resolve_repo standard-new)
+while IFS= read -r artifact; do
+    generator=$(toml_get "$artifact" generator_commit)
+    checker=$(toml_get "$artifact" checker_commit)
+    if [ -n "$generator" ]; then
+        if [[ ! "$generator" =~ ^[0-9a-f]{7,64}$ ]]; then
+            printf 'FAIL %s: non-commit generator pin: %s\n' "$artifact" "$generator" >&2
+            fails=$((fails + 1))
+        elif [ "$(git -C "$ROOT" cat-file -t "${generator}^{commit}" 2>/dev/null || true)" != commit ] \
+                && [ "$(git -C "$standard_dir" cat-file -t "${generator}^{commit}" 2>/dev/null || true)" != commit ]; then
+            printf 'FAIL %s: generator pin does not resolve in lab or standard-new: %s\n' \
+                "$artifact" "$generator" >&2
+            fails=$((fails + 1))
+        else
+            checked=$((checked + 1))
+        fi
+    fi
+    if [ -n "$checker" ]; then
+        if [[ ! "$checker" =~ ^[0-9a-f]{7,64}$ ]]; then
+            printf 'FAIL %s: non-commit checker pin: %s\n' "$artifact" "$checker" >&2
+            fails=$((fails + 1))
+        elif [ "$(git -C "$ROOT" cat-file -t "${checker}^{commit}" 2>/dev/null || true)" != commit ]; then
+            printf 'FAIL %s: checker pin does not resolve in lazy-fortran-new: %s\n' \
+                "$artifact" "$checker" >&2
+            fails=$((fails + 1))
+        else
+            checked=$((checked + 1))
+        fi
+    fi
+done < <(find "$ROOT/artifacts" -name '*.toml' -print | sort)
+
 printf 'commit references: %d checked, %d skipped, %d failures\n' "$checked" "$skipped" "$fails"
 exit "$fails"
