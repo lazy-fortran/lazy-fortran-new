@@ -1,0 +1,4 @@
+term	disposition	class	parser_target	reason	evidence
+.LT.	retained	unresolved	-	operator occurrence in a grammar alternative; no normative name relation	or .NE., the other generic-spec may have a defined-operator that is the corresponding operator <, <=,
+generic-name	retained	unresolved	-	grammar alternative in generic-spec; no definitional relation to name	R1508 generic-spec is generic-name
+submodule-name	retained	unresolved	-	grammar occurrence plus identity constraint; no lexical alias relation	If a submodule-name appears in the end-submodule-stmt, it shall be identical
