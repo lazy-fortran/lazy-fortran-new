@@ -1,0 +1,77 @@
+id: "E0034"
+title: "Flat SX arena-reader corpus differential"
+question: >
+  Does the flat SX arena reader agree with the recursive seed over the generated corpus?
+status: reported         # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: "2026-08-12"
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "9e734df"
+  standard-new: "5e3def5"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  implementation: standard-new fortsx_arena and recursive fortsx
+  test: standard-new/test/test_fortsx_arena_corpus.f90
+
+# The axes being varied. Omit the key if there is only one condition.
+variables: {}
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model calls; deterministic generated trees and fixed malformed inputs."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - text_policy_self_test_status
+  - text_policy_status
+  - arena_fixture_test_status
+  - arena_corpus_test_status
+  - full_pipeline_status
+  - formatting_status
+  - generated_tree_cases
+  - malformed_cases_checked
+  - differential_byte_status
+  - independent_oracle_mutation_status
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  The complete slice consists of 64 deterministic generated SX trees with
+  maximum recursion depth 4, the fixed four-node arena fixture, 10 fixed
+  malformed inputs, and the standard-new full pipeline. Generated-reader
+  replacement and larger schema-derived corpora remain excluded.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >
+  The recursive seed parses each generated canonical line and emits a separate
+  writer-backed byte stream; the flat arena reader emits a second stream and
+  every byte is compared. The fixed arena fixture supplies an independently
+  declared canonical byte witness, and malformed messages are compared with
+  separately declared expected values. Changing one expected malformed
+  message made the focused test fail before the accepted run.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  A nested generated tree may produce a different byte stream, the arena may
+  accept a malformed input, a fixed diagnostic may differ, the fixed arena
+  fixture may change, or any repository quality gate may fail.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >
+  Pin the production commit, pass the fixed arena fixture and generated-corpus
+  differential tests, observe the controlled diagnostic mutation fail, and
+  pass text-policy, formatting and full fo gates.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/experiments/E0034-does-the-flat-sx-arena-reader-agree-with/analyse.sh

@@ -88,6 +88,9 @@ SHA-256 content hash
 E0031 verifies a flat `int8` arena SX reader against the recursive seed on
 canonical bytes and flat-node structure
 (`research/experiments/E0031-does-the-flat-sx-arena-reader-agree-with/analyse.sh`).
+E0034 extends that differential to 64 generated nested trees and 10 malformed
+inputs, including a controlled diagnostic mutation
+(`research/experiments/E0034-does-the-flat-sx-arena-reader-agree-with/analyse.sh`).
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
@@ -235,8 +238,8 @@ normalized view rather than overwriting the source extraction.
 ### 1.2 SX seed reader and writer (D0006, D0009)
 
 - [x] Seed reader in Bootstrap Core over the arena node type (parallel oracle
-      slice; E0031; regenerate with
-      `research/experiments/E0031-does-the-flat-sx-arena-reader-agree-with/analyse.sh`)
+      slice; E0031 and E0034; regenerate with
+      `research/experiments/E0034-does-the-flat-sx-arena-reader-agree-with/analyse.sh`)
 - [x] Canonical writer: one spelling per operation, normalized fields
 - [x] Round-trip properties: `parse(write(t)) = t`, `write(parse(c)) = c`
       (E0029; regenerate with
@@ -380,6 +383,7 @@ evidence for the thesis.
       structural oracle recorded
 - [x] E0019 tree-sitter projection, provenance and independent structural
       oracle recorded
+- [x] E0034 flat SX arena-reader corpus differential recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
