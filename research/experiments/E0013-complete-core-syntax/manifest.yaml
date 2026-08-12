@@ -11,7 +11,7 @@ closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "db58d77"
+  lazy-fortran-new: "2d11b5c"
   standard-new: "7abd7b1"
   oracle-standard: "160032ae38d8bd239fbb943142fdee95bda49ae2"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
