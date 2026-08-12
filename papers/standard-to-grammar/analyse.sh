@@ -5,6 +5,8 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 repo_root=$(cd "$script_dir/../.." && pwd)
 run_file_glob=("$repo_root"/research/runs/*.jsonl)
 paper_dir="$script_dir"
+tmp_dir=$(mktemp -d)
+trap 'rm -rf "$tmp_dir"' EXIT
 
 die() {
     printf 'standard-to-grammar: %s\n' "$1" >&2
@@ -39,6 +41,36 @@ while IFS= read -r run_id; do
     [[ -z "$run_id" || "$run_id" == \#* ]] && continue
     [[ "$run_id" =~ ^R[0-9]{6}$ ]] || die "invalid run ID: $run_id"
     run_json "$run_id" >/dev/null
+done < "$paper_dir/runs.txt"
+
+# The paper's two pin lists must agree. Without this check, a manuscript can
+# regenerate from newer run records while pins.toml silently reports an older
+# study.
+awk '
+    /^run_ids[[:space:]]*=[[:space:]]*\[/ {inside=1; next}
+    inside && /^\]/ {exit}
+    inside {gsub(/[",]/, "", $1); if ($1 != "") print $1}
+' "$paper_dir/pins.toml" | sort >"$tmp_dir/pins-runs"
+grep -v '^[[:space:]]*#' "$paper_dir/runs.txt" | sed '/^[[:space:]]*$/d' | sort >"$tmp_dir/report-runs"
+diff -u "$tmp_dir/pins-runs" "$tmp_dir/report-runs" >/dev/null || \
+    die "paper pins.toml run_ids differ from runs.txt"
+
+awk '
+    /^standard_new_commits[[:space:]]*=[[:space:]]*\[/ {inside=1; next}
+    inside && /^\]/ {exit}
+    inside {gsub(/[",]/, "", $1); if ($1 != "") print $1}
+' "$paper_dir/pins.toml" | sort -u >"$tmp_dir/pins-commits"
+while IFS= read -r run_id; do
+    [[ -z "$run_id" || "$run_id" == \#* ]] && continue
+    standard_commit=$(metric "$run_id" '(.standard_new_commit // .standard_commit // "")')
+    [[ -n "$standard_commit" ]] || die "run has no standard-new commit: $run_id"
+    grep -Fxq "$standard_commit" "$tmp_dir/pins-commits" || \
+        die "run standard-new commit is absent from pins.toml: $run_id $standard_commit"
+    mapfile -t run_artifacts < <(run_json "$run_id" | jq -r '(.artifact? // empty), (.artifacts[]? // empty)')
+    ((${#run_artifacts[@]} > 0)) || die "run has no artifact path: $run_id"
+    for artifact in "${run_artifacts[@]}"; do
+        [[ -f "$repo_root/$artifact" ]] || die "run artifact is missing: $run_id $artifact"
+    done
 done < "$paper_dir/runs.txt"
 
 source_sha=$(awk -F'"' '/^sha256[[:space:]]*=/{print $2; exit}' \

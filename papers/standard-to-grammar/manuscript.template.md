@@ -32,8 +32,10 @@ projects @LEXICAL_PROJECTION@ token references, and retains
 The combined D0019 slice contains @COMBINED_ALIASES@ aliases,
 @COMBINED_LEXICAL@ lexical classes, @COMBINED_UNRESOLVED@ unresolved records,
 and @COMBINED_WITNESSES@ composite SX witnesses.
-The accepted fixed errata overlay repairs @ERRATA_REPAIRS@ punctuation
+The initial accepted fixed errata overlay repairs @ERRATA_REPAIRS@ punctuation
 boundaries, with @ERRATA_COMMAS@ comma repairs and @ERRATA_COLONS@ colon repair.
+An additional source-witnessed entry is included in the extended derived
+overlay used for the normalization result below.
 The resulting audit has @EXPANSION_AUDIT_NAMES@ names and the R401/R403
 inventory contains @EXPANSION_RECORDS@ records: @R401_RECORDS@ R401 list
 terms and @R403_RECORDS@ R403 scalar terms. Their representation remains
@@ -192,6 +194,6 @@ constraints remain a separate phase.
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0025 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0026 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
