@@ -1,0 +1,73 @@
+id: "E0064"
+title: "Generated expression-shaped AST children and source-linked queries"
+question: >
+  Can the generated source-linked statement forest be extended with
+  expression-shaped child nodes and deterministic kind/rule queries without
+  losing provenance or introducing model-owned wiring?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "2e0a981"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-expressions-v0
+  predecessor: E0063-R000001
+  decisions: [D0018, D0021, D0023, D0028, D0029, D0030, D0031]
+
+variables:
+  operation: [ast-forest-to-expression-children-and-query]
+  representation: [generated-fortran-flat-node-array]
+  expression_roles: [designator, expr, logical-expr, loop-control, do-variable, case-expr, case-selector, output-item]
+  query: [kind-and-rule-to-node-source]
+
+model_selection: "No model calls. Expression-role selection, child wiring, source lookup and query traversal are generated mechanically from statement kinds and accepted StandardIR rules."
+
+metrics:
+  - corpus_files
+  - statement_nodes
+  - expression_nodes
+  - total_nodes
+  - source_linked_nodes
+  - root_nodes
+  - parent_links
+  - child_links
+  - ast_link_errors
+  - max_ast_depth
+  - query_hits
+  - unknown_query_rejected
+  - fortran_compile_status
+  - runtime_test_status
+  - malformed_nesting_rejected
+
+denominator: >
+  Every statement node in the five files declared by
+  phase1-modern-fortran-expressions-v0.json, plus the 52 expression-shaped
+  children declared by its expected kind counts. Each node must retain a
+  StandardIR rule and source reference.
+
+independent_oracle: >
+  The JSON manifest supplies source hashes, expected statement and expression
+  counts, per-kind counts, total parent links and depth. E0063 independently
+  validates the statement forest and construct closure. This operation checks
+  every node's source reference, traverses every child chain, performs a known
+  kind/rule query and rejects an unknown query. The malformed end-do mutation
+  must still be rejected by the predecessor operation.
+
+falsifiable_by: >
+  A source hash changes, E0063 fails, an expression role is lost or duplicated,
+  a node is detached, a source reference is missing, a known query misses or
+  returns the wrong rule, an unknown query is accepted, generated Fortran fails
+  to compile or run, or malformed nesting is accepted.
+
+gate: >
+  Validate the first expression-shaped AST composition and source-linked query
+  boundary. This does not claim a complete expression parser, semantic
+  analysis, or complete AST coverage.
+
+analysis: research/experiments/E0064-can-generated-ast-expressions-be-queried-/analyse.sh
