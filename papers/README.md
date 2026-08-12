@@ -7,6 +7,7 @@ papers/<slug>/
 ├── runs.txt        one run ID per line
 ├── pins.toml       repository commits and corpus hashes
 ├── analyse.sh      regenerates every table and figure from those runs
+├── render.sh       exports the generated manuscript to an ignored PDF cache
 └── ...             the manuscript
 ```
 
