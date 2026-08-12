@@ -5,7 +5,7 @@ set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 standard="${STANDARD_NEW:-$root/../standard-new}"
-expected_commit="b52c1a2"
+expected_commit="44be898"
 outdir="${1:-$root/.cache/runs/E0039/R000001}"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
