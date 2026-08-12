@@ -1,0 +1,28 @@
+name        = "E0014-R000001-j3-24-007-core0-dependencies"
+url         = "https://github.com/lazy-fortran/standard-new/tree/17487dd"
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+path        = ".cache/runs/E0014/R000001/j3-24-007.dependencies.sx"
+sha256      = "03af0b269089c90ef277189da214c3952796f86703a2aa19c904f0ec6b6510d6"
+bytes       = 67591
+origin      = "MECHANICAL"
+format      = "StandardIR dependency SX format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "standard-new sxdependencies"
+generator_commit = "17487dd"
+retrieved   = "2026-08-12"
+input       = ".cache/runs/E0013/R000002/j3-24-007.standardir.sx"
+input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+profile     = "core0-v1"
+roots       = 17
+records     = 866
+source_records = 522
+unique_rules = 502
+duplicate_rule_ids = 20
+closure_rules = 345
+unresolved_references = 249
+purpose     = "Machine-readable dependency graph and syntax closure for the declared Core 0 roots"
+
+# Regenerate and verify with:
+#   research/experiments/E0014-core0-profile/check-core0-closure.sh
+# Verify its hash and counts with sha256sum, stat, wc, rg and jq.

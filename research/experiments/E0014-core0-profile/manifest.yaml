@@ -5,12 +5,12 @@ question: >
   StandardIR syntax corpus into a reproducible rule-ID dependency closure,
   while exposing repeated rule IDs and unresolved grammar references instead
   of hiding them?
-status: running       # draft | running | reported | abandoned
+status: reported     # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 repos:
-  lazy-fortran-new: "ac90340"
+  lazy-fortran-new: "0dc6f48"
   standard-new: "17487dd"
 
 inputs:
@@ -62,3 +62,7 @@ gate: >
   agreement. This is a syntax-closure result, not yet a semantic support claim.
 
 analysis: research/experiments/E0014-core0-profile/analyse.sh
+
+artifacts:
+  dependency_sx: artifacts/runs/E0014/R000001-dependencies.toml
+  roundtrip_sx: artifacts/runs/E0014/R000002-roundtrip.toml

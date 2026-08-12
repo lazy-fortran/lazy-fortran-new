@@ -1,8 +1,8 @@
 # Roadmap
 
-Snapshot: 2026-08-12. Baseline: `lazy-fortran-new` at `db58d77`, CI green;
-`standard-new` at `7abd7b1`, with layout, canonical-text, production-line and
-StandardIR extraction, CI green.
+Snapshot: 2026-08-12. Baseline: `lazy-fortran-new` at `0dc6f48`, CI green;
+`standard-new` at `17487dd`, with layout, canonical-text, production-line,
+StandardIR extraction and dependency closure, CI green.
 
 Live status belongs to each repository. This file records cross-repository
 order, the steps in each phase, and the gate that ends it, so that facts are
@@ -16,15 +16,22 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 
 **Phase 0 complete.** Phase 1 is in progress. `standard-new` extracts UTF-8
 bytes and text rectangles for every page of the pinned PDF, writes a
-canonical geometric text projection, and mechanically projects the complete
-numbered syntax span on pages 45--580. E0013 audits pages 1--688 and reports
-522 production starts with no scope difference; its gate also reports 1,184
-production lines, 522 provenance-bearing StandardIR SX objects, a
-byte-identical round-trip and 522 normalized production records
+canonical geometric text projection, mechanically projects the complete
+numbered syntax span on pages 45--580, and computes profile reachability.
+E0013 audits pages 1--688 and reports 522 production starts with no scope
+difference; its gate also reports 1,184 production lines, 522
+provenance-bearing StandardIR SX objects, a byte-identical round-trip and 522
+normalized production records
 (`research/experiments/E0013-complete-core-syntax/check-core-syntax.sh`).
-E0004 and E0005 remain historical comparison runs. The generated grammar and
-semantic rules do not exist yet. E0001 and E0004 are running, while E0002--E0003
-remain draft experiments. E0012 remains a later Phase 2 experiment.
+E0014 computes 502 unique R-number rules and a 345-rule closure from 17
+declared Core 0 roots, retaining 20 repeated IDs and 249 unresolved names;
+its independent graph gate is
+`research/experiments/E0014-core0-profile/check-core0-closure.sh`.
+The dependency result is syntax reachability, not yet semantic Core 0 support;
+D0015 records the required profile-projection boundary. E0004 and E0005 remain
+historical comparison runs. The generated grammar and semantic rules do not
+exist yet. E0001 and E0004 are running, while E0002--E0003 remain draft
+experiments. E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -227,7 +234,8 @@ evidence for the thesis.
 - [ ] Generate test families per rule: minimal valid witness, minimal invalid
       neighbour, boundaries, each alternative, dependency combinations
 - [ ] Mutation testing over the generated checkers
-- [ ] Rule dependency graph, and profile closure computed from it
+- [x] Rule dependency graph, and the E0014 syntax profile closure computed
+      from it; feature eligibility remains a separate projection (D0015)
 
 ### Phase 1 experiments
 
@@ -237,6 +245,8 @@ evidence for the thesis.
 - [x] E0004 broad syntax extraction manifest, denominator and oracle recorded
 - [x] E0005 contiguous core syntax extraction manifest, denominator and oracle recorded
 - [x] E0013 complete core syntax extraction, scope audit, denominator and oracle recorded
+- [x] E0014 Core 0 roots, dependency closure, duplicate policy and independent
+      graph oracle recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
