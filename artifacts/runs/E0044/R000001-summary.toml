@@ -1,0 +1,45 @@
+name        = "E0044-R000001-r402-suffix-name-closure"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/187d184/research/experiments/E0044-can-the-source-controlled-r402-closure-r"
+sha256      = "22daef66b1c725f62a493cd36263a0f4e0b73ec55cbfe9f85a0eaaf018bb56d3"
+bytes       = 517
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for the source-controlled R402 suffix-name closure and partial alias projection"
+path        = ".cache/runs/E0044/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated typed resolution and alias projection summary"
+generator   = "E0044 analyse.sh"
+generator_commit = "187d184"
+checker     = "research/experiments/E0044-can-the-source-controlled-r402-closure-r/analyse.sh"
+checker_commit = "187d184"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+unresolved_audit_sha256 = "28eb6876a77345cd85de14cf23a1d9027beefc2cb7a4de5756a9f28c40d1a449"
+base_seed_sha256 = "97571cef3a15cbcd68d4b591c18333a8396153deb51dec14ac69b59c75aab896"
+alias_pattern_sha256 = "a9fb0a5ee1f278e5de4e445b90ec990137c7d28e1b6969362c82cf1dd7278b30"
+resolution_records = 182
+resolution_records_sha256 = "7408d0d9e6efa62e2b54a9e8aaa3057afe3ee0730bc0cb9c4faff5fe15fd6652"
+resolution_records_bytes = 36801
+alias_records = 49
+lexical_class_records = 4
+metavariable_records = 1
+semantic_role_records = 0
+unresolved_records = 128
+disputed_records = 0
+source_hash_matches = 182
+explicit_definition_conflicts = 0
+alias_projection_records = 49
+alias_input_sha256 = "899b21bc2f81165e2b54a9e8aaa3057afe3ee0730bc0cb9c4faff5fe15fd6652"
+alias_input_bytes = 2939
+composite_syntax_witnesses = 94
+composite_input_sha256 = "78ce2d5773b8fb38b24c0a0a3f540c849cd24806f0f79637fc9b530b7a60ec5e"
+composite_input_bytes = 33255
+composite_grammar_sha256 = "be6a9b56434e4708e7a5d8dda891415d37f4b35c44c1f897bb5f31d1aee87fec"
+composite_grammar_bytes = 22227
+independent_difference = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0044-can-the-source-controlled-r402-closure-r/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

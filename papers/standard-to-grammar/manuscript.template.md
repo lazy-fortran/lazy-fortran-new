@@ -22,8 +22,10 @@ reproducible method and a measured boundary between mechanical syntax extraction
 and the source-adjudication work required for a complete parser. The first
 source-controlled D0019 slice contains @RESOLUTION_RECORDS@ records, including
 @RESOLUTION_ALIASES@ aliases, @RESOLUTION_LEXICAL@ lexical classes, and
-@RESOLUTION_METAVARIABLE@ metanotation records. It retains
+@RESOLUTION_METAVARIABLE@ metanotation entry. It retains
 @RESOLUTION_UNRESOLVED@ unresolved records.
+The R402 closure applies the assumed suffix-name rule to
+@R402_ALIASES@ absent terms and retains @R402_UNRESOLVED@ unresolved records.
 
 ## 1. Scope and claim
 
@@ -66,7 +68,9 @@ metavariables, semantic roles, unresolved terms, and disputed terms are typed
 source-provenanced resolution records. A parser alias is a projection of such a
 record and cannot become a second maintained truth. The reported D0019 slice
 applies this policy to source-controlled witnesses and preserves the remaining
-unresolved terms in the same record table.
+unresolved terms in the same record table. The R402 closure then applies the
+same source rule to every absent term whose spelling ends in `-name`, after an
+independent check for explicit StandardIR definitions.
 
 ### 2.3 Verification
 
@@ -101,7 +105,9 @@ grammar would violate the source boundary. The recorded unresolved inventory
 therefore defines the next experiment rather than disappearing into a guessed
 grammar. The D0019 slice supplies a source-controlled alias projection while
 retaining unresolved records. It is evidence for the resolution record contract,
-not completion of the composite parser input.
+not completion of the composite parser input. The R402 closure expands the
+alias projection to the full selected suffix-name set and leaves
+@R402_UNRESOLVED@ unresolved records for the next slice.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -125,14 +131,15 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment extends the source-controlled D0019 seed across the
-remaining unresolved inventory. It must add lexical token rules, resolve each
+The next experiment extends the source-controlled D0019 resolution beyond the
+R402 suffix-name closure. It must add lexical token rules, resolve each
 selected term or mark it disputed, and apply the resulting records to the full
-composite input. The ANTLR4, Bison, and tree-sitter validators then provide
-target-specific checks. A complete parser input will be claimed only after the
-unresolved and disputed sets are reported, every selected alias has provenance,
-and the target tools accept the generated composite input. Semantic constraints
-remain a separate phase.
+composite input. Assumed list and scalar rules, punctuation references, and
+source-extraction edge cases remain in scope. The ANTLR4, Bison, and tree-sitter
+validators then provide target-specific checks. A complete parser input will be
+claimed only after the unresolved and disputed sets are reported, every
+selected alias has provenance, and the target tools accept the generated
+composite input. Semantic constraints remain a separate phase.
 
 ## References
 

@@ -57,6 +57,19 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled negative mutation | observed_failure |
 
+## D0019 R402 closure
+
+| Quantity | Value |
+|---|---:|
+| R402 suffix-name aliases | 49 |
+| Unresolved records retained | 128 |
+| Records with source hash | 182 |
+| Explicit-definition conflicts | 0 |
+| Alias projection records | 49 |
+| Composite SX syntax witnesses | 94 |
+| Independent difference | 0 |
+| Controlled negative mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |
