@@ -92,6 +92,11 @@ E0073 emits 11 sidecar rows in each of the five selected
 target formats, with 55 provenance instances and
 0 semantic-target leaks. The reported target validators all
 pass.
+E0074 integrates 3 accepted aliases into all
+522 syntax records, rewrites 6 references,
+and emits 522 direct dispatch rows. It retains
+29 semantic facts separately and leaves
+178 names unresolved.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -366,6 +371,11 @@ aliases.
 E0073 validates those 11 parser rows in EBNF, ANTLR4, Bison,
 tree-sitter and direct Fortran. It retains 29 semantic-role
 facts in the composite table and observes 0 target leaks.
+E0074 integrates the aliases into the complete syntax projection. It preserves
+522 records, emits 522 direct dispatch rows
+with 522 provenance rows, and leaves
+178 unique names unresolved. The target validators
+therefore remain a reported boundary, while direct wiring compiles.
 
 ## 5. Reproducibility and limitations
 
@@ -383,12 +393,14 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment integrates the E0072 sidecar with the complete syntax
-projection and direct-parser wiring. E0073 has already validated the 11-row
-sidecar in all five selected target formats; the integration must preserve the
-five adjudicated false positives, the 151-name E0070 residue and the separate
-semantic fact table. Later operations may resume after a retained diagnostic
-only when a compact constructive rule and an independent witness exist.
+The next experiment classifies or resolves the remaining
+178 unique names under the deterministic-first prose
+procedure, then reruns the full integration. E0073 validated the sidecar in all
+five selected target formats and E0074 validated complete-record preservation;
+the next step must preserve the five adjudicated false positives, the
+151-name E0070 residue where still applicable and the separate semantic fact
+table. Later operations may resume after a retained diagnostic only when a
+compact constructive rule and an independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -403,6 +415,9 @@ E0072 composes 219 facts and derives
 29 semantic relations into aliases.
 E0073 validates 11 sidecar rows per target with
 55 provenance instances and no semantic-target leaks.
+E0074 integrates 3 accepted aliases into
+522 syntax records and compiles
+522 direct dispatch rows without semantic projection leaks.
 
 ## 7. Conclusion
 
@@ -448,7 +463,10 @@ unresolved or rejected. E0072 supplies the composition boundary:
 11 parser rows are derived without semantic-role
 aliasing. E0073 supplies the target boundary: 11 parser
 rows pass all five target probes, while 29 semantic facts stay
-out of parser artifacts.
+out of parser artifacts. E0074 supplies the full-input boundary:
+522 records and 522 dispatch rows survive,
+but 178 unique names still block the full target
+validators.
 
 ## References
 
@@ -1019,6 +1037,34 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 | Target boundary | all_target_fragments_valid |
+
+## E0074 full-syntax alias integration
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | 522 |
+| Integrated syntax records | 522 |
+| Accepted alias records | 3 |
+| Alias reference rewrites | 6 |
+| Semantic fact records | 29 |
+| Source-term alias/semantic overlap | 1 |
+| Semantic projection leaks | 0 |
+| Unresolved reference occurrences | 466 |
+| Unresolved unique names | 178 |
+| EBNF export status | 0 |
+| ANTLR4 export status | 0 |
+| Bison export status | 0 |
+| tree-sitter export status | 0 |
+| ANTLR4 validator status | 1 |
+| Bison validator status | 1 |
+| tree-sitter validator status | 1 |
+| Direct dispatch rows | 522 |
+| Dispatch provenance rows | 522 |
+| Dispatch label collisions | 0 |
+| Direct Fortran status | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+| Wiring boundary | integrated_dispatch_compiled |
 
 ## E0054 D0027 lexical candidate comparison
 

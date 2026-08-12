@@ -493,8 +493,12 @@ evidence for the thesis.
       tree-sitter and direct Fortran: 11 rows per target, 55 provenance
       instances, zero semantic leaks (E0073, regenerate with
       `research/experiments/E0073-can-the-e0072-parser-resolution-sidecar-/analyse.sh`)
-- [ ] Integrate the validated sidecar with the complete syntax projection and
-      direct-parser wiring while retaining the semantic fact table separately
+- [x] Integrate the validated sidecar with the complete syntax projection and
+      direct-parser wiring: preserve all 522 records, compile 522 provenance
+      dispatch rows, and retain 178 unresolved names (E0074, regenerate with
+      `research/experiments/E0074-can-the-accepted-e0072-aliases-integrate/analyse.sh`)
+- [ ] Classify or resolve the remaining 178 names under the deterministic-first
+      prose procedure, then rerun full target integration
 - [ ] Resume after retained residues and enlarge supported complete-source
       statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and

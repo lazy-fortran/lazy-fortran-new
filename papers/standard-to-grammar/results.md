@@ -555,6 +555,34 @@ The following rows are extracted from the accepted projection run records.
 | Controlled mutation | observed_failure |
 | Target boundary | all_target_fragments_valid |
 
+## E0074 full-syntax alias integration
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | 522 |
+| Integrated syntax records | 522 |
+| Accepted alias records | 3 |
+| Alias reference rewrites | 6 |
+| Semantic fact records | 29 |
+| Source-term alias/semantic overlap | 1 |
+| Semantic projection leaks | 0 |
+| Unresolved reference occurrences | 466 |
+| Unresolved unique names | 178 |
+| EBNF export status | 0 |
+| ANTLR4 export status | 0 |
+| Bison export status | 0 |
+| tree-sitter export status | 0 |
+| ANTLR4 validator status | 1 |
+| Bison validator status | 1 |
+| tree-sitter validator status | 1 |
+| Direct dispatch rows | 522 |
+| Dispatch provenance rows | 522 |
+| Dispatch label collisions | 0 |
+| Direct Fortran status | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+| Wiring boundary | integrated_dispatch_compiled |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

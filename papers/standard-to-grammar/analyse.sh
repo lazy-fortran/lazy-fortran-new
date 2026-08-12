@@ -124,6 +124,7 @@ assert_run R000079 '.status == "accepted" and .experiment == "E0070" and .verifi
 assert_run R000080 '.status == "accepted" and .experiment == "E0071" and .verification.zero_model_calls == true and .verification.candidate_spans == 42 and .verification.accepted_records == 37 and .verification.retained_records == 5 and .verification.accepted_alias_records == 0 and .verification.accepted_lexical_class_records == 7 and .verification.accepted_metavariable_records == 1 and .verification.accepted_semantic_role_records == 29 and .verification.source_hash_matches == 42 and .verification.source_evidence_matches == 42 and .verification.candidate_inventory_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "source_controlled_bounded_prose_adjudication"'
 assert_run R000081 '.status == "accepted" and .experiment == "E0072" and .verification.zero_model_calls == true and .verification.d0019_records == 182 and .verification.adjudicated_relation_records == 37 and .verification.merged_fact_records == 219 and .verification.retained_relations == 5 and .verification.unresolved_records == 151 and .verification.semantic_facts_not_parser_aliases == 29 and .verification.parser_projection_records == 11 and .verification.source_hash_matches == 219 and .verification.projection_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "d0019_adjudicated_relation_composition"'
 assert_run R000082 '.status == "accepted" and .experiment == "E0073" and .verification.zero_model_calls == true and .verification.composite_fact_records == 219 and .verification.semantic_fact_records == 29 and .verification.parser_projection_records == 11 and .verification.target_fragment_records == 11 and .verification.target_provenance_records == 55 and .verification.semantic_target_leaks == 0 and .verification.ebnf_status == 0 and .verification.antlr_status == 0 and .verification.bison_status == 0 and .verification.treesitter_status == 0 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "all_target_fragments_valid"'
+assert_run R000083 '.status == "accepted" and .experiment == "E0074" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.integrated_syntax_records == 522 and .verification.alias_records == 3 and .verification.alias_reference_rewrites == 6 and .verification.semantic_fact_records == 29 and .verification.semantic_alias_overlap == 1 and .verification.semantic_projection_leaks == 0 and .verification.unresolved_reference_occurrences == 466 and .verification.unresolved_unique_names == 178 and .verification.export_ebnf_status == 0 and .verification.export_antlr_status == 0 and .verification.export_bison_status == 0 and .verification.export_treesitter_status == 0 and .verification.antlr_validate_status == 1 and .verification.bison_validate_status == 1 and .verification.treesitter_validate_status == 1 and .verification.dispatch_rows == 522 and .verification.dispatch_provenance_rows == 522 and .verification.dispatch_label_collisions == 0 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.wiring_boundary == "integrated_dispatch_compiled"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -502,6 +503,29 @@ sidecar_fortran=$(metric R000082 '.verification.direct_fortran_status')
 sidecar_difference=$(metric R000082 '.verification.independent_difference')
 sidecar_negative=$(metric R000082 '.verification.negative_control')
 sidecar_boundary=$(metric R000082 '.verification.target_boundary')
+integration_source=$(metric R000083 '.verification.source_syntax_records')
+integration_syntax=$(metric R000083 '.verification.integrated_syntax_records')
+integration_aliases=$(metric R000083 '.verification.alias_records')
+integration_rewrites=$(metric R000083 '.verification.alias_reference_rewrites')
+integration_semantic=$(metric R000083 '.verification.semantic_fact_records')
+integration_overlap=$(metric R000083 '.verification.semantic_alias_overlap')
+integration_leaks=$(metric R000083 '.verification.semantic_projection_leaks')
+integration_unresolved_occurrences=$(metric R000083 '.verification.unresolved_reference_occurrences')
+integration_unresolved_names=$(metric R000083 '.verification.unresolved_unique_names')
+integration_export_ebnf=$(metric R000083 '.verification.export_ebnf_status')
+integration_export_antlr=$(metric R000083 '.verification.export_antlr_status')
+integration_export_bison=$(metric R000083 '.verification.export_bison_status')
+integration_export_treesitter=$(metric R000083 '.verification.export_treesitter_status')
+integration_antlr=$(metric R000083 '.verification.antlr_validate_status')
+integration_bison=$(metric R000083 '.verification.bison_validate_status')
+integration_treesitter=$(metric R000083 '.verification.treesitter_validate_status')
+integration_dispatch=$(metric R000083 '.verification.dispatch_rows')
+integration_dispatch_provenance=$(metric R000083 '.verification.dispatch_provenance_rows')
+integration_collisions=$(metric R000083 '.verification.dispatch_label_collisions')
+integration_fortran=$(metric R000083 '.verification.direct_fortran_status')
+integration_difference=$(metric R000083 '.verification.independent_difference')
+integration_negative=$(metric R000083 '.verification.negative_control')
+integration_boundary=$(metric R000083 '.verification.wiring_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -1074,6 +1098,34 @@ EOF
 | Controlled mutation | $sidecar_negative |
 | Target boundary | $sidecar_boundary |
 
+## E0074 full-syntax alias integration
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | $integration_source |
+| Integrated syntax records | $integration_syntax |
+| Accepted alias records | $integration_aliases |
+| Alias reference rewrites | $integration_rewrites |
+| Semantic fact records | $integration_semantic |
+| Source-term alias/semantic overlap | $integration_overlap |
+| Semantic projection leaks | $integration_leaks |
+| Unresolved reference occurrences | $integration_unresolved_occurrences |
+| Unresolved unique names | $integration_unresolved_names |
+| EBNF export status | $integration_export_ebnf |
+| ANTLR4 export status | $integration_export_antlr |
+| Bison export status | $integration_export_bison |
+| tree-sitter export status | $integration_export_treesitter |
+| ANTLR4 validator status | $integration_antlr |
+| Bison validator status | $integration_bison |
+| tree-sitter validator status | $integration_treesitter |
+| Direct dispatch rows | $integration_dispatch |
+| Dispatch provenance rows | $integration_dispatch_provenance |
+| Dispatch label collisions | $integration_collisions |
+| Direct Fortran status | $integration_fortran |
+| Independent difference | $integration_difference |
+| Controlled mutation | $integration_negative |
+| Wiring boundary | $integration_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1355,6 +1407,29 @@ rendered=${rendered//@SIDECAR_FORTRAN@/$sidecar_fortran}
 rendered=${rendered//@SIDECAR_DIFFERENCE@/$sidecar_difference}
 rendered=${rendered//@SIDECAR_NEGATIVE@/$sidecar_negative}
 rendered=${rendered//@SIDECAR_BOUNDARY@/$sidecar_boundary}
+rendered=${rendered//@INTEGRATION_SOURCE@/$integration_source}
+rendered=${rendered//@INTEGRATION_SYNTAX@/$integration_syntax}
+rendered=${rendered//@INTEGRATION_ALIASES@/$integration_aliases}
+rendered=${rendered//@INTEGRATION_REWRITES@/$integration_rewrites}
+rendered=${rendered//@INTEGRATION_SEMANTIC@/$integration_semantic}
+rendered=${rendered//@INTEGRATION_OVERLAP@/$integration_overlap}
+rendered=${rendered//@INTEGRATION_LEAKS@/$integration_leaks}
+rendered=${rendered//@INTEGRATION_UNRESOLVED_OCCURRENCES@/$integration_unresolved_occurrences}
+rendered=${rendered//@INTEGRATION_UNRESOLVED_NAMES@/$integration_unresolved_names}
+rendered=${rendered//@INTEGRATION_EXPORT_EBNF@/$integration_export_ebnf}
+rendered=${rendered//@INTEGRATION_EXPORT_ANTLR@/$integration_export_antlr}
+rendered=${rendered//@INTEGRATION_EXPORT_BISON@/$integration_export_bison}
+rendered=${rendered//@INTEGRATION_EXPORT_TREESITTER@/$integration_export_treesitter}
+rendered=${rendered//@INTEGRATION_ANTLR@/$integration_antlr}
+rendered=${rendered//@INTEGRATION_BISON@/$integration_bison}
+rendered=${rendered//@INTEGRATION_TREESITTER@/$integration_treesitter}
+rendered=${rendered//@INTEGRATION_DISPATCH@/$integration_dispatch}
+rendered=${rendered//@INTEGRATION_DISPATCH_PROVENANCE@/$integration_dispatch_provenance}
+rendered=${rendered//@INTEGRATION_COLLISIONS@/$integration_collisions}
+rendered=${rendered//@INTEGRATION_FORTRAN@/$integration_fortran}
+rendered=${rendered//@INTEGRATION_DIFFERENCE@/$integration_difference}
+rendered=${rendered//@INTEGRATION_NEGATIVE@/$integration_negative}
+rendered=${rendered//@INTEGRATION_BOUNDARY@/$integration_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

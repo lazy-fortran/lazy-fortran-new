@@ -92,6 +92,11 @@ E0073 emits @SIDECAR_FRAGMENTS@ sidecar rows in each of the five selected
 target formats, with @SIDECAR_PROVENANCE@ provenance instances and
 @SIDECAR_LEAKS@ semantic-target leaks. The reported target validators all
 pass.
+E0074 integrates @INTEGRATION_ALIASES@ accepted aliases into all
+@INTEGRATION_SYNTAX@ syntax records, rewrites @INTEGRATION_REWRITES@ references,
+and emits @INTEGRATION_DISPATCH@ direct dispatch rows. It retains
+@INTEGRATION_SEMANTIC@ semantic facts separately and leaves
+@INTEGRATION_UNRESOLVED_NAMES@ names unresolved.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -366,6 +371,11 @@ aliases.
 E0073 validates those @SIDECAR_PROJECTION@ parser rows in EBNF, ANTLR4, Bison,
 tree-sitter and direct Fortran. It retains @SIDECAR_SEMANTIC@ semantic-role
 facts in the composite table and observes @SIDECAR_LEAKS@ target leaks.
+E0074 integrates the aliases into the complete syntax projection. It preserves
+@INTEGRATION_SYNTAX@ records, emits @INTEGRATION_DISPATCH@ direct dispatch rows
+with @INTEGRATION_DISPATCH_PROVENANCE@ provenance rows, and leaves
+@INTEGRATION_UNRESOLVED_NAMES@ unique names unresolved. The target validators
+therefore remain a reported boundary, while direct wiring compiles.
 
 ## 5. Reproducibility and limitations
 
@@ -383,12 +393,14 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment integrates the E0072 sidecar with the complete syntax
-projection and direct-parser wiring. E0073 has already validated the 11-row
-sidecar in all five selected target formats; the integration must preserve the
-five adjudicated false positives, the 151-name E0070 residue and the separate
-semantic fact table. Later operations may resume after a retained diagnostic
-only when a compact constructive rule and an independent witness exist.
+The next experiment classifies or resolves the remaining
+@INTEGRATION_UNRESOLVED_NAMES@ unique names under the deterministic-first prose
+procedure, then reruns the full integration. E0073 validated the sidecar in all
+five selected target formats and E0074 validated complete-record preservation;
+the next step must preserve the five adjudicated false positives, the
+151-name E0070 residue where still applicable and the separate semantic fact
+table. Later operations may resume after a retained diagnostic only when a
+compact constructive rule and an independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -403,6 +415,9 @@ E0072 composes @COMPOSITION_MERGED@ facts and derives
 @COMPOSITION_SEMANTIC@ semantic relations into aliases.
 E0073 validates @SIDECAR_PROJECTION@ sidecar rows per target with
 @SIDECAR_PROVENANCE@ provenance instances and no semantic-target leaks.
+E0074 integrates @INTEGRATION_ALIASES@ accepted aliases into
+@INTEGRATION_SYNTAX@ syntax records and compiles
+@INTEGRATION_DISPATCH@ direct dispatch rows without semantic projection leaks.
 
 ## 7. Conclusion
 
@@ -448,7 +463,10 @@ unresolved or rejected. E0072 supplies the composition boundary:
 @COMPOSITION_PROJECTION@ parser rows are derived without semantic-role
 aliasing. E0073 supplies the target boundary: @SIDECAR_PROJECTION@ parser
 rows pass all five target probes, while @SIDECAR_SEMANTIC@ semantic facts stay
-out of parser artifacts.
+out of parser artifacts. E0074 supplies the full-input boundary:
+@INTEGRATION_SYNTAX@ records and @INTEGRATION_DISPATCH@ dispatch rows survive,
+but @INTEGRATION_UNRESOLVED_NAMES@ unique names still block the full target
+validators.
 
 ## References
 
