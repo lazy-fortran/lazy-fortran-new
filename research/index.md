@@ -15,6 +15,7 @@ Runs recorded: 21
 | E0005 | running | 4 | Can one mechanical pass over the contiguous syntax span of J3/24-007 recover |
 | E0012 | draft | 0 | Does language-independent scope-graph resolution handle Fortran's modules, |
 | E0013 | reported | 5 | Can one mechanical pass over the contiguous core syntax span of J3/24-007 |
+| E0014 | running | 0 | Can the proposed Core 0 feature roots be resolved against the complete |
 
 ## Run status
 

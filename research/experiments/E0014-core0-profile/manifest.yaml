@@ -1,0 +1,64 @@
+id: "E0014"
+title: "Core 0 profile roots and dependency closure"
+question: >
+  Can the proposed Core 0 feature roots be resolved against the complete
+  StandardIR syntax corpus into a reproducible rule-ID dependency closure,
+  while exposing repeated rule IDs and unresolved grammar references instead
+  of hiding them?
+status: running       # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "ac90340"
+  standard-new: "17487dd"
+
+inputs:
+  standard: j3-24-007
+  standardir: artifacts/runs/E0013/R000002-standardir.toml
+  roots: research/experiments/E0014-core0-profile/roots.jsonl
+  profile: core0-v1
+
+variables:
+  closure_root: [programs, modules, functions, subroutines, types, arrays,
+    allocatables, intent, control, io, use-association, generic-interfaces]
+  duplicate_policy: collapse-identical-rule-id-occurrences
+  unresolved_policy: retain-and-count
+
+metrics:
+  - source_records
+  - unique_rule_ids
+  - duplicate_rule_ids
+  - closure_rules
+  - unresolved_references
+  - ambiguous_references
+  - missing_roots
+  - sx_roundtrip_failures
+  - independent_closure_difference
+
+denominator: >
+  Every syntax object in the pinned E0013 StandardIR corpus. Repeated R-number
+  occurrences remain provenance-bearing input records; closure membership is
+  computed once per unique R-number after identical-shape verification.
+
+independent_oracle: >
+  A separate awk graph walk over the SX reference and lhs fields must produce
+  the same selected R-number set as sxdependencies. jq validates every root
+  record, the source hash is fixed, the output SX round-trips byte-identically,
+  and the duplicate and unresolved counts are checked independently.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler]
+
+falsifiable_by: >
+  A root is missing, repeated occurrences of one R-number have different
+  grammar shape, an lhs resolves to multiple distinct rule IDs, the independent
+  closure differs, or the output cannot be parsed and round-tripped as SX.
+
+gate: >
+  Produce a pinned dependency SX artifact with exact roots, unique and repeated
+  rule counts, closure membership, unresolved references and independent graph
+  agreement. This is a syntax-closure result, not yet a semantic support claim.
+
+analysis: research/experiments/E0014-core0-profile/analyse.sh

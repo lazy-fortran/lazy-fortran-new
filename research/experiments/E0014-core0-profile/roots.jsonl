@@ -1,0 +1,17 @@
+{"kind":"profile-root","profile":"core0-v1","rule":"R501","feature":"programs","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1404","feature":"modules","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1532","feature":"functions","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1537","feature":"subroutines","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R704","feature":"intrinsic-types","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R726","feature":"derived-types","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R814","feature":"arrays","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R832","feature":"allocatables","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R852","feature":"intent","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1119","feature":"do-constructs","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1136","feature":"if-constructs","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1142","feature":"case-constructs","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1204","feature":"open-io","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1210","feature":"read-io","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1211","feature":"write-io","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1409","feature":"use-association","origin":"HUMAN"}
+{"kind":"profile-root","profile":"core0-v1","rule":"R1501","feature":"generic-interfaces","origin":"HUMAN"}
