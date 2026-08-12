@@ -265,59 +265,18 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-D0024, D0026 and D0027 are now accepted under the repository's default
-principles: typed expansions, compositional facts, and a target-independent
-lexical schema whose outputs can be specialized. The next experiment applies
-those projections to the composite parser-generator input and reruns all
-three target validators. E0052 removes the deterministic `seq(, ...)` composition
-error and E0053 partitions the remaining names. E0048
-supplies the complete 80/20 inventory, E0049 supplies the candidate and its
-retained failure, and E0050 supplies the explicit tradeoff matrix. The choice
-is recorded in [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md),
-[D0026](../../research/decisions/D0026-overlapping-resolution-facts.md), and
-[D0027](../../research/decisions/D0027-lexical-primitive-projection.md), with
-the self-decision policy in [D0028](../../research/decisions/D0028-default-decision-principles.md).
-A complete parser input will be claimed after the unresolved and disputed
-sets are reported, every selected fact has provenance, and the target tools
-accept the generated composite input. Semantic constraints remain a separate
-phase.
-E0055 shows that the next work is target normalization: eliminate or represent
-the pre-existing empty-rule, left-recursion and conflict boundaries while
-keeping StandardIR and deterministic wiring authoritative.
-E0056 completes the compact recursion and nullability normalization and
-identifies the next tree-sitter conflict boundary. D0029 selects the
-specialized direct parser as the production target. EBNF, ANTLR4, Bison and
-tree-sitter remain generated exports and differential oracles, so their
-target-specific conflict metadata does not enter the authoritative
-representation.
-E0057 then emits @DIRECT_PROCEDURES@ deterministic procedures from the
-accepted composite input. All @DIRECT_DISPATCH@ dispatch rows retain source
-provenance, the generated skeleton compiles, and its local procedure bodies
-remain explicit implementation holes. This separates compiler-wide wiring
-from the constructive logic that later work must fill.
-E0058 extends the same boundary to diagnostics: @DIAGNOSTIC_ROWS@ rows are
-source-linked, the generated lookup compiles and runs, and the controlled span
-mutation changes the witness. This is a data-path result, not parser behavior.
-E0059 fills the first local operation and validates it against
-@LOCAL_CORPUS_FILES@ real source files. The next experiment must extend the
-same generated structure to statement-level operations.
-E0059 shows that the generated wiring can call a local constructive operation
-over real source files. All @LOCAL_CLASSIFIED_UNITS@ declared units are
-classified and source-linked. The result stops before statement parsing and
-semantic checking.
-E0060 extends the local-hole boundary to ten declared statement witnesses.
-All @STATEMENT_CLASSIFIED@ witnesses are classified and source-linked. This
-is evidence for local constructive logic, not full statement or expression
-parsing.
-E0061 then covers every meaningful line in the five declared files. All
-@COMPLETE_CLASSIFIED_LINES@ lines are classified and source-linked, and the
-unsupported-line mutation is rejected. This is complete-source coverage for a
-small corpus. It is not a general Fortran parser.
-E0062 assembles @CONSTRUCT_LOGICAL@ logical statements from
-@CONSTRUCT_PHYSICAL_LINES@ physical lines, with two continuation joins and
-zero nesting errors. The mismatched-close mutation is rejected. This supplies
-the next local operation boundary while expression parsing and semantic
-checking remain open.
+The next experiment extends E0062 with richer expression continuations and
+construct families outside the current corpus. Its manifest will predeclare
+physical ranges, logical statements, expected StandardIR families and
+malformed controls. GNU Fortran will remain the syntax oracle, and the
+generated operation will retain source page, byte span and document hash for
+each result.
+
+The direct parser remains the production target selected by D0029. Structural
+wiring, registration and source identity continue to come from generated
+records. Local constructive logic remains the only implementation boundary.
+The experiment stays in the laboratory until a broader corpus passes the same
+acceptance, provenance and mutation gates.
 
 ## 7. Conclusion
 
@@ -334,7 +293,6 @@ This result supports the repository's main engineering claim. The standard can
 remain the maintained semantic source while generated representations carry
 the wiring and provenance. E0060 confirms a bounded statement operation
 against real source. E0061 extends that operation across every meaningful line
-in the declared files and preserves the source-linked diagnostic path. The next
 in the declared files and preserves the source-linked diagnostic path. E0062
 adds logical-statement assembly and construct closure. The next milestone
 adds richer expression continuations and broader construct families before
