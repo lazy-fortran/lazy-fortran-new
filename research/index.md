@@ -87,6 +87,11 @@ Runs recorded: 51
 | [D0022](decisions/D0022-schema-v0-is-not-standardir.md) | amended by D0023 |  | The v0 schema fixture is not the StandardIR schema |
 | [D0023](decisions/D0023-arena-bootstrap-specialized-performance.md) | accepted | Amends D0022 | Arena bootstrap with specialized performance representations |
 
+### Proposed decisions
+
+| ID | Title | File |
+|---|---|---|
+| _none_ | | |
 
 ## Pinned artifacts
 

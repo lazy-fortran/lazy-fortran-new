@@ -1,0 +1,12 @@
+# Runs reported by the standard-to-grammar paper.
+R000017
+R000019
+R000020
+R000025
+R000026
+R000027
+R000028
+R000029
+R000030
+R000031
+R000050

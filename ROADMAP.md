@@ -20,15 +20,15 @@ bytes and text rectangles for every page of the pinned PDF, writes a
 canonical geometric text projection, mechanically projects the complete
 numbered syntax span on pages 45--580, and computes profile reachability.
 E0013 audits pages 1--688 and reports 522 production starts with no scope
-difference; its gate also reports 1,184 production lines, 522
+difference. Its gate also reports 1,184 production lines, 522
 provenance-bearing StandardIR SX objects, a byte-identical round-trip and 522
 normalized production records
 (`research/experiments/E0013-complete-core-syntax/check-core-syntax.sh`).
 E0014 computes 502 unique R-number rules and a 345-rule closure from 17
-declared Core 0 roots, retaining 20 repeated IDs and 249 unresolved names;
+declared Core 0 roots, retaining 20 repeated IDs and 249 unresolved names.
 its independent graph gate is
 `research/experiments/E0014-core0-profile/check-core0-closure.sh`.
-The dependency result is syntax reachability, not yet semantic Core 0 support;
+The dependency result is syntax reachability, not yet semantic Core 0 support.
 D0015 records the required profile-projection boundary. E0015 reports a
 graph-level eligibility projection with 313 retained rules, 27 pruned edges,
 zero non-closed references and 115 unresolved names requiring adjudication
@@ -47,15 +47,14 @@ E0019 reports a tree-sitter grammar.js projection of the same 522 records with
 exact ordered provenance and lhs agreement and zero model calls
 (`research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh`).
 E0020 records structural inventories for the house `standard` grammar, kaby76,
-LFortran and Flang, retaining source-only and StandardIR-only differences; its
+LFortran and Flang, retaining source-only and StandardIR-only differences. Its
 independent traversal reports zero count difference
 (`research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`).
 E0021 normalizes the 20 repeated lhs records into 502 deterministic exported
 definitions. Its target-tool validation retains a failure: 181 unresolved
 lexical, name-class or other references remain in the selected projection.
 J3/24-007 explicitly says its syntax rules are not a complete parser
-description, so D0018 makes composite parser input—not raw syntax exports—the
-next boundary
+description, so D0018 makes composite parser input the next boundary.
 (`research/experiments/E0021-are-grouped-syntax-exports-consumable/analyse.sh`).
 E0022 inventories all 181 unresolved names, their 472 reference occurrences and
 346 referring rules, with independent traversal agreement and comparison-source
@@ -124,7 +123,7 @@ failures and zero scope difference, with a controlled count mutation
 (`research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`).
 E0004 and E0005 now report their broad and contiguous extraction gates.
 Generated semantic rules do not exist yet. E0041 now records the first parser
-behavior comparison across LFortran, Flang and gfortran; broad adjudication
+behavior comparison across LFortran, Flang and gfortran. Broad adjudication
 remains open. E0001 remains running, E0002--E0003 remain draft experiments,
 and E0012 remains a later Phase 2 experiment.
 
@@ -146,7 +145,7 @@ and E0012 remains a later Phase 2 experiment.
       matching one
 - [x] `scripts/selftest.sh` with nine gates, including decision-ledger
       validation and its negative control, run in CI
-- [x] Commit-reference checker and optional pre-commit hook (D0017; validates
+- [x] Commit-reference checker and optional pre-commit hook (D0017, validates
       active experiment and artifact pins without rewriting them)
 - [x] `standard-new` scaffolded: fpm project, `fortpdf` over poppler-glib,
       `pdfinfo`
@@ -156,11 +155,11 @@ and E0012 remains a later Phase 2 experiment.
       Go extractor, and a raw `/Type/Page` count
 - [x] Text-representation policy with a mechanical gate and its negative
       control (D0011)
-- [x] Decision records D0001–D0012, append-only lifecycle, generated index
+- [x] Decision records D0001-D0012, append-only lifecycle, generated index
 - [x] CI green on both repositories
 
 **Gate: met.** `scripts/fetch.sh j3-24-007` verifies and fails loudly on a
-corrupted hash; `scripts/status.sh` reports every repository in `repos.toml`;
+corrupted hash. `scripts/status.sh` reports every repository in `repos.toml`.
 `standard-new` builds and reports a page count cross-checked against an
 independent extractor.
 
@@ -213,32 +212,32 @@ whole phase.
 - [ ] If negative: decision record naming the fallback (OCR, alternative
       library, J3 sources) before any further extraction work
 
-The first complete document layout dump is `R000001`; regenerate it with
+The first complete document layout dump is `R000001`. Regenerate it with
 `(cd ../standard-new && fo exec pdfextract ../lazy-fortran-new/.cache/j3-24-007.pdf ../lazy-fortran-new/.cache/runs/E0001/R000001/j3-24-007.layout)`.
-The geometry probe is `R000002`; regenerate it with
+The geometry probe is `R000002`. Regenerate it with
 `research/experiments/E0001-standard-to-grammar/probe-layout.sh`.
-The canonical text is `R000003`; regenerate it with
+The canonical text is `R000003`. Regenerate it with
 `(cd ../standard-new && fo exec pdfcanonical ../lazy-fortran-new/.cache/j3-24-007.pdf ../lazy-fortran-new/.cache/runs/E0001/R000003/j3-24-007.canonical.txt ../lazy-fortran-new/.cache/runs/E0001/R000003/j3-24-007.pages.index)`.
-The version-2 layout dump is `R000004`; regenerate it with the `R000001`
+The version-2 layout dump is `R000004`. Regenerate it with the `R000001`
 command, changing the run directory to `R000004`.
-The first production-line slice is `R000005`; regenerate and check it with
+The first production-line slice is `R000005`. Regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-productions.sh`.
-The first StandardIR SX slice is `R000006`; regenerate and check it with
+The first StandardIR SX slice is `R000006`. Regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-standardir.sh`.
-The SX round-trip is `R000007`; regenerate and check it with
+The SX round-trip is `R000007`. Regenerate and check it with
 `research/experiments/E0001-standard-to-grammar/check-sx-roundtrip.sh`.
-The broad syntax-line corpus is `E0004/R000002`; regenerate and check it with
+The broad syntax-line corpus is `E0004/R000002`. Regenerate and check it with
 `research/experiments/E0004-broad-syntax-extraction/check-productions.sh`.
 The broad StandardIR projection and its SX round-trip are `E0004/R000003` and
-`E0004/R000004`; regenerate and check them with
+`E0004/R000004`. Regenerate and check them with
 `research/experiments/E0004-broad-syntax-extraction/check-standardir.sh`.
-The normalized production projection is `E0004/R000005`; regenerate and check
+The normalized production projection is `E0004/R000005`. Regenerate and check
 it with `research/experiments/E0004-broad-syntax-extraction/check-normalized.sh`.
-The contiguous core-syntax corpus is `E0005/R000001` through `R000004`;
+The contiguous core-syntax corpus is `E0005/R000001` through `R000004`.
 regenerate and check all four projections with
 `research/experiments/E0005-core-syntax-extraction/check-core-syntax.sh`.
 The complete core-syntax scope audit and corpus are `E0013/R000017` through
-`R000021`, with the scope artifact at `E0013/R000000`; regenerate and check
+`R000021`, with the scope artifact at `E0013/R000000`. Regenerate and check
 them with
 `research/experiments/E0013-complete-core-syntax/check-core-syntax.sh`.
 The raw text has missing inter-word spaces where rectangle gaps carry the
@@ -247,37 +246,37 @@ normalized view rather than overwriting the source extraction.
 
 ### 1.1 The `text/` package (D0011)
 
-- [x] `byte_buffer`, `byte_span` (E0023; regenerate with
+- [x] `byte_buffer`, `byte_span` (E0023, regenerate with
       `research/experiments/E0023-do-byte-buffers-and-spans-provide-the-fi/analyse.sh`)
-- [x] `byte_builder` with geometric growth (E0024; regenerate with
+- [x] `byte_builder` with geometric growth (E0024, regenerate with
       `research/experiments/E0024-does-the-byte-builder-preserve-source-by/analyse.sh`)
-- [x] `writer_t` with file, memory, hash and counting backends (E0025; regenerate with
+- [x] `writer_t` with file, memory, hash and counting backends (E0025, regenerate with
       `research/experiments/E0025-does-writer-t-preserve-bytes-and-provena/analyse.sh`)
-- [x] `interner` with case-insensitive Fortran identity resolved once (E0026;
+- [x] `interner` with case-insensitive Fortran identity resolved once (E0026,
       regenerate with
       `research/experiments/E0026-does-the-interner-resolve-fortran-identi/analyse.sh`)
-- [x] `utf8_boundary` (E0027; regenerate with
+- [x] `utf8_boundary` (E0027, regenerate with
       `research/experiments/E0027-does-the-utf-8-boundary-layer-decode-val/analyse.sh`)
 - [x] Property tests plus fixed byte-level fixtures, and each one observed
-      failing against a broken variant (E0023–E0028; regenerate with the
+      failing against a broken variant (E0023-E0028, regenerate with the
       experiment commands recorded in `research/index.md`)
 
 ### 1.2 SX seed reader and writer (D0006, D0009)
 
 - [x] Seed reader in Bootstrap Core over the arena node type (parallel oracle
-      slice; E0031 and E0034; regenerate with
+      slice, E0031 and E0034, regenerate with
       `research/experiments/E0034-does-the-flat-sx-arena-reader-agree-with/analyse.sh`)
 - [x] Canonical writer: one spelling per operation, normalized fields
 - [x] Round-trip properties: `parse(write(t)) = t`, `write(parse(c)) = c`
-      (E0029; regenerate with
+      (E0029, regenerate with
       `research/experiments/E0029-does-the-sx-seed-preserve-canonical-tree/analyse.sh`)
 - [x] Independent canonical SX fixtures and malformed-input expectations
-      (E0029; regenerate with
+      (E0029, regenerate with
       `research/experiments/E0029-does-the-sx-seed-preserve-canonical-tree/analyse.sh`)
-- [x] Fuzzed trees and a malformed-input corpus (E0032; regenerate with
+- [x] Fuzzed trees and a malformed-input corpus (E0032, regenerate with
       `research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`)
 - [x] Content hashing: parse → validate → normalize → serialize → SHA-256
-      (E0030; regenerate with
+      (E0030, regenerate with
       `research/experiments/E0030-does-canonical-sx-hashing-remain-stable-/analyse.sh`)
 
 ### 1.3 Schema language and generator (D0016)
@@ -286,32 +285,32 @@ The first place the project generates rather than writes, so the first real
 evidence for the thesis.
 
 - [x] `.sxs` schema language parser and validator: primitive, record, sum,
-      list, optional, enum (E0035; regenerate with
+      list, optional, enum (E0035, regenerate with
       `research/experiments/E0035-does-the-v0-sx-schema-parser-validate-al/analyse.sh`)
 - [x] First deterministic Fortran type and enum declaration emitter, including
-      stable dependency ordering and cycle rejection (E0036; regenerate with
+      stable dependency ordering and cycle rejection (E0036, regenerate with
       `research/experiments/E0036-does-deterministic-schema-generation-emi/analyse.sh`)
 - [x] Schema driver regenerates the checked-in type layer byte-for-byte and the
-      generated module enters the normal build (E0037; regenerate with
+      generated module enters the normal build (E0037, regenerate with
       `research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh`)
 - [x] Generator emitting Fortran types, reader, writer, validator, equality,
       hashing and printer (E0036, E0039, E0040, E0042)
 - [ ] Generated visitor with a specified callback and traversal contract
 - [x] Generated typed readers and writers agree with fixed SX values and the
-      reference codec (E0039; regenerate with
+      reference codec (E0039, regenerate with
       `research/experiments/E0039-do-generated-schema-readers-and-writers-/analyse.sh`)
 - [x] Generated validators and structural equality agree with fixed semantic
-      cases and the full pipeline has zero lint warnings (E0040; regenerate
+      cases and the full pipeline has zero lint warnings (E0040, regenerate
       with
       `research/experiments/E0040-do-generated-validators-and-equality-pre/analyse.sh`)
 - [x] Generated canonical printers and SHA-256 hashes agree with the reference
-      codec (E0042; regenerate with
+      codec (E0042, regenerate with
       `research/experiments/E0042-do-generated-schema-printers-and-hashes-/analyse.sh`)
-- [x] Canonical schema-value encoding for generated APIs (D0021; E0038)
-- [ ] StandardIR schema (D0022 amended by D0023; `schema-v0.sxs` is only a
+- [x] Canonical schema-value encoding for generated APIs (D0021, E0038)
+- [ ] StandardIR schema (D0022 amended by D0023, `schema-v0.sxs` is only a
       generator fixture)
 - [ ] Initial recursive StandardIR backend uses packed arena IDs and child
-      ranges; hot-path layouts remain generated and benchmark-selected (D0023)
+      ranges. Hot-path layouts remain generated and benchmark-selected (D0023)
 - [ ] ImplIR schema, eight types and two constructors (D0012)
 - [ ] Generated code compiles clean and round-trips
 - [ ] Generated readers and writers agree with the seed and the fixed SX
@@ -326,13 +325,13 @@ evidence for the thesis.
 ### 1.4 Extraction to canonical text
 
 - [x] Layout-aware extraction from 24-007 into a canonical UTF-8 artifact
-- [x] Artifact hashed and pinned; spans reference it, prose never duplicated
+- [x] Artifact hashed and pinned. Spans reference it, and prose is never duplicated
       into StandardIR (D0011 §6)
 - [x] Differential check of the text layer against an independent extractor,
       with disagreements recorded rather than smoothed over
 - [x] Completeness, parse failure, provenance failure and skipped-page counts
       are reported against a predeclared page and production denominator
-      (E0033; regenerate with
+      (E0033, regenerate with
       `research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`)
 - [x] BOM, ligature, hyphenation and column-order handling decided (D0020)
 - [ ] Edge fixtures exercise the D0020 policy on standalone text and ambiguous
@@ -349,34 +348,34 @@ evidence for the thesis.
 - [x] Round-trip: production → StandardIR → normalized production, compared
       structurally
 - [x] Report the fraction extracted with zero model calls (**E1**): 522/522
-      production starts (100%); regenerate and verify with
+      production starts (100%). Regenerate and verify with
       `research/experiments/E0013-complete-core-syntax/check-core-syntax.sh`
 
 ### 1.6 Comparison and adjudication (D0005, D0013)
 
 - [x] Generate canonical EBNF from StandardIR, with rule and provenance
-      annotations (E0016; regenerate with
+      annotations (E0016, regenerate with
       `research/experiments/E0016-does-standardir-syntax-project-mechanica/analyse.sh`)
-- [x] Generate ANTLR4 `.g4` from StandardIR (E0017; regenerate with
+- [x] Generate ANTLR4 `.g4` from StandardIR (E0017, regenerate with
       `research/experiments/E0017-does-standardir-syntax-project-mechanica/analyse.sh`)
-- [x] Generate Bison `.y` from StandardIR (E0018; regenerate with
+- [x] Generate Bison `.y` from StandardIR (E0018, regenerate with
       `research/experiments/E0018-does-standardir-syntax-project-mechanica/analyse.sh`)
-- [x] Generate tree-sitter grammar.js from StandardIR (E0019; regenerate with
+- [x] Generate tree-sitter grammar.js from StandardIR (E0019, regenerate with
       `research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh`)
 - [x] Normalize repeated StandardIR lhs records into one deterministic target
-      definition with provenance-bearing alternatives (standard-new `7344c65`; validate with
+      definition with provenance-bearing alternatives (standard-new `7344c65`, validate with
       `research/experiments/E0021-are-grouped-syntax-exports-consumable/analyse.sh`)
 - [x] Record that raw syntax exports are partial projections and that parser
-      validation applies to a composite input (D0018; E0021)
+      validation applies to a composite input (D0018, E0021)
 - [ ] Define the composite parser-generator input: syntax, lexical/token
       definitions, constraints, prose restrictions, profile closure and
-      resolution states (proposed symbol policy: D0019)
+      resolution states (typed resolution policy accepted in D0019)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
-      kaby76 structurally where the formats permit (E0020; regenerate with
+      kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
 - [x] Compare permitted grammar artifacts and parser behavior against LFortran
-      and Flang (E0041; regenerate with
+      and Flang (E0041, regenerate with
       `research/experiments/E0041-do-lfortran-flang-and-gfortran-agree-on-/analyse.sh`)
 - [x] Compare parser behavior against gfortran as a GPL behavioral oracle only
       (E0041)
@@ -414,7 +413,7 @@ evidence for the thesis.
       neighbour, boundaries, each alternative, dependency combinations
 - [ ] Mutation testing over the generated checkers
 - [x] Rule dependency graph, and the E0014 syntax profile closure computed
-      from it; feature eligibility remains a separate projection (D0015)
+      from it. Feature eligibility remains a separate projection (D0015)
 
 ### Phase 1 experiments
 
@@ -463,7 +462,7 @@ comparisons from behavioral oracle comparisons.
 - [ ] Generate canonical grammar exports: EBNF or BNF, ANTLR4, Bison and the
       specialized parser-generator input
 - [ ] Generate at least two parser strategies from StandardIR syntax
-- [ ] Benchmark them on a pinned corpus; keep the fastest correct one
+- [ ] Benchmark them on a pinned corpus. Keep the fastest correct one
 - [ ] Generate the AST schema
 - [ ] Generate the frontend source tree and wiring from the AST schema and
       architecture metadata
@@ -483,7 +482,7 @@ comparisons from behavioral oracle comparisons.
 - [ ] Differential-test generated reader against the seed over the whole corpus
 - [ ] **E12**: scope-graph resolution against Fortran modules, host
       association, USE renaming and only-lists, interfaces, generic resolution
-- [ ] E12 go/no-go recorded; if no-go, decision record for the Fortran-specific
+- [ ] E12 go/no-go recorded. If no-go, write a decision record for the Fortran-specific
       resolver
 - [ ] Parsing throughput measured against FortFront, LFortran and Flang
       (**E5**, **E6**)
@@ -527,9 +526,9 @@ programs, with coverage generated rather than typed.
       strategy (**E9**)
 - [ ] Command-line driver
 - [ ] LLVM path as differential oracle and performance baseline only
-- [ ] **First self-host milestone**: the new compiler compiles the meta-tools —
+- [ ] **First self-host milestone**: the new compiler compiles the meta-tools:
       SX reader, StandardIR engine, ImplIR checker, generators (D0010)
-- [ ] Bootstrap Core sufficiency reported; growth recorded as an E10 result,
+- [ ] Bootstrap Core sufficiency reported. Growth is recorded as an E10 result,
       not treated as a failure
 
 **Gate.** Generated programs run correctly on a pinned corpus, with rank
@@ -543,9 +542,9 @@ add-a-rank test.
 - [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
 - [ ] Target description language, derived from the ISA specifications rather
       than transcribed
-- [ ] RISC-V: `riscv-opcodes` pinned by hash; generated instruction tables,
+- [ ] RISC-V: `riscv-opcodes` pinned by hash. Generated instruction tables,
       encoder, decoder
-- [ ] AArch64: ARM Machine Readable Architecture pinned; the same generated
+- [ ] AArch64: ARM Machine Readable Architecture pinned. The same generated
       from it
 - [ ] Object writers: ELF, then Mach-O
 - [ ] Instruction selection synthesized, not written (**E11**)
@@ -576,7 +575,7 @@ differential execution against LLVM output.
       StandardIR or ImplIR (D0010)
 
 **Gate.** The canonical generated compiler source from stages 1 and 2 is
-identical. Stage equality establishes reproducibility, not trusting trust;
+identical. Stage equality establishes reproducibility, not trusting trust.
 diverse double compilation is named as future work in `docs/self-hosting.md`
 §21 and is not planned.
 
@@ -588,7 +587,7 @@ Deliberately last: no official machine-readable encoding specification, no
 authoritative semantics, translation validation impractical.
 
 - [ ] Intel XED data files and Zydis tables pinned by hash
-- [ ] Encodings generated from them; disagreements between the two adjudicated
+- [ ] Encodings generated from them. Disagreements between the two adjudicated
 - [ ] uops.info pinned for latency and throughput cost modelling
 - [ ] Instruction selection synthesized
 - [ ] Differential execution against LLVM and against hardware
@@ -627,12 +626,12 @@ authoritative semantics, translation validation impractical.
 These run alongside everything and have no completion box, but they can be
 neglected, so they are listed.
 
-- [ ] `docs/literature.md`: verify the ~30 citations recorded from memory;
-      three are checked. **Read Lämmel & Verhoef before E1's related work** —
+- [ ] `docs/literature.md`: verify the ~30 citations recorded from memory.
+      Three are checked. **Read Lämmel & Verhoef before E1's related work**,
       E1 automates the loop that paper describes semi-automatically, and the
       framing of the first result depends on getting that relationship right
 - [ ] Prose passes: `LESSONS.md`, `DESIGN.md`, `README.md`, `AGENTS.md` and the
-      two new design notes have not had an adversarial pass; only
+      two new design notes have not had an adversarial pass. Only
       `WHITEPAPER.md` has
 - [ ] `docs/provenance.md` consultation log kept current as permissive sources
       are read

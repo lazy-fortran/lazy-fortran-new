@@ -1,0 +1,32 @@
+paper = "standard-to-grammar"
+analysis = "papers/standard-to-grammar/analyse.sh"
+run_file = "research/runs/2026-08.jsonl"
+source_name = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+
+# These are the repository commits recorded by the selected runs. The run
+# records remain the authoritative mapping from an output to its generator.
+standard_new_commits = [
+  "7abd7b1",
+  "427df73",
+  "3108fee",
+  "537614b",
+  "27406a7",
+  "160032a",
+  "7344c65",
+  "531e590",
+]
+
+run_ids = [
+  "R000017",
+  "R000019",
+  "R000020",
+  "R000025",
+  "R000026",
+  "R000027",
+  "R000028",
+  "R000029",
+  "R000030",
+  "R000031",
+  "R000050",
+]

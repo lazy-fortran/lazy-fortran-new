@@ -29,4 +29,7 @@ Planned, in the order the roadmap produces them:
 | `generated-backend` | E11 | How does the cost of a generated backend vary with ISA specification quality? |
 | `language-comparison` | E8 | The same compiler algorithms in Fortran, C and Rust |
 
-None started.
+`standard-to-grammar` is the first draft. Its run set and generated manuscript
+are in `papers/standard-to-grammar/`. The draft reports the extraction and
+projection result together with the unresolved-reference boundary. The other
+papers remain unstarted.
