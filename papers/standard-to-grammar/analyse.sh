@@ -128,6 +128,7 @@ assert_run R000083 '.status == "accepted" and .experiment == "E0074" and .verifi
 assert_run R000084 '.status == "accepted" and .experiment == "E0075" and .verification.zero_model_calls == true and .verification.residue_records == 178 and .verification.semantic_role_records == 18 and .verification.lexical_class_records == 8 and .verification.metavariable_records == 1 and .verification.unresolved_records == 151 and .verification.missing_fact_records == 0 and .verification.additional_alias_records == 0 and .verification.source_hash_matches == 178 and .verification.source_evidence_records == 178 and .verification.semantic_projection_leaks == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000085 '.status == "accepted" and .experiment == "E0076" and .verification.zero_model_calls == true and .verification.unresolved_denominator == 151 and .verification.logical_units == 5064 and .verification.candidate_spans == 3 and .verification.candidate_names == 3 and .verification.alias_candidates == 0 and .verification.lexical_candidates == 0 and .verification.metavariable_candidates == 0 and .verification.semantic_role_candidates == 3 and .verification.unresolved_after_patterns == 148 and .verification.source_linked_candidates == 3 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000086 '.status == "accepted" and .experiment == "E0077" and .verification.zero_model_calls == true and .verification.candidate_spans == 3 and .verification.accepted_records == 0 and .verification.retained_records == 3 and .verification.accepted_semantic_role_records == 0 and .verification.source_hash_matches == 3 and .verification.source_evidence_matches == 3 and .verification.candidate_inventory_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000087 '.status == "accepted" and .experiment == "E0078" and .verification.zero_model_calls == true and .verification.residue_records == 151 and .verification.retained_candidate_records == 3 and .verification.unresolved_no_evidence_records == 148 and .verification.source_hash_matches == 151 and .verification.parser_target_records == 0 and .verification.parser_leaks == 0 and .verification.integrated_syntax_records == 522 and .verification.dispatch_rows == 522 and .verification.dispatch_provenance_rows == 522 and .verification.integrated_hash_difference == 0 and .verification.dispatch_hash_difference == 0 and .verification.export_antlr_validator_status == 1 and .verification.export_bison_validator_status == 1 and .verification.export_treesitter_validator_status == 1 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -562,6 +563,23 @@ candidate_adjudication_evidence=$(metric R000086 '.verification.source_evidence_
 candidate_adjudication_inventory=$(metric R000086 '.verification.candidate_inventory_difference')
 candidate_adjudication_difference=$(metric R000086 '.verification.independent_difference')
 candidate_adjudication_negative=$(metric R000086 '.verification.negative_control')
+retained_composition_residue=$(metric R000087 '.verification.residue_records')
+retained_composition_retained=$(metric R000087 '.verification.retained_candidate_records')
+retained_composition_no_evidence=$(metric R000087 '.verification.unresolved_no_evidence_records')
+retained_composition_hashes=$(metric R000087 '.verification.source_hash_matches')
+retained_composition_parser_targets=$(metric R000087 '.verification.parser_target_records')
+retained_composition_leaks=$(metric R000087 '.verification.parser_leaks')
+retained_composition_syntax=$(metric R000087 '.verification.integrated_syntax_records')
+retained_composition_dispatch=$(metric R000087 '.verification.dispatch_rows')
+retained_composition_dispatch_provenance=$(metric R000087 '.verification.dispatch_provenance_rows')
+retained_composition_syntax_difference=$(metric R000087 '.verification.integrated_hash_difference')
+retained_composition_dispatch_difference=$(metric R000087 '.verification.dispatch_hash_difference')
+retained_composition_antlr=$(metric R000087 '.verification.export_antlr_validator_status')
+retained_composition_bison=$(metric R000087 '.verification.export_bison_validator_status')
+retained_composition_treesitter=$(metric R000087 '.verification.export_treesitter_validator_status')
+retained_composition_fortran=$(metric R000087 '.verification.direct_fortran_status')
+retained_composition_difference=$(metric R000087 '.verification.independent_difference')
+retained_composition_negative=$(metric R000087 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1210,6 +1228,28 @@ EOF
 | Independent difference | $candidate_adjudication_difference |
 | Controlled mutation | $candidate_adjudication_negative |
 
+## E0078 retained-residue composition
+
+| Quantity | Value |
+|---|---:|
+| Residue records | $retained_composition_residue |
+| Retained contextual candidates | $retained_composition_retained |
+| Unresolved without evidence | $retained_composition_no_evidence |
+| Records with source hash | $retained_composition_hashes |
+| Residue parser targets | $retained_composition_parser_targets |
+| Parser leaks | $retained_composition_leaks |
+| Integrated syntax records | $retained_composition_syntax |
+| Dispatch rows | $retained_composition_dispatch |
+| Dispatch provenance rows | $retained_composition_dispatch_provenance |
+| Integrated hash difference | $retained_composition_syntax_difference |
+| Dispatch hash difference | $retained_composition_dispatch_difference |
+| ANTLR4 validator status | $retained_composition_antlr |
+| Bison validator status | $retained_composition_bison |
+| tree-sitter validator status | $retained_composition_treesitter |
+| Direct Fortran status | $retained_composition_fortran |
+| Independent difference | $retained_composition_difference |
+| Controlled mutation | $retained_composition_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1445,6 +1485,23 @@ rendered=${rendered//@CANDIDATE_ADJUDICATION_EVIDENCE@/$candidate_adjudication_e
 rendered=${rendered//@CANDIDATE_ADJUDICATION_INVENTORY@/$candidate_adjudication_inventory}
 rendered=${rendered//@CANDIDATE_ADJUDICATION_DIFFERENCE@/$candidate_adjudication_difference}
 rendered=${rendered//@CANDIDATE_ADJUDICATION_NEGATIVE@/$candidate_adjudication_negative}
+rendered=${rendered//@RETAINED_COMPOSITION_RESIDUE@/$retained_composition_residue}
+rendered=${rendered//@RETAINED_COMPOSITION_RETAINED@/$retained_composition_retained}
+rendered=${rendered//@RETAINED_COMPOSITION_NO_EVIDENCE@/$retained_composition_no_evidence}
+rendered=${rendered//@RETAINED_COMPOSITION_HASHES@/$retained_composition_hashes}
+rendered=${rendered//@RETAINED_COMPOSITION_PARSER_TARGETS@/$retained_composition_parser_targets}
+rendered=${rendered//@RETAINED_COMPOSITION_LEAKS@/$retained_composition_leaks}
+rendered=${rendered//@RETAINED_COMPOSITION_SYNTAX@/$retained_composition_syntax}
+rendered=${rendered//@RETAINED_COMPOSITION_DISPATCH@/$retained_composition_dispatch}
+rendered=${rendered//@RETAINED_COMPOSITION_DISPATCH_PROVENANCE@/$retained_composition_dispatch_provenance}
+rendered=${rendered//@RETAINED_COMPOSITION_SYNTAX_DIFFERENCE@/$retained_composition_syntax_difference}
+rendered=${rendered//@RETAINED_COMPOSITION_DISPATCH_DIFFERENCE@/$retained_composition_dispatch_difference}
+rendered=${rendered//@RETAINED_COMPOSITION_ANTLR@/$retained_composition_antlr}
+rendered=${rendered//@RETAINED_COMPOSITION_BISON@/$retained_composition_bison}
+rendered=${rendered//@RETAINED_COMPOSITION_TREESITTER@/$retained_composition_treesitter}
+rendered=${rendered//@RETAINED_COMPOSITION_FORTRAN@/$retained_composition_fortran}
+rendered=${rendered//@RETAINED_COMPOSITION_DIFFERENCE@/$retained_composition_difference}
+rendered=${rendered//@RETAINED_COMPOSITION_NEGATIVE@/$retained_composition_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

@@ -2,13 +2,13 @@ id: "E0078"
 title: "Composition of retained E0077 candidates with unresolved residue"
 question: >
   Can retained E0077 candidates compose with the 148-name residue without entering parser wiring?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "1a813b2"
+  lazy-fortran-new: "81a9f6e"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

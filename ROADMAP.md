@@ -508,10 +508,14 @@ evidence for the thesis.
 - [x] Adjudicate the three E0076 candidates: retain all three contextual
       occurrences and add no parser relation (E0077, regenerate with
       `research/experiments/E0077-can-source-controlled-adjudication-separ/analyse.sh`)
-- [ ] Compose the retained E0077 candidates with the 148-name residue and rerun
-      full target integration
-- [ ] Resume after retained residues and enlarge supported complete-source
-      statement and expression families under independent corpus checks
+- [x] Compose the retained E0077 candidates with the 148-name residue and rerun
+      full target integration: 151 source-linked residue rows, 3 retained
+      contextual records, 148 records without bounded evidence, 0 parser leaks,
+      and byte-stable 522-record integration and dispatch (E0078, regenerate
+      with `research/experiments/E0078-can-retained-e0077-candidates-compose-wi/analyse.sh`)
+- [ ] Use the E0078 composed profile as input to the generated complete-parser
+      operation over real source, producing AST nodes and source-linked
+      diagnostics under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

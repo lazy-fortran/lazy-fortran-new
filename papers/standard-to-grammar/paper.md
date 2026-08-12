@@ -105,8 +105,13 @@ E0076 scans the 151 unresolved names over
 5064 bounded units and finds 3 candidate spans across
 3 names, leaving 148 names unresolved.
 E0077 adjudicates 3 candidates and retains
-3 contextual records; it accepts no new
-parser relation.
+3 contextual records. It accepts no new parser
+relation.
+E0078 composes the complete 151-name residue as
+3 retained contextual records and
+148 unresolved records without creating parser
+targets. The integrated syntax and dispatch tables remain stable, with
+0 parser leaks.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -332,7 +337,7 @@ consume StandardIR. It does establish a reproducible oracle harness for the
 composite-input experiment.
 
 E0063 and E0064 show the next composition boundary. The generated statement
-forest can carry deterministic parent and child links, then accept explicit
+forest can carry deterministic parent and child links and accept explicit
 expression roles as additional children without changing the authoritative
 StandardIR source. The query returns the same source reference stored on the
 node, so lookup does not create a second provenance table. This validates
@@ -390,10 +395,16 @@ E0075 classifies the residue without adding aliases: 178 names
 are covered by existing source facts, with 151 still lacking a
 resolution witness.
 E0076 finds 3 deterministic candidate spans and leaves
-148 names unresolved; all 3 candidates retain source
+148 names unresolved. All 3 candidates retain source
 coordinates.
 E0077 retains all 3 candidates after source
 checks, with 0 independent difference.
+E0078 composes the complete residue without changing parser input. It retains
+3 contextual candidates and
+148 records without bounded evidence. The
+522 integrated syntax records and
+522 dispatch rows remain byte-stable, and every
+dispatch row retains provenance.
 
 ## 5. Reproducibility and limitations
 
@@ -411,15 +422,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment applies the deterministic normative-prose procedure to the
-151 unresolved residue before any model escalation, then reruns
-the full integration. E0073 validated the sidecar in all five selected target
-formats, E0074 validated complete-record preservation and E0075 classified the
-residue without adding aliases. The next step must preserve the five
-adjudicated false positives, retain the 148 E0076 residue and keep
-the separate semantic fact table. Later
-operations may resume after a retained diagnostic only when a compact
-constructive rule and an independent witness exist.
+E0078 has now composed the 151-name residue before
+any model escalation. It preserves the three retained contextual records and
+the 148 records without bounded evidence, and it leaves parser input and
+generated wiring unchanged. The next experiment should use this composed
+profile to drive the generated complete-parser operation on real source, with
+AST output and source-linked diagnostics checked independently.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -443,6 +451,10 @@ as a parser fact.
 E0077 adjudicates 3 candidates, accepting
 0 and retaining
 3.
+E0078 composes 151 residue records and preserves
+3 contextual candidates plus
+148 unresolved records. It adds no parser
+aliases and leaves the integrated syntax and direct dispatch byte-stable.
 
 ## 7. Conclusion
 
@@ -497,6 +509,12 @@ E0076 finds 3 bounded-prose candidates and leaves
 148 names unresolved.
 E0077 retains 3 contextual candidates and adds
 no parser aliases.
+E0078 composes the 151-name residue without parser projection. It preserves
+the three contextual records and the 148 records without bounded evidence,
+keeps 522 integrated syntax records and 522 provenance-bearing dispatch rows,
+and leaves the export-validator boundary visible. The next milestone is the
+generated complete-parser operation over real source, with AST and
+source-linked diagnostic output.
 
 ## References
 
@@ -1141,6 +1159,28 @@ The following rows are extracted from the accepted projection run records.
 | Records with source hash | 3 |
 | Records with source evidence | 3 |
 | Candidate inventory difference | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
+## E0078 retained-residue composition
+
+| Quantity | Value |
+|---|---:|
+| Residue records | 151 |
+| Retained contextual candidates | 3 |
+| Unresolved without evidence | 148 |
+| Records with source hash | 151 |
+| Residue parser targets | 0 |
+| Parser leaks | 0 |
+| Integrated syntax records | 522 |
+| Dispatch rows | 522 |
+| Dispatch provenance rows | 522 |
+| Integrated hash difference | 0 |
+| Dispatch hash difference | 0 |
+| ANTLR4 validator status | 1 |
+| Bison validator status | 1 |
+| tree-sitter validator status | 1 |
+| Direct Fortran status | 0 |
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 

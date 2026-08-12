@@ -105,8 +105,13 @@ E0076 scans the @PROSE_UNRESOLVED@ unresolved names over
 @PROSE_UNITS@ bounded units and finds @PROSE_SPANS@ candidate spans across
 @PROSE_NAMES@ names, leaving @PROSE_RESIDUE@ names unresolved.
 E0077 adjudicates @CANDIDATE_ADJUDICATION_SPANS@ candidates and retains
-@CANDIDATE_ADJUDICATION_RETAINED@ contextual records; it accepts no new
-parser relation.
+@CANDIDATE_ADJUDICATION_RETAINED@ contextual records. It accepts no new parser
+relation.
+E0078 composes the complete 151-name residue as
+@RETAINED_COMPOSITION_RETAINED@ retained contextual records and
+@RETAINED_COMPOSITION_NO_EVIDENCE@ unresolved records without creating parser
+targets. The integrated syntax and dispatch tables remain stable, with
+@RETAINED_COMPOSITION_LEAKS@ parser leaks.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -332,7 +337,7 @@ consume StandardIR. It does establish a reproducible oracle harness for the
 composite-input experiment.
 
 E0063 and E0064 show the next composition boundary. The generated statement
-forest can carry deterministic parent and child links, then accept explicit
+forest can carry deterministic parent and child links and accept explicit
 expression roles as additional children without changing the authoritative
 StandardIR source. The query returns the same source reference stored on the
 node, so lookup does not create a second provenance table. This validates
@@ -390,10 +395,16 @@ E0075 classifies the residue without adding aliases: @RESIDUE_RECORDS@ names
 are covered by existing source facts, with @RESIDUE_UNRESOLVED@ still lacking a
 resolution witness.
 E0076 finds @PROSE_SPANS@ deterministic candidate spans and leaves
-@PROSE_RESIDUE@ names unresolved; all @PROSE_LINKED@ candidates retain source
+@PROSE_RESIDUE@ names unresolved. All @PROSE_LINKED@ candidates retain source
 coordinates.
 E0077 retains all @CANDIDATE_ADJUDICATION_RETAINED@ candidates after source
 checks, with @CANDIDATE_ADJUDICATION_DIFFERENCE@ independent difference.
+E0078 composes the complete residue without changing parser input. It retains
+@RETAINED_COMPOSITION_RETAINED@ contextual candidates and
+@RETAINED_COMPOSITION_NO_EVIDENCE@ records without bounded evidence. The
+@RETAINED_COMPOSITION_SYNTAX@ integrated syntax records and
+@RETAINED_COMPOSITION_DISPATCH@ dispatch rows remain byte-stable, and every
+dispatch row retains provenance.
 
 ## 5. Reproducibility and limitations
 
@@ -411,15 +422,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment applies the deterministic normative-prose procedure to the
-@RESIDUE_UNRESOLVED@ unresolved residue before any model escalation, then reruns
-the full integration. E0073 validated the sidecar in all five selected target
-formats, E0074 validated complete-record preservation and E0075 classified the
-residue without adding aliases. The next step must preserve the five
-adjudicated false positives, retain the @PROSE_RESIDUE@ E0076 residue and keep
-the separate semantic fact table. Later
-operations may resume after a retained diagnostic only when a compact
-constructive rule and an independent witness exist.
+E0078 has now composed the @RETAINED_COMPOSITION_RESIDUE@-name residue before
+any model escalation. It preserves the three retained contextual records and
+the 148 records without bounded evidence, and it leaves parser input and
+generated wiring unchanged. The next experiment should use this composed
+profile to drive the generated complete-parser operation on real source, with
+AST output and source-linked diagnostics checked independently.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -443,6 +451,10 @@ as a parser fact.
 E0077 adjudicates @CANDIDATE_ADJUDICATION_SPANS@ candidates, accepting
 @CANDIDATE_ADJUDICATION_ACCEPTED@ and retaining
 @CANDIDATE_ADJUDICATION_RETAINED@.
+E0078 composes @RETAINED_COMPOSITION_RESIDUE@ residue records and preserves
+@RETAINED_COMPOSITION_RETAINED@ contextual candidates plus
+@RETAINED_COMPOSITION_NO_EVIDENCE@ unresolved records. It adds no parser
+aliases and leaves the integrated syntax and direct dispatch byte-stable.
 
 ## 7. Conclusion
 
@@ -497,6 +509,12 @@ E0076 finds @PROSE_SPANS@ bounded-prose candidates and leaves
 @PROSE_RESIDUE@ names unresolved.
 E0077 retains @CANDIDATE_ADJUDICATION_RETAINED@ contextual candidates and adds
 no parser aliases.
+E0078 composes the 151-name residue without parser projection. It preserves
+the three contextual records and the 148 records without bounded evidence,
+keeps 522 integrated syntax records and 522 provenance-bearing dispatch rows,
+and leaves the export-validator boundary visible. The next milestone is the
+generated complete-parser operation over real source, with AST and
+source-linked diagnostic output.
 
 ## References
 

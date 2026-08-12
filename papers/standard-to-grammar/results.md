@@ -631,6 +631,28 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 
+## E0078 retained-residue composition
+
+| Quantity | Value |
+|---|---:|
+| Residue records | 151 |
+| Retained contextual candidates | 3 |
+| Unresolved without evidence | 148 |
+| Records with source hash | 151 |
+| Residue parser targets | 0 |
+| Parser leaks | 0 |
+| Integrated syntax records | 522 |
+| Dispatch rows | 522 |
+| Dispatch provenance rows | 522 |
+| Integrated hash difference | 0 |
+| Dispatch hash difference | 0 |
+| ANTLR4 validator status | 1 |
+| Bison validator status | 1 |
+| tree-sitter validator status | 1 |
+| Direct Fortran status | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
