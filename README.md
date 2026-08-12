@@ -77,8 +77,10 @@ source-linked semantic candidate spans and 287 Core 0-associated numbered
 constraints without accepting constraint bodies. E0082 accepts 10 typed
 definition/relation facts and retains the modal residue. E0083 mechanically
 formalizes 8 bounded predicates, derives 18 dependency edges and retains 279
-constraints unresolved. Cross-clause semantic formalization and the
-completeness gate for the composite parser remain open.
+constraints unresolved. E0084 extends the same record and graph pattern to 6
+cross-clause predicates, 22 dependency edges and 281 unresolved constraints.
+Longer semantic alternatives and the completeness gate for the composite
+parser remain open.
 Regenerate the paper numbers with `papers/standard-to-grammar/analyse.sh` and
 the laboratory index with `scripts/index.sh`.
 

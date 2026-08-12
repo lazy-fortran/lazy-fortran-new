@@ -539,8 +539,13 @@ evidence for the thesis.
       and a validated topological order, with no parser projections or model
       calls (E0083, regenerate with
       `research/experiments/E0083-can-deterministic-predicate-patterns-for/analyse.sh`)
-- [ ] Expand mechanical predicate formalization to cross-clause constraints,
-      preserving unresolved and disputed states before any model escalation
+- [x] Expand mechanical predicate formalization to cross-clause constraints:
+      6 resolved predicates, 281 unresolved records, 22 fact-dependency edges,
+      and a validated topological order, with no parser projections or model
+      calls (E0084, regenerate with
+      `research/experiments/E0084-can-deterministic-cross-clause-fact-patt/analyse.sh`)
+- [ ] Test longer alternatives and source references, preserving unresolved
+      and disputed states before any model escalation
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
@@ -619,6 +624,7 @@ evidence for the thesis.
 - [x] E0081 deterministic Core 0 semantic candidate inventory recorded
 - [x] E0082 source-controlled semantic candidate adjudication recorded
 - [x] E0083 deterministic bounded Core 0 constraint formalization recorded
+- [x] E0084 deterministic cross-clause Core 0 fact formalization recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

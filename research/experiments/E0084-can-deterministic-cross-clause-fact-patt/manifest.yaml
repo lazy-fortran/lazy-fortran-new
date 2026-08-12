@@ -2,13 +2,13 @@ id: "E0084"
 title: "Deterministic cross-clause fact patterns"
 question: >
   Can deterministic cross-clause fact patterns formalize a broader Core 0 constraint slice without parser-specific branches?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
 closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "9e0a08c"
+  lazy-fortran-new: "c0985b5"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

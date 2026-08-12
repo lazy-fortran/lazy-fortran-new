@@ -137,6 +137,11 @@ E0083 formalizes @CONSTRAINT_FORMALIZATION_RESOLVED@ of
 predicates, retains @CONSTRAINT_FORMALIZATION_UNRESOLVED@ unresolved records,
 and derives @CONSTRAINT_FORMALIZATION_EDGES@ fact-dependency edges with zero
 topological-order difference. It uses no parser projections or model calls.
+E0084 extends the pattern to @CROSS_CLAUSE_RESOLVED@ cross-clause predicates
+with @CROSS_CLAUSE_REQUIRED@ required-fact records and
+@CROSS_CLAUSE_EDGES@ dependency edges. It retains
+@CROSS_CLAUSE_UNRESOLVED@ constraints unresolved and uses no parser projections
+or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection plus bounded semantic-evidence and predicate boundaries. It does not claim
@@ -588,6 +593,10 @@ inventory: explicit source witnesses become typed resolution records, while
 modal occurrences remain unresolved-body evidence. The next milestone is
 mechanical formalization of a broader set of retained constraint bodies that
 requires cross-clause facts.
+E0083 establishes the local predicate boundary and E0084 extends it to
+cross-clause fact requirements. The next milestone is a slice with longer
+alternatives and explicit source references, where unresolved and disputed
+outcomes must be retained.
 
 ## References
 

@@ -1,0 +1,42 @@
+name        = "E0084-R000001-deterministic-cross-clause-fact-formalization-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/c0985b5"
+sha256      = "fed5958760918cab36446876056d9c86f60cd47458a9c9941eac5e8b2391efeb"
+bytes       = 835
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of deterministic cross-clause Core 0 fact formalization"
+path        = ".cache/runs/E0084/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+policy_sha256 = "b4d7b6458b29639480a5ce3e5d440652a73ab020b7b0d8d9a5d96a03b401c926"
+oracle_sha256 = "52ff3e16f44d97fe8675fd9f139fc3e09893c4dbd06be9d6ec6ef66868e88622"
+formalizations_sha256 = "e729c905509137d96fd851fdd618d1f834a30083d466c365b60c854708842a99"
+dependency_sha256 = "676fa072af5000e20b654e3a55a495600998662a03e04642ab66e0bf8ab6261c"
+topological_sha256 = "50eeca5f1f8b12610bfbb27f14385a80b6e56271a3cbcd785c598d00ce8b3620"
+generator = "lazy-fortran-new E0084 deterministic cross-clause fact formalization"
+generator_commit = "c0985b5"
+checker = "research/experiments/E0084-can-deterministic-cross-clause-fact-patt/analyse.sh"
+checker_commit = "c0985b5"
+eligible_constraints = 287
+selected_constraints = 6
+normalized_predicates = 6
+resolved_constraints = 6
+unresolved_constraints = 281
+disputed_constraints = 0
+source_hash_matches = 287
+source_evidence_matches = 6
+required_fact_records = 16
+provided_fact_records = 6
+dependency_edges = 22
+topological_order_difference = 0
+independent_normalization_difference = 0
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0084-can-deterministic-cross-clause-fact-patt/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

@@ -137,6 +137,11 @@ E0083 formalizes 8 of
 predicates, retains 279 unresolved records,
 and derives 18 fact-dependency edges with zero
 topological-order difference. It uses no parser projections or model calls.
+E0084 extends the pattern to 6 cross-clause predicates
+with 16 required-fact records and
+22 dependency edges. It retains
+281 constraints unresolved and uses no parser projections
+or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection plus bounded semantic-evidence and predicate boundaries. It does not claim
@@ -588,6 +593,10 @@ inventory: explicit source witnesses become typed resolution records, while
 modal occurrences remain unresolved-body evidence. The next milestone is
 mechanical formalization of a broader set of retained constraint bodies that
 requires cross-clause facts.
+E0083 establishes the local predicate boundary and E0084 extends it to
+cross-clause fact requirements. The next milestone is a slice with longer
+alternatives and explicit source references, where unresolved and disputed
+outcomes must be retained.
 
 ## References
 
@@ -1371,6 +1380,26 @@ The following rows are extracted from the accepted projection run records.
 | Required fact records | 10 |
 | Provided fact records | 8 |
 | Dependency edges | 18 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
+| Controlled mutation | observed_failure |
+
+## E0084 deterministic cross-clause fact formalization
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | 287 |
+| Selected constraints | 6 |
+| Normalized predicates | 6 |
+| Resolved constraints | 6 |
+| Unresolved constraints | 281 |
+| Disputed constraints | 0 |
+| Source-hash matches | 287 |
+| Source-evidence matches | 6 |
+| Required fact records | 16 |
+| Provided fact records | 6 |
+| Dependency edges | 22 |
 | Topological-order difference | 0 |
 | Independent normalization difference | 0 |
 | Parser projection records | 0 |
