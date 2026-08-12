@@ -246,9 +246,11 @@ test "$gfortran_mutation_status" -ne 0 || die 'gfortran accepted the unsupported
     printf '%s\n' '    end subroutine check_file'
     printf '%s\n' '    subroutine check_mutation()'
     printf '%s\n' '        type(acceptance_record_t), allocatable :: records(:)'
+    printf '%s\n' '        character(len=1024) :: mutation_path'
     printf '%s\n' '        integer :: count, accepted, unsupported, diagnostics, status'
+    printf '%s\n' '        call get_environment_variable("E0068_MUTATION", mutation_path)'
     printf '%s\n' '        allocate(records(256))'
-    printf "        call parse_source_acceptance('%s', records, count, accepted, unsupported, diagnostics, status)\n" "$mutation"
+    printf '%s\n' '        call parse_source_acceptance(trim(mutation_path), records, count, accepted, unsupported, diagnostics, status)'
     printf '%s\n' '        if (status /= 0 .or. count /= 6 .or. accepted /= 5 .or. unsupported /= 1 .or. diagnostics /= 1) error stop "unsupported residue was not retained"'
     printf '%s\n' '        if (trim(records(6)%status) /= "unsupported" .or. records(6)%line_number /= 6) error stop "unsupported diagnostic location mismatch"'
     printf '%s\n' '        if (records(6)%source%page <= 0 .or. records(6)%source%byte_start <= 0) error stop "diagnostic source context missing"'
@@ -265,7 +267,7 @@ set +e
 gfortran -ffree-line-length-none -Wall -Wextra -Werror "$diagnostic_module" "$complete_module" "$outdir/generated_lossless_complete_source_acceptance.f90" "$outdir/test_generated_lossless_complete_source_acceptance.f90" -o "$outdir/test_generated_lossless_complete_source_acceptance" >"$outdir/fortran.log" 2>&1
 fortran_compile_status=$?
 if test "$fortran_compile_status" -eq 0; then
-    "$outdir/test_generated_lossless_complete_source_acceptance" >"$outdir/runtime.log" 2>&1
+    E0068_MUTATION="$mutation" "$outdir/test_generated_lossless_complete_source_acceptance" >"$outdir/runtime.log" 2>&1
     runtime_test_status=$?
 else
     runtime_test_status=1
