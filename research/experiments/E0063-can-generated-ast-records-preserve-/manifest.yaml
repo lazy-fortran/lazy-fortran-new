@@ -1,0 +1,70 @@
+id: "E0063"
+title: "Generated AST records from source-linked logical statements"
+question: >
+  Can generated logical-statement records be composed into a typed AST node
+  forest with deterministic parent and child links while preserving every
+  StandardIR source reference?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "f220691"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-ast-v0
+  predecessor: E0062-R000001
+  decisions: [D0018, D0021, D0023, D0028, D0029, D0030, D0031]
+
+variables:
+  operation: [logical-statements-to-ast-forest]
+  representation: [generated-fortran-typed-node-array]
+  node_fields: [kind, rule, parent, first_child, next_sibling, depth, source_span]
+
+model_selection: "No model calls. AST node layout, parent-child wiring, provenance propagation and test wiring are generated mechanically. The local operation only constructs the typed node forest from generated logical records."
+
+metrics:
+  - corpus_files
+  - logical_statements
+  - ast_nodes
+  - source_linked_nodes
+  - root_nodes
+  - parent_links
+  - child_links
+  - ast_link_errors
+  - max_ast_depth
+  - fortran_compile_status
+  - runtime_test_status
+  - malformed_nesting_rejected
+
+denominator: >
+  Every logical statement in the five files declared by
+  phase1-modern-fortran-ast-v0.json. The manifest contains 73 expected AST
+  nodes, one root per source file, and one source-linked node per logical
+  statement.
+
+independent_oracle: >
+  The JSON AST manifest supplies source hashes and expected node, root, parent
+  link and depth counts. E0062 independently checks logical-statement ranges,
+  continuation joins and construct closure. The AST operation is compiled
+  with warnings as errors, executed for every source file, and checks every
+  node's rule, source page, byte span, document hash and tree links. The
+  malformed nesting mutation must be rejected by the predecessor operation.
+
+falsifiable_by: >
+  A source hash changes, a predecessor statement check fails, a node is lost,
+  duplicated or detached, a child link is inconsistent, a source reference is
+  missing, the generated operation fails to compile or run, or malformed
+  nesting is accepted.
+
+gate: >
+  Validate the first source-linked AST forest composition while preserving the
+  boundary that expression nodes, semantic facts and complete language AST
+  coverage remain future work. This demonstrates AST-shaped composition, not a
+  complete frontend.
+
+analysis: research/experiments/E0063-can-generated-ast-records-preserve-/analyse.sh
