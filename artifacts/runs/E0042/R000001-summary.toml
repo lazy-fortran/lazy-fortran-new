@@ -1,0 +1,32 @@
+name        = "E0042-R000001-generated-schema-printer-hash-differential"
+url         = "https://github.com/lazy-fortran/standard-new/tree/c6cd889"
+sha256      = "26aa10b954bdade56c94fafd28ad52c6ca42d9a877ed3c3cd51a6b75c5970271"
+bytes       = 394
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for generated schema printer and hash differential"
+path        = ".cache/runs/E0042/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated generated schema printer and hash summary"
+generator   = "standard-new schema_codegen and writer"
+generator_commit = "c6cd889"
+checker     = "research/experiments/E0042-do-generated-schema-printers-and-hashes-/analyse.sh"
+checker_commit = "b7dc5fd"
+text_policy = 0
+schema_parser = 0
+schema_codegen = 0
+generated_api = 0
+runtime_checked_generated_api = 0
+driver = 0
+generated_byte_identity = 0
+generated_formatting = 0
+lint_zero_warnings = 0
+full_pipeline = 0
+printer_cases_checked = 5
+hash_cases_checked = 5
+generated_source_bytes = 56058
+generated_source_sha256 = "de12d73f2a301d2f4de8a2f282f350d827ff61b3137d4a844f8e7e0ca4c2f042"
+
+# Regenerate and verify with:
+#   research/experiments/E0042-do-generated-schema-printers-and-hashes-/analyse.sh
+# Verify its hash and size with sha256sum and stat.

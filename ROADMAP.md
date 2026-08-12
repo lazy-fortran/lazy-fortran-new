@@ -112,6 +112,9 @@ invalid and mutation cases, with zero lint warnings
 E0041 compares LFortran, Flang and gfortran on ten generated parser-behavior
 fixtures. All three agree on accepted versus rejected input
 (`research/experiments/E0041-do-lfortran-flang-and-gfortran-agree-on-/analyse.sh`).
+E0042 verifies generated canonical printers and SHA-256 hashes against the
+independent schema-value codec over five values
+(`research/experiments/E0042-do-generated-schema-printers-and-hashes-/analyse.sh`).
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
@@ -297,6 +300,9 @@ evidence for the thesis.
       cases and the full pipeline has zero lint warnings (E0040; regenerate
       with
       `research/experiments/E0040-do-generated-validators-and-equality-pre/analyse.sh`)
+- [x] Generated canonical printers and SHA-256 hashes agree with the reference
+      codec (E0042; regenerate with
+      `research/experiments/E0042-do-generated-schema-printers-and-hashes-/analyse.sh`)
 - [x] Canonical schema-value encoding for generated APIs (D0021; E0038)
 - [ ] StandardIR schema
 - [ ] ImplIR schema, eight types and two constructors (D0012)
@@ -431,6 +437,7 @@ evidence for the thesis.
 - [x] E0039 generated schema reader and writer differential recorded
 - [x] E0040 generated schema validation and equality differential recorded
 - [x] E0041 LFortran, Flang and gfortran parser behavior differential recorded
+- [x] E0042 generated schema printer and hash differential recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
