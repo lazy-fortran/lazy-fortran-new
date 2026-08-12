@@ -1,0 +1,71 @@
+id: "E0062"
+title: "Generated logical-statement operation with continuation and nesting"
+question: >
+  Can one generated local parser operation assemble free-form continuation
+  lines, classify nested constructs and preserve StandardIR source spans over
+  five pinned modern Fortran sources?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "48fbbe0"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-constructs-v0
+  predecessor: E0061-R000001
+  decisions: [D0018, D0028, D0029, D0030]
+
+variables:
+  operation: [logical-statement-and-construct-stack]
+  representation: [generated-fortran-local-operation]
+  features: [free-form-continuation, nested-do, nested-select, named-constructs, block, associate]
+
+model_selection: "No model calls. Continuation assembly, construct-stack checks, statement references and test wiring are generated mechanically. The operation is the local constructive implementation fragment under test."
+
+metrics:
+  - corpus_files
+  - physical_meaningful_lines
+  - expected_logical_statements
+  - classified_logical_statements
+  - source_linked_statements
+  - continuation_joins
+  - nesting_errors
+  - max_nesting_depth
+  - gfortran_accepted
+  - fortran_compile_status
+  - runtime_test_status
+  - malformed_nesting_rejected
+
+denominator: >
+  Every logical statement declared in
+  phase1-modern-fortran-constructs-v0.json. The manifest contains 73 logical
+  statements assembled from 75 meaningful physical lines across five files.
+
+independent_oracle: >
+  The JSON manifest supplies source hashes, logical-statement start and end
+  lines, expected StandardIR statement families and expected maximum nesting
+  depths. An independent shell traversal checks each physical-line denominator
+  and GNU Fortran checks syntax acceptance. The generated operation must join
+  every declared continuation, classify and source-link every logical
+  statement, validate construct closure, and reject a controlled malformed
+  nesting mutation.
+
+falsifiable_by: >
+  A source hash changes, a physical or logical denominator differs, a
+  continuation range is wrong, a statement is missing or misclassified, a
+  source reference is missing, nesting is accepted with a mismatched close,
+  the generated operation fails to compile or run, or the malformed mutation
+  is accepted.
+
+gate: >
+  Validate logical-statement assembly and nested-construct closure over the
+  declared corpus while preserving the boundary that general expression
+  parsing, semantic checking and complete language coverage remain future
+  work. This is a generated local operation, not a complete Fortran parser.
+
+analysis: research/experiments/E0062-can-generated-parser-handle-constructs-/analyse.sh
