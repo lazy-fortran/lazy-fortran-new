@@ -79,6 +79,9 @@ sequence rejection with fixed vectors
 E0028 verifies cross-component byte chunking, span subranges, writer counts,
 interner identity and UTF-8 properties
 (`research/experiments/E0028-do-the-text-primitives-satisfy-cross-com/analyse.sh`).
+E0029 verifies independent SX canonical fixtures, parse/write/parse structure
+and malformed-input expectations
+(`research/experiments/E0029-does-the-sx-seed-preserve-canonical-tree/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -219,8 +222,12 @@ normalized view rather than overwriting the source extraction.
 
 - [ ] Seed reader in Bootstrap Core over the arena node type
 - [x] Canonical writer: one spelling per operation, normalized fields
-- [ ] Round-trip properties: `parse(write(t)) = t`, `write(parse(c)) = c`
-- [ ] Independent canonical SX fixtures and malformed-input expectations
+- [x] Round-trip properties: `parse(write(t)) = t`, `write(parse(c)) = c`
+      (E0029; regenerate with
+      `research/experiments/E0029-does-the-sx-seed-preserve-canonical-tree/analyse.sh`)
+- [x] Independent canonical SX fixtures and malformed-input expectations
+      (E0029; regenerate with
+      `research/experiments/E0029-does-the-sx-seed-preserve-canonical-tree/analyse.sh`)
 - [ ] Fuzzed trees and a malformed-input corpus
 - [ ] Content hashing: parse → validate → normalize → serialize → SHA-256
 
