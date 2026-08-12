@@ -147,6 +147,10 @@ E0085 joins continuation-aware source text and resolves
 retains @CONTINUATION_UNRESOLVED@ unresolved records, including one selected
 implicit-typing rule, and derives @CONTINUATION_EDGES@ dependency edges. It
 uses no parser projections or model calls.
+E0086 preserves @DISPUTED_RESOLVED@ resolved and @DISPUTED_DISPUTED@ disputed
+records in a three-row slice, retaining @DISPUTED_CANDIDATES@ competing
+predicate candidate and deriving @DISPUTED_EDGES@ accepted dependency edges
+only from resolved rows. It uses no parser projections or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection plus bounded semantic-evidence and predicate boundaries. It does not claim
@@ -605,7 +609,9 @@ outcomes must be retained.
 E0085 exercises that boundary. Five continuation-aware predicates are resolved
 and one implicit-typing rule remains unresolved because the current fact
 vocabulary does not express implied type parameters. The next milestone is a
-competing interpretation that can be recorded as disputed.
+competing interpretation recorded as disputed. E0086 exercises that state while
+leaving the competing candidate pending adjudication. The next milestone is a
+wider candidate-preserving inventory and an explicit adjudication gate.
 
 ## References
 

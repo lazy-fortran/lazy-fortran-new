@@ -549,8 +549,13 @@ evidence for the thesis.
       and one selected implicit-typing record retained unresolved, with no
       parser projections or model calls (E0085, regenerate with
       `research/experiments/E0085-can-continuation-aware-deterministic-nor/analyse.sh`)
-- [ ] Exercise a disputed formalization outcome on a competing
-      interpretation before model escalation
+- [x] Preserve a competing formalization as disputed: 2 resolved predicates,
+      1 disputed record carrying 2 candidates, 284 unresolved records, and 8
+      accepted fact-dependency edges, with no parser projections or model calls
+      (E0086, regenerate with
+      `research/experiments/E0086-can-the-formalization-ledger-preserve-co/analyse.sh`)
+- [ ] Broaden candidate-preserving formalization and define the adjudication
+      evidence required before a disputed row becomes an accepted fact
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
@@ -578,8 +583,8 @@ evidence for the thesis.
 - [x] Mechanical formalization patterns first, measured by E0083
 - [ ] Small-model then larger-model escalation on the residue, one run record
       per attempt including failures
-- [ ] `unresolved` and `disputed` states exercised on real clauses, not just
-      supported in principle
+- [x] `unresolved` and `disputed` states exercised on real clauses, not just
+      supported in principle (E0085 and E0086)
 - [ ] Acceptance rule enforced: independent formalizations normalize to the
       same form and witnesses agree with at least two oracles
 - [ ] Count eligible Core 0 rules before formalization and report resolved,

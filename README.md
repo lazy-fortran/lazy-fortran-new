@@ -83,7 +83,9 @@ Longer semantic alternatives and the completeness gate for the composite
 parser remain open. E0085 joins continuation-aware source text for 5 longer
 predicates, retains one implicit-typing rule unresolved and derives 19
 dependency edges. A disputed interpretation and the completeness gate remain
-open.
+open. E0086 preserves one disputed predicate with both competing candidates,
+derives 8 accepted dependency edges from two resolved rows, and keeps 284
+constraints unresolved without parser projections or model calls.
 Regenerate the paper numbers with `papers/standard-to-grammar/analyse.sh` and
 the laboratory index with `scripts/index.sh`.
 

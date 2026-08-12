@@ -2,13 +2,13 @@ id: "E0086"
 title: "Disputed formalization preservation"
 question: >
   Can the formalization ledger preserve competing deterministic interpretations as disputed without selecting parser structure?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "0527548"
+  lazy-fortran-new: "5dc8f89"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

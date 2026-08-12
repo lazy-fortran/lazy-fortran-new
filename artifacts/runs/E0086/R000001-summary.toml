@@ -1,0 +1,43 @@
+name        = "E0086-R000001-disputed-formalization-preservation-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/5dc8f89"
+sha256      = "55708cbc6d08e8ce9ed7079727a6799a8d251f6b2445b76f8eb75da659c0158d"
+bytes       = 854
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of disputed deterministic Core 0 formalization preservation"
+path        = ".cache/runs/E0086/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+policy_sha256 = "4f6cec1eadcfd3a7c5e1f2972a08103e2b37cf975dd134702b4679c9b80d462d"
+oracle_sha256 = "5fdf5151c038877cb9be7586c6cd4d5cd822d17207b251504300fe6c8fa2f485"
+formalizations_sha256 = "3cdfcce99bc6a4c206849c6c17eef04a400333336bc1505868edfb10c13984ab"
+dependency_sha256 = "8fb7e9f30ea9810dbe401808aa0b7c7c8275cc5b55ae5cda538566630e6856c6"
+topological_sha256 = "b1dec31bbf0dfbac09f52eb41abba38e18bac435fb5542edfc98a492aa3e3db2"
+generator = "lazy-fortran-new E0086 disputed formalization preservation"
+generator_commit = "5dc8f89"
+checker = "research/experiments/E0086-can-the-formalization-ledger-preserve-co/analyse.sh"
+checker_commit = "5dc8f89"
+eligible_constraints = 287
+policy_rows = 3
+resolved_constraints = 2
+disputed_constraints = 1
+unresolved_constraints = 284
+normalized_predicates = 2
+competing_candidate_records = 1
+source_hash_matches = 287
+source_evidence_matches = 3
+required_fact_records = 6
+provided_fact_records = 2
+dependency_edges = 8
+topological_order_difference = 0
+independent_normalization_difference = 0
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0086-can-the-formalization-ledger-preserve-co/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

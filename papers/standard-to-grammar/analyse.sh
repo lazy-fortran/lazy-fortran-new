@@ -137,6 +137,8 @@ assert_run R000092 '.status == "accepted" and .experiment == "E0083" and .verifi
 assert_run R000093 '.status == "accepted" and .experiment == "E0084" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_constraints == 6 and .verification.normalized_predicates == 6 and .verification.resolved_constraints == 6 and .verification.unresolved_constraints == 281 and .verification.disputed_constraints == 0 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 6 and .verification.required_fact_records == 16 and .verification.provided_fact_records == 6 and .verification.dependency_edges == 22 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000094 '.status == "accepted" and .experiment == "E0085" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.policy_rows == 6 and .verification.resolved_constraints == 5 and .verification.unresolved_constraints == 282 and .verification.disputed_constraints == 0 and .verification.normalized_predicates == 5 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 5 and .verification.required_fact_records == 14 and .verification.provided_fact_records == 5 and .verification.dependency_edges == 19 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 
+assert_run R000095 '.status == "accepted" and .experiment == "E0086" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.policy_rows == 3 and .verification.resolved_constraints == 2 and .verification.disputed_constraints == 1 and .verification.unresolved_constraints == 284 and .verification.normalized_predicates == 2 and .verification.competing_candidate_records == 1 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 3 and .verification.required_fact_records == 6 and .verification.provided_fact_records == 2 and .verification.dependency_edges == 8 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
+
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
 production_starts=$(metric R000017 '.verification.production_starts')
@@ -711,6 +713,22 @@ continuation_order_difference=$(metric R000094 '.verification.topological_order_
 continuation_difference=$(metric R000094 '.verification.independent_normalization_difference')
 continuation_projections=$(metric R000094 '.verification.parser_projection_records')
 continuation_negative=$(metric R000094 '.verification.negative_control')
+disputed_eligible=$(metric R000095 '.verification.eligible_constraints')
+disputed_policy_rows=$(metric R000095 '.verification.policy_rows')
+disputed_resolved=$(metric R000095 '.verification.resolved_constraints')
+disputed_disputed=$(metric R000095 '.verification.disputed_constraints')
+disputed_unresolved=$(metric R000095 '.verification.unresolved_constraints')
+disputed_predicates=$(metric R000095 '.verification.normalized_predicates')
+disputed_candidates=$(metric R000095 '.verification.competing_candidate_records')
+disputed_hashes=$(metric R000095 '.verification.source_hash_matches')
+disputed_evidence=$(metric R000095 '.verification.source_evidence_matches')
+disputed_required=$(metric R000095 '.verification.required_fact_records')
+disputed_provided=$(metric R000095 '.verification.provided_fact_records')
+disputed_edges=$(metric R000095 '.verification.dependency_edges')
+disputed_order_difference=$(metric R000095 '.verification.topological_order_difference')
+disputed_difference=$(metric R000095 '.verification.independent_normalization_difference')
+disputed_projections=$(metric R000095 '.verification.parser_projection_records')
+disputed_negative=$(metric R000095 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1540,6 +1558,27 @@ EOF
 | Parser projection records | $continuation_projections |
 | Controlled mutation | $continuation_negative |
 
+## E0086 disputed formalization preservation
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | $disputed_eligible |
+| Policy rows | $disputed_policy_rows |
+| Resolved constraints | $disputed_resolved |
+| Disputed constraints | $disputed_disputed |
+| Unresolved constraints | $disputed_unresolved |
+| Normalized predicates | $disputed_predicates |
+| Competing candidate records | $disputed_candidates |
+| Source-hash matches | $disputed_hashes |
+| Source-evidence matches | $disputed_evidence |
+| Required fact records | $disputed_required |
+| Provided fact records | $disputed_provided |
+| Dependency edges | $disputed_edges |
+| Topological-order difference | $disputed_order_difference |
+| Independent normalization difference | $disputed_difference |
+| Parser projection records | $disputed_projections |
+| Controlled mutation | $disputed_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1916,6 +1955,22 @@ rendered=${rendered//@CONTINUATION_ORDER_DIFFERENCE@/$continuation_order_differe
 rendered=${rendered//@CONTINUATION_DIFFERENCE@/$continuation_difference}
 rendered=${rendered//@CONTINUATION_PROJECTIONS@/$continuation_projections}
 rendered=${rendered//@CONTINUATION_NEGATIVE@/$continuation_negative}
+rendered=${rendered//@DISPUTED_ELIGIBLE@/$disputed_eligible}
+rendered=${rendered//@DISPUTED_POLICY_ROWS@/$disputed_policy_rows}
+rendered=${rendered//@DISPUTED_RESOLVED@/$disputed_resolved}
+rendered=${rendered//@DISPUTED_DISPUTED@/$disputed_disputed}
+rendered=${rendered//@DISPUTED_UNRESOLVED@/$disputed_unresolved}
+rendered=${rendered//@DISPUTED_PREDICATES@/$disputed_predicates}
+rendered=${rendered//@DISPUTED_CANDIDATES@/$disputed_candidates}
+rendered=${rendered//@DISPUTED_HASHES@/$disputed_hashes}
+rendered=${rendered//@DISPUTED_EVIDENCE@/$disputed_evidence}
+rendered=${rendered//@DISPUTED_REQUIRED@/$disputed_required}
+rendered=${rendered//@DISPUTED_PROVIDED@/$disputed_provided}
+rendered=${rendered//@DISPUTED_EDGES@/$disputed_edges}
+rendered=${rendered//@DISPUTED_ORDER_DIFFERENCE@/$disputed_order_difference}
+rendered=${rendered//@DISPUTED_DIFFERENCE@/$disputed_difference}
+rendered=${rendered//@DISPUTED_PROJECTIONS@/$disputed_projections}
+rendered=${rendered//@DISPUTED_NEGATIVE@/$disputed_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

@@ -812,6 +812,27 @@ The following rows are extracted from the accepted projection run records.
 | Parser projection records | 0 |
 | Controlled mutation | observed_failure |
 
+## E0086 disputed formalization preservation
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | 287 |
+| Policy rows | 3 |
+| Resolved constraints | 2 |
+| Disputed constraints | 1 |
+| Unresolved constraints | 284 |
+| Normalized predicates | 2 |
+| Competing candidate records | 1 |
+| Source-hash matches | 287 |
+| Source-evidence matches | 3 |
+| Required fact records | 6 |
+| Provided fact records | 2 |
+| Dependency edges | 8 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
