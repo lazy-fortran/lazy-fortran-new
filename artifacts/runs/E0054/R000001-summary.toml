@@ -1,0 +1,34 @@
+name = "E0054-R000001-d0027-lexical-candidate-comparison"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/2b79cdb/research/experiments/E0054-can-deterministic-lexical-projection-can"
+sha256 = "01dd1fbaa2068adcccf6debccc8a4c7fc111038a782aeac3fc19bc3eeb262826"
+bytes = 447
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for deterministic comparison of D0027 lexical projection candidates"
+path = ".cache/runs/E0054/R000001/summary.tsv"
+origin = "MECHANICAL"
+format = "tab-separated lexical candidate comparison summary"
+generator = "E0054 analyse.sh"
+generator_commit = "2b79cdb"
+checker = "research/experiments/E0054-can-deterministic-lexical-projection-can/analyse.sh"
+checker_commit = "2b79cdb"
+residual_buckets_sha256 = "fb6ddd7f206e420fe8027c133fac89b5d0f162ddb5c105ea218beb435a335a40"
+lexical_residue_sha256 = "b8edad7f23dd5fb3dd279bb202f053175c13173db8427a24f6e2247e10060060"
+lexical_residue_bytes = 30
+candidate_matrix_sha256 = "9a2e6370969ccd2fe9136a7a5106ddb429afd24b14f9d8ff3997d8581d206710"
+candidate_matrix_bytes = 1699
+candidate_strategies = 3
+residue_terms = 5
+candidate_rows = 15
+lexical_rows = 3
+unicode_rows = 2
+primitive_export_rows = 3
+schema_export_rows = 3
+unresolved_rows = 5
+complete_projection_candidates = 0
+representation_selection = "deferred_D0027"
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0054-can-deterministic-lexical-projection-can/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

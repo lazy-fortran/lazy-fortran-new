@@ -104,6 +104,7 @@ assert_run R000059 '.status == "accepted" and .experiment == "E0050" and .verifi
 assert_run R000060 '.status == "verification_failure" and .experiment == "E0051" and .verification.zero_model_calls == true and .verification.final_syntax_records == 522 and .verification.antlr_definitions == 502 and .verification.bison_definitions == 502 and .verification.treesitter_definitions == 502 and .verification.antlr_status == 1 and .verification.antlr_unresolved_rule_names == 103 and .verification.bison_status == 1 and .verification.bison_unresolved_symbol_names == 103 and .verification.treesitter_status == 1 and .verification.treesitter_structural_error == 1 and .verification.antlr_bison_unresolved_set_difference == 0 and .verification.target_status_agreement == 1 and .verification.negative_control == "observed_failure"'
 assert_run R000061 '.status == "verification_failure" and .experiment == "E0052" and .verification.zero_model_calls == true and .verification.final_syntax_records == 522 and .verification.errata_repairs == 8 and .verification.grouped_optional_repairs == 2 and .verification.antlr_definitions == 502 and .verification.bison_definitions == 502 and .verification.treesitter_definitions == 502 and .verification.antlr_status == 1 and .verification.bison_status == 1 and .verification.treesitter_status == 1 and .verification.treesitter_structural_error == 0 and .verification.antlr_unresolved_rule_names == 103 and .verification.bison_unresolved_symbol_names == 103 and .verification.antlr_bison_unresolved_set_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000062 '.status == "accepted" and .experiment == "E0053" and .verification.zero_model_calls == true and .verification.unresolved_target_names == 103 and .verification.r401_unresolved == 80 and .verification.r403_unresolved == 17 and .verification.expansion_unresolved == 97 and .verification.lexical_unresolved == 3 and .verification.metavariable_unresolved == 1 and .verification.unicode_unresolved == 2 and .verification.source_metadata_records == 6 and .verification.open_decision_groups == 2 and .verification.negative_control == "observed_failure"'
+assert_run R000063 '.status == "accepted" and .experiment == "E0054" and .verification.zero_model_calls == true and .verification.candidate_strategies == 3 and .verification.residue_terms == 5 and .verification.candidate_rows == 15 and .verification.lexical_rows == 3 and .verification.unicode_rows == 2 and .verification.primitive_export_rows == 3 and .verification.schema_export_rows == 3 and .verification.unresolved_rows == 5 and .verification.complete_projection_candidates == 0 and .verification.representation_selection == "deferred_D0027" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -216,6 +217,17 @@ residual_unicode=$(metric R000062 '.verification.unicode_unresolved')
 residual_metadata=$(metric R000062 '.verification.source_metadata_records')
 residual_open_decisions=$(metric R000062 '.verification.open_decision_groups')
 residual_negative_control=$(metric R000062 '.verification.negative_control')
+lexical_candidate_strategies=$(metric R000063 '.verification.candidate_strategies')
+lexical_candidate_residue=$(metric R000063 '.verification.residue_terms')
+lexical_candidate_rows=$(metric R000063 '.verification.candidate_rows')
+lexical_candidate_lexical=$(metric R000063 '.verification.lexical_rows')
+lexical_candidate_unicode=$(metric R000063 '.verification.unicode_rows')
+lexical_candidate_primitive=$(metric R000063 '.verification.primitive_export_rows')
+lexical_candidate_schema=$(metric R000063 '.verification.schema_export_rows')
+lexical_candidate_unresolved=$(metric R000063 '.verification.unresolved_rows')
+lexical_candidate_complete=$(metric R000063 '.verification.complete_projection_candidates')
+lexical_candidate_selection=$(metric R000063 '.verification.representation_selection')
+lexical_candidate_negative=$(metric R000063 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -437,6 +449,22 @@ EOF
 | Cases with agreement across LFortran, Flang, and gfortran | $(metric R000050 '.verification.all_three_agree_cases') |
 | Cases with disagreement | $(metric R000050 '.verification.disagreement_cases') |
 
+## E0054 D0027 lexical candidate comparison
+
+| Quantity | Value |
+|---|---:|
+| Candidate strategies | $lexical_candidate_strategies |
+| Residue terms | $lexical_candidate_residue |
+| Candidate matrix rows | $lexical_candidate_rows |
+| Lexical rows projected | $lexical_candidate_lexical |
+| Ambiguous Unicode rows retained | $lexical_candidate_unicode |
+| Primitive lexer export rows | $lexical_candidate_primitive |
+| Schema lexical-fact rows | $lexical_candidate_schema |
+| Retained-unresolved rows | $lexical_candidate_unresolved |
+| Complete projection candidates | $lexical_candidate_complete |
+| Representation selection | $lexical_candidate_selection |
+| Controlled candidate mutation | $lexical_candidate_negative |
+
 Every table in this file is regenerated by \`papers/standard-to-grammar/analyse.sh\`.
 The underlying run records retain the independent oracles and the accepted
 failure status.
@@ -487,6 +515,17 @@ rendered=${rendered//@RESIDUAL_EXPANSION@/$residual_expansion}
 rendered=${rendered//@RESIDUAL_LEXICAL@/$residual_lexical}
 rendered=${rendered//@RESIDUAL_METAVARIABLE@/$residual_metavariable}
 rendered=${rendered//@RESIDUAL_UNICODE@/$residual_unicode}
+rendered=${rendered//@LEXICAL_CANDIDATE_STRATEGIES@/$lexical_candidate_strategies}
+rendered=${rendered//@LEXICAL_CANDIDATE_RESIDUE@/$lexical_candidate_residue}
+rendered=${rendered//@LEXICAL_CANDIDATE_ROWS@/$lexical_candidate_rows}
+rendered=${rendered//@LEXICAL_CANDIDATE_LEXICAL@/$lexical_candidate_lexical}
+rendered=${rendered//@LEXICAL_CANDIDATE_UNICODE@/$lexical_candidate_unicode}
+rendered=${rendered//@LEXICAL_CANDIDATE_PRIMITIVE@/$lexical_candidate_primitive}
+rendered=${rendered//@LEXICAL_CANDIDATE_SCHEMA@/$lexical_candidate_schema}
+rendered=${rendered//@LEXICAL_CANDIDATE_UNRESOLVED@/$lexical_candidate_unresolved}
+rendered=${rendered//@LEXICAL_CANDIDATE_COMPLETE@/$lexical_candidate_complete}
+rendered=${rendered//@LEXICAL_CANDIDATE_SELECTION@/$lexical_candidate_selection}
+rendered=${rendered//@LEXICAL_CANDIDATE_NEGATIVE@/$lexical_candidate_negative}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

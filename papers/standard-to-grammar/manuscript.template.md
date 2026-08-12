@@ -117,6 +117,12 @@ E0053 partitions the remaining @RESIDUAL_TARGET_NAMES@ names into
 @RESIDUAL_METAVARIABLE@ metanotation name, and @RESIDUAL_UNICODE@ ambiguous
 Unicode or quotation names. The partition maps to the open decisions without
 assigning a parser meaning.
+E0054 compares @LEXICAL_CANDIDATE_STRATEGIES@ D0027 candidates over
+@LEXICAL_CANDIDATE_RESIDUE@ residue terms and @LEXICAL_CANDIDATE_ROWS@ matrix
+rows. Primitive lexer export and target-independent lexical-fact schema each
+project @LEXICAL_CANDIDATE_PRIMITIVE@ lexical rows while retaining
+@LEXICAL_CANDIDATE_UNICODE@ ambiguous Unicode or quotation rows. Selection
+remains @LEXICAL_CANDIDATE_SELECTION@.
 
 ### 2.3 Verification
 
@@ -176,6 +182,11 @@ E0053 partitions the boundary into @RESIDUAL_R401@ R401 expansions,
 @RESIDUAL_METAVARIABLE@ metanotation, and @RESIDUAL_UNICODE@ ambiguous Unicode
 or quotation forms. The table is source-linked and leaves the representation
 choices open.
+E0054 supplies the D0027 tradeoff matrix. It retains all
+@LEXICAL_CANDIDATE_RESIDUE@ source facts, exposes
+@LEXICAL_CANDIDATE_PRIMITIVE@ projected lexical rows for the first two
+candidates, and leaves the ambiguous Unicode rows unresolved under D0020. No
+candidate is accepted.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -199,11 +210,11 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next decision step is to accept or revise D0024, D0026 and D0027 using the
-E0053 residue packet. E0052 removes the deterministic `seq(, ...)` composition
-error and E0053 partitions the remaining names. After those decisions, the
-deterministic wiring generator can apply the selected projections and rerun all
-three target validators. E0048
+E0053 and E0054 now provide the residue and D0027 tradeoff packet. The next
+step is for the planning model to accept or revise D0024, D0026 and D0027.
+After those decisions, apply the selected projections and rerun all three
+target validators. E0052 removes the deterministic `seq(, ...)` composition
+error and E0053 partitions the remaining names. E0048
 supplies the complete 80/20 inventory, E0049 supplies the candidate and its
 retained failure, and E0050 supplies the explicit tradeoff matrix. The choice
 is proposed in [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md)

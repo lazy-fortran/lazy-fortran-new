@@ -401,6 +401,9 @@ evidence for the thesis.
 - [x] Partition the remaining target-tool failures into source-provenance
       buckets without resolving them (E0053, regenerate with
       `research/experiments/E0053-can-the-remaining-target-failures-be-par/analyse.sh`)
+- [x] Compare deterministic D0027 lexical projection candidates without
+      selecting one (E0054, regenerate with
+      `research/experiments/E0054-can-deterministic-lexical-projection-can/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
