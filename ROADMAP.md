@@ -94,6 +94,9 @@ inputs, including a controlled diagnostic mutation
 E0035 validates the first `.sxs` schema slice over all six declaration forms,
 the committed source fixture and four malformed inputs
 (`research/experiments/E0035-does-the-v0-sx-schema-parser-validate-al/analyse.sh`).
+E0036 validates deterministic Fortran type and enum declaration emission,
+stable dependency ordering and cyclic-dependency rejection
+(`research/experiments/E0036-does-deterministic-schema-generation-emi/analyse.sh`).
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
@@ -264,6 +267,9 @@ evidence for the thesis.
 - [x] `.sxs` schema language parser and validator: primitive, record, sum,
       list, optional, enum (E0035; regenerate with
       `research/experiments/E0035-does-the-v0-sx-schema-parser-validate-al/analyse.sh`)
+- [x] First deterministic Fortran type and enum declaration emitter, including
+      stable dependency ordering and cycle rejection (E0036; regenerate with
+      `research/experiments/E0036-does-deterministic-schema-generation-emi/analyse.sh`)
 - [ ] Generator emitting Fortran types, reader, writer, validator, visitor,
       equality, hashing, printer
 - [ ] StandardIR schema
@@ -390,6 +396,7 @@ evidence for the thesis.
       oracle recorded
 - [x] E0034 flat SX arena-reader corpus differential recorded
 - [x] E0035 v0 SX schema parser differential recorded
+- [x] E0036 deterministic schema type-emission differential recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
