@@ -61,6 +61,11 @@ The precedence-tree slice adds 10 internal nodes and
 17 leaves across 7 expression witnesses,
 with 27 source-linked nodes and 7 known
 precedence queries. Its unknown-query rejection is 1.
+The broader expression-coverage slice validates 9 witnesses
+across 6 files, with 23 internal nodes and
+31 leaves. It includes 2 function-reference
+nodes, 54 source-linked nodes, and 9 known
+coverage queries. Its unsupported-operator rejection is 1.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -301,6 +306,12 @@ witnesses. The internal nodes and leaves retain StandardIR rules and source
 references, and all generated child links pass the independent query and
 mutation checks. This validates deterministic precedence-tree composition for
 the declared families, not complete expression coverage.
+E0067 extends the same generated ladder to power, concatenation, dotted
+logical operators, character and logical literals, kind-suffixed reals, and
+intrinsic function references across a larger six-file corpus. It keeps the
+same flat node array and source links, and rejects an unsupported operator as
+a negative control. This validates the compact deterministic extension, not
+complete expression parsing or semantic type checking.
 
 ## 5. Reproducibility and limitations
 
@@ -318,12 +329,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment enlarges E0066's real-source corpus with additional
-operator and literal families, then tests parser acceptance over the larger
-source set. Its manifest will predeclare expression families, source spans,
-expected parent and child links and malformed controls. GNU Fortran will
-remain the syntax oracle, and the generated operation will retain source page,
-byte span and document hash for each result.
+The next experiment tests parser acceptance over complete real-source files,
+using the E0067 expression coverage as a local operation rather than claiming
+that the bounded recognizer is already a complete frontend. Its manifest will
+predeclare source-file outcomes, unsupported constructs and source-linked
+diagnostics. The first useful boundary is the transition from selected
+expression witnesses to complete-source parser acceptance.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -353,9 +364,11 @@ source-linked and the parent and child links have zero errors. E0064 adds 52
 expression-role children, and E0065 adds 28 source-linked token leaves across
 eight witnesses. E0066 adds 10 precedence nodes and
 17 leaves across 7 witnesses, with zero
-tree mismatches and zero link errors. These results validate composition and
-provenance, not semantic coverage or a complete expression parser. The next
-milestone enlarges the expression corpus and tests parser acceptance.
+tree mismatches and zero link errors. E0067 extends the ladder over
+9 witnesses with 54 source-linked nodes,
+2 function-reference nodes and zero link errors. These results
+validate composition and provenance, not semantic coverage or a complete
+expression parser. The next milestone is complete-source parser acceptance.
 
 ## References
 
@@ -789,6 +802,33 @@ The following rows are extracted from the accepted projection run records.
 | Runtime test status | 0 |
 | Malformed nesting rejected | 1 |
 | Precedence tree boundary | source_linked_precedence_trees_validated |
+
+## E0067 generated expression operator and literal coverage
+
+| Quantity | Value |
+|---|---:|
+| Witness files | 6 |
+| Expression witnesses | 9 |
+| GNU Fortran syntax-accepted files | 6 |
+| Internal nodes | 23 |
+| Leaf nodes | 31 |
+| Binary nodes | 20 |
+| Unary nodes | 1 |
+| Array-constructor nodes | 0 |
+| Function-reference nodes | 2 |
+| Name nodes | 18 |
+| Literal nodes | 13 |
+| Source-linked nodes | 54 |
+| Parent links | 54 |
+| Link errors | 0 |
+| Tree mismatches | 0 |
+| Known coverage queries | 9 |
+| Unknown query rejected | 1 |
+| Maximum expression depth | 8 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Unsupported operator rejected | 1 |
+| Expression coverage boundary | source_linked_expression_coverage_validated |
 
 ## E0054 D0027 lexical candidate comparison
 

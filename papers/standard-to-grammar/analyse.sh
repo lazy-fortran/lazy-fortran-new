@@ -117,6 +117,7 @@ assert_run R000072 '.status == "accepted" and .experiment == "E0063" and .verifi
 assert_run R000073 '.status == "accepted" and .experiment == "E0064" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.statement_nodes == 73 and .verification.expression_nodes == 52 and .verification.total_nodes == 125 and .verification.source_linked_nodes == 125 and .verification.root_nodes == 5 and .verification.parent_links == 120 and .verification.child_links == 120 and .verification.ast_link_errors == 0 and .verification.max_ast_depth == 5 and .verification.query_hits == 5 and .verification.unknown_query_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_expression_ast_query_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000074 '.status == "accepted" and .experiment == "E0065" and .verification.zero_model_calls == true and .verification.witness_files == 5 and .verification.expression_witnesses == 8 and .verification.base_expression_nodes == 125 and .verification.leaf_nodes == 28 and .verification.name_nodes == 10 and .verification.literal_nodes == 10 and .verification.operator_nodes == 8 and .verification.source_linked_leaves == 28 and .verification.subtree_parent_links == 28 and .verification.subtree_link_errors == 0 and .verification.max_subtree_depth == 6 and .verification.known_witness_queries == 8 and .verification.unknown_witness_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_token_subtrees_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000075 '.status == "accepted" and .experiment == "E0066" and .verification.zero_model_calls == true and .verification.witness_files == 4 and .verification.expression_witnesses == 7 and .verification.internal_nodes == 10 and .verification.leaf_nodes == 17 and .verification.binary_nodes == 6 and .verification.unary_nodes == 3 and .verification.array_nodes == 1 and .verification.name_nodes == 6 and .verification.literal_nodes == 11 and .verification.source_linked_nodes == 27 and .verification.subtree_parent_links == 27 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.precedence_query_hits == 7 and .verification.unknown_query_rejected == 1 and .verification.max_tree_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_precedence_trees_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000076 '.status == "accepted" and .experiment == "E0067" and .verification.zero_model_calls == true and .verification.witness_files == 6 and .verification.expression_witnesses == 9 and .verification.gfortran_accepted == 6 and .verification.internal_nodes == 23 and .verification.leaf_nodes == 31 and .verification.binary_nodes == 20 and .verification.unary_nodes == 1 and .verification.array_nodes == 0 and .verification.function_reference_nodes == 2 and .verification.name_nodes == 18 and .verification.literal_nodes == 13 and .verification.source_linked_nodes == 54 and .verification.subtree_parent_links == 54 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.coverage_query_hits == 9 and .verification.unknown_query_rejected == 1 and .verification.max_expression_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_operator_rejected == 1 and .verification.target_boundary == "source_linked_expression_coverage_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -394,6 +395,28 @@ precedence_compile=$(metric R000075 '.verification.fortran_compile_status')
 precedence_runtime=$(metric R000075 '.verification.runtime_test_status')
 precedence_mutation=$(metric R000075 '.verification.malformed_nesting_rejected')
 precedence_boundary=$(metric R000075 '.verification.target_boundary')
+coverage_files=$(metric R000076 '.verification.witness_files')
+coverage_witnesses=$(metric R000076 '.verification.expression_witnesses')
+coverage_gfortran=$(metric R000076 '.verification.gfortran_accepted')
+coverage_internal=$(metric R000076 '.verification.internal_nodes')
+coverage_leaves=$(metric R000076 '.verification.leaf_nodes')
+coverage_binary=$(metric R000076 '.verification.binary_nodes')
+coverage_unary=$(metric R000076 '.verification.unary_nodes')
+coverage_arrays=$(metric R000076 '.verification.array_nodes')
+coverage_calls=$(metric R000076 '.verification.function_reference_nodes')
+coverage_names=$(metric R000076 '.verification.name_nodes')
+coverage_literals=$(metric R000076 '.verification.literal_nodes')
+coverage_linked=$(metric R000076 '.verification.source_linked_nodes')
+coverage_parents=$(metric R000076 '.verification.subtree_parent_links')
+coverage_errors=$(metric R000076 '.verification.subtree_link_errors')
+coverage_mismatches=$(metric R000076 '.verification.tree_mismatches')
+coverage_queries=$(metric R000076 '.verification.coverage_query_hits')
+coverage_unknown=$(metric R000076 '.verification.unknown_query_rejected')
+coverage_depth=$(metric R000076 '.verification.max_expression_depth')
+coverage_compile=$(metric R000076 '.verification.fortran_compile_status')
+coverage_runtime=$(metric R000076 '.verification.runtime_test_status')
+coverage_mutation=$(metric R000076 '.verification.unsupported_operator_rejected')
+coverage_boundary=$(metric R000076 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -829,6 +852,33 @@ EOF
 | Malformed nesting rejected | $precedence_mutation |
 | Precedence tree boundary | $precedence_boundary |
 
+## E0067 generated expression operator and literal coverage
+
+| Quantity | Value |
+|---|---:|
+| Witness files | $coverage_files |
+| Expression witnesses | $coverage_witnesses |
+| GNU Fortran syntax-accepted files | $coverage_gfortran |
+| Internal nodes | $coverage_internal |
+| Leaf nodes | $coverage_leaves |
+| Binary nodes | $coverage_binary |
+| Unary nodes | $coverage_unary |
+| Array-constructor nodes | $coverage_arrays |
+| Function-reference nodes | $coverage_calls |
+| Name nodes | $coverage_names |
+| Literal nodes | $coverage_literals |
+| Source-linked nodes | $coverage_linked |
+| Parent links | $coverage_parents |
+| Link errors | $coverage_errors |
+| Tree mismatches | $coverage_mismatches |
+| Known coverage queries | $coverage_queries |
+| Unknown query rejected | $coverage_unknown |
+| Maximum expression depth | $coverage_depth |
+| Fortran compile status | $coverage_compile |
+| Runtime test status | $coverage_runtime |
+| Unsupported operator rejected | $coverage_mutation |
+| Expression coverage boundary | $coverage_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1009,6 +1059,28 @@ rendered=${rendered//@PRECEDENCE_COMPILE@/$precedence_compile}
 rendered=${rendered//@PRECEDENCE_RUNTIME@/$precedence_runtime}
 rendered=${rendered//@PRECEDENCE_MUTATION@/$precedence_mutation}
 rendered=${rendered//@PRECEDENCE_BOUNDARY@/$precedence_boundary}
+rendered=${rendered//@COVERAGE_FILES@/$coverage_files}
+rendered=${rendered//@COVERAGE_WITNESSES@/$coverage_witnesses}
+rendered=${rendered//@COVERAGE_GFORTRAN@/$coverage_gfortran}
+rendered=${rendered//@COVERAGE_INTERNAL@/$coverage_internal}
+rendered=${rendered//@COVERAGE_LEAVES@/$coverage_leaves}
+rendered=${rendered//@COVERAGE_BINARY@/$coverage_binary}
+rendered=${rendered//@COVERAGE_UNARY@/$coverage_unary}
+rendered=${rendered//@COVERAGE_ARRAYS@/$coverage_arrays}
+rendered=${rendered//@COVERAGE_CALLS@/$coverage_calls}
+rendered=${rendered//@COVERAGE_NAMES@/$coverage_names}
+rendered=${rendered//@COVERAGE_LITERALS@/$coverage_literals}
+rendered=${rendered//@COVERAGE_LINKED@/$coverage_linked}
+rendered=${rendered//@COVERAGE_PARENTS@/$coverage_parents}
+rendered=${rendered//@COVERAGE_ERRORS@/$coverage_errors}
+rendered=${rendered//@COVERAGE_MISMATCHES@/$coverage_mismatches}
+rendered=${rendered//@COVERAGE_QUERIES@/$coverage_queries}
+rendered=${rendered//@COVERAGE_UNKNOWN@/$coverage_unknown}
+rendered=${rendered//@COVERAGE_DEPTH@/$coverage_depth}
+rendered=${rendered//@COVERAGE_COMPILE@/$coverage_compile}
+rendered=${rendered//@COVERAGE_RUNTIME@/$coverage_runtime}
+rendered=${rendered//@COVERAGE_MUTATION@/$coverage_mutation}
+rendered=${rendered//@COVERAGE_BOUNDARY@/$coverage_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

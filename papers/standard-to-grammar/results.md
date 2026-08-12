@@ -418,6 +418,33 @@ The following rows are extracted from the accepted projection run records.
 | Malformed nesting rejected | 1 |
 | Precedence tree boundary | source_linked_precedence_trees_validated |
 
+## E0067 generated expression operator and literal coverage
+
+| Quantity | Value |
+|---|---:|
+| Witness files | 6 |
+| Expression witnesses | 9 |
+| GNU Fortran syntax-accepted files | 6 |
+| Internal nodes | 23 |
+| Leaf nodes | 31 |
+| Binary nodes | 20 |
+| Unary nodes | 1 |
+| Array-constructor nodes | 0 |
+| Function-reference nodes | 2 |
+| Name nodes | 18 |
+| Literal nodes | 13 |
+| Source-linked nodes | 54 |
+| Parent links | 54 |
+| Link errors | 0 |
+| Tree mismatches | 0 |
+| Known coverage queries | 9 |
+| Unknown query rejected | 1 |
+| Maximum expression depth | 8 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Unsupported operator rejected | 1 |
+| Expression coverage boundary | source_linked_expression_coverage_validated |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

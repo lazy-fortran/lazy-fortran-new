@@ -464,8 +464,14 @@ evidence for the thesis.
       unary and array-constructor nodes, preserving source links (E0066,
       regenerate with
       `research/experiments/E0066-can-generated-precedence-trees-preserve-/analyse.sh`)
-- [ ] Enlarge the E0066 expression corpus with broader literal and operator
-      families, then validate parser acceptance on a larger source set
+- [x] Enlarge the E0066 expression corpus with broader literal and operator
+      families, including function references, and validate deterministic
+      source-linked coverage over nine witnesses in six files (E0067,
+      regenerate with
+      `research/experiments/E0067-can-generated-expression-coverage-/analyse.sh`)
+- [ ] Validate parser acceptance over complete real-source files using the
+      generated local operations, retaining unsupported constructs and
+      source-linked diagnostics
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
