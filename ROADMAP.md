@@ -61,6 +61,9 @@ E0022 inventories all 181 unresolved names, their 472 reference occurrences and
 346 referring rules, with independent traversal agreement and comparison-source
 evidence retained for adjudication
 (`research/experiments/E0022-unresolved-reference-audit/analyse.sh`).
+E0023 verifies the first `byte_buffer`/`byte_span` text-representation slice,
+including fixed-byte behavior, bounds rejection and deep-copy isolation
+(`research/experiments/E0023-do-byte-buffers-and-spans-provide-the-fi/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -182,7 +185,8 @@ normalized view rather than overwriting the source extraction.
 
 ### 1.1 The `text/` package (D0011)
 
-- [ ] `byte_buffer`, `byte_span`
+- [x] `byte_buffer`, `byte_span` (E0023; regenerate with
+      `research/experiments/E0023-do-byte-buffers-and-spans-provide-the-fi/analyse.sh`)
 - [ ] `byte_builder` with geometric growth
 - [ ] `writer_t` with file, memory, hash and counting backends
 - [ ] `interner` with case-insensitive Fortran identity resolved once
