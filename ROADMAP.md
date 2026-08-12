@@ -460,8 +460,12 @@ evidence for the thesis.
 - [x] Compose recursive token-level expression subtrees and source-linked
       witness queries (E0065, regenerate with
       `research/experiments/E0065-can-generated-expression-subtrees-preserve-/analyse.sh`)
-- [ ] Compose precedence-shaped expression subtrees and broader literal
-      variants, then validate parser acceptance on a larger source set
+- [x] Compose precedence-shaped expression subtrees with generated binary,
+      unary and array-constructor nodes, preserving source links (E0066,
+      regenerate with
+      `research/experiments/E0066-can-generated-precedence-trees-preserve-/analyse.sh`)
+- [ ] Enlarge the E0066 expression corpus with broader literal and operator
+      families, then validate parser acceptance on a larger source set
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

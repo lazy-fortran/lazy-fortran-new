@@ -92,8 +92,10 @@ E0064 adds 52 expression-role children, keeps 125 nodes source-linked, and
 validates five known kind/rule queries plus one rejected unknown query. The
 next boundary is recursive operator and literal expression subtrees. E0065
 adds 28 source-linked token leaves across eight real-source witnesses and
-validates eight witness queries; the next boundary is precedence-shaped
-subtrees and broader literal variants.
+validates eight witness queries. E0066 adds 10 precedence nodes and 17 leaves
+across seven witnesses, with 27 source-linked nodes, 27 parent links, zero
+link errors and zero tree mismatches. Its next boundary is a larger
+expression corpus and parser-acceptance gate.
 
 ## Licence
 

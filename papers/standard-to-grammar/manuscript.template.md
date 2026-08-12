@@ -56,6 +56,10 @@ The recursive subtree slice validates @SUBTREE_LEAVES@ token leaves across
 eight expression witnesses, with @SUBTREE_LINKED@ source-linked leaves and
 @SUBTREE_QUERIES@ known witness queries; its unknown-witness rejection is
 @SUBTREE_UNKNOWN@.
+The precedence-tree slice adds @PRECEDENCE_INTERNAL@ internal nodes and
+@PRECEDENCE_LEAVES@ leaves across @PRECEDENCE_WITNESSES@ expression witnesses,
+with @PRECEDENCE_LINKED@ source-linked nodes and @PRECEDENCE_QUERIES@ known
+precedence queries; its unknown-query rejection is @PRECEDENCE_UNKNOWN@.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -184,6 +188,10 @@ array. The query returns the node's existing source reference.
 E0065 extends eight of those role nodes with token-level `name`, `literal` and
 `operator` leaves. The generated operation preserves the parent-child chain
 and runs witness queries against the same flat array.
+E0066 adds precedence-shaped `binary-expr`, `unary-expr` and
+`array-constructor` nodes to the same generated array. The nesting is emitted
+from the precedence specification, so the generated path does not require a
+runtime precedence table or a second expression IR.
 
 ### 2.3 Verification
 
@@ -280,6 +288,11 @@ E0065 adds token-level leaves to eight real-source expression witnesses. The
 leaves are source-linked through explicit StandardIR lexical rules and are
 queried through the generated witness operation. This is a recursive subtree
 boundary, not yet a complete precedence tree.
+E0066 adds structural precedence nodes to seven real-source expression
+witnesses. The internal nodes and leaves retain StandardIR rules and source
+references, and all generated child links pass the independent query and
+mutation checks. This validates deterministic precedence-tree composition for
+the declared families, not complete expression coverage.
 
 ## 5. Reproducibility and limitations
 
@@ -297,12 +310,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment extends E0065 with operator-precedence-shaped expression
-subtrees and literal variants beyond the current eight witnesses. Its manifest
-will predeclare expression families, source spans, expected parent and child
-links and malformed controls. GNU Fortran will remain the syntax oracle, and
-the generated operation will retain source page, byte span and document hash
-for each result.
+The next experiment enlarges E0066's real-source corpus with additional
+operator and literal families, then tests parser acceptance over the larger
+source set. Its manifest will predeclare expression families, source spans,
+expected parent and child links and malformed controls. GNU Fortran will
+remain the syntax oracle, and the generated operation will retain source page,
+byte span and document hash for each result.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -330,14 +343,16 @@ adds logical-statement assembly and construct closure. E0063 composes those
 records into a source-linked AST forest. All @AST_NODES@ nodes are
 source-linked and the parent and child links have zero errors. E0064 adds 52
 expression-role children, and E0065 adds 28 source-linked token leaves across
-eight witnesses. These results validate composition and provenance, not
-semantic coverage or a complete precedence parser. The next milestone adds
-operator-precedence-shaped subtrees and broader literal variants.
+eight witnesses. E0066 adds @PRECEDENCE_INTERNAL@ precedence nodes and
+@PRECEDENCE_LEAVES@ leaves across @PRECEDENCE_WITNESSES@ witnesses, with zero
+tree mismatches and zero link errors. These results validate composition and
+provenance, not semantic coverage or a complete expression parser. The next
+milestone enlarges the expression corpus and tests parser acceptance.
 
 ## References
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0031 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0032 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.

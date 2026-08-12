@@ -4,12 +4,12 @@ question: >
   Can generated expression-role nodes represent binary precedence, unary
   operators and array constructors as source-linked structural trees over real
   Fortran witnesses?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 repos:
-  lazy-fortran-new: "3500853"
+  lazy-fortran-new: "314b667"
   standard-new: "c6cd889"
   oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
 

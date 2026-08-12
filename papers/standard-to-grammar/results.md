@@ -393,6 +393,31 @@ The following rows are extracted from the accepted projection run records.
 | Malformed nesting rejected | 1 |
 | Recursive subtree boundary | source_linked_token_subtrees_validated |
 
+## E0066 generated precedence-shaped expression trees
+
+| Quantity | Value |
+|---|---:|
+| Witness files | 4 |
+| Expression witnesses | 7 |
+| Internal nodes | 10 |
+| Leaf nodes | 17 |
+| Binary nodes | 6 |
+| Unary nodes | 3 |
+| Array-constructor nodes | 1 |
+| Name nodes | 6 |
+| Literal nodes | 11 |
+| Source-linked nodes | 27 |
+| Parent links | 27 |
+| Link errors | 0 |
+| Tree mismatches | 0 |
+| Known precedence queries | 7 |
+| Unknown query rejected | 1 |
+| Maximum tree depth | 8 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Malformed nesting rejected | 1 |
+| Precedence tree boundary | source_linked_precedence_trees_validated |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

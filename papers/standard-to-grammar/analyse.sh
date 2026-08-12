@@ -116,6 +116,7 @@ assert_run R000071 '.status == "accepted" and .experiment == "E0062" and .verifi
 assert_run R000072 '.status == "accepted" and .experiment == "E0063" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.logical_statements == 73 and .verification.ast_nodes == 73 and .verification.source_linked_nodes == 73 and .verification.root_nodes == 5 and .verification.parent_links == 68 and .verification.child_links == 68 and .verification.ast_link_errors == 0 and .verification.max_ast_depth == 4 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_ast_forest_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000073 '.status == "accepted" and .experiment == "E0064" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.statement_nodes == 73 and .verification.expression_nodes == 52 and .verification.total_nodes == 125 and .verification.source_linked_nodes == 125 and .verification.root_nodes == 5 and .verification.parent_links == 120 and .verification.child_links == 120 and .verification.ast_link_errors == 0 and .verification.max_ast_depth == 5 and .verification.query_hits == 5 and .verification.unknown_query_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_expression_ast_query_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000074 '.status == "accepted" and .experiment == "E0065" and .verification.zero_model_calls == true and .verification.witness_files == 5 and .verification.expression_witnesses == 8 and .verification.base_expression_nodes == 125 and .verification.leaf_nodes == 28 and .verification.name_nodes == 10 and .verification.literal_nodes == 10 and .verification.operator_nodes == 8 and .verification.source_linked_leaves == 28 and .verification.subtree_parent_links == 28 and .verification.subtree_link_errors == 0 and .verification.max_subtree_depth == 6 and .verification.known_witness_queries == 8 and .verification.unknown_witness_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_token_subtrees_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000075 '.status == "accepted" and .experiment == "E0066" and .verification.zero_model_calls == true and .verification.witness_files == 4 and .verification.expression_witnesses == 7 and .verification.internal_nodes == 10 and .verification.leaf_nodes == 17 and .verification.binary_nodes == 6 and .verification.unary_nodes == 3 and .verification.array_nodes == 1 and .verification.name_nodes == 6 and .verification.literal_nodes == 11 and .verification.source_linked_nodes == 27 and .verification.subtree_parent_links == 27 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.precedence_query_hits == 7 and .verification.unknown_query_rejected == 1 and .verification.max_tree_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_precedence_trees_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -373,6 +374,26 @@ subtree_compile=$(metric R000074 '.verification.fortran_compile_status')
 subtree_runtime=$(metric R000074 '.verification.runtime_test_status')
 subtree_mutation=$(metric R000074 '.verification.malformed_nesting_rejected')
 subtree_boundary=$(metric R000074 '.verification.target_boundary')
+precedence_files=$(metric R000075 '.verification.witness_files')
+precedence_witnesses=$(metric R000075 '.verification.expression_witnesses')
+precedence_internal=$(metric R000075 '.verification.internal_nodes')
+precedence_leaves=$(metric R000075 '.verification.leaf_nodes')
+precedence_binary=$(metric R000075 '.verification.binary_nodes')
+precedence_unary=$(metric R000075 '.verification.unary_nodes')
+precedence_arrays=$(metric R000075 '.verification.array_nodes')
+precedence_names=$(metric R000075 '.verification.name_nodes')
+precedence_literals=$(metric R000075 '.verification.literal_nodes')
+precedence_linked=$(metric R000075 '.verification.source_linked_nodes')
+precedence_parents=$(metric R000075 '.verification.subtree_parent_links')
+precedence_errors=$(metric R000075 '.verification.subtree_link_errors')
+precedence_mismatches=$(metric R000075 '.verification.tree_mismatches')
+precedence_queries=$(metric R000075 '.verification.precedence_query_hits')
+precedence_unknown=$(metric R000075 '.verification.unknown_query_rejected')
+precedence_depth=$(metric R000075 '.verification.max_tree_depth')
+precedence_compile=$(metric R000075 '.verification.fortran_compile_status')
+precedence_runtime=$(metric R000075 '.verification.runtime_test_status')
+precedence_mutation=$(metric R000075 '.verification.malformed_nesting_rejected')
+precedence_boundary=$(metric R000075 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -783,6 +804,31 @@ EOF
 | Malformed nesting rejected | $subtree_mutation |
 | Recursive subtree boundary | $subtree_boundary |
 
+## E0066 generated precedence-shaped expression trees
+
+| Quantity | Value |
+|---|---:|
+| Witness files | $precedence_files |
+| Expression witnesses | $precedence_witnesses |
+| Internal nodes | $precedence_internal |
+| Leaf nodes | $precedence_leaves |
+| Binary nodes | $precedence_binary |
+| Unary nodes | $precedence_unary |
+| Array-constructor nodes | $precedence_arrays |
+| Name nodes | $precedence_names |
+| Literal nodes | $precedence_literals |
+| Source-linked nodes | $precedence_linked |
+| Parent links | $precedence_parents |
+| Link errors | $precedence_errors |
+| Tree mismatches | $precedence_mismatches |
+| Known precedence queries | $precedence_queries |
+| Unknown query rejected | $precedence_unknown |
+| Maximum tree depth | $precedence_depth |
+| Fortran compile status | $precedence_compile |
+| Runtime test status | $precedence_runtime |
+| Malformed nesting rejected | $precedence_mutation |
+| Precedence tree boundary | $precedence_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -943,6 +989,26 @@ rendered=${rendered//@SUBTREE_UNKNOWN@/$subtree_unknown}
 rendered=${rendered//@SUBTREE_COMPILE@/$subtree_compile}
 rendered=${rendered//@SUBTREE_RUNTIME@/$subtree_runtime}
 rendered=${rendered//@SUBTREE_BOUNDARY@/$subtree_boundary}
+rendered=${rendered//@PRECEDENCE_FILES@/$precedence_files}
+rendered=${rendered//@PRECEDENCE_WITNESSES@/$precedence_witnesses}
+rendered=${rendered//@PRECEDENCE_INTERNAL@/$precedence_internal}
+rendered=${rendered//@PRECEDENCE_LEAVES@/$precedence_leaves}
+rendered=${rendered//@PRECEDENCE_BINARY@/$precedence_binary}
+rendered=${rendered//@PRECEDENCE_UNARY@/$precedence_unary}
+rendered=${rendered//@PRECEDENCE_ARRAYS@/$precedence_arrays}
+rendered=${rendered//@PRECEDENCE_NAMES@/$precedence_names}
+rendered=${rendered//@PRECEDENCE_LITERALS@/$precedence_literals}
+rendered=${rendered//@PRECEDENCE_LINKED@/$precedence_linked}
+rendered=${rendered//@PRECEDENCE_PARENTS@/$precedence_parents}
+rendered=${rendered//@PRECEDENCE_ERRORS@/$precedence_errors}
+rendered=${rendered//@PRECEDENCE_MISMATCHES@/$precedence_mismatches}
+rendered=${rendered//@PRECEDENCE_QUERIES@/$precedence_queries}
+rendered=${rendered//@PRECEDENCE_UNKNOWN@/$precedence_unknown}
+rendered=${rendered//@PRECEDENCE_DEPTH@/$precedence_depth}
+rendered=${rendered//@PRECEDENCE_COMPILE@/$precedence_compile}
+rendered=${rendered//@PRECEDENCE_RUNTIME@/$precedence_runtime}
+rendered=${rendered//@PRECEDENCE_MUTATION@/$precedence_mutation}
+rendered=${rendered//@PRECEDENCE_BOUNDARY@/$precedence_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"
