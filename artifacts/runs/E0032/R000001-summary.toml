@@ -1,0 +1,30 @@
+name        = "E0032-R000001-sx-generated-corpus-gates"
+url         = "https://github.com/lazy-fortran/standard-new/tree/803f46f"
+sha256      = "a7b693eafc1ad9752f7a424993517256bab9e7546c4c98c94a95f15bbd63f454"
+bytes       = 391
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for generated SX trees and malformed-input handling"
+path        = ".cache/runs/E0032/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated SX generated-corpus summary"
+generator   = "standard-new recursive fortsx seed and test_fortsx_corpus"
+generator_commit = "803f46f"
+checker     = "research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh"
+checker_commit = "PENDING"
+text_policy_self_test = 0
+text_policy = 0
+focused_test = 0
+formatting = 0
+full_pipeline = 0
+generated_tree_cases = 64
+generated_corpus_lines = 64
+generated_corpus_bytes = 939
+generated_corpus_sha256 = "50968a919e33031d74e58abc9eddec94d4f779ef302caf1ed861b797989013af"
+malformed_cases_rejected = 10
+malformed_message_matches = 10
+independent_oracle_mutation = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh
+# Verify its hash and size with sha256sum and stat.

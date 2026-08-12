@@ -88,6 +88,9 @@ SHA-256 content hash
 E0031 verifies a flat `int8` arena SX reader against the recursive seed on
 canonical bytes and flat-node structure
 (`research/experiments/E0031-does-the-flat-sx-arena-reader-agree-with/analyse.sh`).
+E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
+inputs, including a controlled diagnostic mutation
+(`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -236,7 +239,8 @@ normalized view rather than overwriting the source extraction.
 - [x] Independent canonical SX fixtures and malformed-input expectations
       (E0029; regenerate with
       `research/experiments/E0029-does-the-sx-seed-preserve-canonical-tree/analyse.sh`)
-- [ ] Fuzzed trees and a malformed-input corpus
+- [x] Fuzzed trees and a malformed-input corpus (E0032; regenerate with
+      `research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`)
 - [x] Content hashing: parse → validate → normalize → serialize → SHA-256
       (E0030; regenerate with
       `research/experiments/E0030-does-canonical-sx-hashing-remain-stable-/analyse.sh`)
