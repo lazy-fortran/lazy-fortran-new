@@ -50,6 +50,10 @@ E0020 records structural inventories for the house `standard` grammar, kaby76,
 LFortran and Flang, retaining source-only and StandardIR-only differences; its
 independent traversal reports zero count difference
 (`research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`).
+E0021 normalizes the 20 repeated lhs records into 502 deterministic exported
+definitions, but target-tool validation retains a failure: 181 unresolved
+lexical or full-source names remain in the selected projection
+(`research/experiments/E0021-are-grouped-syntax-exports-consumable/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -242,7 +246,12 @@ evidence for the thesis.
       `research/experiments/E0018-does-standardir-syntax-project-mechanica/analyse.sh`)
 - [x] Generate tree-sitter grammar.js from StandardIR (E0019; regenerate with
       `research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh`)
+- [x] Normalize repeated StandardIR lhs records into one deterministic target
+      definition with provenance-bearing alternatives (standard-new `7344c65`; validate with
+      `research/experiments/E0021-are-grouped-syntax-exports-consumable/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
+- [ ] Complete the lexical/token projection and selected-source reference
+      closure so target grammar validators accept the exports
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020; regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

@@ -3,13 +3,13 @@ title: "Grouped syntax export consumability"
 question: >
   After repeated StandardIR lhs records are grouped deterministically, do the
   ANTLR4, Bison and tree-sitter projections pass their target tool validators?
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "4f8155a"
+  lazy-fortran-new: "8d57573"
   standard-new: "7344c65"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

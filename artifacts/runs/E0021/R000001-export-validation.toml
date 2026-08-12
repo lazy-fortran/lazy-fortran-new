@@ -1,0 +1,40 @@
+name        = "E0021-R000001-grouped-export-validation"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/8d57573"
+sha256      = "790e8de04660f4fb79abc49b6c955dd0174b06f535c756cbdf94972fec098f1f"
+bytes       = 122
+licence     = "MIT adapter; generated exports derive from J3/ISO source and remain ignored"
+retrieved   = "2026-08-12"
+purpose     = "Target-tool validation summary for grouped ANTLR4, Bison and tree-sitter syntax projections"
+path        = ".cache/runs/E0021/R000001/summary.tsv"
+origin      = "DIFFERENTIAL"
+format      = "tab-separated target-tool validation summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+input       = ".cache/runs/E0013/R000002/j3-24-007.standardir.sx"
+input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+generator   = "standard-new sxebnf sxantlr sxbison sxtreesitter"
+generator_commit = "7344c65"
+checker     = "research/experiments/E0021-are-grouped-syntax-exports-consumable/analyse.sh"
+checker_commit = "8d57573"
+antlr4 = "4.13.2"
+bison = "3.8.2"
+tree_sitter = "0.26.9"
+syntax_records = 522
+unique_lhs = 502
+duplicate_lhs_records = 20
+antlr_definitions = 502
+antlr_duplicate_definitions = 0
+antlr_status = 1
+antlr_unresolved_rule_names = 181
+bison_definitions = 502
+bison_duplicate_definitions = 0
+bison_status = 1
+bison_unresolved_symbol_names = 181
+treesitter_definitions = 502
+treesitter_duplicate_definitions = 0
+treesitter_status = 1
+treesitter_first_unresolved_symbol = "r_xyz"
+
+# Regenerate and verify with:
+#   research/experiments/E0021-are-grouped-syntax-exports-consumable/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.
