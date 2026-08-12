@@ -37,7 +37,7 @@ the expected failure.
 
 The three aliases are `program-name`, `entity-name`, and `type-name`, each
 projected to `name` under R402 while retaining the original semantic role. The
-lexical records preserve `letter`, `digit`, `underscore`, and `rep-char` as
+lexical records preserve `letter`, `digit`, the `_` character, and `rep-char` as
 source-defined classes. `xyz` remains metanotation and is not emitted as a
 parser symbol. Terms such as `enum-type-name` remain unresolved because this
 slice has no normative resolution witness for them.

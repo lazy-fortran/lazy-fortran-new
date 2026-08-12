@@ -1,0 +1,41 @@
+name        = "E0043-R000001-d0019-resolution-slice"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/1ada0de/research/experiments/E0043-can-a-source-controlled-d0019-resolution"
+sha256      = "8ee93d6eea1dd80a9eec5b97e962a64508bb6cb7a602cddcf7b9e18429f5076a"
+bytes       = 453
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for the source-controlled D0019 resolution slice and partial alias projection"
+path        = ".cache/runs/E0043/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated typed resolution and alias projection summary"
+generator   = "E0043 analyse.sh"
+generator_commit = "1ada0de"
+checker     = "research/experiments/E0043-can-a-source-controlled-d0019-resolution/analyse.sh"
+checker_commit = "1ada0de"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+unresolved_audit_sha256 = "28eb6876a77345cd85de14cf23a1d9027beefc2cb7a4de5756a9f28c40d1a449"
+resolution_records = 182
+resolution_records_sha256 = "e88c498592c26ccfd06bedb35a537db2c0d9f35321d6105e6a411b1d1699e98d"
+resolution_records_bytes = 35035
+alias_records = 3
+lexical_class_records = 4
+metavariable_records = 1
+semantic_role_records = 0
+unresolved_records = 174
+disputed_records = 0
+source_hash_matches = 182
+alias_projection_records = 3
+alias_input_sha256 = "12088503ae5b616bce8db0281eb0191b9e59c183ff9519a7e9b7cf241a5c241a"
+alias_input_bytes = 213
+composite_input_sha256 = "4cb633db240121673f023bc5bede4c9fb4fa932e65893276c64674ae5ce3fef6"
+composite_input_bytes = 2556
+composite_grammar_sha256 = "e482b1fac2bc7e59f2b4a2acaffbc7f960fab13deae611965c926570b3a2a126"
+composite_grammar_bytes = 1727
+independent_difference = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0043-can-a-source-controlled-d0019-resolution/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

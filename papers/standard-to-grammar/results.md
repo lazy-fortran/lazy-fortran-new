@@ -42,6 +42,21 @@ The following rows are extracted from the accepted projection run records.
 | Referring rules | 346 |
 | Target-tool validation result | retained verification failure |
 
+## D0019 resolution boundary
+
+| Quantity | Value |
+|---|---:|
+| Typed resolution records | 182 |
+| Alias records | 3 |
+| Lexical-class records | 4 |
+| Metavariable records | 1 |
+| Unresolved records retained | 174 |
+| Records with source hash | 182 |
+| Alias projection records | 3 |
+| Composite SX syntax witnesses | 8 |
+| Independent difference | 0 |
+| Controlled negative mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |

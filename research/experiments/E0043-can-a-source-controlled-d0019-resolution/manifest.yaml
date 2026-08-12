@@ -2,13 +2,13 @@ id: "E0043"
 title: "D0019 source-controlled resolution slice"
 question: >
   Can a source-controlled D0019 resolution slice classify lexical classes, aliases and metanotation without guessing?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "42bc6fc"
+  lazy-fortran-new: "1ada0de"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

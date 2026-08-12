@@ -19,7 +19,11 @@ stopped at its validity boundary: target tools expose @UNRESOLVED_NAMES@
 unresolved names, and the audit traces those names to @UNRESOLVED_OCCURRENCES@
 occurrences in @UNRESOLVED_RULES@ referring rules. The contribution is a
 reproducible method and a measured boundary between mechanical syntax extraction
-and the source-adjudication work required for a complete parser.
+and the source-adjudication work required for a complete parser. The first
+source-controlled D0019 slice contains @RESOLUTION_RECORDS@ records, including
+@RESOLUTION_ALIASES@ aliases, @RESOLUTION_LEXICAL@ lexical classes, and
+@RESOLUTION_METAVARIABLE@ metanotation records. It retains
+@RESOLUTION_UNRESOLVED@ unresolved records.
 
 ## 1. Scope and claim
 
@@ -60,7 +64,9 @@ therefore distinguishes raw syntax exports from a composite parser input. D0019
 defines the next representation boundary: lexical classes, aliases,
 metavariables, semantic roles, unresolved terms, and disputed terms are typed
 source-provenanced resolution records. A parser alias is a projection of such a
-record and cannot become a second maintained truth.
+record and cannot become a second maintained truth. The reported D0019 slice
+applies this policy to source-controlled witnesses and preserves the remaining
+unresolved terms in the same record table.
 
 ### 2.3 Verification
 
@@ -93,7 +99,9 @@ with `name` would erase distinctions between lexical classes, syntax
 metavariables, and semantic role names. Copying aliases from a comparison
 grammar would violate the source boundary. The recorded unresolved inventory
 therefore defines the next experiment rather than disappearing into a guessed
-grammar.
+grammar. The D0019 slice supplies a source-controlled alias projection while
+retaining unresolved records. It is evidence for the resolution record contract,
+not completion of the composite parser input.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -117,13 +125,14 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment is a source-controlled adjudication of the unresolved
-reference inventory under D0019. It will create typed resolution records from
-the canonical text and its cited clauses, derive lexical and parser
-projections, and rerun the ANTLR4, Bison, and tree-sitter validators. A complete
-parser input will be claimed only after the unresolved and disputed sets are
-reported, every selected alias has provenance, and the target tools accept the
-generated composite input. Semantic constraints remain a separate phase.
+The next experiment extends the source-controlled D0019 seed across the
+remaining unresolved inventory. It must add lexical token rules, resolve each
+selected term or mark it disputed, and apply the resulting records to the full
+composite input. The ANTLR4, Bison, and tree-sitter validators then provide
+target-specific checks. A complete parser input will be claimed only after the
+unresolved and disputed sets are reported, every selected alias has provenance,
+and the target tools accept the generated composite input. Semantic constraints
+remain a separate phase.
 
 ## References
 

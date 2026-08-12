@@ -61,6 +61,7 @@ assert_run R000029 '.status == "accepted" and .verification.independent_differen
 assert_run R000030 '.status == "verification_failure" and .verification.antlr_unresolved_rule_names == 181 and .verification.bison_unresolved_symbol_names == 181'
 assert_run R000031 '.status == "accepted" and .verification.unresolved_unique_names == 181 and .verification.unresolved_reference_occurrences == 472 and .verification.unresolved_referring_rules == 346'
 assert_run R000050 '.status == "accepted" and .verification.cases_declared == 10 and .verification.all_three_agree_cases == 10 and .verification.disagreement_cases == 0'
+assert_run R000052 '.status == "accepted" and .experiment == "E0043" and .verification.zero_model_calls == true and .verification.resolution_records == 182 and .verification.source_hash_matches == 182 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -75,6 +76,16 @@ projection_count=4
 unresolved_names=$(metric R000031 '.verification.unresolved_unique_names')
 unresolved_occurrences=$(metric R000031 '.verification.unresolved_reference_occurrences')
 unresolved_rules=$(metric R000031 '.verification.unresolved_referring_rules')
+resolution_records=$(metric R000052 '.verification.resolution_records')
+resolution_aliases=$(metric R000052 '.verification.alias_records')
+resolution_lexical=$(metric R000052 '.verification.lexical_class_records')
+resolution_metavariable=$(metric R000052 '.verification.metavariable_records')
+resolution_unresolved=$(metric R000052 '.verification.unresolved_records')
+resolution_source_hash_records=$(metric R000052 '.verification.source_hash_matches')
+alias_projection_records=$(metric R000052 '.verification.alias_projection_records')
+composite_syntax_witnesses=$(metric R000052 '.verification.composite_syntax_witnesses')
+resolution_difference=$(metric R000052 '.verification.independent_difference')
+resolution_negative_control=$(metric R000052 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -134,6 +145,21 @@ EOF
 | Referring rules | $unresolved_rules |
 | Target-tool validation result | retained verification failure |
 
+## D0019 resolution boundary
+
+| Quantity | Value |
+|---|---:|
+| Typed resolution records | $resolution_records |
+| Alias records | $resolution_aliases |
+| Lexical-class records | $resolution_lexical |
+| Metavariable records | $resolution_metavariable |
+| Unresolved records retained | $resolution_unresolved |
+| Records with source hash | $resolution_source_hash_records |
+| Alias projection records | $alias_projection_records |
+| Composite SX syntax witnesses | $composite_syntax_witnesses |
+| Independent difference | $resolution_difference |
+| Controlled negative mutation | $resolution_negative_control |
+
 ## External behavioral baseline
 
 | Quantity | Value |
@@ -157,6 +183,11 @@ rendered=${rendered//@PROJECTION_COUNT@/$projection_count}
 rendered=${rendered//@UNRESOLVED_NAMES@/$unresolved_names}
 rendered=${rendered//@UNRESOLVED_OCCURRENCES@/$unresolved_occurrences}
 rendered=${rendered//@UNRESOLVED_RULES@/$unresolved_rules}
+rendered=${rendered//@RESOLUTION_RECORDS@/$resolution_records}
+rendered=${rendered//@RESOLUTION_ALIASES@/$resolution_aliases}
+rendered=${rendered//@RESOLUTION_LEXICAL@/$resolution_lexical}
+rendered=${rendered//@RESOLUTION_METAVARIABLE@/$resolution_metavariable}
+rendered=${rendered//@RESOLUTION_UNRESOLVED@/$resolution_unresolved}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"
