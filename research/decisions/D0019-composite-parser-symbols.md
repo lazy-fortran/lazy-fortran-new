@@ -10,7 +10,7 @@ syntax projection. The audit shows that these are not one class of defect:
 some are assumed-syntax metanotation (`xyz`), some are lexical classes
 (`letter`, `digit`, `rep-char`), and many are source-defined role names such as
 `program-name`, `entity-name` and `type-name`. The pinned kaby76 grammar exposes
-145 of the names as parser rules. The pinned house grammar exposes 3.
+145 of the names as parser rules, while the pinned house grammar exposes 3;
 neither comparison grammar is normative evidence.
 
 D0018 already rejects guessed placeholder productions. A further representation

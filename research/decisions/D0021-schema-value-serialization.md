@@ -116,7 +116,7 @@ SX boundary.
 
 **Generate placeholder readers and writers first.** A routine that accepts a
 value but has no specified canonical bytes cannot establish round-trip or hash
-correctness. It would turn an unresolved representation choice into code.
+correctness; it would turn an unresolved representation choice into code.
 
 ## Reversal condition
 

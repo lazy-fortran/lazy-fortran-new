@@ -71,31 +71,13 @@ dependency closure and deterministic EBNF, ANTLR4, Bison and tree-sitter
 projections. The current extraction gate reports 522/522 numbered production
 starts with zero model calls. The byte/span text layer, canonical SX reader and
 writer, flat SX arena, schema parser and first deterministic Fortran schema type
-emitter also exist. The accepted composite projection contains 519 generated
-records from 522 source records and zero unresolved target names. E0056 makes
-ANTLR4 and Bison generation succeed and records a tree-sitter conflict
-boundary. D0029 selects the specialized direct parser as the production target.
-E0057 emits deterministic direct-parser wiring and E0058 verifies source-linked
-diagnostic lookup for all 519 accepted composite records. E0059 validates the
-first top-level operation over five pinned real-source files, and E0060
-validates ten declared statement witnesses with source-linked diagnostics.
-E0061 classifies all 72 meaningful lines in those five files and preserves the
-`submodule` keyword-like identifier case. The remaining Phase 1 boundary is
-assembling logical statements, extending construct families, and measuring
-broader parser acceptance. E0062 joins two free-form continuations and checks
-nested construct closure over 73 logical statements. Regenerate these figures with
-`papers/standard-to-grammar/analyse.sh` and
-`research/index.md` with `scripts/index.sh`.
-E0063 composes those 73 logical statements into a source-linked AST forest of
-73 typed nodes with five roots, 68 parent links and zero link errors. The next
-E0064 adds 52 expression-role children, keeps 125 nodes source-linked, and
-validates five known kind/rule queries plus one rejected unknown query. The
-next boundary is recursive operator and literal expression subtrees. E0065
-adds 28 source-linked token leaves across eight real-source witnesses and
-validates eight witness queries. E0066 adds 10 precedence nodes and 17 leaves
-across seven witnesses, with 27 source-linked nodes, 27 parent links, zero
-link errors and zero tree mismatches. Its next boundary is a larger
-expression corpus and parser-acceptance gate.
+emitter also exist. E0079 and E0080 compose generated complete-source, AST and
+expression operations over pinned real Fortran files. E0081 inventories 266
+source-linked semantic candidate spans and 287 Core 0-associated numbered
+constraints without accepting semantic facts. Semantic StandardIR
+formalization and the completeness gate for the composite parser remain open.
+Regenerate the paper numbers with `papers/standard-to-grammar/analyse.sh` and
+the laboratory index with `scripts/index.sh`.
 
 ## Licence
 

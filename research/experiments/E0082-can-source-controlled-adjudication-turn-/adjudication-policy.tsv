@@ -1,0 +1,11 @@
+term	kind	line	accepted_class	target	source_ref	evidence	reason
+xyz	definition	1850	metavariable	-	4.1.3/R401-R403	where the letters xyz stand for any syntactic class phrase	assumed syntax metanotation
+letter	definition	2758	lexical-class	letter	6.1.2	The set of letters defines the syntactic class letter	explicit lexical definition
+digit	definition	2769	lexical-class	digit	6.1.3	The ten digits define the syntactic class digit	explicit lexical definition
+module-name	relation	13774	semantic-role	intrinsic-and-nonintrinsic-module	14.2.2	module-name is the name of both an intrinsic and a nonintrinsic module	explicit source relation
+function-name	relation	15282	semantic-role	function	15.6.2.2	The name of the function is function-name	explicit source relation
+result-name	relation	15291	semantic-role	function-result	15.6.2.2	the name of the function result of the function is result-name	explicit source relation
+function-name	relation	15293	semantic-role	function-result-or-function	15.6.2.2	the name of the function result is function-name	explicit source relation
+subroutine-name	relation	15340	semantic-role	subroutine	15.6.2.3	The name of the subroutine is subroutine-name	explicit source relation
+entry-name	relation	15396	semantic-role	function	15.6.2.4	function is entry-name and the name of its result is result-name or is entry-name if no result-name is provided	explicit source relation
+result-name	relation	15396	semantic-role	function-result	15.6.2.4	function is entry-name and the name of its result is result-name or is entry-name if no result-name is provided	explicit source relation
