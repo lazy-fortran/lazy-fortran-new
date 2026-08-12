@@ -110,6 +110,7 @@ assert_run R000065 '.status == "verification_failure" and .experiment == "E0056"
 assert_run R000066 '.status == "accepted" and .experiment == "E0057" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.composite_syntax_records == 519 and .verification.unique_lhs == 499 and .verification.dispatch_rows == 519 and .verification.generated_procedures == 499 and .verification.duplicate_dispatch_labels == 0 and .verification.provenance_rows == 519 and .verification.unresolved_references == 0 and .verification.fortran_compile_status == 0 and .verification.target_boundary == "wiring_skeleton_compiled" and .verification.negative_control == "observed_failure"'
 assert_run R000067 '.status == "accepted" and .experiment == "E0058" and .verification.zero_model_calls == true and .verification.composite_syntax_records == 519 and .verification.diagnostic_rows == 519 and .verification.source_span_rows == 519 and .verification.known_lookup == 1 and .verification.unknown_lookup_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "source_linked_lookup_compiled_and_tested" and .verification.negative_control == "observed_failure"'
 assert_run R000068 '.status == "accepted" and .experiment == "E0059" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_units == 8 and .verification.classified_units == 8 and .verification.source_linked_units == 8 and .verification.unit_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "top_level_local_operation_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000069 '.status == "accepted" and .experiment == "E0060" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_witnesses == 10 and .verification.classified_witnesses == 10 and .verification.source_linked_witnesses == 10 and .verification.witness_mismatches == 0 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "statement_witness_operation_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -291,6 +292,15 @@ local_compile=$(metric R000068 '.verification.fortran_compile_status')
 local_runtime=$(metric R000068 '.verification.runtime_test_status')
 local_boundary=$(metric R000068 '.verification.target_boundary')
 local_negative=$(metric R000068 '.verification.negative_control')
+statement_corpus_files=$(metric R000069 '.verification.corpus_files')
+statement_expected=$(metric R000069 '.verification.expected_witnesses')
+statement_classified=$(metric R000069 '.verification.classified_witnesses')
+statement_linked=$(metric R000069 '.verification.source_linked_witnesses')
+statement_mismatches=$(metric R000069 '.verification.witness_mismatches')
+statement_compile=$(metric R000069 '.verification.fortran_compile_status')
+statement_runtime=$(metric R000069 '.verification.runtime_test_status')
+statement_boundary=$(metric R000069 '.verification.target_boundary')
+statement_negative=$(metric R000069 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -595,6 +605,20 @@ EOF
 | Parser-operation boundary | $local_boundary |
 | Controlled unit mutation | $local_negative |
 
+## E0060 generated statement operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | $statement_corpus_files |
+| Expected statement witnesses | $statement_expected |
+| Classified witnesses | $statement_classified |
+| Source-linked witnesses | $statement_linked |
+| Witness mismatches | $statement_mismatches |
+| Fortran compile status | $statement_compile |
+| Runtime test status | $statement_runtime |
+| Statement-operation boundary | $statement_boundary |
+| Controlled statement mutation | $statement_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -711,6 +735,13 @@ rendered=${rendered//@LOCAL_SOURCE_LINKED_UNITS@/$local_source_linked_units}
 rendered=${rendered//@LOCAL_COMPILE@/$local_compile}
 rendered=${rendered//@LOCAL_RUNTIME@/$local_runtime}
 rendered=${rendered//@LOCAL_BOUNDARY@/$local_boundary}
+rendered=${rendered//@STATEMENT_CORPUS_FILES@/$statement_corpus_files}
+rendered=${rendered//@STATEMENT_EXPECTED@/$statement_expected}
+rendered=${rendered//@STATEMENT_CLASSIFIED@/$statement_classified}
+rendered=${rendered//@STATEMENT_LINKED@/$statement_linked}
+rendered=${rendered//@STATEMENT_COMPILE@/$statement_compile}
+rendered=${rendered//@STATEMENT_RUNTIME@/$statement_runtime}
+rendered=${rendered//@STATEMENT_BOUNDARY@/$statement_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

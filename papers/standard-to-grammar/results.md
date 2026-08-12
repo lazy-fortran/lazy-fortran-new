@@ -287,6 +287,20 @@ The following rows are extracted from the accepted projection run records.
 | Parser-operation boundary | top_level_local_operation_validated |
 | Controlled unit mutation | observed_failure |
 
+## E0060 generated statement operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Expected statement witnesses | 10 |
+| Classified witnesses | 10 |
+| Source-linked witnesses | 10 |
+| Witness mismatches | 0 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Statement-operation boundary | statement_witness_operation_validated |
+| Controlled statement mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

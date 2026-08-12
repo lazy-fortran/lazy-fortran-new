@@ -440,9 +440,12 @@ evidence for the thesis.
       program, module and submodule witnesses against five pinned real-source
       files with source-linked diagnostics (E0059, regenerate with
       `research/experiments/E0059-can-generated-top-level-operation-parse-real-/analyse.sh`)
-- [ ] Fill the local parser operations and validate the generated direct
-      parser's statement-level operations against a pinned real-source corpus
-      with source-linked diagnostics
+- [x] Fill a bounded statement-level local parser operation and validate ten
+      declared witnesses across five pinned real-source files with
+      source-linked diagnostics (E0060, regenerate with
+      `research/experiments/E0060-can-generated-statement-operation-match-real-/analyse.sh`)
+- [ ] Expand the statement family and validate complete source acceptance with
+      the generated direct parser and source-linked diagnostics
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

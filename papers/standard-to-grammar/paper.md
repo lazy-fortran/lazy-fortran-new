@@ -33,6 +33,10 @@ The first local parser-operation slice classifies 8 units
 from 5 pinned real Fortran files. It links all
 8 results to StandardIR source records and compiles
 with status 0.
+The statement-operation slice classifies 10 declared
+witnesses across 5 pinned real source files. It links
+10 witnesses to StandardIR source records and compiles with
+status 0.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -140,6 +144,10 @@ E0059 fills one local operation at the top-level boundary. It classifies
 links 8 results to source records, and runs with
 status 0. The operation is bounded at program, module,
 submodule, block-data, function, and subroutine unit boundaries.
+E0060 fills a bounded statement operation. It classifies
+10 declared witnesses covering use, declarations,
+assignments, calls, print statements, and do concurrent. Each result retains
+its StandardIR rule and source span.
 
 ### 2.3 Verification
 
@@ -281,6 +289,10 @@ E0059 shows that the generated wiring can call a local constructive operation
 over real source files. All 8 declared units are
 classified and source-linked. The result stops before statement parsing and
 semantic checking.
+E0060 extends the local-hole boundary to ten declared statement witnesses.
+All 10 witnesses are classified and source-linked. This
+is evidence for local constructive logic, not full statement or expression
+parsing.
 
 ## 7. Conclusion
 
@@ -295,10 +307,11 @@ remaining tree-sitter ambiguity as a reproducible target boundary.
 
 This result supports the repository's main engineering claim. The standard can
 remain the maintained semantic source while generated representations carry
-the wiring and provenance. The next implementation milestone fills the local
-parser operations and exercises them against a source corpus using the already
-validated linked-diagnostic path. Its success will be measured against the same
-pinned records and independent oracles.
+the wiring and provenance. E0060 confirms that a bounded statement operation
+can be exercised against real source using the already validated
+linked-diagnostic path. The next milestone expands the statement family and
+then measures complete-source acceptance against the same pinned records and
+independent oracles.
 
 ## References
 
@@ -596,6 +609,20 @@ The following rows are extracted from the accepted projection run records.
 | Runtime test status | 0 |
 | Parser-operation boundary | top_level_local_operation_validated |
 | Controlled unit mutation | observed_failure |
+
+## E0060 generated statement operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Expected statement witnesses | 10 |
+| Classified witnesses | 10 |
+| Source-linked witnesses | 10 |
+| Witness mismatches | 0 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Statement-operation boundary | statement_witness_operation_validated |
+| Controlled statement mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison
 
