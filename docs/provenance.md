@@ -47,6 +47,9 @@ while authoring something here. Recording an entry costs nothing. Omitting one c
 | 2026-08-11 | `lazy-fortran/*` | house | Git history of `standard`, `fortfront`, `ffc`, `fluff`, `fortad`, `lfortran`, `liric` | `LESSONS.md` |
 | 2026-08-11 | `lfortran` | BSD | `src/libasr/ASR.asdl` (physical type declarations) | `LESSONS.md` §4, `WHITEPAPER.md` §2.4 |
 | 2026-08-11 | `liric` | house | `README.md`, `ROADMAP.md`, `TODO.md`, source inventory | `WHITEPAPER.md` §18, backend decision |
+| 2026-08-12 | `kaby76/fortran` | MIT | `comp/Fortran2023Parser.g4` at the pinned commit | E0020 structural grammar comparison adapter |
+| 2026-08-12 | `llvm/llvm-project` | Apache-2.0 WITH LLVM-exception | Flang `lib/Parser/Fortran-parsers.cpp` rule comments at the pinned commit | E0020 StandardIR rule-ID comparison; no implementation is imported |
+| 2026-08-12 | `lfortran/lfortran` | BSD-3-Clause | `src/lfortran/parser/parser.yy` at the pinned commit | E0020 structural Bison-rule comparison adapter |
 
 ---
 
