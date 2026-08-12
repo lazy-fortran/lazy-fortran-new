@@ -1,0 +1,9 @@
+source_term	class	parser_target	semantic_role	source_document	source_clause	source_rule	source_page	justification
+entity-name	alias	name	entity-name	J3-24-007	4.1.3	R402	45	R402 maps any syntactic class phrase followed by -name to name
+program-name	alias	name	program-name	J3-24-007	4.1.3	R402	45	R402 maps any syntactic class phrase followed by -name to name
+type-name	alias	name	type-name	J3-24-007	4.1.3	R402	45	R402 maps any syntactic class phrase followed by -name to name
+letter	lexical-class	-	-	J3-24-007	6.1.2	P6.1.2-3	53	The standard defines the set of letters as the syntactic class letter
+digit	lexical-class	-	-	J3-24-007	6.1.3	P6.1.3-3	53	The standard defines the ten digits as the syntactic class digit
+underscore	lexical-class	_	-	J3-24-007	6.1.4	R602	53	R602 defines underscore as the underscore character
+rep-char	lexical-class	-	-	J3-24-007	7.4.4.3	R724-P3	71	The character literal text defines representable rep-char values
+xyz	metavariable	-	-	J3-24-007	4.1.3	R401-R403	45	The standard says xyz stands for any syntactic class phrase
