@@ -278,6 +278,7 @@ evidence for the thesis.
       `research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh`)
 - [ ] Generator emitting Fortran types, reader, writer, validator, visitor,
       equality, hashing, printer
+- [ ] Canonical schema-value encoding for generated APIs (proposed D0021)
 - [ ] StandardIR schema
 - [ ] ImplIR schema, eight types and two constructors (D0012)
 - [ ] Generated code compiles clean and round-trips

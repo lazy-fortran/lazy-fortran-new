@@ -78,6 +78,7 @@ Runs recorded: 46
 | [D0018](decisions/D0018-composite-parser-input.md) | accepted |  | Composite parser input, not raw syntax exports |
 | [D0019](decisions/D0019-composite-parser-symbols.md) | proposed |  | Proposed composite parser-symbol resolution |
 | [D0020](decisions/D0020-canonical-extraction-edge-policy.md) | proposed |  | Canonical extraction edge policy |
+| [D0021](decisions/D0021-schema-value-serialization.md) | proposed |  | Schema value serialization for generated APIs |
 
 ## Pinned artifacts
 
