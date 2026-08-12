@@ -13,7 +13,7 @@ standard_new="${STANDARD_NEW_ROOT:-$root/../standard-new}"
 
 input_hash="c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
 canonical_hash="1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
-errata_hash="25d70041f4c1661ca0da99cf355310e407cd8782f3127008e5435862ea8ed285"
+errata_hash="df1a5320637f2e850e59a680a4467287193c48ee789585dff5aea438b4eaef99"
 
 die() { printf 'E0047: %s\n' "$1" >&2; exit 1; }
 test "$(sha256sum "$input" | cut -d' ' -f1)" = "$input_hash" || die 'StandardIR input hash mismatch'

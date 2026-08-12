@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: ""
+  lazy-fortran-new: "1c7180f"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -18,6 +18,8 @@ inputs:
   syntax: E0013-R000002
   canonical_text: E0001-R000003
   errata: research/errata/j3-24-007.json
+  errata_origin: LLM
+  errata_decision: D0025
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:

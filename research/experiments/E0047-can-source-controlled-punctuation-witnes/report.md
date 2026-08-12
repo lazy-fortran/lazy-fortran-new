@@ -15,15 +15,16 @@ fixed document errata file:
 research/experiments/E0047-can-source-controlled-punctuation-witnes/analyse.sh
 ```
 
-The errata entries record the original reference spelling, the repaired reference,
-the punctuation token, the source rule and an exact canonical-text excerpt.
+The errata entries are LLM-originated proposals accepted under D0025. They
+record the original reference spelling, the repaired reference, the punctuation
+token, the source rule and an exact canonical-text excerpt.
 The generic repair operation changes `(ref name,)` into `(ref name) (token ,)`
 and the corresponding colon form. It writes a derived parser input and keeps
 the authoritative source hash unchanged.
 
 ## Result
 
-Pending the first run against the fixed errata overlay.
+Pending the first run against the corrected fixed errata overlay.
 
 ## Boundary
 
