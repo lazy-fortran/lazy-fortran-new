@@ -307,7 +307,10 @@ evidence for the thesis.
       codec (E0042; regenerate with
       `research/experiments/E0042-do-generated-schema-printers-and-hashes-/analyse.sh`)
 - [x] Canonical schema-value encoding for generated APIs (D0021; E0038)
-- [ ] StandardIR schema (D0022: `schema-v0.sxs` is only a generator fixture)
+- [ ] StandardIR schema (D0022 amended by D0023; `schema-v0.sxs` is only a
+      generator fixture)
+- [ ] Initial recursive StandardIR backend uses packed arena IDs and child
+      ranges; hot-path layouts remain generated and benchmark-selected (D0023)
 - [ ] ImplIR schema, eight types and two constructors (D0012)
 - [ ] Generated code compiles clean and round-trips
 - [ ] Generated readers and writers agree with the seed and the fixed SX

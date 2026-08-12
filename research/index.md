@@ -84,7 +84,8 @@ Runs recorded: 51
 | [D0019](decisions/D0019-composite-parser-symbols.md) | proposed |  | Proposed composite parser-symbol resolution |
 | [D0020](decisions/D0020-canonical-extraction-edge-policy.md) | accepted |  | Canonical extraction edge policy |
 | [D0021](decisions/D0021-schema-value-serialization.md) | accepted |  | Schema value serialization for generated APIs |
-| [D0022](decisions/D0022-schema-v0-is-not-standardir.md) | accepted |  | The v0 schema fixture is not the StandardIR schema |
+| [D0022](decisions/D0022-schema-v0-is-not-standardir.md) | amended by D0023 |  | The v0 schema fixture is not the StandardIR schema |
+| [D0023](decisions/D0023-arena-bootstrap-specialized-performance.md) | accepted | Amends D0022 | Arena bootstrap with specialized performance representations |
 
 ## Pinned artifacts
 

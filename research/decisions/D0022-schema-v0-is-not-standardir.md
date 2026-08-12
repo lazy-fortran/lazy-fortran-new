@@ -1,7 +1,7 @@
 # D0022. The v0 schema fixture is not the StandardIR schema
 
 Date: 2026-08-12
-Status: accepted
+Status: amended by D0023
 
 ## Context
 
