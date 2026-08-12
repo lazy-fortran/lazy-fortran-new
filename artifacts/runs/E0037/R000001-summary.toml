@@ -1,0 +1,27 @@
+name        = "E0037-R000001-schema-driver-source-regeneration"
+url         = "https://github.com/lazy-fortran/standard-new/tree/672f44c"
+sha256      = "21778551baf6a723ca7d9844007f2c5f159e1c6ad5942bf70b960a79cc687864"
+bytes       = 305
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for byte-stable schema-driver source regeneration"
+path        = ".cache/runs/E0037/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated schema-driver regeneration summary"
+generator   = "standard-new sxschema and schema_codegen"
+generator_commit = "672f44c"
+checker     = "research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh"
+checker_commit = "ad4bf22"
+text_policy_self_test = 0
+text_policy = 0
+driver = 0
+byte_identity = 0
+generated_formatting = 0
+full_pipeline = 0
+generated_source_bytes = 1117
+generated_source_sha256 = "4f7a954148f505ed79163c7b2d071cd2ff4d29816eec0a61c6374f6790ce15dd"
+independent_oracle_mutation = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh
+# Verify its hash and size with sha256sum and stat.
