@@ -1,0 +1,28 @@
+name        = "E0026-R000001-interner-gates"
+url         = "https://github.com/lazy-fortran/standard-new/tree/649efcf"
+sha256      = "ae9f3076258cda6e2a281e7d623fde8604d3c9113de79ec370bb424bf3701946"
+bytes       = 288
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for case-insensitive interner identity and rehashing"
+path        = ".cache/runs/E0026/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated gate summary"
+generator   = "standard-new interner and test_interner"
+generator_commit = "649efcf"
+checker     = "research/experiments/E0026-does-the-interner-resolve-fortran-identi/analyse.sh"
+checker_commit = "175365d"
+text_policy_self_test = 0
+text_policy = 0
+focused_test = 0
+formatting = 0
+full_pipeline = 0
+case_variant_same_id = "accepted"
+post_growth_identity_stable = "accepted"
+canonical_key = "accepted"
+empty_name_rejection = "accepted"
+independent_oracle_mutation = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0026-does-the-interner-resolve-fortran-identi/analyse.sh
+# Verify its hash and size with sha256sum and stat.
