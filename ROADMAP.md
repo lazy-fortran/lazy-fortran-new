@@ -85,6 +85,9 @@ and malformed-input expectations
 E0030 verifies SX validation, writer-backed canonical serialization and a fixed
 SHA-256 content hash
 (`research/experiments/E0030-does-canonical-sx-hashing-remain-stable-/analyse.sh`).
+E0031 verifies a flat `int8` arena SX reader against the recursive seed on
+canonical bytes and flat-node structure
+(`research/experiments/E0031-does-the-flat-sx-arena-reader-agree-with/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -223,7 +226,9 @@ normalized view rather than overwriting the source extraction.
 
 ### 1.2 SX seed reader and writer (D0006, D0009)
 
-- [ ] Seed reader in Bootstrap Core over the arena node type
+- [x] Seed reader in Bootstrap Core over the arena node type (parallel oracle
+      slice; E0031; regenerate with
+      `research/experiments/E0031-does-the-flat-sx-arena-reader-agree-with/analyse.sh`)
 - [x] Canonical writer: one spelling per operation, normalized fields
 - [x] Round-trip properties: `parse(write(t)) = t`, `write(parse(c)) = c`
       (E0029; regenerate with
