@@ -2,13 +2,13 @@ id: "E0038"
 title: "Approved schema-value contract"
 question: >
   Does the approved schema-value contract survive deterministic validation and canonical writing?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "9d189d7"
+  lazy-fortran-new: "84e9cb8"
   standard-new: "bb8756a"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

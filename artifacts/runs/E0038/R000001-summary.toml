@@ -1,0 +1,33 @@
+name        = "E0038-R000001-approved-schema-value-contract"
+url         = "https://github.com/lazy-fortran/standard-new/tree/bb8756a"
+sha256      = "a912ef5e1ef1b858a517431c8de381e4fd6bf6f21ffbf57977cb48d57fe55d5a"
+bytes       = 440
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for the approved schema-value contract"
+path        = ".cache/runs/E0038/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated schema-value contract summary"
+generator   = "standard-new schema_ir, schema_codegen and schema_value"
+generator_commit = "bb8756a"
+checker     = "research/experiments/E0038-does-the-approved-schema-value-contract-/analyse.sh"
+checker_commit = "84e9cb8"
+text_policy_self_test = 0
+text_policy = 0
+schema_parser = 0
+schema_codegen = 0
+schema_value = 0
+runtime_checked_schema_value = 0
+driver = 0
+generated_byte_identity = 0
+generated_formatting = 0
+full_pipeline = 0
+declaration_forms_checked = 6
+canonical_value_cases_checked = 9
+negative_value_cases_checked = 3
+generated_source_bytes = 1266
+generated_source_sha256 = "ffb96ecb70c082874cb2fc0b9a1a226d80711829736baaa8c0e2824dd6337b2f"
+
+# Regenerate and verify with:
+#   research/experiments/E0038-does-the-approved-schema-value-contract-/analyse.sh
+# Verify its hash and size with sha256sum and stat.

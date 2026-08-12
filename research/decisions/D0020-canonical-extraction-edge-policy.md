@@ -1,7 +1,7 @@
 # D0020. Canonical extraction edge policy
 
 Date: 2026-08-12
-Status: proposed
+Status: accepted
 
 ## Context
 
@@ -17,7 +17,7 @@ D0011 makes source bytes authoritative and reserves normalization for a
 derived view. The extraction boundary needs corresponding rules before a
 different PDF or a standalone text input exercises these cases.
 
-## Proposed decision
+## Decision
 
 1. At a standalone UTF-8 text-file boundary, consume one leading BOM as an
    encoding signature. Preserve BOM bytes elsewhere. The PDF canonical

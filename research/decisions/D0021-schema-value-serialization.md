@@ -1,7 +1,7 @@
 # D0021. Schema value serialization for generated APIs
 
 Date: 2026-08-12
-Status: proposed
+Status: accepted
 
 ## Context
 
@@ -18,23 +18,33 @@ syntax (`(sum item syntax constraint ...)`) names tags but carries no payload
 type. A generated reader/writer would therefore have to invent semantics or
 infer them from names.
 
-## Proposed decision
+## Decision
 
-Do not generate schema-specific readers or writers until the schema records an
-explicit value encoding. Extend sum declarations with source-level variant
-records that may name a payload type, rather than inferring a payload type from
-a constructor name. Keep the following questions explicit in the successor
-decision:
+The schema language records enough information to derive one canonical SX value
+for every schema declaration. Schema declarations use these forms:
 
-1. whether record values retain field names or use schema-order positional
-   values;
-2. the canonical form for a tagged sum with and without a payload;
-3. the canonical form for an absent optional and the boundary of a list; and
-4. the canonical atom spelling for each primitive type, including names,
-   booleans, integers and quoted strings.
+1. A record value is a list whose first atom is the declaration name. Each
+   field follows as a named pair in schema order. For example,
+   `(source-ref (document 1) (clause 5) (rule 501))`.
+2. A sum declaration lists explicit variant records. A variant without a
+   payload is `(variant-name)`. A variant with a payload of type `T` is
+   `(variant-name value)`, and the declaration records `T`. For example,
+   `(item (syntax syntax-value))` carries a `syntax-value` payload.
+3. An optional value is `none` when absent and `(some value)` when present.
+   The schema determines the type of `value`.
+4. A list value is a list whose first atom is the list declaration name,
+   followed by zero or more element values. For example,
+   `(items value-1 value-2 value-3)`.
+5. Boolean atoms are `true` and `false`. Signed decimal integers have no
+   leading zeroes except for zero itself. Names and enum values are canonical
+   atoms in their schema spelling. External text uses SX quoted strings with
+   canonical escaping. All record fields and list elements retain schema
+   order.
 
-The successor must make those forms mechanically derivable from the schema and
-must provide fixed fixtures before API generation begins.
+These forms are mechanically derivable from the schema. Generated readers and
+writers may group or fuse procedures, but their bytes must follow this contract.
+Fixed canonical fixtures and an independent round-trip oracle are required
+before generated APIs are accepted.
 
 ## Rejected
 
@@ -48,12 +58,10 @@ SX boundary.
 
 **Generate placeholder readers and writers first.** A routine that accepts a
 value but has no specified canonical bytes cannot establish round-trip or hash
-correctness; it would turn an unresolved representation choice into code.
+correctness. It would turn an unresolved representation choice into code.
 
 ## Reversal condition
 
-Accept a successor decision when a source-cited schema value grammar and fixed
-canonical fixtures define every v0 form, including sum payloads and absence.
-Reject the proposed explicit variant payload field only if a demonstrated
-general schema proves that another representation retains the same provenance,
-round-trip and deterministic-hash guarantees without name inference.
+Reverse this decision if a source-cited general schema demonstrates that
+another value representation retains the same provenance, round-trip and
+deterministic-hash guarantees without explicit variant payload declarations.

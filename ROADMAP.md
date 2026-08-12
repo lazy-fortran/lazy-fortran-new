@@ -100,6 +100,9 @@ stable dependency ordering and cyclic-dependency rejection
 E0037 verifies that the schema driver regenerates the checked-in Fortran source
 byte-for-byte and that the generated module passes the normal pipeline
 (`research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh`).
+E0038 verifies the approved schema-value contract over six declaration forms,
+nine canonical values, three invalid values and byte-stable regenerated source
+(`research/experiments/E0038-does-the-approved-schema-value-contract-/analyse.sh`).
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
@@ -278,7 +281,7 @@ evidence for the thesis.
       `research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh`)
 - [ ] Generator emitting Fortran types, reader, writer, validator, visitor,
       equality, hashing, printer
-- [ ] Canonical schema-value encoding for generated APIs (proposed D0021)
+- [x] Canonical schema-value encoding for generated APIs (D0021; E0038)
 - [ ] StandardIR schema
 - [ ] ImplIR schema, eight types and two constructors (D0012)
 - [ ] Generated code compiles clean and round-trips
@@ -302,8 +305,9 @@ evidence for the thesis.
       are reported against a predeclared page and production denominator
       (E0033; regenerate with
       `research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`)
-- [ ] BOM, ligature, hyphenation and column-order handling decided and tested
-      (proposed policy: D0020)
+- [x] BOM, ligature, hyphenation and column-order handling decided (D0020)
+- [ ] Edge fixtures exercise the D0020 policy on standalone text and ambiguous
+      page layouts
 
 ### 1.5 Syntax extraction
 
@@ -405,6 +409,7 @@ evidence for the thesis.
 - [x] E0035 v0 SX schema parser differential recorded
 - [x] E0036 deterministic schema type-emission differential recorded
 - [x] E0037 generated schema source-tree regeneration recorded
+- [x] E0038 approved schema-value contract and reference codec recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
