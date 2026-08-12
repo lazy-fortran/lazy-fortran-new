@@ -1,0 +1,102 @@
+id: "E0081"
+title: "Deterministic Core 0 semantic candidate inventory"
+question: >
+  Can deterministic source patterns inventory semantic relation and constraint candidates before formalization?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "327530e"
+  standard-new: "c6cd889"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: E0014-R000001
+  standardir: artifacts/runs/E0013/R000002-standardir.toml
+  unresolved_audit: artifacts/runs/E0022/R000001-reference-audit.toml
+  canonical_text: artifacts/runs/E0001/R000003-canonical-text.toml
+  core0_closure: artifacts/runs/E0014/R000001-dependencies.toml
+  witness_oracle: research/experiments/E0081-can-deterministic-source-patterns-invent/witness-oracle.tsv
+  decisions: [D0028, D0035]
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  source_patterns: [definition, relation, constraint]
+  core0_constraint_scope: [associated-with-closure-rule]
+  model_calls: [zero]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model calls; source scanning and classification are deterministic."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - unresolved_names
+  - candidate_spans
+  - definition_candidate_spans
+  - relation_candidate_spans
+  - constraint_candidate_spans
+  - definition_candidate_names
+  - relation_candidate_names
+  - constraint_candidate_names
+  - definition_names
+  - relation_names
+  - constraint_names
+  - ambiguous_names
+  - unresolved_after_patterns
+  - core0_closure_members
+  - core0_constraint_records
+  - source_linked_candidates
+  - source_linked_constraints
+  - accepted_standardir_facts
+  - model_calls
+  - independent_candidate_difference
+  - independent_constraint_difference
+  - negative_control
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  Two complete, retained sets are measured. The prose denominator is every
+  distinct unresolved reference name in the pinned E0022 audit, including
+  names with no matching source passage. The constraint denominator is every
+  numbered C-rule line in the pinned canonical text that names at least one
+  R-rule in the pinned E0014 Core 0 dependency closure. A source candidate is
+  evidence only: no row is promoted to an accepted StandardIR fact in E0081.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >
+  A primary awk traversal scans canonical lines and the pinned Core 0 member
+  set. A separate shell/awk traversal recomputes candidate term/class pairs
+  and Core 0-associated C-rule IDs from the same pinned source. Fixed source
+  witnesses must agree, every emitted row carries the document hash and page,
+  and a controlled modal-word mutation must remove a candidate and fail its
+  witness check.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  The denominator changes, a candidate or constraint lacks source identity or
+  page, the independent traversals differ, a source witness is classified
+  incorrectly, a mutation leaves the expected candidate present, or any
+  StandardIR semantic fact is accepted without a later adjudication.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >
+  Verify all pinned inputs; emit one classification row for every unresolved
+  name; emit every Core 0-associated numbered constraint; preserve ambiguous
+  and unresolved states; independently reproduce both sets; and record zero
+  accepted semantic facts. This is an inventory gate, not semantic rule-body
+  generation.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/experiments/E0081-can-deterministic-source-patterns-invent/analyse.sh

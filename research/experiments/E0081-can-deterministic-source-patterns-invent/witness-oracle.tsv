@@ -1,0 +1,6 @@
+term	expected	substring	purpose
+letter	definition	The set of letters defines the syntactic class letter.	exact lexical definition
+xyz	definition	where the letters xyz stand for any syntactic class phrase	assumed metanotation definition
+program-name	constraint	C1401 (R1401) The program-name shall not be included	Core 0 numbered constraint
+module-name	constraint	C1402 (R1404) If the module-name is specified	Core 0 relation constraint
+result-name	constraint	C1569 (R1533) If RESULT appears, result-name shall not	Core 0 name constraint
