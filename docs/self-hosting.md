@@ -271,6 +271,13 @@ authoritative grammars. Each production carries its StandardIR rule number,
 source document, source hash and generator revision. They represent syntax
 only. Constraints and semantic relations remain separate StandardIR inputs.
 
+The raw projections are not complete parser specifications. J3/24-007 states
+that its syntax rules are intentionally incomplete and constrained by associated
+text. The specialized parser-generator input is assembled from the syntax,
+lexical/token definitions, constraints, prose restrictions, profile closure and
+resolution states. E0021 records this boundary: target-tool validation belongs
+to that composite input, not to an isolated raw syntax export.
+
 The exports make independent comparison possible. The old `standard` `.g4`
 corpus and kaby76 can be normalized structurally where their formats permit it.
 LFortran and Flang can be compared through permitted grammar artifacts where

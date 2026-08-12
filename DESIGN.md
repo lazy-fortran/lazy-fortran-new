@@ -185,6 +185,14 @@ source hash and generator revision. The exports describe syntax. Constraints,
 relations and semantic effects remain separate StandardIR inputs to the
 semantic engine.
 
+The raw syntax projections are not assumed to be complete parser grammars. J3/24-007
+explicitly limits its syntax rules, and E0021 records the resulting validator
+failure for unresolved lexical and name classes. The specialized parser input is
+therefore a composite projection of syntax, lexical/token definitions,
+constraints, prose restrictions, profile closure and reference-resolution
+states. It is the composite input—not an isolated export—that must be accepted
+by a target parser generator (D0018).
+
 The four comparison corpora remain comparison sources. The old `standard`
 `.g4` corpus and kaby76 can be compared structurally where their formats allow
 it. LFortran and Flang are compared through permitted grammar artifacts where

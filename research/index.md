@@ -59,6 +59,7 @@ Runs recorded: 30
 | [D0015](decisions/D0015-profile-closure-is-reachability.md) | accepted |  | Profile closure is reachability, not feature support |
 | [D0016](decisions/D0016-deterministic-structural-generation.md) | accepted |  | Deterministic structural generation and local synthesis holes |
 | [D0017](decisions/D0017-commit-pins-and-live-status.md) | accepted |  | Immutable experiment pins and live repository status |
+| [D0018](decisions/D0018-composite-parser-input.md) | accepted |  | Composite parser input, not raw syntax exports |
 
 ## Pinned artifacts
 
