@@ -64,6 +64,7 @@ assert_run R000050 '.status == "accepted" and .verification.cases_declared == 10
 assert_run R000052 '.status == "accepted" and .experiment == "E0043" and .verification.zero_model_calls == true and .verification.resolution_records == 182 and .verification.source_hash_matches == 182 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000053 '.status == "accepted" and .experiment == "E0044" and .verification.zero_model_calls == true and .verification.alias_records == 49 and .verification.explicit_definition_conflicts == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000054 '.status == "accepted" and .experiment == "E0045" and .verification.zero_model_calls == true and .verification.lexical_class_records == 25 and .verification.unicode_exclusions_retained == 2 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000055 '.status == "accepted" and .experiment == "E0046" and .verification.zero_model_calls == true and .verification.alias_records == 49 and .verification.lexical_class_records == 25 and .verification.unresolved_records == 107 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -102,6 +103,12 @@ unicode_exclusions=$(metric R000054 '.verification.unicode_exclusions_retained')
 lexical_syntax_witnesses=$(metric R000054 '.verification.composite_syntax_witnesses')
 lexical_difference=$(metric R000054 '.verification.independent_difference')
 lexical_negative_control=$(metric R000054 '.verification.negative_control')
+combined_aliases=$(metric R000055 '.verification.alias_records')
+combined_lexical=$(metric R000055 '.verification.lexical_class_records')
+combined_unresolved=$(metric R000055 '.verification.unresolved_records')
+combined_witnesses=$(metric R000055 '.verification.composite_syntax_witnesses')
+combined_difference=$(metric R000055 '.verification.independent_difference')
+combined_negative_control=$(metric R000055 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -200,6 +207,17 @@ EOF
 | Independent difference | $lexical_difference |
 | Controlled negative mutation | $lexical_negative_control |
 
+## D0019 combined resolution slice
+
+| Quantity | Value |
+|---|---:|
+| Alias records | $combined_aliases |
+| Lexical-class records | $combined_lexical |
+| Unresolved records retained | $combined_unresolved |
+| Composite SX syntax witnesses | $combined_witnesses |
+| Independent difference | $combined_difference |
+| Controlled negative mutation | $combined_negative_control |
+
 ## External behavioral baseline
 
 | Quantity | Value |
@@ -233,6 +251,10 @@ rendered=${rendered//@R402_UNRESOLVED@/$r402_unresolved}
 rendered=${rendered//@LEXICAL_CLASSES@/$lexical_class_records}
 rendered=${rendered//@LEXICAL_PROJECTION@/$lexical_projection_records}
 rendered=${rendered//@UNICODE_EXCLUSIONS@/$unicode_exclusions}
+rendered=${rendered//@COMBINED_ALIASES@/$combined_aliases}
+rendered=${rendered//@COMBINED_LEXICAL@/$combined_lexical}
+rendered=${rendered//@COMBINED_UNRESOLVED@/$combined_unresolved}
+rendered=${rendered//@COMBINED_WITNESSES@/$combined_witnesses}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

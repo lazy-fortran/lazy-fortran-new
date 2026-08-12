@@ -29,6 +29,9 @@ The R402 closure applies the assumed suffix-name rule to
 The lexical witness slice classifies @LEXICAL_CLASSES@ lexical records,
 projects @LEXICAL_PROJECTION@ token references, and retains
 @UNICODE_EXCLUSIONS@ Unicode cases unresolved.
+The combined D0019 slice contains @COMBINED_ALIASES@ aliases,
+@COMBINED_LEXICAL@ lexical classes, @COMBINED_UNRESOLVED@ unresolved records,
+and @COMBINED_WITNESSES@ composite SX witnesses.
 
 ## 1. Scope and claim
 
@@ -77,6 +80,8 @@ independent check for explicit StandardIR definitions.
 The lexical witness slice extends the table with token spellings sourced from
 the standard's lexical, operator, and literal rules. It leaves ambiguous dash
 and quotation marks unresolved under D0020.
+The combined slice reruns the accepted R402 and lexical witnesses, checks their
+overlap, and projects their union into one partial parser input.
 
 ### 2.3 Verification
 
@@ -117,6 +122,9 @@ alias projection to the full selected suffix-name set and leaves
 The lexical witness slice closes selected operator and literal-marker
 references while retaining the two Unicode cases that lack an authoritative
 normalization decision.
+E0046 composes the accepted R402 and lexical families. It reduces the retained
+unresolved set to @COMBINED_UNRESOLVED@ records while leaving expansion and
+semantic classes outside the slice.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -140,16 +148,14 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment extends the source-controlled D0019 resolution beyond the
-R402 suffix-name closure. The lexical witness slice is reported separately and
-keeps the ambiguous Unicode cases unresolved. The R401 and R403 representation
-choice for assumed list and scalar rules is proposed in
+The next experiment addresses the R401 and R403 representation choice for
+assumed list and scalar rules. The choice is proposed in
 [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md). The next
 slice should resolve those terms only after that choice is accepted, then apply
 the resulting records to the full composite input. The ANTLR4, Bison, and
 tree-sitter validators provide target-specific checks. A complete parser input
-will be claimed only after the unresolved and disputed sets are reported,
-every selected alias has provenance, and the target tools accept the generated
+will be claimed after the unresolved and disputed sets are reported, every
+selected alias has provenance, and the target tools accept the generated
 composite input. Semantic constraints remain a separate phase.
 
 ## References

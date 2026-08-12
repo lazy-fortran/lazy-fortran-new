@@ -1,0 +1,42 @@
+name = "E0046-R000001-combined-d0019-resolution-projection"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/e69d26f/research/experiments/E0046-can-the-accepted-r402-and-lexical-d0019-"
+sha256 = "2e36fbdf6527f0f4636bf32bff0ee3418f69b584d98d9808eab72b3dbc7d63aa"
+bytes = 547
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for composing accepted R402 and lexical D0019 resolution slices"
+path = ".cache/runs/E0046/R000001/summary.tsv"
+origin = "MECHANICAL"
+format = "tab-separated typed resolution and composite projection summary"
+generator = "E0046 analyse.sh"
+generator_commit = "e69d26f"
+checker = "research/experiments/E0046-can-the-accepted-r402-and-lexical-d0019-/analyse.sh"
+checker_commit = "e69d26f"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+e0044_resolution_records_sha256 = "7408d0d9e6efa62b185fad282d5d8e2aac7f2f28e3b62f0944ed4f054d8d65dc"
+e0045_resolution_records_sha256 = "ae9508105d81252b2d2badb3b75631792e4c983df6ce9dc9ec57f6897b97dc13"
+resolution_records = 182
+resolution_records_sha256 = "5b272a148d05990b3a3d3e60fafd47e38fa34dd88cf418d715abef860e0cce59"
+resolution_records_bytes = 36751
+alias_records = 49
+lexical_class_records = 25
+metavariable_records = 1
+semantic_role_records = 0
+unresolved_records = 107
+disputed_records = 0
+source_hash_matches = 182
+alias_projection_records = 49
+lexical_projection_records = 21
+unicode_exclusions_retained = 2
+composite_input_sha256 = "e237d3ee4416f39d0e6f4679075b4a8a1d14e30c3ade74bc7cf1b86079ebcf2c"
+composite_input_bytes = 3282
+composite_syntax_witnesses = 116
+composite_grammar_sha256 = "eb44add64a0eb5b5779eeba1a09ea929e03b7c7a39e84133a799fc10f1b6d855"
+composite_grammar_bytes = 26472
+independent_difference = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0046-can-the-accepted-r402-and-lexical-d0019-/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

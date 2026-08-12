@@ -373,6 +373,9 @@ evidence for the thesis.
 - [ ] Choose the typed representation for R401/R403 assumed syntax expansions
       ([D0024](research/decisions/D0024-assumed-syntax-expansions.md)). Retain
       those terms unresolved until the choice is accepted
+- [x] Compose the accepted R402 and lexical D0019 resolution slices (E0046,
+      regenerate with
+      `research/experiments/E0046-can-the-accepted-r402-and-lexical-d0019-/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with

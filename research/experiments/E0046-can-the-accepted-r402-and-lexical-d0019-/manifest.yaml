@@ -2,13 +2,13 @@ id: "E0046"
 title: "Combined R402 and lexical D0019 resolution projection"
 question: >
   Can the accepted R402 and lexical D0019 witnesses compose into one deterministic parser projection while preserving the unresolved expansion boundary?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "a4f7687"
+  lazy-fortran-new: "e69d26f"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

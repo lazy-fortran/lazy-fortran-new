@@ -21,7 +21,17 @@ unresolved rows and retains source provenance on every record.
 
 ## Result
 
-Pending the first run.
+The command produced 182 typed records. The records contain 49 aliases, 25
+lexical classes, 1 metanotation witness, 107 unresolved records, and 0
+semantic-role or disputed records. All 182 rows carry the pinned J3/24-007
+source hash.
+
+The independent alias and lexical closure differences are both 0. The
+combined projection contains 49 alias records, 21 newly projected lexical
+records, and 116 syntax witnesses. The two Unicode cases remain unresolved.
+The controlled `entity-name` mutation observed the expected validation
+failure. The generated ANTLR4 projection remains partial because the R401,
+R403, semantic and other unresolved classes are outside this slice.
 
 ## Boundary
 

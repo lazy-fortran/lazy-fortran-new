@@ -81,6 +81,17 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled negative mutation | observed_failure |
 
+## D0019 combined resolution slice
+
+| Quantity | Value |
+|---|---:|
+| Alias records | 49 |
+| Lexical-class records | 25 |
+| Unresolved records retained | 107 |
+| Composite SX syntax witnesses | 116 |
+| Independent difference | 0 |
+| Controlled negative mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |
