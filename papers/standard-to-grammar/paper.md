@@ -121,6 +121,10 @@ over 6 files. It validates
 54 source-linked expression nodes and
 9 known queries while rejecting
 1 unknown query.
+E0081 inventories 266 source-linked semantic candidate
+spans over the 181-name residue and
+287 Core 0-associated numbered constraints. It
+accepts no semantic facts and uses no model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -450,8 +454,9 @@ E0079 has completed that facade check. The next experiment should extend the
 same profile-owned wiring to expression and precedence operations over a
 combined real-source corpus, with the local semantic boundary still explicit.
 E0080 has completed that expression and precedence extension for the declared
-witness set. The next experiment should inventory Core 0 semantic relations
-and constraints from source-linked clauses before semantic rule generation.
+witness set. E0081 has completed the source-linked Core 0 semantic candidate
+inventory without accepting facts. The next experiment should adjudicate and
+normalize those candidates before semantic rule generation.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -558,8 +563,13 @@ of complete Fortran coverage. The next milestone is expression and
 precedence composition under the same profile-owned wiring.
 E0080 validates the profile-owned expression and precedence facade over 9
 witnesses and 54 source-linked nodes, with 54 parent links, 9 known queries and
-one rejected unknown query. The next milestone is source-linked Core 0 semantic
-relation and constraint inventory.
+one rejected unknown query. E0081 records
+266 candidate spans and
+287 Core 0-associated numbered constraints, with
+7 ambiguous names and
+80 names still unresolved after deterministic
+patterns. It accepts no semantic facts. The next milestone is source-controlled
+adjudication and normalization.
 
 ## References
 
@@ -1282,6 +1292,29 @@ The following rows are extracted from the accepted projection run records.
 | Runtime test status | 0 |
 | Unsupported operator rejected | 1 |
 | Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
+## E0081 Core 0 semantic candidate inventory
+
+| Quantity | Value |
+|---|---:|
+| Unresolved-name denominator | 181 |
+| Candidate spans | 266 |
+| Definition candidate spans | 3 |
+| Relation candidate spans | 7 |
+| Constraint candidate spans | 256 |
+| Definition candidate names | 3 |
+| Relation candidate names | 5 |
+| Constraint candidate names | 100 |
+| Ambiguous names | 7 |
+| Names unresolved after patterns | 80 |
+| Core 0 closure members | 345 |
+| Core 0-associated numbered constraints | 287 |
+| Source-linked candidates | 266 |
+| Source-linked constraints | 287 |
+| Accepted StandardIR facts | 0 |
+| Independent candidate difference | 0 |
+| Independent constraint difference | 0 |
 | Controlled mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison

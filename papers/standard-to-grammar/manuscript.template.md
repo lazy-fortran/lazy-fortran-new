@@ -121,6 +121,10 @@ over @EXPRESSION_FACADE_FILES@ files. It validates
 @EXPRESSION_FACADE_LINKED@ source-linked expression nodes and
 @EXPRESSION_FACADE_QUERIES@ known queries while rejecting
 @EXPRESSION_FACADE_UNKNOWN@ unknown query.
+E0081 inventories @SEMANTIC_INVENTORY_SPANS@ source-linked semantic candidate
+spans over the @SEMANTIC_INVENTORY_UNRESOLVED@-name residue and
+@SEMANTIC_INVENTORY_CONSTRAINTS@ Core 0-associated numbered constraints. It
+accepts no semantic facts and uses no model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -450,8 +454,9 @@ E0079 has completed that facade check. The next experiment should extend the
 same profile-owned wiring to expression and precedence operations over a
 combined real-source corpus, with the local semantic boundary still explicit.
 E0080 has completed that expression and precedence extension for the declared
-witness set. The next experiment should inventory Core 0 semantic relations
-and constraints from source-linked clauses before semantic rule generation.
+witness set. E0081 has completed the source-linked Core 0 semantic candidate
+inventory without accepting facts. The next experiment should adjudicate and
+normalize those candidates before semantic rule generation.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -558,8 +563,13 @@ of complete Fortran coverage. The next milestone is expression and
 precedence composition under the same profile-owned wiring.
 E0080 validates the profile-owned expression and precedence facade over 9
 witnesses and 54 source-linked nodes, with 54 parent links, 9 known queries and
-one rejected unknown query. The next milestone is source-linked Core 0 semantic
-relation and constraint inventory.
+one rejected unknown query. E0081 records
+@SEMANTIC_INVENTORY_SPANS@ candidate spans and
+@SEMANTIC_INVENTORY_CONSTRAINTS@ Core 0-associated numbered constraints, with
+@SEMANTIC_INVENTORY_AMBIGUOUS@ ambiguous names and
+@SEMANTIC_INVENTORY_RESIDUE@ names still unresolved after deterministic
+patterns. It accepts no semantic facts. The next milestone is source-controlled
+adjudication and normalization.
 
 ## References
 

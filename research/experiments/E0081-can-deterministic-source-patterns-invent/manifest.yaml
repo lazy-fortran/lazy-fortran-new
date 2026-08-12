@@ -2,9 +2,9 @@ id: "E0081"
 title: "Deterministic Core 0 semantic candidate inventory"
 question: >
   Can deterministic source patterns inventory semantic relation and constraint candidates before formalization?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 # Every commit the result depends on. Exact, not "main".
 repos:

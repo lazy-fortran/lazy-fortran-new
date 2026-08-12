@@ -708,6 +708,29 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 
+## E0081 Core 0 semantic candidate inventory
+
+| Quantity | Value |
+|---|---:|
+| Unresolved-name denominator | 181 |
+| Candidate spans | 266 |
+| Definition candidate spans | 3 |
+| Relation candidate spans | 7 |
+| Constraint candidate spans | 256 |
+| Definition candidate names | 3 |
+| Relation candidate names | 5 |
+| Constraint candidate names | 100 |
+| Ambiguous names | 7 |
+| Names unresolved after patterns | 80 |
+| Core 0 closure members | 345 |
+| Core 0-associated numbered constraints | 287 |
+| Source-linked candidates | 266 |
+| Source-linked constraints | 287 |
+| Accepted StandardIR facts | 0 |
+| Independent candidate difference | 0 |
+| Independent constraint difference | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

@@ -1,0 +1,47 @@
+name        = "E0081-R000001-deterministic-core0-semantic-candidate-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/327530e"
+sha256      = "e9a984717a04620d1096c2ded4dacc4cc729396549df9717b3ca4620d538dd36"
+bytes       = 997
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of deterministic source-linked Core 0 semantic candidate inventory"
+path        = ".cache/runs/E0081/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "lazy-fortran-new E0081 deterministic semantic candidate inventory"
+generator_commit = "0a1aa3d"
+checker     = "research/experiments/E0081-can-deterministic-source-patterns-invent/analyse.sh"
+checker_commit = "0a1aa3d"
+unresolved_names = 181
+candidate_spans = 266
+definition_candidate_spans = 3
+relation_candidate_spans = 7
+constraint_candidate_spans = 256
+definition_candidate_names = 3
+relation_candidate_names = 5
+constraint_candidate_names = 100
+definition_names = 1
+relation_names = 0
+constraint_names = 93
+ambiguous_names = 7
+unresolved_after_patterns = 80
+core0_closure_members = 345
+core0_constraint_records = 287
+source_linked_candidates = 266
+source_linked_constraints = 287
+accepted_standardir_facts = 0
+model_calls = 0
+independent_candidate_difference = 0
+independent_constraint_difference = 0
+negative_control = "observed_failure"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+audit_sha256 = "28eb6876a77345cd85de14cf23a1d9027beefc2cb7a4de5756a9f28c40d1a449"
+closure_sha256 = "03af0b269089c90ef277189da214c3952796f86703a2aa19c904f0ec6b6510d6"
+candidate_sha256 = "dcfb99ba30b123d8e615c699c9342de3442508ea208e3248a115996394bf6225"
+constraint_sha256 = "d91018ffc4b777131f5e7cea6206cb41e27909d5a3cb91f869c568c84c1bdc44"
+
+# Regenerate and verify with:
+#   research/experiments/E0081-can-deterministic-source-patterns-invent/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

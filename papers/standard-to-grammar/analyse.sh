@@ -131,6 +131,7 @@ assert_run R000086 '.status == "accepted" and .experiment == "E0077" and .verifi
 assert_run R000087 '.status == "accepted" and .experiment == "E0078" and .verification.zero_model_calls == true and .verification.residue_records == 151 and .verification.retained_candidate_records == 3 and .verification.unresolved_no_evidence_records == 148 and .verification.source_hash_matches == 151 and .verification.parser_target_records == 0 and .verification.parser_leaks == 0 and .verification.integrated_syntax_records == 522 and .verification.dispatch_rows == 522 and .verification.dispatch_provenance_rows == 522 and .verification.integrated_hash_difference == 0 and .verification.dispatch_hash_difference == 0 and .verification.export_antlr_validator_status == 1 and .verification.export_bison_validator_status == 1 and .verification.export_treesitter_validator_status == 1 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000088 '.status == "accepted" and .experiment == "E0079" and .verification.zero_model_calls == true and .verification.profile_rows == 151 and .verification.profile_parser_targets == 0 and .verification.profile_source_hashes == 151 and .verification.complete_source_files == 5 and .verification.complete_accepted_records == 72 and .verification.complete_source_linked_records == 72 and .verification.ast_source_files == 5 and .verification.ast_nodes == 73 and .verification.ast_source_linked_nodes == 73 and .verification.ast_parent_links == 68 and .verification.ast_child_links == 68 and .verification.ast_link_errors == 0 and .verification.diagnostic_records == 1 and .verification.diagnostic_source_linked == 1 and .verification.gfortran_complete_accepted == 5 and .verification.gfortran_ast_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000089 '.status == "accepted" and .experiment == "E0080" and .verification.zero_model_calls == true and .verification.profile_rows == 151 and .verification.profile_parser_targets == 0 and .verification.expression_source_files == 6 and .verification.expression_witnesses == 9 and .verification.gfortran_accepted == 6 and .verification.internal_nodes == 23 and .verification.leaf_nodes == 31 and .verification.binary_nodes == 20 and .verification.unary_nodes == 1 and .verification.array_nodes == 0 and .verification.function_reference_nodes == 2 and .verification.name_nodes == 18 and .verification.literal_nodes == 13 and .verification.source_linked_nodes == 54 and .verification.subtree_parent_links == 54 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.coverage_query_hits == 9 and .verification.unknown_query_rejected == 1 and .verification.max_expression_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_operator_rejected == 1 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000090 '.status == "accepted" and .experiment == "E0081" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.candidate_spans == 266 and .verification.definition_candidate_spans == 3 and .verification.relation_candidate_spans == 7 and .verification.constraint_candidate_spans == 256 and .verification.core0_closure_members == 345 and .verification.core0_constraint_records == 287 and .verification.accepted_standardir_facts == 0 and .verification.independent_candidate_difference == 0 and .verification.independent_constraint_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -627,6 +628,24 @@ expression_facade_runtime=$(metric R000089 '.verification.runtime_test_status')
 expression_facade_mutation=$(metric R000089 '.verification.unsupported_operator_rejected')
 expression_facade_difference=$(metric R000089 '.verification.independent_difference')
 expression_facade_negative=$(metric R000089 '.verification.negative_control')
+semantic_inventory_unresolved=$(metric R000090 '.verification.unresolved_names')
+semantic_inventory_spans=$(metric R000090 '.verification.candidate_spans')
+semantic_inventory_definition_spans=$(metric R000090 '.verification.definition_candidate_spans')
+semantic_inventory_relation_spans=$(metric R000090 '.verification.relation_candidate_spans')
+semantic_inventory_constraint_spans=$(metric R000090 '.verification.constraint_candidate_spans')
+semantic_inventory_definition_names=$(metric R000090 '.verification.definition_candidate_names')
+semantic_inventory_relation_names=$(metric R000090 '.verification.relation_candidate_names')
+semantic_inventory_constraint_names=$(metric R000090 '.verification.constraint_candidate_names')
+semantic_inventory_ambiguous=$(metric R000090 '.verification.ambiguous_names')
+semantic_inventory_residue=$(metric R000090 '.verification.unresolved_after_patterns')
+semantic_inventory_members=$(metric R000090 '.verification.core0_closure_members')
+semantic_inventory_constraints=$(metric R000090 '.verification.core0_constraint_records')
+semantic_inventory_linked_candidates=$(metric R000090 '.verification.source_linked_candidates')
+semantic_inventory_linked_constraints=$(metric R000090 '.verification.source_linked_constraints')
+semantic_inventory_facts=$(metric R000090 '.verification.accepted_standardir_facts')
+semantic_inventory_difference=$(metric R000090 '.verification.independent_candidate_difference')
+semantic_inventory_constraint_difference=$(metric R000090 '.verification.independent_constraint_difference')
+semantic_inventory_negative=$(metric R000090 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1352,6 +1371,29 @@ EOF
 | Independent difference | $expression_facade_difference |
 | Controlled mutation | $expression_facade_negative |
 
+## E0081 Core 0 semantic candidate inventory
+
+| Quantity | Value |
+|---|---:|
+| Unresolved-name denominator | $semantic_inventory_unresolved |
+| Candidate spans | $semantic_inventory_spans |
+| Definition candidate spans | $semantic_inventory_definition_spans |
+| Relation candidate spans | $semantic_inventory_relation_spans |
+| Constraint candidate spans | $semantic_inventory_constraint_spans |
+| Definition candidate names | $semantic_inventory_definition_names |
+| Relation candidate names | $semantic_inventory_relation_names |
+| Constraint candidate names | $semantic_inventory_constraint_names |
+| Ambiguous names | $semantic_inventory_ambiguous |
+| Names unresolved after patterns | $semantic_inventory_residue |
+| Core 0 closure members | $semantic_inventory_members |
+| Core 0-associated numbered constraints | $semantic_inventory_constraints |
+| Source-linked candidates | $semantic_inventory_linked_candidates |
+| Source-linked constraints | $semantic_inventory_linked_constraints |
+| Accepted StandardIR facts | $semantic_inventory_facts |
+| Independent candidate difference | $semantic_inventory_difference |
+| Independent constraint difference | $semantic_inventory_constraint_difference |
+| Controlled mutation | $semantic_inventory_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1649,6 +1691,24 @@ rendered=${rendered//@EXPRESSION_FACADE_RUNTIME@/$expression_facade_runtime}
 rendered=${rendered//@EXPRESSION_FACADE_MUTATION@/$expression_facade_mutation}
 rendered=${rendered//@EXPRESSION_FACADE_DIFFERENCE@/$expression_facade_difference}
 rendered=${rendered//@EXPRESSION_FACADE_NEGATIVE@/$expression_facade_negative}
+rendered=${rendered//@SEMANTIC_INVENTORY_UNRESOLVED@/$semantic_inventory_unresolved}
+rendered=${rendered//@SEMANTIC_INVENTORY_SPANS@/$semantic_inventory_spans}
+rendered=${rendered//@SEMANTIC_INVENTORY_DEFINITION_SPANS@/$semantic_inventory_definition_spans}
+rendered=${rendered//@SEMANTIC_INVENTORY_RELATION_SPANS@/$semantic_inventory_relation_spans}
+rendered=${rendered//@SEMANTIC_INVENTORY_CONSTRAINT_SPANS@/$semantic_inventory_constraint_spans}
+rendered=${rendered//@SEMANTIC_INVENTORY_DEFINITION_NAMES@/$semantic_inventory_definition_names}
+rendered=${rendered//@SEMANTIC_INVENTORY_RELATION_NAMES@/$semantic_inventory_relation_names}
+rendered=${rendered//@SEMANTIC_INVENTORY_CONSTRAINT_NAMES@/$semantic_inventory_constraint_names}
+rendered=${rendered//@SEMANTIC_INVENTORY_AMBIGUOUS@/$semantic_inventory_ambiguous}
+rendered=${rendered//@SEMANTIC_INVENTORY_RESIDUE@/$semantic_inventory_residue}
+rendered=${rendered//@SEMANTIC_INVENTORY_MEMBERS@/$semantic_inventory_members}
+rendered=${rendered//@SEMANTIC_INVENTORY_CONSTRAINTS@/$semantic_inventory_constraints}
+rendered=${rendered//@SEMANTIC_INVENTORY_LINKED_CANDIDATES@/$semantic_inventory_linked_candidates}
+rendered=${rendered//@SEMANTIC_INVENTORY_LINKED_CONSTRAINTS@/$semantic_inventory_linked_constraints}
+rendered=${rendered//@SEMANTIC_INVENTORY_FACTS@/$semantic_inventory_facts}
+rendered=${rendered//@SEMANTIC_INVENTORY_DIFFERENCE@/$semantic_inventory_difference}
+rendered=${rendered//@SEMANTIC_INVENTORY_CONSTRAINT_DIFFERENCE@/$semantic_inventory_constraint_difference}
+rendered=${rendered//@SEMANTIC_INVENTORY_NEGATIVE@/$semantic_inventory_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

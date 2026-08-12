@@ -523,8 +523,14 @@ evidence for the thesis.
       54 parent links, 9 known queries and one rejected unknown query (E0080,
       regenerate with
       `research/experiments/E0080-can-the-e0079-profile-owned-facade-exten/analyse.sh`)
-- [ ] Inventory source-linked Core 0 semantic relations and constraints before
-      attempting generated semantic rule bodies
+- [x] Inventory source-linked Core 0 semantic relation and constraint
+      candidates before formalization: 266 unresolved-name candidate spans,
+      287 Core 0-associated numbered constraints, and zero accepted semantic
+      facts (E0081, regenerate with
+      `research/experiments/E0081-can-deterministic-source-patterns-invent/analyse.sh`)
+- [ ] Adjudicate the E0081 candidates into typed StandardIR facts, retaining
+      false positives and unresolved records before any semantic rule-body
+      generation
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
@@ -600,6 +606,7 @@ evidence for the thesis.
 - [x] E0042 generated schema printer and hash differential recorded
 - [x] E0069 deterministic normative-prose evidence inventory and escalation
       boundary recorded
+- [x] E0081 deterministic Core 0 semantic candidate inventory recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
