@@ -104,6 +104,9 @@ E0075 classifies those @RESIDUE_RECORDS@ residue names as
 E0076 scans the @PROSE_UNRESOLVED@ unresolved names over
 @PROSE_UNITS@ bounded units and finds @PROSE_SPANS@ candidate spans across
 @PROSE_NAMES@ names, leaving @PROSE_RESIDUE@ names unresolved.
+E0077 adjudicates @CANDIDATE_ADJUDICATION_SPANS@ candidates and retains
+@CANDIDATE_ADJUDICATION_RETAINED@ contextual records; it accepts no new
+parser relation.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -389,6 +392,8 @@ resolution witness.
 E0076 finds @PROSE_SPANS@ deterministic candidate spans and leaves
 @PROSE_RESIDUE@ names unresolved; all @PROSE_LINKED@ candidates retain source
 coordinates.
+E0077 retains all @CANDIDATE_ADJUDICATION_RETAINED@ candidates after source
+checks, with @CANDIDATE_ADJUDICATION_DIFFERENCE@ independent difference.
 
 ## 5. Reproducibility and limitations
 
@@ -435,6 +440,9 @@ E0074 integrates @INTEGRATION_ALIASES@ accepted aliases into
 E0075 classifies @RESIDUE_RECORDS@ residue rows and adds no aliases.
 E0076 measures @PROSE_SPANS@ candidate spans over the residue and accepts none
 as a parser fact.
+E0077 adjudicates @CANDIDATE_ADJUDICATION_SPANS@ candidates, accepting
+@CANDIDATE_ADJUDICATION_ACCEPTED@ and retaining
+@CANDIDATE_ADJUDICATION_RETAINED@.
 
 ## 7. Conclusion
 
@@ -487,6 +495,8 @@ validators. E0075 then classifies @RESIDUE_RECORDS@ rows, leaving
 @RESIDUE_UNRESOLVED@ unresolved and adding no parser aliases.
 E0076 finds @PROSE_SPANS@ bounded-prose candidates and leaves
 @PROSE_RESIDUE@ names unresolved.
+E0077 retains @CANDIDATE_ADJUDICATION_RETAINED@ contextual candidates and adds
+no parser aliases.
 
 ## References
 

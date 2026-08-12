@@ -127,6 +127,7 @@ assert_run R000082 '.status == "accepted" and .experiment == "E0073" and .verifi
 assert_run R000083 '.status == "accepted" and .experiment == "E0074" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.integrated_syntax_records == 522 and .verification.alias_records == 3 and .verification.alias_reference_rewrites == 6 and .verification.semantic_fact_records == 29 and .verification.semantic_alias_overlap == 1 and .verification.semantic_projection_leaks == 0 and .verification.unresolved_reference_occurrences == 466 and .verification.unresolved_unique_names == 178 and .verification.export_ebnf_status == 0 and .verification.export_antlr_status == 0 and .verification.export_bison_status == 0 and .verification.export_treesitter_status == 0 and .verification.antlr_validate_status == 1 and .verification.bison_validate_status == 1 and .verification.treesitter_validate_status == 1 and .verification.dispatch_rows == 522 and .verification.dispatch_provenance_rows == 522 and .verification.dispatch_label_collisions == 0 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.wiring_boundary == "integrated_dispatch_compiled"'
 assert_run R000084 '.status == "accepted" and .experiment == "E0075" and .verification.zero_model_calls == true and .verification.residue_records == 178 and .verification.semantic_role_records == 18 and .verification.lexical_class_records == 8 and .verification.metavariable_records == 1 and .verification.unresolved_records == 151 and .verification.missing_fact_records == 0 and .verification.additional_alias_records == 0 and .verification.source_hash_matches == 178 and .verification.source_evidence_records == 178 and .verification.semantic_projection_leaks == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000085 '.status == "accepted" and .experiment == "E0076" and .verification.zero_model_calls == true and .verification.unresolved_denominator == 151 and .verification.logical_units == 5064 and .verification.candidate_spans == 3 and .verification.candidate_names == 3 and .verification.alias_candidates == 0 and .verification.lexical_candidates == 0 and .verification.metavariable_candidates == 0 and .verification.semantic_role_candidates == 3 and .verification.unresolved_after_patterns == 148 and .verification.source_linked_candidates == 3 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000086 '.status == "accepted" and .experiment == "E0077" and .verification.zero_model_calls == true and .verification.candidate_spans == 3 and .verification.accepted_records == 0 and .verification.retained_records == 3 and .verification.accepted_semantic_role_records == 0 and .verification.source_hash_matches == 3 and .verification.source_evidence_matches == 3 and .verification.candidate_inventory_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -552,6 +553,15 @@ prose_residue=$(metric R000085 '.verification.unresolved_after_patterns')
 prose_linked=$(metric R000085 '.verification.source_linked_candidates')
 prose_difference=$(metric R000085 '.verification.independent_difference')
 prose_negative=$(metric R000085 '.verification.negative_control')
+candidate_adjudication_spans=$(metric R000086 '.verification.candidate_spans')
+candidate_adjudication_accepted=$(metric R000086 '.verification.accepted_records')
+candidate_adjudication_retained=$(metric R000086 '.verification.retained_records')
+candidate_adjudication_semantic=$(metric R000086 '.verification.accepted_semantic_role_records')
+candidate_adjudication_hashes=$(metric R000086 '.verification.source_hash_matches')
+candidate_adjudication_evidence=$(metric R000086 '.verification.source_evidence_matches')
+candidate_adjudication_inventory=$(metric R000086 '.verification.candidate_inventory_difference')
+candidate_adjudication_difference=$(metric R000086 '.verification.independent_difference')
+candidate_adjudication_negative=$(metric R000086 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1186,6 +1196,20 @@ EOF
 | Independent difference | $prose_difference |
 | Controlled mutation | $prose_negative |
 
+## E0077 source-controlled candidate adjudication
+
+| Quantity | Value |
+|---|---:|
+| Candidate spans | $candidate_adjudication_spans |
+| Accepted records | $candidate_adjudication_accepted |
+| Retained records | $candidate_adjudication_retained |
+| Accepted semantic-role records | $candidate_adjudication_semantic |
+| Records with source hash | $candidate_adjudication_hashes |
+| Records with source evidence | $candidate_adjudication_evidence |
+| Candidate inventory difference | $candidate_adjudication_inventory |
+| Independent difference | $candidate_adjudication_difference |
+| Controlled mutation | $candidate_adjudication_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1412,6 +1436,15 @@ rendered=${rendered//@PROSE_RESIDUE@/$prose_residue}
 rendered=${rendered//@PROSE_LINKED@/$prose_linked}
 rendered=${rendered//@PROSE_DIFFERENCE@/$prose_difference}
 rendered=${rendered//@PROSE_NEGATIVE@/$prose_negative}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_SPANS@/$candidate_adjudication_spans}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_ACCEPTED@/$candidate_adjudication_accepted}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_RETAINED@/$candidate_adjudication_retained}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_SEMANTIC@/$candidate_adjudication_semantic}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_HASHES@/$candidate_adjudication_hashes}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_EVIDENCE@/$candidate_adjudication_evidence}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_INVENTORY@/$candidate_adjudication_inventory}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_DIFFERENCE@/$candidate_adjudication_difference}
+rendered=${rendered//@CANDIDATE_ADJUDICATION_NEGATIVE@/$candidate_adjudication_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

@@ -505,7 +505,11 @@ evidence for the thesis.
       names: 3 source-linked semantic-role candidates and 148 names retained
       unresolved (E0076, regenerate with
       `research/experiments/E0076-how-much-of-the-151-unresolved-residue-h/analyse.sh`)
-- [ ] Adjudicate the three E0076 candidates, then rerun full target integration
+- [x] Adjudicate the three E0076 candidates: retain all three contextual
+      occurrences and add no parser relation (E0077, regenerate with
+      `research/experiments/E0077-can-source-controlled-adjudication-separ/analyse.sh`)
+- [ ] Compose the retained E0077 candidates with the 148-name residue and rerun
+      full target integration
 - [ ] Resume after retained residues and enlarge supported complete-source
       statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and

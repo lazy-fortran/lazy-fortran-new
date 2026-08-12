@@ -104,6 +104,9 @@ E0075 classifies those 178 residue names as
 E0076 scans the 151 unresolved names over
 5064 bounded units and finds 3 candidate spans across
 3 names, leaving 148 names unresolved.
+E0077 adjudicates 3 candidates and retains
+3 contextual records; it accepts no new
+parser relation.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -389,6 +392,8 @@ resolution witness.
 E0076 finds 3 deterministic candidate spans and leaves
 148 names unresolved; all 3 candidates retain source
 coordinates.
+E0077 retains all 3 candidates after source
+checks, with 0 independent difference.
 
 ## 5. Reproducibility and limitations
 
@@ -435,6 +440,9 @@ E0074 integrates 3 accepted aliases into
 E0075 classifies 178 residue rows and adds no aliases.
 E0076 measures 3 candidate spans over the residue and accepts none
 as a parser fact.
+E0077 adjudicates 3 candidates, accepting
+0 and retaining
+3.
 
 ## 7. Conclusion
 
@@ -487,6 +495,8 @@ validators. E0075 then classifies 178 rows, leaving
 151 unresolved and adding no parser aliases.
 E0076 finds 3 bounded-prose candidates and leaves
 148 names unresolved.
+E0077 retains 3 contextual candidates and adds
+no parser aliases.
 
 ## References
 
@@ -1117,6 +1127,20 @@ The following rows are extracted from the accepted projection run records.
 | Semantic-role candidates | 3 |
 | Names unresolved after patterns | 148 |
 | Source-linked candidates | 3 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
+## E0077 source-controlled candidate adjudication
+
+| Quantity | Value |
+|---|---:|
+| Candidate spans | 3 |
+| Accepted records | 0 |
+| Retained records | 3 |
+| Accepted semantic-role records | 0 |
+| Records with source hash | 3 |
+| Records with source evidence | 3 |
+| Candidate inventory difference | 0 |
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 

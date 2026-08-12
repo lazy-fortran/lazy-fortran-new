@@ -617,6 +617,20 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 
+## E0077 source-controlled candidate adjudication
+
+| Quantity | Value |
+|---|---:|
+| Candidate spans | 3 |
+| Accepted records | 0 |
+| Retained records | 3 |
+| Accepted semantic-role records | 0 |
+| Records with source hash | 3 |
+| Records with source evidence | 3 |
+| Candidate inventory difference | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

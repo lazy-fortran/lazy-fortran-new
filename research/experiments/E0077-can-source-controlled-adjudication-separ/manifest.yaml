@@ -2,13 +2,13 @@ id: "E0077"
 title: "Source-controlled adjudication of E0076 candidates"
 question: >
   Can source-controlled adjudication separate the three E0076 candidates from parser aliases?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "09c7173"
+  lazy-fortran-new: "2227b36"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

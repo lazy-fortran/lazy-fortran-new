@@ -1,0 +1,32 @@
+name        = "E0077-R000001-candidate-adjudication-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/2227b36"
+sha256      = "1924b833140fb4bab90b723927407b117e8cc2f32275638194f6a5195f7ea2e4"
+bytes       = 326
+licence     = "MIT adapter; source document retains its own licence"
+retrieved   = "2026-08-12"
+purpose     = "Summary of source-controlled adjudication for the three E0076 candidates"
+path        = ".cache/runs/E0077/R000001/summary.tsv"
+origin      = "LLM"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "lazy-fortran-new E0077 source-controlled adjudication"
+generator_commit = "2227b36"
+checker     = "research/experiments/E0077-can-source-controlled-adjudication-separ/analyse.sh"
+checker_commit = "2227b36"
+zero_model_calls = true
+candidate_spans = 3
+accepted_records = 0
+retained_records = 3
+accepted_semantic_role_records = 0
+source_hash_matches = 3
+source_evidence_matches = 3
+candidate_inventory_difference = 0
+independent_difference = 0
+negative_control = "observed_failure"
+adjudicated_sha256 = "2536a4a17aefd5ea5c2e042d0a69fc10fcab220fa87f8474a09a32e4f4301a67"
+adjudicated_bytes = 806
+
+# Regenerate and verify with:
+#   research/experiments/E0077-can-source-controlled-adjudication-separ/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.
