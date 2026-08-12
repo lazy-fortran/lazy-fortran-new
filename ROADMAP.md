@@ -46,6 +46,10 @@ model calls
 E0019 reports a tree-sitter grammar.js projection of the same 522 records with
 exact ordered provenance and lhs agreement and zero model calls
 (`research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh`).
+E0020 records structural inventories for the house `standard` grammar, kaby76,
+LFortran and Flang, retaining source-only and StandardIR-only differences; its
+independent traversal reports zero count difference
+(`research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -239,13 +243,15 @@ evidence for the thesis.
 - [x] Generate tree-sitter grammar.js from StandardIR (E0019; regenerate with
       `research/experiments/E0019-does-standardir-syntax-project-mechanica/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
-- [ ] Compare the generated syntax against the `standard` `.g4` corpus and
-      kaby76 structurally where the formats permit
+- [x] Compare the generated syntax against the `standard` `.g4` corpus and
+      kaby76 structurally where the formats permit (E0020; regenerate with
+      `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
 - [ ] Compare permitted grammar artifacts and parser behavior against LFortran
       and Flang
 - [ ] Compare parser behavior against gfortran as a GPL behavioral oracle only
-- [ ] Record a comparison adapter for each corpus, labeling structural grammar
-      results separately from behavioral results
+- [x] Record structural comparison adapters for the house grammar, kaby76,
+      LFortran and Flang, labeling them separately from behavioral results
+      (E0020)
 - [ ] Adjudicate every disagreement against 24-007
 - [ ] Classify each: ours wrong, theirs wrong, document ambiguous
 - [ ] Publish the defect rate per comparison corpus, with the denominator and

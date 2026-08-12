@@ -1,0 +1,37 @@
+name        = "E0020-R000001-structural-grammar-comparison"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/24d3b26"
+sha256      = "9de3801df08d1868d5a5697e4c985a6d815eee323bad0f6f74dbb7a13ea19401"
+bytes       = 143
+licence     = "MIT adapter; comparison sources retain their own licences"
+retrieved   = "2026-08-12"
+purpose     = "Structural inventory comparison of StandardIR syntax with pinned standard, kaby76, LFortran and Flang representations"
+path        = ".cache/runs/E0020/R000001/summary.tsv"
+origin      = "DIFFERENTIAL"
+format      = "tab-separated structural rule inventory comparison"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+input       = ".cache/runs/E0013/R000002/j3-24-007.standardir.sx"
+input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+generator   = "lazy-fortran-new E0020 comparison adapter"
+generator_commit = "24d3b26"
+checker     = "research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh"
+checker_commit = "24d3b26"
+standard_commit = "160032a"
+kaby76_commit = "ba846bb"
+lfortran_commit = "caf87b6"
+flang_commit = "cff4ca2"
+standard_rules = 56
+standard_overlap = 29
+kaby76_rules = 646
+kaby76_overlap = 485
+lfortran_rules = 240
+lfortran_overlap = 27
+flang_rule_ids = 460
+flang_overlap = 460
+independent_difference = 0
+fixed_witnesses = true
+gfortran_source_read = false
+
+# Regenerate and verify with:
+#   research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

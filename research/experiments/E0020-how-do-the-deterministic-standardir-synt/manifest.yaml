@@ -2,13 +2,13 @@ id: "E0020"
 title: "Structural comparison of StandardIR syntax representations"
 question: >
   How do the deterministic StandardIR syntax exports compare structurally with the pinned standard, kaby76, LFortran and Flang representations?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "7b1dcce"
+  lazy-fortran-new: "24d3b26"
   standard-new: "27406a7"
   oracle-standard: "160032a"
   oracle-kaby76: "ba846bb"
