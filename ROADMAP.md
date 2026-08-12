@@ -236,7 +236,9 @@ evidence for the thesis.
       rejected, ambiguous and skipped productions separately
 - [x] Round-trip: production → StandardIR → normalized production, compared
       structurally
-- [ ] Report the fraction extracted with zero model calls (**E1**)
+- [x] Report the fraction extracted with zero model calls (**E1**): 522/522
+      production starts (100%); regenerate and verify with
+      `research/experiments/E0013-complete-core-syntax/check-core-syntax.sh`
 
 ### 1.6 Comparison and adjudication (D0005, D0013)
 
