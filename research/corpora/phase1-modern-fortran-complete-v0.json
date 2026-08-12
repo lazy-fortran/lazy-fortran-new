@@ -1,0 +1,114 @@
+{
+  "name": "phase1-modern-fortran-complete-v0",
+  "version": 1,
+  "purpose": "Pinned complete-source statement coverage for the phase1 modern Fortran corpus",
+  "base_corpus": "phase1-modern-fortran-v0",
+  "repository": "fortfront",
+  "repository_commit": "b8cb5926fd82ed299d00e8c50eaa41587f55237d",
+  "licence": "MIT repository fixture files",
+  "ignored_lines": "blank lines and lines whose first non-whitespace character is !",
+  "files": [
+    {
+      "path": "examples/f90/issue_2505_uppercase_end_program.f90",
+      "sha256": "2840c24ccc08d52f6494ab1a33987c7c4ca6deef21cf3b070373e70284e92546",
+      "expected_statements": [
+        {"line": 3, "kind": "program-stmt"},
+        {"line": 4, "kind": "implicit-stmt"},
+        {"line": 5, "kind": "call-stmt"},
+        {"line": 6, "kind": "contains-stmt"},
+        {"line": 7, "kind": "subroutine-stmt"},
+        {"line": 8, "kind": "implicit-stmt"},
+        {"line": 9, "kind": "print-stmt"},
+        {"line": 10, "kind": "end-subroutine-stmt"},
+        {"line": 11, "kind": "end-program-stmt"}
+      ]
+    },
+    {
+      "path": "examples/f90/module_parsing_basic.f90",
+      "sha256": "e5f7beeccbca3d7a0626dc3b7bd3b76adc82a3cb23e27d6ee06c2c28b4efaef9",
+      "expected_statements": [
+        {"line": 1, "kind": "module-stmt"},
+        {"line": 2, "kind": "implicit-stmt"},
+        {"line": 3, "kind": "contains-stmt"},
+        {"line": 4, "kind": "function-stmt"},
+        {"line": 5, "kind": "type-declaration-stmt"},
+        {"line": 6, "kind": "assignment-stmt"},
+        {"line": 7, "kind": "end-function-stmt"},
+        {"line": 8, "kind": "end-module-stmt"}
+      ]
+    },
+    {
+      "path": "examples/f90/submodule_placement_valid.f90",
+      "sha256": "5b86792fdc6884c2824f0a334a7c4bc4f5d4e8c89d0419e6813d3a5c3b44afa3",
+      "expected_statements": [
+        {"line": 4, "kind": "module-stmt"},
+        {"line": 5, "kind": "implicit-stmt"},
+        {"line": 6, "kind": "interface-stmt"},
+        {"line": 7, "kind": "module-subroutine"},
+        {"line": 8, "kind": "type-declaration-stmt"},
+        {"line": 9, "kind": "end-subroutine-stmt"},
+        {"line": 10, "kind": "end-interface-stmt"},
+        {"line": 11, "kind": "end-module-stmt"},
+        {"line": 13, "kind": "submodule-stmt"},
+        {"line": 14, "kind": "contains-stmt"},
+        {"line": 15, "kind": "module-subroutine"},
+        {"line": 16, "kind": "type-declaration-stmt"},
+        {"line": 17, "kind": "print-stmt"},
+        {"line": 18, "kind": "end-subroutine-stmt"},
+        {"line": 19, "kind": "end-submodule-stmt"},
+        {"line": 21, "kind": "program-stmt"},
+        {"line": 22, "kind": "use-stmt"},
+        {"line": 23, "kind": "implicit-stmt"},
+        {"line": 24, "kind": "type-declaration-stmt"},
+        {"line": 25, "kind": "type-declaration-stmt"},
+        {"line": 26, "kind": "assignment-stmt"},
+        {"line": 27, "kind": "assignment-stmt"},
+        {"line": 28, "kind": "assignment-stmt"},
+        {"line": 29, "kind": "call-stmt"},
+        {"line": 30, "kind": "end-program-stmt"}
+      ]
+    },
+    {
+      "path": "examples/f90/call_graph_mutual_recursion.f90",
+      "sha256": "e574de7b9998d30650041ad6dab9b9e5142bf66c8931380392d631becaf4532c",
+      "expected_statements": [
+        {"line": 1, "kind": "module-stmt"},
+        {"line": 2, "kind": "implicit-stmt"},
+        {"line": 3, "kind": "contains-stmt"},
+        {"line": 4, "kind": "function-stmt"},
+        {"line": 5, "kind": "type-declaration-stmt"},
+        {"line": 7, "kind": "if-stmt"},
+        {"line": 8, "kind": "assignment-stmt"},
+        {"line": 9, "kind": "else-stmt"},
+        {"line": 10, "kind": "assignment-stmt"},
+        {"line": 11, "kind": "end-if-stmt"},
+        {"line": 12, "kind": "end-function-stmt"},
+        {"line": 14, "kind": "function-stmt"},
+        {"line": 15, "kind": "type-declaration-stmt"},
+        {"line": 17, "kind": "if-stmt"},
+        {"line": 18, "kind": "assignment-stmt"},
+        {"line": 19, "kind": "else-stmt"},
+        {"line": 20, "kind": "assignment-stmt"},
+        {"line": 21, "kind": "end-if-stmt"},
+        {"line": 22, "kind": "end-function-stmt"},
+        {"line": 23, "kind": "end-module-stmt"},
+        {"line": 25, "kind": "program-stmt"},
+        {"line": 26, "kind": "use-stmt"},
+        {"line": 27, "kind": "implicit-stmt"},
+        {"line": 29, "kind": "print-stmt"},
+        {"line": 30, "kind": "end-program-stmt"}
+      ]
+    },
+    {
+      "path": "examples/f90/do_concurrent_type_spec.f90",
+      "sha256": "1a5362971f6463078b52f5f13d0ccfb6425d536271d778e8ae135a2778113b7a",
+      "expected_statements": [
+        {"line": 1, "kind": "program-stmt"},
+        {"line": 2, "kind": "type-declaration-stmt"},
+        {"line": 3, "kind": "do-stmt"},
+        {"line": 4, "kind": "end-do-stmt"},
+        {"line": 5, "kind": "end-program-stmt"}
+      ]
+    }
+  ]
+}

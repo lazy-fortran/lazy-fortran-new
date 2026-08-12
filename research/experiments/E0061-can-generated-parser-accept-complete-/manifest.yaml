@@ -1,0 +1,67 @@
+id: "E0061"
+title: "Generated parser operation over complete pinned sources"
+question: >
+  Can one generated local parser operation classify every meaningful line in
+  five pinned modern Fortran sources, including keyword-like identifiers, and
+  attach StandardIR source records without changing generated wiring?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "3a4e327"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-complete-v0
+  predecessor: E0060-R000001
+  decisions: [D0018, D0028, D0029, D0030]
+
+variables:
+  operation: [complete-source-statement-classifier]
+  representation: [generated-fortran-local-operation]
+  statement_families: [program, module, submodule, procedure, interface, control, declaration, executable]
+
+model_selection: "No model calls. Statement classification, source references and test wiring are generated mechanically. The classifier is the local constructive implementation fragment under test."
+
+metrics:
+  - corpus_files
+  - expected_meaningful_lines
+  - classified_meaningful_lines
+  - source_linked_lines
+  - line_mismatches
+  - gfortran_accepted
+  - fortran_compile_status
+  - runtime_test_status
+  - unsupported_mutation_rejected
+
+denominator: >
+  Every nonblank, non-comment source line declared in
+  phase1-modern-fortran-complete-v0.json. The manifest contains 72 lines across
+  five source files.
+
+independent_oracle: >
+  The JSON corpus manifest supplies source hashes, source line numbers and
+  expected StandardIR statement families. An independent shell traversal
+  checks the meaningful-line denominator and GNU Fortran checks syntax
+  acceptance. The generated Fortran operation must classify every declared
+  line, link every result to a source page, byte span and document hash, and
+  reject a controlled unsupported-line mutation.
+
+falsifiable_by: >
+  A source hash changes, the meaningful-line denominator differs, a declared
+  line is missing or classified as the wrong family, a source reference is
+  missing, the generated operation fails to compile or run, or the unsupported
+  mutation is accepted.
+
+gate: >
+  Validate complete meaningful-line coverage for the pinned corpus while
+  preserving the boundary that expression parsing, continuation handling,
+  nesting validation and semantic checking remain future work. This is a
+  complete-source operation over the declared corpus, not a complete Fortran
+  parser.
+
+analysis: research/experiments/E0061-can-generated-parser-accept-complete-/analyse.sh
