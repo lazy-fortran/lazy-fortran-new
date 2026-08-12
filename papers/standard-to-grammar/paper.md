@@ -151,6 +151,12 @@ E0086 preserves 2 resolved and 1 disputed
 records in a three-row slice, retaining 1 competing
 predicate candidate and deriving 8 accepted dependency edges
 only from resolved rows. It uses no parser projections or model calls.
+E0087 composes 23 selected rows into one ledger:
+21 resolved, 1 disputed, and
+265 unresolved records over the 287-rule
+denominator. It derives 67 accepted dependency edges, records
+0 adjudication-gate violations, and uses no parser
+projections or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection plus bounded semantic-evidence and predicate boundaries. It does not claim
@@ -612,6 +618,11 @@ vocabulary does not express implied type parameters. The next milestone is a
 competing interpretation recorded as disputed. E0086 exercises that state while
 leaving the competing candidate pending adjudication. The next milestone is a
 wider candidate-preserving inventory and an explicit adjudication gate.
+E0087 supplies that composite gate over the four deterministic slices. The
+ledger accepts only source-witnessed resolved rows, retains the disputed C734
+alternatives without wiring, and leaves the implicit-type-parameter residue
+unresolved. The next milestone is to adjudicate the disputed candidate or
+extend the deterministic fact vocabulary before model escalation.
 
 ## References
 
@@ -1456,6 +1467,29 @@ The following rows are extracted from the accepted projection run records.
 | Required fact records | 6 |
 | Provided fact records | 2 |
 | Dependency edges | 8 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
+| Controlled mutation | observed_failure |
+
+## E0087 composite semantic ledger and adjudication gate
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | 287 |
+| Selected policy rows | 23 |
+| Resolved constraints | 21 |
+| Disputed constraints | 1 |
+| Unresolved constraints | 265 |
+| Accepted predicates | 21 |
+| Competing candidate records | 1 |
+| Source-hash matches | 287 |
+| Available source-evidence matches | 22 |
+| Independent oracle difference | 0 |
+| Adjudication-gate violations | 0 |
+| Required fact records | 46 |
+| Provided fact records | 21 |
+| Dependency edges | 67 |
 | Topological-order difference | 0 |
 | Independent normalization difference | 0 |
 | Parser projection records | 0 |

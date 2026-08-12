@@ -1,0 +1,45 @@
+name        = "E0087-R000001-composite-semantic-ledger-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/bcf853c"
+sha256      = "56f9a1c9d05ca6ceb26d75b1e9d557d0880c72ebbcf61b69df35481168073a30"
+bytes       = 923
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of composite semantic-ledger and adjudication-gate result"
+path        = ".cache/runs/E0087/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+policy_sha256 = "d497871ec375266a2d5c83e4d93c604305bb715830a6e22480fe1fb416aa8bbf"
+oracle_sha256 = "f5b5c0ef838a93054841061e646566a1c337612086fd31c652e5fcf56c54bb8a"
+formalizations_sha256 = "9f36fc899a61e9a9e773ab1ddccbc6734b97067da5666cce36cb39517053a84e"
+dependency_sha256 = "0234536061270f11d607358dd0b9b114482e068dc198db3180481898d46bafee"
+topological_sha256 = "9b267ad85988b6caa999f4ff62318facb0d656c697ed88bc9fef7880b75ee6d6"
+generator = "lazy-fortran-new E0087 composite semantic ledger and adjudication gate"
+generator_commit = "bcf853c"
+checker = "research/experiments/E0087-can-one-composite-semantic-ledger-preser/analyse.sh"
+checker_commit = "bcf853c"
+eligible_constraints = 287
+selected_rows = 23
+resolved_constraints = 21
+disputed_constraints = 1
+unresolved_constraints = 265
+accepted_predicates = 21
+competing_candidate_records = 1
+source_hash_matches = 287
+source_evidence_matches = 22
+independent_oracle_agreement = 0
+adjudication_gate_violations = 0
+required_fact_records = 46
+provided_fact_records = 21
+dependency_edges = 67
+topological_order_difference = 0
+independent_normalization_difference = 0
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0087-can-one-composite-semantic-ledger-preser/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

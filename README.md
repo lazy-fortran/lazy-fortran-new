@@ -85,7 +85,10 @@ predicates, retains one implicit-typing rule unresolved and derives 19
 dependency edges. A disputed interpretation and the completeness gate remain
 open. E0086 preserves one disputed predicate with both competing candidates,
 derives 8 accepted dependency edges from two resolved rows, and keeps 284
-constraints unresolved without parser projections or model calls.
+constraints unresolved without parser projections or model calls. E0087
+composes the four semantic slices into one 287-row ledger with 21 resolved,
+one disputed and 265 unresolved records, 67 accepted dependency edges, and no
+adjudication-gate violations.
 Regenerate the paper numbers with `papers/standard-to-grammar/analyse.sh` and
 the laboratory index with `scripts/index.sh`.
 

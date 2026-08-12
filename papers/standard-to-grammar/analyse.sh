@@ -138,6 +138,7 @@ assert_run R000093 '.status == "accepted" and .experiment == "E0084" and .verifi
 assert_run R000094 '.status == "accepted" and .experiment == "E0085" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.policy_rows == 6 and .verification.resolved_constraints == 5 and .verification.unresolved_constraints == 282 and .verification.disputed_constraints == 0 and .verification.normalized_predicates == 5 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 5 and .verification.required_fact_records == 14 and .verification.provided_fact_records == 5 and .verification.dependency_edges == 19 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 
 assert_run R000095 '.status == "accepted" and .experiment == "E0086" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.policy_rows == 3 and .verification.resolved_constraints == 2 and .verification.disputed_constraints == 1 and .verification.unresolved_constraints == 284 and .verification.normalized_predicates == 2 and .verification.competing_candidate_records == 1 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 3 and .verification.required_fact_records == 6 and .verification.provided_fact_records == 2 and .verification.dependency_edges == 8 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000096 '.status == "accepted" and .experiment == "E0087" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_rows == 23 and .verification.resolved_constraints == 21 and .verification.disputed_constraints == 1 and .verification.unresolved_constraints == 265 and .verification.accepted_predicates == 21 and .verification.competing_candidate_records == 1 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 22 and .verification.independent_oracle_agreement == 0 and .verification.adjudication_gate_violations == 0 and .verification.required_fact_records == 46 and .verification.provided_fact_records == 21 and .verification.dependency_edges == 67 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -729,6 +730,24 @@ disputed_order_difference=$(metric R000095 '.verification.topological_order_diff
 disputed_difference=$(metric R000095 '.verification.independent_normalization_difference')
 disputed_projections=$(metric R000095 '.verification.parser_projection_records')
 disputed_negative=$(metric R000095 '.verification.negative_control')
+composite_eligible=$(metric R000096 '.verification.eligible_constraints')
+composite_selected=$(metric R000096 '.verification.selected_rows')
+composite_resolved=$(metric R000096 '.verification.resolved_constraints')
+composite_disputed=$(metric R000096 '.verification.disputed_constraints')
+composite_unresolved=$(metric R000096 '.verification.unresolved_constraints')
+composite_predicates=$(metric R000096 '.verification.accepted_predicates')
+composite_candidates=$(metric R000096 '.verification.competing_candidate_records')
+composite_hashes=$(metric R000096 '.verification.source_hash_matches')
+composite_evidence=$(metric R000096 '.verification.source_evidence_matches')
+composite_difference=$(metric R000096 '.verification.independent_oracle_agreement')
+composite_gate_violations=$(metric R000096 '.verification.adjudication_gate_violations')
+composite_required=$(metric R000096 '.verification.required_fact_records')
+composite_provided=$(metric R000096 '.verification.provided_fact_records')
+composite_edges=$(metric R000096 '.verification.dependency_edges')
+composite_order_difference=$(metric R000096 '.verification.topological_order_difference')
+composite_normalization_difference=$(metric R000096 '.verification.independent_normalization_difference')
+composite_projections=$(metric R000096 '.verification.parser_projection_records')
+composite_negative=$(metric R000096 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1579,6 +1598,29 @@ EOF
 | Parser projection records | $disputed_projections |
 | Controlled mutation | $disputed_negative |
 
+## E0087 composite semantic ledger and adjudication gate
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | $composite_eligible |
+| Selected policy rows | $composite_selected |
+| Resolved constraints | $composite_resolved |
+| Disputed constraints | $composite_disputed |
+| Unresolved constraints | $composite_unresolved |
+| Accepted predicates | $composite_predicates |
+| Competing candidate records | $composite_candidates |
+| Source-hash matches | $composite_hashes |
+| Available source-evidence matches | $composite_evidence |
+| Independent oracle difference | $composite_difference |
+| Adjudication-gate violations | $composite_gate_violations |
+| Required fact records | $composite_required |
+| Provided fact records | $composite_provided |
+| Dependency edges | $composite_edges |
+| Topological-order difference | $composite_order_difference |
+| Independent normalization difference | $composite_normalization_difference |
+| Parser projection records | $composite_projections |
+| Controlled mutation | $composite_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1971,6 +2013,24 @@ rendered=${rendered//@DISPUTED_ORDER_DIFFERENCE@/$disputed_order_difference}
 rendered=${rendered//@DISPUTED_DIFFERENCE@/$disputed_difference}
 rendered=${rendered//@DISPUTED_PROJECTIONS@/$disputed_projections}
 rendered=${rendered//@DISPUTED_NEGATIVE@/$disputed_negative}
+rendered=${rendered//@COMPOSITE_ELIGIBLE@/$composite_eligible}
+rendered=${rendered//@COMPOSITE_SELECTED@/$composite_selected}
+rendered=${rendered//@COMPOSITE_RESOLVED@/$composite_resolved}
+rendered=${rendered//@COMPOSITE_DISPUTED@/$composite_disputed}
+rendered=${rendered//@COMPOSITE_UNRESOLVED@/$composite_unresolved}
+rendered=${rendered//@COMPOSITE_PREDICATES@/$composite_predicates}
+rendered=${rendered//@COMPOSITE_CANDIDATES@/$composite_candidates}
+rendered=${rendered//@COMPOSITE_HASHES@/$composite_hashes}
+rendered=${rendered//@COMPOSITE_EVIDENCE@/$composite_evidence}
+rendered=${rendered//@COMPOSITE_DIFFERENCE@/$composite_difference}
+rendered=${rendered//@COMPOSITE_GATE_VIOLATIONS@/$composite_gate_violations}
+rendered=${rendered//@COMPOSITE_REQUIRED@/$composite_required}
+rendered=${rendered//@COMPOSITE_PROVIDED@/$composite_provided}
+rendered=${rendered//@COMPOSITE_EDGES@/$composite_edges}
+rendered=${rendered//@COMPOSITE_ORDER_DIFFERENCE@/$composite_order_difference}
+rendered=${rendered//@COMPOSITE_NORMALIZATION_DIFFERENCE@/$composite_normalization_difference}
+rendered=${rendered//@COMPOSITE_PROJECTIONS@/$composite_projections}
+rendered=${rendered//@COMPOSITE_NEGATIVE@/$composite_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

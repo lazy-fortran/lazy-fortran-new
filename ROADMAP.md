@@ -554,8 +554,12 @@ evidence for the thesis.
       accepted fact-dependency edges, with no parser projections or model calls
       (E0086, regenerate with
       `research/experiments/E0086-can-the-formalization-ledger-preserve-co/analyse.sh`)
-- [ ] Broaden candidate-preserving formalization and define the adjudication
-      evidence required before a disputed row becomes an accepted fact
+- [x] Compose the four deterministic semantic slices into one 287-row ledger:
+      21 resolved, 1 disputed, 265 unresolved, 67 accepted fact-dependency
+      edges, and zero adjudication-gate violations (E0087, regenerate with
+      `research/experiments/E0087-can-one-composite-semantic-ledger-preser/analyse.sh`)
+- [ ] Adjudicate the disputed candidate or extend the deterministic fact
+      vocabulary before model escalation
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
@@ -585,6 +589,8 @@ evidence for the thesis.
       per attempt including failures
 - [x] `unresolved` and `disputed` states exercised on real clauses, not just
       supported in principle (E0085 and E0086)
+- [x] Composite adjudication gate preserves the three states and excludes
+      disputed and unresolved rows from accepted dependency wiring (E0087)
 - [ ] Acceptance rule enforced: independent formalizations normalize to the
       same form and witnesses agree with at least two oracles
 - [ ] Count eligible Core 0 rules before formalization and report resolved,
@@ -636,6 +642,7 @@ evidence for the thesis.
 - [x] E0083 deterministic bounded Core 0 constraint formalization recorded
 - [x] E0084 deterministic cross-clause Core 0 fact formalization recorded
 - [x] E0085 continuation-aware deterministic constraint normalization recorded
+- [x] E0087 composite semantic ledger and adjudication gate recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

@@ -833,6 +833,29 @@ The following rows are extracted from the accepted projection run records.
 | Parser projection records | 0 |
 | Controlled mutation | observed_failure |
 
+## E0087 composite semantic ledger and adjudication gate
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | 287 |
+| Selected policy rows | 23 |
+| Resolved constraints | 21 |
+| Disputed constraints | 1 |
+| Unresolved constraints | 265 |
+| Accepted predicates | 21 |
+| Competing candidate records | 1 |
+| Source-hash matches | 287 |
+| Available source-evidence matches | 22 |
+| Independent oracle difference | 0 |
+| Adjudication-gate violations | 0 |
+| Required fact records | 46 |
+| Provided fact records | 21 |
+| Dependency edges | 67 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

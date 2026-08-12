@@ -151,6 +151,12 @@ E0086 preserves @DISPUTED_RESOLVED@ resolved and @DISPUTED_DISPUTED@ disputed
 records in a three-row slice, retaining @DISPUTED_CANDIDATES@ competing
 predicate candidate and deriving @DISPUTED_EDGES@ accepted dependency edges
 only from resolved rows. It uses no parser projections or model calls.
+E0087 composes @COMPOSITE_SELECTED@ selected rows into one ledger:
+@COMPOSITE_RESOLVED@ resolved, @COMPOSITE_DISPUTED@ disputed, and
+@COMPOSITE_UNRESOLVED@ unresolved records over the @COMPOSITE_ELIGIBLE@-rule
+denominator. It derives @COMPOSITE_EDGES@ accepted dependency edges, records
+@COMPOSITE_GATE_VIOLATIONS@ adjudication-gate violations, and uses no parser
+projections or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection plus bounded semantic-evidence and predicate boundaries. It does not claim
@@ -612,6 +618,11 @@ vocabulary does not express implied type parameters. The next milestone is a
 competing interpretation recorded as disputed. E0086 exercises that state while
 leaving the competing candidate pending adjudication. The next milestone is a
 wider candidate-preserving inventory and an explicit adjudication gate.
+E0087 supplies that composite gate over the four deterministic slices. The
+ledger accepts only source-witnessed resolved rows, retains the disputed C734
+alternatives without wiring, and leaves the implicit-type-parameter residue
+unresolved. The next milestone is to adjudicate the disputed candidate or
+extend the deterministic fact vocabulary before model escalation.
 
 ## References
 
