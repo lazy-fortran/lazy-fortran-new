@@ -5,6 +5,7 @@ Design note for `lazy-fortran/lazy-fortran-new`.
 This defines the two intermediate representations of the specification-generated
 architecture and the bootstrap strategy that moves the implementation into
 Fortran, and then onto the generated Fortran compiler, as early as practical.
+The deterministic composition boundary is D0016.
 
 ```
 Normative standard
@@ -22,6 +23,14 @@ There are two semantic intermediate representations. **StandardIR** describes
 what the language means. **ImplIR** describes a small constructive
 implementation algorithm when one is actually necessary. They share a trivial
 tree serialization, and that serialization is not itself a third semantic IR.
+
+The laboratory may use a frontier model in dialogue with its author to choose
+the meta-architecture, write schemas or review the design. That is authorship
+of the research, not model ownership of the generated compiler. The compiler
+derivation has two distinct parts: local synthesis may fill a typed ImplIR
+hole, while structural composition is deterministic. The wiring generator
+owns the source tree, modules, dependencies, dispatch, registration and
+generated APIs.
 
 The change from the earlier sketch is in the second arrow. ImplIR was described
 as the path every rule takes. It is not. Most constraints compile mechanically,
@@ -195,6 +204,22 @@ From it we generate Fortran types plus reader, writer, validator, visitor,
 equality, canonical hashing and debug printer. None of those is maintained by
 hand.
 
+### 5.1 The wiring generator
+
+The schema generator creates representations and their ordinary APIs. A
+separate wiring generator composes the complete generated compiler from
+StandardIR, AST and MIR schemas, runtime and ABI specifications, target
+descriptions, profile metadata and accepted local fragments. It deterministically
+emits module boundaries, `USE` dependencies, declarations, dispatch,
+registration, fact scheduling, public APIs and the source grouping used for
+compilation.
+
+The generator may begin with generic engines and generated rule tables. A
+specializer may later fuse those tables into direct procedures and remove
+runtime lookup. Both outputs are derived from the same records. A local ImplIR
+fragment cannot choose its module, its callers, its ordering or the compiler-wide
+dispatch convention.
+
 ---
 
 ## 6. Why not ASDL itself
@@ -238,6 +263,21 @@ without designing a universal semantics framework first.
 The vocabulary is `(ref X)`, `(token X)`, `(literal X)`, `(seq ...)`,
 `(alt ...)`, `(optional X)`, `(repeat X min max)`. Alternative parser
 implementations are generated from it.
+
+The same syntax projection generates canonical EBNF or BNF, ANTLR4 `.g4`,
+Bison `.y`, tree-sitter input where useful and the input for the specialized
+parser generator. These are compatibility and comparison exports, not
+authoritative grammars. Each production carries its StandardIR rule number,
+source document, source hash and generator revision. They represent syntax
+only. Constraints and semantic relations remain separate StandardIR inputs.
+
+The exports make independent comparison possible. The old `standard` `.g4`
+corpus and kaby76 can be normalized structurally where their formats permit it.
+LFortran and Flang can be compared through permitted grammar artifacts where
+they expose them, and through parser behavior. gfortran is a GPL behavioral
+oracle only. Its source is not read or imported. A comparison adapter records
+whether an external result is structural or behavioral, so an oracle does not
+need to expose the same parser format for its result to be comparable.
 
 ### Definitions
 
@@ -290,13 +330,24 @@ Fortran.
 ```
 (constraint C1234
   (vars (x symbol))
+  (on procedure-dummy)
+  (requires-facts resolved-symbol rank)
+  (provides-facts checked-dummy)
   (require (exists x))
   (require (eq (rank x) 0))
   (diagnostic ERR_NONSCALAR)
   (source J3-24-007 C1234))
 ```
 
-This compiles directly into a semantic checker. No model, and no ImplIR.
+This compiles directly into a semantic checker. This path is mechanical. It
+produces no model-generated fragment.
+
+The `on`, `requires-facts` and `provides-facts` metadata let the wiring
+generator build a fact dependency graph. It topologically schedules scope
+creation, name resolution, type and rank facts, and applicable checks. A phase
+name can be derived from that graph rather than maintained as a separate
+manual ordering. The output can be a generic rule table first and fused direct
+procedures later.
 
 ---
 
@@ -440,7 +491,10 @@ to revisit with evidence.
 ```
 
 `require rank(x) = 0` should compile mechanically. Calling a model to produce
-that checker would be waste. ImplIR exists for the residue.
+that checker would be waste. ImplIR exists for the residue. When a model or
+solver supplies a local fragment, its contract identifies the facts it reads
+and writes. The wiring generator still chooses the module, call sites,
+preconditions, ordering and registration.
 
 ---
 
@@ -458,6 +512,11 @@ interpret first → verify semantics → profile → specialize → benchmark
 ```
 
 rather than writing procedural implementations up front.
+
+The first executable form may therefore be a generic engine plus a generated
+rule table. Once correctness and dependencies are established, specialization
+can fuse the table into direct code. The same staged approach applies to
+semantic checks, parser dispatch and MIR lowering dispatch.
 
 ---
 
@@ -530,8 +589,9 @@ the internal architecture.
 filesystem-facing toolchain would need strings, maps, sets, I/O, collections,
 recursion, error handling and filesystem APIs — at which point ImplIR is
 another programming language and its value to small models is gone. The
-boundary is: generic infrastructure in Fortran, generated local algorithms in
-ImplIR.
+boundary is: generic infrastructure and structural wiring in Fortran, with
+generated local algorithms in ImplIR. The LLM or solver can fill a local hole,
+but it never composes the compiler or writes its architecture.
 
 ---
 
@@ -597,13 +657,14 @@ change that its own implementation cannot process.
 1. SX reader and writer in Bootstrap Fortran
 2. StandardIR schema → generated Fortran types
 3. ImplIR schema → generated Fortran types
-4. StandardIR syntax → generated Fortran parser
-5. StandardIR constraints → generated semantic checker
-6. Compiler handles enough Bootstrap Core to compile the SX and IR tools
-7. Compiler compiles the parser and semantic generators
-8. Compiler compiles itself
-9. Generated SX parser replaces the seed by default
-10. Native backend removes the LLVM dependency
+4. StandardIR syntax → canonical grammar exports and generated parser inputs
+5. Schemas and architecture metadata → deterministic source wiring
+6. StandardIR constraints → generated semantic checker and rule table
+7. Compiler handles enough Bootstrap Core to compile the SX and IR tools
+8. Compiler compiles the parser and semantic generators
+9. Compiler compiles itself
+10. Generated SX parser replaces the seed by default
+11. Native backend removes the LLVM dependency
 
 ---
 

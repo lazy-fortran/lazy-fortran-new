@@ -8,6 +8,12 @@ several disagreeing formalizations is right. Produces one of three verdicts:
 ours wrong, theirs wrong, or the document is ambiguous. The verdict is
 recorded. The third case is a result about the standard.
 
+**Architecture generator**: the deterministic generator that composes the
+complete compiler source tree from StandardIR, schemas, runtime and ABI
+specifications, target descriptions, profile metadata and accepted local
+fragments. It owns modules, `USE` dependencies, declarations, dispatch,
+registration, fact scheduling, generated APIs and source grouping.
+
 **Behavioural comparison**: running an oracle compiler and comparing its
 observable output. The only permitted use of GPL-licensed compilers here. See
 `docs/provenance.md`.
@@ -25,6 +31,11 @@ itself.
 **Differential oracle**: an independent implementation used to detect
 disagreement, not to define correctness. gfortran, Flang, LFortran, FortFront
 and FFC are oracles. None is normative; StandardIR is.
+
+**Generated export**: a non-authoritative projection of StandardIR syntax into
+EBNF or BNF, ANTLR4, Bison, tree-sitter or a specialized parser-generator
+input. It carries rule provenance and is used for interoperability and
+comparison, not as a maintained semantic source.
 
 **ffc-new**, the driver and middle end: typed frontend output to MIR to
 optimization, plus the command line. ISA-independent.
@@ -45,9 +56,16 @@ analysis, typed semantic result, standard-Fortran emitter.
 
 **ImplIR**: the tiny procedural language that expresses how a rule is
 implemented locally, used only for the residue that cannot be specialized
-mechanically from StandardIR (D0007). Its defining constraint is that its complete grammar and
-semantics fit in a prompt. Audience: generators, synthesis systems and small
-models, not people. See `DESIGN.md` §4.
+mechanically from StandardIR (D0007). Its defining constraint is that its
+complete grammar and semantics fit in a prompt. An ImplIR fragment is a typed
+local hole. It cannot choose its module, callers, ordering or compiler-wide
+dispatch. Audience: generators, synthesis systems and small models, not
+people. See `DESIGN.md` §4.
+
+**Local hole**: a named, typed constructive task with input facts, output
+facts, diagnostics, provenance and an independent verification obligation. A
+mechanical template, solver or model may fill it. The structural generator
+composes the accepted result.
 
 **Laboratory**: this repository. Holds research, wiring, evidence and papers,
 and no compiler code.
@@ -60,10 +78,12 @@ gate never observed failing is not evidence. Imported from `fortfront`'s
 Lazy Fortran repositories are oracles and historical evidence, never
 architectural constraints.
 
-**Origin label**: the mechanism by which an artifact was produced:
+**Origin label**: the mechanism by which an artifact was derived:
 `MECHANICAL`, `SEARCH`, `SMT`, `LLM`, `LLM_REPAIR`, `HUMAN`, `IMPORTED`,
-`DIFFERENTIAL`. Attached to every generated artifact. Without it the project
-cannot answer the question it exists to ask.
+`DIFFERENTIAL`. Attached to every generated artifact. It describes the artifact
+derivation step, not whether a frontier model helped a person write the
+surrounding research or generator design. Without it the project cannot answer
+the question it exists to ask.
 
 **Physical representation**: how a value is laid out and passed: descriptor,
 pointer to descriptor, fixed-size array, assumed rank, character descriptor and
@@ -77,6 +97,8 @@ tests. No research history.
 
 **Profile**: a selection of StandardIR rule IDs plus dependency closure. Core
 0, Core 1 and full F2023 are profiles over one corpus, never parallel artifacts.
+Reachability closure and feature eligibility are separate projections. E0014
+and D0015 record that distinction.
 
 **Provenance**: for a StandardIR entry: document, clause, rule number, page and
 source hash. An entry that cannot cite the document is not a formalization of
@@ -97,11 +119,17 @@ the differential oracle for its replacement. See D0009.
 
 **Specialization**: compiling a declarative StandardIR rule into procedural
 code, the middle path between interpreting the rule and synthesizing ImplIR for
-it. The Statix work on specializing scope-resolution queries is the precedent.
+it. It can also fuse a generated rule table and remove generic dispatch. The
+Statix work on specializing scope-resolution queries is the precedent.
+
+**Structural generation**: see *architecture generator*. Composition of
+language-specific source is deterministic for fixed inputs and generator
+revision. It is distinct from local generation, which fills a typed hole.
 
 **StandardIR**: the declarative representation of what the language means,
-derived from the normative document with provenance per entry. Not
-implementation code. See `DESIGN.md` §3.
+derived from the normative document with provenance per entry. Its semantic
+rules record applicability and fact dependencies so generated wiring can
+schedule them. Not implementation code. See `DESIGN.md` §3.
 
 **Strict rate**: a pass rate whose denominator includes skipped cases. Reported
 alongside, never instead of, the evaluated rate. `ffc`'s gfortran-dg row reads
@@ -120,3 +148,8 @@ executable ISA model such as Sail; the reason RISC-V comes first.
 and the ISA specification's own correctness, the OS and C library, the bootstrap
 compiler, bound C libraries, and the verification tools. Stated explicitly so
 the project's claim is not mistaken for a stronger one. See `WHITEPAPER.md` §19.
+
+**Wiring generator**: the structural generator's composition role. It derives
+the module graph, procedure declarations, dispatch, registration, fact order,
+public APIs and generated source layout from schemas and specifications. A
+model-generated local fragment never owns this wiring.

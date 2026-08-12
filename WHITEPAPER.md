@@ -433,6 +433,12 @@ end
 which lowers mechanically to Fortran. The model never reasons about Fortran
 implementation mechanics.
 
+The boundary is structural. A model may propose the local `ImplIR` body for
+one unresolved rule. It does not choose the module that contains the body, the
+facts passed to it, the checks that precede it, the callers that invoke it, or
+the order in which those callers run. Those choices come from the architecture
+generator and StandardIR metadata.
+
 ### Generating ImplIR mechanically
 
 Wherever possible, we should, and that is the intended maturation path. A new
@@ -450,6 +456,30 @@ Deterministic generation; then symbolic search, SMT or CEGIS; then the smallest
 model, escalating through model scales; then human intervention only if
 unavoidable. Stop at the cheapest accepted solution and record which
 level produced the artifact.
+
+This hierarchy applies to two separate generation tasks.
+
+**Local generation** fills a typed hole. The hole names its rule, inputs,
+outputs, diagnostics and witnesses. Mechanical templates, a solver, or a
+small model may fill it. The accepted result is parsed into ImplIR and emitted
+through the deterministic Fortran emitter.
+
+**Structural generation** composes the compiler. It reads StandardIR, AST and
+MIR schemas, runtime and ABI specifications, target descriptions, profile
+metadata, and accepted local fragments. It creates the source tree, module and
+`USE` graph, declarations, dispatch, registration, fact scheduling and
+generated APIs. It also generates the syntax exports used by comparison
+parsers. The output is canonical for a fixed input and generator revision.
+
+The LLM can participate in the first task. It has no authority in the second.
+The sentence “no LLM” in a generation gate refers to the derivation of that
+artifact. It does not refer to the frontier-model dialogue through which a
+human and the model develop the meta-architecture or the generator itself.
+
+The generic first implementation may execute generated rule tables through a
+small semantic engine. A specializer can later turn the same table and fact
+graph into fused direct procedures. This is partial evaluation of a verified
+composition, not a second hand-maintained architecture.
 
 ---
 
@@ -538,6 +568,19 @@ The parser structure is generated from StandardIR syntax. Predictive recursive
 descent, LALR, specialized direct parsing, Pratt expression parsing and hybrids
 are candidates. Generate several, benchmark them against real corpora, keep the
 fastest correct one. The grammar does not change.
+
+The same syntax records also generate canonical EBNF or BNF, ANTLR4 `.g4`,
+Bison `.y`, tree-sitter input where it is useful, and the input consumed by the
+specialized parser generator. These are export projections, not additional
+normative grammars. They carry rule numbers and source provenance so that
+parser behavior can be compared without making any exported format the source
+of truth.
+
+The comparison boundary follows the license boundary. The old `standard` and
+kaby76 grammar artifacts can be normalized and compared structurally. LFortran
+and Flang can be compared through permitted grammar artifacts and parser
+behavior. gfortran remains a behavioral oracle only. Its GPL source is neither
+read nor used as an export input.
 
 The frontend exposes the following by construction, so that no consumer
 reconstructs any of it: resolved symbols and
@@ -709,7 +752,9 @@ Three properties of the record matter for the claims above, and `RESEARCH.md`
 specifies the formats that enforce them. Runs are append-only, so a reported
 rate cannot be improved after the fact. Failed runs are kept, so the
 denominator is real. Every artifact carries one of eight origin labels, which
-is what turns "mostly generated" from an impression into a count.
+is what turns "mostly generated" from an impression into a count. The label
+describes the derivation of the artifact. It does not describe whether a model
+helped a person write the surrounding research or generator design.
 
 ---
 

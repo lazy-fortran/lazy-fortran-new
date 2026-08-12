@@ -48,6 +48,7 @@ Runs recorded: 23
 | [D0013](decisions/D0013-four-corpus-grammar-comparison.md) | accepted | Amends D0005 | Four-corpus grammar comparison denominator |
 | [D0014](decisions/D0014-core-syntax-boundary.md) | accepted |  | Core syntax boundary includes assumed syntax |
 | [D0015](decisions/D0015-profile-closure-is-reachability.md) | accepted |  | Profile closure is reachability, not feature support |
+| [D0016](decisions/D0016-deterministic-structural-generation.md) | accepted |  | Deterministic structural generation and local synthesis holes |
 
 ## Pinned artifacts
 

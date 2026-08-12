@@ -61,6 +61,38 @@ frontend → MIR → backend (RISC-V, AArch64, then x86-64)
 Every arrow produces artifacts with an origin label and provenance back to the
 document. Every box has at least one independent check.
 
+The project distinguishes authorship of this laboratory from derivation of
+compiler artifacts. A frontier model may help the user and the project author
+choose the architecture, write schemas, or review a design. That dialogue does
+not make the compiler output model-generated. The origin of an artifact records
+the derivation step that produced it. Structural source generation and wiring
+are `MECHANICAL`. A model or solver may produce a small local `ImplIR` hole
+when the deterministic paths cannot close it.
+
+The governing invariant is:
+
+> A small piece may be synthesized, but composition is deterministic. The LLM
+> never owns the architecture.
+
+### Two kinds of generation
+
+**Local generation** produces one typed constructive fragment for a named
+unresolved rule. The fragment has an input contract, an output contract, rule
+provenance, and an independent verification obligation. It does not choose a
+module, a caller, a pass order, or a registration mechanism.
+
+**Structural generation** consumes StandardIR metadata, AST and MIR schemas,
+runtime and ABI specifications, target descriptions, and accepted local
+fragments. It emits the source tree, module boundaries, `USE` dependencies,
+procedure declarations, dispatch, rule ordering, fact dependencies,
+registration and generated APIs. The same inputs and generator revision produce
+the same canonical source tree.
+
+The first structural implementation may use generic engines and generated rule
+tables. A later specializer may fuse rules, remove table lookups, and emit
+direct calls. These are two implementations of the same generated composition,
+not two sources of architectural truth.
+
 ---
 
 ## 3. StandardIR
@@ -117,6 +149,52 @@ A **profile** is not a second grammar. It is a set of rule IDs plus a computed
 dependency closure, so Core 0, Core 1 and full F2023 are selections over one
 corpus rather than parallel artifacts that can drift apart.
 
+StandardIR also carries the information needed to schedule generated work. A
+semantic rule may declare its subject, the facts it requires, the facts it
+provides, and the source construct to which it applies. A phase label can be a
+derived presentation detail. The dependency graph is authoritative:
+
+```
+parse node → scope creation → name resolution → type resolution → rank facts
+                                                               ↓
+                                                     applicable constraints
+```
+
+The graph generator topologically schedules facts and checks. It can emit one
+procedure per rule, a generated rule table, or fused procedures. The choice is a
+performance option and never changes the StandardIR record.
+
+### Generated syntax projections
+
+The syntax objects have one canonical structural form. Export formats are
+derived views for interoperability and comparison:
+
+```
+StandardIR syntax
+        ↓
+canonical grammar projection
+        ├── EBNF or BNF documentation
+        ├── ANTLR4 .g4
+        ├── Bison .y
+        ├── tree-sitter grammar where useful
+        └── the specialized parser-generator input
+```
+
+Every exported production carries its StandardIR rule number, source document,
+source hash and generator revision. The exports describe syntax. Constraints,
+relations and semantic effects remain separate StandardIR inputs to the
+semantic engine.
+
+The four comparison corpora remain comparison sources. The old `standard`
+`.g4` corpus and kaby76 can be compared structurally where their formats allow
+it. LFortran and Flang are compared through permitted grammar artifacts where
+they expose them, and through parser behavior. gfortran is a GPL behavioral
+oracle only. Its source is not read or imported into an export. A comparison
+adapter records whether each result is structural or behavioral. The export
+suite is therefore the common representation for independent parser
+implementations without pretending that every oracle has the same internal
+parser format.
+
 Each rule also carries a resolution state: `resolved`, `unresolved`, or
 `disputed` with the disagreeing formalizations attached. An unresolved rule
 means the compiler declines to claim support for the feature. That is a
@@ -151,6 +229,11 @@ The constraint that gives ImplIR its value is that it stays small enough for its
 whole grammar and semantics to fit in a prompt. Every addition is measured
 against that. If ImplIR needs a page of documentation, the hypothesis it was
 built to test has already been abandoned.
+
+An accepted ImplIR fragment is a local implementation artifact. The structural
+generator decides where it is emitted, which facts it receives, which checks
+precede it, and which callers use it. A fragment cannot introduce a new
+compiler-wide module or dispatch convention.
 
 Emitters: Fortran is the product. C and Rust emitters exist as controls for E8,
 so the same algorithm can be compared across languages without measuring model

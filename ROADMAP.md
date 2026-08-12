@@ -165,7 +165,7 @@ normalized view rather than overwriting the source extraction.
 - [ ] Fuzzed trees and a malformed-input corpus
 - [ ] Content hashing: parse → validate → normalize → serialize → SHA-256
 
-### 1.3 Schema language and generator
+### 1.3 Schema language and generator (D0016)
 
 The first place the project generates rather than writes, so the first real
 evidence for the thesis.
@@ -179,6 +179,11 @@ evidence for the thesis.
 - [ ] Generated readers and writers agree with the seed and the fixed SX
       fixtures, not only with each other
 - [ ] Origin label `MECHANICAL` recorded for every generated artifact
+- [ ] Architecture metadata records applicability, required facts, provided
+      facts, runtime and ABI contracts, and generated source grouping
+- [ ] Deterministic wiring generator emits modules, `USE` dependencies,
+      declarations, dispatch, registration and generated APIs
+- [ ] Fixed inputs and generator revision produce a byte-stable source tree
 
 ### 1.4 Extraction to canonical text
 
@@ -205,9 +210,17 @@ evidence for the thesis.
 
 ### 1.6 Comparison and adjudication (D0005, D0013)
 
-- [ ] Generate a syntax grammar from StandardIR
-- [ ] Compare against four external corpora: the `standard` `.g4` corpus,
-      kaby76, LFortran and Flang
+- [ ] Generate canonical EBNF or BNF from StandardIR, with rule and provenance
+      annotations
+- [ ] Generate ANTLR4 `.g4`, Bison `.y`, tree-sitter where useful, and the
+      specialized parser-generator input
+- [ ] Compare the generated syntax against the `standard` `.g4` corpus and
+      kaby76 structurally where the formats permit
+- [ ] Compare permitted grammar artifacts and parser behavior against LFortran
+      and Flang
+- [ ] Compare parser behavior against gfortran as a GPL behavioral oracle only
+- [ ] Record a comparison adapter for each corpus, labeling structural grammar
+      results separately from behavioral results
 - [ ] Adjudicate every disagreement against 24-007
 - [ ] Classify each: ours wrong, theirs wrong, document ambiguous
 - [ ] Publish the defect rate per comparison corpus, with the denominator and
@@ -217,6 +230,10 @@ evidence for the thesis.
 
 - [ ] StandardIR constraints, definitions, relations and rules over Core 0
       clauses
+- [ ] Every rule records its subject, applicability, required facts and
+      provided facts
+- [ ] Fact dependency graph and topological rule scheduling are generated,
+      rather than maintained as a pass list
 - [ ] Mechanical formalization patterns first
 - [ ] Small-model then larger-model escalation on the residue, one run record
       per attempt including failures
@@ -252,8 +269,9 @@ evidence for the thesis.
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
 syntax coverage and the fraction extracted with zero model calls, complete
 semantic coverage and the fraction formalized mechanically, the minimum model
-size per remaining rule, and the four-corpus disagreement rates with
-adjudications.
+size per remaining rule, and the comparison-corpus disagreement rates with
+adjudications. The comparison report must separate structural grammar
+comparisons from behavioral oracle comparisons.
 
 ---
 
@@ -261,10 +279,16 @@ adjudications.
 
 - [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
 - [ ] Generate the lexer from the lexical specification
+- [ ] Generate canonical grammar exports: EBNF or BNF, ANTLR4, Bison and the
+      specialized parser-generator input
 - [ ] Generate at least two parser strategies from StandardIR syntax
 - [ ] Benchmark them on a pinned corpus; keep the fastest correct one
 - [ ] Generate the AST schema
+- [ ] Generate the frontend source tree and wiring from the AST schema and
+      architecture metadata
 - [ ] Generate semantic checks by direct specialization where possible (D0007)
+- [ ] Start with a generated rule table and generic semantic engine, then
+      specialize and fuse it without changing the authoritative records
 - [ ] ImplIR v0: type checker, normalizer, interpreter, Fortran emitter
 - [ ] Differential test: ImplIR interpreter against emitted-and-compiled
       Fortran
@@ -292,6 +316,8 @@ generated SX reader agrees with the seed on the whole corpus.
 ## Phase 3. Modern Fortran Core 0
 
 - [ ] Core 0 defined as a rule-ID selection with computed dependency closure
+- [ ] Feature-eligibility projection closes aggregate syntax alternatives without
+      confusing reachability with feature support (D0015)
 - [ ] Bootstrap Core defined the same way, as a strict subset (D0008)
 - [ ] Rules implemented for programs, modules, procedures, arrays,
       allocatables, control flow
@@ -310,6 +336,8 @@ programs, with coverage generated rather than typed.
 - [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
 - [ ] One MIR, operations added only with a recorded justification
 - [ ] Lowering from the typed frontend representation
+- [ ] MIR node dispatch and lowering wiring generated from the MIR schema
+- [ ] Local lowering holes cannot add modules, callers or dispatch conventions
 - [ ] Rank and type specialization generated from specification
 - [ ] **Acceptance test for the generated-lowering claim**: add a rank, observe
       that no consumer needed an edit (`LESSONS.md` §4)
@@ -353,6 +381,8 @@ differential execution against LLVM output.
 ## Phase 6. Self-hosting
 
 - [ ] Core 0 expanded until the compiler is expressible entirely within it
+- [ ] Structural generator emits the complete source tree and wiring without
+      model calls
 - [ ] gfortran builds compiler-0
 - [ ] compiler-0 builds compiler-1
 - [ ] compiler-1 builds compiler-2, from identical generated source and
