@@ -379,6 +379,9 @@ evidence for the thesis.
 - [x] Apply the accepted fixed errata overlay to the seven punctuation
       boundaries (E0047, regenerate with
       `research/experiments/E0047-can-source-controlled-punctuation-witnes/analyse.sh`)
+- [x] Inventory the complete R401/R403 assumed-expansion boundary after the
+      fixed errata overlay (E0048, regenerate with
+      `research/experiments/E0048-can-the-fixed-errata-overlays-normalize-/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with

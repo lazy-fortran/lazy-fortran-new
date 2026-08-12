@@ -49,6 +49,7 @@ Runs recorded: 56
 | E0045 | reported | 1 | Can source-controlled lexical witnesses close the unresolved operator and literal-marker references without normalizing Unicode or punctuation by guesswork? |
 | E0046 | reported | 1 | Can the accepted R402 and lexical D0019 witnesses compose into one deterministic parser projection while preserving the unresolved expansion boundary? |
 | E0047 | reported | 1 | Can source-controlled punctuation witnesses repair references whose comma or colon was absorbed into the StandardIR reference name without changing the source text? |
+| E0048 | draft | 0 | Can the fixed errata overlays normalize the remaining punctuation boundary and enumerate every R401/R403 expansion-family term without selecting its parser representation? |
 
 ## Run status
 

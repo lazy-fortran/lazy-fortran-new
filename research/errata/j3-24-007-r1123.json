@@ -1,0 +1,22 @@
+{
+  "document": "J3-24-007",
+  "source_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+  "entries": [
+    {
+      "id": "E0048-P001",
+      "status": "accepted",
+      "kind": "source-repair",
+      "origin": "LLM",
+      "decision_id": "D0025",
+      "source_term": "scalar-int-expr,",
+      "repaired_term": "scalar-int-expr",
+      "punctuation": ",",
+      "document": "J3-24-007",
+      "clause": "5-15",
+      "source_rule": "R1123",
+      "page": 210,
+      "source_excerpt": "R1123 loop-control is [ , ] do-variable = scalar-int-expr, scalar-int-expr",
+      "evidence_run": "R000057"
+    }
+  ]
+}
