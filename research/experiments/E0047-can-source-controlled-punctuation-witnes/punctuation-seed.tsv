@@ -1,0 +1,8 @@
+source_term	repaired_term	punctuation	document	clause	source_rule	page	source_excerpt
+assumed-implied-spec,	assumed-implied-spec	,	J3-24-007	5-15	R826	127	R826 implied-shape-spec is assumed-implied-spec, assumed-implied-spec-list
+explicit-shape-spec-list,	explicit-shape-spec-list	,	J3-24-007	5-15	R824	126	R824 assumed-size-spec is explicit-shape-spec-list, assumed-implied-spec
+format-items,	format-items	,	J3-24-007	5-15	R1302	289	or ( [ format-items, ] unlimited-format-item )
+integer-type-spec,	integer-type-spec	,	J3-24-007	5-15	R732	91	R732 type-param-def-stmt is integer-type-spec, type-param-attr-spec ::
+team-number,	team-number	,	J3-24-007	5-15	R1179	236	R1179 form-team-stmt is FORM TEAM ( team-number, team-variable
+upper-cobound,	upper-cobound	,	J3-24-007	5-15	R811	122	R811 explicit-coshape-spec is [ [ lower-cobound : ] upper-cobound, ]...
+where-construct-name:	where-construct-name	:	J3-24-007	5-15	R1044	198	R1044 where-construct-stmt is [where-construct-name:] WHERE ( mask-expr )
