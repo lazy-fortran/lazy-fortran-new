@@ -457,8 +457,11 @@ evidence for the thesis.
 - [x] Add expression-shaped AST children and source-linked kind/rule queries
       (E0064, regenerate with
       `research/experiments/E0064-can-generated-ast-expressions-be-queried-/analyse.sh`)
-- [ ] Compose recursive operator and literal expression subtrees, then
-      validate parser acceptance on a larger source set
+- [x] Compose recursive token-level expression subtrees and source-linked
+      witness queries (E0065, regenerate with
+      `research/experiments/E0065-can-generated-expression-subtrees-preserve-/analyse.sh`)
+- [ ] Compose precedence-shaped expression subtrees and broader literal
+      variants, then validate parser acceptance on a larger source set
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

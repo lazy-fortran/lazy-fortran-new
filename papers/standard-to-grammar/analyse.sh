@@ -115,6 +115,7 @@ assert_run R000070 '.status == "accepted" and .experiment == "E0061" and .verifi
 assert_run R000071 '.status == "accepted" and .experiment == "E0062" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.physical_meaningful_lines == 75 and .verification.expected_logical_statements == 73 and .verification.classified_logical_statements == 73 and .verification.source_linked_statements == 73 and .verification.continuation_joins == 2 and .verification.nesting_errors == 0 and .verification.max_nesting_depth == 2 and .verification.statement_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "logical_construct_operation_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000072 '.status == "accepted" and .experiment == "E0063" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.logical_statements == 73 and .verification.ast_nodes == 73 and .verification.source_linked_nodes == 73 and .verification.root_nodes == 5 and .verification.parent_links == 68 and .verification.child_links == 68 and .verification.ast_link_errors == 0 and .verification.max_ast_depth == 4 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_ast_forest_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000073 '.status == "accepted" and .experiment == "E0064" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.statement_nodes == 73 and .verification.expression_nodes == 52 and .verification.total_nodes == 125 and .verification.source_linked_nodes == 125 and .verification.root_nodes == 5 and .verification.parent_links == 120 and .verification.child_links == 120 and .verification.ast_link_errors == 0 and .verification.max_ast_depth == 5 and .verification.query_hits == 5 and .verification.unknown_query_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_expression_ast_query_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000074 '.status == "accepted" and .experiment == "E0065" and .verification.zero_model_calls == true and .verification.witness_files == 5 and .verification.expression_witnesses == 8 and .verification.base_expression_nodes == 125 and .verification.leaf_nodes == 28 and .verification.name_nodes == 10 and .verification.literal_nodes == 10 and .verification.operator_nodes == 8 and .verification.source_linked_leaves == 28 and .verification.subtree_parent_links == 28 and .verification.subtree_link_errors == 0 and .verification.max_subtree_depth == 6 and .verification.known_witness_queries == 8 and .verification.unknown_witness_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_token_subtrees_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -356,6 +357,22 @@ expression_compile=$(metric R000073 '.verification.fortran_compile_status')
 expression_runtime=$(metric R000073 '.verification.runtime_test_status')
 expression_mutation=$(metric R000073 '.verification.malformed_nesting_rejected')
 expression_boundary=$(metric R000073 '.verification.target_boundary')
+subtree_files=$(metric R000074 '.verification.witness_files')
+subtree_witnesses=$(metric R000074 '.verification.expression_witnesses')
+subtree_leaves=$(metric R000074 '.verification.leaf_nodes')
+subtree_names=$(metric R000074 '.verification.name_nodes')
+subtree_literals=$(metric R000074 '.verification.literal_nodes')
+subtree_operators=$(metric R000074 '.verification.operator_nodes')
+subtree_linked=$(metric R000074 '.verification.source_linked_leaves')
+subtree_parents=$(metric R000074 '.verification.subtree_parent_links')
+subtree_errors=$(metric R000074 '.verification.subtree_link_errors')
+subtree_depth=$(metric R000074 '.verification.max_subtree_depth')
+subtree_queries=$(metric R000074 '.verification.known_witness_queries')
+subtree_unknown=$(metric R000074 '.verification.unknown_witness_rejected')
+subtree_compile=$(metric R000074 '.verification.fortran_compile_status')
+subtree_runtime=$(metric R000074 '.verification.runtime_test_status')
+subtree_mutation=$(metric R000074 '.verification.malformed_nesting_rejected')
+subtree_boundary=$(metric R000074 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -745,6 +762,27 @@ EOF
 | Malformed nesting rejected | $expression_mutation |
 | Expression AST query boundary | $expression_boundary |
 
+## E0065 generated recursive expression subtrees
+
+| Quantity | Value |
+|---|---:|
+| Witness files | $subtree_files |
+| Expression witnesses | $subtree_witnesses |
+| Token leaves | $subtree_leaves |
+| Name leaves | $subtree_names |
+| Literal leaves | $subtree_literals |
+| Operator leaves | $subtree_operators |
+| Source-linked leaves | $subtree_linked |
+| Subtree parent links | $subtree_parents |
+| Subtree link errors | $subtree_errors |
+| Maximum subtree depth | $subtree_depth |
+| Known witness queries | $subtree_queries |
+| Unknown witness rejected | $subtree_unknown |
+| Fortran compile status | $subtree_compile |
+| Runtime test status | $subtree_runtime |
+| Malformed nesting rejected | $subtree_mutation |
+| Recursive subtree boundary | $subtree_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -898,6 +936,13 @@ rendered=${rendered//@EXPRESSION_UNKNOWN@/$expression_unknown}
 rendered=${rendered//@EXPRESSION_COMPILE@/$expression_compile}
 rendered=${rendered//@EXPRESSION_RUNTIME@/$expression_runtime}
 rendered=${rendered//@EXPRESSION_BOUNDARY@/$expression_boundary}
+rendered=${rendered//@SUBTREE_LEAVES@/$subtree_leaves}
+rendered=${rendered//@SUBTREE_LINKED@/$subtree_linked}
+rendered=${rendered//@SUBTREE_QUERIES@/$subtree_queries}
+rendered=${rendered//@SUBTREE_UNKNOWN@/$subtree_unknown}
+rendered=${rendered//@SUBTREE_COMPILE@/$subtree_compile}
+rendered=${rendered//@SUBTREE_RUNTIME@/$subtree_runtime}
+rendered=${rendered//@SUBTREE_BOUNDARY@/$subtree_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

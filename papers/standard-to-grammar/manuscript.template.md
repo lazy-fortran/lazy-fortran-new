@@ -52,6 +52,10 @@ The expression slice adds @EXPRESSION_NODES@ expression-role children to that
 forest, producing @EXPRESSION_TOTAL@ nodes with @EXPRESSION_LINKED@ source
 links. Its generated query finds @EXPRESSION_QUERIES@ known witnesses and
 rejects @EXPRESSION_UNKNOWN@ unknown witness.
+The recursive subtree slice validates @SUBTREE_LEAVES@ token leaves across
+eight expression witnesses, with @SUBTREE_LINKED@ source-linked leaves and
+@SUBTREE_QUERIES@ known witness queries; its unknown-witness rejection is
+@SUBTREE_UNKNOWN@.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -177,6 +181,9 @@ checked by independent parent and child traversal.
 E0064 extends that forest with expression-role children selected from explicit
 StandardIR rules and emits a deterministic kind/rule query over the same node
 array. The query returns the node's existing source reference.
+E0065 extends eight of those role nodes with token-level `name`, `literal` and
+`operator` leaves. The generated operation preserves the parent-child chain
+and runs witness queries against the same flat array.
 
 ### 2.3 Verification
 
@@ -269,6 +276,10 @@ StandardIR source. The query returns the same source reference stored on the
 node, so lookup does not create a second provenance table. This validates
 composition and lookup over the declared corpus, not a complete expression
 parser.
+E0065 adds token-level leaves to eight real-source expression witnesses. The
+leaves are source-linked through explicit StandardIR lexical rules and are
+queried through the generated witness operation. This is a recursive subtree
+boundary, not yet a complete precedence tree.
 
 ## 5. Reproducibility and limitations
 
@@ -286,11 +297,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment extends E0064 with recursive expression children for the
-declared operators and literals. Its manifest will predeclare expression
-families, source spans, expected parent and child links and malformed controls.
-GNU Fortran will remain the syntax oracle, and the generated operation will
-retain source page, byte span and document hash for each result.
+The next experiment extends E0065 with operator-precedence-shaped expression
+subtrees and literal variants beyond the current eight witnesses. Its manifest
+will predeclare expression families, source spans, expected parent and child
+links and malformed controls. GNU Fortran will remain the syntax oracle, and
+the generated operation will retain source page, byte span and document hash
+for each result.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -317,10 +329,10 @@ in the declared files and preserves the source-linked diagnostic path. E0062
 adds logical-statement assembly and construct closure. E0063 composes those
 records into a source-linked AST forest. All @AST_NODES@ nodes are
 source-linked and the parent and child links have zero errors. E0064 adds 52
-expression-role children, keeps all 125 nodes source-linked, and validates the
-generated query boundary. These results validate composition and provenance,
-not semantic coverage or a complete expression parser. The next milestone
-adds recursive operator and literal subtrees.
+expression-role children, and E0065 adds 28 source-linked token leaves across
+eight witnesses. These results validate composition and provenance, not
+semantic coverage or a complete precedence parser. The next milestone adds
+operator-precedence-shaped subtrees and broader literal variants.
 
 ## References
 

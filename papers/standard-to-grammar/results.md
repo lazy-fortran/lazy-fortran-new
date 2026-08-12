@@ -372,6 +372,27 @@ The following rows are extracted from the accepted projection run records.
 | Malformed nesting rejected | 1 |
 | Expression AST query boundary | source_linked_expression_ast_query_validated |
 
+## E0065 generated recursive expression subtrees
+
+| Quantity | Value |
+|---|---:|
+| Witness files | 5 |
+| Expression witnesses | 8 |
+| Token leaves | 28 |
+| Name leaves | 10 |
+| Literal leaves | 10 |
+| Operator leaves | 8 |
+| Source-linked leaves | 28 |
+| Subtree parent links | 28 |
+| Subtree link errors | 0 |
+| Maximum subtree depth | 6 |
+| Known witness queries | 8 |
+| Unknown witness rejected | 1 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Malformed nesting rejected | 1 |
+| Recursive subtree boundary | source_linked_token_subtrees_validated |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

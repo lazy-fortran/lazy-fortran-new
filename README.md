@@ -90,7 +90,10 @@ E0063 composes those 73 logical statements into a source-linked AST forest of
 73 typed nodes with five roots, 68 parent links and zero link errors. The next
 E0064 adds 52 expression-role children, keeps 125 nodes source-linked, and
 validates five known kind/rule queries plus one rejected unknown query. The
-next boundary is recursive operator and literal expression subtrees.
+next boundary is recursive operator and literal expression subtrees. E0065
+adds 28 source-linked token leaves across eight real-source witnesses and
+validates eight witness queries; the next boundary is precedence-shaped
+subtrees and broader literal variants.
 
 ## Licence
 
