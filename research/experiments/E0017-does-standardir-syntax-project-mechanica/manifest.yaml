@@ -2,13 +2,13 @@ id: "E0017"
 title: "StandardIR to ANTLR4 grammar projection"
 question: >
   Does StandardIR syntax project mechanically to a provenance-bearing ANTLR4 grammar?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "c97bc3a"
+  lazy-fortran-new: "9d3a499"
   standard-new: "3108fee"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
