@@ -1,0 +1,73 @@
+id: "E0068"
+title: "Lossless complete-source acceptance with retained diagnostics"
+question: >
+  Can a generated complete-source operation accept every meaningful line in
+  the pinned real-source corpus while retaining an unsupported local residue
+  as a source-located diagnostic instead of silently skipping it or changing
+  structural wiring?
+status: reported         # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: "2026-08-13"
+
+repos:
+  lazy-fortran-new: "0d588af"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-complete-v0
+  predecessor: E0061-R000001
+  decisions: [D0018, D0028, D0029, D0030, D0034]
+
+variables:
+  operation: [lossless-complete-source-acceptance]
+  representation: [generated-fortran-acceptance-records]
+  accepted_records: [typed-statement-kind, standardir-rule, physical-line, source-ref]
+  residue_records: [unsupported, diagnostic, standardir-context-ref]
+
+model_selection: "No model calls. The acceptance wrapper, residue location, diagnostic record and test wiring are deterministic generated operations."
+
+metrics:
+  - corpus_files
+  - expected_meaningful_lines
+  - accepted_records
+  - source_linked_records
+  - unsupported_records
+  - diagnostic_records
+  - diagnostic_provenance
+  - complete_file_mismatches
+  - gfortran_accepted
+  - gfortran_mutation_rejected
+  - fortran_compile_status
+  - runtime_test_status
+
+denominator: >
+  The 72 meaningful lines declared by
+  phase1-modern-fortran-complete-v0.json across five pinned fortfront files.
+  The negative control changes the sixth meaningful line of
+  module_parsing_basic.f90 to an unsupported statement.
+
+independent_oracle: >
+  The complete-source corpus supplies source hashes, physical line numbers and
+  expected statement kinds. E0061 independently validates the complete
+  typed-statement prefix. GNU Fortran validates all five original files and
+  rejects the mutated file. The generated wrapper checks every accepted record,
+  source page, byte span and document hash, then checks that the unsupported
+  residue is retained at physical line 6 with a program-unit context record.
+
+falsifiable_by: >
+  A source hash or denominator changes, a recognized record is lost or
+  misclassified, a source reference is missing, an unsupported residue is
+  skipped, its physical line is wrong, its context reference is not found,
+  GNU Fortran accepts the mutation, or generated Fortran fails to compile or
+  run.
+
+gate: >
+  Validate whole-file acceptance and lossless retention of one unsupported
+  local construct. The context reference is provenance for the surrounding
+  StandardIR production, not a claim that the residue has been parsed as that
+  production. This does not claim complete Fortran semantics.
+
+analysis: research/experiments/E0068-can-lossless-complete-source-acceptance-/analyse.sh
