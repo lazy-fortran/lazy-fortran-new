@@ -86,6 +86,10 @@ broader parser acceptance. E0062 joins two free-form continuations and checks
 nested construct closure over 73 logical statements. Regenerate these figures with
 `papers/standard-to-grammar/analyse.sh` and
 `research/index.md` with `scripts/index.sh`.
+E0063 composes those 73 logical statements into a source-linked AST forest of
+73 typed nodes with five roots, 68 parent links and zero link errors. The next
+boundary is expression-shaped child nodes and AST query and diagnostic
+lookups.
 
 ## Licence
 

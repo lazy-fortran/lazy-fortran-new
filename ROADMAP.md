@@ -451,7 +451,10 @@ evidence for the thesis.
 - [x] Assemble logical statements and validate nested construct closure over
       continuation and named-construct witnesses (E0062, regenerate with
       `research/experiments/E0062-can-generated-parser-handle-constructs-/analyse.sh`)
-- [ ] Add richer expression continuations and broader construct families,
+- [x] Compose E0062 logical records into a source-linked typed AST forest with
+      deterministic parent and child links (E0063, regenerate with
+      `research/experiments/E0063-can-generated-ast-records-preserve-/analyse.sh`)
+- [ ] Add expression-shaped child nodes and AST query and diagnostic lookups,
       then validate parser acceptance on a larger source set
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with

@@ -113,6 +113,7 @@ assert_run R000068 '.status == "accepted" and .experiment == "E0059" and .verifi
 assert_run R000069 '.status == "accepted" and .experiment == "E0060" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_witnesses == 10 and .verification.classified_witnesses == 10 and .verification.source_linked_witnesses == 10 and .verification.witness_mismatches == 0 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "statement_witness_operation_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000070 '.status == "accepted" and .experiment == "E0061" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_meaningful_lines == 72 and .verification.classified_meaningful_lines == 72 and .verification.source_linked_lines == 72 and .verification.line_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_mutation_rejected == 1 and .verification.target_boundary == "complete_source_operation_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000071 '.status == "accepted" and .experiment == "E0062" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.physical_meaningful_lines == 75 and .verification.expected_logical_statements == 73 and .verification.classified_logical_statements == 73 and .verification.source_linked_statements == 73 and .verification.continuation_joins == 2 and .verification.nesting_errors == 0 and .verification.max_nesting_depth == 2 and .verification.statement_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "logical_construct_operation_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000072 '.status == "accepted" and .experiment == "E0063" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.logical_statements == 73 and .verification.ast_nodes == 73 and .verification.source_linked_nodes == 73 and .verification.root_nodes == 5 and .verification.parent_links == 68 and .verification.child_links == 68 and .verification.ast_link_errors == 0 and .verification.max_ast_depth == 4 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_ast_forest_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -326,6 +327,19 @@ construct_compile=$(metric R000071 '.verification.fortran_compile_status')
 construct_runtime=$(metric R000071 '.verification.runtime_test_status')
 construct_mutation=$(metric R000071 '.verification.malformed_nesting_rejected')
 construct_boundary=$(metric R000071 '.verification.target_boundary')
+ast_corpus_files=$(metric R000072 '.verification.corpus_files')
+ast_logical=$(metric R000072 '.verification.logical_statements')
+ast_nodes=$(metric R000072 '.verification.ast_nodes')
+ast_linked=$(metric R000072 '.verification.source_linked_nodes')
+ast_roots=$(metric R000072 '.verification.root_nodes')
+ast_parents=$(metric R000072 '.verification.parent_links')
+ast_children=$(metric R000072 '.verification.child_links')
+ast_errors=$(metric R000072 '.verification.ast_link_errors')
+ast_depth=$(metric R000072 '.verification.max_ast_depth')
+ast_compile=$(metric R000072 '.verification.fortran_compile_status')
+ast_runtime=$(metric R000072 '.verification.runtime_test_status')
+ast_mutation=$(metric R000072 '.verification.malformed_nesting_rejected')
+ast_boundary=$(metric R000072 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -677,6 +691,24 @@ EOF
 | Malformed nesting rejected | $construct_mutation |
 | Logical-construct boundary | $construct_boundary |
 
+## E0063 generated source-linked AST forest
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | $ast_corpus_files |
+| Logical statements | $ast_logical |
+| AST nodes | $ast_nodes |
+| Source-linked nodes | $ast_linked |
+| Root nodes | $ast_roots |
+| Parent links | $ast_parents |
+| Child links | $ast_children |
+| AST link errors | $ast_errors |
+| Maximum AST depth | $ast_depth |
+| Fortran compile status | $ast_compile |
+| Runtime test status | $ast_runtime |
+| Malformed nesting rejected | $ast_mutation |
+| Source-linked AST boundary | $ast_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -815,6 +847,13 @@ rendered=${rendered//@CONSTRUCT_LINKED@/$construct_linked}
 rendered=${rendered//@CONSTRUCT_COMPILE@/$construct_compile}
 rendered=${rendered//@CONSTRUCT_RUNTIME@/$construct_runtime}
 rendered=${rendered//@CONSTRUCT_BOUNDARY@/$construct_boundary}
+rendered=${rendered//@AST_CORPUS_FILES@/$ast_corpus_files}
+rendered=${rendered//@AST_LOGICAL@/$ast_logical}
+rendered=${rendered//@AST_NODES@/$ast_nodes}
+rendered=${rendered//@AST_LINKED@/$ast_linked}
+rendered=${rendered//@AST_COMPILE@/$ast_compile}
+rendered=${rendered//@AST_RUNTIME@/$ast_runtime}
+rendered=${rendered//@AST_BOUNDARY@/$ast_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

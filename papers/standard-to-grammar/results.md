@@ -334,6 +334,24 @@ The following rows are extracted from the accepted projection run records.
 | Malformed nesting rejected | 1 |
 | Logical-construct boundary | logical_construct_operation_validated |
 
+## E0063 generated source-linked AST forest
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Logical statements | 73 |
+| AST nodes | 73 |
+| Source-linked nodes | 73 |
+| Root nodes | 5 |
+| Parent links | 68 |
+| Child links | 68 |
+| AST link errors | 0 |
+| Maximum AST depth | 4 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Malformed nesting rejected | 1 |
+| Source-linked AST boundary | source_linked_ast_forest_validated |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

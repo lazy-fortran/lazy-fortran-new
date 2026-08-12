@@ -45,6 +45,9 @@ The logical-construct slice assembles 75 meaningful
 physical lines into 73 logical statements across
 5 files. It records the continuation and nesting result
 with compile status 0.
+The AST slice composes 73 logical statements into 73
+typed nodes across 5 files. It source-links 73 nodes
+and compiles with status 0.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -164,6 +167,9 @@ E0062 extends the operation to logical statements. It joins free-form
 continuations and validates nested `do`, `if`, `select case`, `block`, and
 `associate` constructs. Each result retains its physical source range and
 StandardIR source span.
+E0063 composes the generated logical records into typed AST nodes with parent,
+first-child, next-sibling, depth and source-span fields. The node forest is
+checked by independent parent and child traversal.
 
 ### 2.3 Verification
 
@@ -265,12 +271,11 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment extends E0062 with richer expression continuations and
-construct families outside the current corpus. Its manifest will predeclare
-physical ranges, logical statements, expected StandardIR families and
-malformed controls. GNU Fortran will remain the syntax oracle, and the
-generated operation will retain source page, byte span and document hash for
-each result.
+The next experiment extends E0063 with expression-shaped child nodes and AST
+query and diagnostic lookups. Its manifest will predeclare node families,
+source spans, expected parent and child links and malformed controls. GNU
+Fortran will remain the syntax oracle, and the generated operation will retain
+source page, byte span and document hash for each result.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -294,15 +299,18 @@ remain the maintained semantic source while generated representations carry
 the wiring and provenance. E0060 confirms a bounded statement operation
 against real source. E0061 extends that operation across every meaningful line
 in the declared files and preserves the source-linked diagnostic path. E0062
-adds logical-statement assembly and construct closure. The next milestone
-adds richer expression continuations and broader construct families before
-parser acceptance is measured on a larger source set.
+adds logical-statement assembly and construct closure. E0063 composes those
+records into a source-linked AST forest. All 73 nodes are
+source-linked and the parent and child links have zero errors. This validates
+composition and provenance, not expression or semantic AST coverage. The next
+milestone adds expression-shaped child nodes and AST query and diagnostic
+lookups before parser acceptance is measured on a larger source set.
 
 ## References
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0030 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0031 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
@@ -641,6 +649,24 @@ The following rows are extracted from the accepted projection run records.
 | Runtime test status | 0 |
 | Malformed nesting rejected | 1 |
 | Logical-construct boundary | logical_construct_operation_validated |
+
+## E0063 generated source-linked AST forest
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Logical statements | 73 |
+| AST nodes | 73 |
+| Source-linked nodes | 73 |
+| Root nodes | 5 |
+| Parent links | 68 |
+| Child links | 68 |
+| AST link errors | 0 |
+| Maximum AST depth | 4 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Malformed nesting rejected | 1 |
+| Source-linked AST boundary | source_linked_ast_forest_validated |
 
 ## E0054 D0027 lexical candidate comparison
 

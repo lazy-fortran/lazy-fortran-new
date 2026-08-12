@@ -4,12 +4,12 @@ question: >
   Can generated logical-statement records be composed into a typed AST node
   forest with deterministic parent and child links while preserving every
   StandardIR source reference?
-status: draft            # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 repos:
-  lazy-fortran-new: "f220691"
+  lazy-fortran-new: "437ed7e"
   standard-new: "c6cd889"
   oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
 
