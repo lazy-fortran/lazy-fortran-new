@@ -5,8 +5,8 @@ set in `papers/standard-to-grammar/runs.txt`.
 
 ## Abstract
 
-Language standards contain formal syntax, lexical notation, and prose that
-compiler frontends must turn into executable structure. This paper reports a
+Language standards contain formal syntax, lexical notation, and prose.
+Compiler frontends must turn those materials into executable structure. This paper reports a
 deterministic pipeline that extracts syntax from the J3/24-007 Fortran 2023
 working draft into StandardIR and projects that representation into several
 grammar formats. The pipeline preserves document, clause, rule, page, span,
@@ -41,10 +41,10 @@ inventory contains @EXPANSION_RECORDS@ records: @R401_RECORDS@ R401 list
 terms and @R403_RECORDS@ R403 scalar terms. Their representation remains
 @EXPANSION_REPRESENTATION@.
 E0049 composes the accepted records into a @COMPOSITE_SYNTAX_RECORDS@-record
-candidate input with @COMPOSITE_CONFLICTS@ overlapping R402/R403 terms; its
+candidate input with @COMPOSITE_CONFLICTS@ overlapping R402/R403 terms. Its
 composition status is @COMPOSITE_STATUS@.
 E0050 compares @CANDIDATE_STRATEGIES@ pending representations for the
-@CANDIDATE_OVERLAP_TERMS@ overlap terms; selection remains
+@CANDIDATE_OVERLAP_TERMS@ overlap terms. Selection remains
 @CANDIDATE_SELECTION@.
 
 ## 1. Scope and claim
@@ -106,6 +106,10 @@ partial input. It records overlapping resolution facts as a failure boundary
 rather than assigning precedence.
 E0050 generates a compact comparison of alias precedence, expansion precedence
 and unresolved compositional facts without accepting any of them.
+E0051 validates the same partial candidate in ANTLR4, Bison and tree-sitter.
+All three reject it. ANTLR4 and Bison expose identical unresolved-name sets.
+tree-sitter exposes an earlier malformed sequence caused by flattened repaired
+punctuation inside an optional group.
 
 ### 2.3 Verification
 
@@ -154,7 +158,12 @@ LLM-originated and accepted under D0025. The generated application remains
 mechanical. E0048 then inventories the normalized R401 and R403 families with
 independent StandardIR witnesses, while retaining the representation decision
 for D0024. E0049 exposes three R402/R403 overlaps and is reported as a
-verification failure.
+verification failure. E0050 records the representation tradeoff without
+selecting a strategy. E0051 shows that target-tool rejection persists. ANTLR4
+and Bison report @TARGET_UNRESOLVED_NAMES@ identical unresolved names. tree-sitter stops at a
+structural `seq(, ...)` error in the generated optional-group projection. The
+next implementation slice is to preserve that group structure through the
+erratum rewrite and rerun the validators.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -178,17 +187,18 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment is the planning decision over the R401/R403 representation
-and the three overlaps recorded in D0026. E0048 supplies the complete 80/20
-inventory, E0049 supplies the candidate and its retained failure, and E0050
-supplies the explicit tradeoff matrix. The choice is proposed in
-[D0024](../../research/decisions/D0024-assumed-syntax-expansions.md) and
-[D0026](../../research/decisions/D0026-overlapping-resolution-facts.md). Only
-after those decisions are accepted should the resulting records be applied to
-the full composite input. A complete parser input will be claimed after the
-unresolved and disputed sets are reported, every selected fact has provenance,
-and the target tools accept the generated composite input. Semantic
-constraints remain a separate phase.
+The next implementation experiment should repair the deterministic SX
+composition that produces `seq(, ...)` for the `where-construct-stmt` rule.
+The repaired candidate should then be rerun through all three target
+validators. The R401/R403 representation decision remains separate. E0048
+supplies the complete 80/20 inventory, E0049 supplies the candidate and its
+retained failure, and E0050 supplies the explicit tradeoff matrix. The choice
+is proposed in [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md)
+and [D0026](../../research/decisions/D0026-overlapping-resolution-facts.md).
+A complete parser input will be claimed after the unresolved and disputed
+sets are reported, every selected fact has provenance, and the target tools
+accept the generated composite input. Semantic constraints remain a separate
+phase.
 
 ## References
 

@@ -101,6 +101,7 @@ assert_run R000056 '.status == "accepted" and .experiment == "E0047" and .verifi
 assert_run R000057 '.status == "accepted" and .experiment == "E0048" and .verification.zero_model_calls == true and .verification.original_audit_unique_names == 181 and .verification.normalized_audit_unique_names == 178 and .verification.expansion_records == 100 and .verification.r401_records == 80 and .verification.r403_records == 20 and .verification.explicit_definition_conflicts == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.representation_selection == "deferred_D0024"'
 assert_run R000058 '.status == "verification_failure" and .experiment == "E0049" and .verification.zero_model_calls == true and .verification.source_resolution_records == 182 and .verification.errata_repairs == 8 and .verification.resolved_projection_records == 70 and .verification.expansion_records == 100 and .verification.family_resolution_conflicts == 3 and .verification.conflict_set_difference == 0 and .verification.final_syntax_records == 522 and .verification.representation_selection == "deferred_D0024" and .verification.negative_control == "observed_failure"'
 assert_run R000059 '.status == "accepted" and .experiment == "E0050" and .verification.zero_model_calls == true and .verification.candidate_strategies == 3 and .verification.overlap_terms == 3 and .verification.r401_records == 80 and .verification.r403_records == 20 and .verification.candidate_rows == 9 and .verification.lossy_alias_precedence_rows == 3 and .verification.lossless_expansion_precedence_rows == 3 and .verification.lossless_unresolved_composite_rows == 3 and .verification.parser_ready_candidates == 1 and .verification.representation_selection == "deferred_D0024_D0026" and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000060 '.status == "verification_failure" and .experiment == "E0051" and .verification.zero_model_calls == true and .verification.final_syntax_records == 522 and .verification.antlr_definitions == 502 and .verification.bison_definitions == 502 and .verification.treesitter_definitions == 502 and .verification.antlr_status == 1 and .verification.antlr_unresolved_rule_names == 103 and .verification.bison_status == 1 and .verification.bison_unresolved_symbol_names == 103 and .verification.treesitter_status == 1 and .verification.treesitter_structural_error == 1 and .verification.antlr_bison_unresolved_set_difference == 0 and .verification.target_status_agreement == 1 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -181,6 +182,18 @@ candidate_parser_ready=$(metric R000059 '.verification.parser_ready_candidates')
 candidate_selection=$(metric R000059 '.verification.representation_selection')
 candidate_difference=$(metric R000059 '.verification.independent_difference')
 candidate_negative_control=$(metric R000059 '.verification.negative_control')
+target_antlr_definitions=$(metric R000060 '.verification.antlr_definitions')
+target_bison_definitions=$(metric R000060 '.verification.bison_definitions')
+target_treesitter_definitions=$(metric R000060 '.verification.treesitter_definitions')
+target_antlr_status=$(metric R000060 '.verification.antlr_status')
+target_antlr_unresolved=$(metric R000060 '.verification.antlr_unresolved_rule_names')
+target_bison_status=$(metric R000060 '.verification.bison_status')
+target_bison_unresolved=$(metric R000060 '.verification.bison_unresolved_symbol_names')
+target_treesitter_status=$(metric R000060 '.verification.treesitter_status')
+target_treesitter_structural=$(metric R000060 '.verification.treesitter_structural_error')
+target_set_difference=$(metric R000060 '.verification.antlr_bison_unresolved_set_difference')
+target_status_agreement=$(metric R000060 '.verification.target_status_agreement')
+target_negative_control=$(metric R000060 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -346,6 +359,23 @@ EOF
 | Independent difference | $candidate_difference |
 | Controlled mutation | $candidate_negative_control |
 
+## E0051 independent target-tool validation
+
+| Quantity | Value |
+|---|---:|
+| ANTLR4 definitions | $target_antlr_definitions |
+| Bison definitions | $target_bison_definitions |
+| tree-sitter definitions | $target_treesitter_definitions |
+| ANTLR4 exit status | $target_antlr_status |
+| ANTLR4 unresolved names | $target_antlr_unresolved |
+| Bison exit status | $target_bison_status |
+| Bison unresolved names | $target_bison_unresolved |
+| tree-sitter exit status | $target_treesitter_status |
+| tree-sitter structural error | $target_treesitter_structural |
+| ANTLR4/Bison unresolved-set difference | $target_set_difference |
+| All target statuses reject | $target_status_agreement |
+| Controlled definition mutation | $target_negative_control |
+
 ## External behavioral baseline
 
 | Quantity | Value |
@@ -397,6 +427,7 @@ rendered=${rendered//@COMPOSITE_STATUS@/$composite_status}
 rendered=${rendered//@CANDIDATE_STRATEGIES@/$candidate_strategies}
 rendered=${rendered//@CANDIDATE_OVERLAP_TERMS@/$candidate_overlap_terms}
 rendered=${rendered//@CANDIDATE_SELECTION@/$candidate_selection}
+rendered=${rendered//@TARGET_UNRESOLVED_NAMES@/$target_antlr_unresolved}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

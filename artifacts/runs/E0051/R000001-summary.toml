@@ -1,0 +1,41 @@
+name = "E0051-R000001-independent-target-tool-validation"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/c9893a1/research/experiments/E0051-do-antlr4-bison-and-tree-sitter-independ"
+sha256 = "ad9ee9e3716416b22467e69749f97b5963f2ed8c717dba65501e7752150411a4"
+bytes = 487
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for independent ANTLR4, Bison and tree-sitter validation of the E0049 partial parser input"
+path = ".cache/runs/E0051/R000001/summary.tsv"
+origin = "DIFFERENTIAL"
+format = "tab-separated target-tool validation summary"
+generator = "E0051 analyse.sh"
+generator_commit = "c9893a1"
+checker = "research/experiments/E0051-do-antlr4-bison-and-tree-sitter-independ/analyse.sh"
+checker_commit = "c9893a1"
+standardir_input_sha256 = "fdb89baa241df956dfc719f70e055f182c7271936def6456aea62e688cab1f0b"
+antlr_grammar_sha256 = "6b46185b42d7225e255e0e6a7f380aa793f49f0b82f38087b1f4883cdbae675c"
+bison_grammar_sha256 = "be604049b92965408451caab0ca138d4a0b89274aa878a255da256bb45c291ed"
+treesitter_grammar_sha256 = "c5e7f1a385b2ec936f220eb3e09dbba88f29dcc3a0f2958d1feb97f5e724f91f"
+antlr_bison_unresolved_diff_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+final_syntax_records = 522
+antlr_definitions = 502
+bison_definitions = 502
+treesitter_definitions = 502
+antlr_duplicate_definitions = 0
+bison_duplicate_definitions = 0
+treesitter_duplicate_definitions = 0
+antlr_status = 1
+antlr_unresolved_rule_names = 103
+bison_status = 1
+bison_unresolved_symbol_names = 103
+treesitter_status = 1
+treesitter_structural_error = 1
+treesitter_first_malformed_rule = "r_where_x2D_construct_x2D_stmt"
+antlr_bison_unresolved_set_difference = 0
+target_status_agreement = 1
+negative_control = "observed_failure"
+target_boundary = "verification_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0051-do-antlr4-bison-and-tree-sitter-independ/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

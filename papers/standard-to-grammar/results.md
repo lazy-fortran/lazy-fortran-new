@@ -148,6 +148,23 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 
+## E0051 independent target-tool validation
+
+| Quantity | Value |
+|---|---:|
+| ANTLR4 definitions | 502 |
+| Bison definitions | 502 |
+| tree-sitter definitions | 502 |
+| ANTLR4 exit status | 1 |
+| ANTLR4 unresolved names | 103 |
+| Bison exit status | 1 |
+| Bison unresolved names | 103 |
+| tree-sitter exit status | 1 |
+| tree-sitter structural error | 1 |
+| ANTLR4/Bison unresolved-set difference | 0 |
+| All target statuses reject | 1 |
+| Controlled definition mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |

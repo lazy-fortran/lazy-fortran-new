@@ -1,5 +1,5 @@
 id: "E0051"
-title: ""
+title: "Independent target-tool validation of the E0049 partial composite input"
 question: >
   Do ANTLR4, Bison and tree-sitter independently expose the same remaining boundary in the E0049 partial candidate?
 status: reported            # draft | running | reported | abandoned
