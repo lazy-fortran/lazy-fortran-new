@@ -2,13 +2,13 @@ id: "E0085"
 title: "Continuation-aware deterministic constraint normalization"
 question: >
   Can continuation-aware deterministic normalization formalize longer referenced constraints while retaining an implicit-typing residue?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "7d638bf"
+  lazy-fortran-new: "16cdd90"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

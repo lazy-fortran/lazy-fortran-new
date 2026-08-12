@@ -135,6 +135,7 @@ assert_run R000090 '.status == "accepted" and .experiment == "E0081" and .verifi
 assert_run R000091 '.status == "accepted" and .experiment == "E0082" and .verification.zero_model_calls == true and .verification.candidate_spans == 266 and .verification.accepted_records == 10 and .verification.accepted_lexical_class_records == 2 and .verification.accepted_metavariable_records == 1 and .verification.accepted_semantic_role_records == 7 and .verification.retained_constraint_candidates == 256 and .verification.unresolved_body_constraint_records == 287 and .verification.accepted_standardir_resolution_facts == 10 and .verification.formalized_constraint_bodies == 0 and .verification.parser_projection_records == 0 and .verification.source_linked_candidates == 266 and .verification.source_linked_constraints == 287 and .verification.independent_candidate_difference == 0 and .verification.independent_constraint_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000092 '.status == "accepted" and .experiment == "E0083" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_constraints == 8 and .verification.normalized_predicates == 8 and .verification.resolved_constraints == 8 and .verification.unresolved_constraints == 279 and .verification.disputed_constraints == 0 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 8 and .verification.required_fact_records == 10 and .verification.provided_fact_records == 8 and .verification.dependency_edges == 18 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000093 '.status == "accepted" and .experiment == "E0084" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_constraints == 6 and .verification.normalized_predicates == 6 and .verification.resolved_constraints == 6 and .verification.unresolved_constraints == 281 and .verification.disputed_constraints == 0 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 6 and .verification.required_fact_records == 16 and .verification.provided_fact_records == 6 and .verification.dependency_edges == 22 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000094 '.status == "accepted" and .experiment == "E0085" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.policy_rows == 6 and .verification.resolved_constraints == 5 and .verification.unresolved_constraints == 282 and .verification.disputed_constraints == 0 and .verification.normalized_predicates == 5 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 5 and .verification.required_fact_records == 14 and .verification.provided_fact_records == 5 and .verification.dependency_edges == 19 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -695,6 +696,21 @@ cross_clause_order_difference=$(metric R000093 '.verification.topological_order_
 cross_clause_difference=$(metric R000093 '.verification.independent_normalization_difference')
 cross_clause_projections=$(metric R000093 '.verification.parser_projection_records')
 cross_clause_negative=$(metric R000093 '.verification.negative_control')
+continuation_eligible=$(metric R000094 '.verification.eligible_constraints')
+continuation_policy_rows=$(metric R000094 '.verification.policy_rows')
+continuation_resolved=$(metric R000094 '.verification.resolved_constraints')
+continuation_unresolved=$(metric R000094 '.verification.unresolved_constraints')
+continuation_disputed=$(metric R000094 '.verification.disputed_constraints')
+continuation_predicates=$(metric R000094 '.verification.normalized_predicates')
+continuation_hashes=$(metric R000094 '.verification.source_hash_matches')
+continuation_evidence=$(metric R000094 '.verification.source_evidence_matches')
+continuation_required=$(metric R000094 '.verification.required_fact_records')
+continuation_provided=$(metric R000094 '.verification.provided_fact_records')
+continuation_edges=$(metric R000094 '.verification.dependency_edges')
+continuation_order_difference=$(metric R000094 '.verification.topological_order_difference')
+continuation_difference=$(metric R000094 '.verification.independent_normalization_difference')
+continuation_projections=$(metric R000094 '.verification.parser_projection_records')
+continuation_negative=$(metric R000094 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1504,6 +1520,26 @@ EOF
 | Parser projection records | $cross_clause_projections |
 | Controlled mutation | $cross_clause_negative |
 
+## E0085 continuation-aware deterministic normalization
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | $continuation_eligible |
+| Policy rows | $continuation_policy_rows |
+| Resolved constraints | $continuation_resolved |
+| Unresolved constraints | $continuation_unresolved |
+| Disputed constraints | $continuation_disputed |
+| Normalized predicates | $continuation_predicates |
+| Source-hash matches | $continuation_hashes |
+| Source-evidence matches | $continuation_evidence |
+| Required fact records | $continuation_required |
+| Provided fact records | $continuation_provided |
+| Dependency edges | $continuation_edges |
+| Topological-order difference | $continuation_order_difference |
+| Independent normalization difference | $continuation_difference |
+| Parser projection records | $continuation_projections |
+| Controlled mutation | $continuation_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1865,6 +1901,21 @@ rendered=${rendered//@CROSS_CLAUSE_ORDER_DIFFERENCE@/$cross_clause_order_differe
 rendered=${rendered//@CROSS_CLAUSE_DIFFERENCE@/$cross_clause_difference}
 rendered=${rendered//@CROSS_CLAUSE_PROJECTIONS@/$cross_clause_projections}
 rendered=${rendered//@CROSS_CLAUSE_NEGATIVE@/$cross_clause_negative}
+rendered=${rendered//@CONTINUATION_ELIGIBLE@/$continuation_eligible}
+rendered=${rendered//@CONTINUATION_POLICY_ROWS@/$continuation_policy_rows}
+rendered=${rendered//@CONTINUATION_RESOLVED@/$continuation_resolved}
+rendered=${rendered//@CONTINUATION_UNRESOLVED@/$continuation_unresolved}
+rendered=${rendered//@CONTINUATION_DISPUTED@/$continuation_disputed}
+rendered=${rendered//@CONTINUATION_PREDICATES@/$continuation_predicates}
+rendered=${rendered//@CONTINUATION_HASHES@/$continuation_hashes}
+rendered=${rendered//@CONTINUATION_EVIDENCE@/$continuation_evidence}
+rendered=${rendered//@CONTINUATION_REQUIRED@/$continuation_required}
+rendered=${rendered//@CONTINUATION_PROVIDED@/$continuation_provided}
+rendered=${rendered//@CONTINUATION_EDGES@/$continuation_edges}
+rendered=${rendered//@CONTINUATION_ORDER_DIFFERENCE@/$continuation_order_difference}
+rendered=${rendered//@CONTINUATION_DIFFERENCE@/$continuation_difference}
+rendered=${rendered//@CONTINUATION_PROJECTIONS@/$continuation_projections}
+rendered=${rendered//@CONTINUATION_NEGATIVE@/$continuation_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

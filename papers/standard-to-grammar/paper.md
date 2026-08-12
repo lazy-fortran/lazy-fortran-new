@@ -142,6 +142,11 @@ with 16 required-fact records and
 22 dependency edges. It retains
 281 constraints unresolved and uses no parser projections
 or model calls.
+E0085 joins continuation-aware source text and resolves
+5 of 6 longer constraints. It
+retains 282 unresolved records, including one selected
+implicit-typing rule, and derives 19 dependency edges. It
+uses no parser projections or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection plus bounded semantic-evidence and predicate boundaries. It does not claim
@@ -597,6 +602,10 @@ E0083 establishes the local predicate boundary and E0084 extends it to
 cross-clause fact requirements. The next milestone is a slice with longer
 alternatives and explicit source references, where unresolved and disputed
 outcomes must be retained.
+E0085 exercises that boundary. Five continuation-aware predicates are resolved
+and one implicit-typing rule remains unresolved because the current fact
+vocabulary does not express implied type parameters. The next milestone is a
+competing interpretation that can be recorded as disputed.
 
 ## References
 
@@ -1400,6 +1409,26 @@ The following rows are extracted from the accepted projection run records.
 | Required fact records | 16 |
 | Provided fact records | 6 |
 | Dependency edges | 22 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
+| Controlled mutation | observed_failure |
+
+## E0085 continuation-aware deterministic normalization
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | 287 |
+| Policy rows | 6 |
+| Resolved constraints | 5 |
+| Unresolved constraints | 282 |
+| Disputed constraints | 0 |
+| Normalized predicates | 5 |
+| Source-hash matches | 287 |
+| Source-evidence matches | 5 |
+| Required fact records | 14 |
+| Provided fact records | 5 |
+| Dependency edges | 19 |
 | Topological-order difference | 0 |
 | Independent normalization difference | 0 |
 | Parser projection records | 0 |

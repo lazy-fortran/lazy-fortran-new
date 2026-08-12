@@ -544,8 +544,13 @@ evidence for the thesis.
       and a validated topological order, with no parser projections or model
       calls (E0084, regenerate with
       `research/experiments/E0084-can-deterministic-cross-clause-fact-patt/analyse.sh`)
-- [ ] Test longer alternatives and source references, preserving unresolved
-      and disputed states before any model escalation
+- [x] Test continuation-aware longer alternatives and source references:
+      5 resolved predicates, 282 unresolved records, 19 fact-dependency edges,
+      and one selected implicit-typing record retained unresolved, with no
+      parser projections or model calls (E0085, regenerate with
+      `research/experiments/E0085-can-continuation-aware-deterministic-nor/analyse.sh`)
+- [ ] Exercise a disputed formalization outcome on a competing
+      interpretation before model escalation
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
@@ -625,6 +630,7 @@ evidence for the thesis.
 - [x] E0082 source-controlled semantic candidate adjudication recorded
 - [x] E0083 deterministic bounded Core 0 constraint formalization recorded
 - [x] E0084 deterministic cross-clause Core 0 fact formalization recorded
+- [x] E0085 continuation-aware deterministic constraint normalization recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

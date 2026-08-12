@@ -80,7 +80,10 @@ formalizes 8 bounded predicates, derives 18 dependency edges and retains 279
 constraints unresolved. E0084 extends the same record and graph pattern to 6
 cross-clause predicates, 22 dependency edges and 281 unresolved constraints.
 Longer semantic alternatives and the completeness gate for the composite
-parser remain open.
+parser remain open. E0085 joins continuation-aware source text for 5 longer
+predicates, retains one implicit-typing rule unresolved and derives 19
+dependency edges. A disputed interpretation and the completeness gate remain
+open.
 Regenerate the paper numbers with `papers/standard-to-grammar/analyse.sh` and
 the laboratory index with `scripts/index.sh`.
 

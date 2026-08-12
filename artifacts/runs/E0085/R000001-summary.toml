@@ -1,0 +1,42 @@
+name        = "E0085-R000001-continuation-aware-deterministic-normalization-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/16cdd90"
+sha256      = "75f087bab659e1900d2dea3eb6788abb55945a4c69324853bc7fce1e422371a7"
+bytes       = 826
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of continuation-aware deterministic Core 0 normalization"
+path        = ".cache/runs/E0085/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+policy_sha256 = "c4ad9edc87584cb62eefe254b1073df9f103f4a7fa7214191cbd1a75ac400596"
+oracle_sha256 = "8c9eecff60576692d48c41b574edfce622c20961adea838b55f2fc0668d7fe35"
+formalizations_sha256 = "0c056b114c49804c5bbe0cf627aa5b53e493521c84eca863b45edbd1d6c5a380"
+dependency_sha256 = "6a5d33be017f51c6434977e19339fb5a8f104568ec9e4384f622b45cc613b1d0"
+topological_sha256 = "3aed8e8700323cfc3bc2c495e150ab9d81f7b6b9b97c39d81ec7775e37f4e139"
+generator = "lazy-fortran-new E0085 continuation-aware deterministic normalization"
+generator_commit = "16cdd90"
+checker = "research/experiments/E0085-can-continuation-aware-deterministic-nor/analyse.sh"
+checker_commit = "16cdd90"
+eligible_constraints = 287
+policy_rows = 6
+resolved_constraints = 5
+unresolved_constraints = 282
+disputed_constraints = 0
+normalized_predicates = 5
+source_hash_matches = 287
+source_evidence_matches = 5
+required_fact_records = 14
+provided_fact_records = 5
+dependency_edges = 19
+topological_order_difference = 0
+independent_normalization_difference = 0
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0085-can-continuation-aware-deterministic-nor/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

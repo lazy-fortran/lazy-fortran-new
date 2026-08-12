@@ -142,6 +142,11 @@ with @CROSS_CLAUSE_REQUIRED@ required-fact records and
 @CROSS_CLAUSE_EDGES@ dependency edges. It retains
 @CROSS_CLAUSE_UNRESOLVED@ constraints unresolved and uses no parser projections
 or model calls.
+E0085 joins continuation-aware source text and resolves
+@CONTINUATION_RESOLVED@ of @CONTINUATION_POLICY_ROWS@ longer constraints. It
+retains @CONTINUATION_UNRESOLVED@ unresolved records, including one selected
+implicit-typing rule, and derives @CONTINUATION_EDGES@ dependency edges. It
+uses no parser projections or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection plus bounded semantic-evidence and predicate boundaries. It does not claim
@@ -597,6 +602,10 @@ E0083 establishes the local predicate boundary and E0084 extends it to
 cross-clause fact requirements. The next milestone is a slice with longer
 alternatives and explicit source references, where unresolved and disputed
 outcomes must be retained.
+E0085 exercises that boundary. Five continuation-aware predicates are resolved
+and one implicit-typing rule remains unresolved because the current fact
+vocabulary does not express implied type parameters. The next milestone is a
+competing interpretation that can be recorded as disputed.
 
 ## References
 
