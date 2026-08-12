@@ -1,0 +1,29 @@
+name        = "E0022-R000001-unresolved-reference-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/073df7f"
+sha256      = "c323912b14c462034117d5d6209d7c3c900fd7300dfba3370eb7ca1e259f76ec"
+bytes       = 239
+licence     = "MIT adapter; source documents and comparison grammars retain their own licences"
+retrieved   = "2026-08-12"
+purpose     = "Summary of unresolved StandardIR reference inventory and comparison-source evidence"
+path        = ".cache/runs/E0022/R000001/summary.tsv"
+origin      = "DIFFERENTIAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+input       = ".cache/runs/E0013/R000002/j3-24-007.standardir.sx"
+input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+generator   = "lazy-fortran-new E0022 comparison adapter"
+generator_commit = "073df7f"
+checker     = "research/experiments/E0022-unresolved-reference-audit/analyse.sh"
+checker_commit = "073df7f"
+unresolved_unique_names = 181
+unresolved_reference_occurrences = 472
+unresolved_referring_rules = 346
+unresolved_with_canonical_evidence = 181
+unresolved_in_standard_grammar = 3
+unresolved_in_kaby76_grammar = 145
+independent_difference = 0
+
+# Regenerate and verify with:
+#   research/experiments/E0022-unresolved-reference-audit/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

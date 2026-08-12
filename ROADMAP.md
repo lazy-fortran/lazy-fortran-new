@@ -57,6 +57,10 @@ J3/24-007 explicitly says its syntax rules are not a complete parser
 description, so D0018 makes composite parser input—not raw syntax exports—the
 next boundary
 (`research/experiments/E0021-are-grouped-syntax-exports-consumable/analyse.sh`).
+E0022 inventories all 181 unresolved names, their 472 reference occurrences and
+346 referring rules, with independent traversal agreement and comparison-source
+evidence retained for adjudication
+(`research/experiments/E0022-unresolved-reference-audit/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2

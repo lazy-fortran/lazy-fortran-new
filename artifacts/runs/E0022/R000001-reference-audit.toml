@@ -1,0 +1,24 @@
+name        = "E0022-R000001-unresolved-reference-audit"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/073df7f"
+sha256      = "28eb6876a77345cd85de14cf23a1d9027beefc2cb7a4de5756a9f28c40d1a449"
+bytes       = 6384
+licence     = "MIT adapter; source documents and comparison grammars retain their own licences"
+retrieved   = "2026-08-12"
+purpose     = "Per-name unresolved StandardIR reference audit with referring rules and comparison-source evidence"
+path        = ".cache/runs/E0022/R000001/reference-audit.tsv"
+origin      = "DIFFERENTIAL"
+format      = "tab-separated unresolved reference audit"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+input       = ".cache/runs/E0013/R000002/j3-24-007.standardir.sx"
+input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+generator   = "lazy-fortran-new E0022 comparison adapter"
+generator_commit = "073df7f"
+checker     = "research/experiments/E0022-unresolved-reference-audit/analyse.sh"
+checker_commit = "073df7f"
+rows = 181
+independent_difference = 0
+
+# Regenerate and verify with:
+#   research/experiments/E0022-unresolved-reference-audit/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.
