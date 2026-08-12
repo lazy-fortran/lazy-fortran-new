@@ -107,6 +107,7 @@ assert_run R000062 '.status == "accepted" and .experiment == "E0053" and .verifi
 assert_run R000063 '.status == "accepted" and .experiment == "E0054" and .verification.zero_model_calls == true and .verification.candidate_strategies == 3 and .verification.residue_terms == 5 and .verification.candidate_rows == 15 and .verification.lexical_rows == 3 and .verification.unicode_rows == 2 and .verification.primitive_export_rows == 3 and .verification.schema_export_rows == 3 and .verification.unresolved_rows == 5 and .verification.complete_projection_candidates == 0 and .verification.representation_selection == "deferred_D0027" and .verification.negative_control == "observed_failure"'
 assert_run R000064 '.status == "verification_failure" and .experiment == "E0055" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.generated_syntax_records == 519 and .verification.r401_expansions == 80 and .verification.r403_expansions == 20 and .verification.compositional_overlaps == 3 and .verification.lexical_schema_records == 5 and .verification.lexical_schema_projected == 3 and .verification.unresolved_schema_records == 2 and .verification.antlr_status == 1 and .verification.bison_status == 1 and .verification.treesitter_status == 1 and .verification.antlr_unresolved == 0 and .verification.bison_unresolved == 0 and .verification.treesitter_structural_error == 1 and .verification.target_boundary == "verification_failure_structural_target" and .verification.negative_control == "observed_failure"'
 assert_run R000065 '.status == "verification_failure" and .experiment == "E0056" and .verification.zero_model_calls == true and .verification.normalized_antlr_status == 0 and .verification.normalized_bison_status == 0 and .verification.normalized_treesitter_status == 1 and .verification.left_recursion_groups == 3 and .verification.nullable_rules_inlined == 5 and .verification.treesitter_conflict_groups == 13 and .verification.antlr_warnings == 18 and .verification.bison_warnings == 206 and .verification.normalized_unresolved_names == 0 and .verification.target_boundary == "verification_failure_remaining_target_structure" and .verification.negative_control == "observed_failure"'
+assert_run R000066 '.status == "accepted" and .experiment == "E0057" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.composite_syntax_records == 519 and .verification.unique_lhs == 499 and .verification.dispatch_rows == 519 and .verification.generated_procedures == 499 and .verification.duplicate_dispatch_labels == 0 and .verification.provenance_rows == 519 and .verification.unresolved_references == 0 and .verification.fortran_compile_status == 0 and .verification.target_boundary == "wiring_skeleton_compiled" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -258,6 +259,17 @@ normalized_target_unresolved=$(metric R000065 '.verification.normalized_unresolv
 normalized_target_boundary=$(metric R000065 '.verification.target_boundary')
 normalized_target_next_conflict=$(metric R000065 '.verification.treesitter_first_unresolved_conflict')
 normalized_target_negative=$(metric R000065 '.verification.negative_control')
+direct_source=$(metric R000066 '.verification.source_syntax_records')
+direct_composite=$(metric R000066 '.verification.composite_syntax_records')
+direct_lhs=$(metric R000066 '.verification.unique_lhs')
+direct_dispatch=$(metric R000066 '.verification.dispatch_rows')
+direct_procedures=$(metric R000066 '.verification.generated_procedures')
+direct_duplicates=$(metric R000066 '.verification.duplicate_dispatch_labels')
+direct_provenance=$(metric R000066 '.verification.provenance_rows')
+direct_unresolved=$(metric R000066 '.verification.unresolved_references')
+direct_compile=$(metric R000066 '.verification.fortran_compile_status')
+direct_boundary=$(metric R000066 '.verification.target_boundary')
+direct_negative=$(metric R000066 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -517,6 +529,22 @@ EOF
 | Target boundary | $normalized_target_boundary |
 | Controlled normalizer mutation | $normalized_target_negative |
 
+## E0057 deterministic direct-parser wiring
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | $direct_source |
+| Composite syntax records | $direct_composite |
+| Unique left-hand sides | $direct_lhs |
+| Dispatch rows | $direct_dispatch |
+| Generated procedures | $direct_procedures |
+| Duplicate dispatch labels | $direct_duplicates |
+| Provenance rows | $direct_provenance |
+| Unresolved references | $direct_unresolved |
+| Fortran compile status | $direct_compile |
+| Wiring boundary | $direct_boundary |
+| Controlled wiring mutation | $direct_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -615,6 +643,13 @@ rendered=${rendered//@NORMALIZED_TARGET_NULLABLE@/$normalized_target_nullable}
 rendered=${rendered//@NORMALIZED_TARGET_CONFLICTS@/$normalized_target_conflicts}
 rendered=${rendered//@NORMALIZED_TARGET_NEXT_CONFLICT@/$normalized_target_next_conflict}
 rendered=${rendered//@NORMALIZED_TARGET_UNRESOLVED@/$normalized_target_unresolved}
+rendered=${rendered//@DIRECT_SOURCE@/$direct_source}
+rendered=${rendered//@DIRECT_COMPOSITE@/$direct_composite}
+rendered=${rendered//@DIRECT_LHS@/$direct_lhs}
+rendered=${rendered//@DIRECT_DISPATCH@/$direct_dispatch}
+rendered=${rendered//@DIRECT_PROCEDURES@/$direct_procedures}
+rendered=${rendered//@DIRECT_COMPILE@/$direct_compile}
+rendered=${rendered//@DIRECT_BOUNDARY@/$direct_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

@@ -242,6 +242,22 @@ The following rows are extracted from the accepted projection run records.
 | Target boundary | verification_failure_remaining_target_structure |
 | Controlled normalizer mutation | observed_failure |
 
+## E0057 deterministic direct-parser wiring
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | 522 |
+| Composite syntax records | 519 |
+| Unique left-hand sides | 499 |
+| Dispatch rows | 519 |
+| Generated procedures | 499 |
+| Duplicate dispatch labels | 0 |
+| Provenance rows | 519 |
+| Unresolved references | 0 |
+| Fortran compile status | 0 |
+| Wiring boundary | wiring_skeleton_compiled |
+| Controlled wiring mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

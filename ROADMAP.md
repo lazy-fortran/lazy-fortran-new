@@ -425,6 +425,12 @@ evidence for the thesis.
 - [ ] Decide whether ANTLR4 and Bison exports must be warning-free, then
       remove or explicitly classify their retained target warnings (E0056:
       18 and 206, respectively)
+- [x] Emit deterministic direct-parser dispatch wiring from the accepted
+      composite input, with one provenance-bearing row per syntax record and
+      one generated procedure per unique left-hand side (E0057, regenerate
+      with `research/experiments/E0057-can-accepted-composite-standardir-emit-a/analyse.sh`)
+- [ ] Fill the local parser operations and validate the generated direct
+      parser against a pinned real-source corpus with source-linked diagnostics
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

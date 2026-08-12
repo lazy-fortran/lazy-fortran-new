@@ -21,6 +21,11 @@ expansions, and @ACCEPTED_PROJECTION_OVERLAPS@ compositional overlaps. The
 accepted input has zero unresolved target names. Deterministic target
 normalization makes ANTLR4 and Bison generation succeed while tree-sitter
 reaches an explicit @NORMALIZED_TARGET_CONFLICTS@-group conflict boundary.
+The direct-parser wiring slice then emits @DIRECT_PROCEDURES@ deterministic
+procedures and @DIRECT_DISPATCH@ provenance-bearing dispatch rows from the
+accepted composite input. The generated Fortran wiring skeleton compiles with
+status @DIRECT_COMPILE@. Its procedure bodies remain local implementation
+holes.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -238,6 +243,11 @@ specialized direct parser as the production target. EBNF, ANTLR4, Bison and
 tree-sitter remain generated exports and differential oracles, so their
 target-specific conflict metadata does not enter the authoritative
 representation.
+E0057 then emits @DIRECT_PROCEDURES@ deterministic procedures from the
+accepted composite input. All @DIRECT_DISPATCH@ dispatch rows retain source
+provenance, the generated skeleton compiles, and its local procedure bodies
+remain explicit implementation holes. This separates compiler-wide wiring
+from the constructive logic that later work must fill.
 
 ## 7. Conclusion
 
@@ -252,10 +262,10 @@ remaining tree-sitter ambiguity as a reproducible target boundary.
 
 This result supports the repository's main engineering claim. The standard can
 remain the maintained semantic source while generated representations carry
-the wiring and provenance. The next implementation milestone is a specialized
-parser-generator input and a thin source-linked diagnostic demonstration. Its
-success will be measured against the same pinned records and independent
-oracles.
+the wiring and provenance. The next implementation milestone fills the local
+parser operations and exercises them against a source corpus with linked
+diagnostics. Its success will be measured against the same pinned records and
+independent oracles.
 
 ## References
 

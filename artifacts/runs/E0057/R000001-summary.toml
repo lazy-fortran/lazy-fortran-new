@@ -1,0 +1,35 @@
+name = "E0057-R000001-direct-parser-wiring-skeleton"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/df2e45d/research/experiments/E0057-can-accepted-composite-standardir-emit-a"
+sha256 = "21eda1bd8907b94e108a896a528424502acc0df67ced44e869f06b7fc9379099"
+bytes = 549
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for deterministic direct-parser wiring from the accepted composite StandardIR input"
+path = ".cache/runs/E0057/R000001/summary.tsv"
+origin = "MECHANICAL"
+format = "tab-separated direct-parser wiring summary"
+generator = "E0057 analyse.sh"
+generator_commit = "df2e45d"
+checker = "research/experiments/E0057-can-accepted-composite-standardir-emit-a/analyse.sh"
+checker_commit = "df2e45d"
+standard_new_commit = "c6cd889"
+source_composite_sha256 = "3458da1debda9aff98974b720891af4426c0506905f58317e018854f8cd9b3eb"
+dispatch_sha256 = "c5a1aa1d2bcf0aa6e475b5f61ca11d80fa6ccc0138e144de2db7eb400993c2a0"
+dispatch_bytes = 59751
+skeleton_sha256 = "1e5a5bfbce0e578e3bd966666fd1f058ff85114c5530d5bf012a284e19c9fe33"
+skeleton_bytes = 287903
+source_syntax_records = 522
+composite_syntax_records = 519
+unique_lhs = 499
+dispatch_rows = 519
+generated_procedures = 499
+duplicate_dispatch_labels = 0
+provenance_rows = 519
+unresolved_references = 0
+fortran_compile_status = 0
+target_boundary = "wiring_skeleton_compiled"
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0057-can-accepted-composite-standardir-emit-a/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

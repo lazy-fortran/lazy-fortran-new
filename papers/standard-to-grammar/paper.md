@@ -21,6 +21,11 @@ expansions, and 3 compositional overlaps. The
 accepted input has zero unresolved target names. Deterministic target
 normalization makes ANTLR4 and Bison generation succeed while tree-sitter
 reaches an explicit 13-group conflict boundary.
+The direct-parser wiring slice then emits 499 deterministic
+procedures and 519 provenance-bearing dispatch rows from the
+accepted composite input. The generated Fortran wiring skeleton compiles with
+status 0. Its procedure bodies remain local implementation
+holes.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -233,11 +238,16 @@ E0055 shows that the next work is target normalization: eliminate or represent
 the pre-existing empty-rule, left-recursion and conflict boundaries while
 keeping StandardIR and deterministic wiring authoritative.
 E0056 completes the compact recursion and nullability normalization and
-identifies the next tree-sitter conflict boundary. The next decision is
-whether to derive a general conflict-projection mechanism or to stop using
-tree-sitter as a production target while retaining it as an export and
-differential oracle. The source representation and deterministic wiring do not
-change in either case.
+identifies the next tree-sitter conflict boundary. D0029 selects the
+specialized direct parser as the production target. EBNF, ANTLR4, Bison and
+tree-sitter remain generated exports and differential oracles, so their
+target-specific conflict metadata does not enter the authoritative
+representation.
+E0057 then emits 499 deterministic procedures from the
+accepted composite input. All 519 dispatch rows retain source
+provenance, the generated skeleton compiles, and its local procedure bodies
+remain explicit implementation holes. This separates compiler-wide wiring
+from the constructive logic that later work must fill.
 
 ## 7. Conclusion
 
@@ -252,16 +262,16 @@ remaining tree-sitter ambiguity as a reproducible target boundary.
 
 This result supports the repository's main engineering claim. The standard can
 remain the maintained semantic source while generated representations carry
-the wiring and provenance. The next implementation milestone is a specialized
-parser-generator input and a thin source-linked diagnostic demonstration. Its
-success will be measured against the same pinned records and independent
-oracles.
+the wiring and provenance. The next implementation milestone fills the local
+parser operations and exercises them against a source corpus with linked
+diagnostics. Its success will be measured against the same pinned records and
+independent oracles.
 
 ## References
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0028 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0029 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
@@ -508,6 +518,22 @@ The following rows are extracted from the accepted projection run records.
 | Next tree-sitter conflict | r_int_x2D_literal_x2D_constant,r_kind_x2D_param |
 | Target boundary | verification_failure_remaining_target_structure |
 | Controlled normalizer mutation | observed_failure |
+
+## E0057 deterministic direct-parser wiring
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | 522 |
+| Composite syntax records | 519 |
+| Unique left-hand sides | 499 |
+| Dispatch rows | 519 |
+| Generated procedures | 499 |
+| Duplicate dispatch labels | 0 |
+| Provenance rows | 519 |
+| Unresolved references | 0 |
+| Fortran compile status | 0 |
+| Wiring boundary | wiring_skeleton_compiled |
+| Controlled wiring mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison
 
