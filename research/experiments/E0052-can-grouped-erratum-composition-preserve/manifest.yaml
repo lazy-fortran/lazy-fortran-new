@@ -1,0 +1,74 @@
+id: "E0052"
+title: "Grouped erratum composition for the partial parser input"
+question: >
+  Can grouped erratum composition preserve optional reference punctuation for all target validators?
+status: reported            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: "2026-08-12"
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "9560326"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: complete-core-partial-composite-E0049
+
+# The axes being varied. Omit the key if there is only one condition.
+variables: {}
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model calls; one deterministic grouped-composition candidate."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - final_syntax_records
+  - errata_repairs
+  - grouped_optional_repairs
+  - antlr_status
+  - bison_status
+  - treesitter_status
+  - target_definition_counts
+  - antlr_bison_unresolved_set_difference
+  - negative_control
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  The one E0049 partial candidate and its eight accepted D0025 errata are
+  eligible. The grouped composition transformation is applied once, then
+  all three target validators are run once. Validator failures are retained.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >
+  E0049 is rerun and its normalized resolution table is checked. An
+  independent source traversal counts all eight errata and checks every
+  repaired reference and punctuation token. Independent target-definition
+  scans count generated rules. ANTLR4 and Bison unresolved-name sets are
+  compared. A controlled mutation that removes one grouping witness must
+  change the grouped-witness count.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  The hypothesis fails if the grouped candidate still emits malformed
+  optional syntax for tree-sitter, if any target definition count changes,
+  or if the independent erratum witness count differs from eight.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >
+  Record whether the grouped transformation removes the tree-sitter
+  structural failure, whether ANTLR4 and Bison retain the same unresolved
+  names, and whether the candidate remains a verification failure. Do not
+  select D0024 or D0026.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/experiments/E0052-can-grouped-erratum-composition-preserve/analyse.sh
