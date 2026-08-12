@@ -2,13 +2,13 @@ id: "E0015"
 title: "Core 0 feature eligibility projection"
 question: >
   Can Core 0 feature eligibility prune excluded alternatives while preserving a closed generated syntax projection?
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "d5d9499"
+  lazy-fortran-new: "6e4cf70"
   standard-new: "17487dd"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

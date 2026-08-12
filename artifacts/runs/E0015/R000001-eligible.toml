@@ -1,0 +1,31 @@
+name        = "E0015-R000001-j3-24-007-core0-eligible-dependencies"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/6e4cf70"
+sha256      = "92244fecd456573902f296113bf7e388204ab45a6773f93156ec8a1d02d81707"
+bytes       = 36373
+licence     = "MIT generator; derived from J3/ISO source, not redistributable"
+retrieved   = "2026-08-12"
+purpose     = "Graph-level Core 0 feature-eligibility projection with explicit exclusions"
+path        = ".cache/runs/E0015/R000001/j3-24-007.core0-eligible.sx"
+origin      = "MECHANICAL"
+format      = "Core 0 eligibility projection SX format 1"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "research/experiments/E0015-can-core-0-feature-eligibility-prune-exc/check-profile-eligibility.sh"
+generator_commit = "6e4cf70"
+input       = ".cache/runs/E0014/R000001/j3-24-007.dependencies.sx"
+input_sha256 = "03af0b269089c90ef277189da214c3952796f86703a2aa19c904f0ec6b6510d6"
+profile     = "core0-v1"
+closure_rules = 345
+excluded_rules = 32
+retained_rules = 313
+pruned_edges = 27
+unresolved_edges = 216
+unresolved_names = 128
+unresolved_notation = 13
+unresolved_needs_adjudication = 115
+nonclosed_references = 0
+independent_projection_difference = 0
+
+# Regenerate and verify with:
+#   research/experiments/E0015-can-core-0-feature-eligibility-prune-exc/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

@@ -29,10 +29,13 @@ declared Core 0 roots, retaining 20 repeated IDs and 249 unresolved names;
 its independent graph gate is
 `research/experiments/E0014-core0-profile/check-core0-closure.sh`.
 The dependency result is syntax reachability, not yet semantic Core 0 support;
-D0015 records the required profile-projection boundary. E0004 and E0005 remain
-historical comparison runs. The generated grammar and semantic rules do not
-exist yet. E0001 and E0004 are running, while E0002--E0003 remain draft
-experiments. E0012 remains a later Phase 2 experiment.
+D0015 records the required profile-projection boundary. E0015 reports a
+graph-level eligibility projection with 313 retained rules, 27 pruned edges,
+zero non-closed references and 115 unresolved names requiring adjudication
+(`research/experiments/E0015-can-core-0-feature-eligibility-prune-exc/analyse.sh`).
+E0004 and E0005 remain historical comparison runs. The generated grammar and
+semantic rules do not exist yet. E0001 and E0004 are running, while E0002--E0003
+remain draft experiments. E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -266,6 +269,8 @@ evidence for the thesis.
 - [x] E0013 complete core syntax extraction, scope audit, denominator and oracle recorded
 - [x] E0014 Core 0 roots, dependency closure, duplicate policy and independent
       graph oracle recorded
+- [x] E0015 explicit feature exclusions, graph projection and unresolved-name
+      classification recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
