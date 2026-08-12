@@ -64,8 +64,16 @@ A hash mismatch is a hard failure. `git status` stays clean after a fetch.
 
 ## Current state
 
-Phase 0. The laboratory exists. No extraction pipeline has been built yet.
-`ROADMAP.md` carries the dated snapshot and the phase gates.
+Phase 0 is complete and Phase 1 is in progress. `standard-new` now performs
+layout-aware PDF extraction, canonical text projection, complete numbered syntax
+extraction for the selected J3/24-007 span, canonical StandardIR SX emission,
+dependency closure and deterministic EBNF, ANTLR4, Bison and tree-sitter
+projections. The current extraction gate reports 522/522 numbered production
+starts with zero model calls. The byte/span text layer, canonical SX reader and
+writer, flat SX arena, schema parser and first deterministic Fortran schema type
+emitter also exist. Semantic StandardIR formalization and the composite parser
+input are the next major Phase 1 boundaries; `ROADMAP.md` carries the exact
+reproducible gates and current decision state.
 
 ## Licence
 
