@@ -1,0 +1,33 @@
+name        = "E0040-R000001-generated-schema-validation-equality"
+url         = "https://github.com/lazy-fortran/standard-new/tree/531e590"
+sha256      = "97dbda480e10a008686face4d9f99b8725940947354e79fede65828de7e5454a"
+bytes       = 422
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for generated schema validation and equality differential"
+path        = ".cache/runs/E0040/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated generated schema validation and equality summary"
+generator   = "standard-new schema_codegen and schema_value_runtime"
+generator_commit = "531e590"
+checker     = "research/experiments/E0040-do-generated-validators-and-equality-pre/analyse.sh"
+checker_commit = "ac4b4f7"
+text_policy = 0
+schema_parser = 0
+schema_codegen = 0
+generated_api = 0
+runtime_checked_generated_api = 0
+driver = 0
+generated_byte_identity = 0
+generated_formatting = 0
+lint_zero_warnings = 0
+full_pipeline = 0
+valid_values_checked = 7
+invalid_values_checked = 5
+equality_cases_checked = 8
+generated_source_bytes = 29970
+generated_source_sha256 = "e49b113697adc2107584f3719c7ed56422d74319e26967a198e47305c66db88e"
+
+# Regenerate and verify with:
+#   research/experiments/E0040-do-generated-validators-and-equality-pre/analyse.sh
+# Verify its hash and size with sha256sum and stat.
