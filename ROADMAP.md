@@ -412,6 +412,11 @@ evidence for the thesis.
       `research/experiments/E0054-can-deterministic-lexical-projection-can/analyse.sh`)
 - [ ] Generate the specialized parser-generator input under D0024, D0026 and
       D0027
+- [x] Apply D0024, D0026 and D0027 to one composite input and measure the
+      remaining target-export boundary (E0055, regenerate with
+      `research/experiments/E0055-can-accepted-projection-decisions-produc/analyse.sh`)
+- [ ] Normalize target-export structural failures: left recursion, empty
+      productions, conflicts and strict warning policy
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

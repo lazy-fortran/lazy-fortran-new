@@ -105,6 +105,7 @@ assert_run R000060 '.status == "verification_failure" and .experiment == "E0051"
 assert_run R000061 '.status == "verification_failure" and .experiment == "E0052" and .verification.zero_model_calls == true and .verification.final_syntax_records == 522 and .verification.errata_repairs == 8 and .verification.grouped_optional_repairs == 2 and .verification.antlr_definitions == 502 and .verification.bison_definitions == 502 and .verification.treesitter_definitions == 502 and .verification.antlr_status == 1 and .verification.bison_status == 1 and .verification.treesitter_status == 1 and .verification.treesitter_structural_error == 0 and .verification.antlr_unresolved_rule_names == 103 and .verification.bison_unresolved_symbol_names == 103 and .verification.antlr_bison_unresolved_set_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000062 '.status == "accepted" and .experiment == "E0053" and .verification.zero_model_calls == true and .verification.unresolved_target_names == 103 and .verification.r401_unresolved == 80 and .verification.r403_unresolved == 17 and .verification.expansion_unresolved == 97 and .verification.lexical_unresolved == 3 and .verification.metavariable_unresolved == 1 and .verification.unicode_unresolved == 2 and .verification.source_metadata_records == 6 and .verification.open_decision_groups == 2 and .verification.negative_control == "observed_failure"'
 assert_run R000063 '.status == "accepted" and .experiment == "E0054" and .verification.zero_model_calls == true and .verification.candidate_strategies == 3 and .verification.residue_terms == 5 and .verification.candidate_rows == 15 and .verification.lexical_rows == 3 and .verification.unicode_rows == 2 and .verification.primitive_export_rows == 3 and .verification.schema_export_rows == 3 and .verification.unresolved_rows == 5 and .verification.complete_projection_candidates == 0 and .verification.representation_selection == "deferred_D0027" and .verification.negative_control == "observed_failure"'
+assert_run R000064 '.status == "verification_failure" and .experiment == "E0055" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.generated_syntax_records == 519 and .verification.r401_expansions == 80 and .verification.r403_expansions == 20 and .verification.compositional_overlaps == 3 and .verification.lexical_schema_records == 5 and .verification.lexical_schema_projected == 3 and .verification.unresolved_schema_records == 2 and .verification.antlr_status == 1 and .verification.bison_status == 1 and .verification.treesitter_status == 1 and .verification.antlr_unresolved == 0 and .verification.bison_unresolved == 0 and .verification.treesitter_structural_error == 1 and .verification.target_boundary == "verification_failure_structural_target" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -228,6 +229,22 @@ lexical_candidate_unresolved=$(metric R000063 '.verification.unresolved_rows')
 lexical_candidate_complete=$(metric R000063 '.verification.complete_projection_candidates')
 lexical_candidate_selection=$(metric R000063 '.verification.representation_selection')
 lexical_candidate_negative=$(metric R000063 '.verification.negative_control')
+accepted_projection_source=$(metric R000064 '.verification.source_syntax_records')
+accepted_projection_generated=$(metric R000064 '.verification.generated_syntax_records')
+accepted_projection_r401=$(metric R000064 '.verification.r401_expansions')
+accepted_projection_r403=$(metric R000064 '.verification.r403_expansions')
+accepted_projection_overlaps=$(metric R000064 '.verification.compositional_overlaps')
+accepted_projection_lexical=$(metric R000064 '.verification.lexical_schema_records')
+accepted_projection_lexical_projected=$(metric R000064 '.verification.lexical_schema_projected')
+accepted_projection_lexical_unresolved=$(metric R000064 '.verification.unresolved_schema_records')
+accepted_projection_antlr=$(metric R000064 '.verification.antlr_status')
+accepted_projection_bison=$(metric R000064 '.verification.bison_status')
+accepted_projection_treesitter=$(metric R000064 '.verification.treesitter_status')
+accepted_projection_antlr_unresolved=$(metric R000064 '.verification.antlr_unresolved')
+accepted_projection_bison_unresolved=$(metric R000064 '.verification.bison_unresolved')
+accepted_projection_treesitter_structural=$(metric R000064 '.verification.treesitter_structural_error')
+accepted_projection_target_boundary=$(metric R000064 '.verification.target_boundary')
+accepted_projection_negative=$(metric R000064 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -449,6 +466,27 @@ EOF
 | Cases with agreement across LFortran, Flang, and gfortran | $(metric R000050 '.verification.all_three_agree_cases') |
 | Cases with disagreement | $(metric R000050 '.verification.disagreement_cases') |
 
+## E0055 accepted deterministic projection
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | $accepted_projection_source |
+| Generated syntax records | $accepted_projection_generated |
+| R401 typed expansions | $accepted_projection_r401 |
+| R403 typed expansions | $accepted_projection_r403 |
+| Compositional overlap records | $accepted_projection_overlaps |
+| Lexical schema records | $accepted_projection_lexical |
+| Lexical schema records projected | $accepted_projection_lexical_projected |
+| Lexical records retained unresolved | $accepted_projection_lexical_unresolved |
+| ANTLR4 exit status | $accepted_projection_antlr |
+| Bison exit status | $accepted_projection_bison |
+| tree-sitter exit status | $accepted_projection_treesitter |
+| ANTLR4 unresolved names | $accepted_projection_antlr_unresolved |
+| Bison unresolved names | $accepted_projection_bison_unresolved |
+| tree-sitter structural error | $accepted_projection_treesitter_structural |
+| Target boundary | $accepted_projection_target_boundary |
+| Controlled projection mutation | $accepted_projection_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -526,6 +564,22 @@ rendered=${rendered//@LEXICAL_CANDIDATE_UNRESOLVED@/$lexical_candidate_unresolve
 rendered=${rendered//@LEXICAL_CANDIDATE_COMPLETE@/$lexical_candidate_complete}
 rendered=${rendered//@LEXICAL_CANDIDATE_SELECTION@/$lexical_candidate_selection}
 rendered=${rendered//@LEXICAL_CANDIDATE_NEGATIVE@/$lexical_candidate_negative}
+rendered=${rendered//@ACCEPTED_PROJECTION_SOURCE@/$accepted_projection_source}
+rendered=${rendered//@ACCEPTED_PROJECTION_GENERATED@/$accepted_projection_generated}
+rendered=${rendered//@ACCEPTED_PROJECTION_R401@/$accepted_projection_r401}
+rendered=${rendered//@ACCEPTED_PROJECTION_R403@/$accepted_projection_r403}
+rendered=${rendered//@ACCEPTED_PROJECTION_OVERLAPS@/$accepted_projection_overlaps}
+rendered=${rendered//@ACCEPTED_PROJECTION_LEXICAL@/$accepted_projection_lexical}
+rendered=${rendered//@ACCEPTED_PROJECTION_LEXICAL_PROJECTED@/$accepted_projection_lexical_projected}
+rendered=${rendered//@ACCEPTED_PROJECTION_LEXICAL_UNRESOLVED@/$accepted_projection_lexical_unresolved}
+rendered=${rendered//@ACCEPTED_PROJECTION_ANTLR@/$accepted_projection_antlr}
+rendered=${rendered//@ACCEPTED_PROJECTION_BISON@/$accepted_projection_bison}
+rendered=${rendered//@ACCEPTED_PROJECTION_TREESITTER@/$accepted_projection_treesitter}
+rendered=${rendered//@ACCEPTED_PROJECTION_ANTLR_UNRESOLVED@/$accepted_projection_antlr_unresolved}
+rendered=${rendered//@ACCEPTED_PROJECTION_BISON_UNRESOLVED@/$accepted_projection_bison_unresolved}
+rendered=${rendered//@ACCEPTED_PROJECTION_TREESITTER_STRUCTURAL@/$accepted_projection_treesitter_structural}
+rendered=${rendered//@ACCEPTED_PROJECTION_TARGET_BOUNDARY@/$accepted_projection_target_boundary}
+rendered=${rendered//@ACCEPTED_PROJECTION_NEGATIVE@/$accepted_projection_negative}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

@@ -123,6 +123,12 @@ rows. Primitive lexer export and target-independent lexical-fact schema each
 project 3 lexical rows while retaining
 2 ambiguous Unicode or quotation rows. Selection
 remains deferred_D0027.
+E0055 applies the accepted D0024, D0026 and D0027 projections. It emits
+519 target syntax records from
+522 source records, with
+80 R401 expansions, 20 R403
+expansions, and 3 compositional overlaps. The
+target tools expose a structural boundary rather than unresolved source names.
 
 ### 2.3 Verification
 
@@ -188,6 +194,13 @@ E0054 supplies the D0027 tradeoff matrix. It retains all
 candidates, and leaves the ambiguous Unicode rows unresolved under D0020. No
 candidate was accepted within that experiment. D0027 subsequently accepts the
 target-independent lexical-fact schema, with specialized target exporters.
+E0055 confirms that the accepted decisions remove the unresolved-name
+boundary: ANTLR4 and Bison report zero unresolved names. The target validators
+still reject the broad raw projection because of structural issues visible in
+the generated forms: ANTLR4 left recursion and fatal warnings, Bison useless
+rules and conflicts, and tree-sitter empty-string rules. This is a target
+export normalization boundary, not evidence against the source-provenance
+decisions.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -227,6 +240,9 @@ A complete parser input will be claimed after the unresolved and disputed
 sets are reported, every selected fact has provenance, and the target tools
 accept the generated composite input. Semantic constraints remain a separate
 phase.
+E0055 shows that the next work is target normalization: eliminate or represent
+the pre-existing empty-rule, left-recursion and conflict boundaries while
+keeping StandardIR and deterministic wiring authoritative.
 
 ## References
 
@@ -441,6 +457,27 @@ The following rows are extracted from the accepted projection run records.
 | Compiler invocations | 30 |
 | Cases with agreement across LFortran, Flang, and gfortran | 10 |
 | Cases with disagreement | 0 |
+
+## E0055 accepted deterministic projection
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | 522 |
+| Generated syntax records | 519 |
+| R401 typed expansions | 80 |
+| R403 typed expansions | 20 |
+| Compositional overlap records | 3 |
+| Lexical schema records | 5 |
+| Lexical schema records projected | 3 |
+| Lexical records retained unresolved | 2 |
+| ANTLR4 exit status | 1 |
+| Bison exit status | 1 |
+| tree-sitter exit status | 1 |
+| ANTLR4 unresolved names | 0 |
+| Bison unresolved names | 0 |
+| tree-sitter structural error | 1 |
+| Target boundary | verification_failure_structural_target |
+| Controlled projection mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison
 

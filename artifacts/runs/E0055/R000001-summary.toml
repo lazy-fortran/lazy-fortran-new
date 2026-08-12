@@ -1,0 +1,44 @@
+name = "E0055-R000001-accepted-projection-target-validation"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/0dc5d13/research/experiments/E0055-can-accepted-projection-decisions-produc"
+sha256 = "df91af0cdebd0ce9a5a5f2da21ad4d7465a9d4ffecb8d8f83c69c8ddb4e4dd18"
+bytes = 793
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for applying accepted D0024, D0026 and D0027 projections and validating the target grammar boundary"
+path = ".cache/runs/E0055/R000001/summary.tsv"
+origin = "DIFFERENTIAL"
+format = "tab-separated accepted-projection target-validation summary"
+generator = "E0055 analyse.sh"
+generator_commit = "0dc5d13"
+checker = "research/experiments/E0055-can-accepted-projection-decisions-produc/analyse.sh"
+checker_commit = "0dc5d13"
+standard_new_commit = "c6cd889"
+source_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+composite_input_sha256 = "3458da1debda9aff98974b720891af4426c0506905f58317e018854f8cd9b3eb"
+composite_input_bytes = 185523
+lexical_schema_sha256 = "752b7b567c4074498ce9870c9ec44a17c745bf05026fc7969639d8664aa703c1"
+lexical_schema_bytes = 740
+overlap_sha256 = "b7eff0e3c2a75e7a23f1d88328fcee84b9df6f23ec33698ea2b9085adfb2c9a3"
+overlap_bytes = 310
+source_syntax_records = 522
+generated_syntax_records = 519
+r401_expansions = 80
+r403_expansions = 20
+compositional_overlaps = 3
+lexical_schema_records = 5
+lexical_schema_projected = 3
+unresolved_schema_records = 2
+antlr_status = 1
+bison_status = 1
+treesitter_status = 1
+antlr_unresolved = 0
+bison_unresolved = 0
+treesitter_structural_error = 1
+antlr_warnings = 18
+bison_warnings = 0
+target_boundary = "verification_failure_structural_target"
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0055-can-accepted-projection-decisions-produc/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

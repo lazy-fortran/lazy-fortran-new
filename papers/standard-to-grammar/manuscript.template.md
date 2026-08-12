@@ -123,6 +123,12 @@ rows. Primitive lexer export and target-independent lexical-fact schema each
 project @LEXICAL_CANDIDATE_PRIMITIVE@ lexical rows while retaining
 @LEXICAL_CANDIDATE_UNICODE@ ambiguous Unicode or quotation rows. Selection
 remains @LEXICAL_CANDIDATE_SELECTION@.
+E0055 applies the accepted D0024, D0026 and D0027 projections. It emits
+@ACCEPTED_PROJECTION_GENERATED@ target syntax records from
+@ACCEPTED_PROJECTION_SOURCE@ source records, with
+@ACCEPTED_PROJECTION_R401@ R401 expansions, @ACCEPTED_PROJECTION_R403@ R403
+expansions, and @ACCEPTED_PROJECTION_OVERLAPS@ compositional overlaps. The
+target tools expose a structural boundary rather than unresolved source names.
 
 ### 2.3 Verification
 
@@ -188,6 +194,13 @@ E0054 supplies the D0027 tradeoff matrix. It retains all
 candidates, and leaves the ambiguous Unicode rows unresolved under D0020. No
 candidate was accepted within that experiment. D0027 subsequently accepts the
 target-independent lexical-fact schema, with specialized target exporters.
+E0055 confirms that the accepted decisions remove the unresolved-name
+boundary: ANTLR4 and Bison report zero unresolved names. The target validators
+still reject the broad raw projection because of structural issues visible in
+the generated forms: ANTLR4 left recursion and fatal warnings, Bison useless
+rules and conflicts, and tree-sitter empty-string rules. This is a target
+export normalization boundary, not evidence against the source-provenance
+decisions.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -227,6 +240,9 @@ A complete parser input will be claimed after the unresolved and disputed
 sets are reported, every selected fact has provenance, and the target tools
 accept the generated composite input. Semantic constraints remain a separate
 phase.
+E0055 shows that the next work is target normalization: eliminate or represent
+the pre-existing empty-rule, left-recursion and conflict boundaries while
+keeping StandardIR and deterministic wiring authoritative.
 
 ## References
 

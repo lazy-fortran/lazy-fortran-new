@@ -204,6 +204,27 @@ The following rows are extracted from the accepted projection run records.
 | Cases with agreement across LFortran, Flang, and gfortran | 10 |
 | Cases with disagreement | 0 |
 
+## E0055 accepted deterministic projection
+
+| Quantity | Value |
+|---|---:|
+| Source syntax records | 522 |
+| Generated syntax records | 519 |
+| R401 typed expansions | 80 |
+| R403 typed expansions | 20 |
+| Compositional overlap records | 3 |
+| Lexical schema records | 5 |
+| Lexical schema records projected | 3 |
+| Lexical records retained unresolved | 2 |
+| ANTLR4 exit status | 1 |
+| Bison exit status | 1 |
+| tree-sitter exit status | 1 |
+| ANTLR4 unresolved names | 0 |
+| Bison unresolved names | 0 |
+| tree-sitter structural error | 1 |
+| Target boundary | verification_failure_structural_target |
+| Controlled projection mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
