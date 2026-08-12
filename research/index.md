@@ -108,6 +108,7 @@ Runs recorded: 67
 | [D0027](decisions/D0027-lexical-primitive-projection.md) | accepted |  | Projection of lexical primitive records |
 | [D0028](decisions/D0028-default-decision-principles.md) | accepted |  | Default decision principles and autonomous resolution |
 | [D0029](decisions/D0029-specialized-direct-parser-production-target.md) | accepted |  | Specialized direct parser is the production target |
+| [D0030](decisions/D0030-generated-export-warning-policy.md) | accepted |  | Generated export warnings are retained evidence |
 
 ### Proposed decisions
 

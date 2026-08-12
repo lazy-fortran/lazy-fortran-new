@@ -423,9 +423,11 @@ evidence for the thesis.
 - [x] Select the specialized direct parser as the production target and keep
       tree-sitter as a generated export and differential oracle ([D0029](research/decisions/D0029-specialized-direct-parser-production-target.md), based on E0056's 13 conflict groups and next unresolved group
       `r_int_x2D_literal_x2D_constant` versus `r_kind_x2D_param`)
-- [ ] Decide whether ANTLR4 and Bison exports must be warning-free, then
-      remove or explicitly classify their retained target warnings (E0056:
-      18 and 206, respectively)
+- [x] Decide the ANTLR4 and Bison warning policy: retain their target
+      diagnostics as derived evidence and require zero fatal errors and zero
+      unresolved names, rather than making warning-free secondary exports gate
+      the direct parser ([D0030](research/decisions/D0030-generated-export-warning-policy.md),
+      E0056 recorded 18 and 206 warnings, respectively)
 - [x] Emit deterministic direct-parser dispatch wiring from the accepted
       composite input, with one provenance-bearing row per syntax record and
       one generated procedure per unique left-hand side (E0057, regenerate

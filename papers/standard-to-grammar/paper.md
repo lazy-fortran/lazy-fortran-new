@@ -122,6 +122,10 @@ reaches an explicit table of 13 conflict groups but
 retains the next conflict, r_int_x2D_literal_x2D_constant,r_kind_x2D_param. The target
 normalizer therefore closes the compact generic part of the boundary but not
 the expanding Fortran-specific ambiguity set.
+D0030 keeps the 18 ANTLR4 and 206 Bison warnings as target diagnostics. It
+requires zero fatal errors and zero unresolved target names for these
+secondary exports. The direct parser remains governed by its own generated
+path.
 E0057 emits the direct-parser wiring skeleton from the accepted composite
 input. E0058 then emits a source-linked diagnostic table from the same records:
 all 519 rows retain a source page, byte span, and document hash.
@@ -203,6 +207,8 @@ E0056 confirms that the first normalization slice is deterministic and
 target-local: ANTLR4 and Bison generate, while the unresolved-name count stays
 at 0. The remaining tree-sitter conflict is
 reported rather than converted into a long Fortran-specific exception list.
+D0030 records the corresponding warning policy. The warning counts remain
+published target diagnostics and do not gate the specialized direct parser.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -282,7 +288,7 @@ pinned records and independent oracles.
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0029 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0030 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
