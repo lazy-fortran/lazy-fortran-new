@@ -133,6 +133,21 @@ The following rows are extracted from the accepted projection run records.
 | Composition status | verification_failure |
 | Controlled family mutation | observed_failure |
 
+## E0050 pending representation comparison
+
+| Quantity | Value |
+|---|---:|
+| Candidate strategies | 3 |
+| R402/R403 overlap terms | 3 |
+| Candidate matrix rows | 9 |
+| Lossy alias-precedence rows | 3 |
+| Lossless expansion-precedence rows | 3 |
+| Lossless unresolved-composite rows | 3 |
+| Parser-ready candidates | 1 |
+| Representation selection | deferred_D0024_D0026 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |

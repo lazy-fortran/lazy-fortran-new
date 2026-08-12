@@ -41,6 +41,9 @@ deferred to D0024.
 E0049 composes the accepted records into a 522-record
 candidate input with 3 overlapping R402/R403 terms; its
 composition status is verification_failure.
+E0050 compares 3 pending representations for the
+3 overlap terms; selection remains
+deferred_D0024_D0026.
 
 ## 1. Scope and claim
 
@@ -99,6 +102,8 @@ representation.
 E0049 composes the accepted resolution records and overlay into a candidate
 partial input. It records overlapping resolution facts as a failure boundary
 rather than assigning precedence.
+E0050 generates a compact comparison of alias precedence, expansion precedence
+and unresolved compositional facts without accepting any of them.
 
 ### 2.3 Verification
 
@@ -171,10 +176,10 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment is a decision pass over the R401/R403 representation and
-the three overlaps recorded in D0026. E0048 supplies the complete 80/20
-inventory, while E0049 supplies the candidate and its retained failure. The
-choice is proposed in
+The next experiment is the planning decision over the R401/R403 representation
+and the three overlaps recorded in D0026. E0048 supplies the complete 80/20
+inventory, E0049 supplies the candidate and its retained failure, and E0050
+supplies the explicit tradeoff matrix. The choice is proposed in
 [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md) and
 [D0026](../../research/decisions/D0026-overlapping-resolution-facts.md). Only
 after those decisions are accepted should the resulting records be applied to
@@ -325,6 +330,21 @@ The following rows are extracted from the accepted projection run records.
 | Records with source hash | 182 |
 | Composition status | verification_failure |
 | Controlled family mutation | observed_failure |
+
+## E0050 pending representation comparison
+
+| Quantity | Value |
+|---|---:|
+| Candidate strategies | 3 |
+| R402/R403 overlap terms | 3 |
+| Candidate matrix rows | 9 |
+| Lossy alias-precedence rows | 3 |
+| Lossless expansion-precedence rows | 3 |
+| Lossless unresolved-composite rows | 3 |
+| Parser-ready candidates | 1 |
+| Representation selection | deferred_D0024_D0026 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
 
 ## External behavioral baseline
 

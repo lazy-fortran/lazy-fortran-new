@@ -68,6 +68,7 @@ assert_run R000055 '.status == "accepted" and .experiment == "E0046" and .verifi
 assert_run R000056 '.status == "accepted" and .experiment == "E0047" and .verification.zero_model_calls == true and .verification.errata_origin == "LLM" and .verification.errata_decision == "D0025" and .verification.source_repair_records == 7 and .verification.input_syntax_records == 522 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000057 '.status == "accepted" and .experiment == "E0048" and .verification.zero_model_calls == true and .verification.original_audit_unique_names == 181 and .verification.normalized_audit_unique_names == 178 and .verification.expansion_records == 100 and .verification.r401_records == 80 and .verification.r403_records == 20 and .verification.explicit_definition_conflicts == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.representation_selection == "deferred_D0024"'
 assert_run R000058 '.status == "verification_failure" and .experiment == "E0049" and .verification.zero_model_calls == true and .verification.source_resolution_records == 182 and .verification.errata_repairs == 8 and .verification.resolved_projection_records == 70 and .verification.expansion_records == 100 and .verification.family_resolution_conflicts == 3 and .verification.conflict_set_difference == 0 and .verification.final_syntax_records == 522 and .verification.representation_selection == "deferred_D0024" and .verification.negative_control == "observed_failure"'
+assert_run R000059 '.status == "accepted" and .experiment == "E0050" and .verification.zero_model_calls == true and .verification.candidate_strategies == 3 and .verification.overlap_terms == 3 and .verification.r401_records == 80 and .verification.r403_records == 20 and .verification.candidate_rows == 9 and .verification.lossy_alias_precedence_rows == 3 and .verification.lossless_expansion_precedence_rows == 3 and .verification.lossless_unresolved_composite_rows == 3 and .verification.parser_ready_candidates == 1 and .verification.representation_selection == "deferred_D0024_D0026" and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -138,6 +139,16 @@ composite_syntax_records=$(metric R000058 '.verification.final_syntax_records')
 composite_source_matches=$(metric R000058 '.verification.source_hash_matches')
 composite_status=$(metric R000058 '.verification.composition_status')
 composite_negative_control=$(metric R000058 '.verification.negative_control')
+candidate_strategies=$(metric R000059 '.verification.candidate_strategies')
+candidate_overlap_terms=$(metric R000059 '.verification.overlap_terms')
+candidate_rows=$(metric R000059 '.verification.candidate_rows')
+candidate_lossy=$(metric R000059 '.verification.lossy_alias_precedence_rows')
+candidate_expansion_lossless=$(metric R000059 '.verification.lossless_expansion_precedence_rows')
+candidate_unresolved_lossless=$(metric R000059 '.verification.lossless_unresolved_composite_rows')
+candidate_parser_ready=$(metric R000059 '.verification.parser_ready_candidates')
+candidate_selection=$(metric R000059 '.verification.representation_selection')
+candidate_difference=$(metric R000059 '.verification.independent_difference')
+candidate_negative_control=$(metric R000059 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -288,6 +299,21 @@ EOF
 | Composition status | $composite_status |
 | Controlled family mutation | $composite_negative_control |
 
+## E0050 pending representation comparison
+
+| Quantity | Value |
+|---|---:|
+| Candidate strategies | $candidate_strategies |
+| R402/R403 overlap terms | $candidate_overlap_terms |
+| Candidate matrix rows | $candidate_rows |
+| Lossy alias-precedence rows | $candidate_lossy |
+| Lossless expansion-precedence rows | $candidate_expansion_lossless |
+| Lossless unresolved-composite rows | $candidate_unresolved_lossless |
+| Parser-ready candidates | $candidate_parser_ready |
+| Representation selection | $candidate_selection |
+| Independent difference | $candidate_difference |
+| Controlled mutation | $candidate_negative_control |
+
 ## External behavioral baseline
 
 | Quantity | Value |
@@ -336,6 +362,9 @@ rendered=${rendered//@EXPANSION_REPRESENTATION@/$expansion_representation}
 rendered=${rendered//@COMPOSITE_SYNTAX_RECORDS@/$composite_syntax_records}
 rendered=${rendered//@COMPOSITE_CONFLICTS@/$composite_conflicts}
 rendered=${rendered//@COMPOSITE_STATUS@/$composite_status}
+rendered=${rendered//@CANDIDATE_STRATEGIES@/$candidate_strategies}
+rendered=${rendered//@CANDIDATE_OVERLAP_TERMS@/$candidate_overlap_terms}
+rendered=${rendered//@CANDIDATE_SELECTION@/$candidate_selection}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

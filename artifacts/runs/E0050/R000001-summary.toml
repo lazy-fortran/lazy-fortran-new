@@ -1,0 +1,38 @@
+name = "E0050-R000001-pending-representation-comparison"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/90b4707/research/experiments/E0050-can-deterministic-candidate-representati"
+sha256 = "4960ec9fdbf54c7eabae8fb8bd90396aa251cd4f543665070a575cfd1a0c092e"
+bytes = 516
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for deterministic comparison of pending D0024/D0026 representations"
+path = ".cache/runs/E0050/R000001/summary.tsv"
+origin = "MECHANICAL"
+format = "tab-separated representation comparison summary"
+generator = "E0050 analyse.sh"
+generator_commit = "90b4707"
+checker = "research/experiments/E0050-can-deterministic-candidate-representati/analyse.sh"
+checker_commit = "90b4707"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+normalized_resolution_sha256 = "e284b4e9b2b14176a0743103084ae53f0535157896a29e27026fdc2d12331a5e"
+conflicts_sha256 = "f3463dc6505d6c8707bc6dc1bc5108ca7b8179c0573aa02bb1c8894358c98392"
+inventory_sha256 = "d85eb38a4675251c3e23ebf1d0c187949134978b89f45d7af92108be0bbbe503"
+candidate_matrix_sha256 = "e9e6b16873d54bcb86009425d0da3372de896e6a096df96df4c3ae789bcca01a"
+candidate_matrix_bytes = 1473
+family_denominator_sha256 = "386b588f5ea706c011bbca02a7faf5f3122c335a0b46c8d8c5ede141aebdb360"
+family_denominator_bytes = 29
+candidate_strategies = 3
+overlap_terms = 3
+r401_records = 80
+r403_records = 20
+candidate_rows = 9
+lossy_alias_precedence_rows = 3
+lossless_expansion_precedence_rows = 3
+lossless_unresolved_composite_rows = 3
+parser_ready_candidates = 1
+representation_selection = "deferred_D0024_D0026"
+independent_difference = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0050-can-deterministic-candidate-representati/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

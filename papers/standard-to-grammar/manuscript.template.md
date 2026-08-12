@@ -41,6 +41,9 @@ terms and @R403_RECORDS@ R403 scalar terms. Their representation remains
 E0049 composes the accepted records into a @COMPOSITE_SYNTAX_RECORDS@-record
 candidate input with @COMPOSITE_CONFLICTS@ overlapping R402/R403 terms; its
 composition status is @COMPOSITE_STATUS@.
+E0050 compares @CANDIDATE_STRATEGIES@ pending representations for the
+@CANDIDATE_OVERLAP_TERMS@ overlap terms; selection remains
+@CANDIDATE_SELECTION@.
 
 ## 1. Scope and claim
 
@@ -99,6 +102,8 @@ representation.
 E0049 composes the accepted resolution records and overlay into a candidate
 partial input. It records overlapping resolution facts as a failure boundary
 rather than assigning precedence.
+E0050 generates a compact comparison of alias precedence, expansion precedence
+and unresolved compositional facts without accepting any of them.
 
 ### 2.3 Verification
 
@@ -171,10 +176,10 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment is a decision pass over the R401/R403 representation and
-the three overlaps recorded in D0026. E0048 supplies the complete 80/20
-inventory, while E0049 supplies the candidate and its retained failure. The
-choice is proposed in
+The next experiment is the planning decision over the R401/R403 representation
+and the three overlaps recorded in D0026. E0048 supplies the complete 80/20
+inventory, E0049 supplies the candidate and its retained failure, and E0050
+supplies the explicit tradeoff matrix. The choice is proposed in
 [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md) and
 [D0026](../../research/decisions/D0026-overlapping-resolution-facts.md). Only
 after those decisions are accepted should the resulting records be applied to
