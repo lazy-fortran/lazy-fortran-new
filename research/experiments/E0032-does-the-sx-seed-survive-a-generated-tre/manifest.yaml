@@ -8,7 +8,7 @@ closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "adc6543"
+  lazy-fortran-new: "64f9d12"
   standard-new: "803f46f"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
