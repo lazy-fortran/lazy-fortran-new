@@ -125,17 +125,26 @@ E0081 inventories @SEMANTIC_INVENTORY_SPANS@ source-linked semantic candidate
 spans over the @SEMANTIC_INVENTORY_UNRESOLVED@-name residue and
 @SEMANTIC_INVENTORY_CONSTRAINTS@ Core 0-associated numbered constraints. It
 accepts no semantic facts and uses no model calls.
+E0082 then adjudicates @CORE0_ADJUDICATION_CANDIDATES@ candidates into
+@CORE0_ADJUDICATION_ACCEPTED@ typed resolution records, retaining
+@CORE0_ADJUDICATION_RETAINED@ modal candidates and
+@CORE0_ADJUDICATION_CONSTRAINTS@ unresolved-body constraint records. It
+formalizes @CORE0_ADJUDICATION_FORMALIZED@ constraint bodies and emits
+@CORE0_ADJUDICATION_PROJECTIONS@ parser projections, with
+@CORE0_ADJUDICATION_EVIDENCE@ source-evidence matches and no model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
-projection. It does not claim a complete parser or compiler.
+projection plus a bounded semantic-evidence boundary. It does not claim
+complete semantic coverage, a complete parser or a compiler.
 
 ## 1. Scope and claim
 
 The paper evaluates one claim: a language standard can provide the maintained
 source for a mechanically generated syntax representation, provided that the
 representation keeps provenance and reports where the source is insufficient
-for a target parser. The claim concerns syntax extraction and projection. It
-does not include semantic constraints, a complete parser, or a compiler.
+for a target parser. The claim concerns syntax extraction, projection and a
+bounded source-controlled semantic-evidence boundary. It does not include
+semantic constraint rule bodies, a complete parser, or a compiler.
 
 The primary source is J3/24-007, a freely downloadable Fortran 2023 working
 draft. The artifact is identified by SHA-256 in `artifacts/standards/` and is
@@ -569,7 +578,11 @@ one rejected unknown query. E0081 records
 @SEMANTIC_INVENTORY_AMBIGUOUS@ ambiguous names and
 @SEMANTIC_INVENTORY_RESIDUE@ names still unresolved after deterministic
 patterns. It accepts no semantic facts. The next milestone is source-controlled
-adjudication and normalization.
+adjudication and normalization. E0082 establishes that boundary for the Core 0
+inventory: explicit source witnesses become typed resolution records, while
+modal occurrences remain unresolved-body evidence. The next milestone is
+mechanical formalization of a bounded set of those retained constraint bodies
+and their fact dependencies.
 
 ## References
 

@@ -528,9 +528,15 @@ evidence for the thesis.
       287 Core 0-associated numbered constraints, and zero accepted semantic
       facts (E0081, regenerate with
       `research/experiments/E0081-can-deterministic-source-patterns-invent/analyse.sh`)
-- [ ] Adjudicate the E0081 candidates into typed StandardIR facts, retaining
-      false positives and unresolved records before any semantic rule-body
-      generation
+- [x] Adjudicate the E0081 candidates into typed StandardIR facts while
+      retaining false positives and unresolved records: 10 exact
+      definition/relation facts, 256 retained modal candidates, and 287
+      unresolved-body constraint records, with no parser projections or model
+      calls (E0082, regenerate with
+      `research/experiments/E0082-can-source-controlled-adjudication-turn-/analyse.sh`)
+- [ ] Formalize a bounded set of retained constraint bodies mechanically,
+      preserving unresolved and disputed states, then derive the fact
+      dependency graph before any model escalation
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
@@ -607,6 +613,7 @@ evidence for the thesis.
 - [x] E0069 deterministic normative-prose evidence inventory and escalation
       boundary recorded
 - [x] E0081 deterministic Core 0 semantic candidate inventory recorded
+- [x] E0082 source-controlled semantic candidate adjudication recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

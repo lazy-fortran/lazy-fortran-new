@@ -132,6 +132,7 @@ assert_run R000087 '.status == "accepted" and .experiment == "E0078" and .verifi
 assert_run R000088 '.status == "accepted" and .experiment == "E0079" and .verification.zero_model_calls == true and .verification.profile_rows == 151 and .verification.profile_parser_targets == 0 and .verification.profile_source_hashes == 151 and .verification.complete_source_files == 5 and .verification.complete_accepted_records == 72 and .verification.complete_source_linked_records == 72 and .verification.ast_source_files == 5 and .verification.ast_nodes == 73 and .verification.ast_source_linked_nodes == 73 and .verification.ast_parent_links == 68 and .verification.ast_child_links == 68 and .verification.ast_link_errors == 0 and .verification.diagnostic_records == 1 and .verification.diagnostic_source_linked == 1 and .verification.gfortran_complete_accepted == 5 and .verification.gfortran_ast_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000089 '.status == "accepted" and .experiment == "E0080" and .verification.zero_model_calls == true and .verification.profile_rows == 151 and .verification.profile_parser_targets == 0 and .verification.expression_source_files == 6 and .verification.expression_witnesses == 9 and .verification.gfortran_accepted == 6 and .verification.internal_nodes == 23 and .verification.leaf_nodes == 31 and .verification.binary_nodes == 20 and .verification.unary_nodes == 1 and .verification.array_nodes == 0 and .verification.function_reference_nodes == 2 and .verification.name_nodes == 18 and .verification.literal_nodes == 13 and .verification.source_linked_nodes == 54 and .verification.subtree_parent_links == 54 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.coverage_query_hits == 9 and .verification.unknown_query_rejected == 1 and .verification.max_expression_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_operator_rejected == 1 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000090 '.status == "accepted" and .experiment == "E0081" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.candidate_spans == 266 and .verification.definition_candidate_spans == 3 and .verification.relation_candidate_spans == 7 and .verification.constraint_candidate_spans == 256 and .verification.core0_closure_members == 345 and .verification.core0_constraint_records == 287 and .verification.accepted_standardir_facts == 0 and .verification.independent_candidate_difference == 0 and .verification.independent_constraint_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000091 '.status == "accepted" and .experiment == "E0082" and .verification.zero_model_calls == true and .verification.candidate_spans == 266 and .verification.accepted_records == 10 and .verification.accepted_lexical_class_records == 2 and .verification.accepted_metavariable_records == 1 and .verification.accepted_semantic_role_records == 7 and .verification.retained_constraint_candidates == 256 and .verification.unresolved_body_constraint_records == 287 and .verification.accepted_standardir_resolution_facts == 10 and .verification.formalized_constraint_bodies == 0 and .verification.parser_projection_records == 0 and .verification.source_linked_candidates == 266 and .verification.source_linked_constraints == 287 and .verification.independent_candidate_difference == 0 and .verification.independent_constraint_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -646,6 +647,22 @@ semantic_inventory_facts=$(metric R000090 '.verification.accepted_standardir_fac
 semantic_inventory_difference=$(metric R000090 '.verification.independent_candidate_difference')
 semantic_inventory_constraint_difference=$(metric R000090 '.verification.independent_constraint_difference')
 semantic_inventory_negative=$(metric R000090 '.verification.negative_control')
+semantic_adjudication_candidates=$(metric R000091 '.verification.candidate_spans')
+semantic_adjudication_accepted=$(metric R000091 '.verification.accepted_records')
+semantic_adjudication_lexical=$(metric R000091 '.verification.accepted_lexical_class_records')
+semantic_adjudication_metavariable=$(metric R000091 '.verification.accepted_metavariable_records')
+semantic_adjudication_semantic=$(metric R000091 '.verification.accepted_semantic_role_records')
+semantic_adjudication_retained=$(metric R000091 '.verification.retained_constraint_candidates')
+semantic_adjudication_constraints=$(metric R000091 '.verification.unresolved_body_constraint_records')
+semantic_adjudication_linked_candidates=$(metric R000091 '.verification.source_linked_candidates')
+semantic_adjudication_linked_constraints=$(metric R000091 '.verification.source_linked_constraints')
+semantic_adjudication_facts=$(metric R000091 '.verification.accepted_standardir_resolution_facts')
+semantic_adjudication_formalized=$(metric R000091 '.verification.formalized_constraint_bodies')
+semantic_adjudication_projections=$(metric R000091 '.verification.parser_projection_records')
+semantic_adjudication_difference=$(metric R000091 '.verification.independent_candidate_difference')
+semantic_adjudication_constraint_difference=$(metric R000091 '.verification.independent_constraint_difference')
+semantic_adjudication_evidence=$(metric R000091 '.verification.source_evidence_matches')
+semantic_adjudication_negative=$(metric R000091 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1394,6 +1411,27 @@ EOF
 | Independent constraint difference | $semantic_inventory_constraint_difference |
 | Controlled mutation | $semantic_inventory_negative |
 
+## E0082 source-controlled semantic adjudication
+
+| Quantity | Value |
+|---|---:|
+| Candidate spans adjudicated | $semantic_adjudication_candidates |
+| Accepted typed records | $semantic_adjudication_accepted |
+| Accepted lexical-class records | $semantic_adjudication_lexical |
+| Accepted metavariable records | $semantic_adjudication_metavariable |
+| Accepted semantic-role records | $semantic_adjudication_semantic |
+| Retained modal constraint candidates | $semantic_adjudication_retained |
+| Unresolved-body constraint records | $semantic_adjudication_constraints |
+| Source-linked candidates | $semantic_adjudication_linked_candidates |
+| Source-linked constraints | $semantic_adjudication_linked_constraints |
+| Accepted StandardIR resolution facts | $semantic_adjudication_facts |
+| Formalized constraint bodies | $semantic_adjudication_formalized |
+| Parser projection records | $semantic_adjudication_projections |
+| Source evidence matches | $semantic_adjudication_evidence |
+| Independent candidate difference | $semantic_adjudication_difference |
+| Independent constraint difference | $semantic_adjudication_constraint_difference |
+| Controlled mutation | $semantic_adjudication_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1709,6 +1747,22 @@ rendered=${rendered//@SEMANTIC_INVENTORY_FACTS@/$semantic_inventory_facts}
 rendered=${rendered//@SEMANTIC_INVENTORY_DIFFERENCE@/$semantic_inventory_difference}
 rendered=${rendered//@SEMANTIC_INVENTORY_CONSTRAINT_DIFFERENCE@/$semantic_inventory_constraint_difference}
 rendered=${rendered//@SEMANTIC_INVENTORY_NEGATIVE@/$semantic_inventory_negative}
+rendered=${rendered//@CORE0_ADJUDICATION_CANDIDATES@/$semantic_adjudication_candidates}
+rendered=${rendered//@CORE0_ADJUDICATION_ACCEPTED@/$semantic_adjudication_accepted}
+rendered=${rendered//@CORE0_ADJUDICATION_LEXICAL@/$semantic_adjudication_lexical}
+rendered=${rendered//@CORE0_ADJUDICATION_METAVARIABLE@/$semantic_adjudication_metavariable}
+rendered=${rendered//@CORE0_ADJUDICATION_SEMANTIC@/$semantic_adjudication_semantic}
+rendered=${rendered//@CORE0_ADJUDICATION_RETAINED@/$semantic_adjudication_retained}
+rendered=${rendered//@CORE0_ADJUDICATION_CONSTRAINTS@/$semantic_adjudication_constraints}
+rendered=${rendered//@CORE0_ADJUDICATION_LINKED_CANDIDATES@/$semantic_adjudication_linked_candidates}
+rendered=${rendered//@CORE0_ADJUDICATION_LINKED_CONSTRAINTS@/$semantic_adjudication_linked_constraints}
+rendered=${rendered//@CORE0_ADJUDICATION_FACTS@/$semantic_adjudication_facts}
+rendered=${rendered//@CORE0_ADJUDICATION_FORMALIZED@/$semantic_adjudication_formalized}
+rendered=${rendered//@CORE0_ADJUDICATION_PROJECTIONS@/$semantic_adjudication_projections}
+rendered=${rendered//@CORE0_ADJUDICATION_EVIDENCE@/$semantic_adjudication_evidence}
+rendered=${rendered//@CORE0_ADJUDICATION_DIFFERENCE@/$semantic_adjudication_difference}
+rendered=${rendered//@CORE0_ADJUDICATION_CONSTRAINT_DIFFERENCE@/$semantic_adjudication_constraint_difference}
+rendered=${rendered//@CORE0_ADJUDICATION_NEGATIVE@/$semantic_adjudication_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

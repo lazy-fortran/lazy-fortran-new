@@ -1,0 +1,42 @@
+name        = "E0082-R000001-source-controlled-semantic-adjudication-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/19525a7"
+sha256      = "e4beefa72b6f4e25ad4301cc3e9c5e0c0693f7d7be8a9d124478f7d979f915ef"
+bytes       = 804
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of deterministic source-controlled semantic adjudication"
+path        = ".cache/runs/E0082/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+policy_sha256 = "7d4a2665e201d86796d3c99db6493706fcb07c7c3d2390505e088f6865acc8de"
+adjudicated_sha256 = "eba2f86084272ad8d0c27ec1742406efd1557312d30e41f331de9d6bcb9331e6"
+constraints_sha256 = "c96e7a91c9e2e5043958df1d1856f1a36d41173e8169478a1da364cbda3ba25f"
+generator = "lazy-fortran-new E0082 source-controlled semantic adjudication"
+generator_commit = "19525a7"
+checker = "research/experiments/E0082-can-source-controlled-adjudication-turn-/analyse.sh"
+checker_commit = "19525a7"
+candidate_spans = 266
+accepted_records = 10
+accepted_lexical_class_records = 2
+accepted_metavariable_records = 1
+accepted_semantic_role_records = 7
+retained_constraint_candidates = 256
+ambiguous_candidate_names = 7
+unresolved_body_constraint_records = 287
+source_linked_candidates = 266
+source_linked_constraints = 287
+accepted_standardir_resolution_facts = 10
+formalized_constraint_bodies = 0
+parser_projection_records = 0
+model_calls = 0
+independent_candidate_difference = 0
+independent_constraint_difference = 0
+source_evidence_matches = 10
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0082-can-source-controlled-adjudication-turn-/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

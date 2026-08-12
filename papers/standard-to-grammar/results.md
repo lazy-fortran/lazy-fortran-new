@@ -731,6 +731,27 @@ The following rows are extracted from the accepted projection run records.
 | Independent constraint difference | 0 |
 | Controlled mutation | observed_failure |
 
+## E0082 source-controlled semantic adjudication
+
+| Quantity | Value |
+|---|---:|
+| Candidate spans adjudicated | 266 |
+| Accepted typed records | 10 |
+| Accepted lexical-class records | 2 |
+| Accepted metavariable records | 1 |
+| Accepted semantic-role records | 7 |
+| Retained modal constraint candidates | 256 |
+| Unresolved-body constraint records | 287 |
+| Source-linked candidates | 266 |
+| Source-linked constraints | 287 |
+| Accepted StandardIR resolution facts | 10 |
+| Formalized constraint bodies | 0 |
+| Parser projection records | 0 |
+| Source evidence matches | 10 |
+| Independent candidate difference | 0 |
+| Independent constraint difference | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

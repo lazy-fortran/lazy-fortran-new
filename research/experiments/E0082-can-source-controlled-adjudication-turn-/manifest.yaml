@@ -2,13 +2,13 @@ id: "E0082"
 title: "Source-controlled semantic candidate adjudication"
 question: >
   Can source-controlled adjudication turn semantic candidates into typed evidence without promoting constraint mentions to aliases?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "dda9c1a"
+  lazy-fortran-new: "19525a7"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
