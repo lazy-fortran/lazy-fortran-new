@@ -132,9 +132,14 @@ E0082 then adjudicates 266 candidates into
 formalizes 0 constraint bodies and emits
 0 parser projections, with
 10 source-evidence matches and no model calls.
+E0083 formalizes 8 of
+287 Core 0 constraints into normalized
+predicates, retains 279 unresolved records,
+and derives 18 fact-dependency edges with zero
+topological-order difference. It uses no parser projections or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
-projection plus a bounded semantic-evidence boundary. It does not claim
+projection plus bounded semantic-evidence and predicate boundaries. It does not claim
 complete semantic coverage, a complete parser or a compiler.
 
 ## 1. Scope and claim
@@ -581,8 +586,8 @@ patterns. It accepts no semantic facts. The next milestone is source-controlled
 adjudication and normalization. E0082 establishes that boundary for the Core 0
 inventory: explicit source witnesses become typed resolution records, while
 modal occurrences remain unresolved-body evidence. The next milestone is
-mechanical formalization of a bounded set of those retained constraint bodies
-and their fact dependencies.
+mechanical formalization of a broader set of retained constraint bodies that
+requires cross-clause facts.
 
 ## References
 
@@ -1349,6 +1354,26 @@ The following rows are extracted from the accepted projection run records.
 | Source evidence matches | 10 |
 | Independent candidate difference | 0 |
 | Independent constraint difference | 0 |
+| Controlled mutation | observed_failure |
+
+## E0083 bounded Core 0 constraint formalization
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | 287 |
+| Selected constraints | 8 |
+| Normalized predicates | 8 |
+| Resolved constraints | 8 |
+| Unresolved constraints | 279 |
+| Disputed constraints | 0 |
+| Source-hash matches | 287 |
+| Source-evidence matches | 8 |
+| Required fact records | 10 |
+| Provided fact records | 8 |
+| Dependency edges | 18 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
 | Controlled mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison

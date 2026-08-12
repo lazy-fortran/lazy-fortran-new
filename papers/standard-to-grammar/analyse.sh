@@ -133,6 +133,7 @@ assert_run R000088 '.status == "accepted" and .experiment == "E0079" and .verifi
 assert_run R000089 '.status == "accepted" and .experiment == "E0080" and .verification.zero_model_calls == true and .verification.profile_rows == 151 and .verification.profile_parser_targets == 0 and .verification.expression_source_files == 6 and .verification.expression_witnesses == 9 and .verification.gfortran_accepted == 6 and .verification.internal_nodes == 23 and .verification.leaf_nodes == 31 and .verification.binary_nodes == 20 and .verification.unary_nodes == 1 and .verification.array_nodes == 0 and .verification.function_reference_nodes == 2 and .verification.name_nodes == 18 and .verification.literal_nodes == 13 and .verification.source_linked_nodes == 54 and .verification.subtree_parent_links == 54 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.coverage_query_hits == 9 and .verification.unknown_query_rejected == 1 and .verification.max_expression_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_operator_rejected == 1 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000090 '.status == "accepted" and .experiment == "E0081" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.candidate_spans == 266 and .verification.definition_candidate_spans == 3 and .verification.relation_candidate_spans == 7 and .verification.constraint_candidate_spans == 256 and .verification.core0_closure_members == 345 and .verification.core0_constraint_records == 287 and .verification.accepted_standardir_facts == 0 and .verification.independent_candidate_difference == 0 and .verification.independent_constraint_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000091 '.status == "accepted" and .experiment == "E0082" and .verification.zero_model_calls == true and .verification.candidate_spans == 266 and .verification.accepted_records == 10 and .verification.accepted_lexical_class_records == 2 and .verification.accepted_metavariable_records == 1 and .verification.accepted_semantic_role_records == 7 and .verification.retained_constraint_candidates == 256 and .verification.unresolved_body_constraint_records == 287 and .verification.accepted_standardir_resolution_facts == 10 and .verification.formalized_constraint_bodies == 0 and .verification.parser_projection_records == 0 and .verification.source_linked_candidates == 266 and .verification.source_linked_constraints == 287 and .verification.independent_candidate_difference == 0 and .verification.independent_constraint_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000092 '.status == "accepted" and .experiment == "E0083" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_constraints == 8 and .verification.normalized_predicates == 8 and .verification.resolved_constraints == 8 and .verification.unresolved_constraints == 279 and .verification.disputed_constraints == 0 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 8 and .verification.required_fact_records == 10 and .verification.provided_fact_records == 8 and .verification.dependency_edges == 18 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -663,6 +664,21 @@ semantic_adjudication_difference=$(metric R000091 '.verification.independent_can
 semantic_adjudication_constraint_difference=$(metric R000091 '.verification.independent_constraint_difference')
 semantic_adjudication_evidence=$(metric R000091 '.verification.source_evidence_matches')
 semantic_adjudication_negative=$(metric R000091 '.verification.negative_control')
+constraint_formalization_eligible=$(metric R000092 '.verification.eligible_constraints')
+constraint_formalization_selected=$(metric R000092 '.verification.selected_constraints')
+constraint_formalization_predicates=$(metric R000092 '.verification.normalized_predicates')
+constraint_formalization_resolved=$(metric R000092 '.verification.resolved_constraints')
+constraint_formalization_unresolved=$(metric R000092 '.verification.unresolved_constraints')
+constraint_formalization_disputed=$(metric R000092 '.verification.disputed_constraints')
+constraint_formalization_hashes=$(metric R000092 '.verification.source_hash_matches')
+constraint_formalization_evidence=$(metric R000092 '.verification.source_evidence_matches')
+constraint_formalization_required=$(metric R000092 '.verification.required_fact_records')
+constraint_formalization_provided=$(metric R000092 '.verification.provided_fact_records')
+constraint_formalization_edges=$(metric R000092 '.verification.dependency_edges')
+constraint_formalization_order_difference=$(metric R000092 '.verification.topological_order_difference')
+constraint_formalization_difference=$(metric R000092 '.verification.independent_normalization_difference')
+constraint_formalization_projections=$(metric R000092 '.verification.parser_projection_records')
+constraint_formalization_negative=$(metric R000092 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1432,6 +1448,26 @@ EOF
 | Independent constraint difference | $semantic_adjudication_constraint_difference |
 | Controlled mutation | $semantic_adjudication_negative |
 
+## E0083 bounded Core 0 constraint formalization
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | $constraint_formalization_eligible |
+| Selected constraints | $constraint_formalization_selected |
+| Normalized predicates | $constraint_formalization_predicates |
+| Resolved constraints | $constraint_formalization_resolved |
+| Unresolved constraints | $constraint_formalization_unresolved |
+| Disputed constraints | $constraint_formalization_disputed |
+| Source-hash matches | $constraint_formalization_hashes |
+| Source-evidence matches | $constraint_formalization_evidence |
+| Required fact records | $constraint_formalization_required |
+| Provided fact records | $constraint_formalization_provided |
+| Dependency edges | $constraint_formalization_edges |
+| Topological-order difference | $constraint_formalization_order_difference |
+| Independent normalization difference | $constraint_formalization_difference |
+| Parser projection records | $constraint_formalization_projections |
+| Controlled mutation | $constraint_formalization_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1763,6 +1799,21 @@ rendered=${rendered//@CORE0_ADJUDICATION_EVIDENCE@/$semantic_adjudication_eviden
 rendered=${rendered//@CORE0_ADJUDICATION_DIFFERENCE@/$semantic_adjudication_difference}
 rendered=${rendered//@CORE0_ADJUDICATION_CONSTRAINT_DIFFERENCE@/$semantic_adjudication_constraint_difference}
 rendered=${rendered//@CORE0_ADJUDICATION_NEGATIVE@/$semantic_adjudication_negative}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_ELIGIBLE@/$constraint_formalization_eligible}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_SELECTED@/$constraint_formalization_selected}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_PREDICATES@/$constraint_formalization_predicates}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_RESOLVED@/$constraint_formalization_resolved}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_UNRESOLVED@/$constraint_formalization_unresolved}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_DISPUTED@/$constraint_formalization_disputed}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_HASHES@/$constraint_formalization_hashes}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_EVIDENCE@/$constraint_formalization_evidence}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_REQUIRED@/$constraint_formalization_required}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_PROVIDED@/$constraint_formalization_provided}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_EDGES@/$constraint_formalization_edges}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_ORDER_DIFFERENCE@/$constraint_formalization_order_difference}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_DIFFERENCE@/$constraint_formalization_difference}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_PROJECTIONS@/$constraint_formalization_projections}
+rendered=${rendered//@CONSTRAINT_FORMALIZATION_NEGATIVE@/$constraint_formalization_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

@@ -2,13 +2,13 @@ id: "E0083"
 title: "Deterministic bounded Core 0 constraint formalization"
 question: >
   Can deterministic predicate patterns formalize a bounded Core 0 constraint set with source provenance and dependency facts?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "9c69781"
+  lazy-fortran-new: "afa3c8e"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

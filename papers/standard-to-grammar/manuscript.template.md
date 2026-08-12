@@ -132,9 +132,14 @@ E0082 then adjudicates @CORE0_ADJUDICATION_CANDIDATES@ candidates into
 formalizes @CORE0_ADJUDICATION_FORMALIZED@ constraint bodies and emits
 @CORE0_ADJUDICATION_PROJECTIONS@ parser projections, with
 @CORE0_ADJUDICATION_EVIDENCE@ source-evidence matches and no model calls.
+E0083 formalizes @CONSTRAINT_FORMALIZATION_RESOLVED@ of
+@CONSTRAINT_FORMALIZATION_ELIGIBLE@ Core 0 constraints into normalized
+predicates, retains @CONSTRAINT_FORMALIZATION_UNRESOLVED@ unresolved records,
+and derives @CONSTRAINT_FORMALIZATION_EDGES@ fact-dependency edges with zero
+topological-order difference. It uses no parser projections or model calls.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
-projection plus a bounded semantic-evidence boundary. It does not claim
+projection plus bounded semantic-evidence and predicate boundaries. It does not claim
 complete semantic coverage, a complete parser or a compiler.
 
 ## 1. Scope and claim
@@ -581,8 +586,8 @@ patterns. It accepts no semantic facts. The next milestone is source-controlled
 adjudication and normalization. E0082 establishes that boundary for the Core 0
 inventory: explicit source witnesses become typed resolution records, while
 modal occurrences remain unresolved-body evidence. The next milestone is
-mechanical formalization of a bounded set of those retained constraint bodies
-and their fact dependencies.
+mechanical formalization of a broader set of retained constraint bodies that
+requires cross-clause facts.
 
 ## References
 

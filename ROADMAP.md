@@ -534,9 +534,13 @@ evidence for the thesis.
       unresolved-body constraint records, with no parser projections or model
       calls (E0082, regenerate with
       `research/experiments/E0082-can-source-controlled-adjudication-turn-/analyse.sh`)
-- [ ] Formalize a bounded set of retained constraint bodies mechanically,
-      preserving unresolved and disputed states, then derive the fact
-      dependency graph before any model escalation
+- [x] Formalize a bounded set of retained constraint bodies mechanically:
+      8 resolved predicates, 279 unresolved records, 18 fact-dependency edges,
+      and a validated topological order, with no parser projections or model
+      calls (E0083, regenerate with
+      `research/experiments/E0083-can-deterministic-predicate-patterns-for/analyse.sh`)
+- [ ] Expand mechanical predicate formalization to cross-clause constraints,
+      preserving unresolved and disputed states before any model escalation
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
@@ -557,11 +561,11 @@ evidence for the thesis.
 
 - [ ] StandardIR constraints, definitions, relations and rules over Core 0
       clauses
-- [ ] Every rule records its subject, applicability, required facts and
-      provided facts
-- [ ] Fact dependency graph and topological rule scheduling are generated,
-      rather than maintained as a pass list
-- [ ] Mechanical formalization patterns first
+- [x] E0083 records subject, applicability, required facts and provided facts
+      for a bounded constraint slice
+- [x] E0083 derives a fact dependency graph and topological order for the
+      bounded slice
+- [x] Mechanical formalization patterns first, measured by E0083
 - [ ] Small-model then larger-model escalation on the residue, one run record
       per attempt including failures
 - [ ] `unresolved` and `disputed` states exercised on real clauses, not just
@@ -614,6 +618,7 @@ evidence for the thesis.
       boundary recorded
 - [x] E0081 deterministic Core 0 semantic candidate inventory recorded
 - [x] E0082 source-controlled semantic candidate adjudication recorded
+- [x] E0083 deterministic bounded Core 0 constraint formalization recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

@@ -752,6 +752,26 @@ The following rows are extracted from the accepted projection run records.
 | Independent constraint difference | 0 |
 | Controlled mutation | observed_failure |
 
+## E0083 bounded Core 0 constraint formalization
+
+| Quantity | Value |
+|---|---:|
+| Eligible constraints | 287 |
+| Selected constraints | 8 |
+| Normalized predicates | 8 |
+| Resolved constraints | 8 |
+| Unresolved constraints | 279 |
+| Disputed constraints | 0 |
+| Source-hash matches | 287 |
+| Source-evidence matches | 8 |
+| Required fact records | 10 |
+| Provided fact records | 8 |
+| Dependency edges | 18 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

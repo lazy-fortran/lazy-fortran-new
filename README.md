@@ -74,8 +74,11 @@ writer, flat SX arena, schema parser and first deterministic Fortran schema type
 emitter also exist. E0079 and E0080 compose generated complete-source, AST and
 expression operations over pinned real Fortran files. E0081 inventories 266
 source-linked semantic candidate spans and 287 Core 0-associated numbered
-constraints without accepting semantic facts. Semantic StandardIR
-formalization and the completeness gate for the composite parser remain open.
+constraints without accepting constraint bodies. E0082 accepts 10 typed
+definition/relation facts and retains the modal residue. E0083 mechanically
+formalizes 8 bounded predicates, derives 18 dependency edges and retains 279
+constraints unresolved. Cross-clause semantic formalization and the
+completeness gate for the composite parser remain open.
 Regenerate the paper numbers with `papers/standard-to-grammar/analyse.sh` and
 the laboratory index with `scripts/index.sh`.
 

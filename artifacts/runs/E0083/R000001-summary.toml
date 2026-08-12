@@ -1,0 +1,42 @@
+name        = "E0083-R000001-deterministic-bounded-constraint-formalization-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/afa3c8e"
+sha256      = "3c65003f35547471a4e7a489262f381e194e82dcb51620d266f949d98680e2c6"
+bytes       = 835
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of deterministic bounded Core 0 constraint formalization"
+path        = ".cache/runs/E0083/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+policy_sha256 = "b5f230289e34e5f03c6756a0c742efe7c3bd92859494eed686cd1f594e32ebea"
+oracle_sha256 = "4b3288383fb36b7a1b619fcae7c7affecdbc805d7ba55878feee5d90c3fd2fba"
+formalizations_sha256 = "a47d5da29f15fec40d72651624697417e79e74e99b06a58a7303e37b4e078807"
+dependency_sha256 = "4afaa63f75d58a524df8db6d2d94b6a28724f764cb03cbbe7e61e7b747607409"
+topological_sha256 = "38fb027d73dd1c8e191a5563cf5e672bac645f2e8c99991ebdff028521e7ea6e"
+generator = "lazy-fortran-new E0083 deterministic bounded constraint formalization"
+generator_commit = "afa3c8e"
+checker = "research/experiments/E0083-can-deterministic-predicate-patterns-for/analyse.sh"
+checker_commit = "afa3c8e"
+eligible_constraints = 287
+selected_constraints = 8
+normalized_predicates = 8
+resolved_constraints = 8
+unresolved_constraints = 279
+disputed_constraints = 0
+source_hash_matches = 287
+source_evidence_matches = 8
+required_fact_records = 10
+provided_fact_records = 8
+dependency_edges = 18
+topological_order_difference = 0
+independent_normalization_difference = 0
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0083-can-deterministic-predicate-patterns-for/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.
