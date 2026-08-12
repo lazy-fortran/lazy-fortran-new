@@ -2,13 +2,13 @@ id: "E0069"
 title: "Deterministic normative-prose resolution before model escalation"
 question: >
   Can deterministic normative-prose patterns classify unresolved StandardIR names before model escalation?
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "0542511"
+  lazy-fortran-new: "37c07db"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -19,6 +19,7 @@ inputs:
   unresolved_audit: artifacts/runs/E0022/R000001-reference-audit.toml
   canonical_text: artifacts/runs/E0001/R000003-canonical-text.toml
   witness_oracle: research/experiments/E0069-can-deterministic-normative-prose-patter/witness-oracle.tsv
+  decisions: [D0028, D0035]
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:

@@ -119,6 +119,7 @@ assert_run R000074 '.status == "accepted" and .experiment == "E0065" and .verifi
 assert_run R000075 '.status == "accepted" and .experiment == "E0066" and .verification.zero_model_calls == true and .verification.witness_files == 4 and .verification.expression_witnesses == 7 and .verification.internal_nodes == 10 and .verification.leaf_nodes == 17 and .verification.binary_nodes == 6 and .verification.unary_nodes == 3 and .verification.array_nodes == 1 and .verification.name_nodes == 6 and .verification.literal_nodes == 11 and .verification.source_linked_nodes == 27 and .verification.subtree_parent_links == 27 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.precedence_query_hits == 7 and .verification.unknown_query_rejected == 1 and .verification.max_tree_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_precedence_trees_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000076 '.status == "accepted" and .experiment == "E0067" and .verification.zero_model_calls == true and .verification.witness_files == 6 and .verification.expression_witnesses == 9 and .verification.gfortran_accepted == 6 and .verification.internal_nodes == 23 and .verification.leaf_nodes == 31 and .verification.binary_nodes == 20 and .verification.unary_nodes == 1 and .verification.array_nodes == 0 and .verification.function_reference_nodes == 2 and .verification.name_nodes == 18 and .verification.literal_nodes == 13 and .verification.source_linked_nodes == 54 and .verification.subtree_parent_links == 54 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.coverage_query_hits == 9 and .verification.unknown_query_rejected == 1 and .verification.max_expression_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_operator_rejected == 1 and .verification.target_boundary == "source_linked_expression_coverage_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000077 '.status == "accepted" and .experiment == "E0068" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_meaningful_lines == 72 and .verification.accepted_records == 72 and .verification.source_linked_records == 72 and .verification.unsupported_records == 1 and .verification.diagnostic_records == 1 and .verification.diagnostic_provenance == 1 and .verification.complete_file_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.gfortran_mutation_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "lossless_complete_source_acceptance_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000078 '.status == "accepted" and .experiment == "E0069" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.candidate_spans == 9 and .verification.alias_names == 0 and .verification.lexical_class_names == 2 and .verification.metavariable_names == 1 and .verification.semantic_role_names == 4 and .verification.ambiguous_names == 0 and .verification.unresolved_after_patterns == 174 and .verification.source_linked_candidates == 9 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "deterministic_normative_prose_evidence_measured"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -431,6 +432,18 @@ acceptance_mutation=$(metric R000077 '.verification.gfortran_mutation_rejected')
 acceptance_compile=$(metric R000077 '.verification.fortran_compile_status')
 acceptance_runtime=$(metric R000077 '.verification.runtime_test_status')
 acceptance_boundary=$(metric R000077 '.verification.target_boundary')
+prose_unresolved=$(metric R000078 '.verification.unresolved_names')
+prose_candidates=$(metric R000078 '.verification.candidate_spans')
+prose_aliases=$(metric R000078 '.verification.alias_names')
+prose_lexical=$(metric R000078 '.verification.lexical_class_names')
+prose_metavariable=$(metric R000078 '.verification.metavariable_names')
+prose_semantic=$(metric R000078 '.verification.semantic_role_names')
+prose_ambiguous=$(metric R000078 '.verification.ambiguous_names')
+prose_residue=$(metric R000078 '.verification.unresolved_after_patterns')
+prose_linked=$(metric R000078 '.verification.source_linked_candidates')
+prose_difference=$(metric R000078 '.verification.independent_difference')
+prose_negative=$(metric R000078 '.verification.negative_control')
+prose_boundary=$(metric R000078 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -911,6 +924,23 @@ EOF
 | Runtime test status | $acceptance_runtime |
 | Lossless acceptance boundary | $acceptance_boundary |
 
+## E0069 deterministic normative-prose evidence inventory
+
+| Quantity | Value |
+|---|---:|
+| E0022 unresolved names | $prose_unresolved |
+| Candidate source spans | $prose_candidates |
+| Direct-alias names | $prose_aliases |
+| Lexical-class names | $prose_lexical |
+| Metavariable names | $prose_metavariable |
+| Semantic-role names | $prose_semantic |
+| Ambiguous names | $prose_ambiguous |
+| Unresolved after exact patterns | $prose_residue |
+| Source-linked candidates | $prose_linked |
+| Independent candidate-set difference | $prose_difference |
+| Controlled mutation | $prose_negative |
+| Normative-prose boundary | $prose_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1126,6 +1156,18 @@ rendered=${rendered//@ACCEPTANCE_MUTATION@/$acceptance_mutation}
 rendered=${rendered//@ACCEPTANCE_COMPILE@/$acceptance_compile}
 rendered=${rendered//@ACCEPTANCE_RUNTIME@/$acceptance_runtime}
 rendered=${rendered//@ACCEPTANCE_BOUNDARY@/$acceptance_boundary}
+rendered=${rendered//@PROSE_UNRESOLVED@/$prose_unresolved}
+rendered=${rendered//@PROSE_CANDIDATES@/$prose_candidates}
+rendered=${rendered//@PROSE_ALIASES@/$prose_aliases}
+rendered=${rendered//@PROSE_LEXICAL@/$prose_lexical}
+rendered=${rendered//@PROSE_METAVARIABLE@/$prose_metavariable}
+rendered=${rendered//@PROSE_SEMANTIC@/$prose_semantic}
+rendered=${rendered//@PROSE_AMBIGUOUS@/$prose_ambiguous}
+rendered=${rendered//@PROSE_RESIDUE@/$prose_residue}
+rendered=${rendered//@PROSE_LINKED@/$prose_linked}
+rendered=${rendered//@PROSE_DIFFERENCE@/$prose_difference}
+rendered=${rendered//@PROSE_NEGATIVE@/$prose_negative}
+rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

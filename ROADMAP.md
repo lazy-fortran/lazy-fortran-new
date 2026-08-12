@@ -473,6 +473,12 @@ evidence for the thesis.
       generated local operations, retaining unsupported constructs and
       source-linked diagnostics (E0068, regenerate with
       `research/experiments/E0068-can-lossless-complete-source-acceptance-/analyse.sh`)
+- [x] Measure exact normative-prose evidence over the E0022 unresolved-name
+      denominator before model escalation: 9 candidate spans across 7 names,
+      174 names retained unresolved (D0035, E0069, regenerate with
+      `research/experiments/E0069-can-deterministic-normative-prose-patter/analyse.sh`)
+- [ ] Extend the deterministic prose recognizer to bounded sentence and table
+      structure with fixed source witnesses before offering residue to a model
 - [ ] Resume after retained residues and enlarge supported complete-source
       statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
@@ -548,6 +554,8 @@ evidence for the thesis.
 - [x] E0040 generated schema validation and equality differential recorded
 - [x] E0041 LFortran, Flang and gfortran parser behavior differential recorded
 - [x] E0042 generated schema printer and hash differential recorded
+- [x] E0069 deterministic normative-prose evidence inventory and escalation
+      boundary recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete

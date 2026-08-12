@@ -463,6 +463,23 @@ The following rows are extracted from the accepted projection run records.
 | Runtime test status | 0 |
 | Lossless acceptance boundary | lossless_complete_source_acceptance_validated |
 
+## E0069 deterministic normative-prose evidence inventory
+
+| Quantity | Value |
+|---|---:|
+| E0022 unresolved names | 181 |
+| Candidate source spans | 9 |
+| Direct-alias names | 0 |
+| Lexical-class names | 2 |
+| Metavariable names | 1 |
+| Semantic-role names | 4 |
+| Ambiguous names | 0 |
+| Unresolved after exact patterns | 174 |
+| Source-linked candidates | 9 |
+| Independent candidate-set difference | 0 |
+| Controlled mutation | observed_failure |
+| Normative-prose boundary | deterministic_normative_prose_evidence_measured |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

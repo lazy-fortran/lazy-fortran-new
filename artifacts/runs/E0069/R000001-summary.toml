@@ -1,0 +1,39 @@
+name        = "E0069-R000001-deterministic-normative-prose-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/37c07db"
+sha256      = "6490a57889a3bde5ba4a74d0087ea2bb7321041754201d45f048d7288381fd90"
+bytes       = 265
+licence     = "MIT adapter; source document retains its own licence"
+retrieved   = "2026-08-12"
+purpose     = "Summary of deterministic normative-prose evidence recovered from the E0022 unresolved-name denominator"
+path        = ".cache/runs/E0069/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+e0022_audit_sha256 = "28eb6876a77345cd85de14cf23a1d9027beefc2cb7a4de5756a9f28c40d1a449"
+generator   = "lazy-fortran-new E0069 deterministic normative-prose recognizer"
+generator_commit = "37c07db"
+checker     = "research/experiments/E0069-can-deterministic-normative-prose-patter/analyse.sh"
+checker_commit = "37c07db"
+unresolved_names = 181
+candidate_spans = 9
+alias_names = 0
+lexical_class_names = 2
+metavariable_names = 1
+semantic_role_names = 4
+ambiguous_names = 0
+unresolved_after_patterns = 174
+source_linked_candidates = 9
+independent_difference = 0
+negative_control = "observed_failure"
+candidate_spans_sha256 = "1df85636e4cfe45c777ebde11628ee33a3deda3d778dfefb2d3bfbbf98cc7f3c"
+candidate_spans_bytes = 1837
+resolution_summary_sha256 = "ac1bbfb60bfd67951488c9806fd17507a8b4b3d74d8748d0cf3f7d5eec898875"
+resolution_summary_bytes = 22853
+independent_candidates_sha256 = "cb14a9038acca47262aeeb474d6f9302cf6b185dc438dbdb1bc78480d36922d4"
+independent_candidates_bytes = 168
+
+# Regenerate and verify with:
+#   research/experiments/E0069-can-deterministic-normative-prose-patter/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

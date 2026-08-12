@@ -71,6 +71,11 @@ across @ACCEPTANCE_FILES@ files, retains @ACCEPTANCE_UNSUPPORTED@ unsupported
 residue, and emits @ACCEPTANCE_DIAGNOSTICS@ source-context diagnostic.
 Its accepted records are source-linked and its mutation is rejected by GNU
 Fortran.
+The normative-prose evidence slice scans the @PROSE_UNRESOLVED@-name E0022
+denominator and finds @PROSE_CANDIDATES@ exact candidate spans: @PROSE_LEXICAL@
+lexical-class, @PROSE_METAVARIABLE@ metavariable, @PROSE_SEMANTIC@ semantic-role,
+and @PROSE_ALIASES@ direct-alias names. It retains @PROSE_RESIDUE@ names after
+the exact patterns and does not promote candidates into StandardIR.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -322,6 +327,14 @@ record. It accepts all meaningful lines in five complete files and retains an
 unsupported mutation as a physical-line diagnostic with a StandardIR context
 reference. The context reference is explicitly not treated as a parsed
 production.
+E0069 measures the next boundary over the same canonical document. A
+deterministic line recognizer searches the full E0022 denominator for exact
+lexical-class, metanotation, same-line semantic-role and direct-alias forms.
+It finds @PROSE_CANDIDATES@ source spans across seven names, with
+@PROSE_LINKED@ source-linked candidates and an independent candidate-set
+difference of @PROSE_DIFFERENCE@. The @PROSE_RESIDUE@ remaining names are kept
+unresolved. No model is used, and no candidate is accepted as a StandardIR
+fact.
 
 ## 5. Reproducibility and limitations
 
@@ -339,17 +352,19 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment resumes after retained residues and enlarges the supported
-complete-source statement and expression families under independent corpus
-checks. E0068 establishes the whole-file acceptance boundary. Later operations
-may resume after a diagnostic only when a compact constructive rule and an
-independent witness exist.
+The next experiment adds bounded sentence and table structure to the
+deterministic normative-prose recognizer. E0069 establishes that exact
+line-local patterns recover @PROSE_CANDIDATES@ candidate spans and leave
+@PROSE_RESIDUE@ names unresolved. Later operations may resume after a retained
+diagnostic only when a compact constructive rule and an independent witness
+exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
 records. Local constructive logic remains the only implementation boundary.
-The experiment stays in the laboratory until a broader corpus passes the same
-acceptance, provenance and mutation gates.
+The next prose slice should add only bounded sentence and table structure, with
+fixed witnesses, before any model sees the residue. E0069 therefore measures
+the escalation boundary rather than claiming semantic resolution.
 
 ## 7. Conclusion
 
@@ -378,10 +393,13 @@ tree mismatches and zero link errors. E0067 extends the ladder over
 @COVERAGE_CALLS@ function-reference nodes and zero link errors. E0068 then
 accepts @ACCEPTANCE_RECORDS@ records across @ACCEPTANCE_FILES@ complete files,
 with @ACCEPTANCE_LINKED@ source-linked accepted records and
-@ACCEPTANCE_DIAGNOSTICS@ retained diagnostic. These results validate
-composition, provenance and lossless residue reporting, not semantic coverage
-or a complete compiler. The next milestone is resumption after retained
-residues with broader independent witnesses.
+@ACCEPTANCE_DIAGNOSTICS@ retained diagnostic. E0069 then scans the 181-name
+unresolved denominator and recovers @PROSE_CANDIDATES@ exact source spans across
+seven names, while retaining @PROSE_RESIDUE@ names unresolved and using no
+model calls. These results validate composition, provenance, lossless residue
+reporting and the deterministic-first escalation boundary, not semantic
+coverage or a complete compiler. The next milestone is bounded sentence and
+table structure recovery with independent witnesses.
 
 ## References
 
@@ -392,6 +410,6 @@ residues with broader independent witnesses.
    <https://doi.org/10.1002/spe.423>.
 3. L. J. Kedward et al., "The State of Fortran," *Computing in Science &
    Engineering* (2022).
-4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0032 in this repository.
+4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0035 in this repository.
 5. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
