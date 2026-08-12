@@ -91,6 +91,10 @@ canonical bytes and flat-node structure
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
+E0033 audits the complete-core extraction denominator: all 688 indexed pages,
+the 536-page selected span, 522 production starts, zero parse/JSON/provenance
+failures and zero scope difference, with a controlled count mutation
+(`research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -272,8 +276,10 @@ evidence for the thesis.
       into StandardIR (D0011 §6)
 - [x] Differential check of the text layer against an independent extractor,
       with disagreements recorded rather than smoothed over
-- [ ] Completeness, parse failure, provenance failure and skipped-page counts
+- [x] Completeness, parse failure, provenance failure and skipped-page counts
       are reported against a predeclared page and production denominator
+      (E0033; regenerate with
+      `research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`)
 - [ ] BOM, ligature, hyphenation and column-order handling decided and tested
 
 ### 1.5 Syntax extraction
