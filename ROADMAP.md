@@ -262,7 +262,7 @@ evidence for the thesis.
       validation applies to a composite input (D0018; E0021)
 - [ ] Define the composite parser-generator input: syntax, lexical/token
       definitions, constraints, prose restrictions, profile closure and
-      resolution states
+      resolution states (proposed symbol policy: D0019)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020; regenerate with
