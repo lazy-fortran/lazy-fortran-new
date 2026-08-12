@@ -1,0 +1,27 @@
+name        = "E0035-R000001-sx-schema-parser-validator"
+url         = "https://github.com/lazy-fortran/standard-new/tree/6b435b3"
+sha256      = "482cd3253f59fbcef8dc4cf0372d3d40f2f030eeae3c546c0b97725054ff082d"
+bytes       = 239
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for the v0 SX schema parser and validator"
+path        = ".cache/runs/E0035/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated SX schema parser and validator summary"
+generator   = "standard-new schema_ir and fixed schema specification"
+generator_commit = "6b435b3"
+checker     = "research/experiments/E0035-does-the-v0-sx-schema-parser-validate-al/analyse.sh"
+checker_commit = "694c12f"
+text_policy_self_test = 0
+text_policy = 0
+schema_test = 0
+runtime_checked_schema_test = 0
+formatting = 0
+full_pipeline = 0
+forms_checked = 6
+malformed_cases_checked = 4
+independent_oracle_mutation = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0035-does-the-v0-sx-schema-parser-validate-al/analyse.sh
+# Verify its hash and size with sha256sum and stat.
