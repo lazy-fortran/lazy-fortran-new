@@ -206,7 +206,7 @@ phase.
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0026 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0027 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 

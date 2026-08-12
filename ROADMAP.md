@@ -396,6 +396,8 @@ evidence for the thesis.
 - [x] Preserve erratum reference-plus-punctuation groups inside optional
       expressions and rerun all target validators (E0052, regenerate with
       `research/experiments/E0052-can-grouped-erratum-composition-preserve/analyse.sh`)
+- [ ] Decide how accepted D0019 lexical-class records enter the generated
+      lexer and parser exports (D0027, currently proposed)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
