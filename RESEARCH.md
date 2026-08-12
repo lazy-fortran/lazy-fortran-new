@@ -177,12 +177,16 @@ external format, oracle policy, performance target, model use or repository
 boundary, search the ledger before writing code. If no accepted record covers
 the choice, create a proposed record with a `## Decision needed` section and
 list the concrete alternatives, the evidence available, and the consequence of
-each choice. The planning model or the user accepts, amends or retracts it.
+each choice. Under D0028, the agent accepts the record itself when the
+evidence and the default principles determine the choice. A planning model or
+the user is asked only when the principles do not determine it, requirements
+conflict, or new authority is required.
 
 Implementation may proceed under an accepted record. A local reversible default
 may be recorded in the work update without a new decision only when it does not
-change the roadmap or an interface. Otherwise implementation stops at the
-proposed record. `scripts/check-decisions.sh` validates IDs, statuses, section
+change the roadmap or an interface. Otherwise the agent decides and accepts
+the proposed record under D0028 when possible. It stops at the proposed record
+only for an unresolved boundary. `scripts/check-decisions.sh` validates IDs, statuses, section
 headers and successor links. `scripts/new-decision.sh "title" [slug]` allocates
 the next ID from `TEMPLATE.md`.
 

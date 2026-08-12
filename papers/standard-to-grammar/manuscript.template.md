@@ -186,7 +186,8 @@ E0054 supplies the D0027 tradeoff matrix. It retains all
 @LEXICAL_CANDIDATE_RESIDUE@ source facts, exposes
 @LEXICAL_CANDIDATE_PRIMITIVE@ projected lexical rows for the first two
 candidates, and leaves the ambiguous Unicode rows unresolved under D0020. No
-candidate is accepted.
+candidate was accepted within that experiment. D0027 subsequently accepts the
+target-independent lexical-fact schema, with specialized target exporters.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -210,15 +211,18 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-E0053 and E0054 now provide the residue and D0027 tradeoff packet. The next
-step is for the planning model to accept or revise D0024, D0026 and D0027.
-After those decisions, apply the selected projections and rerun all three
-target validators. E0052 removes the deterministic `seq(, ...)` composition
+D0024, D0026 and D0027 are now accepted under the repository's default
+principles: typed expansions, compositional facts, and a target-independent
+lexical schema whose outputs can be specialized. The next experiment applies
+those projections to the composite parser-generator input and reruns all
+three target validators. E0052 removes the deterministic `seq(, ...)` composition
 error and E0053 partitions the remaining names. E0048
 supplies the complete 80/20 inventory, E0049 supplies the candidate and its
 retained failure, and E0050 supplies the explicit tradeoff matrix. The choice
-is proposed in [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md)
-and [D0026](../../research/decisions/D0026-overlapping-resolution-facts.md).
+is recorded in [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md),
+[D0026](../../research/decisions/D0026-overlapping-resolution-facts.md), and
+[D0027](../../research/decisions/D0027-lexical-primitive-projection.md), with
+the self-decision policy in [D0028](../../research/decisions/D0028-default-decision-principles.md).
 A complete parser input will be claimed after the unresolved and disputed
 sets are reported, every selected fact has provenance, and the target tools
 accept the generated composite input. Semantic constraints remain a separate

@@ -370,9 +370,9 @@ evidence for the thesis.
 - [ ] Define the composite parser-generator input: syntax, lexical/token
       definitions, constraints, prose restrictions, profile closure and
       resolution states (typed resolution policy accepted in D0019)
-- [ ] Choose the typed representation for R401/R403 assumed syntax expansions
-      ([D0024](research/decisions/D0024-assumed-syntax-expansions.md)). Retain
-      those terms unresolved until the choice is accepted
+- [x] Choose the typed representation for R401/R403 assumed syntax expansions
+      ([D0024](research/decisions/D0024-assumed-syntax-expansions.md)): use
+      typed `assumed-expansion` records
 - [x] Compose the accepted R402 and lexical D0019 resolution slices (E0046,
       regenerate with
       `research/experiments/E0046-can-the-accepted-r402-and-lexical-d0019-/analyse.sh`)
@@ -396,15 +396,22 @@ evidence for the thesis.
 - [x] Preserve erratum reference-plus-punctuation groups inside optional
       expressions and rerun all target validators (E0052, regenerate with
       `research/experiments/E0052-can-grouped-erratum-composition-preserve/analyse.sh`)
-- [ ] Decide how accepted D0019 lexical-class records enter the generated
-      lexer and parser exports (D0027, currently proposed)
+- [x] Decide how accepted D0019 lexical-class records enter the generated
+      lexer and parser exports (D0027): use a target-independent lexical-fact
+      schema with specialized exporters
+- [x] Decide how R402 aliases and R403 scalar facts compose (D0026): retain
+      both in one compositional fact set and lower them deterministically
+- [x] Record the default decision policy: prefer simple, source-preserving,
+      compile-time-specialized designs and self-accept decisions when those
+      principles determine the choice (D0028)
 - [x] Partition the remaining target-tool failures into source-provenance
       buckets without resolving them (E0053, regenerate with
       `research/experiments/E0053-can-the-remaining-target-failures-be-par/analyse.sh`)
 - [x] Compare deterministic D0027 lexical projection candidates without
       selecting one (E0054, regenerate with
       `research/experiments/E0054-can-deterministic-lexical-projection-can/analyse.sh`)
-- [ ] Generate the specialized parser-generator input
+- [ ] Generate the specialized parser-generator input under D0024, D0026 and
+      D0027
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

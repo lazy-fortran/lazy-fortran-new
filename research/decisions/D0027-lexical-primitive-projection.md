@@ -1,7 +1,7 @@
 # D0027. Projection of lexical primitive records
 
 Date: 2026-08-12
-Status: proposed
+Status: accepted
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context
@@ -23,26 +23,20 @@ R401/R403 expansion terms remain governed by D0024 and D0026.
 
 ## Decision
 
-No lexical primitive projection has been accepted. The source records and their
-provenance remain authoritative until the decision below is made.
+Use a compact target-independent lexical-fact schema as the sole maintained
+lexical representation. A fact stores its source citation, stable class ID,
+and a source-defined character-set expression. Exact code points or ranges
+are recorded only when the source supplies them. No Unicode meaning is
+inferred from a rendered glyph.
 
-## Decision needed
-
-Choose how accepted lexical-class records become parser-generator input. The
-planning model should choose between:
-
-1. projecting `letter`, `digit`, and `rep-char` into generated lexer terminals
-   or lexer rules, while keeping ambiguous Unicode and quotation forms
-   unresolved.
-2. retaining typed lexical facts in a target-independent lexer schema. Each
-   export format receives deterministic terminals from that schema, or
-3. retaining all lexical-class records unresolved until the lexer contract and
-   Unicode normalization policy are specified together.
-
-The choice must state how exact code points or character sets are represented,
-how source citations survive the projection, and whether `metavariable` records
-such as `xyz` can enter a target grammar. It must not resolve R401/R403
-expansions by aliasing them to a lexical primitive.
+The schema deterministically emits lexer terminals/rules for ANTLR4, Bison,
+tree-sitter and the direct Fortran parser generator. Those backends may emit
+specialized range tests or tables, so the schema introduces no runtime
+dispatch or lookup cost in the generated compiler. `letter`, `digit`, and
+`rep-char` enter this projection. The two ambiguous Unicode or quotation
+records remain unresolved under D0020. A `metavariable` such as `xyz` remains
+metanotation and enters a target grammar only through a typed D0024 expansion
+binding, never as a lexer class.
 
 ## Rejected
 
@@ -52,6 +46,12 @@ from a comparison grammar is rejected by the provenance gate. Guessing Unicode
 code points from rendered glyphs without a source witness is rejected by D0020.
 Letting a target grammar choose its own lexical meaning is rejected because it
 would create a second maintained truth beside StandardIR.
+
+Emitting independent primitive definitions directly in each target format is
+rejected because it duplicates the lexical truth and makes differential
+comparison depend on hand-maintained adapters. Retaining all five records
+unresolved is rejected because the three unambiguous source classes already
+have a deterministic, lossless projection.
 
 ## Reversal condition
 

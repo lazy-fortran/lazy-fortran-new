@@ -1,7 +1,7 @@
 # D0024. Resolution record for assumed syntax expansions
 
 Date: 2026-08-12
-Status: proposed
+Status: accepted
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context
@@ -23,25 +23,21 @@ Neither family is an ordinary parser-symbol alias.
 
 ## Decision
 
-No representation has been accepted. The R401 and R403 families remain
-unresolved until the decision below is made.
+Use a distinct typed `assumed-expansion` resolution record. It retains the
+original term, its source rule and citation, the `xyz` metavariable binding,
+and a typed expansion expression. The two canonical expansion forms are:
 
-## Decision needed
+* R401: `repeat(xyz, minimum=1, maximum=unbounded, separator=comma)`.
+* R403: `xyz` with the source-linked C401 scalar constraint.
 
-Choose the authoritative D0019 representation for assumed syntax expansions.
+The generator lowers these records to grammar structure and semantic facts.
+R401 therefore retains cardinality and separators, while R403 retains the
+scalar relationship. `xyz` remains a metanotation binding and is never
+silently turned into a lexical class or an ordinary `name` alias.
 
-The planning model should choose between:
-
-1. a new typed resolution class such as `assumed-expansion`, with an explicit
-   expansion operator and any attached constraint;
-2. an extension of `alias` records with a typed expansion field that makes
-   repetition and scalar constraints impossible to confuse with R402 aliases;
-3. retaining the terms as `unresolved` until the generated semantic and parser
-   representations can carry the expansion directly.
-
-The selected representation must keep the R401 or R403 source rule, preserve
-the original term, and generate a parser projection that retains list
-cardinality or scalar semantics.
+The record is the authoritative representation. Exporters may fuse its
+lowering into direct productions and checks, so the final compiler has no
+generic expansion interpreter or runtime lookup table.
 
 ## Rejected
 
@@ -52,6 +48,12 @@ and repetition semantics. It would also turn `scalar-xyz` into an unconstrained
 
 Resolving the terms by copying a comparison grammar is rejected by the
 repository's provenance gate.
+
+An alias record with an optional expansion field is rejected because it makes
+two different contracts share one variant and forces every consumer to test
+which alias semantics apply. Retaining the terms unresolved is rejected for
+the same reason: it postpones a deterministic source fact and prevents the
+specialized parser input from being generated.
 
 ## Reversal condition
 

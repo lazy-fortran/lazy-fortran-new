@@ -98,18 +98,17 @@ Runs recorded: 63
 | [D0021](decisions/D0021-schema-value-serialization.md) | accepted |  | Schema value serialization for generated APIs |
 | [D0022](decisions/D0022-schema-v0-is-not-standardir.md) | amended by D0023 |  | The v0 schema fixture is not the StandardIR schema |
 | [D0023](decisions/D0023-arena-bootstrap-specialized-performance.md) | accepted | Amends D0022 | Arena bootstrap with specialized performance representations |
-| [D0024](decisions/D0024-assumed-syntax-expansions.md) | proposed |  | Resolution record for assumed syntax expansions |
+| [D0024](decisions/D0024-assumed-syntax-expansions.md) | accepted |  | Resolution record for assumed syntax expansions |
 | [D0025](decisions/D0025-fixed-source-errata-overlay.md) | accepted |  | Fixed source errata overlay |
-| [D0026](decisions/D0026-overlapping-resolution-facts.md) | proposed |  | Overlapping resolution facts |
-| [D0027](decisions/D0027-lexical-primitive-projection.md) | proposed |  | Projection of lexical primitive records |
+| [D0026](decisions/D0026-overlapping-resolution-facts.md) | accepted |  | Overlapping resolution facts |
+| [D0027](decisions/D0027-lexical-primitive-projection.md) | accepted |  | Projection of lexical primitive records |
+| [D0028](decisions/D0028-default-decision-principles.md) | accepted |  | Default decision principles and autonomous resolution |
 
 ### Proposed decisions
 
 | ID | Title | File |
 |---|---|---|
-| [D0024](decisions/D0024-assumed-syntax-expansions.md) | Resolution record for assumed syntax expansions | `D0024-assumed-syntax-expansions.md` |
-| [D0026](decisions/D0026-overlapping-resolution-facts.md) | Overlapping resolution facts | `D0026-overlapping-resolution-facts.md` |
-| [D0027](decisions/D0027-lexical-primitive-projection.md) | Projection of lexical primitive records | `D0027-lexical-primitive-projection.md` |
+| _none_ | | |
 
 ## Pinned artifacts
 

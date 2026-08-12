@@ -163,7 +163,7 @@ legally, not just tidily.
 
 1. Append one JSON object to `research/runs/<YYYY-MM>.jsonl`. One line, no
    pretty-printing, so the file stays greppable and append-safe.
-2. Reference large payloads by path under `artifacts/`; never inline them.
+2. Reference large payloads by path under `artifacts/`. Never inline them.
 3. Never edit a line that is already written.
 
 ### Add a decision
@@ -171,9 +171,10 @@ legally, not just tidily.
 1. `research/decisions/D<NNNN>-<slug>.md`, from `TEMPLATE.md`.
 2. Record what was decided, what was rejected, and what evidence would reverse
    it. A decision with no reversal condition is a preference.
-3. If another planning model or the user must choose, create a `proposed`
-   record with a `## Decision needed` section. Do not silently decide around
-   it. The proposed-decision table in `research/index.md` is the handoff queue.
+3. Create a `proposed` record with a `## Decision needed` section when the
+   choice is not determined by an accepted decision or D0028. Under D0028,
+   accept the record yourself when the evidence and the default principles
+   determine the choice. Do not leave it open merely as a handoff.
 4. Link it from `ROADMAP.md` or the document whose plan it changes, then run
    `scripts/index.sh` and `scripts/check-decisions.sh`.
 5. Keep implementation commits separate from accepted decision commits when
@@ -200,17 +201,18 @@ Statuses: `proposed`, `accepted`, `superseded by D####`, `amended by D####`,
 Before implementing a nontrivial choice about architecture, representation,
 scope, profile membership, external format, oracle policy, performance target,
 model use or repository boundary, search the decision ledger. If no accepted
-decision covers it, write a proposed decision before coding. Use an explicit
-recorded default only when the choice is local, reversible and does not change
-the roadmap. Otherwise stop at the proposed record for the planning model or
-user. A later implementation must link the accepted decision in its commit or
-experiment record.
+decision covers it, write a proposed decision before coding, then accept it
+yourself when D0028 and the evidence determine the choice. Stop for the
+planning model or user only when requirements conflict, evidence is materially
+insufficient, the change is irreversible beyond scope, or new authority is
+needed. A later implementation must link the accepted decision in its commit
+or experiment record.
 
 ## Documentation rules
 
 No marketing language. No emoji, and no severity shouting. Terse, specific, and
 falsifiable. The existing repositories in this house contain both the good and
-the bad versions of this; `fortplot/AGENTS.md` and `fo/CLAUDE.md` are the models,
+the bad versions of this. `fortplot/AGENTS.md` and `fo/CLAUDE.md` are the models,
 `fortfront/CLAUDE.md` is not.
 
 **Any number in a document must name the command that regenerates it.** Counts
@@ -227,7 +229,7 @@ refusals, in the style of `fortad/ROADMAP.md`, are the target.
 1. Every commit hash cited in any document resolves in the repository it names:
    `git -C <repo> cat-file -t <hash>`.
 2. Every file path cited in any document exists.
-3. `bash -n` passes on every script; `scripts/fetch.sh` fails loudly when given
+3. `bash -n` passes on every script. `scripts/fetch.sh` fails loudly when given
    a corrupted expected hash. A verifier that cannot be made to fail is not
    evidence that anything was verified.
 4. Prose has been through the `deslop` skill and `fo` is green wherever Fortran
