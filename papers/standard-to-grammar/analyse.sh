@@ -125,6 +125,7 @@ assert_run R000080 '.status == "accepted" and .experiment == "E0071" and .verifi
 assert_run R000081 '.status == "accepted" and .experiment == "E0072" and .verification.zero_model_calls == true and .verification.d0019_records == 182 and .verification.adjudicated_relation_records == 37 and .verification.merged_fact_records == 219 and .verification.retained_relations == 5 and .verification.unresolved_records == 151 and .verification.semantic_facts_not_parser_aliases == 29 and .verification.parser_projection_records == 11 and .verification.source_hash_matches == 219 and .verification.projection_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "d0019_adjudicated_relation_composition"'
 assert_run R000082 '.status == "accepted" and .experiment == "E0073" and .verification.zero_model_calls == true and .verification.composite_fact_records == 219 and .verification.semantic_fact_records == 29 and .verification.parser_projection_records == 11 and .verification.target_fragment_records == 11 and .verification.target_provenance_records == 55 and .verification.semantic_target_leaks == 0 and .verification.ebnf_status == 0 and .verification.antlr_status == 0 and .verification.bison_status == 0 and .verification.treesitter_status == 0 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "all_target_fragments_valid"'
 assert_run R000083 '.status == "accepted" and .experiment == "E0074" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.integrated_syntax_records == 522 and .verification.alias_records == 3 and .verification.alias_reference_rewrites == 6 and .verification.semantic_fact_records == 29 and .verification.semantic_alias_overlap == 1 and .verification.semantic_projection_leaks == 0 and .verification.unresolved_reference_occurrences == 466 and .verification.unresolved_unique_names == 178 and .verification.export_ebnf_status == 0 and .verification.export_antlr_status == 0 and .verification.export_bison_status == 0 and .verification.export_treesitter_status == 0 and .verification.antlr_validate_status == 1 and .verification.bison_validate_status == 1 and .verification.treesitter_validate_status == 1 and .verification.dispatch_rows == 522 and .verification.dispatch_provenance_rows == 522 and .verification.dispatch_label_collisions == 0 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.wiring_boundary == "integrated_dispatch_compiled"'
+assert_run R000084 '.status == "accepted" and .experiment == "E0075" and .verification.zero_model_calls == true and .verification.residue_records == 178 and .verification.semantic_role_records == 18 and .verification.lexical_class_records == 8 and .verification.metavariable_records == 1 and .verification.unresolved_records == 151 and .verification.missing_fact_records == 0 and .verification.additional_alias_records == 0 and .verification.source_hash_matches == 178 and .verification.source_evidence_records == 178 and .verification.semantic_projection_leaks == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -526,6 +527,18 @@ integration_fortran=$(metric R000083 '.verification.direct_fortran_status')
 integration_difference=$(metric R000083 '.verification.independent_difference')
 integration_negative=$(metric R000083 '.verification.negative_control')
 integration_boundary=$(metric R000083 '.verification.wiring_boundary')
+residue_records=$(metric R000084 '.verification.residue_records')
+residue_semantic=$(metric R000084 '.verification.semantic_role_records')
+residue_lexical=$(metric R000084 '.verification.lexical_class_records')
+residue_metavariable=$(metric R000084 '.verification.metavariable_records')
+residue_unresolved=$(metric R000084 '.verification.unresolved_records')
+residue_missing=$(metric R000084 '.verification.missing_fact_records')
+residue_aliases=$(metric R000084 '.verification.additional_alias_records')
+residue_hashes=$(metric R000084 '.verification.source_hash_matches')
+residue_evidence=$(metric R000084 '.verification.source_evidence_records')
+residue_leaks=$(metric R000084 '.verification.semantic_projection_leaks')
+residue_difference=$(metric R000084 '.verification.independent_difference')
+residue_negative=$(metric R000084 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1126,6 +1139,23 @@ EOF
 | Controlled mutation | $integration_negative |
 | Wiring boundary | $integration_boundary |
 
+## E0075 post-alias residue classification
+
+| Quantity | Value |
+|---|---:|
+| Residue records | $residue_records |
+| Semantic-role records | $residue_semantic |
+| Lexical-class records | $residue_lexical |
+| Metavariable records | $residue_metavariable |
+| Unresolved records | $residue_unresolved |
+| Missing fact records | $residue_missing |
+| Additional alias records | $residue_aliases |
+| Records with source hash | $residue_hashes |
+| Records with source evidence | $residue_evidence |
+| Semantic projection leaks | $residue_leaks |
+| Independent difference | $residue_difference |
+| Controlled mutation | $residue_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1430,6 +1460,18 @@ rendered=${rendered//@INTEGRATION_FORTRAN@/$integration_fortran}
 rendered=${rendered//@INTEGRATION_DIFFERENCE@/$integration_difference}
 rendered=${rendered//@INTEGRATION_NEGATIVE@/$integration_negative}
 rendered=${rendered//@INTEGRATION_BOUNDARY@/$integration_boundary}
+rendered=${rendered//@RESIDUE_RECORDS@/$residue_records}
+rendered=${rendered//@RESIDUE_SEMANTIC@/$residue_semantic}
+rendered=${rendered//@RESIDUE_LEXICAL@/$residue_lexical}
+rendered=${rendered//@RESIDUE_METAVARIABLE@/$residue_metavariable}
+rendered=${rendered//@RESIDUE_UNRESOLVED@/$residue_unresolved}
+rendered=${rendered//@RESIDUE_MISSING@/$residue_missing}
+rendered=${rendered//@RESIDUE_ALIASES@/$residue_aliases}
+rendered=${rendered//@RESIDUE_HASHES@/$residue_hashes}
+rendered=${rendered//@RESIDUE_EVIDENCE@/$residue_evidence}
+rendered=${rendered//@RESIDUE_LEAKS@/$residue_leaks}
+rendered=${rendered//@RESIDUE_DIFFERENCE@/$residue_difference}
+rendered=${rendered//@RESIDUE_NEGATIVE@/$residue_negative}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

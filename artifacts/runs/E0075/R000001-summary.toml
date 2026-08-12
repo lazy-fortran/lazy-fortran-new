@@ -1,0 +1,37 @@
+name        = "E0075-R000001-post-alias-residue-classification-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/7a60770"
+sha256      = "fdc196f8ea17239475480d8c86bc0f02648d56aa0a37cb163d98de15975fc776"
+bytes       = 565
+licence     = "MIT adapter; source document retains its own licence"
+retrieved   = "2026-08-12"
+purpose     = "Summary of classifying the 178-name post-alias residue without new parser aliases"
+path        = ".cache/runs/E0075/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+generator   = "lazy-fortran-new E0075 deterministic residue classification"
+generator_commit = "7a60770"
+checker     = "research/experiments/E0075-can-the-178-name-post-alias-residue-be-c/analyse.sh"
+checker_commit = "7a60770"
+residue_records = 178
+semantic_role_records = 18
+lexical_class_records = 8
+metavariable_records = 1
+unresolved_records = 151
+missing_fact_records = 0
+additional_alias_records = 0
+source_hash_matches = 178
+source_evidence_records = 178
+semantic_projection_leaks = 0
+independent_difference = 0
+negative_control = "observed_failure"
+integrated_sha256 = "3c62ea0c5816348c7dbff2b8d9895725ba61c02507949ea978d62be21a52a8c5"
+facts_sha256 = "9da21d15972d2ba559690fedcacbe6f58593d307227e4c210e44bf6a49118a08"
+classification_sha256 = "6b1291f0d6c15b516ba08da59acd9aabc338ed25f660af85a263eeda459b901e"
+classification_bytes = 36644
+
+# Regenerate and verify with:
+#   research/experiments/E0075-can-the-178-name-post-alias-residue-be-c/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

@@ -583,6 +583,23 @@ The following rows are extracted from the accepted projection run records.
 | Controlled mutation | observed_failure |
 | Wiring boundary | integrated_dispatch_compiled |
 
+## E0075 post-alias residue classification
+
+| Quantity | Value |
+|---|---:|
+| Residue records | 178 |
+| Semantic-role records | 18 |
+| Lexical-class records | 8 |
+| Metavariable records | 1 |
+| Unresolved records | 151 |
+| Missing fact records | 0 |
+| Additional alias records | 0 |
+| Records with source hash | 178 |
+| Records with source evidence | 178 |
+| Semantic projection leaks | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

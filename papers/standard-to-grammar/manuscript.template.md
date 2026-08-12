@@ -97,6 +97,10 @@ E0074 integrates @INTEGRATION_ALIASES@ accepted aliases into all
 and emits @INTEGRATION_DISPATCH@ direct dispatch rows. It retains
 @INTEGRATION_SEMANTIC@ semantic facts separately and leaves
 @INTEGRATION_UNRESOLVED_NAMES@ names unresolved.
+E0075 classifies those @RESIDUE_RECORDS@ residue names as
+@RESIDUE_SEMANTIC@ semantic-role, @RESIDUE_LEXICAL@ lexical-class,
+@RESIDUE_METAVARIABLE@ metavariable and @RESIDUE_UNRESOLVED@ unresolved, with
+@RESIDUE_ALIASES@ additional parser aliases.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -376,6 +380,9 @@ E0074 integrates the aliases into the complete syntax projection. It preserves
 with @INTEGRATION_DISPATCH_PROVENANCE@ provenance rows, and leaves
 @INTEGRATION_UNRESOLVED_NAMES@ unique names unresolved. The target validators
 therefore remain a reported boundary, while direct wiring compiles.
+E0075 classifies the residue without adding aliases: @RESIDUE_RECORDS@ names
+are covered by existing source facts, with @RESIDUE_UNRESOLVED@ still lacking a
+resolution witness.
 
 ## 5. Reproducibility and limitations
 
@@ -393,14 +400,14 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment classifies or resolves the remaining
-@INTEGRATION_UNRESOLVED_NAMES@ unique names under the deterministic-first prose
-procedure, then reruns the full integration. E0073 validated the sidecar in all
-five selected target formats and E0074 validated complete-record preservation;
-the next step must preserve the five adjudicated false positives, the
-151-name E0070 residue where still applicable and the separate semantic fact
-table. Later operations may resume after a retained diagnostic only when a
-compact constructive rule and an independent witness exist.
+The next experiment applies the deterministic normative-prose procedure to the
+@RESIDUE_UNRESOLVED@ unresolved residue before any model escalation, then reruns
+the full integration. E0073 validated the sidecar in all five selected target
+formats, E0074 validated complete-record preservation and E0075 classified the
+residue without adding aliases. The next step must preserve the five
+adjudicated false positives and the separate semantic fact table. Later
+operations may resume after a retained diagnostic only when a compact
+constructive rule and an independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -418,6 +425,7 @@ E0073 validates @SIDECAR_PROJECTION@ sidecar rows per target with
 E0074 integrates @INTEGRATION_ALIASES@ accepted aliases into
 @INTEGRATION_SYNTAX@ syntax records and compiles
 @INTEGRATION_DISPATCH@ direct dispatch rows without semantic projection leaks.
+E0075 classifies @RESIDUE_RECORDS@ residue rows and adds no aliases.
 
 ## 7. Conclusion
 
@@ -466,7 +474,8 @@ rows pass all five target probes, while @SIDECAR_SEMANTIC@ semantic facts stay
 out of parser artifacts. E0074 supplies the full-input boundary:
 @INTEGRATION_SYNTAX@ records and @INTEGRATION_DISPATCH@ dispatch rows survive,
 but @INTEGRATION_UNRESOLVED_NAMES@ unique names still block the full target
-validators.
+validators. E0075 then classifies @RESIDUE_RECORDS@ rows, leaving
+@RESIDUE_UNRESOLVED@ unresolved and adding no parser aliases.
 
 ## References
 

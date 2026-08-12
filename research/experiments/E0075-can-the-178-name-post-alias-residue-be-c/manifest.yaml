@@ -2,13 +2,13 @@ id: "E0075"
 title: "Deterministic classification of post-alias parser residue"
 question: >
   Can the 178-name post-alias residue be classified without guessing parser aliases?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "0fccc28"
+  lazy-fortran-new: "7a60770"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

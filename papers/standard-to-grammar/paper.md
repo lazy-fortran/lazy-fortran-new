@@ -97,6 +97,10 @@ E0074 integrates 3 accepted aliases into all
 and emits 522 direct dispatch rows. It retains
 29 semantic facts separately and leaves
 178 names unresolved.
+E0075 classifies those 178 residue names as
+18 semantic-role, 8 lexical-class,
+1 metavariable and 151 unresolved, with
+0 additional parser aliases.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -376,6 +380,9 @@ E0074 integrates the aliases into the complete syntax projection. It preserves
 with 522 provenance rows, and leaves
 178 unique names unresolved. The target validators
 therefore remain a reported boundary, while direct wiring compiles.
+E0075 classifies the residue without adding aliases: 178 names
+are covered by existing source facts, with 151 still lacking a
+resolution witness.
 
 ## 5. Reproducibility and limitations
 
@@ -393,14 +400,14 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment classifies or resolves the remaining
-178 unique names under the deterministic-first prose
-procedure, then reruns the full integration. E0073 validated the sidecar in all
-five selected target formats and E0074 validated complete-record preservation;
-the next step must preserve the five adjudicated false positives, the
-151-name E0070 residue where still applicable and the separate semantic fact
-table. Later operations may resume after a retained diagnostic only when a
-compact constructive rule and an independent witness exist.
+The next experiment applies the deterministic normative-prose procedure to the
+151 unresolved residue before any model escalation, then reruns
+the full integration. E0073 validated the sidecar in all five selected target
+formats, E0074 validated complete-record preservation and E0075 classified the
+residue without adding aliases. The next step must preserve the five
+adjudicated false positives and the separate semantic fact table. Later
+operations may resume after a retained diagnostic only when a compact
+constructive rule and an independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -418,6 +425,7 @@ E0073 validates 11 sidecar rows per target with
 E0074 integrates 3 accepted aliases into
 522 syntax records and compiles
 522 direct dispatch rows without semantic projection leaks.
+E0075 classifies 178 residue rows and adds no aliases.
 
 ## 7. Conclusion
 
@@ -466,7 +474,8 @@ rows pass all five target probes, while 29 semantic facts stay
 out of parser artifacts. E0074 supplies the full-input boundary:
 522 records and 522 dispatch rows survive,
 but 178 unique names still block the full target
-validators.
+validators. E0075 then classifies 178 rows, leaving
+151 unresolved and adding no parser aliases.
 
 ## References
 
@@ -1065,6 +1074,23 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 | Wiring boundary | integrated_dispatch_compiled |
+
+## E0075 post-alias residue classification
+
+| Quantity | Value |
+|---|---:|
+| Residue records | 178 |
+| Semantic-role records | 18 |
+| Lexical-class records | 8 |
+| Metavariable records | 1 |
+| Unresolved records | 151 |
+| Missing fact records | 0 |
+| Additional alias records | 0 |
+| Records with source hash | 178 |
+| Records with source evidence | 178 |
+| Semantic projection leaks | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison
 
