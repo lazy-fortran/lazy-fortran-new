@@ -42,6 +42,11 @@ denominator: >
   Rules without enough source evidence are classified as unresolved or
   disputed, never removed from the denominator.
 
+exclusions:
+  - No rule is removed from the denominator for lack of source evidence
+  - Rules outside the pinned Core 0 dependency closure
+  - Rules with unresolved or disputed interpretations remain reported outcomes
+
 independent_oracle: >
   Two independently constructed formalizations must normalize to the same
   StandardIR, and accepted witnesses must agree with at least two pinned

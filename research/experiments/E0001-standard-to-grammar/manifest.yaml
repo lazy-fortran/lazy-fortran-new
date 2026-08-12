@@ -52,6 +52,11 @@ denominator: >
   Every R-numbered production selected from the pinned clause-5 page set before
   extraction begins. Page and production exclusions are listed separately.
 
+exclusions:
+  - Pages outside the selected clause-5 page set
+  - Text that is not an R-numbered production start
+  - Production fragments that cannot be tied to a source span, retained as failures
+
 independent_oracle: >
   Fixed canonical text and StandardIR fixtures hand-checked against J3/24-007,
   plus structural adjudication against the pinned standard, kaby76, LFortran

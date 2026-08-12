@@ -177,7 +177,7 @@ These prerequisites freeze what Phase 1 will measure and provide one small
 path through the whole proposed boundary. They must be completed before broad
 extraction or semantic formalization.
 
-- [ ] E0001, E0002 and E0003 manifests define their denominator, exclusions,
+- [x] E0001, E0002 and E0003 manifests define their denominator, exclusions,
       independent oracle, pinned commits, toolchain record and analysis command
 - [ ] `bootstrap-core` and `core0-v1` are represented as exact StandardIR rule
       selections with computed dependency closure

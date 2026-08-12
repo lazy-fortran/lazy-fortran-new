@@ -63,6 +63,11 @@ denominator: >
   and architecture class. They do not enter the primary dense minimum-size
   curve.
 
+exclusions:
+  - Rules not accepted into the E0002 residual set
+  - Models outside the pinned dense ladder and declared control families
+  - Failed attempts are excluded from acceptance numerators but retained in runs
+
 independent_oracle: >
   ImplIR interpreter results must agree with independently compiled Fortran,
   fixed rule witnesses and the E0002 oracle set. Parser and emitter agreement
