@@ -111,6 +111,7 @@ assert_run R000066 '.status == "accepted" and .experiment == "E0057" and .verifi
 assert_run R000067 '.status == "accepted" and .experiment == "E0058" and .verification.zero_model_calls == true and .verification.composite_syntax_records == 519 and .verification.diagnostic_rows == 519 and .verification.source_span_rows == 519 and .verification.known_lookup == 1 and .verification.unknown_lookup_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "source_linked_lookup_compiled_and_tested" and .verification.negative_control == "observed_failure"'
 assert_run R000068 '.status == "accepted" and .experiment == "E0059" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_units == 8 and .verification.classified_units == 8 and .verification.source_linked_units == 8 and .verification.unit_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "top_level_local_operation_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000069 '.status == "accepted" and .experiment == "E0060" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_witnesses == 10 and .verification.classified_witnesses == 10 and .verification.source_linked_witnesses == 10 and .verification.witness_mismatches == 0 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "statement_witness_operation_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000070 '.status == "accepted" and .experiment == "E0061" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_meaningful_lines == 72 and .verification.classified_meaningful_lines == 72 and .verification.source_linked_lines == 72 and .verification.line_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_mutation_rejected == 1 and .verification.target_boundary == "complete_source_operation_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -301,6 +302,16 @@ statement_compile=$(metric R000069 '.verification.fortran_compile_status')
 statement_runtime=$(metric R000069 '.verification.runtime_test_status')
 statement_boundary=$(metric R000069 '.verification.target_boundary')
 statement_negative=$(metric R000069 '.verification.negative_control')
+complete_corpus_files=$(metric R000070 '.verification.corpus_files')
+complete_expected_lines=$(metric R000070 '.verification.expected_meaningful_lines')
+complete_classified_lines=$(metric R000070 '.verification.classified_meaningful_lines')
+complete_linked_lines=$(metric R000070 '.verification.source_linked_lines')
+complete_mismatches=$(metric R000070 '.verification.line_mismatches')
+complete_gfortran_accepted=$(metric R000070 '.verification.gfortran_accepted')
+complete_compile=$(metric R000070 '.verification.fortran_compile_status')
+complete_runtime=$(metric R000070 '.verification.runtime_test_status')
+complete_mutation=$(metric R000070 '.verification.unsupported_mutation_rejected')
+complete_boundary=$(metric R000070 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -619,6 +630,21 @@ EOF
 | Statement-operation boundary | $statement_boundary |
 | Controlled statement mutation | $statement_negative |
 
+## E0061 generated complete-source operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | $complete_corpus_files |
+| Expected meaningful lines | $complete_expected_lines |
+| Classified meaningful lines | $complete_classified_lines |
+| Source-linked lines | $complete_linked_lines |
+| Line mismatches | $complete_mismatches |
+| GNU Fortran accepted files | $complete_gfortran_accepted |
+| Fortran compile status | $complete_compile |
+| Runtime test status | $complete_runtime |
+| Unsupported mutation rejected | $complete_mutation |
+| Complete-source boundary | $complete_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -742,6 +768,13 @@ rendered=${rendered//@STATEMENT_LINKED@/$statement_linked}
 rendered=${rendered//@STATEMENT_COMPILE@/$statement_compile}
 rendered=${rendered//@STATEMENT_RUNTIME@/$statement_runtime}
 rendered=${rendered//@STATEMENT_BOUNDARY@/$statement_boundary}
+rendered=${rendered//@COMPLETE_CORPUS_FILES@/$complete_corpus_files}
+rendered=${rendered//@COMPLETE_EXPECTED_LINES@/$complete_expected_lines}
+rendered=${rendered//@COMPLETE_CLASSIFIED_LINES@/$complete_classified_lines}
+rendered=${rendered//@COMPLETE_LINKED_LINES@/$complete_linked_lines}
+rendered=${rendered//@COMPLETE_COMPILE@/$complete_compile}
+rendered=${rendered//@COMPLETE_RUNTIME@/$complete_runtime}
+rendered=${rendered//@COMPLETE_BOUNDARY@/$complete_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

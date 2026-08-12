@@ -444,8 +444,12 @@ evidence for the thesis.
       declared witnesses across five pinned real-source files with
       source-linked diagnostics (E0060, regenerate with
       `research/experiments/E0060-can-generated-statement-operation-match-real-/analyse.sh`)
-- [ ] Expand the statement family and validate complete source acceptance with
-      the generated direct parser and source-linked diagnostics
+- [x] Classify every meaningful line in the five pinned real-source files,
+      including the `submodule` keyword-like identifier case, with generated
+      source-linked diagnostics (E0061, regenerate with
+      `research/experiments/E0061-can-generated-parser-accept-complete-/analyse.sh`)
+- [ ] Add continuation and nested-construct witnesses, then validate broader
+      parser acceptance with the generated direct parser
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

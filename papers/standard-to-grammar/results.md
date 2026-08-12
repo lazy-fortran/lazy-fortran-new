@@ -301,6 +301,21 @@ The following rows are extracted from the accepted projection run records.
 | Statement-operation boundary | statement_witness_operation_validated |
 | Controlled statement mutation | observed_failure |
 
+## E0061 generated complete-source operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Expected meaningful lines | 72 |
+| Classified meaningful lines | 72 |
+| Source-linked lines | 72 |
+| Line mismatches | 0 |
+| GNU Fortran accepted files | 5 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Unsupported mutation rejected | 1 |
+| Complete-source boundary | complete_source_operation_validated |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
