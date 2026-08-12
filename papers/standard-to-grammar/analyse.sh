@@ -120,6 +120,7 @@ assert_run R000075 '.status == "accepted" and .experiment == "E0066" and .verifi
 assert_run R000076 '.status == "accepted" and .experiment == "E0067" and .verification.zero_model_calls == true and .verification.witness_files == 6 and .verification.expression_witnesses == 9 and .verification.gfortran_accepted == 6 and .verification.internal_nodes == 23 and .verification.leaf_nodes == 31 and .verification.binary_nodes == 20 and .verification.unary_nodes == 1 and .verification.array_nodes == 0 and .verification.function_reference_nodes == 2 and .verification.name_nodes == 18 and .verification.literal_nodes == 13 and .verification.source_linked_nodes == 54 and .verification.subtree_parent_links == 54 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.coverage_query_hits == 9 and .verification.unknown_query_rejected == 1 and .verification.max_expression_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_operator_rejected == 1 and .verification.target_boundary == "source_linked_expression_coverage_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000077 '.status == "accepted" and .experiment == "E0068" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_meaningful_lines == 72 and .verification.accepted_records == 72 and .verification.source_linked_records == 72 and .verification.unsupported_records == 1 and .verification.diagnostic_records == 1 and .verification.diagnostic_provenance == 1 and .verification.complete_file_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.gfortran_mutation_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "lossless_complete_source_acceptance_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000078 '.status == "accepted" and .experiment == "E0069" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.candidate_spans == 9 and .verification.alias_names == 0 and .verification.lexical_class_names == 2 and .verification.metavariable_names == 1 and .verification.semantic_role_names == 4 and .verification.ambiguous_names == 0 and .verification.unresolved_after_patterns == 174 and .verification.source_linked_candidates == 9 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "deterministic_normative_prose_evidence_measured"'
+assert_run R000079 '.status == "accepted" and .experiment == "E0070" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.logical_units == 5064 and .verification.table_rows == 39 and .verification.candidate_spans == 42 and .verification.candidate_names == 30 and .verification.new_names_over_e0069 == 23 and .verification.alias_names == 0 and .verification.lexical_class_names == 7 and .verification.metavariable_names == 1 and .verification.semantic_role_names == 22 and .verification.ambiguous_names == 0 and .verification.unresolved_after_patterns == 151 and .verification.source_linked_candidates == 42 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "bounded_normative_prose_evidence_measured"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -444,6 +445,21 @@ prose_linked=$(metric R000078 '.verification.source_linked_candidates')
 prose_difference=$(metric R000078 '.verification.independent_difference')
 prose_negative=$(metric R000078 '.verification.negative_control')
 prose_boundary=$(metric R000078 '.verification.target_boundary')
+bounded_logical_units=$(metric R000079 '.verification.logical_units')
+bounded_table_rows=$(metric R000079 '.verification.table_rows')
+bounded_candidates=$(metric R000079 '.verification.candidate_spans')
+bounded_candidate_names=$(metric R000079 '.verification.candidate_names')
+bounded_new_names=$(metric R000079 '.verification.new_names_over_e0069')
+bounded_aliases=$(metric R000079 '.verification.alias_names')
+bounded_lexical=$(metric R000079 '.verification.lexical_class_names')
+bounded_metavariable=$(metric R000079 '.verification.metavariable_names')
+bounded_semantic=$(metric R000079 '.verification.semantic_role_names')
+bounded_ambiguous=$(metric R000079 '.verification.ambiguous_names')
+bounded_residue=$(metric R000079 '.verification.unresolved_after_patterns')
+bounded_linked=$(metric R000079 '.verification.source_linked_candidates')
+bounded_difference=$(metric R000079 '.verification.independent_difference')
+bounded_negative=$(metric R000079 '.verification.negative_control')
+bounded_boundary=$(metric R000079 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -941,6 +957,27 @@ EOF
 | Controlled mutation | $prose_negative |
 | Normative-prose boundary | $prose_boundary |
 
+## E0070 bounded normative-prose evidence inventory
+
+| Quantity | Value |
+|---|---:|
+| E0022 unresolved names | $prose_unresolved |
+| Bounded logical units | $bounded_logical_units |
+| Bounded table rows | $bounded_table_rows |
+| Candidate source spans | $bounded_candidates |
+| Names with candidate evidence | $bounded_candidate_names |
+| New names over E0069 | $bounded_new_names |
+| Direct-alias names | $bounded_aliases |
+| Lexical-class names | $bounded_lexical |
+| Metavariable names | $bounded_metavariable |
+| Semantic-role names | $bounded_semantic |
+| Ambiguous names | $bounded_ambiguous |
+| Unresolved after bounded patterns | $bounded_residue |
+| Source-linked candidates | $bounded_linked |
+| Independent candidate-set difference | $bounded_difference |
+| Controlled mutation | $bounded_negative |
+| Normative-prose boundary | $bounded_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1168,6 +1205,21 @@ rendered=${rendered//@PROSE_LINKED@/$prose_linked}
 rendered=${rendered//@PROSE_DIFFERENCE@/$prose_difference}
 rendered=${rendered//@PROSE_NEGATIVE@/$prose_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
+rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
+rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}
+rendered=${rendered//@BOUNDED_CANDIDATES@/$bounded_candidates}
+rendered=${rendered//@BOUNDED_CANDIDATE_NAMES@/$bounded_candidate_names}
+rendered=${rendered//@BOUNDED_NEW_NAMES@/$bounded_new_names}
+rendered=${rendered//@BOUNDED_ALIASES@/$bounded_aliases}
+rendered=${rendered//@BOUNDED_LEXICAL@/$bounded_lexical}
+rendered=${rendered//@BOUNDED_METAVARIABLE@/$bounded_metavariable}
+rendered=${rendered//@BOUNDED_SEMANTIC@/$bounded_semantic}
+rendered=${rendered//@BOUNDED_AMBIGUOUS@/$bounded_ambiguous}
+rendered=${rendered//@BOUNDED_RESIDUE@/$bounded_residue}
+rendered=${rendered//@BOUNDED_LINKED@/$bounded_linked}
+rendered=${rendered//@BOUNDED_DIFFERENCE@/$bounded_difference}
+rendered=${rendered//@BOUNDED_NEGATIVE@/$bounded_negative}
+rendered=${rendered//@BOUNDED_BOUNDARY@/$bounded_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

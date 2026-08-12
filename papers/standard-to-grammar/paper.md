@@ -75,7 +75,12 @@ The normative-prose evidence slice scans the 181-name E0022
 denominator and finds 9 exact candidate spans: 2
 lexical-class, 1 metavariable, 4 semantic-role,
 and 0 direct-alias names. It retains 174 names after
-the exact patterns and does not promote candidates into StandardIR.
+the exact patterns and does not promote candidates into StandardIR. The bounded
+sentence/table slice then emits 5064 logical units and
+39 table rows, finding 42 candidate spans
+across 30 names while retaining 151 names
+unresolved. It uses no model calls and accepts no candidate as a StandardIR
+fact.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -334,7 +339,11 @@ It finds 9 source spans across seven names, with
 9 source-linked candidates and an independent candidate-set
 difference of 0. The 174 remaining names are kept
 unresolved. No model is used, and no candidate is accepted as a StandardIR
-fact.
+fact. E0070 adds bounded sentence and table structure. It emits
+5064 logical units and 39 table rows,
+finding 42 candidate spans across 30
+names while retaining 151 names unresolved. Those candidates
+remain evidence records pending source-controlled adjudication.
 
 ## 5. Reproducibility and limitations
 
@@ -352,19 +361,19 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment adds bounded sentence and table structure to the
-deterministic normative-prose recognizer. E0069 establishes that exact
-line-local patterns recover 9 candidate spans and leave
-174 names unresolved. Later operations may resume after a retained
-diagnostic only when a compact constructive rule and an independent witness
-exist.
+The next experiment adjudicates the E0070 source-linked candidate spans into
+typed StandardIR evidence or retained residue, with an independent source
+witness for each accepted relation. It must preserve the E0070 unresolved
+residue and avoid suffix-based inference. Later operations may resume after a
+retained diagnostic only when a compact constructive rule and an independent
+witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
 records. Local constructive logic remains the only implementation boundary.
-The next prose slice should add only bounded sentence and table structure, with
-fixed witnesses, before any model sees the residue. E0069 therefore measures
-the escalation boundary rather than claiming semantic resolution.
+E0070 measures a larger evidence inventory, not semantic resolution. The direct
+parser and its generated wiring remain unchanged while source-controlled
+adjudication determines which candidates are valid StandardIR relations.
 
 ## 7. Conclusion
 
@@ -396,10 +405,12 @@ with 72 source-linked accepted records and
 1 retained diagnostic. E0069 then scans the 181-name
 unresolved denominator and recovers 9 exact source spans across
 seven names, while retaining 174 names unresolved and using no
-model calls. These results validate composition, provenance, lossless residue
-reporting and the deterministic-first escalation boundary, not semantic
-coverage or a complete compiler. The next milestone is bounded sentence and
-table structure recovery with independent witnesses.
+model calls. E0070 extends this to bounded sentence and table units, recovering
+42 candidate spans across 30 names
+and retaining 151 names unresolved. These results validate
+composition, provenance, lossless residue reporting and the deterministic-first
+escalation boundary, not semantic coverage or a complete compiler. The next
+milestone is source-controlled adjudication of the bounded candidates.
 
 ## References
 
@@ -895,6 +906,27 @@ The following rows are extracted from the accepted projection run records.
 | Independent candidate-set difference | 0 |
 | Controlled mutation | observed_failure |
 | Normative-prose boundary | deterministic_normative_prose_evidence_measured |
+
+## E0070 bounded normative-prose evidence inventory
+
+| Quantity | Value |
+|---|---:|
+| E0022 unresolved names | 181 |
+| Bounded logical units | 5064 |
+| Bounded table rows | 39 |
+| Candidate source spans | 42 |
+| Names with candidate evidence | 30 |
+| New names over E0069 | 23 |
+| Direct-alias names | 0 |
+| Lexical-class names | 7 |
+| Metavariable names | 1 |
+| Semantic-role names | 22 |
+| Ambiguous names | 0 |
+| Unresolved after bounded patterns | 151 |
+| Source-linked candidates | 42 |
+| Independent candidate-set difference | 0 |
+| Controlled mutation | observed_failure |
+| Normative-prose boundary | bounded_normative_prose_evidence_measured |
 
 ## E0054 D0027 lexical candidate comparison
 

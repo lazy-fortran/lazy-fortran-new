@@ -75,7 +75,12 @@ The normative-prose evidence slice scans the @PROSE_UNRESOLVED@-name E0022
 denominator and finds @PROSE_CANDIDATES@ exact candidate spans: @PROSE_LEXICAL@
 lexical-class, @PROSE_METAVARIABLE@ metavariable, @PROSE_SEMANTIC@ semantic-role,
 and @PROSE_ALIASES@ direct-alias names. It retains @PROSE_RESIDUE@ names after
-the exact patterns and does not promote candidates into StandardIR.
+the exact patterns and does not promote candidates into StandardIR. The bounded
+sentence/table slice then emits @BOUNDED_LOGICAL_UNITS@ logical units and
+@BOUNDED_TABLE_ROWS@ table rows, finding @BOUNDED_CANDIDATES@ candidate spans
+across @BOUNDED_CANDIDATE_NAMES@ names while retaining @BOUNDED_RESIDUE@ names
+unresolved. It uses no model calls and accepts no candidate as a StandardIR
+fact.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -334,7 +339,11 @@ It finds @PROSE_CANDIDATES@ source spans across seven names, with
 @PROSE_LINKED@ source-linked candidates and an independent candidate-set
 difference of @PROSE_DIFFERENCE@. The @PROSE_RESIDUE@ remaining names are kept
 unresolved. No model is used, and no candidate is accepted as a StandardIR
-fact.
+fact. E0070 adds bounded sentence and table structure. It emits
+@BOUNDED_LOGICAL_UNITS@ logical units and @BOUNDED_TABLE_ROWS@ table rows,
+finding @BOUNDED_CANDIDATES@ candidate spans across @BOUNDED_CANDIDATE_NAMES@
+names while retaining @BOUNDED_RESIDUE@ names unresolved. Those candidates
+remain evidence records pending source-controlled adjudication.
 
 ## 5. Reproducibility and limitations
 
@@ -352,19 +361,19 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment adds bounded sentence and table structure to the
-deterministic normative-prose recognizer. E0069 establishes that exact
-line-local patterns recover @PROSE_CANDIDATES@ candidate spans and leave
-@PROSE_RESIDUE@ names unresolved. Later operations may resume after a retained
-diagnostic only when a compact constructive rule and an independent witness
-exist.
+The next experiment adjudicates the E0070 source-linked candidate spans into
+typed StandardIR evidence or retained residue, with an independent source
+witness for each accepted relation. It must preserve the E0070 unresolved
+residue and avoid suffix-based inference. Later operations may resume after a
+retained diagnostic only when a compact constructive rule and an independent
+witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
 records. Local constructive logic remains the only implementation boundary.
-The next prose slice should add only bounded sentence and table structure, with
-fixed witnesses, before any model sees the residue. E0069 therefore measures
-the escalation boundary rather than claiming semantic resolution.
+E0070 measures a larger evidence inventory, not semantic resolution. The direct
+parser and its generated wiring remain unchanged while source-controlled
+adjudication determines which candidates are valid StandardIR relations.
 
 ## 7. Conclusion
 
@@ -396,10 +405,12 @@ with @ACCEPTANCE_LINKED@ source-linked accepted records and
 @ACCEPTANCE_DIAGNOSTICS@ retained diagnostic. E0069 then scans the 181-name
 unresolved denominator and recovers @PROSE_CANDIDATES@ exact source spans across
 seven names, while retaining @PROSE_RESIDUE@ names unresolved and using no
-model calls. These results validate composition, provenance, lossless residue
-reporting and the deterministic-first escalation boundary, not semantic
-coverage or a complete compiler. The next milestone is bounded sentence and
-table structure recovery with independent witnesses.
+model calls. E0070 extends this to bounded sentence and table units, recovering
+@BOUNDED_CANDIDATES@ candidate spans across @BOUNDED_CANDIDATE_NAMES@ names
+and retaining @BOUNDED_RESIDUE@ names unresolved. These results validate
+composition, provenance, lossless residue reporting and the deterministic-first
+escalation boundary, not semantic coverage or a complete compiler. The next
+milestone is source-controlled adjudication of the bounded candidates.
 
 ## References
 

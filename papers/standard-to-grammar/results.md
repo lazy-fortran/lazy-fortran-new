@@ -480,6 +480,27 @@ The following rows are extracted from the accepted projection run records.
 | Controlled mutation | observed_failure |
 | Normative-prose boundary | deterministic_normative_prose_evidence_measured |
 
+## E0070 bounded normative-prose evidence inventory
+
+| Quantity | Value |
+|---|---:|
+| E0022 unresolved names | 181 |
+| Bounded logical units | 5064 |
+| Bounded table rows | 39 |
+| Candidate source spans | 42 |
+| Names with candidate evidence | 30 |
+| New names over E0069 | 23 |
+| Direct-alias names | 0 |
+| Lexical-class names | 7 |
+| Metavariable names | 1 |
+| Semantic-role names | 22 |
+| Ambiguous names | 0 |
+| Unresolved after bounded patterns | 151 |
+| Source-linked candidates | 42 |
+| Independent candidate-set difference | 0 |
+| Controlled mutation | observed_failure |
+| Normative-prose boundary | bounded_normative_prose_evidence_measured |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

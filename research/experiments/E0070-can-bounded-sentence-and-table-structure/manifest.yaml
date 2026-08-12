@@ -2,13 +2,13 @@ id: "E0070"
 title: "Bounded sentence and table normative-prose resolution"
 question: >
   Can bounded sentence and table structure recover additional normative relations mechanically?
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "a7bdf91"
+  lazy-fortran-new: "a2ac480"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

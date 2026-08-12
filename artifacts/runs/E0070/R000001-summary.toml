@@ -1,0 +1,43 @@
+name        = "E0070-R000001-bounded-normative-prose-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/a2ac480"
+sha256      = "b8dd73ed97fd297749c1125e80b2d393710b0f62dbaaf634c48d3ed954b2e8bb"
+bytes       = 344
+licence     = "MIT adapter; source document retains its own licence"
+retrieved   = "2026-08-12"
+purpose     = "Summary of bounded sentence and table evidence recovered from the E0022 unresolved-name denominator"
+path        = ".cache/runs/E0070/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+e0022_audit_sha256 = "28eb6876a77345cd85de14cf23a1d9027beefc2cb7a4de5756a9f28c40d1a449"
+generator   = "lazy-fortran-new E0070 bounded sentence and table recognizer"
+generator_commit = "a2ac480"
+checker     = "research/experiments/E0070-can-bounded-sentence-and-table-structure/analyse.sh"
+checker_commit = "a2ac480"
+unresolved_names = 181
+logical_units = 5064
+table_rows = 39
+candidate_spans = 42
+candidate_names = 30
+new_names_over_e0069 = 23
+alias_names = 0
+lexical_class_names = 7
+metavariable_names = 1
+semantic_role_names = 22
+ambiguous_names = 0
+unresolved_after_patterns = 151
+source_linked_candidates = 42
+independent_difference = 0
+negative_control = "observed_failure"
+candidate_spans_sha256 = "7fd8d917d5b29a52b9b29102d3730e062d4f6985a8819d657d6f4602ab1200ee"
+candidate_spans_bytes = 51069
+resolution_summary_sha256 = "881a641e110ebb290f2e024f82b3d8f6a75a064cf85e59a488a3b8b4252bd92c"
+resolution_summary_bytes = 23208
+independent_candidates_sha256 = "6dda74c9beee45c58c44a8ed6ecd95c1e38ad758157ade8ae2403cd45575a309"
+independent_candidates_bytes = 800
+
+# Regenerate and verify with:
+#   research/experiments/E0070-can-bounded-sentence-and-table-structure/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

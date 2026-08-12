@@ -477,8 +477,13 @@ evidence for the thesis.
       denominator before model escalation: 9 candidate spans across 7 names,
       174 names retained unresolved (D0035, E0069, regenerate with
       `research/experiments/E0069-can-deterministic-normative-prose-patter/analyse.sh`)
-- [ ] Extend the deterministic prose recognizer to bounded sentence and table
-      structure with fixed source witnesses before offering residue to a model
+- [x] Extend the deterministic prose recognizer to bounded sentence and table
+      structure with fixed source witnesses: 42 candidate spans across 30
+      names, 151 names retained unresolved (E0070, regenerate with
+      `research/experiments/E0070-can-bounded-sentence-and-table-structure/analyse.sh`)
+- [ ] Adjudicate E0070's source-linked candidates into typed StandardIR facts
+      or retained residue with independent source witnesses before model
+      escalation
 - [ ] Resume after retained residues and enlarge supported complete-source
       statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
