@@ -1,8 +1,9 @@
 # Roadmap
 
-Snapshot: 2026-08-12. Baseline: `lazy-fortran-new` at `0dc6f48`, CI green;
-`standard-new` at `17487dd`, with layout, canonical-text, production-line,
-StandardIR extraction and dependency closure, CI green.
+Snapshot: 2026-08-12. Live repository state is reported by
+`scripts/status.sh`. Experiment manifests pin the exact commits used by each
+result. The lab and `standard-new` checkouts are clean and their current
+default-branch CI state is reported separately from those immutable pins.
 
 Live status belongs to each repository. This file records cross-repository
 order, the steps in each phase, and the gate that ends it, so that facts are
@@ -50,6 +51,7 @@ experiments. E0012 remains a later Phase 2 experiment.
 - [x] Fetch verifier proven able to fail on a corrupted hash, and to accept a
       matching one
 - [x] `scripts/selftest.sh` with eight gates, run in CI
+- [ ] Commit-reference checker and optional pre-commit hook (D0017)
 - [x] `standard-new` scaffolded: fpm project, `fortpdf` over poppler-glib,
       `pdfinfo`
 - [x] `fortpdf` test suite with fixtures of known page count, proven able to

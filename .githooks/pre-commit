@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+git diff --cached --check
+"$root/scripts/check-commit-references.sh"
