@@ -91,6 +91,9 @@ canonical bytes and flat-node structure
 E0034 extends that differential to 64 generated nested trees and 10 malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0034-does-the-flat-sx-arena-reader-agree-with/analyse.sh`).
+E0035 validates the first `.sxs` schema slice over all six declaration forms,
+the committed source fixture and four malformed inputs
+(`research/experiments/E0035-does-the-v0-sx-schema-parser-validate-al/analyse.sh`).
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
@@ -258,7 +261,9 @@ normalized view rather than overwriting the source extraction.
 The first place the project generates rather than writes, so the first real
 evidence for the thesis.
 
-- [ ] `.sxs` schema language: primitive, record, sum, list, optional, enum
+- [x] `.sxs` schema language parser and validator: primitive, record, sum,
+      list, optional, enum (E0035; regenerate with
+      `research/experiments/E0035-does-the-v0-sx-schema-parser-validate-al/analyse.sh`)
 - [ ] Generator emitting Fortran types, reader, writer, validator, visitor,
       equality, hashing, printer
 - [ ] StandardIR schema
@@ -384,6 +389,7 @@ evidence for the thesis.
 - [x] E0019 tree-sitter projection, provenance and independent structural
       oracle recorded
 - [x] E0034 flat SX arena-reader corpus differential recorded
+- [x] E0035 v0 SX schema parser differential recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
