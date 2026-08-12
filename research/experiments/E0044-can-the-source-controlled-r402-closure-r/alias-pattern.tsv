@@ -1,0 +1,2 @@
+pattern_id	class	parser_target	semantic_role	source_document	source_clause	source_rule	source_page	justification
+suffix-name	alias	name	source-term	J3-24-007	4.1.3	R402	45	R402 maps every assumed xyz-name form to name when xyz is a syntactic class phrase
