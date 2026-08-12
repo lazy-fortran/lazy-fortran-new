@@ -50,6 +50,7 @@ Runs recorded: 57
 | E0046 | reported | 1 | Can the accepted R402 and lexical D0019 witnesses compose into one deterministic parser projection while preserving the unresolved expansion boundary? |
 | E0047 | reported | 1 | Can source-controlled punctuation witnesses repair references whose comma or colon was absorbed into the StandardIR reference name without changing the source text? |
 | E0048 | reported | 1 | Can the fixed errata overlays normalize the remaining punctuation boundary and enumerate every R401/R403 expansion-family term without selecting its parser representation? |
+| E0049 | draft | 0 | Can accepted resolutions and fixed errata compose into one partial parser input while retaining the D0024 expansion boundary? |
 
 ## Run status
 
@@ -94,12 +95,14 @@ Runs recorded: 57
 | [D0023](decisions/D0023-arena-bootstrap-specialized-performance.md) | accepted | Amends D0022 | Arena bootstrap with specialized performance representations |
 | [D0024](decisions/D0024-assumed-syntax-expansions.md) | proposed |  | Resolution record for assumed syntax expansions |
 | [D0025](decisions/D0025-fixed-source-errata-overlay.md) | accepted |  | Fixed source errata overlay |
+| [D0026](decisions/D0026-overlapping-resolution-facts.md) | proposed |  | Overlapping resolution facts |
 
 ### Proposed decisions
 
 | ID | Title | File |
 |---|---|---|
 | [D0024](decisions/D0024-assumed-syntax-expansions.md) | Resolution record for assumed syntax expansions | `D0024-assumed-syntax-expansions.md` |
+| [D0026](decisions/D0026-overlapping-resolution-facts.md) | Overlapping resolution facts | `D0026-overlapping-resolution-facts.md` |
 
 ## Pinned artifacts
 

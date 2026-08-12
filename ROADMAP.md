@@ -382,6 +382,10 @@ evidence for the thesis.
 - [x] Inventory the complete R401/R403 assumed-expansion boundary after the
       fixed errata overlay (E0048, regenerate with
       `research/experiments/E0048-can-the-fixed-errata-overlays-normalize-/analyse.sh`)
+- [x] Compose the accepted resolutions and fixed errata into one candidate
+      partial input, retaining the R402/R403 overlap as a verification failure
+      (E0049, regenerate with
+      `research/experiments/E0049-can-accepted-resolutions-and-fixed-errat/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
