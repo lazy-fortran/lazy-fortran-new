@@ -4,12 +4,12 @@ question: >
   Can the generated source-linked statement forest be extended with
   expression-shaped child nodes and deterministic kind/rule queries without
   losing provenance or introducing model-owned wiring?
-status: draft            # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 repos:
-  lazy-fortran-new: "2e0a981"
+  lazy-fortran-new: "8bf1172"
   standard-new: "c6cd889"
   oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
 

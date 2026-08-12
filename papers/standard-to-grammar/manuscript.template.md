@@ -48,6 +48,10 @@ with compile status @CONSTRUCT_COMPILE@.
 The AST slice composes @AST_LOGICAL@ logical statements into @AST_NODES@
 typed nodes across @AST_CORPUS_FILES@ files. It source-links @AST_LINKED@ nodes
 and compiles with status @AST_COMPILE@.
+The expression slice adds @EXPRESSION_NODES@ expression-role children to that
+forest, producing @EXPRESSION_TOTAL@ nodes with @EXPRESSION_LINKED@ source
+links. Its generated query finds @EXPRESSION_QUERIES@ known witnesses and
+rejects @EXPRESSION_UNKNOWN@ unknown witness.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -170,6 +174,9 @@ StandardIR source span.
 E0063 composes the generated logical records into typed AST nodes with parent,
 first-child, next-sibling, depth and source-span fields. The node forest is
 checked by independent parent and child traversal.
+E0064 extends that forest with expression-role children selected from explicit
+StandardIR rules and emits a deterministic kind/rule query over the same node
+array. The query returns the node's existing source reference.
 
 ### 2.3 Verification
 
@@ -255,6 +262,14 @@ does not validate the generated projection, because the tested compilers do not
 consume StandardIR. It does establish a reproducible oracle harness for the
 composite-input experiment.
 
+E0063 and E0064 show the next composition boundary. The generated statement
+forest can carry deterministic parent and child links, then accept explicit
+expression roles as additional children without changing the authoritative
+StandardIR source. The query returns the same source reference stored on the
+node, so lookup does not create a second provenance table. This validates
+composition and lookup over the declared corpus, not a complete expression
+parser.
+
 ## 5. Reproducibility and limitations
 
 The paper package pins its run IDs, source hash, and generator commits. Run
@@ -271,11 +286,11 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment extends E0063 with expression-shaped child nodes and AST
-query and diagnostic lookups. Its manifest will predeclare node families,
-source spans, expected parent and child links and malformed controls. GNU
-Fortran will remain the syntax oracle, and the generated operation will retain
-source page, byte span and document hash for each result.
+The next experiment extends E0064 with recursive expression children for the
+declared operators and literals. Its manifest will predeclare expression
+families, source spans, expected parent and child links and malformed controls.
+GNU Fortran will remain the syntax oracle, and the generated operation will
+retain source page, byte span and document hash for each result.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -301,10 +316,11 @@ against real source. E0061 extends that operation across every meaningful line
 in the declared files and preserves the source-linked diagnostic path. E0062
 adds logical-statement assembly and construct closure. E0063 composes those
 records into a source-linked AST forest. All @AST_NODES@ nodes are
-source-linked and the parent and child links have zero errors. This validates
-composition and provenance, not expression or semantic AST coverage. The next
-milestone adds expression-shaped child nodes and AST query and diagnostic
-lookups before parser acceptance is measured on a larger source set.
+source-linked and the parent and child links have zero errors. E0064 adds 52
+expression-role children, keeps all 125 nodes source-linked, and validates the
+generated query boundary. These results validate composition and provenance,
+not semantic coverage or a complete expression parser. The next milestone
+adds recursive operator and literal subtrees.
 
 ## References
 

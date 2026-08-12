@@ -352,6 +352,26 @@ The following rows are extracted from the accepted projection run records.
 | Malformed nesting rejected | 1 |
 | Source-linked AST boundary | source_linked_ast_forest_validated |
 
+## E0064 generated expression AST children and source queries
+
+| Quantity | Value |
+|---|---:|
+| Statement nodes | 73 |
+| Expression nodes | 52 |
+| Total nodes | 125 |
+| Source-linked nodes | 125 |
+| Root nodes | 5 |
+| Parent links | 120 |
+| Child links | 120 |
+| AST link errors | 0 |
+| Maximum AST depth | 5 |
+| Known query hits | 5 |
+| Unknown query rejected | 1 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Malformed nesting rejected | 1 |
+| Expression AST query boundary | source_linked_expression_ast_query_validated |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

@@ -114,6 +114,7 @@ assert_run R000069 '.status == "accepted" and .experiment == "E0060" and .verifi
 assert_run R000070 '.status == "accepted" and .experiment == "E0061" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_meaningful_lines == 72 and .verification.classified_meaningful_lines == 72 and .verification.source_linked_lines == 72 and .verification.line_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_mutation_rejected == 1 and .verification.target_boundary == "complete_source_operation_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000071 '.status == "accepted" and .experiment == "E0062" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.physical_meaningful_lines == 75 and .verification.expected_logical_statements == 73 and .verification.classified_logical_statements == 73 and .verification.source_linked_statements == 73 and .verification.continuation_joins == 2 and .verification.nesting_errors == 0 and .verification.max_nesting_depth == 2 and .verification.statement_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "logical_construct_operation_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000072 '.status == "accepted" and .experiment == "E0063" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.logical_statements == 73 and .verification.ast_nodes == 73 and .verification.source_linked_nodes == 73 and .verification.root_nodes == 5 and .verification.parent_links == 68 and .verification.child_links == 68 and .verification.ast_link_errors == 0 and .verification.max_ast_depth == 4 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_ast_forest_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000073 '.status == "accepted" and .experiment == "E0064" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.statement_nodes == 73 and .verification.expression_nodes == 52 and .verification.total_nodes == 125 and .verification.source_linked_nodes == 125 and .verification.root_nodes == 5 and .verification.parent_links == 120 and .verification.child_links == 120 and .verification.ast_link_errors == 0 and .verification.max_ast_depth == 5 and .verification.query_hits == 5 and .verification.unknown_query_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_expression_ast_query_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -340,6 +341,21 @@ ast_compile=$(metric R000072 '.verification.fortran_compile_status')
 ast_runtime=$(metric R000072 '.verification.runtime_test_status')
 ast_mutation=$(metric R000072 '.verification.malformed_nesting_rejected')
 ast_boundary=$(metric R000072 '.verification.target_boundary')
+expression_statement_nodes=$(metric R000073 '.verification.statement_nodes')
+expression_nodes=$(metric R000073 '.verification.expression_nodes')
+expression_total_nodes=$(metric R000073 '.verification.total_nodes')
+expression_linked_nodes=$(metric R000073 '.verification.source_linked_nodes')
+expression_roots=$(metric R000073 '.verification.root_nodes')
+expression_parents=$(metric R000073 '.verification.parent_links')
+expression_children=$(metric R000073 '.verification.child_links')
+expression_errors=$(metric R000073 '.verification.ast_link_errors')
+expression_depth=$(metric R000073 '.verification.max_ast_depth')
+expression_queries=$(metric R000073 '.verification.query_hits')
+expression_unknown=$(metric R000073 '.verification.unknown_query_rejected')
+expression_compile=$(metric R000073 '.verification.fortran_compile_status')
+expression_runtime=$(metric R000073 '.verification.runtime_test_status')
+expression_mutation=$(metric R000073 '.verification.malformed_nesting_rejected')
+expression_boundary=$(metric R000073 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -709,6 +725,26 @@ EOF
 | Malformed nesting rejected | $ast_mutation |
 | Source-linked AST boundary | $ast_boundary |
 
+## E0064 generated expression AST children and source queries
+
+| Quantity | Value |
+|---|---:|
+| Statement nodes | $expression_statement_nodes |
+| Expression nodes | $expression_nodes |
+| Total nodes | $expression_total_nodes |
+| Source-linked nodes | $expression_linked_nodes |
+| Root nodes | $expression_roots |
+| Parent links | $expression_parents |
+| Child links | $expression_children |
+| AST link errors | $expression_errors |
+| Maximum AST depth | $expression_depth |
+| Known query hits | $expression_queries |
+| Unknown query rejected | $expression_unknown |
+| Fortran compile status | $expression_compile |
+| Runtime test status | $expression_runtime |
+| Malformed nesting rejected | $expression_mutation |
+| Expression AST query boundary | $expression_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -854,6 +890,14 @@ rendered=${rendered//@AST_LINKED@/$ast_linked}
 rendered=${rendered//@AST_COMPILE@/$ast_compile}
 rendered=${rendered//@AST_RUNTIME@/$ast_runtime}
 rendered=${rendered//@AST_BOUNDARY@/$ast_boundary}
+rendered=${rendered//@EXPRESSION_NODES@/$expression_nodes}
+rendered=${rendered//@EXPRESSION_TOTAL@/$expression_total_nodes}
+rendered=${rendered//@EXPRESSION_LINKED@/$expression_linked_nodes}
+rendered=${rendered//@EXPRESSION_QUERIES@/$expression_queries}
+rendered=${rendered//@EXPRESSION_UNKNOWN@/$expression_unknown}
+rendered=${rendered//@EXPRESSION_COMPILE@/$expression_compile}
+rendered=${rendered//@EXPRESSION_RUNTIME@/$expression_runtime}
+rendered=${rendered//@EXPRESSION_BOUNDARY@/$expression_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"
