@@ -97,6 +97,7 @@ contains
         link_errors = 0
         max_depth = 0
         ierr = 0
+        logical_depth = 0
         call parse_logical_source(path, statements, statement_count, continuation_joins, &
                                   nesting_errors, predecessor_max_depth, ierr)
         if (ierr /= 0) return
