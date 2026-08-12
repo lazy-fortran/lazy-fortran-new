@@ -66,6 +66,11 @@ across 6 files, with 23 internal nodes and
 31 leaves. It includes 2 function-reference
 nodes, 54 source-linked nodes, and 9 known
 coverage queries. Its unsupported-operator rejection is 1.
+The complete-source acceptance slice accepts 72 records
+across 5 files, retains 1 unsupported
+residue, and emits 1 source-context diagnostic.
+Its accepted records are source-linked and its mutation is rejected by GNU
+Fortran.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -312,6 +317,11 @@ intrinsic function references across a larger six-file corpus. It keeps the
 same flat node array and source links, and rejects an unsupported operator as
 a negative control. This validates the compact deterministic extension, not
 complete expression parsing or semantic type checking.
+E0068 wraps the generated complete-source operation in a lossless acceptance
+record. It accepts all meaningful lines in five complete files and retains an
+unsupported mutation as a physical-line diagnostic with a StandardIR context
+reference. The context reference is explicitly not treated as a parsed
+production.
 
 ## 5. Reproducibility and limitations
 
@@ -329,12 +339,11 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment tests parser acceptance over complete real-source files,
-using the E0067 expression coverage as a local operation rather than claiming
-that the bounded recognizer is already a complete frontend. Its manifest will
-predeclare source-file outcomes, unsupported constructs and source-linked
-diagnostics. The first useful boundary is the transition from selected
-expression witnesses to complete-source parser acceptance.
+The next experiment resumes after retained residues and enlarges the supported
+complete-source statement and expression families under independent corpus
+checks. E0068 establishes the whole-file acceptance boundary. Later operations
+may resume after a diagnostic only when a compact constructive rule and an
+independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -366,9 +375,13 @@ eight witnesses. E0066 adds 10 precedence nodes and
 17 leaves across 7 witnesses, with zero
 tree mismatches and zero link errors. E0067 extends the ladder over
 9 witnesses with 54 source-linked nodes,
-2 function-reference nodes and zero link errors. These results
-validate composition and provenance, not semantic coverage or a complete
-expression parser. The next milestone is complete-source parser acceptance.
+2 function-reference nodes and zero link errors. E0068 then
+accepts 72 records across 5 complete files,
+with 72 source-linked accepted records and
+1 retained diagnostic. These results validate
+composition, provenance and lossless residue reporting, not semantic coverage
+or a complete compiler. The next milestone is resumption after retained
+residues with broader independent witnesses.
 
 ## References
 
@@ -829,6 +842,24 @@ The following rows are extracted from the accepted projection run records.
 | Runtime test status | 0 |
 | Unsupported operator rejected | 1 |
 | Expression coverage boundary | source_linked_expression_coverage_validated |
+
+## E0068 lossless complete-source acceptance
+
+| Quantity | Value |
+|---|---:|
+| Corpus files | 5 |
+| Expected meaningful lines | 72 |
+| Accepted records | 72 |
+| Source-linked accepted records | 72 |
+| Unsupported residue records | 1 |
+| Diagnostic records | 1 |
+| Diagnostics with provenance | 1 |
+| Complete-file mismatches | 0 |
+| GNU Fortran accepted files | 5 |
+| GNU Fortran mutation rejected | 1 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Lossless acceptance boundary | lossless_complete_source_acceptance_validated |
 
 ## E0054 D0027 lexical candidate comparison
 

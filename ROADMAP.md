@@ -469,9 +469,12 @@ evidence for the thesis.
       source-linked coverage over nine witnesses in six files (E0067,
       regenerate with
       `research/experiments/E0067-can-generated-expression-coverage-/analyse.sh`)
-- [ ] Validate parser acceptance over complete real-source files using the
+- [x] Validate parser acceptance over complete real-source files using the
       generated local operations, retaining unsupported constructs and
-      source-linked diagnostics
+      source-linked diagnostics (E0068, regenerate with
+      `research/experiments/E0068-can-lossless-complete-source-acceptance-/analyse.sh`)
+- [ ] Resume after retained residues and enlarge supported complete-source
+      statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

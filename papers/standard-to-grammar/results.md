@@ -445,6 +445,24 @@ The following rows are extracted from the accepted projection run records.
 | Unsupported operator rejected | 1 |
 | Expression coverage boundary | source_linked_expression_coverage_validated |
 
+## E0068 lossless complete-source acceptance
+
+| Quantity | Value |
+|---|---:|
+| Corpus files | 5 |
+| Expected meaningful lines | 72 |
+| Accepted records | 72 |
+| Source-linked accepted records | 72 |
+| Unsupported residue records | 1 |
+| Diagnostic records | 1 |
+| Diagnostics with provenance | 1 |
+| Complete-file mismatches | 0 |
+| GNU Fortran accepted files | 5 |
+| GNU Fortran mutation rejected | 1 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Lossless acceptance boundary | lossless_complete_source_acceptance_validated |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

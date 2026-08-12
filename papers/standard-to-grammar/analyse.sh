@@ -118,6 +118,7 @@ assert_run R000073 '.status == "accepted" and .experiment == "E0064" and .verifi
 assert_run R000074 '.status == "accepted" and .experiment == "E0065" and .verification.zero_model_calls == true and .verification.witness_files == 5 and .verification.expression_witnesses == 8 and .verification.base_expression_nodes == 125 and .verification.leaf_nodes == 28 and .verification.name_nodes == 10 and .verification.literal_nodes == 10 and .verification.operator_nodes == 8 and .verification.source_linked_leaves == 28 and .verification.subtree_parent_links == 28 and .verification.subtree_link_errors == 0 and .verification.max_subtree_depth == 6 and .verification.known_witness_queries == 8 and .verification.unknown_witness_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_token_subtrees_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000075 '.status == "accepted" and .experiment == "E0066" and .verification.zero_model_calls == true and .verification.witness_files == 4 and .verification.expression_witnesses == 7 and .verification.internal_nodes == 10 and .verification.leaf_nodes == 17 and .verification.binary_nodes == 6 and .verification.unary_nodes == 3 and .verification.array_nodes == 1 and .verification.name_nodes == 6 and .verification.literal_nodes == 11 and .verification.source_linked_nodes == 27 and .verification.subtree_parent_links == 27 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.precedence_query_hits == 7 and .verification.unknown_query_rejected == 1 and .verification.max_tree_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.malformed_nesting_rejected == 1 and .verification.target_boundary == "source_linked_precedence_trees_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000076 '.status == "accepted" and .experiment == "E0067" and .verification.zero_model_calls == true and .verification.witness_files == 6 and .verification.expression_witnesses == 9 and .verification.gfortran_accepted == 6 and .verification.internal_nodes == 23 and .verification.leaf_nodes == 31 and .verification.binary_nodes == 20 and .verification.unary_nodes == 1 and .verification.array_nodes == 0 and .verification.function_reference_nodes == 2 and .verification.name_nodes == 18 and .verification.literal_nodes == 13 and .verification.source_linked_nodes == 54 and .verification.subtree_parent_links == 54 and .verification.subtree_link_errors == 0 and .verification.tree_mismatches == 0 and .verification.coverage_query_hits == 9 and .verification.unknown_query_rejected == 1 and .verification.max_expression_depth == 8 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.unsupported_operator_rejected == 1 and .verification.target_boundary == "source_linked_expression_coverage_validated" and .verification.negative_control == "observed_failure"'
+assert_run R000077 '.status == "accepted" and .experiment == "E0068" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_meaningful_lines == 72 and .verification.accepted_records == 72 and .verification.source_linked_records == 72 and .verification.unsupported_records == 1 and .verification.diagnostic_records == 1 and .verification.diagnostic_provenance == 1 and .verification.complete_file_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.gfortran_mutation_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "lossless_complete_source_acceptance_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -417,6 +418,19 @@ coverage_compile=$(metric R000076 '.verification.fortran_compile_status')
 coverage_runtime=$(metric R000076 '.verification.runtime_test_status')
 coverage_mutation=$(metric R000076 '.verification.unsupported_operator_rejected')
 coverage_boundary=$(metric R000076 '.verification.target_boundary')
+acceptance_files=$(metric R000077 '.verification.corpus_files')
+acceptance_expected=$(metric R000077 '.verification.expected_meaningful_lines')
+acceptance_records=$(metric R000077 '.verification.accepted_records')
+acceptance_linked=$(metric R000077 '.verification.source_linked_records')
+acceptance_unsupported=$(metric R000077 '.verification.unsupported_records')
+acceptance_diagnostics=$(metric R000077 '.verification.diagnostic_records')
+acceptance_provenance=$(metric R000077 '.verification.diagnostic_provenance')
+acceptance_mismatches=$(metric R000077 '.verification.complete_file_mismatches')
+acceptance_gfortran=$(metric R000077 '.verification.gfortran_accepted')
+acceptance_mutation=$(metric R000077 '.verification.gfortran_mutation_rejected')
+acceptance_compile=$(metric R000077 '.verification.fortran_compile_status')
+acceptance_runtime=$(metric R000077 '.verification.runtime_test_status')
+acceptance_boundary=$(metric R000077 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -879,6 +893,24 @@ EOF
 | Unsupported operator rejected | $coverage_mutation |
 | Expression coverage boundary | $coverage_boundary |
 
+## E0068 lossless complete-source acceptance
+
+| Quantity | Value |
+|---|---:|
+| Corpus files | $acceptance_files |
+| Expected meaningful lines | $acceptance_expected |
+| Accepted records | $acceptance_records |
+| Source-linked accepted records | $acceptance_linked |
+| Unsupported residue records | $acceptance_unsupported |
+| Diagnostic records | $acceptance_diagnostics |
+| Diagnostics with provenance | $acceptance_provenance |
+| Complete-file mismatches | $acceptance_mismatches |
+| GNU Fortran accepted files | $acceptance_gfortran |
+| GNU Fortran mutation rejected | $acceptance_mutation |
+| Fortran compile status | $acceptance_compile |
+| Runtime test status | $acceptance_runtime |
+| Lossless acceptance boundary | $acceptance_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1081,6 +1113,19 @@ rendered=${rendered//@COVERAGE_COMPILE@/$coverage_compile}
 rendered=${rendered//@COVERAGE_RUNTIME@/$coverage_runtime}
 rendered=${rendered//@COVERAGE_MUTATION@/$coverage_mutation}
 rendered=${rendered//@COVERAGE_BOUNDARY@/$coverage_boundary}
+rendered=${rendered//@ACCEPTANCE_FILES@/$acceptance_files}
+rendered=${rendered//@ACCEPTANCE_EXPECTED@/$acceptance_expected}
+rendered=${rendered//@ACCEPTANCE_RECORDS@/$acceptance_records}
+rendered=${rendered//@ACCEPTANCE_LINKED@/$acceptance_linked}
+rendered=${rendered//@ACCEPTANCE_UNSUPPORTED@/$acceptance_unsupported}
+rendered=${rendered//@ACCEPTANCE_DIAGNOSTICS@/$acceptance_diagnostics}
+rendered=${rendered//@ACCEPTANCE_PROVENANCE@/$acceptance_provenance}
+rendered=${rendered//@ACCEPTANCE_MISMATCHES@/$acceptance_mismatches}
+rendered=${rendered//@ACCEPTANCE_GFORTRAN@/$acceptance_gfortran}
+rendered=${rendered//@ACCEPTANCE_MUTATION@/$acceptance_mutation}
+rendered=${rendered//@ACCEPTANCE_COMPILE@/$acceptance_compile}
+rendered=${rendered//@ACCEPTANCE_RUNTIME@/$acceptance_runtime}
+rendered=${rendered//@ACCEPTANCE_BOUNDARY@/$acceptance_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"
