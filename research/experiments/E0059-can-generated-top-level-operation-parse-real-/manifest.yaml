@@ -1,0 +1,71 @@
+id: "E0059"
+title: "Generated top-level program-unit operation on real Fortran sources"
+question: >
+  Can one local top-level parser operation, generated from the accepted
+  StandardIR dispatch and diagnostic records, classify real Fortran program
+  units with source-linked rule references without changing compiler-wide
+  wiring?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "6852911"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-v0
+  predecessor: E0058-R000001
+  decisions: [D0018, D0028, D0029, D0030]
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  operation: [top-level-unit-classifier]
+  representation: [generated-fortran-local-operation]
+  corpus: [five-real-source-files]
+
+model_selection: "No model calls. Dispatch, source references and test wiring are generated mechanically. The classifier is the local constructive implementation fragment under test."
+
+metrics:
+  - corpus_files
+  - expected_units
+  - classified_units
+  - source_linked_units
+  - unit_mismatches
+  - gfortran_accepted
+  - fortran_compile_status
+  - runtime_test_status
+  - negative_control
+
+denominator: >
+  Every top-level unit declared in phase1-modern-fortran-v0.json. The corpus
+  contains five files and eight expected program, module and submodule units.
+
+independent_oracle: >
+  The JSON corpus manifest supplies the predeclared unit sequence and SHA-256
+  identity. GNU Fortran independently checks syntax acceptance for every source
+  file. The generated Fortran operation is compiled with warnings as errors,
+  executed against every file, and checked for source page, byte span and hash.
+  A controlled program-to-module mutation must change the first unit witness.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, oracle_versions]
+
+falsifiable_by: >
+  A corpus hash changes, GNU Fortran rejects a declared positive source, a unit
+  is omitted or misclassified, a source reference is missing, the generated
+  operation fails to compile or run, or the mutation does not change the
+  witness.
+
+gate: >
+  Validate the generated top-level operation over all eight declared units and
+  preserve the boundary that statement-level parser operations remain local
+  holes. This is a parser-operation slice, not a complete Fortran parser.
+
+analysis: research/experiments/E0059-can-generated-top-level-operation-parse-real-/analyse.sh

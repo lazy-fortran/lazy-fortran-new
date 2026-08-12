@@ -1,0 +1,44 @@
+{
+  "name": "phase1-modern-fortran-v0",
+  "version": 1,
+  "purpose": "Pinned real-source corpus for the generated top-level program-unit operation",
+  "repository": "fortfront",
+  "repository_url": "https://github.com/lazy-fortran/fortfront",
+  "repository_commit": "b8cb5926fd82ed299d00e8c50eaa41587f55237d",
+  "licence": "MIT repository fixture files",
+  "contents": "Source files remain in the external oracle checkout. This file records identities and expected top-level units only.",
+  "standard": "j3-24-007",
+  "standard_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+  "files": [
+    {
+      "path": "examples/f90/issue_2505_uppercase_end_program.f90",
+      "sha256": "2840c24ccc08d52f6494ab1a33987c7c4ca6deef21cf3b070373e70284e92546",
+      "gfortran_status": 0,
+      "units": ["program"]
+    },
+    {
+      "path": "examples/f90/module_parsing_basic.f90",
+      "sha256": "e5f7beeccbca3d7a0626dc3b7bd3b76adc82a3cb23e27d6ee06c2c28b4efaef9",
+      "gfortran_status": 0,
+      "units": ["module"]
+    },
+    {
+      "path": "examples/f90/submodule_placement_valid.f90",
+      "sha256": "5b86792fdc6884c2824f0a334a7c4bc4f5d4e8c89d0419e6813d3a5c3b44afa3",
+      "gfortran_status": 0,
+      "units": ["module", "submodule", "program"]
+    },
+    {
+      "path": "examples/f90/call_graph_mutual_recursion.f90",
+      "sha256": "e574de7b9998d30650041ad6dab9b9e5142bf66c8931380392d631becaf4532c",
+      "gfortran_status": 0,
+      "units": ["module", "program"]
+    },
+    {
+      "path": "examples/f90/do_concurrent_type_spec.f90",
+      "sha256": "1a5362971f6463078b52f5f13d0ccfb6425d536271d778e8ae135a2778113b7a",
+      "gfortran_status": 0,
+      "units": ["program"]
+    }
+  ]
+}
