@@ -123,9 +123,10 @@ the 536-page selected span, 522 production starts, zero parse/JSON/provenance
 failures and zero scope difference, with a controlled count mutation
 (`research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`).
 E0004 and E0005 now report their broad and contiguous extraction gates.
-Generated semantic rules and parser-comparison results do not exist yet. E0001
-remains running, E0002--E0003 remain draft experiments, and E0012 remains a
-later Phase 2 experiment.
+Generated semantic rules do not exist yet. E0041 now records the first parser
+behavior comparison across LFortran, Flang and gfortran; broad adjudication
+remains open. E0001 remains running, E0002--E0003 remain draft experiments,
+and E0012 remains a later Phase 2 experiment.
 
 ---
 
@@ -181,8 +182,9 @@ extraction or semantic formalization.
       independent oracle, pinned commits, toolchain record and analysis command
 - [ ] `bootstrap-core` and `core0-v1` are represented as exact StandardIR rule
       selections with computed dependency closure
-- [ ] A minimal Phase 1 corpus is pinned, including representative clause-5
+- [x] A minimal Phase 1 corpus is pinned, including representative clause-5
       pages, hand-checked canonical SX fixtures and malformed SX inputs
+      (`research/corpora/phase1-minimal-v0.toml`)
 - [ ] One vertical slice works: PDF page → canonical text → one production
       with a continuation line → StandardIR → SX → generated Fortran → seed and
       independent validation
@@ -291,8 +293,9 @@ evidence for the thesis.
 - [x] Schema driver regenerates the checked-in type layer byte-for-byte and the
       generated module enters the normal build (E0037; regenerate with
       `research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh`)
-- [ ] Generator emitting Fortran types, reader, writer, validator, visitor,
-      equality, hashing, printer
+- [x] Generator emitting Fortran types, reader, writer, validator, equality,
+      hashing and printer (E0036, E0039, E0040, E0042)
+- [ ] Generated visitor with a specified callback and traversal contract
 - [x] Generated typed readers and writers agree with fixed SX values and the
       reference codec (E0039; regenerate with
       `research/experiments/E0039-do-generated-schema-readers-and-writers-/analyse.sh`)
@@ -304,7 +307,7 @@ evidence for the thesis.
       codec (E0042; regenerate with
       `research/experiments/E0042-do-generated-schema-printers-and-hashes-/analyse.sh`)
 - [x] Canonical schema-value encoding for generated APIs (D0021; E0038)
-- [ ] StandardIR schema
+- [ ] StandardIR schema (D0022: `schema-v0.sxs` is only a generator fixture)
 - [ ] ImplIR schema, eight types and two constructors (D0012)
 - [ ] Generated code compiles clean and round-trips
 - [ ] Generated readers and writers agree with the seed and the fixed SX

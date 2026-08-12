@@ -1,0 +1,47 @@
+name = "phase1-minimal-v0"
+version = 1
+purpose = "Pinned thin corpus for the first document-to-StandardIR vertical slice"
+licence = "MIT fixture descriptions; source-derived payloads are not vendored"
+contents = "Payloads remain in the gitignored cache and are identified by artifact manifests."
+source_document = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+regenerate = "Use the regeneration commands in the referenced artifact manifests and experiment manifests."
+
+[[artifacts]]
+manifest = "artifacts/runs/E0001/R000003-canonical-text.toml"
+sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+role = "canonical UTF-8 text and page index"
+
+[[artifacts]]
+manifest = "artifacts/runs/E0001/R000005-productions.toml"
+sha256 = "3aa1f5ab8c8db5416b7dbb93fcb1cf35e9700eebf83a9ccb2223ff72a2db486d"
+role = "one continuation-bearing production slice"
+
+[[artifacts]]
+manifest = "artifacts/runs/E0001/R000006-standardir.toml"
+sha256 = "41670b99755b494e14989f739d93d6b9f8fd0c87d8ecafc15d219ae6d9d9cf38"
+role = "expected provenance-bearing StandardIR SX"
+
+[[artifacts]]
+manifest = "artifacts/runs/E0001/R000007-sx-roundtrip.toml"
+sha256 = "41670b99755b494e14989f739d93d6b9f8fd0c87d8ecafc15d219ae6d9d9cf38"
+role = "independent canonical SX round-trip witness"
+
+[[fixtures]]
+name = "canonical-sx-and-malformed-inputs"
+source = "standard-new/test/test_fortsx_robustness.f90"
+source_commit = "f19c2ca"
+experiment = "E0029"
+role = "fixed canonical SX values and malformed-input expectations"
+
+[[fixtures]]
+name = "schema-declaration-forms"
+source = "standard-new/specs/schema-v0.sxs"
+source_commit = "6b435b3"
+experiment = "E0035"
+role = "generator contract fixture, not the StandardIR schema"
+
+# Verify each referenced artifact with:
+#   sha256sum <payload> && stat -c '%s' <payload>
+# Verify source commits with:
+#   git -C ../standard-new cat-file -t <commit>
