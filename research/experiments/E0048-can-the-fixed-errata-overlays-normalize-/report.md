@@ -23,11 +23,21 @@ the representation choice is deferred to D0024.
 
 ## Result
 
-Pending the first run.
+The command applied all eight accepted D0025 source repairs and reduced the
+181-name audit to 178 names in the derived view. The expansion inventory has
+100 records: 80 R401 suffix-list terms and 20 R403 scalar-prefix terms. Every
+record has an independent StandardIR source witness, no selected term has an
+explicit StandardIR definition, and the independent set comparison differs by
+zero. The family mutation produced the expected validation failure.
+
+The records remain `unresolved`; parser representation is explicitly deferred
+to D0024. The run made no model calls. Its summary and inventory hashes are
+recorded in `artifacts/runs/E0048/R000001-summary.toml`.
 
 ## Boundary
 
 This experiment supplies the planning model with a complete expansion-family
 inventory. It does not decide whether the generated representation should use
 a new typed resolution class, an alias extension, or a later semantic/parser
-projection.
+projection. The eight-entry overlay is a derived input policy; it does not
+alter the authoritative PDF or StandardIR.

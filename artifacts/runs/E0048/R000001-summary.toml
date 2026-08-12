@@ -1,0 +1,38 @@
+name = "E0048-R000001-fixed-errata-expansion-inventory"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/3a954d5/research/experiments/E0048-can-the-fixed-errata-overlays-normalize-"
+sha256 = "af078366e6a7fb6931f8ac6f455da33fbab5519d24ca74e687ac48323dfe1737"
+bytes = 325
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for deterministic normalization of fixed source errata and R401/R403 expansion-family inventory"
+path = ".cache/runs/E0048/R000001/summary.tsv"
+origin = "MECHANICAL"
+format = "tab-separated fixed errata and expansion inventory summary"
+generator = "E0048 analyse.sh"
+generator_commit = "3a954d5"
+checker = "research/experiments/E0048-can-the-fixed-errata-overlays-normalize-/analyse.sh"
+checker_commit = "3a954d5"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+audit_sha256 = "28eb6876a77345cd85de14cf23a1d9027beefc2cb7a4de5756a9f28c40d1a449"
+base_errata_sha256 = "df1a5320637f2e850e59a680a4467287193c48ee789585dff5aea438b4eaef99"
+extension_errata_sha256 = "072e0104b68c2303f2ca56e83764f92f4840a73cd0ccc5eea782c90f19fca4dc"
+inventory_sha256 = "d85eb38a4675251c3e23ebf1d0c187949134978b89f45d7af92108be0bbbe503"
+inventory_bytes = 15673
+original_audit_unique_names = 181
+normalized_audit_unique_names = 178
+errata_records = 8
+errata_repairs = 8
+expansion_records = 100
+r401_records = 80
+r403_records = 20
+explicit_definition_conflicts = 0
+source_witness_matches = 100
+independent_difference = 0
+representation_selection = "deferred_D0024"
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0048-can-the-fixed-errata-overlays-normalize-/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

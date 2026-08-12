@@ -34,6 +34,10 @@ The combined D0019 slice contains @COMBINED_ALIASES@ aliases,
 and @COMBINED_WITNESSES@ composite SX witnesses.
 The accepted fixed errata overlay repairs @ERRATA_REPAIRS@ punctuation
 boundaries, with @ERRATA_COMMAS@ comma repairs and @ERRATA_COLONS@ colon repair.
+The resulting audit has @EXPANSION_AUDIT_NAMES@ names and the R401/R403
+inventory contains @EXPANSION_RECORDS@ records: @R401_RECORDS@ R401 list
+terms and @R403_RECORDS@ R403 scalar terms. Their representation remains
+@EXPANSION_REPRESENTATION@.
 
 ## 1. Scope and claim
 
@@ -86,6 +90,9 @@ The combined slice reruns the accepted R402 and lexical witnesses, checks their
 overlap, and projects their union into one partial parser input.
 The D0025 overlay then applies @ERRATA_REPAIRS@ source-provenanced punctuation repairs
 to the derived parser input while retaining the original StandardIR records.
+E0048 applies the complete eight-entry overlay to the unresolved audit and
+records the R401/R403 expansion families without selecting their parser
+representation.
 
 ### 2.3 Verification
 
@@ -131,7 +138,9 @@ unresolved set to @COMBINED_UNRESOLVED@ records while leaving expansion and
 semantic classes outside the slice.
 The fixed errata overlay supplies bounded source repairs. Its entries are
 LLM-originated and accepted under D0025. The generated application remains
-mechanical.
+mechanical. E0048 then inventories the normalized R401 and R403 families with
+independent StandardIR witnesses, while retaining the representation decision
+for D0024.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -156,7 +165,8 @@ adjudication and not a normative input.
 ## 6. Next experiment
 
 The next experiment addresses the R401 and R403 representation choice for
-assumed list and scalar rules. The choice is proposed in
+assumed list and scalar rules. E0048 supplies the complete 80/20 inventory;
+the choice is proposed in
 [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md). The next
 slice should resolve those terms only after that choice is accepted, then apply
 the resulting records to the full composite input. The ANTLR4, Bison, and

@@ -66,6 +66,7 @@ assert_run R000053 '.status == "accepted" and .experiment == "E0044" and .verifi
 assert_run R000054 '.status == "accepted" and .experiment == "E0045" and .verification.zero_model_calls == true and .verification.lexical_class_records == 25 and .verification.unicode_exclusions_retained == 2 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000055 '.status == "accepted" and .experiment == "E0046" and .verification.zero_model_calls == true and .verification.alias_records == 49 and .verification.lexical_class_records == 25 and .verification.unresolved_records == 107 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000056 '.status == "accepted" and .experiment == "E0047" and .verification.zero_model_calls == true and .verification.errata_origin == "LLM" and .verification.errata_decision == "D0025" and .verification.source_repair_records == 7 and .verification.input_syntax_records == 522 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000057 '.status == "accepted" and .experiment == "E0048" and .verification.zero_model_calls == true and .verification.original_audit_unique_names == 181 and .verification.normalized_audit_unique_names == 178 and .verification.expansion_records == 100 and .verification.r401_records == 80 and .verification.r403_records == 20 and .verification.explicit_definition_conflicts == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.representation_selection == "deferred_D0024"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -115,6 +116,15 @@ errata_commas=$(metric R000056 '.verification.comma_repairs')
 errata_colons=$(metric R000056 '.verification.colon_repairs')
 errata_difference=$(metric R000056 '.verification.independent_difference')
 errata_negative_control=$(metric R000056 '.verification.negative_control')
+normalized_audit_names=$(metric R000057 '.verification.normalized_audit_unique_names')
+expansion_records=$(metric R000057 '.verification.expansion_records')
+r401_records=$(metric R000057 '.verification.r401_records')
+r403_records=$(metric R000057 '.verification.r403_records')
+expansion_conflicts=$(metric R000057 '.verification.explicit_definition_conflicts')
+expansion_witnesses=$(metric R000057 '.verification.source_witness_matches')
+expansion_difference=$(metric R000057 '.verification.independent_difference')
+expansion_negative_control=$(metric R000057 '.verification.negative_control')
+expansion_representation=$(metric R000057 '.verification.representation_selection' | sed 's/^deferred_D0024$/deferred to D0024/')
 
 results="$paper_dir/results.md"
 {
@@ -234,6 +244,20 @@ EOF
 | Independent difference | $errata_difference |
 | Controlled negative mutation | $errata_negative_control |
 
+## D0025 normalization and R401/R403 inventory
+
+| Quantity | Value |
+|---|---:|
+| Names after the eight-entry errata normalization | $normalized_audit_names |
+| Expansion-family records | $expansion_records |
+| R401 suffix-list records | $r401_records |
+| R403 scalar-prefix records | $r403_records |
+| Explicit-definition conflicts | $expansion_conflicts |
+| Source witnesses | $expansion_witnesses |
+| Independent difference | $expansion_difference |
+| Representation selection | $expansion_representation |
+| Controlled family mutation | $expansion_negative_control |
+
 ## External behavioral baseline
 
 | Quantity | Value |
@@ -274,6 +298,11 @@ rendered=${rendered//@COMBINED_WITNESSES@/$combined_witnesses}
 rendered=${rendered//@ERRATA_REPAIRS@/$errata_repairs}
 rendered=${rendered//@ERRATA_COMMAS@/$errata_commas}
 rendered=${rendered//@ERRATA_COLONS@/$errata_colons}
+rendered=${rendered//@EXPANSION_AUDIT_NAMES@/$normalized_audit_names}
+rendered=${rendered//@EXPANSION_RECORDS@/$expansion_records}
+rendered=${rendered//@R401_RECORDS@/$r401_records}
+rendered=${rendered//@R403_RECORDS@/$r403_records}
+rendered=${rendered//@EXPANSION_REPRESENTATION@/$expansion_representation}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

@@ -102,6 +102,20 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled negative mutation | observed_failure |
 
+## D0025 normalization and R401/R403 inventory
+
+| Quantity | Value |
+|---|---:|
+| Names after the eight-entry errata normalization | 178 |
+| Expansion-family records | 100 |
+| R401 suffix-list records | 80 |
+| R403 scalar-prefix records | 20 |
+| Explicit-definition conflicts | 0 |
+| Source witnesses | 100 |
+| Independent difference | 0 |
+| Representation selection | deferred to D0024 |
+| Controlled family mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |

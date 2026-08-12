@@ -2,13 +2,13 @@ id: "E0048"
 title: "Fixed errata normalization and R401/R403 inventory"
 question: >
   Can the fixed errata overlays normalize the remaining punctuation boundary and enumerate every R401/R403 expansion-family term without selecting its parser representation?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "2b595a3"
+  lazy-fortran-new: "3a954d5"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
