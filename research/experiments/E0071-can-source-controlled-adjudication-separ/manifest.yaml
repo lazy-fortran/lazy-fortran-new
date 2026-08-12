@@ -1,0 +1,69 @@
+id: "E0071"
+title: "Source-controlled adjudication of bounded normative-prose candidates"
+question: >
+  Can source-controlled adjudication separate normative relations from bounded-prose false positives?
+status: draft         # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "26e1b17"
+  standard-new: "c6cd889"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  candidate_inventory: E0070-R000001
+  candidate_spans: .cache/runs/E0070/R000001/candidate-spans.tsv
+  adjudication_oracle: research/experiments/E0071-can-source-controlled-adjudication-separ/adjudication.tsv
+  decisions: [D0019, D0028, D0035]
+
+variables:
+  disposition: [accepted, retained]
+  model_calls: [zero]
+
+model_selection: "No experimental model calls; the adjudication oracle is source-controlled and every relation is checked against the pinned canonical text."
+
+metrics:
+  - candidate_spans
+  - accepted_records
+  - retained_records
+  - accepted_alias_records
+  - accepted_lexical_class_records
+  - accepted_metavariable_records
+  - accepted_semantic_role_records
+  - source_hash_matches
+  - source_evidence_matches
+  - candidate_inventory_difference
+  - independent_difference
+  - negative_control
+
+denominator: >
+  Every candidate span emitted by E0070-R000001, including multiple spans for
+  one unresolved name and candidates that are later rejected as false positives.
+  No candidate is dropped because it is difficult to adjudicate.
+
+independent_oracle: >
+  A separate awk traversal checks every adjudication row against the pinned
+  canonical source and the E0070 candidate inventory, requiring the recorded
+  source phrase and source reference for accepted records. It independently
+  counts accepted and retained rows and checks source-hash identity. A
+  controlled mutation removes one accepted source phrase and must fail.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  The gate fails if a candidate is missing or duplicated, an accepted relation
+  lacks its source phrase or source hash, a retained false positive is promoted,
+  the independent counts differ, or the negative control passes.
+
+gate: >
+  Rerun E0070, preserve all 42 candidate spans, adjudicate each span into an
+  accepted typed relation or retained residue, check every accepted relation
+  against its source phrase and citation, independently reproduce the counts,
+  and retain the unresolved residue without projecting it into a parser.
+
+analysis: research/experiments/E0071-can-source-controlled-adjudication-separ/analyse.sh

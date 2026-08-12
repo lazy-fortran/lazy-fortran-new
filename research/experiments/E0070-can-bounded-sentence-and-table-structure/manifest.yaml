@@ -60,7 +60,7 @@ denominator: >
 
 # State the independent behavioral or structural oracle. Self-consistency is
 # not an oracle.
-  independent_oracle: >
+independent_oracle: >
   The primary pass emits bounded logical sentence units and table rows. A
   separate audit-driven grep/awk traversal recomputes candidate term/kind pairs
   from those units. The fixed witness oracle checks a cross-line entry-name
@@ -82,7 +82,7 @@ falsifiable_by: >
   control passes.
 
 # The condition that closes the experiment and the evidence it must report.
-  gate: >
+gate: >
   Verify the pinned source and audit, emit all bounded logical units and table
   rows with source locations, classify exact candidate relations without
   accepting them as StandardIR facts, independently reproduce the candidate

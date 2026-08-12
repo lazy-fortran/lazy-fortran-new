@@ -1,0 +1,43 @@
+candidate_no	term	kind	line_start	line_end	disposition	accepted_class	target	source_ref	evidence_substring	origin	reason
+1	xyz	metavariable	1849	1854	accepted	metavariable	-	R401-R403	where the letters xyz stand for any syntactic class phrase	LLM	assumed syntax metanotation
+2	letter	lexical-class	2758	2766	accepted	lexical-class	letter	6.1.2	The set of letters defines the syntactic class letter	LLM	explicit lexical definition
+3	digit	lexical-class	2769	2772	accepted	lexical-class	digit	6.1.3	The ten digits define the syntactic class digit	LLM	explicit lexical definition
+4	%	lexical-class	2781	2781	accepted	lexical-class	special-character	Table 6.1	- Minus % Percent	LLM	extrule table names the character
+5	<	lexical-class	2784	2784	accepted	lexical-class	special-character	Table 6.1	\ Backslash < Less than	LLM	extrule table names the character
+6	>	lexical-class	2785	2785	accepted	lexical-class	special-character	Table 6.1	( Left parenthesis > Greater than	LLM	extrule table names the character
+7	’	lexical-class	2787	2787	accepted	lexical-class	special-character	Table 6.1	[ Left square bracket ’ Apostrophe	LLM	extrule table names the character
+8	.	lexical-class	2792	2792	accepted	lexical-class	special-character	Table 6.1	. Decimal point or period # Number sign	LLM	extrule table names the character
+9	parent-type-name	semantic-role	3590	3628	accepted	semantic-role	extensible-type	C737	A parent-type-name shall be the name of a previously defined extensible type	LLM	explicit constraint relation
+10	type-name	semantic-role	3590	3628	retained	-	-	C734	the same as the name of any intrinsic type	LLM	name occurrence is not a definition of type-name
+11	procedure-name	semantic-role	4119	4129	accepted	semantic-role	accessible-procedure	C774	The procedure-name shall be the name of an accessible module procedure or an external procedure	LLM	explicit constraint relation
+12	binding-name-list	semantic-role	4130	4158	accepted	semantic-role	specific-binding	C777	Each binding-name in binding-name-list shall be the name of a specific binding of the type	LLM	explicit constraint relation
+13	type-name	semantic-role	4391	4403	accepted	semantic-role	accessible-derived-type	C795	type-name shall be the name of an accessible derived type	LLM	explicit constraint relation
+14	function-name	semantic-role	4899	4926	accepted	semantic-role	procedure-or-function	C809	The function-name shall be the name of an external function	LLM	explicit constraint relation
+15	access-name	semantic-role	5599	5614	accepted	semantic-role	accessible-entity	C874	Each access-name shall be the name of a module, variable, procedure, nonintrinsic type, named constant, or namelist group	LLM	explicit constraint relation
+16	part-name	semantic-role	6389	6402	accepted	semantic-role	data-object	C912	The leftmost part-name shall be the name of a data object	LLM	explicit constraint relation
+17	part-name	semantic-role	6439	6446	accepted	semantic-role	scalar-coarray	C921	The part-name shall be the name of a scalar coarray	LLM	explicit constraint relation
+18	type-param-name	semantic-role	6456	6460	accepted	semantic-role	type-parameter	C923	The type-param-name shall be the name of a type parameter of the declared type of the object	LLM	explicit constraint relation
+19	type-param-name	semantic-role	7110	7134	accepted	semantic-role	type-parameter	C1001	The type-param-name shall be the name of a type parameter	LLM	explicit constraint relation
+20	data-pointer-component-name	semantic-role	8311	8349	accepted	semantic-role	data-pointer-component	C1026	A data-pointer-component-name shall be the name of a component of scalar-variable that is a data pointer	LLM	explicit constraint relation
+21	scalar-variable	semantic-role	8311	8349	accepted	semantic-role	data-ref	C1025	A scalar-variable shall be a data-ref	LLM	explicit constraint relation
+22	procedure-component-name	semantic-role	8352	8361	accepted	semantic-role	procedure-pointer-component	C1031	The procedure-component-name shall be the name of a procedure pointer component of the declared type of scalar-variable	LLM	explicit constraint relation
+23	procedure-name	semantic-role	8352	8361	accepted	semantic-role	procedure	C1033	A procedure-name shall be the name of an internal, module, or dummy procedure	LLM	explicit constraint relation
+24	function-reduction-name	semantic-role	9017	9058	accepted	semantic-role	standard-intrinsic-function	C1122	The function-reduction-name shall be the name of the standard intrinsic function IAND	LLM	explicit constraint relation
+25	namelist-group-name	semantic-role	11089	11127	accepted	semantic-role	namelist-group	C1216	A namelist-group-name shall be the name of a namelist group	LLM	explicit constraint relation
+26	module-name	semantic-role	13739	13772	accepted	semantic-role	intrinsic-or-nonintrinsic-module	C1404	module-name shall be the name of an intrinsic module	LLM	explicit constraint relation
+27	module-name	semantic-role	13773	13774	accepted	semantic-role	module	14.2.2	If the module-name is the name of both an intrinsic and a nonintrinsic module	LLM	explicit prose relation
+28	ancestor-module-name	semantic-role	13836	13852	accepted	semantic-role	nonintrinsic-module	C1412	The ancestor-module-name shall be the name of a nonintrinsic module	LLM	explicit constraint relation
+29	parent-submodule-name	semantic-role	13836	13852	accepted	semantic-role	descendant-submodule	C1412	the parent-submodule-name shall be the name of a descendant of that module	LLM	explicit constraint relation
+30	submodule-name	semantic-role	13836	13852	retained	-	-	C1413	If a submodule-name appears in the end-submodule-stmt	LLM	occurrence is an identity constraint, not a definition
+31	.LT.	semantic-role	13997	14036	retained	-	-	C1502	one generic-spec has a defined-operator that is .LT.	LLM	operator occurrence is not a relation for the unresolved name
+32	generic-name	semantic-role	13997	14036	retained	-	-	R1508	generic-spec is generic-name	LLM	grammar alternative is not a source definition of generic-name
+33	procedure-name	semantic-role	13997	14036	retained	-	-	15.4.3.1	The name of a procedure can appear in a PROCEDURE statement	LLM	generic prose occurrence is not a procedure-name definition
+34	procedure-name	semantic-role	14308	14330	accepted	semantic-role	nonelemental-procedure	C1519	The procedure-name shall be the name of a nonelemental external or module procedure	LLM	explicit constraint relation
+35	procedure-name	semantic-role	14440	14479	accepted	semantic-role	procedure	C1534	A procedure-name shall be the name of an external, internal, module, or dummy procedure	LLM	explicit constraint relation
+36	function-name	semantic-role	15282	15282	accepted	semantic-role	function	15.6.2.2	The name of the function is function-name	LLM	explicit prose definition
+37	function-name	semantic-role	15291	15298	accepted	semantic-role	function-result-or-function	15.6.2.2	If RESULT does not appear, the name of the function result is function-name	LLM	explicit prose definition
+38	result-name	semantic-role	15291	15298	accepted	semantic-role	function-result	15.6.2.2	the name of the function result of the function is result-name	LLM	explicit prose definition
+39	subroutine-name	semantic-role	15340	15340	accepted	semantic-role	subroutine	15.6.2.3	The name of the subroutine is subroutine-name	LLM	explicit prose definition
+40	entry-name	semantic-role	15395	15401	accepted	semantic-role	function	15.6.2.4	The name of the function is entry-name	LLM	explicit prose definition
+41	result-name	semantic-role	15395	15401	accepted	semantic-role	function-result	15.6.2.4	the name of its result is result-name	LLM	explicit prose definition
+42	entry-name	semantic-role	15402	15403	accepted	semantic-role	subroutine	15.6.2.4	The name of the subroutine is entry-name	LLM	explicit prose definition
