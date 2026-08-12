@@ -1,0 +1,22 @@
+source_term	class	parser_target	semantic_role	source_document	source_clause	source_rule	source_page	justification
+%	lexical-class	%	-	J3-24-007	6.2.1	P1	54	6.2.1 lists percent as a lexical token
+.	lexical-class	.	-	J3-24-007	6.1.5	Table-6.1	53	Table 6.1 defines period as a special character
+..	lexical-class	..	-	J3-24-007	6.2.1	P1	54	6.2.1 lists .. as a lexical token
+.AND.	lexical-class	.AND.	-	J3-24-007	6.2.4	R1020	70	R1020 defines the intrinsic logical and operator spelling
+.EQ.	lexical-class	.EQ.	-	J3-24-007	6.2.4	R1014	69	R1014 defines the intrinsic relational operator spelling
+.EQV.	lexical-class	.EQV.	-	J3-24-007	6.2.4	R1022	70	R1022 defines the intrinsic equivalence operator spelling
+.FALSE.	lexical-class	.FALSE.	-	J3-24-007	7.4.5	R725	87	R725 defines the false logical literal spelling
+.GE.	lexical-class	.GE.	-	J3-24-007	6.2.4	R1014	69	R1014 defines the greater-than-or-equal operator spelling
+.GT.	lexical-class	.GT.	-	J3-24-007	6.2.4	R1014	69	R1014 defines the greater-than operator spelling
+.LE.	lexical-class	.LE.	-	J3-24-007	6.2.4	R1014	69	R1014 defines the less-than-or-equal operator spelling
+.LT.	lexical-class	.LT.	-	J3-24-007	6.2.4	R1014	69	R1014 defines the less-than operator spelling
+.NE.	lexical-class	.NE.	-	J3-24-007	6.2.4	R1014	69	R1014 defines the not-equal operator spelling
+.NEQV.	lexical-class	.NEQV.	-	J3-24-007	6.2.4	R1022	70	R1022 defines the not-equivalence operator spelling
+.NIL.	lexical-class	.NIL.	-	J3-24-007	6.2.1	P1	54	6.2.1 lists .NIL. as a lexical token
+.NOT.	lexical-class	.NOT.	-	J3-24-007	6.2.4	R1019	70	R1019 defines the intrinsic logical not operator spelling
+.OR.	lexical-class	.OR.	-	J3-24-007	6.2.4	R1021	70	R1021 defines the intrinsic logical or operator spelling
+.TRUE.	lexical-class	.TRUE.	-	J3-24-007	7.4.5	R725	87	R725 defines the true logical literal spelling
+<	lexical-class	<	-	J3-24-007	6.2.4	R1014	69	R1014 defines the less-than operator spelling
+<=	lexical-class	<=	-	J3-24-007	6.2.4	R1014	69	R1014 defines the less-than-or-equal operator spelling
+>	lexical-class	>	-	J3-24-007	6.2.4	R1014	69	R1014 defines the greater-than operator spelling
+>=	lexical-class	>=	-	J3-24-007	6.2.4	R1014	69	R1014 defines the greater-than-or-equal operator spelling
