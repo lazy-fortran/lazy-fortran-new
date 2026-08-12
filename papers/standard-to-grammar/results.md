@@ -225,6 +225,23 @@ The following rows are extracted from the accepted projection run records.
 | Target boundary | verification_failure_structural_target |
 | Controlled projection mutation | observed_failure |
 
+## E0056 deterministic target-export normalization
+
+| Quantity | Value |
+|---|---:|
+| ANTLR4 exit status | 0 |
+| Bison exit status | 0 |
+| tree-sitter exit status | 1 |
+| Left-recursion groups normalized | 3 |
+| Nullable wrappers inlined | 5 |
+| Explicit tree-sitter conflict groups | 13 |
+| ANTLR4 warnings retained | 18 |
+| Bison warnings retained | 206 |
+| Unresolved target names | 0 |
+| Next tree-sitter conflict | r_int_x2D_literal_x2D_constant,r_kind_x2D_param |
+| Target boundary | verification_failure_remaining_target_structure |
+| Controlled normalizer mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

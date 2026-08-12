@@ -129,6 +129,13 @@ E0055 applies the accepted D0024, D0026 and D0027 projections. It emits
 @ACCEPTED_PROJECTION_R401@ R401 expansions, @ACCEPTED_PROJECTION_R403@ R403
 expansions, and @ACCEPTED_PROJECTION_OVERLAPS@ compositional overlaps. The
 target tools expose a structural boundary rather than unresolved source names.
+E0056 applies deterministic target-only normalization. ANTLR4 and Bison
+generate after @NORMALIZED_TARGET_RECURSION@ recursion groups and
+@NORMALIZED_TARGET_NULLABLE@ nullable wrappers are normalized. tree-sitter
+reaches an explicit table of @NORMALIZED_TARGET_CONFLICTS@ conflict groups but
+retains the next conflict, @NORMALIZED_TARGET_NEXT_CONFLICT@. The target
+normalizer therefore closes the compact generic part of the boundary but not
+the expanding Fortran-specific ambiguity set.
 
 ### 2.3 Verification
 
@@ -201,6 +208,10 @@ the generated forms: ANTLR4 left recursion and fatal warnings, Bison useless
 rules and conflicts, and tree-sitter empty-string rules. This is a target
 export normalization boundary, not evidence against the source-provenance
 decisions.
+E0056 confirms that the first normalization slice is deterministic and
+target-local: ANTLR4 and Bison generate, while the unresolved-name count stays
+at @NORMALIZED_TARGET_UNRESOLVED@. The remaining tree-sitter conflict is
+reported rather than converted into a long Fortran-specific exception list.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -243,11 +254,17 @@ phase.
 E0055 shows that the next work is target normalization: eliminate or represent
 the pre-existing empty-rule, left-recursion and conflict boundaries while
 keeping StandardIR and deterministic wiring authoritative.
+E0056 completes the compact recursion and nullability normalization and
+identifies the next tree-sitter conflict boundary. The next decision is
+whether to derive a general conflict-projection mechanism or to stop using
+tree-sitter as a production target while retaining it as an export and
+differential oracle. The source representation and deterministic wiring do not
+change in either case.
 
 ## References
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0027 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0028 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.

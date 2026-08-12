@@ -106,6 +106,7 @@ assert_run R000061 '.status == "verification_failure" and .experiment == "E0052"
 assert_run R000062 '.status == "accepted" and .experiment == "E0053" and .verification.zero_model_calls == true and .verification.unresolved_target_names == 103 and .verification.r401_unresolved == 80 and .verification.r403_unresolved == 17 and .verification.expansion_unresolved == 97 and .verification.lexical_unresolved == 3 and .verification.metavariable_unresolved == 1 and .verification.unicode_unresolved == 2 and .verification.source_metadata_records == 6 and .verification.open_decision_groups == 2 and .verification.negative_control == "observed_failure"'
 assert_run R000063 '.status == "accepted" and .experiment == "E0054" and .verification.zero_model_calls == true and .verification.candidate_strategies == 3 and .verification.residue_terms == 5 and .verification.candidate_rows == 15 and .verification.lexical_rows == 3 and .verification.unicode_rows == 2 and .verification.primitive_export_rows == 3 and .verification.schema_export_rows == 3 and .verification.unresolved_rows == 5 and .verification.complete_projection_candidates == 0 and .verification.representation_selection == "deferred_D0027" and .verification.negative_control == "observed_failure"'
 assert_run R000064 '.status == "verification_failure" and .experiment == "E0055" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.generated_syntax_records == 519 and .verification.r401_expansions == 80 and .verification.r403_expansions == 20 and .verification.compositional_overlaps == 3 and .verification.lexical_schema_records == 5 and .verification.lexical_schema_projected == 3 and .verification.unresolved_schema_records == 2 and .verification.antlr_status == 1 and .verification.bison_status == 1 and .verification.treesitter_status == 1 and .verification.antlr_unresolved == 0 and .verification.bison_unresolved == 0 and .verification.treesitter_structural_error == 1 and .verification.target_boundary == "verification_failure_structural_target" and .verification.negative_control == "observed_failure"'
+assert_run R000065 '.status == "verification_failure" and .experiment == "E0056" and .verification.zero_model_calls == true and .verification.normalized_antlr_status == 0 and .verification.normalized_bison_status == 0 and .verification.normalized_treesitter_status == 1 and .verification.left_recursion_groups == 3 and .verification.nullable_rules_inlined == 5 and .verification.treesitter_conflict_groups == 13 and .verification.antlr_warnings == 18 and .verification.bison_warnings == 206 and .verification.normalized_unresolved_names == 0 and .verification.target_boundary == "verification_failure_remaining_target_structure" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -245,6 +246,18 @@ accepted_projection_bison_unresolved=$(metric R000064 '.verification.bison_unres
 accepted_projection_treesitter_structural=$(metric R000064 '.verification.treesitter_structural_error')
 accepted_projection_target_boundary=$(metric R000064 '.verification.target_boundary')
 accepted_projection_negative=$(metric R000064 '.verification.negative_control')
+normalized_target_antlr=$(metric R000065 '.verification.normalized_antlr_status')
+normalized_target_bison=$(metric R000065 '.verification.normalized_bison_status')
+normalized_target_treesitter=$(metric R000065 '.verification.normalized_treesitter_status')
+normalized_target_recursion=$(metric R000065 '.verification.left_recursion_groups')
+normalized_target_nullable=$(metric R000065 '.verification.nullable_rules_inlined')
+normalized_target_conflicts=$(metric R000065 '.verification.treesitter_conflict_groups')
+normalized_target_antlr_warnings=$(metric R000065 '.verification.antlr_warnings')
+normalized_target_bison_warnings=$(metric R000065 '.verification.bison_warnings')
+normalized_target_unresolved=$(metric R000065 '.verification.normalized_unresolved_names')
+normalized_target_boundary=$(metric R000065 '.verification.target_boundary')
+normalized_target_next_conflict=$(metric R000065 '.verification.treesitter_first_unresolved_conflict')
+normalized_target_negative=$(metric R000065 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -487,6 +500,23 @@ EOF
 | Target boundary | $accepted_projection_target_boundary |
 | Controlled projection mutation | $accepted_projection_negative |
 
+## E0056 deterministic target-export normalization
+
+| Quantity | Value |
+|---|---:|
+| ANTLR4 exit status | $normalized_target_antlr |
+| Bison exit status | $normalized_target_bison |
+| tree-sitter exit status | $normalized_target_treesitter |
+| Left-recursion groups normalized | $normalized_target_recursion |
+| Nullable wrappers inlined | $normalized_target_nullable |
+| Explicit tree-sitter conflict groups | $normalized_target_conflicts |
+| ANTLR4 warnings retained | $normalized_target_antlr_warnings |
+| Bison warnings retained | $normalized_target_bison_warnings |
+| Unresolved target names | $normalized_target_unresolved |
+| Next tree-sitter conflict | $normalized_target_next_conflict |
+| Target boundary | $normalized_target_boundary |
+| Controlled normalizer mutation | $normalized_target_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -580,6 +610,11 @@ rendered=${rendered//@ACCEPTED_PROJECTION_BISON_UNRESOLVED@/$accepted_projection
 rendered=${rendered//@ACCEPTED_PROJECTION_TREESITTER_STRUCTURAL@/$accepted_projection_treesitter_structural}
 rendered=${rendered//@ACCEPTED_PROJECTION_TARGET_BOUNDARY@/$accepted_projection_target_boundary}
 rendered=${rendered//@ACCEPTED_PROJECTION_NEGATIVE@/$accepted_projection_negative}
+rendered=${rendered//@NORMALIZED_TARGET_RECURSION@/$normalized_target_recursion}
+rendered=${rendered//@NORMALIZED_TARGET_NULLABLE@/$normalized_target_nullable}
+rendered=${rendered//@NORMALIZED_TARGET_CONFLICTS@/$normalized_target_conflicts}
+rendered=${rendered//@NORMALIZED_TARGET_NEXT_CONFLICT@/$normalized_target_next_conflict}
+rendered=${rendered//@NORMALIZED_TARGET_UNRESOLVED@/$normalized_target_unresolved}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

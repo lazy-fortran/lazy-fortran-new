@@ -129,6 +129,13 @@ E0055 applies the accepted D0024, D0026 and D0027 projections. It emits
 80 R401 expansions, 20 R403
 expansions, and 3 compositional overlaps. The
 target tools expose a structural boundary rather than unresolved source names.
+E0056 applies deterministic target-only normalization. ANTLR4 and Bison
+generate after 3 recursion groups and
+5 nullable wrappers are normalized. tree-sitter
+reaches an explicit table of 13 conflict groups but
+retains the next conflict, r_int_x2D_literal_x2D_constant,r_kind_x2D_param. The target
+normalizer therefore closes the compact generic part of the boundary but not
+the expanding Fortran-specific ambiguity set.
 
 ### 2.3 Verification
 
@@ -201,6 +208,10 @@ the generated forms: ANTLR4 left recursion and fatal warnings, Bison useless
 rules and conflicts, and tree-sitter empty-string rules. This is a target
 export normalization boundary, not evidence against the source-provenance
 decisions.
+E0056 confirms that the first normalization slice is deterministic and
+target-local: ANTLR4 and Bison generate, while the unresolved-name count stays
+at 0. The remaining tree-sitter conflict is
+reported rather than converted into a long Fortran-specific exception list.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -243,12 +254,18 @@ phase.
 E0055 shows that the next work is target normalization: eliminate or represent
 the pre-existing empty-rule, left-recursion and conflict boundaries while
 keeping StandardIR and deterministic wiring authoritative.
+E0056 completes the compact recursion and nullability normalization and
+identifies the next tree-sitter conflict boundary. The next decision is
+whether to derive a general conflict-projection mechanism or to stop using
+tree-sitter as a production target while retaining it as an export and
+differential oracle. The source representation and deterministic wiring do not
+change in either case.
 
 ## References
 
 1. J3/24-007, *Fortran 2023 working draft*, pinned as `j3-24-007` in
    `artifacts/standards/j3-24-007.toml`.
-2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0027 in this repository.
+2. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0028 in this repository.
 3. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
@@ -478,6 +495,23 @@ The following rows are extracted from the accepted projection run records.
 | tree-sitter structural error | 1 |
 | Target boundary | verification_failure_structural_target |
 | Controlled projection mutation | observed_failure |
+
+## E0056 deterministic target-export normalization
+
+| Quantity | Value |
+|---|---:|
+| ANTLR4 exit status | 0 |
+| Bison exit status | 0 |
+| tree-sitter exit status | 1 |
+| Left-recursion groups normalized | 3 |
+| Nullable wrappers inlined | 5 |
+| Explicit tree-sitter conflict groups | 13 |
+| ANTLR4 warnings retained | 18 |
+| Bison warnings retained | 206 |
+| Unresolved target names | 0 |
+| Next tree-sitter conflict | r_int_x2D_literal_x2D_constant,r_kind_x2D_param |
+| Target boundary | verification_failure_remaining_target_structure |
+| Controlled normalizer mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison
 

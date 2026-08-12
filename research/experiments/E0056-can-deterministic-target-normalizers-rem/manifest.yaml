@@ -2,13 +2,13 @@ id: "E0056"
 title: "Deterministic target-export structural normalization"
 question: >
   Can deterministic target normalizers remove the E0055 structural export boundary?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "ec23bf3"
+  lazy-fortran-new: "6b46339"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

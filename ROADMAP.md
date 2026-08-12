@@ -415,8 +415,17 @@ evidence for the thesis.
 - [x] Apply D0024, D0026 and D0027 to one composite input and measure the
       remaining target-export boundary (E0055, regenerate with
       `research/experiments/E0055-can-accepted-projection-decisions-produc/analyse.sh`)
-- [ ] Normalize target-export structural failures: left recursion, empty
-      productions, conflicts and strict warning policy
+- [x] Normalize the compact target-export structural failures mechanically:
+      left recursion and nullable wrappers, retaining target warnings and the
+      remaining tree-sitter boundary (E0056, regenerate with
+      `research/experiments/E0056-can-deterministic-target-normalizers-rem/analyse.sh`)
+- [ ] Decide whether the expanding tree-sitter ambiguity set deserves a
+      general conflict projection or remains an export/differential boundary
+      (E0056 next unresolved group: `r_int_x2D_literal_x2D_constant` versus
+      `r_kind_x2D_param`)
+- [ ] Decide whether ANTLR4 and Bison exports must be warning-free, then
+      remove or explicitly classify their retained target warnings (E0056:
+      18 and 206, respectively)
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
