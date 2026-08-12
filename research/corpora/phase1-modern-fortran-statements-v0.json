@@ -1,0 +1,51 @@
+{
+  "name": "phase1-modern-fortran-statements-v0",
+  "version": 1,
+  "purpose": "Pinned statement witnesses drawn from the phase1 modern Fortran corpus",
+  "base_corpus": "phase1-modern-fortran-v0",
+  "repository": "fortfront",
+  "repository_commit": "b8cb5926fd82ed299d00e8c50eaa41587f55237d",
+  "licence": "MIT repository fixture files",
+  "files": [
+    {
+      "path": "examples/f90/issue_2505_uppercase_end_program.f90",
+      "sha256": "2840c24ccc08d52f6494ab1a33987c7c4ca6deef21cf3b070373e70284e92546",
+      "witnesses": [
+        {"needle": "call sub", "kind": "call-stmt"},
+        {"needle": "print *,", "kind": "print-stmt"}
+      ]
+    },
+    {
+      "path": "examples/f90/module_parsing_basic.f90",
+      "sha256": "e5f7beeccbca3d7a0626dc3b7bd3b76adc82a3cb23e27d6ee06c2c28b4efaef9",
+      "witnesses": [
+        {"needle": "integer ::", "kind": "type-declaration-stmt"},
+        {"needle": "c = a", "kind": "assignment-stmt"}
+      ]
+    },
+    {
+      "path": "examples/f90/submodule_placement_valid.f90",
+      "sha256": "5b86792fdc6884c2824f0a334a7c4bc4f5d4e8c89d0419e6813d3a5c3b44afa3",
+      "witnesses": [
+        {"needle": "use submodule_placement_mod", "kind": "use-stmt"},
+        {"needle": "call report", "kind": "call-stmt"},
+        {"needle": "t = 0", "kind": "assignment-stmt"}
+      ]
+    },
+    {
+      "path": "examples/f90/call_graph_mutual_recursion.f90",
+      "sha256": "e574de7b9998d30650041ad6dab9b9e5142bf66c8931380392d631becaf4532c",
+      "witnesses": [
+        {"needle": "print *, first", "kind": "print-stmt"},
+        {"needle": "value = second", "kind": "assignment-stmt"}
+      ]
+    },
+    {
+      "path": "examples/f90/do_concurrent_type_spec.f90",
+      "sha256": "1a5362971f6463078b52f5f13d0ccfb6425d536271d778e8ae135a2778113b7a",
+      "witnesses": [
+        {"needle": "do concurrent", "kind": "do-stmt"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+id: "E0060"
+title: "Generated statement operation on real Fortran witnesses"
+question: >
+  Can one local statement parser operation classify declared real-source
+  witnesses and attach StandardIR rule references without changing generated
+  wiring or diagnostic policy?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "6761885"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-statements-v0
+  predecessor: E0059-R000001
+  decisions: [D0018, D0028, D0029, D0030]
+
+variables:
+  operation: [statement-witness-classifier]
+  representation: [generated-fortran-local-operation]
+  witness_families: [use, declaration, assignment, call, print, do]
+
+model_selection: "No model calls. Statement dispatch, source references and test wiring are generated mechanically. The classifier is the local constructive implementation fragment under test."
+
+metrics:
+  - corpus_files
+  - expected_witnesses
+  - classified_witnesses
+  - source_linked_witnesses
+  - witness_mismatches
+  - fortran_compile_status
+  - runtime_test_status
+  - negative_control
+
+denominator: >
+  Every statement witness declared in phase1-modern-fortran-statements-v0.json.
+  The manifest contains ten witnesses across five source files.
+
+independent_oracle: >
+  The JSON corpus manifest supplies the predeclared file hashes, textual
+  witness needles and expected statement families. E0059 independently checks
+  the source corpus and generated top-level operation. The generated statement
+  operation is compiled with warnings as errors, executed for every witness,
+  and checked for source page, byte span and hash. A do-concurrent-to-print
+  mutation must change the statement-family witness.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, oracle_versions]
+
+falsifiable_by: >
+  A source hash changes, a declared needle is absent, a witness is classified
+  as the wrong family, a source reference is missing, the generated operation
+  fails to compile or run, or the mutation does not change the witness.
+
+gate: >
+  Validate the bounded statement operation over all ten declared witnesses and
+  preserve the boundary that expression parsing, nesting and semantic checks
+  remain local holes. This is not a complete statement parser.
+
+analysis: research/experiments/E0060-can-generated-statement-operation-match-real-/analyse.sh
