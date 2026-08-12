@@ -281,6 +281,7 @@ evidence for the thesis.
       (E0033; regenerate with
       `research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`)
 - [ ] BOM, ligature, hyphenation and column-order handling decided and tested
+      (proposed policy: D0020)
 
 ### 1.5 Syntax extraction
 

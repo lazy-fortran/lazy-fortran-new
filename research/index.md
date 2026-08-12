@@ -73,6 +73,7 @@ Runs recorded: 42
 | [D0017](decisions/D0017-commit-pins-and-live-status.md) | accepted |  | Immutable experiment pins and live repository status |
 | [D0018](decisions/D0018-composite-parser-input.md) | accepted |  | Composite parser input, not raw syntax exports |
 | [D0019](decisions/D0019-composite-parser-symbols.md) | proposed |  | Proposed composite parser-symbol resolution |
+| [D0020](decisions/D0020-canonical-extraction-edge-policy.md) | proposed |  | Canonical extraction edge policy |
 
 ## Pinned artifacts
 
