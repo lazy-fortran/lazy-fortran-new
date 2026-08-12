@@ -97,6 +97,9 @@ the committed source fixture and four malformed inputs
 E0036 validates deterministic Fortran type and enum declaration emission,
 stable dependency ordering and cyclic-dependency rejection
 (`research/experiments/E0036-does-deterministic-schema-generation-emi/analyse.sh`).
+E0037 verifies that the schema driver regenerates the checked-in Fortran source
+byte-for-byte and that the generated module passes the normal pipeline
+(`research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh`).
 E0032 verifies 64 deterministic generated SX trees and 10 fixed malformed
 inputs, including a controlled diagnostic mutation
 (`research/experiments/E0032-does-the-sx-seed-survive-a-generated-tre/analyse.sh`).
@@ -270,6 +273,9 @@ evidence for the thesis.
 - [x] First deterministic Fortran type and enum declaration emitter, including
       stable dependency ordering and cycle rejection (E0036; regenerate with
       `research/experiments/E0036-does-deterministic-schema-generation-emi/analyse.sh`)
+- [x] Schema driver regenerates the checked-in type layer byte-for-byte and the
+      generated module enters the normal build (E0037; regenerate with
+      `research/experiments/E0037-does-the-schema-driver-reproduce-the-che/analyse.sh`)
 - [ ] Generator emitting Fortran types, reader, writer, validator, visitor,
       equality, hashing, printer
 - [ ] StandardIR schema
@@ -397,6 +403,7 @@ evidence for the thesis.
 - [x] E0034 flat SX arena-reader corpus differential recorded
 - [x] E0035 v0 SX schema parser differential recorded
 - [x] E0036 deterministic schema type-emission differential recorded
+- [x] E0037 generated schema source-tree regeneration recorded
 - [x] `scripts/index.sh` reports all declared experiments from run records
 
 **Gate.** E0001--E0003 report, from run records rather than by hand: complete
