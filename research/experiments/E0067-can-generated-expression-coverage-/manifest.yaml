@@ -1,0 +1,84 @@
+id: "E0067"
+title: "Generated expression operator and literal coverage"
+question: >
+  Can the same generated flat AST operation extend precedence-shaped
+  expression trees to power, concatenation, dotted logical operators,
+  character and logical literals, kind-suffixed real literals, and intrinsic
+  function references over a broader pinned real-source corpus?
+status: reported         # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: "2026-08-13"
+
+repos:
+  lazy-fortran-new: "2618ec6"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-expression-coverage-v0
+  predecessor: E0066-R000001
+  decisions: [D0021, D0023, D0028, D0029, D0030, D0031, D0032, D0033]
+
+variables:
+  operation: [expression-role-to-coverage-tree]
+  representation: [generated-fortran-flat-node-array]
+  internal_nodes: [binary-expr, unary-expr, call-expr]
+  leaf_nodes: [name, literal]
+  operator_families: [power, concatenation, relational, logical, arithmetic]
+  literal_families: [integer, real-kind, character, logical]
+
+model_selection: "No model calls. Token classes, precedence, function-reference shape, source lookup and verification are deterministic generated operations."
+
+metrics:
+  - witness_files
+  - expression_witnesses
+  - gfortran_accepted
+  - internal_nodes
+  - leaf_nodes
+  - binary_nodes
+  - unary_nodes
+  - array_nodes
+  - function_reference_nodes
+  - name_nodes
+  - literal_nodes
+  - source_linked_nodes
+  - subtree_parent_links
+  - subtree_link_errors
+  - tree_mismatches
+  - coverage_query_hits
+  - unknown_query_rejected
+  - max_expression_depth
+  - fortran_compile_status
+  - runtime_test_status
+  - unsupported_operator_rejected
+
+denominator: >
+  The nine expression witnesses declared by
+  phase1-modern-fortran-expression-coverage-v0.json across six pinned
+  fortfront files. Each expected node count, root rule, kind count and source
+  hash is declared before the generated operation runs.
+
+independent_oracle: >
+  The JSON corpus supplies source hashes, witness spans, expected base and
+  generated node totals, root rules, per-kind counts and maximum depths. E0066
+  independently validates the preceding precedence operation. The generated
+  operation compiles with warnings as errors, checks every generated node's
+  StandardIR source reference, traverses every root child chain, performs
+  known and unknown witness queries, and rejects a mutation containing the
+  unsupported .xor. operator.
+
+falsifiable_by: >
+  A source hash changes, a predecessor fails, a witness count or root rule
+  differs, an operator or function-reference node is lost or duplicated,
+  provenance is missing, an unknown query is accepted, generated Fortran
+  fails to compile or run, or the unsupported operator is accepted.
+
+gate: >
+  Validate deterministic expression coverage for the declared operator,
+  literal and function-reference families. This does not claim complete
+  expression parsing, typed array constructors, user-defined operators,
+  substring designators or semantic type checking.
+
+analysis: research/experiments/E0067-can-generated-expression-coverage-/analyse.sh
