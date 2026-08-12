@@ -80,7 +80,11 @@ sentence/table slice then emits 5064 logical units and
 39 table rows, finding 42 candidate spans
 across 30 names while retaining 151 names
 unresolved. It uses no model calls and accepts no candidate as a StandardIR
-fact.
+fact. Source-controlled adjudication then accepts 37
+typed relations from 42 candidate spans and retains
+5 false-positive or residual records. All
+42 adjudication rows have source evidence and the pinned
+source hash.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -344,6 +348,10 @@ fact. E0070 adds bounded sentence and table structure. It emits
 finding 42 candidate spans across 30
 names while retaining 151 names unresolved. Those candidates
 remain evidence records pending source-controlled adjudication.
+E0071 adjudicates all 42 candidate spans: it accepts
+37 typed relations and retains 5
+records. It makes no parser projection, and its independent difference is
+0.
 
 ## 5. Reproducibility and limitations
 
@@ -361,19 +369,21 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment adjudicates the E0070 source-linked candidate spans into
-typed StandardIR evidence or retained residue, with an independent source
-witness for each accepted relation. It must preserve the E0070 unresolved
-residue and avoid suffix-based inference. Later operations may resume after a
-retained diagnostic only when a compact constructive rule and an independent
-witness exist.
+The next experiment composes the E0071 accepted relations with the existing
+D0019 resolution records into a partial parser input, while retaining the five
+adjudicated false positives and the 151-name E0070 residue. It must not turn
+the adjudication oracle into parser-only wiring. Later operations may resume
+after a retained diagnostic only when a compact constructive rule and an
+independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
 records. Local constructive logic remains the only implementation boundary.
 E0070 measures a larger evidence inventory, not semantic resolution. The direct
 parser and its generated wiring remain unchanged while source-controlled
-adjudication determines which candidates are valid StandardIR relations.
+adjudication determines which candidates are valid StandardIR relations. E0071
+accepts 37 typed relations and retains
+5 candidate records.
 
 ## 7. Conclusion
 
@@ -410,7 +420,11 @@ model calls. E0070 extends this to bounded sentence and table units, recovering
 and retaining 151 names unresolved. These results validate
 composition, provenance, lossless residue reporting and the deterministic-first
 escalation boundary, not semantic coverage or a complete compiler. The next
-milestone is source-controlled adjudication of the bounded candidates.
+milestone is deterministic composition of the accepted relations with the
+existing parser input.
+E0071 supplies that adjudication boundary: 37 relations
+are source-supported, while 5 candidates remain
+unresolved or rejected.
 
 ## References
 
@@ -927,6 +941,24 @@ The following rows are extracted from the accepted projection run records.
 | Independent candidate-set difference | 0 |
 | Controlled mutation | observed_failure |
 | Normative-prose boundary | bounded_normative_prose_evidence_measured |
+
+## E0071 source-controlled normative-prose adjudication
+
+| Quantity | Value |
+|---|---:|
+| Candidate spans | 42 |
+| Accepted typed relations | 37 |
+| Retained candidate/residue records | 5 |
+| Accepted alias records | 0 |
+| Accepted lexical-class records | 7 |
+| Accepted metavariable records | 1 |
+| Accepted semantic-role records | 29 |
+| Records with source hash | 42 |
+| Records with source evidence | 42 |
+| Candidate inventory difference | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+| Adjudication boundary | source_controlled_bounded_prose_adjudication |
 
 ## E0054 D0027 lexical candidate comparison
 

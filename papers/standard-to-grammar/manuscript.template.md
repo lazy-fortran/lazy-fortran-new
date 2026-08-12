@@ -80,7 +80,11 @@ sentence/table slice then emits @BOUNDED_LOGICAL_UNITS@ logical units and
 @BOUNDED_TABLE_ROWS@ table rows, finding @BOUNDED_CANDIDATES@ candidate spans
 across @BOUNDED_CANDIDATE_NAMES@ names while retaining @BOUNDED_RESIDUE@ names
 unresolved. It uses no model calls and accepts no candidate as a StandardIR
-fact.
+fact. Source-controlled adjudication then accepts @ADJUDICATED_ACCEPTED@
+typed relations from @ADJUDICATED_CANDIDATES@ candidate spans and retains
+@ADJUDICATED_RETAINED@ false-positive or residual records. All
+@ADJUDICATED_EVIDENCE@ adjudication rows have source evidence and the pinned
+source hash.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -344,6 +348,10 @@ fact. E0070 adds bounded sentence and table structure. It emits
 finding @BOUNDED_CANDIDATES@ candidate spans across @BOUNDED_CANDIDATE_NAMES@
 names while retaining @BOUNDED_RESIDUE@ names unresolved. Those candidates
 remain evidence records pending source-controlled adjudication.
+E0071 adjudicates all @ADJUDICATED_CANDIDATES@ candidate spans: it accepts
+@ADJUDICATED_ACCEPTED@ typed relations and retains @ADJUDICATED_RETAINED@
+records. It makes no parser projection, and its independent difference is
+@ADJUDICATED_DIFFERENCE@.
 
 ## 5. Reproducibility and limitations
 
@@ -361,19 +369,21 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment adjudicates the E0070 source-linked candidate spans into
-typed StandardIR evidence or retained residue, with an independent source
-witness for each accepted relation. It must preserve the E0070 unresolved
-residue and avoid suffix-based inference. Later operations may resume after a
-retained diagnostic only when a compact constructive rule and an independent
-witness exist.
+The next experiment composes the E0071 accepted relations with the existing
+D0019 resolution records into a partial parser input, while retaining the five
+adjudicated false positives and the 151-name E0070 residue. It must not turn
+the adjudication oracle into parser-only wiring. Later operations may resume
+after a retained diagnostic only when a compact constructive rule and an
+independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
 records. Local constructive logic remains the only implementation boundary.
 E0070 measures a larger evidence inventory, not semantic resolution. The direct
 parser and its generated wiring remain unchanged while source-controlled
-adjudication determines which candidates are valid StandardIR relations.
+adjudication determines which candidates are valid StandardIR relations. E0071
+accepts @ADJUDICATED_ACCEPTED@ typed relations and retains
+@ADJUDICATED_RETAINED@ candidate records.
 
 ## 7. Conclusion
 
@@ -410,7 +420,11 @@ model calls. E0070 extends this to bounded sentence and table units, recovering
 and retaining @BOUNDED_RESIDUE@ names unresolved. These results validate
 composition, provenance, lossless residue reporting and the deterministic-first
 escalation boundary, not semantic coverage or a complete compiler. The next
-milestone is source-controlled adjudication of the bounded candidates.
+milestone is deterministic composition of the accepted relations with the
+existing parser input.
+E0071 supplies that adjudication boundary: @ADJUDICATED_ACCEPTED@ relations
+are source-supported, while @ADJUDICATED_RETAINED@ candidates remain
+unresolved or rejected.
 
 ## References
 

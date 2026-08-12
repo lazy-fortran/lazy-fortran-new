@@ -1,0 +1,38 @@
+name        = "E0071-R000001-source-controlled-adjudication-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/5becfb3"
+sha256      = "fcd4d67befebb0e32ba02e75aadfefee1fc42cb51c168902e8250b4599b080d8"
+bytes       = 337
+licence     = "MIT adapter; source document retains its own licence"
+retrieved   = "2026-08-12"
+purpose     = "Summary of source-controlled adjudication over the E0070 bounded normative-prose candidate inventory"
+path        = ".cache/runs/E0071/R000001/summary.tsv"
+origin      = "LLM"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+candidate_inventory = "E0070-R000001"
+generator   = "lazy-fortran-new E0071 source-controlled adjudication"
+generator_commit = "5becfb3"
+checker     = "research/experiments/E0071-can-source-controlled-adjudication-separ/analyse.sh"
+checker_commit = "5becfb3"
+candidate_spans = 42
+accepted_records = 37
+retained_records = 5
+accepted_alias_records = 0
+accepted_lexical_class_records = 7
+accepted_metavariable_records = 1
+accepted_semantic_role_records = 29
+source_hash_matches = 42
+source_evidence_matches = 42
+candidate_inventory_difference = 0
+independent_difference = 0
+negative_control = "observed_failure"
+candidate_spans_sha256 = "7fd8d917d5b29a52b9b29102d3730e062d4f6985a8819d657d6f4602ab1200ee"
+candidate_spans_bytes = 51069
+adjudicated_records_sha256 = "cc563af740affdb68f3f7645ce5b5ca5b2a41e460ac25f182a71df4230eda8f40"
+adjudicated_records_bytes = 54895
+
+# Regenerate and verify with:
+#   research/experiments/E0071-can-source-controlled-adjudication-separ/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

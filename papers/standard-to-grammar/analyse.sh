@@ -121,6 +121,7 @@ assert_run R000076 '.status == "accepted" and .experiment == "E0067" and .verifi
 assert_run R000077 '.status == "accepted" and .experiment == "E0068" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_meaningful_lines == 72 and .verification.accepted_records == 72 and .verification.source_linked_records == 72 and .verification.unsupported_records == 1 and .verification.diagnostic_records == 1 and .verification.diagnostic_provenance == 1 and .verification.complete_file_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.gfortran_mutation_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "lossless_complete_source_acceptance_validated" and .verification.negative_control == "observed_failure"'
 assert_run R000078 '.status == "accepted" and .experiment == "E0069" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.candidate_spans == 9 and .verification.alias_names == 0 and .verification.lexical_class_names == 2 and .verification.metavariable_names == 1 and .verification.semantic_role_names == 4 and .verification.ambiguous_names == 0 and .verification.unresolved_after_patterns == 174 and .verification.source_linked_candidates == 9 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "deterministic_normative_prose_evidence_measured"'
 assert_run R000079 '.status == "accepted" and .experiment == "E0070" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.logical_units == 5064 and .verification.table_rows == 39 and .verification.candidate_spans == 42 and .verification.candidate_names == 30 and .verification.new_names_over_e0069 == 23 and .verification.alias_names == 0 and .verification.lexical_class_names == 7 and .verification.metavariable_names == 1 and .verification.semantic_role_names == 22 and .verification.ambiguous_names == 0 and .verification.unresolved_after_patterns == 151 and .verification.source_linked_candidates == 42 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "bounded_normative_prose_evidence_measured"'
+assert_run R000080 '.status == "accepted" and .experiment == "E0071" and .verification.zero_model_calls == true and .verification.candidate_spans == 42 and .verification.accepted_records == 37 and .verification.retained_records == 5 and .verification.accepted_alias_records == 0 and .verification.accepted_lexical_class_records == 7 and .verification.accepted_metavariable_records == 1 and .verification.accepted_semantic_role_records == 29 and .verification.source_hash_matches == 42 and .verification.source_evidence_matches == 42 and .verification.candidate_inventory_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "source_controlled_bounded_prose_adjudication"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -460,6 +461,19 @@ bounded_linked=$(metric R000079 '.verification.source_linked_candidates')
 bounded_difference=$(metric R000079 '.verification.independent_difference')
 bounded_negative=$(metric R000079 '.verification.negative_control')
 bounded_boundary=$(metric R000079 '.verification.target_boundary')
+adjudicated_candidates=$(metric R000080 '.verification.candidate_spans')
+adjudicated_accepted=$(metric R000080 '.verification.accepted_records')
+adjudicated_retained=$(metric R000080 '.verification.retained_records')
+adjudicated_aliases=$(metric R000080 '.verification.accepted_alias_records')
+adjudicated_lexical=$(metric R000080 '.verification.accepted_lexical_class_records')
+adjudicated_metavariable=$(metric R000080 '.verification.accepted_metavariable_records')
+adjudicated_semantic=$(metric R000080 '.verification.accepted_semantic_role_records')
+adjudicated_hashes=$(metric R000080 '.verification.source_hash_matches')
+adjudicated_evidence=$(metric R000080 '.verification.source_evidence_matches')
+adjudicated_inventory_difference=$(metric R000080 '.verification.candidate_inventory_difference')
+adjudicated_difference=$(metric R000080 '.verification.independent_difference')
+adjudicated_negative=$(metric R000080 '.verification.negative_control')
+adjudicated_boundary=$(metric R000080 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -978,6 +992,24 @@ EOF
 | Controlled mutation | $bounded_negative |
 | Normative-prose boundary | $bounded_boundary |
 
+## E0071 source-controlled normative-prose adjudication
+
+| Quantity | Value |
+|---|---:|
+| Candidate spans | $adjudicated_candidates |
+| Accepted typed relations | $adjudicated_accepted |
+| Retained candidate/residue records | $adjudicated_retained |
+| Accepted alias records | $adjudicated_aliases |
+| Accepted lexical-class records | $adjudicated_lexical |
+| Accepted metavariable records | $adjudicated_metavariable |
+| Accepted semantic-role records | $adjudicated_semantic |
+| Records with source hash | $adjudicated_hashes |
+| Records with source evidence | $adjudicated_evidence |
+| Candidate inventory difference | $adjudicated_inventory_difference |
+| Independent difference | $adjudicated_difference |
+| Controlled mutation | $adjudicated_negative |
+| Adjudication boundary | $adjudicated_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1220,6 +1252,19 @@ rendered=${rendered//@BOUNDED_LINKED@/$bounded_linked}
 rendered=${rendered//@BOUNDED_DIFFERENCE@/$bounded_difference}
 rendered=${rendered//@BOUNDED_NEGATIVE@/$bounded_negative}
 rendered=${rendered//@BOUNDED_BOUNDARY@/$bounded_boundary}
+rendered=${rendered//@ADJUDICATED_CANDIDATES@/$adjudicated_candidates}
+rendered=${rendered//@ADJUDICATED_ACCEPTED@/$adjudicated_accepted}
+rendered=${rendered//@ADJUDICATED_RETAINED@/$adjudicated_retained}
+rendered=${rendered//@ADJUDICATED_ALIASES@/$adjudicated_aliases}
+rendered=${rendered//@ADJUDICATED_LEXICAL@/$adjudicated_lexical}
+rendered=${rendered//@ADJUDICATED_METAVARIABLE@/$adjudicated_metavariable}
+rendered=${rendered//@ADJUDICATED_SEMANTIC@/$adjudicated_semantic}
+rendered=${rendered//@ADJUDICATED_HASHES@/$adjudicated_hashes}
+rendered=${rendered//@ADJUDICATED_EVIDENCE@/$adjudicated_evidence}
+rendered=${rendered//@ADJUDICATED_INVENTORY_DIFFERENCE@/$adjudicated_inventory_difference}
+rendered=${rendered//@ADJUDICATED_DIFFERENCE@/$adjudicated_difference}
+rendered=${rendered//@ADJUDICATED_NEGATIVE@/$adjudicated_negative}
+rendered=${rendered//@ADJUDICATED_BOUNDARY@/$adjudicated_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

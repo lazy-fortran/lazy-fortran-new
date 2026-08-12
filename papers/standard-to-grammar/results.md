@@ -501,6 +501,24 @@ The following rows are extracted from the accepted projection run records.
 | Controlled mutation | observed_failure |
 | Normative-prose boundary | bounded_normative_prose_evidence_measured |
 
+## E0071 source-controlled normative-prose adjudication
+
+| Quantity | Value |
+|---|---:|
+| Candidate spans | 42 |
+| Accepted typed relations | 37 |
+| Retained candidate/residue records | 5 |
+| Accepted alias records | 0 |
+| Accepted lexical-class records | 7 |
+| Accepted metavariable records | 1 |
+| Accepted semantic-role records | 29 |
+| Records with source hash | 42 |
+| Records with source evidence | 42 |
+| Candidate inventory difference | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+| Adjudication boundary | source_controlled_bounded_prose_adjudication |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

@@ -481,9 +481,13 @@ evidence for the thesis.
       structure with fixed source witnesses: 42 candidate spans across 30
       names, 151 names retained unresolved (E0070, regenerate with
       `research/experiments/E0070-can-bounded-sentence-and-table-structure/analyse.sh`)
-- [ ] Adjudicate E0070's source-linked candidates into typed StandardIR facts
-      or retained residue with independent source witnesses before model
-      escalation
+- [x] Adjudicate all 42 E0070 source-linked candidates into 37 typed,
+      source-supported relations and 5 retained false-positive/residue records
+      with independent source checks (E0071, regenerate with
+      `research/experiments/E0071-can-source-controlled-adjudication-separ/analyse.sh`)
+- [ ] Compose the E0071 accepted relations with the existing D0019 records
+      into a partial parser input while retaining all rejected and unresolved
+      names
 - [ ] Resume after retained residues and enlarge supported complete-source
       statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
