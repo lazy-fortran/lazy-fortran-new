@@ -272,6 +272,21 @@ The following rows are extracted from the accepted projection run records.
 | Diagnostic boundary | source_linked_lookup_compiled_and_tested |
 | Controlled span mutation | observed_failure |
 
+## E0059 generated top-level parser operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Expected top-level units | 8 |
+| Classified units | 8 |
+| Source-linked units | 8 |
+| Unit mismatches | 0 |
+| GNU Fortran accepted files | 5 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Parser-operation boundary | top_level_local_operation_validated |
+| Controlled unit mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

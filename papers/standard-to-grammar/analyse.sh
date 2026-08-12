@@ -109,6 +109,7 @@ assert_run R000064 '.status == "verification_failure" and .experiment == "E0055"
 assert_run R000065 '.status == "verification_failure" and .experiment == "E0056" and .verification.zero_model_calls == true and .verification.normalized_antlr_status == 0 and .verification.normalized_bison_status == 0 and .verification.normalized_treesitter_status == 1 and .verification.left_recursion_groups == 3 and .verification.nullable_rules_inlined == 5 and .verification.treesitter_conflict_groups == 13 and .verification.antlr_warnings == 18 and .verification.bison_warnings == 206 and .verification.normalized_unresolved_names == 0 and .verification.target_boundary == "verification_failure_remaining_target_structure" and .verification.negative_control == "observed_failure"'
 assert_run R000066 '.status == "accepted" and .experiment == "E0057" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.composite_syntax_records == 519 and .verification.unique_lhs == 499 and .verification.dispatch_rows == 519 and .verification.generated_procedures == 499 and .verification.duplicate_dispatch_labels == 0 and .verification.provenance_rows == 519 and .verification.unresolved_references == 0 and .verification.fortran_compile_status == 0 and .verification.target_boundary == "wiring_skeleton_compiled" and .verification.negative_control == "observed_failure"'
 assert_run R000067 '.status == "accepted" and .experiment == "E0058" and .verification.zero_model_calls == true and .verification.composite_syntax_records == 519 and .verification.diagnostic_rows == 519 and .verification.source_span_rows == 519 and .verification.known_lookup == 1 and .verification.unknown_lookup_rejected == 1 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "source_linked_lookup_compiled_and_tested" and .verification.negative_control == "observed_failure"'
+assert_run R000068 '.status == "accepted" and .experiment == "E0059" and .verification.zero_model_calls == true and .verification.corpus_files == 5 and .verification.expected_units == 8 and .verification.classified_units == 8 and .verification.source_linked_units == 8 and .verification.unit_mismatches == 0 and .verification.gfortran_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.target_boundary == "top_level_local_operation_validated" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -280,6 +281,16 @@ diagnostic_compile=$(metric R000067 '.verification.fortran_compile_status')
 diagnostic_runtime=$(metric R000067 '.verification.runtime_test_status')
 diagnostic_boundary=$(metric R000067 '.verification.target_boundary')
 diagnostic_negative=$(metric R000067 '.verification.negative_control')
+local_corpus_files=$(metric R000068 '.verification.corpus_files')
+local_expected_units=$(metric R000068 '.verification.expected_units')
+local_classified_units=$(metric R000068 '.verification.classified_units')
+local_source_linked_units=$(metric R000068 '.verification.source_linked_units')
+local_unit_mismatches=$(metric R000068 '.verification.unit_mismatches')
+local_gfortran_accepted=$(metric R000068 '.verification.gfortran_accepted')
+local_compile=$(metric R000068 '.verification.fortran_compile_status')
+local_runtime=$(metric R000068 '.verification.runtime_test_status')
+local_boundary=$(metric R000068 '.verification.target_boundary')
+local_negative=$(metric R000068 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -569,6 +580,21 @@ EOF
 | Diagnostic boundary | $diagnostic_boundary |
 | Controlled span mutation | $diagnostic_negative |
 
+## E0059 generated top-level parser operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | $local_corpus_files |
+| Expected top-level units | $local_expected_units |
+| Classified units | $local_classified_units |
+| Source-linked units | $local_source_linked_units |
+| Unit mismatches | $local_unit_mismatches |
+| GNU Fortran accepted files | $local_gfortran_accepted |
+| Fortran compile status | $local_compile |
+| Runtime test status | $local_runtime |
+| Parser-operation boundary | $local_boundary |
+| Controlled unit mutation | $local_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -678,6 +704,13 @@ rendered=${rendered//@DIAGNOSTIC_ROWS@/$diagnostic_rows}
 rendered=${rendered//@DIAGNOSTIC_SPANS@/$diagnostic_spans}
 rendered=${rendered//@DIAGNOSTIC_COMPILE@/$diagnostic_compile}
 rendered=${rendered//@DIAGNOSTIC_RUNTIME@/$diagnostic_runtime}
+rendered=${rendered//@LOCAL_CORPUS_FILES@/$local_corpus_files}
+rendered=${rendered//@LOCAL_EXPECTED_UNITS@/$local_expected_units}
+rendered=${rendered//@LOCAL_CLASSIFIED_UNITS@/$local_classified_units}
+rendered=${rendered//@LOCAL_SOURCE_LINKED_UNITS@/$local_source_linked_units}
+rendered=${rendered//@LOCAL_COMPILE@/$local_compile}
+rendered=${rendered//@LOCAL_RUNTIME@/$local_runtime}
+rendered=${rendered//@LOCAL_BOUNDARY@/$local_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

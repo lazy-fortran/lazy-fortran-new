@@ -29,6 +29,10 @@ holes.
 The source-linked diagnostic slice preserves page, byte-span, and source-hash
 identity for 519 composite records. Its generated lookup compiles
 and runs with statuses 0 and 0.
+The first local parser-operation slice classifies 8 units
+from 5 pinned real Fortran files. It links all
+8 results to StandardIR source records and compiles
+with status 0.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -131,6 +135,11 @@ input. E0058 then emits a source-linked diagnostic table from the same records:
 all 519 rows retain a source page, byte span, and document hash.
 The generated lookup compiles, finds a fixed known rule, rejects an unknown
 rule, and changes under the span mutation control.
+E0059 fills one local operation at the top-level boundary. It classifies
+8 units from 5 pinned real source files,
+links 8 results to source records, and runs with
+status 0. The operation is bounded at program, module,
+submodule, block-data, function, and subroutine unit boundaries.
 
 ### 2.3 Verification
 
@@ -265,6 +274,13 @@ from the constructive logic that later work must fill.
 E0058 extends the same boundary to diagnostics: 519 rows are
 source-linked, the generated lookup compiles and runs, and the controlled span
 mutation changes the witness. This is a data-path result, not parser behavior.
+E0059 fills the first local operation and validates it against
+5 real source files. The next experiment must extend the
+same generated structure to statement-level operations.
+E0059 shows that the generated wiring can call a local constructive operation
+over real source files. All 8 declared units are
+classified and source-linked. The result stops before statement parsing and
+semantic checking.
 
 ## 7. Conclusion
 
@@ -565,6 +581,21 @@ The following rows are extracted from the accepted projection run records.
 | Runtime test status | 0 |
 | Diagnostic boundary | source_linked_lookup_compiled_and_tested |
 | Controlled span mutation | observed_failure |
+
+## E0059 generated top-level parser operation
+
+| Quantity | Value |
+|---|---:|
+| Real corpus files | 5 |
+| Expected top-level units | 8 |
+| Classified units | 8 |
+| Source-linked units | 8 |
+| Unit mismatches | 0 |
+| GNU Fortran accepted files | 5 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Parser-operation boundary | top_level_local_operation_validated |
+| Controlled unit mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison
 

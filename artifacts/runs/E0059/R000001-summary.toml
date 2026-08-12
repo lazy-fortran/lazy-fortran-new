@@ -1,0 +1,37 @@
+name = "E0059-R000001-generated-top-level-parser-operation"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/854db4f/research/experiments/E0059-can-generated-top-level-operation-parse-real-"
+sha256 = "69cb18ee63c63e487153f92a384ddce05be99e1464a3a01a6c6e7a6de8f8c32c"
+bytes = 534
+licence = "MIT implementation and test; corpus files retain oracle licence"
+retrieved = "2026-08-12"
+purpose = "Gate summary for the generated top-level local parser operation over a pinned real-source corpus"
+path = ".cache/runs/E0059/R000001/summary.tsv"
+origin = "MECHANICAL"
+format = "tab-separated top-level parser operation summary"
+generator = "E0059 analyse.sh"
+generator_commit = "854db4f"
+checker = "research/experiments/E0059-can-generated-top-level-operation-parse-real-/analyse.sh"
+checker_commit = "854db4f"
+standard_new_commit = "c6cd889"
+oracle_fortfront_commit = "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+corpus_manifest = "research/corpora/phase1-modern-fortran-v0.json"
+corpus_manifest_sha256 = "0e62fe6975209f63e988d0755fb4883baf59b560dcc43f8bb107ac4400099ffd"
+diagnostic_module_sha256 = "12bfc318c326e15a2ca408341d2bdfd600257c2e8dc87f26734f805528dbaf3c"
+generated_parser_sha256 = "08f23d57b1a80a0221fd1e215350a26d01f1538351ee070c73f567805205efdb"
+generated_parser_bytes = 6569
+test_program_sha256 = "a9d5cd034b21e98bdc0ad45d2651535c5af45e0bacfcf6411dc20a078ee333cb"
+corpus_files = 5
+expected_units = 8
+classified_units = 8
+source_linked_units = 8
+unit_mismatches = 0
+gfortran_accepted = 5
+fortran_compile_status = 0
+runtime_test_status = 0
+target_boundary = "top_level_local_operation_validated"
+negative_control = "observed_failure"
+zero_model_calls = true
+
+# Regenerate and verify with:
+#   research/experiments/E0059-can-generated-top-level-operation-parse-real-/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

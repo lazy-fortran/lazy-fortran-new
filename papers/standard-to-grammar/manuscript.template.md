@@ -29,6 +29,10 @@ holes.
 The source-linked diagnostic slice preserves page, byte-span, and source-hash
 identity for @DIAGNOSTIC_ROWS@ composite records. Its generated lookup compiles
 and runs with statuses @DIAGNOSTIC_COMPILE@ and @DIAGNOSTIC_RUNTIME@.
+The first local parser-operation slice classifies @LOCAL_EXPECTED_UNITS@ units
+from @LOCAL_CORPUS_FILES@ pinned real Fortran files. It links all
+@LOCAL_SOURCE_LINKED_UNITS@ results to StandardIR source records and compiles
+with status @LOCAL_COMPILE@.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -131,6 +135,11 @@ input. E0058 then emits a source-linked diagnostic table from the same records:
 all @DIAGNOSTIC_SPANS@ rows retain a source page, byte span, and document hash.
 The generated lookup compiles, finds a fixed known rule, rejects an unknown
 rule, and changes under the span mutation control.
+E0059 fills one local operation at the top-level boundary. It classifies
+@LOCAL_EXPECTED_UNITS@ units from @LOCAL_CORPUS_FILES@ pinned real source files,
+links @LOCAL_SOURCE_LINKED_UNITS@ results to source records, and runs with
+status @LOCAL_RUNTIME@. The operation is bounded at program, module,
+submodule, block-data, function, and subroutine unit boundaries.
 
 ### 2.3 Verification
 
@@ -265,6 +274,13 @@ from the constructive logic that later work must fill.
 E0058 extends the same boundary to diagnostics: @DIAGNOSTIC_ROWS@ rows are
 source-linked, the generated lookup compiles and runs, and the controlled span
 mutation changes the witness. This is a data-path result, not parser behavior.
+E0059 fills the first local operation and validates it against
+@LOCAL_CORPUS_FILES@ real source files. The next experiment must extend the
+same generated structure to statement-level operations.
+E0059 shows that the generated wiring can call a local constructive operation
+over real source files. All @LOCAL_CLASSIFIED_UNITS@ declared units are
+classified and source-linked. The result stops before statement parsing and
+semantic checking.
 
 ## 7. Conclusion
 

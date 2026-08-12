@@ -436,8 +436,13 @@ evidence for the thesis.
       accepted composite record. Retain page, byte span, source hash, known
       lookup, unknown rejection and mutation evidence (E0058, regenerate with
       `research/experiments/E0058-can-accepted-composite-records-generate-/analyse.sh`)
+- [x] Fill the first local top-level parser operation and validate its
+      program, module and submodule witnesses against five pinned real-source
+      files with source-linked diagnostics (E0059, regenerate with
+      `research/experiments/E0059-can-generated-top-level-operation-parse-real-/analyse.sh`)
 - [ ] Fill the local parser operations and validate the generated direct
-      parser against a pinned real-source corpus with source-linked diagnostics
+      parser's statement-level operations against a pinned real-source corpus
+      with source-linked diagnostics
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
