@@ -2,13 +2,13 @@ id: "E0049"
 title: "Unified partial composite input and resolution-overlap audit"
 question: >
   Can accepted resolutions and fixed errata compose into one partial parser input while retaining the D0024 expansion boundary?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "1b66d55"
+  lazy-fortran-new: "9d9c5e1"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

@@ -38,6 +38,9 @@ The resulting audit has @EXPANSION_AUDIT_NAMES@ names and the R401/R403
 inventory contains @EXPANSION_RECORDS@ records: @R401_RECORDS@ R401 list
 terms and @R403_RECORDS@ R403 scalar terms. Their representation remains
 @EXPANSION_REPRESENTATION@.
+E0049 composes the accepted records into a @COMPOSITE_SYNTAX_RECORDS@-record
+candidate input with @COMPOSITE_CONFLICTS@ overlapping R402/R403 terms; its
+composition status is @COMPOSITE_STATUS@.
 
 ## 1. Scope and claim
 
@@ -93,6 +96,9 @@ to the derived parser input while retaining the original StandardIR records.
 E0048 applies the complete eight-entry overlay to the unresolved audit and
 records the R401/R403 expansion families without selecting their parser
 representation.
+E0049 composes the accepted resolution records and overlay into a candidate
+partial input. It records overlapping resolution facts as a failure boundary
+rather than assigning precedence.
 
 ### 2.3 Verification
 
@@ -140,7 +146,8 @@ The fixed errata overlay supplies bounded source repairs. Its entries are
 LLM-originated and accepted under D0025. The generated application remains
 mechanical. E0048 then inventories the normalized R401 and R403 families with
 independent StandardIR witnesses, while retaining the representation decision
-for D0024.
+for D0024. E0049 exposes three R402/R403 overlaps and is reported as a
+verification failure.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -164,16 +171,17 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment addresses the R401 and R403 representation choice for
-assumed list and scalar rules. E0048 supplies the complete 80/20 inventory;
-the choice is proposed in
-[D0024](../../research/decisions/D0024-assumed-syntax-expansions.md). The next
-slice should resolve those terms only after that choice is accepted, then apply
-the resulting records to the full composite input. The ANTLR4, Bison, and
-tree-sitter validators provide target-specific checks. A complete parser input
-will be claimed after the unresolved and disputed sets are reported, every
-selected alias has provenance, and the target tools accept the generated
-composite input. Semantic constraints remain a separate phase.
+The next experiment is a decision pass over the R401/R403 representation and
+the three overlaps recorded in D0026. E0048 supplies the complete 80/20
+inventory, while E0049 supplies the candidate and its retained failure. The
+choice is proposed in
+[D0024](../../research/decisions/D0024-assumed-syntax-expansions.md) and
+[D0026](../../research/decisions/D0026-overlapping-resolution-facts.md). Only
+after those decisions are accepted should the resulting records be applied to
+the full composite input. A complete parser input will be claimed after the
+unresolved and disputed sets are reported, every selected fact has provenance,
+and the target tools accept the generated composite input. Semantic
+constraints remain a separate phase.
 
 ## References
 

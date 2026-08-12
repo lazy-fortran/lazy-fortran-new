@@ -21,7 +21,25 @@ controlled family mutation.
 
 ## Result
 
-Pending the first run.
+The candidate contains 182 source resolution records and 179 normalized names.
+All eight D0025 repairs, 70 accepted projections, 522 syntax records and 182
+source-hash matches are preserved. The R401/R403 inventory remains 80/20; 97
+non-overlapping expansion terms remain unresolved in the candidate.
+
+The composition is a retained verification failure, not a complete parser
+input. Three terms are covered by both accepted R402 alias facts and the R403
+scalar family:
+
+```text
+scalar-int-constant-name
+scalar-int-variable-name
+scalar-variable-name
+```
+
+The independent conflict-set difference is zero. Applying R402 unconditionally
+would erase the R403 scalar relationship, while applying R403 unconditionally
+would discard the accepted alias relationship. D0026 records this decision
+boundary; D0024 remains proposed. No model calls were made.
 
 ## Boundary
 

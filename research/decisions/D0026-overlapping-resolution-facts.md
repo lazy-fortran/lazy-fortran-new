@@ -44,6 +44,13 @@ one term, a distinct conflict/overlap resolution class with a deterministic
 lowering contract, or retaining these terms unresolved until the parser and
 semantic schemas can carry both relationships directly.
 
+## Decision needed
+
+Choose the lossless D0019 representation and deterministic projection rule for
+a source term that has both an R402 alias fact and an R403 scalar-family fact.
+The choice must cover the three E0049 terms and state whether the D0025 token
+operation composes before or after that projection.
+
 ## Rejected
 
 Treating R402 as having unconditional precedence is rejected because it loses

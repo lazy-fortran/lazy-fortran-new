@@ -67,6 +67,7 @@ assert_run R000054 '.status == "accepted" and .experiment == "E0045" and .verifi
 assert_run R000055 '.status == "accepted" and .experiment == "E0046" and .verification.zero_model_calls == true and .verification.alias_records == 49 and .verification.lexical_class_records == 25 and .verification.unresolved_records == 107 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000056 '.status == "accepted" and .experiment == "E0047" and .verification.zero_model_calls == true and .verification.errata_origin == "LLM" and .verification.errata_decision == "D0025" and .verification.source_repair_records == 7 and .verification.input_syntax_records == 522 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000057 '.status == "accepted" and .experiment == "E0048" and .verification.zero_model_calls == true and .verification.original_audit_unique_names == 181 and .verification.normalized_audit_unique_names == 178 and .verification.expansion_records == 100 and .verification.r401_records == 80 and .verification.r403_records == 20 and .verification.explicit_definition_conflicts == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.representation_selection == "deferred_D0024"'
+assert_run R000058 '.status == "verification_failure" and .experiment == "E0049" and .verification.zero_model_calls == true and .verification.source_resolution_records == 182 and .verification.errata_repairs == 8 and .verification.resolved_projection_records == 70 and .verification.expansion_records == 100 and .verification.family_resolution_conflicts == 3 and .verification.conflict_set_difference == 0 and .verification.final_syntax_records == 522 and .verification.representation_selection == "deferred_D0024" and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -125,6 +126,18 @@ expansion_witnesses=$(metric R000057 '.verification.source_witness_matches')
 expansion_difference=$(metric R000057 '.verification.independent_difference')
 expansion_negative_control=$(metric R000057 '.verification.negative_control')
 expansion_representation=$(metric R000057 '.verification.representation_selection' | sed 's/^deferred_D0024$/deferred to D0024/')
+composite_resolution_records=$(metric R000058 '.verification.source_resolution_records')
+composite_normalized_names=$(metric R000058 '.verification.normalized_reference_names')
+composite_projection_records=$(metric R000058 '.verification.resolved_projection_records')
+composite_projection_occurrences=$(metric R000058 '.verification.projection_reference_replacements')
+composite_expansions=$(metric R000058 '.verification.expansion_records')
+composite_unresolved_expansions=$(metric R000058 '.verification.unresolved_expansion_records')
+composite_conflicts=$(metric R000058 '.verification.family_resolution_conflicts')
+composite_conflict_difference=$(metric R000058 '.verification.conflict_set_difference')
+composite_syntax_records=$(metric R000058 '.verification.final_syntax_records')
+composite_source_matches=$(metric R000058 '.verification.source_hash_matches')
+composite_status=$(metric R000058 '.verification.composition_status')
+composite_negative_control=$(metric R000058 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -258,6 +271,23 @@ EOF
 | Representation selection | $expansion_representation |
 | Controlled family mutation | $expansion_negative_control |
 
+## E0049 unified partial composite input
+
+| Quantity | Value |
+|---|---:|
+| Source resolution records | $composite_resolution_records |
+| Normalized reference names | $composite_normalized_names |
+| Accepted projection records | $composite_projection_records |
+| Projection reference replacements | $composite_projection_occurrences |
+| R401/R403 inventory records | $composite_expansions |
+| Non-overlapping expansion refs retained unresolved | $composite_unresolved_expansions |
+| R402/R403 overlap records | $composite_conflicts |
+| Independent conflict-set difference | $composite_conflict_difference |
+| Final syntax records | $composite_syntax_records |
+| Records with source hash | $composite_source_matches |
+| Composition status | $composite_status |
+| Controlled family mutation | $composite_negative_control |
+
 ## External behavioral baseline
 
 | Quantity | Value |
@@ -303,6 +333,9 @@ rendered=${rendered//@EXPANSION_RECORDS@/$expansion_records}
 rendered=${rendered//@R401_RECORDS@/$r401_records}
 rendered=${rendered//@R403_RECORDS@/$r403_records}
 rendered=${rendered//@EXPANSION_REPRESENTATION@/$expansion_representation}
+rendered=${rendered//@COMPOSITE_SYNTAX_RECORDS@/$composite_syntax_records}
+rendered=${rendered//@COMPOSITE_CONFLICTS@/$composite_conflicts}
+rendered=${rendered//@COMPOSITE_STATUS@/$composite_status}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

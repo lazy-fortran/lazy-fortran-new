@@ -116,6 +116,23 @@ The following rows are extracted from the accepted projection run records.
 | Representation selection | deferred to D0024 |
 | Controlled family mutation | observed_failure |
 
+## E0049 unified partial composite input
+
+| Quantity | Value |
+|---|---:|
+| Source resolution records | 182 |
+| Normalized reference names | 179 |
+| Accepted projection records | 70 |
+| Projection reference replacements | 166 |
+| R401/R403 inventory records | 100 |
+| Non-overlapping expansion refs retained unresolved | 97 |
+| R402/R403 overlap records | 3 |
+| Independent conflict-set difference | 0 |
+| Final syntax records | 522 |
+| Records with source hash | 182 |
+| Composition status | verification_failure |
+| Controlled family mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |
