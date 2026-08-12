@@ -126,6 +126,7 @@ assert_run R000081 '.status == "accepted" and .experiment == "E0072" and .verifi
 assert_run R000082 '.status == "accepted" and .experiment == "E0073" and .verification.zero_model_calls == true and .verification.composite_fact_records == 219 and .verification.semantic_fact_records == 29 and .verification.parser_projection_records == 11 and .verification.target_fragment_records == 11 and .verification.target_provenance_records == 55 and .verification.semantic_target_leaks == 0 and .verification.ebnf_status == 0 and .verification.antlr_status == 0 and .verification.bison_status == 0 and .verification.treesitter_status == 0 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "all_target_fragments_valid"'
 assert_run R000083 '.status == "accepted" and .experiment == "E0074" and .verification.zero_model_calls == true and .verification.source_syntax_records == 522 and .verification.integrated_syntax_records == 522 and .verification.alias_records == 3 and .verification.alias_reference_rewrites == 6 and .verification.semantic_fact_records == 29 and .verification.semantic_alias_overlap == 1 and .verification.semantic_projection_leaks == 0 and .verification.unresolved_reference_occurrences == 466 and .verification.unresolved_unique_names == 178 and .verification.export_ebnf_status == 0 and .verification.export_antlr_status == 0 and .verification.export_bison_status == 0 and .verification.export_treesitter_status == 0 and .verification.antlr_validate_status == 1 and .verification.bison_validate_status == 1 and .verification.treesitter_validate_status == 1 and .verification.dispatch_rows == 522 and .verification.dispatch_provenance_rows == 522 and .verification.dispatch_label_collisions == 0 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.wiring_boundary == "integrated_dispatch_compiled"'
 assert_run R000084 '.status == "accepted" and .experiment == "E0075" and .verification.zero_model_calls == true and .verification.residue_records == 178 and .verification.semantic_role_records == 18 and .verification.lexical_class_records == 8 and .verification.metavariable_records == 1 and .verification.unresolved_records == 151 and .verification.missing_fact_records == 0 and .verification.additional_alias_records == 0 and .verification.source_hash_matches == 178 and .verification.source_evidence_records == 178 and .verification.semantic_projection_leaks == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000085 '.status == "accepted" and .experiment == "E0076" and .verification.zero_model_calls == true and .verification.unresolved_denominator == 151 and .verification.logical_units == 5064 and .verification.candidate_spans == 3 and .verification.candidate_names == 3 and .verification.alias_candidates == 0 and .verification.lexical_candidates == 0 and .verification.metavariable_candidates == 0 and .verification.semantic_role_candidates == 3 and .verification.unresolved_after_patterns == 148 and .verification.source_linked_candidates == 3 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -539,6 +540,18 @@ residue_evidence=$(metric R000084 '.verification.source_evidence_records')
 residue_leaks=$(metric R000084 '.verification.semantic_projection_leaks')
 residue_difference=$(metric R000084 '.verification.independent_difference')
 residue_negative=$(metric R000084 '.verification.negative_control')
+prose_unresolved=$(metric R000085 '.verification.unresolved_denominator')
+prose_units=$(metric R000085 '.verification.logical_units')
+prose_spans=$(metric R000085 '.verification.candidate_spans')
+prose_names=$(metric R000085 '.verification.candidate_names')
+prose_aliases=$(metric R000085 '.verification.alias_candidates')
+prose_lexical=$(metric R000085 '.verification.lexical_candidates')
+prose_metavariable=$(metric R000085 '.verification.metavariable_candidates')
+prose_semantic=$(metric R000085 '.verification.semantic_role_candidates')
+prose_residue=$(metric R000085 '.verification.unresolved_after_patterns')
+prose_linked=$(metric R000085 '.verification.source_linked_candidates')
+prose_difference=$(metric R000085 '.verification.independent_difference')
+prose_negative=$(metric R000085 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1156,6 +1169,23 @@ EOF
 | Independent difference | $residue_difference |
 | Controlled mutation | $residue_negative |
 
+## E0076 deterministic prose evidence for unresolved residue
+
+| Quantity | Value |
+|---|---:|
+| Unresolved denominator | $prose_unresolved |
+| Logical units | $prose_units |
+| Candidate spans | $prose_spans |
+| Candidate names | $prose_names |
+| Alias candidates | $prose_aliases |
+| Lexical candidates | $prose_lexical |
+| Metavariable candidates | $prose_metavariable |
+| Semantic-role candidates | $prose_semantic |
+| Names unresolved after patterns | $prose_residue |
+| Source-linked candidates | $prose_linked |
+| Independent difference | $prose_difference |
+| Controlled mutation | $prose_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1472,6 +1502,18 @@ rendered=${rendered//@RESIDUE_EVIDENCE@/$residue_evidence}
 rendered=${rendered//@RESIDUE_LEAKS@/$residue_leaks}
 rendered=${rendered//@RESIDUE_DIFFERENCE@/$residue_difference}
 rendered=${rendered//@RESIDUE_NEGATIVE@/$residue_negative}
+rendered=${rendered//@PROSE_UNRESOLVED@/$prose_unresolved}
+rendered=${rendered//@PROSE_UNITS@/$prose_units}
+rendered=${rendered//@PROSE_SPANS@/$prose_spans}
+rendered=${rendered//@PROSE_NAMES@/$prose_names}
+rendered=${rendered//@PROSE_ALIASES@/$prose_aliases}
+rendered=${rendered//@PROSE_LEXICAL@/$prose_lexical}
+rendered=${rendered//@PROSE_METAVARIABLE@/$prose_metavariable}
+rendered=${rendered//@PROSE_SEMANTIC@/$prose_semantic}
+rendered=${rendered//@PROSE_RESIDUE@/$prose_residue}
+rendered=${rendered//@PROSE_LINKED@/$prose_linked}
+rendered=${rendered//@PROSE_DIFFERENCE@/$prose_difference}
+rendered=${rendered//@PROSE_NEGATIVE@/$prose_negative}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

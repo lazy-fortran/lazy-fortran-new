@@ -101,6 +101,9 @@ E0075 classifies those @RESIDUE_RECORDS@ residue names as
 @RESIDUE_SEMANTIC@ semantic-role, @RESIDUE_LEXICAL@ lexical-class,
 @RESIDUE_METAVARIABLE@ metavariable and @RESIDUE_UNRESOLVED@ unresolved, with
 @RESIDUE_ALIASES@ additional parser aliases.
+E0076 scans the @PROSE_UNRESOLVED@ unresolved names over
+@PROSE_UNITS@ bounded units and finds @PROSE_SPANS@ candidate spans across
+@PROSE_NAMES@ names, leaving @PROSE_RESIDUE@ names unresolved.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -383,6 +386,9 @@ therefore remain a reported boundary, while direct wiring compiles.
 E0075 classifies the residue without adding aliases: @RESIDUE_RECORDS@ names
 are covered by existing source facts, with @RESIDUE_UNRESOLVED@ still lacking a
 resolution witness.
+E0076 finds @PROSE_SPANS@ deterministic candidate spans and leaves
+@PROSE_RESIDUE@ names unresolved; all @PROSE_LINKED@ candidates retain source
+coordinates.
 
 ## 5. Reproducibility and limitations
 
@@ -405,7 +411,8 @@ The next experiment applies the deterministic normative-prose procedure to the
 the full integration. E0073 validated the sidecar in all five selected target
 formats, E0074 validated complete-record preservation and E0075 classified the
 residue without adding aliases. The next step must preserve the five
-adjudicated false positives and the separate semantic fact table. Later
+adjudicated false positives, retain the @PROSE_RESIDUE@ E0076 residue and keep
+the separate semantic fact table. Later
 operations may resume after a retained diagnostic only when a compact
 constructive rule and an independent witness exist.
 
@@ -426,6 +433,8 @@ E0074 integrates @INTEGRATION_ALIASES@ accepted aliases into
 @INTEGRATION_SYNTAX@ syntax records and compiles
 @INTEGRATION_DISPATCH@ direct dispatch rows without semantic projection leaks.
 E0075 classifies @RESIDUE_RECORDS@ residue rows and adds no aliases.
+E0076 measures @PROSE_SPANS@ candidate spans over the residue and accepts none
+as a parser fact.
 
 ## 7. Conclusion
 
@@ -476,6 +485,8 @@ out of parser artifacts. E0074 supplies the full-input boundary:
 but @INTEGRATION_UNRESOLVED_NAMES@ unique names still block the full target
 validators. E0075 then classifies @RESIDUE_RECORDS@ rows, leaving
 @RESIDUE_UNRESOLVED@ unresolved and adding no parser aliases.
+E0076 finds @PROSE_SPANS@ bounded-prose candidates and leaves
+@PROSE_RESIDUE@ names unresolved.
 
 ## References
 

@@ -467,15 +467,15 @@ The following rows are extracted from the accepted projection run records.
 
 | Quantity | Value |
 |---|---:|
-| E0022 unresolved names | 181 |
+| E0022 unresolved names | 151 |
 | Candidate source spans | 9 |
 | Direct-alias names | 0 |
-| Lexical-class names | 2 |
-| Metavariable names | 1 |
-| Semantic-role names | 4 |
+| Lexical-class names | 0 |
+| Metavariable names | 0 |
+| Semantic-role names | 3 |
 | Ambiguous names | 0 |
-| Unresolved after exact patterns | 174 |
-| Source-linked candidates | 9 |
+| Unresolved after exact patterns | 148 |
+| Source-linked candidates | 3 |
 | Independent candidate-set difference | 0 |
 | Controlled mutation | observed_failure |
 | Normative-prose boundary | deterministic_normative_prose_evidence_measured |
@@ -484,7 +484,7 @@ The following rows are extracted from the accepted projection run records.
 
 | Quantity | Value |
 |---|---:|
-| E0022 unresolved names | 181 |
+| E0022 unresolved names | 151 |
 | Bounded logical units | 5064 |
 | Bounded table rows | 39 |
 | Candidate source spans | 42 |
@@ -597,6 +597,23 @@ The following rows are extracted from the accepted projection run records.
 | Records with source hash | 178 |
 | Records with source evidence | 178 |
 | Semantic projection leaks | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
+## E0076 deterministic prose evidence for unresolved residue
+
+| Quantity | Value |
+|---|---:|
+| Unresolved denominator | 151 |
+| Logical units | 5064 |
+| Candidate spans | 3 |
+| Candidate names | 3 |
+| Alias candidates | 0 |
+| Lexical candidates | 0 |
+| Metavariable candidates | 0 |
+| Semantic-role candidates | 3 |
+| Names unresolved after patterns | 148 |
+| Source-linked candidates | 3 |
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 

@@ -501,8 +501,11 @@ evidence for the thesis.
       18 semantic-role, 8 lexical-class, 1 metavariable, 151 unresolved, and
       no new aliases (E0075, regenerate with
       `research/experiments/E0075-can-the-178-name-post-alias-residue-be-c/analyse.sh`)
-- [ ] Apply the deterministic normative-prose procedure to the 151 unresolved
-      names, then rerun full target integration
+- [x] Apply the deterministic normative-prose procedure to the 151 unresolved
+      names: 3 source-linked semantic-role candidates and 148 names retained
+      unresolved (E0076, regenerate with
+      `research/experiments/E0076-how-much-of-the-151-unresolved-residue-h/analyse.sh`)
+- [ ] Adjudicate the three E0076 candidates, then rerun full target integration
 - [ ] Resume after retained residues and enlarge supported complete-source
       statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and

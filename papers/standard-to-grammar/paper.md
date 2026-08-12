@@ -71,10 +71,10 @@ across 5 files, retains 1 unsupported
 residue, and emits 1 source-context diagnostic.
 Its accepted records are source-linked and its mutation is rejected by GNU
 Fortran.
-The normative-prose evidence slice scans the 181-name E0022
-denominator and finds 9 exact candidate spans: 2
-lexical-class, 1 metavariable, 4 semantic-role,
-and 0 direct-alias names. It retains 174 names after
+The normative-prose evidence slice scans the 151-name E0022
+denominator and finds 9 exact candidate spans: 0
+lexical-class, 0 metavariable, 3 semantic-role,
+and 0 direct-alias names. It retains 148 names after
 the exact patterns and does not promote candidates into StandardIR. The bounded
 sentence/table slice then emits 5064 logical units and
 39 table rows, finding 42 candidate spans
@@ -101,6 +101,9 @@ E0075 classifies those 178 residue names as
 18 semantic-role, 8 lexical-class,
 1 metavariable and 151 unresolved, with
 0 additional parser aliases.
+E0076 scans the 151 unresolved names over
+5064 bounded units and finds 3 candidate spans across
+3 names, leaving 148 names unresolved.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -356,8 +359,8 @@ E0069 measures the next boundary over the same canonical document. A
 deterministic line recognizer searches the full E0022 denominator for exact
 lexical-class, metanotation, same-line semantic-role and direct-alias forms.
 It finds 9 source spans across seven names, with
-9 source-linked candidates and an independent candidate-set
-difference of 0. The 174 remaining names are kept
+3 source-linked candidates and an independent candidate-set
+difference of 0. The 148 remaining names are kept
 unresolved. No model is used, and no candidate is accepted as a StandardIR
 fact. E0070 adds bounded sentence and table structure. It emits
 5064 logical units and 39 table rows,
@@ -383,6 +386,9 @@ therefore remain a reported boundary, while direct wiring compiles.
 E0075 classifies the residue without adding aliases: 178 names
 are covered by existing source facts, with 151 still lacking a
 resolution witness.
+E0076 finds 3 deterministic candidate spans and leaves
+148 names unresolved; all 3 candidates retain source
+coordinates.
 
 ## 5. Reproducibility and limitations
 
@@ -405,7 +411,8 @@ The next experiment applies the deterministic normative-prose procedure to the
 the full integration. E0073 validated the sidecar in all five selected target
 formats, E0074 validated complete-record preservation and E0075 classified the
 residue without adding aliases. The next step must preserve the five
-adjudicated false positives and the separate semantic fact table. Later
+adjudicated false positives, retain the 148 E0076 residue and keep
+the separate semantic fact table. Later
 operations may resume after a retained diagnostic only when a compact
 constructive rule and an independent witness exist.
 
@@ -426,6 +433,8 @@ E0074 integrates 3 accepted aliases into
 522 syntax records and compiles
 522 direct dispatch rows without semantic projection leaks.
 E0075 classifies 178 residue rows and adds no aliases.
+E0076 measures 3 candidate spans over the residue and accepts none
+as a parser fact.
 
 ## 7. Conclusion
 
@@ -456,7 +465,7 @@ accepts 72 records across 5 complete files,
 with 72 source-linked accepted records and
 1 retained diagnostic. E0069 then scans the 181-name
 unresolved denominator and recovers 9 exact source spans across
-seven names, while retaining 174 names unresolved and using no
+seven names, while retaining 148 names unresolved and using no
 model calls. E0070 extends this to bounded sentence and table units, recovering
 42 candidate spans across 30 names
 and retaining 151 names unresolved. These results validate
@@ -476,6 +485,8 @@ out of parser artifacts. E0074 supplies the full-input boundary:
 but 178 unique names still block the full target
 validators. E0075 then classifies 178 rows, leaving
 151 unresolved and adding no parser aliases.
+E0076 finds 3 bounded-prose candidates and leaves
+148 names unresolved.
 
 ## References
 
@@ -959,15 +970,15 @@ The following rows are extracted from the accepted projection run records.
 
 | Quantity | Value |
 |---|---:|
-| E0022 unresolved names | 181 |
+| E0022 unresolved names | 151 |
 | Candidate source spans | 9 |
 | Direct-alias names | 0 |
-| Lexical-class names | 2 |
-| Metavariable names | 1 |
-| Semantic-role names | 4 |
+| Lexical-class names | 0 |
+| Metavariable names | 0 |
+| Semantic-role names | 3 |
 | Ambiguous names | 0 |
-| Unresolved after exact patterns | 174 |
-| Source-linked candidates | 9 |
+| Unresolved after exact patterns | 148 |
+| Source-linked candidates | 3 |
 | Independent candidate-set difference | 0 |
 | Controlled mutation | observed_failure |
 | Normative-prose boundary | deterministic_normative_prose_evidence_measured |
@@ -976,7 +987,7 @@ The following rows are extracted from the accepted projection run records.
 
 | Quantity | Value |
 |---|---:|
-| E0022 unresolved names | 181 |
+| E0022 unresolved names | 151 |
 | Bounded logical units | 5064 |
 | Bounded table rows | 39 |
 | Candidate source spans | 42 |
@@ -1089,6 +1100,23 @@ The following rows are extracted from the accepted projection run records.
 | Records with source hash | 178 |
 | Records with source evidence | 178 |
 | Semantic projection leaks | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
+## E0076 deterministic prose evidence for unresolved residue
+
+| Quantity | Value |
+|---|---:|
+| Unresolved denominator | 151 |
+| Logical units | 5064 |
+| Candidate spans | 3 |
+| Candidate names | 3 |
+| Alias candidates | 0 |
+| Lexical candidates | 0 |
+| Metavariable candidates | 0 |
+| Semantic-role candidates | 3 |
+| Names unresolved after patterns | 148 |
+| Source-linked candidates | 3 |
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 

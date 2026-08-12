@@ -1,0 +1,35 @@
+name        = "E0076-R000001-unresolved-prose-evidence-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/003b2ce"
+sha256      = "daac1970280111537faccb2f50c93805032cf6152efb08efd0fc769fa79cd1ce"
+bytes       = 478
+licence     = "MIT adapter; source document retains its own licence"
+retrieved   = "2026-08-12"
+purpose     = "Summary of deterministic normative-prose evidence over the 151 unresolved residue"
+path        = ".cache/runs/E0076/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "lazy-fortran-new E0076 unresolved normative-prose evidence"
+generator_commit = "003b2ce"
+checker     = "research/experiments/E0076-how-much-of-the-151-unresolved-residue-h/analyse.sh"
+checker_commit = "003b2ce"
+unresolved_denominator = 151
+logical_units = 5064
+candidate_spans = 3
+candidate_names = 3
+alias_candidates = 0
+lexical_candidates = 0
+metavariable_candidates = 0
+semantic_role_candidates = 3
+unresolved_after_patterns = 148
+source_linked_candidates = 3
+independent_difference = 0
+negative_control = "observed_failure"
+logical_units_sha256 = "47443b4215671ff740e3b973ddc8dcc1a6bc13565efe6f7de63db46b4cf0f304"
+candidate_spans_sha256 = "11c7613178a8490201a6458bcee640bd9270fa8dc806e43b4dcfb53b4b363a0f"
+candidate_spans_bytes = 5431
+
+# Regenerate and verify with:
+#   research/experiments/E0076-how-much-of-the-151-unresolved-residue-h/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.
