@@ -11,8 +11,8 @@ Runs recorded: 46
 | E0001 | running | 7 | Can the syntax productions in the clause-5 pages of J3/24-007 be recovered |
 | E0002 | draft | 0 | What fraction of the predeclared Core 0 semantic rules can be formalized |
 | E0003 | draft | 0 | Does expressing the residual semantic-rule implementations in ImplIR reduce |
-| E0004 | running | 5 | Can the R-numbered syntax productions in the lexical-to-program-unit span |
-| E0005 | running | 4 | Can one mechanical pass over the contiguous syntax span of J3/24-007 recover |
+| E0004 | reported | 5 | Can the R-numbered syntax productions in the lexical-to-program-unit span |
+| E0005 | reported | 4 | Can one mechanical pass over the contiguous syntax span of J3/24-007 recover |
 | E0012 | draft | 0 | Does language-independent scope-graph resolution handle Fortran's modules, |
 | E0013 | reported | 5 | Can one mechanical pass over the contiguous core syntax span of J3/24-007 |
 | E0014 | reported | 2 | Can the proposed Core 0 feature roots be resolved against the complete |

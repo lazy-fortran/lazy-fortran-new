@@ -4,9 +4,9 @@ question: >
   Can the R-numbered syntax productions in the lexical-to-program-unit span
   of J3/24-007 be separated from normative prose and retained as valid,
   provenance-bearing JSONL without manual intervention?
-status: running         # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-11"
-closed: ""
+closed: "2026-08-12"
 
 repos:
   lazy-fortran-new: "176f16d"

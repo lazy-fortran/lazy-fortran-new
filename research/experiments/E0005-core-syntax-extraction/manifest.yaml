@@ -4,9 +4,9 @@ question: >
   Can one mechanical pass over the contiguous syntax span of J3/24-007 recover
   every R-numbered production from the PDF as provenance-bearing JSONL,
   StandardIR SX and normalized production JSONL without manual intervention?
-status: running         # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 repos:
   lazy-fortran-new: "f904c28"

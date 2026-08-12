@@ -107,10 +107,10 @@ E0033 audits the complete-core extraction denominator: all 688 indexed pages,
 the 536-page selected span, 522 production starts, zero parse/JSON/provenance
 failures and zero scope difference, with a controlled count mutation
 (`research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`).
-E0004 and E0005 remain historical comparison runs. Generated semantic rules
-and parser-comparison results do not exist yet. E0001 and E0004 are running,
-while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
-experiment.
+E0004 and E0005 now report their broad and contiguous extraction gates.
+Generated semantic rules and parser-comparison results do not exist yet. E0001
+remains running, E0002--E0003 remain draft experiments, and E0012 remains a
+later Phase 2 experiment.
 
 ---
 
