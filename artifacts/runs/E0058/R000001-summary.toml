@@ -1,0 +1,33 @@
+name = "E0058-R000001-source-linked-diagnostic-lookup"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/07d0c40/research/experiments/E0058-can-accepted-composite-records-generate-"
+sha256 = "dc31e2fe98609cb1cc75d443f6df2fd198251e2a325b177455ad39b894d1827e"
+bytes = 523
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for source-linked diagnostic lookup generated from accepted composite StandardIR records"
+path = ".cache/runs/E0058/R000001/summary.tsv"
+origin = "MECHANICAL"
+format = "tab-separated source-linked diagnostic summary"
+generator = "E0058 analyse.sh"
+generator_commit = "07d0c40"
+checker = "research/experiments/E0058-can-accepted-composite-records-generate-/analyse.sh"
+checker_commit = "07d0c40"
+standard_new_commit = "c6cd889"
+source_composite_sha256 = "3458da1debda9aff98974b720891af4426c0506905f58317e018854f8cd9b3eb"
+diagnostic_sha256 = "6e57466c9fd8a2d4403030626c9e26e0c1c0b5f943f648175e906d213ea95364"
+diagnostic_bytes = 51977
+generated_module_sha256 = "12bfc318c326e15a2ca408341d2bdfd600257c2e8dc87f26734f805528dbaf3c"
+generated_module_bytes = 96793
+composite_syntax_records = 519
+diagnostic_rows = 519
+source_span_rows = 519
+known_lookup = 1
+unknown_lookup_rejected = 1
+fortran_compile_status = 0
+runtime_test_status = 0
+target_boundary = "source_linked_lookup_compiled_and_tested"
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0058-can-accepted-composite-records-generate-/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

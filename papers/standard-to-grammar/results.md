@@ -258,6 +258,20 @@ The following rows are extracted from the accepted projection run records.
 | Wiring boundary | wiring_skeleton_compiled |
 | Controlled wiring mutation | observed_failure |
 
+## E0058 source-linked diagnostic lookup
+
+| Quantity | Value |
+|---|---:|
+| Composite syntax records | 519 |
+| Diagnostic rows | 519 |
+| Rows with page, byte span, and source hash | 519 |
+| Known source lookup | 1 |
+| Unknown source rejected | 1 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Diagnostic boundary | source_linked_lookup_compiled_and_tested |
+| Controlled span mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

@@ -26,6 +26,9 @@ procedures and 519 provenance-bearing dispatch rows from the
 accepted composite input. The generated Fortran wiring skeleton compiles with
 status 0. Its procedure bodies remain local implementation
 holes.
+The source-linked diagnostic slice preserves page, byte-span, and source-hash
+identity for 519 composite records. Its generated lookup compiles
+and runs with statuses 0 and 0.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -119,6 +122,11 @@ reaches an explicit table of 13 conflict groups but
 retains the next conflict, r_int_x2D_literal_x2D_constant,r_kind_x2D_param. The target
 normalizer therefore closes the compact generic part of the boundary but not
 the expanding Fortran-specific ambiguity set.
+E0057 emits the direct-parser wiring skeleton from the accepted composite
+input. E0058 then emits a source-linked diagnostic table from the same records:
+all 519 rows retain a source page, byte span, and document hash.
+The generated lookup compiles, finds a fixed known rule, rejects an unknown
+rule, and changes under the span mutation control.
 
 ### 2.3 Verification
 
@@ -248,6 +256,9 @@ accepted composite input. All 519 dispatch rows retain source
 provenance, the generated skeleton compiles, and its local procedure bodies
 remain explicit implementation holes. This separates compiler-wide wiring
 from the constructive logic that later work must fill.
+E0058 extends the same boundary to diagnostics: 519 rows are
+source-linked, the generated lookup compiles and runs, and the controlled span
+mutation changes the witness. This is a data-path result, not parser behavior.
 
 ## 7. Conclusion
 
@@ -263,9 +274,9 @@ remaining tree-sitter ambiguity as a reproducible target boundary.
 This result supports the repository's main engineering claim. The standard can
 remain the maintained semantic source while generated representations carry
 the wiring and provenance. The next implementation milestone fills the local
-parser operations and exercises them against a source corpus with linked
-diagnostics. Its success will be measured against the same pinned records and
-independent oracles.
+parser operations and exercises them against a source corpus using the already
+validated linked-diagnostic path. Its success will be measured against the same
+pinned records and independent oracles.
 
 ## References
 
@@ -534,6 +545,20 @@ The following rows are extracted from the accepted projection run records.
 | Fortran compile status | 0 |
 | Wiring boundary | wiring_skeleton_compiled |
 | Controlled wiring mutation | observed_failure |
+
+## E0058 source-linked diagnostic lookup
+
+| Quantity | Value |
+|---|---:|
+| Composite syntax records | 519 |
+| Diagnostic rows | 519 |
+| Rows with page, byte span, and source hash | 519 |
+| Known source lookup | 1 |
+| Unknown source rejected | 1 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Diagnostic boundary | source_linked_lookup_compiled_and_tested |
+| Controlled span mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison
 

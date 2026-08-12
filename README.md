@@ -75,9 +75,12 @@ emitter also exist. The accepted composite projection contains 519 generated
 records from 522 source records and zero unresolved target names. E0056 makes
 ANTLR4 and Bison generation succeed and records a tree-sitter conflict
 boundary. D0029 selects the specialized direct parser as the production target.
-Regenerate these figures with `papers/standard-to-grammar/analyse.sh` and
-`research/index.md` with `scripts/index.sh`. The StandardIR schema and
-composite parser input remain the next major Phase 1 boundaries.
+E0057 emits deterministic direct-parser wiring and E0058 verifies source-linked
+diagnostic lookup for all 519 accepted composite records. The remaining Phase
+1 implementation boundary is filling local parser operations and exercising
+the generated parser against a pinned real-source corpus. Regenerate these
+figures with `papers/standard-to-grammar/analyse.sh` and `research/index.md`
+with `scripts/index.sh`.
 
 ## Licence
 

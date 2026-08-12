@@ -410,8 +410,9 @@ evidence for the thesis.
 - [x] Compare deterministic D0027 lexical projection candidates without
       selecting one (E0054, regenerate with
       `research/experiments/E0054-can-deterministic-lexical-projection-can/analyse.sh`)
-- [ ] Generate the specialized parser-generator input under D0024, D0026 and
-      D0027
+- [x] Generate the accepted specialized parser-generator input under D0024,
+      D0026 and D0027 (E0055, regenerate with
+      `research/experiments/E0055-can-accepted-projection-decisions-produc/analyse.sh`)
 - [x] Apply D0024, D0026 and D0027 to one composite input and measure the
       remaining target-export boundary (E0055, regenerate with
       `research/experiments/E0055-can-accepted-projection-decisions-produc/analyse.sh`)
@@ -429,6 +430,10 @@ evidence for the thesis.
       composite input, with one provenance-bearing row per syntax record and
       one generated procedure per unique left-hand side (E0057, regenerate
       with `research/experiments/E0057-can-accepted-composite-standardir-emit-a/analyse.sh`)
+- [x] Generate and execute the source-linked diagnostic lookup for every
+      accepted composite record. Retain page, byte span, source hash, known
+      lookup, unknown rejection and mutation evidence (E0058, regenerate with
+      `research/experiments/E0058-can-accepted-composite-records-generate-/analyse.sh`)
 - [ ] Fill the local parser operations and validate the generated direct
       parser against a pinned real-source corpus with source-linked diagnostics
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
