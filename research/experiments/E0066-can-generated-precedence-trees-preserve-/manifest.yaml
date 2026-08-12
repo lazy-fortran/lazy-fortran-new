@@ -1,0 +1,76 @@
+id: "E0066"
+title: "Generated precedence-shaped expression trees"
+question: >
+  Can generated expression-role nodes represent binary precedence, unary
+  operators and array constructors as source-linked structural trees over real
+  Fortran witnesses?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-12"
+closed: ""
+
+repos:
+  lazy-fortran-new: "3500853"
+  standard-new: "c6cd889"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+
+inputs:
+  standard: j3-24-007
+  profile: accepted-composite-projection-v1
+  corpus: phase1-modern-fortran-precedence-trees-v0
+  predecessor: E0065-R000001
+  decisions: [D0021, D0023, D0028, D0029, D0030, D0031, D0032]
+
+variables:
+  operation: [expression-role-to-precedence-tree]
+  representation: [generated-fortran-flat-node-array]
+  internal_nodes: [binary-expr, unary-expr, array-constructor]
+  leaf_nodes: [name, literal]
+  precedence: [relational, additive, multiplicative, unary, primary]
+
+model_selection: "No model calls. Precedence levels, tree construction, source lookup and query checks are deterministic generated operations."
+
+metrics:
+  - witness_files
+  - expression_witnesses
+  - internal_nodes
+  - leaf_nodes
+  - binary_nodes
+  - unary_nodes
+  - array_nodes
+  - name_nodes
+  - literal_nodes
+  - source_linked_nodes
+  - subtree_parent_links
+  - subtree_link_errors
+  - precedence_query_hits
+  - unknown_query_rejected
+  - max_tree_depth
+  - fortran_compile_status
+  - runtime_test_status
+  - malformed_nesting_rejected
+
+denominator: >
+  The seven witnesses declared by phase1-modern-fortran-precedence-trees-v0.json
+  and their 10 internal and 17 leaf nodes. Each generated node retains a
+  StandardIR rule and source reference.
+
+independent_oracle: >
+  The JSON manifest supplies source hashes, witness spans, expected internal
+  and leaf totals, root rules, per-kind counts and maximum depths. E0064
+  independently validates the expression-role forest and E0065 independently
+  validates token leaves. The generated parser checks the structural root,
+  child ordering, source identity, precedence query and unknown-query rejection.
+  A malformed nesting mutation must still be rejected by the predecessor.
+
+falsifiable_by: >
+  A source hash changes, a predecessor fails, an expected root rule differs,
+  precedence changes child order, a node is lost or duplicated, provenance is
+  missing, an unknown query is accepted, generated Fortran fails to compile or
+  run, or malformed nesting is accepted.
+
+gate: >
+  Validate structural precedence trees for the declared binary, unary and
+  array-constructor witnesses. This does not claim complete expression parsing,
+  all operators or semantic analysis.
+
+analysis: research/experiments/E0066-can-generated-precedence-trees-preserve-/analyse.sh

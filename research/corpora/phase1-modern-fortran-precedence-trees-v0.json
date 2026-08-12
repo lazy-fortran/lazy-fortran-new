@@ -1,0 +1,18 @@
+{
+  "name": "phase1-modern-fortran-precedence-trees-v0",
+  "version": 1,
+  "purpose": "Real-source witnesses for generated precedence-shaped expression trees and literal constructors",
+  "base_corpus": "phase1-modern-fortran-expressions-v0",
+  "repository": "fortfront",
+  "repository_commit": "b8cb5926fd82ed299d00e8c50eaa41587f55237d",
+  "licence": "MIT repository fixture files",
+  "witnesses": [
+    {"path": "examples/f90/issue_2254_free_form_continuation.f90", "sha256": "71a8556a5e17d74fa1a6ac2023e8ad773bdd065dd7792ef1279ba0e87b9a40d3", "start_line": 5, "end_line": 6, "role": "expr", "expected_base_nodes": 9, "expected_internal_nodes": 1, "expected_leaf_nodes": 2, "expected_new_nodes": 3, "expected_max_depth": 5, "root_rule": "R1006", "kind_counts": {"binary-expr": 1, "unary-expr": 0, "array-constructor": 0, "name": 0, "literal": 2}},
+    {"path": "examples/f90/issue_1861_nested_do_print.f90", "sha256": "2a6123684c514d48b165d7b67f33c380bf28f30358008aa4b22ae1a952d7a58e", "start_line": 8, "end_line": 8, "role": "expr", "expected_base_nodes": 18, "expected_internal_nodes": 2, "expected_leaf_nodes": 3, "expected_new_nodes": 5, "expected_max_depth": 8, "root_rule": "R1006", "kind_counts": {"binary-expr": 2, "unary-expr": 0, "array-constructor": 0, "name": 2, "literal": 1}},
+    {"path": "examples/f90/named_constructs.f90", "sha256": "04437c9415d0ae94aa20e089902809c9e91900d5f641a18478a2cf0c418db024", "start_line": 13, "end_line": 13, "role": "expr", "expected_base_nodes": 60, "expected_internal_nodes": 1, "expected_leaf_nodes": 2, "expected_new_nodes": 3, "expected_max_depth": 7, "root_rule": "R1006", "kind_counts": {"binary-expr": 1, "unary-expr": 0, "array-constructor": 0, "name": 2, "literal": 0}},
+    {"path": "examples/f90/named_constructs.f90", "sha256": "04437c9415d0ae94aa20e089902809c9e91900d5f641a18478a2cf0c418db024", "start_line": 11, "end_line": 11, "role": "logical-expr", "expected_base_nodes": 60, "expected_internal_nodes": 1, "expected_leaf_nodes": 2, "expected_new_nodes": 3, "expected_max_depth": 7, "root_rule": "R1014", "kind_counts": {"binary-expr": 1, "unary-expr": 0, "array-constructor": 0, "name": 1, "literal": 1}},
+    {"path": "examples/f90/named_constructs.f90", "sha256": "04437c9415d0ae94aa20e089902809c9e91900d5f641a18478a2cf0c418db024", "start_line": 18, "end_line": 18, "role": "expr", "expected_base_nodes": 60, "expected_internal_nodes": 1, "expected_leaf_nodes": 2, "expected_new_nodes": 3, "expected_max_depth": 6, "root_rule": "R1006", "kind_counts": {"binary-expr": 1, "unary-expr": 0, "array-constructor": 0, "name": 1, "literal": 1}},
+    {"path": "examples/f90/named_constructs.f90", "sha256": "04437c9415d0ae94aa20e089902809c9e91900d5f641a18478a2cf0c418db024", "start_line": 20, "end_line": 20, "role": "expr", "expected_base_nodes": 60, "expected_internal_nodes": 1, "expected_leaf_nodes": 1, "expected_new_nodes": 2, "expected_max_depth": 6, "root_rule": "R1003", "kind_counts": {"binary-expr": 0, "unary-expr": 1, "array-constructor": 0, "name": 0, "literal": 1}},
+    {"path": "examples/f90/if_multiline_guard.f90", "sha256": "000ee09e3654f867aa0baed41b2d4345ffc184fe36d5fff4be60ef56a5c8b4c6", "start_line": 6, "end_line": 6, "role": "expr", "expected_base_nodes": 19, "expected_internal_nodes": 3, "expected_leaf_nodes": 5, "expected_new_nodes": 8, "expected_max_depth": 6, "root_rule": "R777", "kind_counts": {"binary-expr": 0, "unary-expr": 2, "array-constructor": 1, "name": 0, "literal": 5}}
+  ]
+}
