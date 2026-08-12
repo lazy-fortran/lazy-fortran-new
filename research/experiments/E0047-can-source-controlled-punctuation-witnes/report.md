@@ -8,14 +8,14 @@ source text?
 
 ## Method
 
-The analysis command consumes the pinned StandardIR SX, canonical text and a
-seven-row punctuation seed:
+The analysis command consumes the pinned StandardIR SX, canonical text and the
+fixed document errata file:
 
 ```text
 research/experiments/E0047-can-source-controlled-punctuation-witnes/analyse.sh
 ```
 
-The seed records the original reference spelling, the repaired reference,
+The errata entries record the original reference spelling, the repaired reference,
 the punctuation token, the source rule and an exact canonical-text excerpt.
 The generic repair operation changes `(ref name,)` into `(ref name) (token ,)`
 and the corresponding colon form. It writes a derived parser input and keeps
@@ -23,7 +23,7 @@ the authoritative source hash unchanged.
 
 ## Result
 
-The first run is pending.
+Pending the first run against the fixed errata overlay.
 
 ## Boundary
 

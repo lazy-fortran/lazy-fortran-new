@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "ec0b573"
+  lazy-fortran-new: ""
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -17,7 +17,7 @@ inputs:
   profile: "complete-core-punctuation-boundary-v0"
   syntax: E0013-R000002
   canonical_text: E0001-R000003
-  punctuation_seed: research/experiments/E0047-can-source-controlled-punctuation-witnes/punctuation-seed.tsv
+  errata: research/errata/j3-24-007.json
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:

@@ -48,6 +48,7 @@ Runs recorded: 55
 | E0044 | reported | 1 | Can the source-controlled R402 closure resolve every absent suffix-name term without overriding an explicit StandardIR definition? |
 | E0045 | reported | 1 | Can source-controlled lexical witnesses close the unresolved operator and literal-marker references without normalizing Unicode or punctuation by guesswork? |
 | E0046 | reported | 1 | Can the accepted R402 and lexical D0019 witnesses compose into one deterministic parser projection while preserving the unresolved expansion boundary? |
+| E0047 | draft | 0 | Can source-controlled punctuation witnesses repair references whose comma or colon was absorbed into the StandardIR reference name without changing the source text? |
 
 ## Run status
 
@@ -91,6 +92,7 @@ Runs recorded: 55
 | [D0022](decisions/D0022-schema-v0-is-not-standardir.md) | amended by D0023 |  | The v0 schema fixture is not the StandardIR schema |
 | [D0023](decisions/D0023-arena-bootstrap-specialized-performance.md) | accepted | Amends D0022 | Arena bootstrap with specialized performance representations |
 | [D0024](decisions/D0024-assumed-syntax-expansions.md) | proposed |  | Resolution record for assumed syntax expansions |
+| [D0025](decisions/D0025-fixed-source-errata-overlay.md) | accepted |  | Fixed source errata overlay |
 
 ### Proposed decisions
 
@@ -161,4 +163,5 @@ Runs recorded: 55
 | E0044-R000001-r402-suffix-name-closure | 517 | MIT implementation and test | Gate summary for the source-controlled R402 suffix-name closure and partial alias projection |
 | E0045-R000001-lexical-witness-projection | 517 | MIT implementation and test | Gate summary for source-controlled lexical operator and literal-marker resolution |
 | E0046-R000001-combined-d0019-resolution-projection | 547 | MIT implementation and test | Gate summary for composing accepted R402 and lexical D0019 resolution slices |
+| E0047-R000001-punctuation-boundary-repair | 376 | MIT implementation and test | Gate summary for source-controlled comma and colon boundary repair in derived parser input |
 | j3-24-007 | 9970124 | J3/ISO. Freely downloadable; not redistributable. Never vendored. | Primary normative source for StandardIR extraction (E0001, E0002) |

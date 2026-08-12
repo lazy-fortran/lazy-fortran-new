@@ -7,30 +7,32 @@ export LC_ALL=C
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 input="${1:-$root/.cache/runs/E0013/R000002/j3-24-007.standardir.sx}"
 canonical="${CANONICAL_TEXT:-$root/.cache/runs/E0001/R000003/j3-24-007.canonical.txt}"
-seed="$root/research/experiments/E0047-can-source-controlled-punctuation-witnes/punctuation-seed.tsv"
+errata="$root/research/errata/j3-24-007.json"
 outdir="${2:-$root/.cache/runs/E0047/R000001}"
 standard_new="${STANDARD_NEW_ROOT:-$root/../standard-new}"
 
 input_hash="c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
 canonical_hash="1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
-seed_hash="0e9e5c1ae60dc07f7eb4342de4140bf2521ad1e285da93132aca9961e5ea7231"
+errata_hash="25d70041f4c1661ca0da99cf355310e407cd8782f3127008e5435862ea8ed285"
 
 die() { printf 'E0047: %s\n' "$1" >&2; exit 1; }
 test "$(sha256sum "$input" | cut -d' ' -f1)" = "$input_hash" || die 'StandardIR input hash mismatch'
 test "$(sha256sum "$canonical" | cut -d' ' -f1)" = "$canonical_hash" || die 'canonical text hash mismatch'
-test "$(sha256sum "$seed" | cut -d' ' -f1)" = "$seed_hash" || die 'punctuation seed hash mismatch'
+test "$(sha256sum "$errata" | cut -d' ' -f1)" = "$errata_hash" || die 'errata hash mismatch'
 
 mkdir -p "$outdir"
-test "$(awk 'END {print NR - 1}' "$seed")" -eq 7 || die 'punctuation seed denominator differs'
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+seed="$tmp/errata.tsv"
+jq -e '.document == "J3-24-007" and .source_sha256 == "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2" and (.entries | length == 7)' "$errata" >/dev/null || die 'errata schema or denominator differs'
+jq -r '(["source_term", "repaired_term", "punctuation", "document", "clause", "source_rule", "page", "source_excerpt"] | @tsv), (.entries[] | [.source_term, .repaired_term, .punctuation, .document, .clause, .source_rule, (.page | tostring), .source_excerpt] | @tsv)' "$errata" >"$seed"
 
 while IFS=$'\t' read -r source_term repaired_term punctuation document clause rule page excerpt; do
     [ "$source_term" = source_term ] && continue
     [ "$document" = J3-24-007 ] || die "wrong source document for $source_term"
     rg -F -q "$excerpt" "$canonical" || die "missing source witness for $source_term"
 done < "$seed"
-
-tmp="$(mktemp -d)"
-trap 'rm -rf "$tmp"' EXIT
+test "$(awk 'END {print NR - 1}' "$seed")" -eq 7 || die 'errata denominator differs'
 
 # Apply one literal repair per seeded occurrence. The source line itself is
 # retained. Only the derived reference/token structure changes.
