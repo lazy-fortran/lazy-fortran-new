@@ -123,6 +123,7 @@ assert_run R000078 '.status == "accepted" and .experiment == "E0069" and .verifi
 assert_run R000079 '.status == "accepted" and .experiment == "E0070" and .verification.zero_model_calls == true and .verification.unresolved_names == 181 and .verification.logical_units == 5064 and .verification.table_rows == 39 and .verification.candidate_spans == 42 and .verification.candidate_names == 30 and .verification.new_names_over_e0069 == 23 and .verification.alias_names == 0 and .verification.lexical_class_names == 7 and .verification.metavariable_names == 1 and .verification.semantic_role_names == 22 and .verification.ambiguous_names == 0 and .verification.unresolved_after_patterns == 151 and .verification.source_linked_candidates == 42 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "bounded_normative_prose_evidence_measured"'
 assert_run R000080 '.status == "accepted" and .experiment == "E0071" and .verification.zero_model_calls == true and .verification.candidate_spans == 42 and .verification.accepted_records == 37 and .verification.retained_records == 5 and .verification.accepted_alias_records == 0 and .verification.accepted_lexical_class_records == 7 and .verification.accepted_metavariable_records == 1 and .verification.accepted_semantic_role_records == 29 and .verification.source_hash_matches == 42 and .verification.source_evidence_matches == 42 and .verification.candidate_inventory_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "source_controlled_bounded_prose_adjudication"'
 assert_run R000081 '.status == "accepted" and .experiment == "E0072" and .verification.zero_model_calls == true and .verification.d0019_records == 182 and .verification.adjudicated_relation_records == 37 and .verification.merged_fact_records == 219 and .verification.retained_relations == 5 and .verification.unresolved_records == 151 and .verification.semantic_facts_not_parser_aliases == 29 and .verification.parser_projection_records == 11 and .verification.source_hash_matches == 219 and .verification.projection_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "d0019_adjudicated_relation_composition"'
+assert_run R000082 '.status == "accepted" and .experiment == "E0073" and .verification.zero_model_calls == true and .verification.composite_fact_records == 219 and .verification.semantic_fact_records == 29 and .verification.parser_projection_records == 11 and .verification.target_fragment_records == 11 and .verification.target_provenance_records == 55 and .verification.semantic_target_leaks == 0 and .verification.ebnf_status == 0 and .verification.antlr_status == 0 and .verification.bison_status == 0 and .verification.treesitter_status == 0 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure" and .verification.target_boundary == "all_target_fragments_valid"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -487,6 +488,20 @@ composition_projection_difference=$(metric R000081 '.verification.projection_dif
 composition_difference=$(metric R000081 '.verification.independent_difference')
 composition_negative=$(metric R000081 '.verification.negative_control')
 composition_boundary=$(metric R000081 '.verification.target_boundary')
+sidecar_facts=$(metric R000082 '.verification.composite_fact_records')
+sidecar_semantic=$(metric R000082 '.verification.semantic_fact_records')
+sidecar_projection=$(metric R000082 '.verification.parser_projection_records')
+sidecar_fragments=$(metric R000082 '.verification.target_fragment_records')
+sidecar_provenance=$(metric R000082 '.verification.target_provenance_records')
+sidecar_leaks=$(metric R000082 '.verification.semantic_target_leaks')
+sidecar_ebnf=$(metric R000082 '.verification.ebnf_status')
+sidecar_antlr=$(metric R000082 '.verification.antlr_status')
+sidecar_bison=$(metric R000082 '.verification.bison_status')
+sidecar_treesitter=$(metric R000082 '.verification.treesitter_status')
+sidecar_fortran=$(metric R000082 '.verification.direct_fortran_status')
+sidecar_difference=$(metric R000082 '.verification.independent_difference')
+sidecar_negative=$(metric R000082 '.verification.negative_control')
+sidecar_boundary=$(metric R000082 '.verification.target_boundary')
 
 results="$paper_dir/results.md"
 {
@@ -1040,6 +1055,25 @@ EOF
 | Controlled mutation | $composition_negative |
 | Composition boundary | $composition_boundary |
 
+## E0073 parser-resolution sidecar target validation
+
+| Quantity | Value |
+|---|---:|
+| Composite fact records | $sidecar_facts |
+| Semantic-role fact records | $sidecar_semantic |
+| Parser-projection records | $sidecar_projection |
+| Records emitted per target | $sidecar_fragments |
+| Target provenance instances | $sidecar_provenance |
+| Semantic target leaks | $sidecar_leaks |
+| EBNF status | $sidecar_ebnf |
+| ANTLR4 status | $sidecar_antlr |
+| Bison status | $sidecar_bison |
+| tree-sitter status | $sidecar_treesitter |
+| Direct Fortran status | $sidecar_fortran |
+| Independent difference | $sidecar_difference |
+| Controlled mutation | $sidecar_negative |
+| Target boundary | $sidecar_boundary |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1307,6 +1341,20 @@ rendered=${rendered//@COMPOSITION_PROJECTION_DIFFERENCE@/$composition_projection
 rendered=${rendered//@COMPOSITION_DIFFERENCE@/$composition_difference}
 rendered=${rendered//@COMPOSITION_NEGATIVE@/$composition_negative}
 rendered=${rendered//@COMPOSITION_BOUNDARY@/$composition_boundary}
+rendered=${rendered//@SIDECAR_FACTS@/$sidecar_facts}
+rendered=${rendered//@SIDECAR_SEMANTIC@/$sidecar_semantic}
+rendered=${rendered//@SIDECAR_PROJECTION@/$sidecar_projection}
+rendered=${rendered//@SIDECAR_FRAGMENTS@/$sidecar_fragments}
+rendered=${rendered//@SIDECAR_PROVENANCE@/$sidecar_provenance}
+rendered=${rendered//@SIDECAR_LEAKS@/$sidecar_leaks}
+rendered=${rendered//@SIDECAR_EBNF@/$sidecar_ebnf}
+rendered=${rendered//@SIDECAR_ANTLR@/$sidecar_antlr}
+rendered=${rendered//@SIDECAR_BISON@/$sidecar_bison}
+rendered=${rendered//@SIDECAR_TREESITTER@/$sidecar_treesitter}
+rendered=${rendered//@SIDECAR_FORTRAN@/$sidecar_fortran}
+rendered=${rendered//@SIDECAR_DIFFERENCE@/$sidecar_difference}
+rendered=${rendered//@SIDECAR_NEGATIVE@/$sidecar_negative}
+rendered=${rendered//@SIDECAR_BOUNDARY@/$sidecar_boundary}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

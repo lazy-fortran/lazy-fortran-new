@@ -536,6 +536,25 @@ The following rows are extracted from the accepted projection run records.
 | Controlled mutation | observed_failure |
 | Composition boundary | d0019_adjudicated_relation_composition |
 
+## E0073 parser-resolution sidecar target validation
+
+| Quantity | Value |
+|---|---:|
+| Composite fact records | 219 |
+| Semantic-role fact records | 29 |
+| Parser-projection records | 11 |
+| Records emitted per target | 11 |
+| Target provenance instances | 55 |
+| Semantic target leaks | 0 |
+| EBNF status | 0 |
+| ANTLR4 status | 0 |
+| Bison status | 0 |
+| tree-sitter status | 0 |
+| Direct Fortran status | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+| Target boundary | all_target_fragments_valid |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

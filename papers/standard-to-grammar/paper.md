@@ -88,6 +88,10 @@ source hash. Composition then combines the D0019 table and the accepted
 relations into 219 provenance-bearing fact rows. It keeps
 29 semantic facts out of parser aliases while deriving
 11 deterministic parser-projection rows.
+E0073 emits 11 sidecar rows in each of the five selected
+target formats, with 55 provenance instances and
+0 semantic-target leaks. The reported target validators all
+pass.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -359,6 +363,9 @@ E0072 composes those relations with the D0019 records. It produces
 219 fact rows and 11 parser-projection
 rows, while keeping 29 semantic facts outside parser-only
 aliases.
+E0073 validates those 11 parser rows in EBNF, ANTLR4, Bison,
+tree-sitter and direct Fortran. It retains 29 semantic-role
+facts in the composite table and observes 0 target leaks.
 
 ## 5. Reproducibility and limitations
 
@@ -376,12 +383,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment validates the E0072 composed projection against the
-ANTLR4, Bison, tree-sitter, and direct-parser generators while retaining the
-semantic fact table separately. It must preserve the five adjudicated false
-positives and the 151-name E0070 residue. Later operations may resume after a
-retained diagnostic only when a compact constructive rule and an independent
-witness exist.
+The next experiment integrates the E0072 sidecar with the complete syntax
+projection and direct-parser wiring. E0073 has already validated the 11-row
+sidecar in all five selected target formats; the integration must preserve the
+five adjudicated false positives, the 151-name E0070 residue and the separate
+semantic fact table. Later operations may resume after a retained diagnostic
+only when a compact constructive rule and an independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -394,6 +401,8 @@ accepts 37 typed relations and retains
 E0072 composes 219 facts and derives
 11 parser rows without lowering
 29 semantic relations into aliases.
+E0073 validates 11 sidecar rows per target with
+55 provenance instances and no semantic-target leaks.
 
 ## 7. Conclusion
 
@@ -437,7 +446,9 @@ are source-supported, while 5 candidates remain
 unresolved or rejected. E0072 supplies the composition boundary:
 219 fact rows are retained with provenance and
 11 parser rows are derived without semantic-role
-aliasing.
+aliasing. E0073 supplies the target boundary: 11 parser
+rows pass all five target probes, while 29 semantic facts stay
+out of parser artifacts.
 
 ## References
 
@@ -989,6 +1000,25 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 | Composition boundary | d0019_adjudicated_relation_composition |
+
+## E0073 parser-resolution sidecar target validation
+
+| Quantity | Value |
+|---|---:|
+| Composite fact records | 219 |
+| Semantic-role fact records | 29 |
+| Parser-projection records | 11 |
+| Records emitted per target | 11 |
+| Target provenance instances | 55 |
+| Semantic target leaks | 0 |
+| EBNF status | 0 |
+| ANTLR4 status | 0 |
+| Bison status | 0 |
+| tree-sitter status | 0 |
+| Direct Fortran status | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+| Target boundary | all_target_fragments_valid |
 
 ## E0054 D0027 lexical candidate comparison
 

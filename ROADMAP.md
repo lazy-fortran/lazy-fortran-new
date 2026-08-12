@@ -485,13 +485,16 @@ evidence for the thesis.
       source-supported relations and 5 retained false-positive/residue records
       with independent source checks (E0071, regenerate with
       `research/experiments/E0071-can-source-controlled-adjudication-separ/analyse.sh`)
-- [ ] Compose the E0071 accepted relations with the existing D0019 records
 - [x] Compose the E0071 accepted relations with the existing D0019 records:
       219 provenance-bearing fact rows, 29 semantic facts kept out of parser
       aliases, and 11 deterministic parser-projection rows (E0072, regenerate
       with `research/experiments/E0072-can-accepted-normative-relations-compose/analyse.sh`)
-- [ ] Validate the composed projection against all generated export targets and
-      the direct parser while retaining the semantic fact table separately
+- [x] Validate the E0072 parser-resolution sidecar in EBNF, ANTLR4, Bison,
+      tree-sitter and direct Fortran: 11 rows per target, 55 provenance
+      instances, zero semantic leaks (E0073, regenerate with
+      `research/experiments/E0073-can-the-e0072-parser-resolution-sidecar-/analyse.sh`)
+- [ ] Integrate the validated sidecar with the complete syntax projection and
+      direct-parser wiring while retaining the semantic fact table separately
 - [ ] Resume after retained residues and enlarge supported complete-source
       statement and expression families under independent corpus checks
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and

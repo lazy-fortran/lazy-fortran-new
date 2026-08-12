@@ -2,13 +2,13 @@ id: "E0073"
 title: "E0072 parser-resolution sidecar target validation"
 question: >
   Can the E0072 parser-resolution sidecar emit every target fragment without projecting semantic facts?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "6e9cec7"
+  lazy-fortran-new: "c6c6d0e"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

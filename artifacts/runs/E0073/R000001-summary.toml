@@ -1,0 +1,43 @@
+name        = "E0073-R000001-parser-resolution-sidecar-target-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/c6c6d0e"
+sha256      = "736eb59cd9463d331854deb74c3ef4ae80d3da92709d59704be373b839446d26"
+bytes       = 1012
+licence     = "MIT adapter; source document retains its own licence"
+retrieved   = "2026-08-12"
+purpose     = "Summary of validating the E0072 parser-resolution sidecar in all selected target formats"
+path        = ".cache/runs/E0073/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+standardir_input_sha256 = "c2e9514487c5d62e8a6124c0c70e6ab06778f5418443961495ce3afe6a6aafb7"
+generator   = "lazy-fortran-new E0073 E0072 parser-resolution sidecar target validation"
+generator_commit = "c6c6d0e"
+checker     = "research/experiments/E0073-can-the-e0072-parser-resolution-sidecar-/analyse.sh"
+checker_commit = "c6c6d0e"
+composite_fact_records = 219
+semantic_fact_records = 29
+parser_projection_records = 11
+target_fragment_records = 11
+target_provenance_records = 55
+semantic_target_leaks = 0
+ebnf_status = 0
+antlr_status = 0
+bison_status = 0
+treesitter_status = 0
+direct_fortran_status = 0
+independent_difference = 0
+negative_control = "observed_failure"
+target_boundary = "all_target_fragments_valid"
+projection_sha256 = "02e93bd803fab374c0b399dd2cbb52d018da0902c5964609eba8534383f60ab6"
+facts_sha256 = "9da21d15972d2ba559690fedcacbe6f58593d307227e4c210e44bf6a49118a08"
+normalized_records_sha256 = "8c76ebf44c85c32a6ec6f7dceeca8401d812b862da5971ef8d9ad17890100a20"
+ebnf_sha256 = "e1d9fb85db5f7f46f821c9604298f83ea7f4568640762b922289beb195cd6588"
+antlr_sha256 = "4f6a614fe49c9268b9c44de5d8094b0b01df9ed903ae38e4dfc87a3a47d1149a"
+bison_sha256 = "d8409788b5b3fdabb6d8a09c22215270ae8b67b0f17ae25a1c27b73dc7864730"
+treesitter_sha256 = "123883c6a6fa4ea0ae806affd9e9e69029fc227d47718de12be25af3cc8aa74a"
+fortran_sha256 = "9c5044f84102e5a8a436e72c1acc1f216367431ecacbf7c233c8acc537b33cc5"
+
+# Regenerate and verify with:
+#   research/experiments/E0073-can-the-e0072-parser-resolution-sidecar-/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

@@ -88,6 +88,10 @@ source hash. Composition then combines the D0019 table and the accepted
 relations into @COMPOSITION_MERGED@ provenance-bearing fact rows. It keeps
 @COMPOSITION_SEMANTIC@ semantic facts out of parser aliases while deriving
 @COMPOSITION_PROJECTION@ deterministic parser-projection rows.
+E0073 emits @SIDECAR_FRAGMENTS@ sidecar rows in each of the five selected
+target formats, with @SIDECAR_PROVENANCE@ provenance instances and
+@SIDECAR_LEAKS@ semantic-target leaks. The reported target validators all
+pass.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -359,6 +363,9 @@ E0072 composes those relations with the D0019 records. It produces
 @COMPOSITION_MERGED@ fact rows and @COMPOSITION_PROJECTION@ parser-projection
 rows, while keeping @COMPOSITION_SEMANTIC@ semantic facts outside parser-only
 aliases.
+E0073 validates those @SIDECAR_PROJECTION@ parser rows in EBNF, ANTLR4, Bison,
+tree-sitter and direct Fortran. It retains @SIDECAR_SEMANTIC@ semantic-role
+facts in the composite table and observes @SIDECAR_LEAKS@ target leaks.
 
 ## 5. Reproducibility and limitations
 
@@ -376,12 +383,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next experiment validates the E0072 composed projection against the
-ANTLR4, Bison, tree-sitter, and direct-parser generators while retaining the
-semantic fact table separately. It must preserve the five adjudicated false
-positives and the 151-name E0070 residue. Later operations may resume after a
-retained diagnostic only when a compact constructive rule and an independent
-witness exist.
+The next experiment integrates the E0072 sidecar with the complete syntax
+projection and direct-parser wiring. E0073 has already validated the 11-row
+sidecar in all five selected target formats; the integration must preserve the
+five adjudicated false positives, the 151-name E0070 residue and the separate
+semantic fact table. Later operations may resume after a retained diagnostic
+only when a compact constructive rule and an independent witness exist.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -394,6 +401,8 @@ accepts @ADJUDICATED_ACCEPTED@ typed relations and retains
 E0072 composes @COMPOSITION_MERGED@ facts and derives
 @COMPOSITION_PROJECTION@ parser rows without lowering
 @COMPOSITION_SEMANTIC@ semantic relations into aliases.
+E0073 validates @SIDECAR_PROJECTION@ sidecar rows per target with
+@SIDECAR_PROVENANCE@ provenance instances and no semantic-target leaks.
 
 ## 7. Conclusion
 
@@ -437,7 +446,9 @@ are source-supported, while @ADJUDICATED_RETAINED@ candidates remain
 unresolved or rejected. E0072 supplies the composition boundary:
 @COMPOSITION_MERGED@ fact rows are retained with provenance and
 @COMPOSITION_PROJECTION@ parser rows are derived without semantic-role
-aliasing.
+aliasing. E0073 supplies the target boundary: @SIDECAR_PROJECTION@ parser
+rows pass all five target probes, while @SIDECAR_SEMANTIC@ semantic facts stay
+out of parser artifacts.
 
 ## References
 
