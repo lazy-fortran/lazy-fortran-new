@@ -1,0 +1,28 @@
+name        = "E0034-R000001-sx-arena-corpus-differential"
+url         = "https://github.com/lazy-fortran/standard-new/tree/5e3def5"
+sha256      = "78f39c75e85bfc3bc1eb66ce19d234a5d6d67a03c9b5469546c7092dd3e47272"
+bytes       = 269
+licence     = "MIT implementation and test"
+retrieved   = "2026-08-12"
+purpose     = "Gate summary for flat SX arena-reader corpus differential"
+path        = ".cache/runs/E0034/R000001/summary.tsv"
+origin      = "DIFFERENTIAL"
+format      = "tab-separated SX arena corpus differential summary"
+generator   = "standard-new fortsx_arena and recursive fortsx"
+generator_commit = "5e3def5"
+checker     = "research/experiments/E0034-does-the-flat-sx-arena-reader-agree-with/analyse.sh"
+checker_commit = "488b95f"
+text_policy_self_test = 0
+text_policy = 0
+arena_fixture = 0
+arena_corpus = 0
+formatting = 0
+full_pipeline = 0
+generated_tree_cases = 64
+malformed_cases_checked = 10
+differential_byte_status = "accepted"
+independent_oracle_mutation = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0034-does-the-flat-sx-arena-reader-agree-with/analyse.sh
+# Verify its hash and size with sha256sum and stat.
