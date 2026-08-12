@@ -1,7 +1,7 @@
-# D0019. Proposed composite parser-symbol resolution
+# D0019. Composite parser-symbol resolution
 
 Date: 2026-08-12
-Status: proposed
+Status: accepted
 
 ## Context
 
@@ -16,32 +16,37 @@ neither comparison grammar is normative evidence.
 D0018 already rejects guessed placeholder productions. A further representation
 choice is needed before the composite parser input can be generated.
 
-## Decision needed
-
-The planning model or user must choose whether to accept the proposed
-source-cited resolution policy below as D0019, amend it with a narrower alias
-vocabulary, or defer the composite parser input until a lexical and prose
-adjudication slice supplies the missing evidence. Accepting it permits the
-next composite-input implementation. Deferring it keeps the raw syntax
-exports as the only supported parser projection.
-
 ## Decision
 
-Proposed policy for review:
-
 1. Keep the source term in the authoritative StandardIR syntax record and keep
-   its source provenance.
-2. Add an explicit composite-input resolution record only when the normative
-   document establishes the relationship. For example, `program-name is name`
-   becomes a source-cited alias/resolution fact. The parser projection may then
-   lower it to the `name` parser symbol while retaining `program-name` for
-   semantic roles and diagnostics.
-3. Represent lexical classes such as `letter`, `digit`, the `_` character
-   `rep-char` in a separate lexical projection with character-set provenance.
-4. Keep constraints and prose restrictions as restrictions or semantic facts;
-   do not encode them as arbitrary parser predicates in ANTLR4, Bison or
-   tree-sitter exports.
-5. Leave any term without a normative resolution record as `unresolved` or
+   its source provenance. A parser projection may lower a term only through a
+   separate source-provenanced resolution fact.
+
+2. Resolution records are typed. The initial resolution classes are `alias`,
+   `lexical-class`, `metavariable`, `semantic-role`, `unresolved` and
+   `disputed`. Add another class only when a normative source demonstrates that
+   none of these describes the relationship.
+
+3. When the normative document establishes a relationship such as
+   `program-name is name`, record it as a StandardIR definition or relation
+   with its own source citation. The composite parser projection may then lower
+   `program-name` to the `name` parser symbol while retaining `program-name`
+   for semantic roles, diagnostics and provenance. Parser-only alias tables are
+   derived artifacts, not authoritative inputs.
+
+4. Represent lexical classes such as `letter`, `digit`, `underscore` and
+   `rep-char` through source-provenanced lexical facts. The parser projection
+   derives its token or character-class representation from those facts.
+
+5. Assumed-syntax metavariables remain explicit metanotation until the source
+   establishes how they expand. They are not silently converted into parser
+   symbols.
+
+6. Keep constraints and prose restrictions as StandardIR restrictions or
+   semantic facts. Do not encode them as arbitrary parser predicates in
+   ANTLR4, Bison or tree-sitter exports.
+
+7. Leave any term without a normative resolution fact as `unresolved` or
    `disputed`. It is not emitted as a guessed parser rule. A profile may exclude
    it only through an explicit profile decision.
 
@@ -58,13 +63,19 @@ boundary and treats a comparison implementation as a normative source.
 carry additional semantic restrictions, and the source does not establish that
 all 181 names are equivalent to the lexical `name` class.
 
+**Maintain parser-only alias tables as another source of truth.** Any alias or
+role relationship that affects parser construction must be represented as a
+source-provenanced StandardIR fact and projected mechanically.
+
 **Encode prose restrictions as target-specific grammar predicates.** That would
 move normative semantics into one export technology and make the projections
 non-comparable.
 
 ## Reversal condition
 
-Reject or amend this proposal if a source-controlled adjudication shows that
-role aliases cannot be represented independently of semantic facts, or that the
-selected parser technology requires a different lossless composite projection.
-The replacement must retain source provenance and an explicit unresolved state.
+Write a successor decision if source-controlled adjudication shows that the
+resolution classes above cannot represent a normative relationship without
+loss, or if a selected parser technology requires a different lossless
+projection. A replacement must retain the original source term, source
+provenance and explicit unresolved/disputed states. Comparison grammars may
+continue to supply evidence, but never become normative resolution sources.
