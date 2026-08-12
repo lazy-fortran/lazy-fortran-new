@@ -67,6 +67,9 @@ including fixed-byte behavior, bounds rejection and deep-copy isolation
 E0024 verifies `byte_builder` appends ASCII boundary bytes, spans and newlines
 against an independent fixed-byte oracle
 (`research/experiments/E0024-does-the-byte-builder-preserve-source-by/analyse.sh`).
+E0025 verifies `writer_t` file, memory, hash and counting backends, including
+standard SHA-256 vectors
+(`research/experiments/E0025-does-writer-t-preserve-bytes-and-provena/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -192,7 +195,8 @@ normalized view rather than overwriting the source extraction.
       `research/experiments/E0023-do-byte-buffers-and-spans-provide-the-fi/analyse.sh`)
 - [x] `byte_builder` with geometric growth (E0024; regenerate with
       `research/experiments/E0024-does-the-byte-builder-preserve-source-by/analyse.sh`)
-- [ ] `writer_t` with file, memory, hash and counting backends
+- [x] `writer_t` with file, memory, hash and counting backends (E0025; regenerate with
+      `research/experiments/E0025-does-writer-t-preserve-bytes-and-provena/analyse.sh`)
 - [ ] `interner` with case-insensitive Fortran identity resolved once
 - [ ] `utf8_boundary`
 - [ ] Property tests plus fixed byte-level fixtures, and each one observed
