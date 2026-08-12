@@ -10,11 +10,20 @@ syntax projection. The audit shows that these are not one class of defect:
 some are assumed-syntax metanotation (`xyz`), some are lexical classes
 (`letter`, `digit`, `rep-char`), and many are source-defined role names such as
 `program-name`, `entity-name` and `type-name`. The pinned kaby76 grammar exposes
-145 of the names as parser rules, while the pinned house grammar exposes 3;
+145 of the names as parser rules. The pinned house grammar exposes 3.
 neither comparison grammar is normative evidence.
 
 D0018 already rejects guessed placeholder productions. A further representation
 choice is needed before the composite parser input can be generated.
+
+## Decision needed
+
+The planning model or user must choose whether to accept the proposed
+source-cited resolution policy below as D0019, amend it with a narrower alias
+vocabulary, or defer the composite parser input until a lexical and prose
+adjudication slice supplies the missing evidence. Accepting it permits the
+next composite-input implementation. Deferring it keeps the raw syntax
+exports as the only supported parser projection.
 
 ## Decision
 
@@ -24,10 +33,10 @@ Proposed policy for review:
    its source provenance.
 2. Add an explicit composite-input resolution record only when the normative
    document establishes the relationship. For example, `program-name is name`
-   becomes a source-cited alias/resolution fact; the parser projection may then
+   becomes a source-cited alias/resolution fact. The parser projection may then
    lower it to the `name` parser symbol while retaining `program-name` for
    semantic roles and diagnostics.
-3. Represent lexical classes such as `letter`, `digit`, `underscore` and
+3. Represent lexical classes such as `letter`, `digit`, the `_` character
    `rep-char` in a separate lexical projection with character-set provenance.
 4. Keep constraints and prose restrictions as restrictions or semantic facts;
    do not encode them as arbitrary parser predicates in ANTLR4, Bison or

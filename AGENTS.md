@@ -171,8 +171,13 @@ legally, not just tidily.
 1. `research/decisions/D<NNNN>-<slug>.md`, from `TEMPLATE.md`.
 2. Record what was decided, what was rejected, and what evidence would reverse
    it. A decision with no reversal condition is a preference.
-3. Link it from `ROADMAP.md` if it changes the plan, then run
-   `scripts/index.sh`.
+3. If another planning model or the user must choose, create a `proposed`
+   record with a `## Decision needed` section. Do not silently decide around
+   it. The proposed-decision table in `research/index.md` is the handoff queue.
+4. Link it from `ROADMAP.md` or the document whose plan it changes, then run
+   `scripts/index.sh` and `scripts/check-decisions.sh`.
+5. Keep implementation commits separate from accepted decision commits when
+   practical, so the planning handoff can review the choice independently.
 
 ### Change a decision
 
@@ -189,6 +194,17 @@ the time.
 
 Statuses: `proposed`, `accepted`, `superseded by D####`, `amended by D####`,
 `retracted`. `RESEARCH.md` defines them.
+
+### Decision trigger
+
+Before implementing a nontrivial choice about architecture, representation,
+scope, profile membership, external format, oracle policy, performance target,
+model use or repository boundary, search the decision ledger. If no accepted
+decision covers it, write a proposed decision before coding. Use an explicit
+recorded default only when the choice is local, reversible and does not change
+the roadmap. Otherwise stop at the proposed record for the planning model or
+user. A later implementation must link the accepted decision in its commit or
+experiment record.
 
 ## Documentation rules
 

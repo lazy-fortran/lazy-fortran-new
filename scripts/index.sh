@@ -78,6 +78,21 @@ count_field() {   # count_field FIELD VALUE
     done
     [ "$found" = 1 ] || printf '| _none yet_ | | | |\n'
 
+    printf '\n### Proposed decisions\n\n'
+    printf '| ID | Title | File |\n|---|---|---|\n'
+    found=0
+    for f in "$ROOT"/research/decisions/D[0-9][0-9][0-9][0-9]-*.md; do
+        [ -f "$f" ] || continue
+        status=$(awk -F': *' '/^Status:/{print $2; exit}' "$f")
+        [ "$status" = proposed ] || continue
+        found=1
+        id=$(basename "$f" | cut -d- -f1)
+        title=$(sed -n '1s/^# D[0-9]*\.\? *//p' "$f")
+        printf '| [%s](decisions/%s) | %s | `%s` |\n' \
+            "$id" "$(basename "$f")" "${title:-?}" "$(basename "$f")"
+    done
+    [ "$found" = 1 ] || printf '| _none_ | | |\n'
+
     printf '\n## Pinned artifacts\n\n'
     printf '| Name | Bytes | Licence | Purpose |\n|---|---|---|---|\n'
     while read -r m; do

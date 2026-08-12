@@ -92,8 +92,24 @@ if git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
 fi
 [ -z "$big" ] && pass || fail "artifacts/ holds manifests, not payloads:$big"
 
-# ------------------------------------------------------- 7. internal doc links
-check "7. relative links in documents resolve"
+# -------------------------------------------------------- 7. decision ledger
+check "7. decision records and successor links validate"
+if "$ROOT/scripts/check-decisions.sh" >/dev/null 2>&1; then
+    pass
+else
+    fail "run scripts/check-decisions.sh"
+fi
+
+# --------------------------------------------- 7b. decision checker negative control
+check "7b. decision checker rejects a corrupted status"
+if "$ROOT/scripts/check-decisions.sh" --self-test >/dev/null 2>&1; then
+    pass
+else
+    fail "decision checker negative control did not complete"
+fi
+
+# ------------------------------------------------------- 8. internal doc links
+check "8. relative links in documents resolve"
 broken=""
 while read -r doc; do
     [ -f "$doc" ] || continue
@@ -109,8 +125,8 @@ while read -r doc; do
 done < <(find "$ROOT" -name '*.md' -not -path '*/.git/*' -not -path '*/.cache/*')
 [ -z "$broken" ] && pass || fail "broken links:$broken"
 
-# ---------------------------------------------------------- 8. index is current
-check "8. research/index.md is up to date"
+# ---------------------------------------------------------- 9. index is current
+check "9. research/index.md is up to date"
 if [ -f "$ROOT/research/index.md" ]; then
     before=$(sha256sum "$ROOT/research/index.md" | cut -d' ' -f1)
     "$ROOT/scripts/index.sh" >/dev/null 2>&1 || true

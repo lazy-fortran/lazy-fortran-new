@@ -144,7 +144,8 @@ and E0012 remains a later Phase 2 experiment.
 - [x] J3/24-007 pinned by URL and SHA-256, never vendored (D0002)
 - [x] Fetch verifier proven able to fail on a corrupted hash, and to accept a
       matching one
-- [x] `scripts/selftest.sh` with eight gates, run in CI
+- [x] `scripts/selftest.sh` with nine gates, including decision-ledger
+      validation and its negative control, run in CI
 - [x] Commit-reference checker and optional pre-commit hook (D0017; validates
       active experiment and artifact pins without rewriting them)
 - [x] `standard-new` scaffolded: fpm project, `fortpdf` over poppler-glib,

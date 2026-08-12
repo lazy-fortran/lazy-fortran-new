@@ -169,6 +169,27 @@ that too, because it is the difference between a mistake and a discovery.
 
 Decisions that change the plan are linked from `ROADMAP.md`.
 
+### Decision handoff and implementation gate
+
+The decision ledger is the planning interface. When work encounters a choice
+that can change architecture, representation, scope, profile membership,
+external format, oracle policy, performance target, model use or repository
+boundary, search the ledger before writing code. If no accepted record covers
+the choice, create a proposed record with a `## Decision needed` section and
+list the concrete alternatives, the evidence available, and the consequence of
+each choice. The planning model or the user accepts, amends or retracts it.
+
+Implementation may proceed under an accepted record. A local reversible default
+may be recorded in the work update without a new decision only when it does not
+change the roadmap or an interface. Otherwise implementation stops at the
+proposed record. `scripts/check-decisions.sh` validates IDs, statuses, section
+headers and successor links. `scripts/new-decision.sh "title" [slug]` allocates
+the next ID from `TEMPLATE.md`.
+
+Every commit that implements a nontrivial decision names its decision ID in the
+commit body, changed-document link or experiment manifest. `scripts/index.sh`
+publishes all proposed decisions in a handoff table.
+
 ---
 
 ## Artifacts
@@ -205,9 +226,9 @@ a usable interface into the whole record.
 
 ## Indexes
 
-`scripts/index.sh` regenerates `research/index.md` from manifests and run files:
-experiments with their questions, run counts and status; rules with their
-formalization, implementation, tests and verification state. The index is
+`scripts/index.sh` regenerates `research/index.md` from manifests and run files.
+It lists experiments with their questions, run counts and status, and rules
+with their formalization, implementation, tests and verification state. The index is
 generated, never edited. If a number is wrong, the fix is in the data or the
 script.
 
