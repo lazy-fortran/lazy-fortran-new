@@ -73,6 +73,9 @@ standard SHA-256 vectors
 E0026 verifies case-insensitive interning, deterministic IDs and rehash
 stability with fixed byte-name witnesses
 (`research/experiments/E0026-does-the-interner-resolve-fortran-identi/analyse.sh`).
+E0027 verifies UTF-8 scalar decoding, byte-boundary queries and malformed
+sequence rejection with fixed vectors
+(`research/experiments/E0027-does-the-utf-8-boundary-layer-decode-val/analyse.sh`).
 E0004 and E0005 remain historical comparison runs. Generated semantic rules
 and parser-comparison results do not exist yet. E0001 and E0004 are running,
 while E0002--E0003 remain draft experiments. E0012 remains a later Phase 2
@@ -203,7 +206,8 @@ normalized view rather than overwriting the source extraction.
 - [x] `interner` with case-insensitive Fortran identity resolved once (E0026;
       regenerate with
       `research/experiments/E0026-does-the-interner-resolve-fortran-identi/analyse.sh`)
-- [ ] `utf8_boundary`
+- [x] `utf8_boundary` (E0027; regenerate with
+      `research/experiments/E0027-does-the-utf-8-boundary-layer-decode-val/analyse.sh`)
 - [ ] Property tests plus fixed byte-level fixtures, and each one observed
       failing against a broken variant
 
