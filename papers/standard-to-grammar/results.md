@@ -653,6 +653,31 @@ The following rows are extracted from the accepted projection run records.
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 
+## E0079 generated complete-parser facade
+
+| Quantity | Value |
+|---|---:|
+| Profile rows | 151 |
+| Profile parser targets | 0 |
+| Profile source hashes | 151 |
+| Complete-source files | 5 |
+| Accepted complete-source records | 72 |
+| Source-linked complete-source records | 72 |
+| AST corpus files | 5 |
+| AST nodes | 73 |
+| Source-linked AST nodes | 73 |
+| AST parent links | 68 |
+| AST child links | 68 |
+| AST link errors | 0 |
+| Diagnostic records | 1 |
+| Source-linked diagnostics | 1 |
+| GNU Fortran complete-source files accepted | 5 |
+| GNU Fortran AST files accepted | 5 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

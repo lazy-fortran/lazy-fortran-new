@@ -112,6 +112,10 @@ E0078 composes the complete 151-name residue as
 148 unresolved records without creating parser
 targets. The integrated syntax and dispatch tables remain stable, with
 0 parser leaks.
+E0079 drives a generated complete-parser facade from that profile. It checks
+72 complete-source records and
+73 AST nodes, all with source links, and retains
+1 source-linked diagnostic for the mutation.
 The reported runs use zero model calls. The paper's claim is limited to
 provenance-preserving extraction, typed source adjudication, and deterministic
 projection. It does not claim a complete parser or compiler.
@@ -405,6 +409,11 @@ E0078 composes the complete residue without changing parser input. It retains
 522 integrated syntax records and
 522 dispatch rows remain byte-stable, and every
 dispatch row retains provenance.
+E0079 uses the E0078 profile as generated facade metadata. The facade combines
+the complete-source and AST operations over their pinned corpora. It preserves
+72 source-linked complete-source records,
+73 source-linked AST nodes and
+1 source-linked diagnostic.
 
 ## 5. Reproducibility and limitations
 
@@ -428,6 +437,9 @@ the 148 records without bounded evidence, and it leaves parser input and
 generated wiring unchanged. The next experiment should use this composed
 profile to drive the generated complete-parser operation on real source, with
 AST output and source-linked diagnostics checked independently.
+E0079 has completed that facade check. The next experiment should extend the
+same profile-owned wiring to expression and precedence operations over a
+combined real-source corpus, with the local semantic boundary still explicit.
 
 The direct parser remains the production target selected by D0029. Structural
 wiring, registration and source identity continue to come from generated
@@ -455,6 +467,12 @@ E0078 composes 151 residue records and preserves
 3 contextual candidates plus
 148 unresolved records. It adds no parser
 aliases and leaves the integrated syntax and direct dispatch byte-stable.
+E0079 drives a generated facade from the composed profile. It validates
+72 complete-source records,
+73 AST nodes and
+1 source-linked diagnostic with zero independent
+difference. The next boundary is generated expression and precedence
+composition over the real-source corpus.
 
 ## 7. Conclusion
 
@@ -515,6 +533,12 @@ keeps 522 integrated syntax records and 522 provenance-bearing dispatch rows,
 and leaves the export-validator boundary visible. The next milestone is the
 generated complete-parser operation over real source, with AST and
 source-linked diagnostic output.
+E0079 reaches that milestone for the declared complete-source and AST corpora:
+the generated facade validates 72 source-linked complete-source records and 73
+source-linked AST nodes, with 68 parent links, 68 child links and one
+source-linked diagnostic. The result is a composition boundary, not a claim
+of complete Fortran coverage. The next milestone is expression and
+precedence composition under the same profile-owned wiring.
 
 ## References
 
@@ -1181,6 +1205,31 @@ The following rows are extracted from the accepted projection run records.
 | Bison validator status | 1 |
 | tree-sitter validator status | 1 |
 | Direct Fortran status | 0 |
+| Independent difference | 0 |
+| Controlled mutation | observed_failure |
+
+## E0079 generated complete-parser facade
+
+| Quantity | Value |
+|---|---:|
+| Profile rows | 151 |
+| Profile parser targets | 0 |
+| Profile source hashes | 151 |
+| Complete-source files | 5 |
+| Accepted complete-source records | 72 |
+| Source-linked complete-source records | 72 |
+| AST corpus files | 5 |
+| AST nodes | 73 |
+| Source-linked AST nodes | 73 |
+| AST parent links | 68 |
+| AST child links | 68 |
+| AST link errors | 0 |
+| Diagnostic records | 1 |
+| Source-linked diagnostics | 1 |
+| GNU Fortran complete-source files accepted | 5 |
+| GNU Fortran AST files accepted | 5 |
+| Fortran compile status | 0 |
+| Runtime test status | 0 |
 | Independent difference | 0 |
 | Controlled mutation | observed_failure |
 

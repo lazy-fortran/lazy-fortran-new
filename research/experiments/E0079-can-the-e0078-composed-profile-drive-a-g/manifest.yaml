@@ -2,14 +2,14 @@ id: "E0079"
 title: "Generated complete-parser operation from the E0078 profile"
 question: >
   Can the E0078 composed profile drive a generated complete parser over real source with AST and diagnostics?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-12"
-closed: ""
+closed: "2026-08-12"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "3bf01a6"
-  fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
+  lazy-fortran-new: "78b9ca6"
+  oracle-fortfront: "b8cb5926fd82ed299d00e8c50eaa41587f55237d"
   standard-new: "c6cd889"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

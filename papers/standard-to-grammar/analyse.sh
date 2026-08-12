@@ -129,6 +129,7 @@ assert_run R000084 '.status == "accepted" and .experiment == "E0075" and .verifi
 assert_run R000085 '.status == "accepted" and .experiment == "E0076" and .verification.zero_model_calls == true and .verification.unresolved_denominator == 151 and .verification.logical_units == 5064 and .verification.candidate_spans == 3 and .verification.candidate_names == 3 and .verification.alias_candidates == 0 and .verification.lexical_candidates == 0 and .verification.metavariable_candidates == 0 and .verification.semantic_role_candidates == 3 and .verification.unresolved_after_patterns == 148 and .verification.source_linked_candidates == 3 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000086 '.status == "accepted" and .experiment == "E0077" and .verification.zero_model_calls == true and .verification.candidate_spans == 3 and .verification.accepted_records == 0 and .verification.retained_records == 3 and .verification.accepted_semantic_role_records == 0 and .verification.source_hash_matches == 3 and .verification.source_evidence_matches == 3 and .verification.candidate_inventory_difference == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000087 '.status == "accepted" and .experiment == "E0078" and .verification.zero_model_calls == true and .verification.residue_records == 151 and .verification.retained_candidate_records == 3 and .verification.unresolved_no_evidence_records == 148 and .verification.source_hash_matches == 151 and .verification.parser_target_records == 0 and .verification.parser_leaks == 0 and .verification.integrated_syntax_records == 522 and .verification.dispatch_rows == 522 and .verification.dispatch_provenance_rows == 522 and .verification.integrated_hash_difference == 0 and .verification.dispatch_hash_difference == 0 and .verification.export_antlr_validator_status == 1 and .verification.export_bison_validator_status == 1 and .verification.export_treesitter_validator_status == 1 and .verification.direct_fortran_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000088 '.status == "accepted" and .experiment == "E0079" and .verification.zero_model_calls == true and .verification.profile_rows == 151 and .verification.profile_parser_targets == 0 and .verification.profile_source_hashes == 151 and .verification.complete_source_files == 5 and .verification.complete_accepted_records == 72 and .verification.complete_source_linked_records == 72 and .verification.ast_source_files == 5 and .verification.ast_nodes == 73 and .verification.ast_source_linked_nodes == 73 and .verification.ast_parent_links == 68 and .verification.ast_child_links == 68 and .verification.ast_link_errors == 0 and .verification.diagnostic_records == 1 and .verification.diagnostic_source_linked == 1 and .verification.gfortran_complete_accepted == 5 and .verification.gfortran_ast_accepted == 5 and .verification.fortran_compile_status == 0 and .verification.runtime_test_status == 0 and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -580,6 +581,26 @@ retained_composition_treesitter=$(metric R000087 '.verification.export_treesitte
 retained_composition_fortran=$(metric R000087 '.verification.direct_fortran_status')
 retained_composition_difference=$(metric R000087 '.verification.independent_difference')
 retained_composition_negative=$(metric R000087 '.verification.negative_control')
+complete_parser_profile_rows=$(metric R000088 '.verification.profile_rows')
+complete_parser_profile_targets=$(metric R000088 '.verification.profile_parser_targets')
+complete_parser_profile_hashes=$(metric R000088 '.verification.profile_source_hashes')
+complete_parser_files=$(metric R000088 '.verification.complete_source_files')
+complete_parser_accepted=$(metric R000088 '.verification.complete_accepted_records')
+complete_parser_linked=$(metric R000088 '.verification.complete_source_linked_records')
+complete_parser_ast_files=$(metric R000088 '.verification.ast_source_files')
+complete_parser_ast_nodes=$(metric R000088 '.verification.ast_nodes')
+complete_parser_ast_linked=$(metric R000088 '.verification.ast_source_linked_nodes')
+complete_parser_ast_parents=$(metric R000088 '.verification.ast_parent_links')
+complete_parser_ast_children=$(metric R000088 '.verification.ast_child_links')
+complete_parser_ast_errors=$(metric R000088 '.verification.ast_link_errors')
+complete_parser_diagnostics=$(metric R000088 '.verification.diagnostic_records')
+complete_parser_diagnostic_linked=$(metric R000088 '.verification.diagnostic_source_linked')
+complete_parser_gfortran_complete=$(metric R000088 '.verification.gfortran_complete_accepted')
+complete_parser_gfortran_ast=$(metric R000088 '.verification.gfortran_ast_accepted')
+complete_parser_compile=$(metric R000088 '.verification.fortran_compile_status')
+complete_parser_runtime=$(metric R000088 '.verification.runtime_test_status')
+complete_parser_difference=$(metric R000088 '.verification.independent_difference')
+complete_parser_negative=$(metric R000088 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1250,6 +1271,31 @@ EOF
 | Independent difference | $retained_composition_difference |
 | Controlled mutation | $retained_composition_negative |
 
+## E0079 generated complete-parser facade
+
+| Quantity | Value |
+|---|---:|
+| Profile rows | $complete_parser_profile_rows |
+| Profile parser targets | $complete_parser_profile_targets |
+| Profile source hashes | $complete_parser_profile_hashes |
+| Complete-source files | $complete_parser_files |
+| Accepted complete-source records | $complete_parser_accepted |
+| Source-linked complete-source records | $complete_parser_linked |
+| AST corpus files | $complete_parser_ast_files |
+| AST nodes | $complete_parser_ast_nodes |
+| Source-linked AST nodes | $complete_parser_ast_linked |
+| AST parent links | $complete_parser_ast_parents |
+| AST child links | $complete_parser_ast_children |
+| AST link errors | $complete_parser_ast_errors |
+| Diagnostic records | $complete_parser_diagnostics |
+| Source-linked diagnostics | $complete_parser_diagnostic_linked |
+| GNU Fortran complete-source files accepted | $complete_parser_gfortran_complete |
+| GNU Fortran AST files accepted | $complete_parser_gfortran_ast |
+| Fortran compile status | $complete_parser_compile |
+| Runtime test status | $complete_parser_runtime |
+| Independent difference | $complete_parser_difference |
+| Controlled mutation | $complete_parser_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -1502,6 +1548,26 @@ rendered=${rendered//@RETAINED_COMPOSITION_TREESITTER@/$retained_composition_tre
 rendered=${rendered//@RETAINED_COMPOSITION_FORTRAN@/$retained_composition_fortran}
 rendered=${rendered//@RETAINED_COMPOSITION_DIFFERENCE@/$retained_composition_difference}
 rendered=${rendered//@RETAINED_COMPOSITION_NEGATIVE@/$retained_composition_negative}
+rendered=${rendered//@COMPLETE_PARSER_PROFILE_ROWS@/$complete_parser_profile_rows}
+rendered=${rendered//@COMPLETE_PARSER_PROFILE_TARGETS@/$complete_parser_profile_targets}
+rendered=${rendered//@COMPLETE_PARSER_PROFILE_HASHES@/$complete_parser_profile_hashes}
+rendered=${rendered//@COMPLETE_PARSER_FILES@/$complete_parser_files}
+rendered=${rendered//@COMPLETE_PARSER_ACCEPTED@/$complete_parser_accepted}
+rendered=${rendered//@COMPLETE_PARSER_LINKED@/$complete_parser_linked}
+rendered=${rendered//@COMPLETE_PARSER_AST_FILES@/$complete_parser_ast_files}
+rendered=${rendered//@COMPLETE_PARSER_AST_NODES@/$complete_parser_ast_nodes}
+rendered=${rendered//@COMPLETE_PARSER_AST_LINKED@/$complete_parser_ast_linked}
+rendered=${rendered//@COMPLETE_PARSER_AST_PARENTS@/$complete_parser_ast_parents}
+rendered=${rendered//@COMPLETE_PARSER_AST_CHILDREN@/$complete_parser_ast_children}
+rendered=${rendered//@COMPLETE_PARSER_AST_ERRORS@/$complete_parser_ast_errors}
+rendered=${rendered//@COMPLETE_PARSER_DIAGNOSTICS@/$complete_parser_diagnostics}
+rendered=${rendered//@COMPLETE_PARSER_DIAGNOSTIC_LINKED@/$complete_parser_diagnostic_linked}
+rendered=${rendered//@COMPLETE_PARSER_GFORTRAN_COMPLETE@/$complete_parser_gfortran_complete}
+rendered=${rendered//@COMPLETE_PARSER_GFORTRAN_AST@/$complete_parser_gfortran_ast}
+rendered=${rendered//@COMPLETE_PARSER_COMPILE@/$complete_parser_compile}
+rendered=${rendered//@COMPLETE_PARSER_RUNTIME@/$complete_parser_runtime}
+rendered=${rendered//@COMPLETE_PARSER_DIFFERENCE@/$complete_parser_difference}
+rendered=${rendered//@COMPLETE_PARSER_NEGATIVE@/$complete_parser_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

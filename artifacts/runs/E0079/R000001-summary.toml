@@ -1,0 +1,47 @@
+name        = "E0079-R000001-generated-complete-parser-operation-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/78b9ca6"
+sha256      = "f41cbfeb30bcd0aa5b79569bb309e67a2f341735120533fa3c5f5e0ac65a572d"
+bytes       = 1099
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-12"
+purpose     = "Summary of driving a generated complete-parser facade from the E0078 profile"
+path        = ".cache/runs/E0079/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+generator   = "lazy-fortran-new E0079 generated complete-parser operation"
+generator_commit = "78b9ca6"
+checker     = "research/experiments/E0079-can-the-e0078-composed-profile-drive-a-g/analyse.sh"
+checker_commit = "78b9ca6"
+profile_rows = 151
+profile_parser_targets = 0
+profile_source_hashes = 151
+profile_sha256 = "2927a6cf597c90a000182b8907bfdedf360657576559e5ae12edf712cadb9c1e"
+complete_source_files = 5
+complete_accepted_records = 72
+complete_source_linked_records = 72
+ast_source_files = 5
+ast_nodes = 73
+ast_source_linked_nodes = 73
+ast_parent_links = 68
+ast_child_links = 68
+ast_link_errors = 0
+diagnostic_records = 1
+diagnostic_source_linked = 1
+gfortran_complete_accepted = 5
+gfortran_ast_accepted = 5
+fortran_compile_status = 0
+runtime_test_status = 0
+independent_difference = 0
+negative_control = "observed_failure"
+zero_model_calls = true
+complete_corpus_sha256 = "4a25503611e1c619e92e46e18c505cda6b6f0a39daf3165162751ff77fc775c0"
+ast_corpus_sha256 = "b0e538acf995e85ae6297c810a4e79928cf0a783bbbd507472ee02513010c2a5"
+generated_facade_sha256 = "b6d03f7f5804b9455997b8be63d97015524d02fa3b6b305c4714a5900c43b99f"
+test_program_sha256 = "37b7ba90f4e7ee9c50aa902b1995b6fd5c46bf22133f734175450a2009a094bc"
+e78_summary_sha256 = "99683c9d644e624691b3371edf0674aea7ed528156e62cf9f0bca27ab0484706"
+
+# Regenerate and verify with:
+#   research/experiments/E0079-can-the-e0078-composed-profile-drive-a-g/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.
