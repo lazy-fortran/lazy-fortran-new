@@ -103,6 +103,7 @@ assert_run R000058 '.status == "verification_failure" and .experiment == "E0049"
 assert_run R000059 '.status == "accepted" and .experiment == "E0050" and .verification.zero_model_calls == true and .verification.candidate_strategies == 3 and .verification.overlap_terms == 3 and .verification.r401_records == 80 and .verification.r403_records == 20 and .verification.candidate_rows == 9 and .verification.lossy_alias_precedence_rows == 3 and .verification.lossless_expansion_precedence_rows == 3 and .verification.lossless_unresolved_composite_rows == 3 and .verification.parser_ready_candidates == 1 and .verification.representation_selection == "deferred_D0024_D0026" and .verification.independent_difference == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000060 '.status == "verification_failure" and .experiment == "E0051" and .verification.zero_model_calls == true and .verification.final_syntax_records == 522 and .verification.antlr_definitions == 502 and .verification.bison_definitions == 502 and .verification.treesitter_definitions == 502 and .verification.antlr_status == 1 and .verification.antlr_unresolved_rule_names == 103 and .verification.bison_status == 1 and .verification.bison_unresolved_symbol_names == 103 and .verification.treesitter_status == 1 and .verification.treesitter_structural_error == 1 and .verification.antlr_bison_unresolved_set_difference == 0 and .verification.target_status_agreement == 1 and .verification.negative_control == "observed_failure"'
 assert_run R000061 '.status == "verification_failure" and .experiment == "E0052" and .verification.zero_model_calls == true and .verification.final_syntax_records == 522 and .verification.errata_repairs == 8 and .verification.grouped_optional_repairs == 2 and .verification.antlr_definitions == 502 and .verification.bison_definitions == 502 and .verification.treesitter_definitions == 502 and .verification.antlr_status == 1 and .verification.bison_status == 1 and .verification.treesitter_status == 1 and .verification.treesitter_structural_error == 0 and .verification.antlr_unresolved_rule_names == 103 and .verification.bison_unresolved_symbol_names == 103 and .verification.antlr_bison_unresolved_set_difference == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000062 '.status == "accepted" and .experiment == "E0053" and .verification.zero_model_calls == true and .verification.unresolved_target_names == 103 and .verification.r401_unresolved == 80 and .verification.r403_unresolved == 17 and .verification.expansion_unresolved == 97 and .verification.lexical_unresolved == 3 and .verification.metavariable_unresolved == 1 and .verification.unicode_unresolved == 2 and .verification.source_metadata_records == 6 and .verification.open_decision_groups == 2 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -205,6 +206,16 @@ grouped_antlr_unresolved=$(metric R000061 '.verification.antlr_unresolved_rule_n
 grouped_bison_unresolved=$(metric R000061 '.verification.bison_unresolved_symbol_names')
 grouped_set_difference=$(metric R000061 '.verification.antlr_bison_unresolved_set_difference')
 grouped_negative_control=$(metric R000061 '.verification.negative_control')
+residual_target_names=$(metric R000062 '.verification.unresolved_target_names')
+residual_r401=$(metric R000062 '.verification.r401_unresolved')
+residual_r403=$(metric R000062 '.verification.r403_unresolved')
+residual_expansion=$(metric R000062 '.verification.expansion_unresolved')
+residual_lexical=$(metric R000062 '.verification.lexical_unresolved')
+residual_metavariable=$(metric R000062 '.verification.metavariable_unresolved')
+residual_unicode=$(metric R000062 '.verification.unicode_unresolved')
+residual_metadata=$(metric R000062 '.verification.source_metadata_records')
+residual_open_decisions=$(metric R000062 '.verification.open_decision_groups')
+residual_negative_control=$(metric R000062 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -402,6 +413,21 @@ EOF
 | ANTLR4/Bison unresolved-set difference | $grouped_set_difference |
 | Controlled grouping mutation | $grouped_negative_control |
 
+## E0053 source-provenance residue partition
+
+| Quantity | Value |
+|---|---:|
+| Unresolved target names | $residual_target_names |
+| R401 expansion names | $residual_r401 |
+| R403 expansion names | $residual_r403 |
+| Expansion names total | $residual_expansion |
+| Lexical-class names | $residual_lexical |
+| Metavariable names | $residual_metavariable |
+| Ambiguous Unicode or quotation names | $residual_unicode |
+| Source metadata records | $residual_metadata |
+| Open decision groups | $residual_open_decisions |
+| Controlled bucket mutation | $residual_negative_control |
+
 ## External behavioral baseline
 
 | Quantity | Value |
@@ -454,6 +480,13 @@ rendered=${rendered//@CANDIDATE_STRATEGIES@/$candidate_strategies}
 rendered=${rendered//@CANDIDATE_OVERLAP_TERMS@/$candidate_overlap_terms}
 rendered=${rendered//@CANDIDATE_SELECTION@/$candidate_selection}
 rendered=${rendered//@TARGET_UNRESOLVED_NAMES@/$target_antlr_unresolved}
+rendered=${rendered//@RESIDUAL_TARGET_NAMES@/$residual_target_names}
+rendered=${rendered//@RESIDUAL_R401@/$residual_r401}
+rendered=${rendered//@RESIDUAL_R403@/$residual_r403}
+rendered=${rendered//@RESIDUAL_EXPANSION@/$residual_expansion}
+rendered=${rendered//@RESIDUAL_LEXICAL@/$residual_lexical}
+rendered=${rendered//@RESIDUAL_METAVARIABLE@/$residual_metavariable}
+rendered=${rendered//@RESIDUAL_UNICODE@/$residual_unicode}
 {
     printf '%s\n\n' "$rendered"
     cat "$results"

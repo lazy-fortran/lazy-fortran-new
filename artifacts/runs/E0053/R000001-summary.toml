@@ -1,0 +1,35 @@
+name = "E0053-R000001-source-provenance-residue-partition"
+url = "https://github.com/lazy-fortran/lazy-fortran-new/tree/4b2f759/research/experiments/E0053-can-the-remaining-target-failures-be-par"
+sha256 = "26a3e3ba95e638b2a54db70061e14bbc4ff7d809f4a9a849419da9100c8fc06b"
+bytes = 517
+licence = "MIT implementation and test"
+retrieved = "2026-08-12"
+purpose = "Gate summary for partitioning the E0052 unresolved target names by source-provenance decision bucket"
+path = ".cache/runs/E0053/R000001/summary.tsv"
+origin = "DIFFERENTIAL"
+format = "tab-separated source-provenance residue summary"
+generator = "E0053 analyse.sh"
+generator_commit = "4b2f759"
+checker = "research/experiments/E0053-can-the-remaining-target-failures-be-par/analyse.sh"
+checker_commit = "4b2f759"
+normalized_resolution_sha256 = "e284b4e9b2b14176a0743103084ae53f0535157896a29e27026fdc2d12331a5e"
+residual_buckets_sha256 = "fb6ddd7f206e420fe8027c133fac89b5d0f162ddb5c105ea218beb435a335a40"
+residual_buckets_bytes = 6455
+unresolved_target_names = 103
+r401_unresolved = 80
+r403_unresolved = 17
+expansion_unresolved = 97
+lexical_unresolved = 3
+metavariable_unresolved = 1
+unicode_unresolved = 2
+source_metadata_records = 6
+open_decision_groups = 2
+antlr_status = 1
+bison_status = 1
+treesitter_status = 1
+treesitter_structural_error = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0053-can-the-remaining-target-failures-be-par/analyse.sh
+# Verify payload hashes and sizes with sha256sum and stat.

@@ -112,6 +112,11 @@ tree-sitter exposes an earlier malformed sequence caused by flattened repaired
 punctuation inside an optional group.
 E0052 preserves those repaired groups. tree-sitter then reaches the same
 unresolved-symbol boundary as ANTLR4 and Bison.
+E0053 partitions the remaining 103 names into
+97 expansion names, 3 lexical-class names,
+1 metanotation name, and 2 ambiguous
+Unicode or quotation names. The partition maps to the open decisions without
+assigning a parser meaning.
 
 ### 2.3 Verification
 
@@ -166,6 +171,11 @@ and Bison report 103 identical unresolved names. tree-sitter stops at a
 structural `seq(, ...)` error in the generated optional-group projection. The
 E0052 removes that structural error by preserving two source-derived optional
 groups. All three tools then expose the unresolved-name boundary.
+E0053 partitions the boundary into 80 R401 expansions,
+17 R403 expansions, 3 lexical classes,
+1 metanotation, and 2 ambiguous Unicode
+or quotation forms. The table is source-linked and leaves the representation
+choices open.
 
 The external behavior matrix provides a baseline for later work. It compares
 three established frontends on a small fixed fixture set. Agreement on that set
@@ -189,10 +199,11 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-The next implementation experiment should resolve the 103-name residue while
-retaining the grouped erratum transformation. E0052 removes the deterministic
-`seq(, ...)` composition error and reruns all three target validators. The
-R401/R403 representation decision remains separate. E0048
+The next decision step is to accept or revise D0024, D0026 and D0027 using the
+E0053 residue packet. E0052 removes the deterministic `seq(, ...)` composition
+error and E0053 partitions the remaining names. After those decisions, the
+deterministic wiring generator can apply the selected projections and rerun all
+three target validators. E0048
 supplies the complete 80/20 inventory, E0049 supplies the candidate and its
 retained failure, and E0050 supplies the explicit tradeoff matrix. The choice
 is proposed in [D0024](../../research/decisions/D0024-assumed-syntax-expansions.md)
@@ -391,6 +402,21 @@ The following rows are extracted from the accepted projection run records.
 | Bison unresolved names | 103 |
 | ANTLR4/Bison unresolved-set difference | 0 |
 | Controlled grouping mutation | observed_failure |
+
+## E0053 source-provenance residue partition
+
+| Quantity | Value |
+|---|---:|
+| Unresolved target names | 103 |
+| R401 expansion names | 80 |
+| R403 expansion names | 17 |
+| Expansion names total | 97 |
+| Lexical-class names | 3 |
+| Metavariable names | 1 |
+| Ambiguous Unicode or quotation names | 2 |
+| Source metadata records | 6 |
+| Open decision groups | 2 |
+| Controlled bucket mutation | observed_failure |
 
 ## External behavioral baseline
 

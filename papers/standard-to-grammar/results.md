@@ -180,6 +180,21 @@ The following rows are extracted from the accepted projection run records.
 | ANTLR4/Bison unresolved-set difference | 0 |
 | Controlled grouping mutation | observed_failure |
 
+## E0053 source-provenance residue partition
+
+| Quantity | Value |
+|---|---:|
+| Unresolved target names | 103 |
+| R401 expansion names | 80 |
+| R403 expansion names | 17 |
+| Expansion names total | 97 |
+| Lexical-class names | 3 |
+| Metavariable names | 1 |
+| Ambiguous Unicode or quotation names | 2 |
+| Source metadata records | 6 |
+| Open decision groups | 2 |
+| Controlled bucket mutation | observed_failure |
+
 ## External behavioral baseline
 
 | Quantity | Value |

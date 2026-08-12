@@ -398,6 +398,9 @@ evidence for the thesis.
       `research/experiments/E0052-can-grouped-erratum-composition-preserve/analyse.sh`)
 - [ ] Decide how accepted D0019 lexical-class records enter the generated
       lexer and parser exports (D0027, currently proposed)
+- [x] Partition the remaining target-tool failures into source-provenance
+      buckets without resolving them (E0053, regenerate with
+      `research/experiments/E0053-can-the-remaining-target-failures-be-par/analyse.sh`)
 - [ ] Generate the specialized parser-generator input
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
