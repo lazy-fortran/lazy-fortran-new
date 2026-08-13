@@ -25,7 +25,7 @@ The bounded extension produced evidence for all 127 rows, but every row remained
 
 ## Independent traversal and negative control
 
-The primary and independent traversals agree on the empty candidate-key set. The test run also tampers a copied source window and its expected hash; the verifier rejects it before classification. Generated payloads remain under ignored `.cache/runs/E0104/R000001/`.
+The primary and independent traversals agree on the complete 127-name candidate-key set, with all rows classified as ambiguous. The test run also tampers a copied source window and its expected hash; the verifier rejects it before classification. Generated payloads remain under ignored `.cache/runs/E0104/R000001/`.
 
 ## Limitations
 
