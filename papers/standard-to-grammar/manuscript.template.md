@@ -49,6 +49,9 @@ One generic evaluator then covers @GENERIC_FORMS@ predicate constructor forms
 over @GENERIC_CASES@ witnesses. It accepts @GENERIC_POSITIVE@ positive cases,
 rejects @GENERIC_NEGATIVE@ negative cases, and agrees with gfortran on all
 @GENERIC_GFORTRAN@ cases.
+The generated diagnostic operation then emits @DIAGNOSTIC_RECORDS@
+source-linked records with @DIAGNOSTIC_STANDARD_LINKS@ StandardIR links and
+@DIAGNOSTIC_SOURCE_HASHES@ source-file hashes.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the

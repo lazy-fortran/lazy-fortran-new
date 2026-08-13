@@ -1,6 +1,6 @@
 # Roadmap
 
-Snapshot: 2026-08-12. Live repository state is reported by
+Snapshot: 2026-08-13. Live repository state is reported by
 `scripts/status.sh`. Experiment manifests pin the exact commits used by each
 result. The lab and `standard-new` checkouts are clean and their current
 default-branch CI state is reported separately from those immutable pins.
@@ -122,10 +122,15 @@ the 536-page selected span, 522 production starts, zero parse/JSON/provenance
 failures and zero scope difference, with a controlled count mutation
 (`research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`).
 E0004 and E0005 now report their broad and contiguous extraction gates.
-Generated semantic rules do not exist yet. E0041 now records the first parser
-behavior comparison across LFortran, Flang and gfortran. Broad adjudication
-remains open. E0001 remains running, E0002--E0003 remain draft experiments,
-and E0012 remains a later Phase 2 experiment.
+E0089 records the current semantic successor ledger with 22 resolved and 265
+unresolved constraints. E0090--E0093 generate semantic rule rows, evaluate
+three predicate forms and emit structured source-linked diagnostics. The
+production `fortfront-new` repository has not been created yet. E0041 records
+the parser behavior comparison across LFortran, Flang and gfortran. Broad
+comparison adjudication, complete semantic coverage and the Phase 2 frontend
+gate remain open. Regenerate this snapshot's experiment values with
+`scripts/index.sh` and the paper values with
+`papers/standard-to-grammar/analyse.sh`.
 
 ---
 

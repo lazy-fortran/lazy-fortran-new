@@ -89,8 +89,14 @@ constraints unresolved without parser projections or model calls. E0087
 composes the four semantic slices into one 287-row ledger with 21 resolved,
 one disputed and 265 unresolved records, 67 accepted dependency edges, and no
 adjudication-gate violations.
-Regenerate the paper numbers with `papers/standard-to-grammar/analyse.sh` and
-the laboratory index with `scripts/index.sh`.
+E0089 records the successor ledger with 22 resolved and 265 unresolved
+constraints and 71 accepted fact-dependency edges. E0090 generates 22 semantic
+rule rows and dispatch rows. E0091 and E0092 evaluate C601, C603 and C719
+through one generic evaluator. E0093 emits six structured source-linked
+diagnostic records without selected-rule IDs in its generated operation. The
+production `fortfront-new` repository has not been created yet. Regenerate
+paper numbers with `papers/standard-to-grammar/analyse.sh` and the laboratory
+index with `scripts/index.sh`.
 
 ## Licence
 

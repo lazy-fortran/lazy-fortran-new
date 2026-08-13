@@ -49,6 +49,9 @@ One generic evaluator then covers 3 predicate constructor forms
 over 6 witnesses. It accepts 3 positive cases,
 rejects 3 negative cases, and agrees with gfortran on all
 6 cases.
+The generated diagnostic operation then emits 6
+source-linked records with 6 StandardIR links and
+6 source-file hashes.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
