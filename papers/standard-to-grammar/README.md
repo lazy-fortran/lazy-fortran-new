@@ -16,5 +16,15 @@ bounded semantic evaluation. It does not claim a complete Fortran parser,
 complete semantic coverage, compiler performance or production
 `fortfront-new` integration.
 
+Build a handoff bundle, including the PDF hash manifest and the pinned paper
+sources, with:
+
+```sh
+papers/standard-to-grammar/submission.sh
+```
+
+The bundle is written to the ignored cache unless an output directory is
+provided as the first argument.
+
 The remaining publication actions are external: choose the author list and
 venue, then submit the regenerated PDF and its repository commit.
