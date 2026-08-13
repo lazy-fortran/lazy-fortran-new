@@ -188,7 +188,8 @@ testable rather than merely plausible.
 ## 9. Fortran context
 
 - ✓ **Kedward, L. J. et al. "The State of Fortran."** *Computing in Science &
-  Engineering*, 2022. On disk:
+  Engineering* 24(2), 63-72, 2022.
+  <https://doi.org/10.1109/MCSE.2022.3159862>. On disk:
   `~/Zotero/storage/7MPHMESD/Kedward et al. - 2022 - The State of Fortran.pdf`.
   The survey to cite when motivating the work.
 - **ISO/IEC 1539-1:2023**, the published standard. Not freely available; not
