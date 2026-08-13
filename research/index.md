@@ -116,7 +116,7 @@ Runs recorded: 172
 | E0112 | reported | 1 | Which local model and quantization is the least measured-cost configuration |
 | E0113 | reported | 12 | Does deterministic full-document retrieval plus at most two repairs let |
 | E0114 | reported | 7 | Can a vision-capable Qwen or Gemma checkpoint translate a rule directly |
-| E0115 | draft | 0 | Does bounded native-tool access let the declared local, cloud and Luna |
+| E0115 | draft | 0 | Does bounded native-tool access let local Qwen and Gemma models resolve |
 
 ## Run status
 
@@ -194,6 +194,7 @@ Runs recorded: 172
 | [D0053](decisions/D0053-translation-oracle-and-visual-first-controls.md) | accepted | Amends D0052 | Solved-translation oracle and visual-first controls |
 | [D0054](decisions/D0054-bounded-tool-assisted-evidence-acquisition.md) | accepted |  | Bounded tool-assisted evidence acquisition |
 | [D0055](decisions/D0055-pin-llama-cpp-runtime-and-conservative-gemma4-config.md) | accepted |  | Pin llama.cpp runtime and conservative Gemma 4 configuration |
+| [D0056](decisions/D0056-local-only-model-harness.md) | accepted |  | Use local models for future residue harnesses |
 
 ### Proposed decisions
 

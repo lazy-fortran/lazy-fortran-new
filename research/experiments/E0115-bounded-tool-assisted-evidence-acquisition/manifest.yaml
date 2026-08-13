@@ -1,15 +1,15 @@
 id: "E0115"
-title: "Bounded native-tool evidence acquisition for source-backed residue"
+title: "Bounded native-tool evidence acquisition with local models"
 question: >
-  Does bounded native-tool access let the declared local, cloud and Luna
-  models resolve source-backed residue more accurately than fixed retrieval,
-  without making cost and failure accounting incomparable?
+  Does bounded native-tool access let local Qwen and Gemma models resolve
+  source-backed residue more accurately than fixed retrieval, without adding
+  unsafe or unbounded evidence access?
 status: draft            # draft | running | reported | abandoned
 opened: "2026-08-13"
 closed: ""
 
 repos:
-  lazy-fortran-new: "f4b1eac"
+  lazy-fortran-new: "69a9645"
   standard-new: "ae2ee71"
 
 inputs:
@@ -36,10 +36,16 @@ models:
     - gemma4-e4b
     - gemma4-26b-a4b
     - gemma4-31b
-  cloud:
-    - deepseek-v4-flash
-  codex:
-    - gpt56-luna-codex-cli
+
+execution:
+  scope: local-only
+  runtime: llama.cpp-b10405-e79e4bf
+  network_for_model_inference: disabled
+  excluded_historical_controls:
+    - candidate: deepseek-v4-flash
+      reason: official cloud API cost is not justified by E0113's result
+    - candidate: gpt56-luna-codex-cli
+      reason: E0113 historical control did not justify continued harness cost
 
 matrix:
   text_protocols:
@@ -107,10 +113,11 @@ metrics:
     - tool_wall_s
     - input_tokens
     - output_tokens
-    - cost_usd
+    - model_file_bytes
+    - model_load_wall_s
 
 denominator: >
-  Every eligible model x every declared text protocol x every reasoning mode
+  Every eligible local model x every declared text protocol x every reasoning mode
   has all 127 residue rows and all six solved-oracle rows. Visual cells use
   the six solved-oracle rows and are present only for models with a declared
   image projector; all other model/visual combinations are recorded as

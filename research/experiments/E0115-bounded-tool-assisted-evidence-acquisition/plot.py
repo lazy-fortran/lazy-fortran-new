@@ -59,9 +59,7 @@ def family_color(model):
         return "#35608d"
     if "gemma" in lower:
         return "#b05a3c"
-    if "deepseek" in lower:
-        return "#6f4a8e"
-    return "#4f7854"
+    raise ValueError(f"E0115 plot: non-local model is not allowed: {model}")
 
 
 def render(rows, outdir):

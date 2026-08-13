@@ -6,8 +6,8 @@ protocol, not a service.
 ## Episode inputs
 
 Each episode is one `(model, protocol, reasoning, row)` cell. The harness pins
-the repository commits, source hash, model file or API model, sampler settings,
-tool schema version and run ID before the first model call. The model receives
+the repository commits, source hash, local model file, llama.cpp build, sampler
+settings, tool schema version and run ID before the first model call. The model receives
 the candidate name and the task contract. It does not receive a deterministic
 target or citation.
 
@@ -66,8 +66,9 @@ total_tokens, finish_reason, gate_status
 
 The summary also records setup, model inference, tool and total wall time;
 number of calls, submissions and repairs; source bytes; terminal state; and
-the independent-oracle result. Raw API credentials and private reasoning are
-redacted. A missing metric is `null`, never silently reconstructed.
+the independent-oracle result. No API credentials are used by this experiment;
+private reasoning is not recorded. A missing metric is `null`, never silently
+reconstructed.
 
 ## Matrix execution
 
@@ -95,7 +96,8 @@ The report must contain, for every model and variant:
 * residue resolution, abstention, hard-failure and model-error rates;
 * six-row exact translation, wrong acceptance and false-negative rates;
 * evidence-hit rate, calls, submissions, repairs and source bytes;
-* total, setup, inference and tool time, tokens and cloud cost;
+* total, setup, inference and tool time, tokens and local model-file/runtime
+  metadata;
 * paired row-level differences against fixed-window and full-retrieval controls.
 
 Plots show all cells, including zeroes and unavailable cells. A summary ranking

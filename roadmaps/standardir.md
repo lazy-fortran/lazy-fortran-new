@@ -44,7 +44,9 @@ Gemma 4 configuration after the old scheduler assertion was isolated as a
 toolchain failure. D0054 defines
 E0115's bounded native-tool evidence protocol: the model may search and read
 source-backed spans, but the deterministic gate still derives targets and
-citations. E0115 compares every declared model across fixed-window,
+citations. D0056 makes E0115 local-only: only the declared Qwen and Gemma
+checkpoints run through pinned llama.cpp; DeepSeek and Luna remain historical
+controls. E0115 compares every declared local model across fixed-window,
 full-retrieval and tool-assisted text variants, with reasoning modes isolated
 as separate cells; visual cells remain a separate modality.
 

@@ -327,8 +327,10 @@ The first six local text cells used the old llama.cpp wrapper. Gemma 4 E4B
 was then repeated under the pinned b10405 runtime and conservative single-GPU
 configuration after the old loader assertion was isolated as a toolchain
 failure (D0055). M3 remains open because the residue was not resolved
-reliably. E0115 is the next comparison gate: it gives every
-eligible model the same bounded native evidence tools and runs the complete
+reliably. D0056 makes E0115 local-only: it uses the declared Qwen and Gemma
+checkpoints through pinned llama.cpp, while DeepSeek and Luna remain historical
+controls only. E0115 is the next comparison gate: it gives every
+eligible local model the same bounded native evidence tools and runs the complete
 predeclared model x protocol x reasoning matrix. Abstention is a measured
 false negative in E0115, not a green result; unavailable checkpoints and
 inapplicable visual cells remain explicit denominator entries.
