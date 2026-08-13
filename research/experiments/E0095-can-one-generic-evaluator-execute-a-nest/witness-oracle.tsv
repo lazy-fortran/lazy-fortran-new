@@ -1,0 +1,4 @@
+case_id	constraint_id	checker_status	gfortran_status	shape	antecedent	consequent	expectation
+c721-positive	C721	0	0	kind-and-E	1	1	accepted
+c721-negative	C721	1	1	kind-and-D	1	0	rejected
+c721-vacuous	C721	0	0	no-kind-and-D	0	1	accepted
