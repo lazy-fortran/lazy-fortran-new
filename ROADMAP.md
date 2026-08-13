@@ -210,10 +210,18 @@ standalone typed program-declaration SX boundary, a canonical program-root-SX
 to-MIR bridge, and stream-unit ELF64 output. Each slice was independently
 tested, merged into the corresponding main branch, pushed, and cleaned up. M3
 remains pending: no semantic residue was promoted and no contract was changed
-in place. E0101 now has a regenerated 127-row package; its only remaining
-blocker is the absence of an explicit model runner. The next wave may consume
-these integrated boundaries and continue semantic-table use, typed frontend/MIR
-structure, and independent backend object validation.
+in place. E0101 now has a regenerated 127-row package, and E0102 has exercised
+the explicit Luna escalation against it. The next semantic work item is the
+120-row abstention residue; no result may be promoted without another exact
+source-backed validation gate.
+
+Wave H is complete for three additive vertical slices: a bounded typed
+program-unit aggregate, program-declaration SX lowering into the existing MIR
+witness, and an end-to-end single-instruction RISC-V-to-ELF witness. E0102
+provided the first strict Luna escalation over the 127-row residue: seven
+relations passed exact citation validation and 120 rows were abstained; no
+relation was promoted into StandardIR. M3 therefore remains pending and the
+abstentions remain the next semantic work item.
 
 ## Numbered milestones
 

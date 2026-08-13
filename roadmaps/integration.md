@@ -20,10 +20,11 @@ abandoned slice remains in the run ledger with its last commit and failure
 state before cleanup. A later slice starts from the newly integrated commit,
 not from a stale long-lived task branch.
 
-Wave G is complete for four bounded slices: StandardIR semantic queries,
-frontend typed-declaration SX, program-root-SX-to-MIR lowering, and ELF64
-stream-unit output. The next wave starts only from their integrated `main`
-commits and uses disjoint repositories or disjoint production files.
+Wave H is complete for three bounded slices: frontend typed-program-unit SX,
+program-declaration-SX-to-MIR lowering, and the RISC-V instruction-to-ELF
+witness. E0102 is recorded separately as the first strict Luna semantic
+escalation. The next wave starts only from their integrated `main` commits and
+uses disjoint repositories or disjoint production files.
 
 The cleanup sequence is explicit:
 

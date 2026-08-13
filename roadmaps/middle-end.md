@@ -10,6 +10,9 @@ The middle end is target-independent and must not import ISA or ABI details.
 - add optimization and analysis passes that preserve the same contract.
 - provide a stable MIR importer/exporter for differential backend tests.
 
+The program-declaration SX bridge into the existing MIR witness is integrated
+and reuses the program-root boundary; it does not redefine `mir-v0`.
+
 The first target-independent function boundary, witness-bounded canonical MIR
 SX handoff, canonical frontend-v0 SX-to-MIR lowering, explicit program-root
 lowering, and canonical program-root-SX bridge are integrated and remain
