@@ -80,4 +80,6 @@ runner.call_model = content_only
 failed = runner.run_row(args, raw, ranges, residue, e0110, "module-name", [])
 assert failed["status"] == "hard_failure"
 assert failed["model_errors"]
+novel = runner.run_row(args, raw, ranges, residue, e0110, "scalar-int-variable", [])
+assert novel["oracle"] is None
 print("E0115 native local-tool loop passed")

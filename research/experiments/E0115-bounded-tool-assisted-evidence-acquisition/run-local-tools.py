@@ -188,6 +188,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=No
                 "source_bytes": episode.source_bytes,
                 "gate_rejections": gate_rejections,
                 "model_errors": model_errors,
+                "oracle": "hard_failure" if e0110.get(name) is not None else None,
                 "events": events,
             }
         emit(
@@ -214,6 +215,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=No
                 "source_bytes": episode.source_bytes,
                 "gate_rejections": gate_rejections,
                 "model_errors": model_errors,
+                "oracle": "hard_failure" if e0110.get(name) is not None else None,
                 "events": events,
             }
         call = calls[0]
@@ -232,6 +234,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=No
                 "source_bytes": episode.source_bytes,
                 "gate_rejections": gate_rejections,
                 "model_errors": model_errors,
+                "oracle": "hard_failure" if e0110.get(name) is not None else None,
                 "events": events,
             }
         emit({"turn": turn, "kind": "tool", "tool": tool_name, "arguments": arguments, "result": result})
@@ -257,6 +260,9 @@ def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=No
             continue
         expected = e0110.get(name)
         exact = bool(expected and episode.accepted and episode.accepted["byte_start"] == expected["byte_start"])
+        oracle = None
+        if expected is not None:
+            oracle = "exact" if exact else "wrong-accepted" if status == "accepted" else status
         return {
             "name": name,
             "status": status,
@@ -268,9 +274,10 @@ def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=No
             "gate_rejections": gate_rejections,
             "model_errors": model_errors,
             "accepted": episode.accepted,
-            "oracle": "exact" if exact else "wrong-accepted" if expected and status == "accepted" else status,
+            "oracle": oracle,
             "events": events,
         }
+    expected = e0110.get(name)
     return {
         "name": name,
         "status": "hard_failure",
@@ -281,6 +288,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=No
         "source_bytes": episode.source_bytes,
         "gate_rejections": gate_rejections,
         "model_errors": model_errors,
+        "oracle": "hard_failure" if expected is not None else None,
         "events": events,
     }
 
