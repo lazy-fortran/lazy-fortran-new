@@ -29,8 +29,9 @@ gate and must not be smuggled into syntax aliases; unresolved and disputed
 states remain representable. D0046's structure-index slice is integrated in
 `standard-new` at `ae2ee71`. Its output remains evidence rather than semantic
 facts. E0106 measured it against the pinned E0100/E0104 residue; no alias or
-relation promotion followed from the index. The next step is a stricter
-source-backed definition recognizer over the unique candidates.
+relation promotion followed from the index. D0048 now defines the strict
+source-form acceptance boundary. The next step is a stricter source-backed
+definition recognizer over the unique candidates.
 
 ## Exit and handoff
 

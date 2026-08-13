@@ -307,11 +307,12 @@ conflict does not block this milestone or the production parser.
 
 Core 0 constraints, definitions, relations, and fact dependencies have a
 measured resolution state. D0046's structure-first extractor and E0106's
-independent residue measurement are complete. The next gate is a stricter
-source-backed definition recognizer over the 60 unique candidate rows; the 66
-ambiguous and one unsupported row remain unresolved. Any remaining local
-holes are measured only through a separately authorized model experiment with
-independent formalization, provenance, and behavioral oracles.
+independent residue measurement are complete. D0048 defines the strict
+source-form acceptance boundary. The next gate is a stricter source-backed
+definition recognizer over the 60 unique candidate rows; the 66 ambiguous and
+one unsupported row remain unresolved. Any remaining local holes are measured
+only through a separately authorized model experiment with independent
+formalization, provenance, and behavioral oracles.
 
 ### M4. Generated frontend vertical slice (pending)
 

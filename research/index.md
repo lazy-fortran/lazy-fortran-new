@@ -178,6 +178,7 @@ Runs recorded: 152
 | [D0045](decisions/D0045-native-codex-subagents-for-parallel-slices.md) | amended by D0047 | Supersedes D0043 | Native Codex subagents for parallel slices |
 | [D0046](decisions/D0046-structure-first-semantic-residue.md) | accepted |  | Structure-first semantic residue adjudication |
 | [D0047](decisions/D0047-coordinator-lab-work-during-agent-waves.md) | accepted | Amends D0045 | Coordinator laboratory work during agent waves |
+| [D0048](decisions/D0048-strict-source-form-semantic-acceptance.md) | accepted |  | Strict source-form semantic acceptance |
 
 ### Proposed decisions
 
