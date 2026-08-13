@@ -28,8 +28,12 @@ rows from a @COMPOSITE_ELIGIBLE@-rule Core 0 denominator:
 @COMPOSITE_RESOLVED@ resolved, @COMPOSITE_DISPUTED@ disputed with both
 predicate candidates, and
 @COMPOSITE_UNRESOLVED@ unresolved. It derives @COMPOSITE_EDGES@ accepted fact
-edges with @COMPOSITE_GATE_VIOLATIONS@ adjudication-gate violations. The
-reported experiments use zero model calls.
+edges with @COMPOSITE_GATE_VIOLATIONS@ adjudication-gate violations. A
+bounded cross-clause adjudication then uses @PROHIBITION_WITNESS_ROWS@
+normative witnesses to resolve C734 to the @PROHIBITION_CANDIDATE@ predicate.
+its independent oracle difference is @PROHIBITION_DIFFERENCE@ and its
+behavioral controls agree across @PROHIBITION_COMPILERS@ compiler frontends.
+The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
 maintained source for provenance-preserving syntax projection, deterministic
@@ -348,6 +352,12 @@ E0087 composes those slices into one ledger with
 @COMPOSITE_EDGES@ accepted fact edges. The composite oracle reports
 @COMPOSITE_DIFFERENCE@ independent difference and
 @COMPOSITE_GATE_VIOLATIONS@ adjudication-gate violations.
+E0088 then adjudicates C734 using @PROHIBITION_WITNESS_ROWS@ independent
+normative prohibition witnesses. It selects the @PROHIBITION_CANDIDATE@
+predicate, retains source evidence for the target and witnesses, and reports
+@PROHIBITION_DIFFERENCE@ independent difference. Its two compiler frontends
+accept the ordinary control and reject @PROHIBITION_INVALID@ intrinsic-name
+controls. It emits no parser projections and makes no model calls.
 
 ## 5. Reproducibility and limitations
 
@@ -365,11 +375,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-E0087 is the current semantic boundary. The next experiment should either
-adjudicate the two C734 predicate candidates against an independently recorded
-normative witness or extend the fact vocabulary needed by C1588. The selected
-route must preserve the ledger's resolved, disputed, and unresolved states and
-must record a successor decision if the representation changes.
+E0088 resolves the C734 dispute under D0037 using three independent normative
+prohibition witnesses. The E0087 composite run remains immutable, so the next
+experiment should compose this successor state into a new ledger and verify
+that C734 contributes accepted dependency facts. It should then either extend
+the fact vocabulary needed by C1588 or generate the first semantic rule table,
+while preserving resolved, disputed and unresolved states.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -393,11 +404,13 @@ demonstrates generated parser structure and local implementation boundaries for
 the tested corpus. It does not demonstrate complete Fortran parsing.
 
 The semantic result is a composite ledger over @COMPOSITE_ELIGIBLE@ Core 0
-constraints. It contains @COMPOSITE_RESOLVED@ resolved,
-@COMPOSITE_DISPUTED@ disputed, and @COMPOSITE_UNRESOLVED@ unresolved records.
-Only resolved rows contribute the @COMPOSITE_EDGES@ accepted fact edges. The
-disputed candidates remain data for later adjudication. The selected unresolved
-row retains its source identity without a contiguous evidence witness.
+constraints. E0087 contains @COMPOSITE_RESOLVED@ resolved,
+@COMPOSITE_DISPUTED@ disputed, and @COMPOSITE_UNRESOLVED@ unresolved records,
+with @COMPOSITE_EDGES@ accepted fact edges. E0088 resolves the one disputed
+C734 row to @PROHIBITION_CANDIDATE@ from @PROHIBITION_WITNESS_ROWS@ normative
+witnesses, with @PROHIBITION_DIFFERENCE@ independent difference. A successor
+composition run is still required before that predicate enters the accepted
+dependency graph. The remaining unresolved rows retain their source identity.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -414,6 +427,6 @@ or a compiler. Those claims require separate corpora and experiments.
    <https://doi.org/10.1002/spe.423>.
 3. L. J. Kedward et al., "The State of Fortran," *Computing in Science &
    Engineering* (2022).
-4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0036 in this repository.
+4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0037 in this repository.
 5. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.

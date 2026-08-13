@@ -856,6 +856,27 @@ The following rows are extracted from the accepted projection run records.
 | Parser projection records | 0 |
 | Controlled mutation | observed_failure |
 
+## E0088 cross-clause normative prohibition adjudication
+
+| Quantity | Value |
+|---|---:|
+| Eligible Core 0 constraints | 287 |
+| Target rows | 1 |
+| Independent witness rows | 3 |
+| Source-hash references | 6 |
+| Target source-evidence matches | 3 |
+| Witness source-evidence matches | 3 |
+| Selected candidate | not-or |
+| Disputed rows remaining in this slice | 0 |
+| Independent oracle difference | 0 |
+| Behavioral compilers | 2 |
+| Valid controls accepted | 2 |
+| Intrinsic-name controls rejected | 4 |
+| Behavioral difference | 0 |
+| Parser projection records | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

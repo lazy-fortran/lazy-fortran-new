@@ -1,0 +1,41 @@
+name        = "E0088-R000001-cross-clause-prohibition-adjudication-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/f67d9b9"
+sha256      = "f3a28cb5b79ae3845e8d47febb9b15c12555228a29c1f7818f46831c73dc64dd"
+bytes       = 995
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of the bounded C734 cross-clause normative prohibition adjudication"
+path        = ".cache/runs/E0088/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+policy_sha256 = "a2866810b9182004bb0d62c972e4995ab471b11397c502e3c05f65579ebbf9a0"
+oracle_sha256 = "7e51046bee83d4466dcc6c9168adde4e960194922ccb3cc333c69e7c58596ec5"
+adjudication_sha256 = "a8ef54f05dcfa93e50d2a3b13c03c7e80d779016e3ae8c1fba4754c17d8aa4a0"
+witnesses_sha256 = "301e86b3eac0acd2a85f8802960d1e0bbf3ea87f4458c8160fbea5b76462da78"
+generator = "lazy-fortran-new E0088 cross-clause normative prohibition adjudication"
+generator_commit = "f67d9b9"
+checker = "research/experiments/E0088-can-independent-normative-prohibition-wi/analyse.sh"
+checker_commit = "f67d9b9"
+eligible_constraints = 287
+target_rows = 1
+witness_rows = 3
+source_hash_matches = 6
+target_source_evidence_matches = 3
+witness_source_evidence_matches = 3
+selected_candidate = "not-or"
+disputed_remaining = 0
+independent_oracle_difference = 0
+behavioral_compilers = 2
+behavioral_valid_accepts = 2
+behavioral_invalid_rejects = 4
+behavioral_difference = 0
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0088-can-independent-normative-prohibition-wi/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

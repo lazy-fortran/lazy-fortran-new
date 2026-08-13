@@ -558,8 +558,15 @@ evidence for the thesis.
       21 resolved, 1 disputed, 265 unresolved, 67 accepted fact-dependency
       edges, and zero adjudication-gate violations (E0087, regenerate with
       `research/experiments/E0087-can-one-composite-semantic-ledger-preser/analyse.sh`)
-- [ ] Adjudicate the disputed candidate or extend the deterministic fact
-      vocabulary before model escalation
+- [x] Adjudicate the disputed C734 candidate from three independent normative
+      prohibition witnesses: the `not-or` predicate, zero independent-oracle
+      difference, agreement across two compiler behavioral controls, and zero
+      model calls (E0088, regenerate with
+      `research/experiments/E0088-can-independent-normative-prohibition-wi/analyse.sh`,
+      [D0037](research/decisions/D0037-cross-clause-prohibition-normalization.md))
+- [ ] Compose the E0088 successor state into a new semantic ledger before
+      generating accepted dependency wiring. Retain C1588 unresolved until its
+      fact vocabulary and source witness are sufficient
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

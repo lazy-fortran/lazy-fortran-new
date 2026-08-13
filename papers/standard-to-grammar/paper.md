@@ -28,8 +28,12 @@ rows from a 287-rule Core 0 denominator:
 21 resolved, 1 disputed with both
 predicate candidates, and
 265 unresolved. It derives 67 accepted fact
-edges with 0 adjudication-gate violations. The
-reported experiments use zero model calls.
+edges with 0 adjudication-gate violations. A
+bounded cross-clause adjudication then uses 3
+normative witnesses to resolve C734 to the not-or predicate.
+its independent oracle difference is 0 and its
+behavioral controls agree across 2 compiler frontends.
+The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
 maintained source for provenance-preserving syntax projection, deterministic
@@ -348,6 +352,12 @@ E0087 composes those slices into one ledger with
 67 accepted fact edges. The composite oracle reports
 0 independent difference and
 0 adjudication-gate violations.
+E0088 then adjudicates C734 using 3 independent
+normative prohibition witnesses. It selects the not-or
+predicate, retains source evidence for the target and witnesses, and reports
+0 independent difference. Its two compiler frontends
+accept the ordinary control and reject 4 intrinsic-name
+controls. It emits no parser projections and makes no model calls.
 
 ## 5. Reproducibility and limitations
 
@@ -365,11 +375,12 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-E0087 is the current semantic boundary. The next experiment should either
-adjudicate the two C734 predicate candidates against an independently recorded
-normative witness or extend the fact vocabulary needed by C1588. The selected
-route must preserve the ledger's resolved, disputed, and unresolved states and
-must record a successor decision if the representation changes.
+E0088 resolves the C734 dispute under D0037 using three independent normative
+prohibition witnesses. The E0087 composite run remains immutable, so the next
+experiment should compose this successor state into a new ledger and verify
+that C734 contributes accepted dependency facts. It should then either extend
+the fact vocabulary needed by C1588 or generate the first semantic rule table,
+while preserving resolved, disputed and unresolved states.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -393,11 +404,13 @@ demonstrates generated parser structure and local implementation boundaries for
 the tested corpus. It does not demonstrate complete Fortran parsing.
 
 The semantic result is a composite ledger over 287 Core 0
-constraints. It contains 21 resolved,
-1 disputed, and 265 unresolved records.
-Only resolved rows contribute the 67 accepted fact edges. The
-disputed candidates remain data for later adjudication. The selected unresolved
-row retains its source identity without a contiguous evidence witness.
+constraints. E0087 contains 21 resolved,
+1 disputed, and 265 unresolved records,
+with 67 accepted fact edges. E0088 resolves the one disputed
+C734 row to not-or from 3 normative
+witnesses, with 0 independent difference. A successor
+composition run is still required before that predicate enters the accepted
+dependency graph. The remaining unresolved rows retain their source identity.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -414,7 +427,7 @@ or a compiler. Those claims require separate corpora and experiments.
    <https://doi.org/10.1002/spe.423>.
 3. L. J. Kedward et al., "The State of Fortran," *Computing in Science &
    Engineering* (2022).
-4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0036 in this repository.
+4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0037 in this repository.
 5. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
@@ -1274,6 +1287,27 @@ The following rows are extracted from the accepted projection run records.
 | Topological-order difference | 0 |
 | Independent normalization difference | 0 |
 | Parser projection records | 0 |
+| Controlled mutation | observed_failure |
+
+## E0088 cross-clause normative prohibition adjudication
+
+| Quantity | Value |
+|---|---:|
+| Eligible Core 0 constraints | 287 |
+| Target rows | 1 |
+| Independent witness rows | 3 |
+| Source-hash references | 6 |
+| Target source-evidence matches | 3 |
+| Witness source-evidence matches | 3 |
+| Selected candidate | not-or |
+| Disputed rows remaining in this slice | 0 |
+| Independent oracle difference | 0 |
+| Behavioral compilers | 2 |
+| Valid controls accepted | 2 |
+| Intrinsic-name controls rejected | 4 |
+| Behavioral difference | 0 |
+| Parser projection records | 0 |
+| Model calls | 0 |
 | Controlled mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison

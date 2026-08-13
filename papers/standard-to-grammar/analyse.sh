@@ -139,6 +139,7 @@ assert_run R000094 '.status == "accepted" and .experiment == "E0085" and .verifi
 
 assert_run R000095 '.status == "accepted" and .experiment == "E0086" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.policy_rows == 3 and .verification.resolved_constraints == 2 and .verification.disputed_constraints == 1 and .verification.unresolved_constraints == 284 and .verification.normalized_predicates == 2 and .verification.competing_candidate_records == 1 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 3 and .verification.required_fact_records == 6 and .verification.provided_fact_records == 2 and .verification.dependency_edges == 8 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000096 '.status == "accepted" and .experiment == "E0087" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_rows == 23 and .verification.resolved_constraints == 21 and .verification.disputed_constraints == 1 and .verification.unresolved_constraints == 265 and .verification.accepted_predicates == 21 and .verification.competing_candidate_records == 1 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 22 and .verification.independent_oracle_agreement == 0 and .verification.adjudication_gate_violations == 0 and .verification.required_fact_records == 46 and .verification.provided_fact_records == 21 and .verification.dependency_edges == 67 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000097 '.status == "accepted" and .experiment == "E0088" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.target_rows == 1 and .verification.witness_rows == 3 and .verification.source_hash_matches == 6 and .verification.target_source_evidence_matches == 3 and .verification.witness_source_evidence_matches == 3 and .verification.selected_candidate == "not-or" and .verification.disputed_remaining == 0 and .verification.independent_oracle_difference == 0 and .verification.behavioral_compilers == 2 and .verification.behavioral_valid_accepts == 2 and .verification.behavioral_invalid_rejects == 4 and .verification.behavioral_difference == 0 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -748,6 +749,22 @@ composite_order_difference=$(metric R000096 '.verification.topological_order_dif
 composite_normalization_difference=$(metric R000096 '.verification.independent_normalization_difference')
 composite_projections=$(metric R000096 '.verification.parser_projection_records')
 composite_negative=$(metric R000096 '.verification.negative_control')
+prohibition_eligible=$(metric R000097 '.verification.eligible_constraints')
+prohibition_target_rows=$(metric R000097 '.verification.target_rows')
+prohibition_witness_rows=$(metric R000097 '.verification.witness_rows')
+prohibition_hashes=$(metric R000097 '.verification.source_hash_matches')
+prohibition_target_evidence=$(metric R000097 '.verification.target_source_evidence_matches')
+prohibition_witness_evidence=$(metric R000097 '.verification.witness_source_evidence_matches')
+prohibition_candidate=$(metric R000097 '.verification.selected_candidate')
+prohibition_disputed_remaining=$(metric R000097 '.verification.disputed_remaining')
+prohibition_difference=$(metric R000097 '.verification.independent_oracle_difference')
+prohibition_compilers=$(metric R000097 '.verification.behavioral_compilers')
+prohibition_valid=$(metric R000097 '.verification.behavioral_valid_accepts')
+prohibition_invalid=$(metric R000097 '.verification.behavioral_invalid_rejects')
+prohibition_behavioral_difference=$(metric R000097 '.verification.behavioral_difference')
+prohibition_projections=$(metric R000097 '.verification.parser_projection_records')
+prohibition_model_calls=$(metric R000097 '.verification.model_calls')
+prohibition_negative=$(metric R000097 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1621,6 +1638,27 @@ EOF
 | Parser projection records | $composite_projections |
 | Controlled mutation | $composite_negative |
 
+## E0088 cross-clause normative prohibition adjudication
+
+| Quantity | Value |
+|---|---:|
+| Eligible Core 0 constraints | $prohibition_eligible |
+| Target rows | $prohibition_target_rows |
+| Independent witness rows | $prohibition_witness_rows |
+| Source-hash references | $prohibition_hashes |
+| Target source-evidence matches | $prohibition_target_evidence |
+| Witness source-evidence matches | $prohibition_witness_evidence |
+| Selected candidate | $prohibition_candidate |
+| Disputed rows remaining in this slice | $prohibition_disputed_remaining |
+| Independent oracle difference | $prohibition_difference |
+| Behavioral compilers | $prohibition_compilers |
+| Valid controls accepted | $prohibition_valid |
+| Intrinsic-name controls rejected | $prohibition_invalid |
+| Behavioral difference | $prohibition_behavioral_difference |
+| Parser projection records | $prohibition_projections |
+| Model calls | $prohibition_model_calls |
+| Controlled mutation | $prohibition_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2031,6 +2069,22 @@ rendered=${rendered//@COMPOSITE_ORDER_DIFFERENCE@/$composite_order_difference}
 rendered=${rendered//@COMPOSITE_NORMALIZATION_DIFFERENCE@/$composite_normalization_difference}
 rendered=${rendered//@COMPOSITE_PROJECTIONS@/$composite_projections}
 rendered=${rendered//@COMPOSITE_NEGATIVE@/$composite_negative}
+rendered=${rendered//@PROHIBITION_ELIGIBLE@/$prohibition_eligible}
+rendered=${rendered//@PROHIBITION_TARGET_ROWS@/$prohibition_target_rows}
+rendered=${rendered//@PROHIBITION_WITNESS_ROWS@/$prohibition_witness_rows}
+rendered=${rendered//@PROHIBITION_HASHES@/$prohibition_hashes}
+rendered=${rendered//@PROHIBITION_TARGET_EVIDENCE@/$prohibition_target_evidence}
+rendered=${rendered//@PROHIBITION_WITNESS_EVIDENCE@/$prohibition_witness_evidence}
+rendered=${rendered//@PROHIBITION_CANDIDATE@/$prohibition_candidate}
+rendered=${rendered//@PROHIBITION_DISPUTED_REMAINING@/$prohibition_disputed_remaining}
+rendered=${rendered//@PROHIBITION_DIFFERENCE@/$prohibition_difference}
+rendered=${rendered//@PROHIBITION_COMPILERS@/$prohibition_compilers}
+rendered=${rendered//@PROHIBITION_VALID@/$prohibition_valid}
+rendered=${rendered//@PROHIBITION_INVALID@/$prohibition_invalid}
+rendered=${rendered//@PROHIBITION_BEHAVIORAL_DIFFERENCE@/$prohibition_behavioral_difference}
+rendered=${rendered//@PROHIBITION_PROJECTIONS@/$prohibition_projections}
+rendered=${rendered//@PROHIBITION_MODEL_CALLS@/$prohibition_model_calls}
+rendered=${rendered//@PROHIBITION_NEGATIVE@/$prohibition_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}
