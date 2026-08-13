@@ -21,9 +21,11 @@ the current measurement. Regenerate it with
 - complete the StandardIR schema and generated visitor contract.
 - expose stable provenance-bearing records to the frontend lane.
 
-The first slice may proceed independently of backend source ingestion. Semantic
-formalization remains a separate lane within the laboratory's Phase 1 gate and
-must not be smuggled into syntax aliases.
+The first source-backed production API slice is integrated. The next slice may
+connect the existing PDF/JSONL projection to that API without changing the
+legacy interchange format. Semantic formalization remains a separate lane
+within the laboratory's Phase 1 gate and must not be smuggled into syntax
+aliases.
 
 ## Exit and handoff
 

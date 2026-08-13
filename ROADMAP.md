@@ -125,8 +125,11 @@ E0004 and E0005 now report their broad and contiguous extraction gates.
 E0089 records the current semantic successor ledger with 22 resolved and 265
 unresolved constraints. E0090--E0097 generate semantic rule rows, classify
 nine top-level forms, execute nested implication, not-or and finite-domain
-predicates, and emit structured source-linked diagnostics. The production
-`fortfront-new` repository has not been created yet. E0041 records
+predicates, and emit structured source-linked diagnostics. Wave B is now
+integrated: `standard-new` exposes source-backed StandardIR records,
+`fortfront-new` consumes caller-supplied syntax witnesses for a bounded
+program slice, `ffc-new` owns the target-independent MIR function boundary,
+and `fortback-new` imports a bounded `riscv-opcodes` witness. E0041 records
 the parser behavior comparison across LFortran, Flang and gfortran. Broad
 comparison adjudication, complete semantic coverage and the Phase 2 frontend
 gate remain open. Regenerate this snapshot's experiment values with
@@ -187,6 +190,11 @@ starts legalization, instruction selection and end-to-end validation only after
 their input contracts are integrated. The coordinator merges verified slices
 frequently and deletes their clean local and remote task branches after the
 merged commit is recorded.
+
+Wave B is complete. The next wave may independently extend the source-backed
+StandardIR handoff, lower the bounded frontend result into `mir-v0`, ingest the
+next machine-readable target source, and measure deterministic recovery of the
+181-name residue. These slices must not change a contract in place.
 
 ## Numbered milestones
 

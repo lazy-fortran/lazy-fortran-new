@@ -10,10 +10,12 @@ The middle end is target-independent and must not import ISA or ABI details.
 - add optimization and analysis passes that preserve the same contract.
 - provide a stable MIR importer/exporter for differential backend tests.
 
-The contract is central and additive. A backend worker may consume a pinned MIR
-fixture before the full middle end exists, but it must not redefine MIR in the
-backend repository. Target-specific legalization begins only after the MIR
-contract revision is integrated.
+The first target-independent function boundary is integrated and remains
+additive. The next slice may lower the bounded frontend result into that
+boundary. A backend worker may consume a pinned MIR fixture before the full
+middle end exists, but it must not redefine MIR in the backend repository.
+Target-specific legalization begins only after the MIR contract revision is
+integrated.
 
 ## Exit and handoff
 

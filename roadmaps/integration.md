@@ -20,6 +20,9 @@ abandoned slice remains in the run ledger with its last commit and failure
 state before cleanup. A later slice starts from the newly integrated commit,
 not from a stale long-lived task branch.
 
+Wave B is complete. The next wave starts only from its integrated `main`
+commits and uses disjoint repositories or disjoint production files.
+
 The cleanup sequence is explicit:
 
 ```sh
