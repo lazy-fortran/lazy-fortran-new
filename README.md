@@ -96,7 +96,9 @@ through one generic evaluator. E0093 emits six structured source-linked
 diagnostic records without selected-rule IDs in its generated operation. E0094
 classifies all 22 accepted predicate rows with one generic dispatcher covering
 9 top-level constructors. The production `fortfront-new` repository has not
-been created yet. Regenerate
+been created yet. E0095 executes one nested `implies` predicate with generic
+`and`, `present` and `eq` interpretation over three source witnesses.
+Regenerate
 paper numbers with `papers/standard-to-grammar/analyse.sh` and the laboratory
 index with `scripts/index.sh`.
 

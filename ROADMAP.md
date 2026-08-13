@@ -597,6 +597,10 @@ evidence for the thesis.
       9 top-level constructors, retaining 22 provenance matches and rejecting
       an unknown-constructor mutation (E0094, regenerate with
       `research/experiments/E0094-can-one-generic-predicate-dispatcher-cla/analyse.sh`)
+- [x] Execute a nested `implies` predicate with generic `and`, `present` and
+      `eq` interpretation over true, false and vacuous C721 witnesses, with
+      three gfortran agreements and source-linked results (E0095, regenerate
+      with `research/experiments/E0095-can-one-generic-evaluator-execute-a-nest/analyse.sh`)
 - [ ] Connect the generated diagnostic operation to the production
       `fortfront-new` frontend. Keep unresolved rows, including C1588, out of
       accepted semantic wiring

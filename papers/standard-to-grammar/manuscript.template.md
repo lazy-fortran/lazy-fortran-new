@@ -55,6 +55,10 @@ source-linked records with @DIAGNOSTIC_STANDARD_LINKS@ StandardIR links and
 One generic dispatcher classifies all @DISPATCHER_ACCEPTED@ accepted predicate
 rows across @DISPATCHER_CONSTRUCTORS@ top-level constructors, with
 @DISPATCHER_PROVENANCE@ provenance matches and no selected rule IDs.
+E0095 executes one nested `implies` predicate over @IMPLICATION_CASES@
+witnesses using @IMPLICATION_FORMS@ generic constructor forms. It accepts
+@IMPLICATION_ACCEPTS@ implication cases, rejects @IMPLICATION_REJECTS@, and
+agrees with gfortran on @IMPLICATION_GFORTRAN@ cases.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -413,6 +417,10 @@ E0094 classifies all @DISPATCHER_ACCEPTED@ accepted predicate rows across
 @DISPATCHER_CONSTRUCTORS@ top-level constructors with one generic dispatcher.
 It retains @DISPATCHER_PROVENANCE@ provenance matches and rejects an unknown
 constructor mutation.
+E0095 executes C721 through a generic nested evaluator over
+@IMPLICATION_FORMS@ constructors. It covers true, false and vacuous implication
+cases with @IMPLICATION_GFORTRAN@ gfortran agreements and
+@IMPLICATION_LINKED@ source-linked results.
 
 ## 5. Reproducibility and limitations
 
@@ -452,7 +460,9 @@ extend execution from the three measured constructors to the nested predicate
 forms, while keeping unresolved rows excluded.
 E0094 already classifies all @DISPATCHER_ACCEPTED@ accepted rows across
 @DISPATCHER_CONSTRUCTORS@ top-level constructors. Its dispatcher is structural
-coverage and does not execute those nested predicates.
+coverage and does not execute those nested predicates. E0095 executes one
+nested implication rule and leaves the other accepted predicate bodies as
+table data.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -505,6 +515,10 @@ E0094 classifies @DISPATCHER_ACCEPTED@ accepted predicate rows across
 @DISPATCHER_CONSTRUCTORS@ top-level constructors with
 @DISPATCHER_PROVENANCE@ provenance matches. This dispatcher result is
 structural coverage, not nested semantic evaluation.
+E0095 extends execution to @IMPLICATION_FORMS@ nested constructors over
+@IMPLICATION_CASES@ witnesses. It accepts @IMPLICATION_ACCEPTS@ implication
+cases, rejects @IMPLICATION_REJECTS@, and agrees with gfortran on
+@IMPLICATION_GFORTRAN@ cases. This remains a bounded evaluator slice.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,

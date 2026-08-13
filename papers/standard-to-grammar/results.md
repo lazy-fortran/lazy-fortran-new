@@ -1000,6 +1000,26 @@ The following rows are extracted from the accepted projection run records.
 | Model calls | 0 |
 | Controlled mutation | observed_failure |
 
+## E0095 generic nested implication evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Selected rule rows | 1 |
+| Generic constructor forms | 4 |
+| Independent target-oracle difference | 0 |
+| Provenance matches | 1 |
+| Fact matches | 1 |
+| Evaluator cases | 3 |
+| Implication cases accepted | 2 |
+| Implication cases rejected | 1 |
+| gfortran agreements | 3 |
+| Diagnostic rows | 1 |
+| Source-linked results | 3 |
+| Parser projections | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

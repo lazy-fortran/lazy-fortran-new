@@ -146,6 +146,7 @@ assert_run R000100 '.status == "accepted" and .experiment == "E0091" and .verifi
 assert_run R000101 '.status == "accepted" and .experiment == "E0092" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 3 and .verification.generic_constructor_forms == 3 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 3 and .verification.fact_matches == 3 and .verification.evaluator_cases == 6 and .verification.positive_checker_accepts == 3 and .verification.negative_checker_rejects == 3 and .verification.diagnostic_rows == 3 and .verification.gfortran_agreement == 6 and .verification.source_linked_results == 6 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000102 '.status == "accepted" and .experiment == "E0093" and .verification.zero_model_calls == true and .verification.predecessor_evaluator_cases == 6 and .verification.diagnostic_records == 6 and .verification.accepted_records == 3 and .verification.error_records == 3 and .verification.diagnostic_oracle_difference == 0 and .verification.standard_source_links == 6 and .verification.source_file_hashes == 6 and .verification.predicate_records == 6 and .verification.generic_operation_without_rule_ids == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000103 '.status == "accepted" and .experiment == "E0094" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.accepted_predicate_rows == 22 and .verification.dispatcher_rows == 22 and .verification.unique_top_level_constructors == 9 and .verification.dispatch_oracle_difference == 0 and .verification.provenance_matches == 22 and .verification.unsupported_constructor_rows == 0 and .verification.generated_dispatcher_without_rule_ids == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000104 '.status == "accepted" and .experiment == "E0095" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 1 and .verification.generic_constructor_forms == 4 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 1 and .verification.fact_matches == 1 and .verification.evaluator_cases == 3 and .verification.implication_accepts == 2 and .verification.implication_rejects == 1 and .verification.gfortran_agreement == 3 and .verification.diagnostic_rows == 1 and .verification.source_linked_results == 3 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -864,6 +865,21 @@ dispatcher_generic=$(metric R000103 '.verification.generated_dispatcher_without_
 dispatcher_projections=$(metric R000103 '.verification.parser_projection_records')
 dispatcher_model_calls=$(metric R000103 '.verification.model_calls')
 dispatcher_negative_control=$(metric R000103 '.verification.negative_control')
+implication_predecessor=$(metric R000104 '.verification.predecessor_rule_rows')
+implication_selected=$(metric R000104 '.verification.selected_rule_rows')
+implication_forms=$(metric R000104 '.verification.generic_constructor_forms')
+implication_difference=$(metric R000104 '.verification.target_oracle_difference')
+implication_provenance=$(metric R000104 '.verification.provenance_matches')
+implication_facts=$(metric R000104 '.verification.fact_matches')
+implication_cases=$(metric R000104 '.verification.evaluator_cases')
+implication_accepts=$(metric R000104 '.verification.implication_accepts')
+implication_rejects=$(metric R000104 '.verification.implication_rejects')
+implication_gfortran=$(metric R000104 '.verification.gfortran_agreement')
+implication_diagnostics=$(metric R000104 '.verification.diagnostic_rows')
+implication_linked=$(metric R000104 '.verification.source_linked_results')
+implication_projections=$(metric R000104 '.verification.parser_projection_records')
+implication_model_calls=$(metric R000104 '.verification.model_calls')
+implication_negative_control=$(metric R000104 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1881,6 +1897,26 @@ EOF
 | Model calls | $dispatcher_model_calls |
 | Controlled mutation | $dispatcher_negative_control |
 
+## E0095 generic nested implication evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | $implication_predecessor |
+| Selected rule rows | $implication_selected |
+| Generic constructor forms | $implication_forms |
+| Independent target-oracle difference | $implication_difference |
+| Provenance matches | $implication_provenance |
+| Fact matches | $implication_facts |
+| Evaluator cases | $implication_cases |
+| Implication cases accepted | $implication_accepts |
+| Implication cases rejected | $implication_rejects |
+| gfortran agreements | $implication_gfortran |
+| Diagnostic rows | $implication_diagnostics |
+| Source-linked results | $implication_linked |
+| Parser projections | $implication_projections |
+| Model calls | $implication_model_calls |
+| Controlled mutation | $implication_negative_control |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2400,6 +2436,21 @@ rendered=${rendered//@DISPATCHER_GENERIC@/$dispatcher_generic}
 rendered=${rendered//@DISPATCHER_PROJECTIONS@/$dispatcher_projections}
 rendered=${rendered//@DISPATCHER_MODEL_CALLS@/$dispatcher_model_calls}
 rendered=${rendered//@DISPATCHER_NEGATIVE_CONTROL@/$dispatcher_negative_control}
+rendered=${rendered//@IMPLICATION_PREDECESSOR@/$implication_predecessor}
+rendered=${rendered//@IMPLICATION_SELECTED@/$implication_selected}
+rendered=${rendered//@IMPLICATION_FORMS@/$implication_forms}
+rendered=${rendered//@IMPLICATION_DIFFERENCE@/$implication_difference}
+rendered=${rendered//@IMPLICATION_PROVENANCE@/$implication_provenance}
+rendered=${rendered//@IMPLICATION_FACTS@/$implication_facts}
+rendered=${rendered//@IMPLICATION_CASES@/$implication_cases}
+rendered=${rendered//@IMPLICATION_ACCEPTS@/$implication_accepts}
+rendered=${rendered//@IMPLICATION_REJECTS@/$implication_rejects}
+rendered=${rendered//@IMPLICATION_GFORTRAN@/$implication_gfortran}
+rendered=${rendered//@IMPLICATION_DIAGNOSTICS@/$implication_diagnostics}
+rendered=${rendered//@IMPLICATION_LINKED@/$implication_linked}
+rendered=${rendered//@IMPLICATION_PROJECTIONS@/$implication_projections}
+rendered=${rendered//@IMPLICATION_MODEL_CALLS@/$implication_model_calls}
+rendered=${rendered//@IMPLICATION_NEGATIVE_CONTROL@/$implication_negative_control}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

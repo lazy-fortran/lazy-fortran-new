@@ -55,6 +55,10 @@ source-linked records with 6 StandardIR links and
 One generic dispatcher classifies all 22 accepted predicate
 rows across 9 top-level constructors, with
 22 provenance matches and no selected rule IDs.
+E0095 executes one nested `implies` predicate over 3
+witnesses using 4 generic constructor forms. It accepts
+2 implication cases, rejects 1, and
+agrees with gfortran on 3 cases.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -413,6 +417,10 @@ E0094 classifies all 22 accepted predicate rows across
 9 top-level constructors with one generic dispatcher.
 It retains 22 provenance matches and rejects an unknown
 constructor mutation.
+E0095 executes C721 through a generic nested evaluator over
+4 constructors. It covers true, false and vacuous implication
+cases with 3 gfortran agreements and
+3 source-linked results.
 
 ## 5. Reproducibility and limitations
 
@@ -452,7 +460,9 @@ extend execution from the three measured constructors to the nested predicate
 forms, while keeping unresolved rows excluded.
 E0094 already classifies all 22 accepted rows across
 9 top-level constructors. Its dispatcher is structural
-coverage and does not execute those nested predicates.
+coverage and does not execute those nested predicates. E0095 executes one
+nested implication rule and leaves the other accepted predicate bodies as
+table data.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -505,6 +515,10 @@ E0094 classifies 22 accepted predicate rows across
 9 top-level constructors with
 22 provenance matches. This dispatcher result is
 structural coverage, not nested semantic evaluation.
+E0095 extends execution to 4 nested constructors over
+3 witnesses. It accepts 2 implication
+cases, rejects 1, and agrees with gfortran on
+3 cases. This remains a bounded evaluator slice.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -1523,6 +1537,26 @@ The following rows are extracted from the accepted projection run records.
 | Provenance matches | 22 |
 | Unsupported constructor rows | 0 |
 | Generated dispatcher without selected rule IDs | 1 |
+| Parser projections | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
+## E0095 generic nested implication evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Selected rule rows | 1 |
+| Generic constructor forms | 4 |
+| Independent target-oracle difference | 0 |
+| Provenance matches | 1 |
+| Fact matches | 1 |
+| Evaluator cases | 3 |
+| Implication cases accepted | 2 |
+| Implication cases rejected | 1 |
+| gfortran agreements | 3 |
+| Diagnostic rows | 1 |
+| Source-linked results | 3 |
 | Parser projections | 0 |
 | Model calls | 0 |
 | Controlled mutation | observed_failure |
