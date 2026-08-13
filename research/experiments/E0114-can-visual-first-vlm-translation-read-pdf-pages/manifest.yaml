@@ -1,0 +1,59 @@
+id: "E0114"
+title: "Visual-first VLM translation of mechanically solved PDF rules"
+question: >
+  Can a vision-capable Qwen or Gemma checkpoint translate a rule directly
+  from its rendered normative PDF page before canonical text processing?
+status: running          # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: ""
+
+repos:
+  lazy-fortran-new: "da9d86e"
+  standard-new: "ae2ee71"
+
+inputs:
+  standard: j3-24-007
+  pdf: .cache/j3-24-007.pdf
+  e0110_oracle: .cache/runs/E0110/R000001/accepted-definitions.tsv
+  page_renderer: pdftoppm
+
+denominator: >
+  The six E0110 strict-definition rows, frozen before model execution. Each
+  receives the raw rendered PDF page containing its mechanically accepted
+  rule and the candidate name, with no canonical text, OCR or retrieved
+  source window.
+
+fixed_protocol:
+  image_dpi: 200
+  output: name-decision-relation-target
+  max_attempts_per_row: 3
+  repair_attempts: 2
+  repair_feedback: generic-gate-failure-only
+  whitespace_normalization: collapse-and-strip
+
+metrics:
+  - oracle_rows
+  - exact_target_matches
+  - normalized_target_matches
+  - relation_matches
+  - abstentions
+  - hard_failures
+  - model_errors
+  - total_model_calls
+  - repair_iterations
+  - wall_s_total
+  - inference_wall_s
+
+independent_oracle: >
+  E0110 supplies the expected relation and canonical source line. The gate
+  derives the expected target from that line and compares the visual response
+  after declared whitespace normalization. The PDF image is never treated as
+  provenance without this comparison.
+
+falsifiable_by: >
+  Any text/OCR leakage into the prompt, omitted oracle row, uncounted call,
+  unbounded repair, or target accepted without comparison to E0110 falsifies
+  the visual-first protocol.
+
+analysis: research/experiments/E0114-can-visual-first-vlm-translation-read-pdf-pages/prepare-pages.py
+runner: research/experiments/E0114-can-visual-first-vlm-translation-read-pdf-pages/run-vlm.py

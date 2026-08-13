@@ -37,6 +37,11 @@ def parser():
     result.add_argument("--e0110", required=True, help="E0110 classifications.tsv")
     result.add_argument("--prompts", help="prepared prompts, required by pointer mode")
     result.add_argument("--pointer-mode", action="store_true")
+    result.add_argument(
+        "--pointer-only",
+        action="store_true",
+        help="derive target and citation from the selected canonical window",
+    )
     result.add_argument("--outdir", required=True, help="ignored-cache validation output")
     result.add_argument("--errors", help="optional model-errors.jsonl emitted by run-local.py")
     result.add_argument("--source-sha256", default=DEFAULT_SOURCE_SHA256)
@@ -80,7 +85,9 @@ def read_prompt_windows(path):
     return result
 
 
-def validate_pointer_response(item, expected_names, prompt_windows, raw, ranges, source_hash):
+def validate_pointer_response(
+    item, expected_names, prompt_windows, raw, ranges, source_hash, pointer_only=False
+):
     if not isinstance(item, dict):
         raise InputError("response line is not an object")
     name = item.get("name")
@@ -91,12 +98,19 @@ def validate_pointer_response(item, expected_names, prompt_windows, raw, ranges,
         if set(item) != {"name", "decision"}:
             raise InputError(f"{name}: abstain must not carry proposal fields")
         return None
-    if decision != "proposal" or set(item) != {"name", "decision", "relation", "target", "window"}:
+    expected_fields = {"name", "decision", "relation", "window"}
+    if not pointer_only:
+        expected_fields.add("target")
+    if decision != "proposal" or set(item) != expected_fields:
         raise InputError(f"{name}: pointer proposal fields are not exact")
     relation = item["relation"]
     if relation not in {"is", "is-one-of", "means", "consists-of"}:
         raise InputError(f"{name}: relation is not allowed")
-    if not isinstance(item["target"], str) or not item["target"].strip() or len(item["target"]) > 512:
+    if not pointer_only and (
+        not isinstance(item["target"], str)
+        or not item["target"].strip()
+        or len(item["target"]) > 512
+    ):
         raise InputError(f"{name}: target is empty or too long")
     window_index = item["window"]
     if not isinstance(window_index, int) or isinstance(window_index, bool):
@@ -120,11 +134,12 @@ def validate_pointer_response(item, expected_names, prompt_windows, raw, ranges,
         raise InputError(f"{name}: supplied window differs from canonical bytes")
     normalized = normalized_name(name)
     escaped = re.escape(normalized.casefold())
+    prefix = rf"^\s*(?:(?:[0-9]+(?:\.[0-9]+)*|r[0-9]+)\s+)*(?:(?:a|an|the)\s+)?"
     patterns = {
-        "is-one-of": rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+is\s+one\s+of\b",
-        "is": rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+is\b(?!\s+one\s+of\b)",
-        "means": rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+means\b",
-        "consists-of": rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+consists\s+of\b",
+        "is-one-of": rf"{prefix}{escaped}\s+is\s+one\s+of\b",
+        "is": rf"{prefix}{escaped}\s+is\b(?!\s+one\s+of\b)",
+        "means": rf"{prefix}{escaped}\s+means\b",
+        "consists-of": rf"{prefix}{escaped}\s+consists\s+of\b",
     }
     matches = list(re.finditer(patterns[relation], source_text.casefold(), re.MULTILINE))
     if len(matches) != 1:
@@ -138,13 +153,18 @@ def validate_pointer_response(item, expected_names, prompt_windows, raw, ranges,
     citation_end = start + len(source_text[:line_end].encode("utf-8"))
     citation = raw[citation_start:citation_end]
     page = containing_page(ranges, citation_start, len(citation))
+    target = source_text[match.end() : line_end].strip()
+    if not target:
+        raise InputError(f"{name}: selected definition has no target text")
+    if not pointer_only:
+        target = item["target"]
     return {
         "normalized": normalized,
         "relation": relation,
         "page": page,
         "byte_start": citation_start,
         "byte_length": len(citation),
-        "target": item["target"],
+        "target": target,
         "name": name,
         "citation": {
             "page": page,
@@ -267,6 +287,7 @@ def read_e0110(path, raw, ranges, source_hash):
                 normalized = row.get("normalized") or normalized_name(name)
                 accepted.append(
                     {
+                        "name": name,
                         "normalized": normalized,
                         "relation": relation,
                         "page": page,
@@ -312,7 +333,8 @@ def main():
         ranges = load_page_index(args.pages, len(raw))
         residue = load_residue(args.residue)
         expected_names = {row["name"] for row in residue}
-        prompt_windows = read_prompt_windows(args.prompts) if args.pointer_mode else None
+        pointer_validation = args.pointer_mode or args.pointer_only
+        prompt_windows = read_prompt_windows(args.prompts) if pointer_validation else None
         if prompt_windows is not None and set(prompt_windows) != expected_names:
             raise InputError("pointer prompt names differ from the residue denominator")
         response_items = read_jsonl(args.responses)
@@ -338,8 +360,9 @@ def main():
                         raw,
                         ranges,
                         args.source_sha256,
+                        pointer_only=args.pointer_only,
                     )
-                    if args.pointer_mode
+                    if pointer_validation
                     else validate_response(item, expected_names, raw, ranges, args.source_sha256)
                 )
             except InputError as exc:

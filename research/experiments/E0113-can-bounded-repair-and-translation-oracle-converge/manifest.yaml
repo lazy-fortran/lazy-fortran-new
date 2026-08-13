@@ -1,0 +1,134 @@
+id: "E0113"
+title: "Full-document retrieval, bounded gate repair and solved-translation oracle"
+question: >
+  Does deterministic full-document retrieval plus at most two repairs let
+  local, cloud and Codex Luna models safely identify source-backed residue,
+  and how accurately do they translate definitions already solved mechanically?
+status: running          # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: ""
+
+repos:
+  lazy-fortran-new: "da9d86e"
+  standard-new: "ae2ee71"
+
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  e0106_residue: .cache/runs/E0106/R000001/residue-classifications.tsv
+  e0110_output: .cache/runs/E0110/R000001/classifications.tsv
+  e0110_oracle: .cache/runs/E0110/R000001/accepted-definitions.tsv
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  prompt_builder: research/experiments/E0111-can-qwen3-5-2b-propose-source-cited-loca/prepare-prompts.py
+  runner: research/experiments/E0111-can-qwen3-5-2b-propose-source-cited-loca/run-iterative.py
+
+ladder:
+  - candidate: qwen35-2b
+    family: Qwen
+    model: Qwen/Qwen3.5-2B
+    active_params_b: 2
+  - candidate: qwen35-4b
+    family: Qwen
+    model: Qwen/Qwen3.5-4B
+    active_params_b: 4
+  - candidate: qwen35-9b
+    family: Qwen
+    model: Qwen/Qwen3.5-9B
+    active_params_b: 9
+  - candidate: qwen36-27b
+    family: Qwen
+    model: Qwen/Qwen3.6-27B
+    active_params_b: 27
+  - candidate: qwen36-35b-a3b
+    family: Qwen
+    model: Qwen/Qwen3.6-35B-A3B
+    active_params_b: 3
+    nominal_params_b: 35
+  - candidate: gemma4-e2b
+    family: Gemma
+    model: google/gemma-4-E2B-it
+    active_params_b: 2
+  - candidate: gemma4-e4b
+    family: Gemma
+    model: google/gemma-4-E4B-it
+    active_params_b: 4
+  - candidate: gemma4-26b-a4b
+    family: Gemma
+    model: google/gemma-4-26B-A4B-it
+    active_params_b: 4
+    nominal_params_b: 26
+  - candidate: gemma4-31b
+    family: Gemma
+    model: google/gemma-4-31B-it
+    active_params_b: 31
+  - candidate: deepseek-v4-flash
+    family: DeepSeek
+    model: deepseek-v4-flash
+    provider: official-cloud-api
+  - candidate: gpt56-luna-codex-cli
+    family: Codex
+    model: gpt-5.6-luna
+    provider: codex-exec-cli
+
+fixed_protocol:
+  retrieval: complete-canonical-text-generic-subject-definition-forms
+  evidence_window_bytes: 768
+  max_windows_per_row: 8
+  output: pointer-only
+  max_attempts_per_row: 3
+  repair_attempts: 2
+  seed: 1101
+  temperature: 0
+  top_p: 1
+  reasoning: off-baseline
+  abstention: valid-green-terminal
+
+metrics:
+  - residue_rows
+  - accepted
+  - abstentions
+  - hard_failures
+  - gate_green
+  - gate_rejections
+  - model_errors
+  - total_model_calls
+  - repair_iterations
+  - wall_s_total
+  - setup_wall_s
+  - inference_wall_s
+  - overlap_agreements
+  - overlap_disagreements
+  - novel_accepted
+  - oracle_rows
+  - oracle_exact_matches
+  - oracle_wrong_accepts
+  - oracle_abstentions
+  - oracle_hard_failures
+  - oracle_translation_accuracy
+
+denominator: >
+  All 127 E0106 residue rows. The six E0110 strict definitions are the
+  frozen solved-translation oracle; the remaining 121 rows measure discovery.
+  No row or failed attempt is dropped.
+
+independent_oracle: >
+  The deterministic gate recomputes canonical bytes, page containment,
+  subject-position relation and source span from the selected window. E0110
+  supplies the expected key for each solved row. The model cannot emit the
+  target or citation in pointer-only mode.
+
+reliability_gate: >
+  A row is green only when it ends in accepted or explicit abstain. A run
+  reports hard failure when a row remains malformed, rejected or errored
+  after three calls. Translation quality is exact E0110-key agreement on all
+  six oracle rows; discovery quality is separately reported on the other 121.
+
+falsifiable_by: >
+  Any source-span acceptance outside canonical bytes, wrong-page acceptance,
+  omitted denominator row, uncounted failed call, unbounded repair, or
+  disagreement between the independent gate and E0110 oracle falsifies the
+  protocol claim.
+
+analysis: research/experiments/E0111-can-qwen3-5-2b-propose-source-cited-loca/run-iterative.py
+report: research/experiments/E0113-can-bounded-repair-and-translation-oracle-converge/REPORT.md

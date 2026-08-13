@@ -47,3 +47,16 @@ python3 "$exp/validate-responses.py" "$tmp/pointer-responses.jsonl" \
     --prompts "$tmp/pointer-prompts/prompts.jsonl" --pointer-mode \
     --outdir "$tmp/pointer-validated"
 echo "E0111 deterministic pointer-citation gate passed"
+
+python3 "$exp/prepare-prompts.py" --outdir "$tmp/pointer-only-prompts" \
+    --e0110 "$root/.cache/runs/E0110/R000001/classifications.tsv" \
+    --pointer-only --full-retrieval --window-bytes 768 --max-windows 8
+python3 "$exp/mock-responses.py" "$tmp/pointer-only-prompts/prompts.jsonl" "$tmp/pointer-only-responses.jsonl" \
+    --e0110 "$root/.cache/runs/E0110/R000001/classifications.tsv" \
+    --canonical "$root/.cache/runs/E0001/R000003/j3-24-007.canonical.txt" --pointer-only
+python3 "$exp/validate-responses.py" "$tmp/pointer-only-responses.jsonl" \
+    --e0110 "$root/.cache/runs/E0110/R000001/classifications.tsv" \
+    --prompts "$tmp/pointer-only-prompts/prompts.jsonl" --pointer-only \
+    --outdir "$tmp/pointer-only-validated"
+echo "E0113 full-retrieval pointer-only gate passed"
+python3 "$exp/test-iterative.py"

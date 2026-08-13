@@ -1,7 +1,7 @@
 # D0051. Deterministic citation reconstruction for model proposals
 
 Date: 2026-08-13
-Status: accepted
+Status: amended by D0052
 Amends: D0050
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 

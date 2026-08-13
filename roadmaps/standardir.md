@@ -35,8 +35,10 @@ bounded normalization pass (E0110) with liberal discovery and strict
 acceptance. E0111 is retained as a 2B pilot whose overlap windows were
 incomplete. E0112 supplies the corrected ordered Qwen/Gemma convergence
 ladder and uses deterministic citation reconstruction from a model-selected
-evidence window; neither experiment may promote semantic facts automatically
-or add parser wiring.
+evidence window. D0052/D0053 now define E0113's full-document retrieval,
+bounded repair, total timing and six-row solved-translation oracle, plus
+E0114's separate visual-first PDF-page control. Neither experiment may
+promote semantic facts automatically or add parser wiring.
 
 ## Exit and handoff
 

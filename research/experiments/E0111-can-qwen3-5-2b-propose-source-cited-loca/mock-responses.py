@@ -17,6 +17,7 @@ def main():
     parser.add_argument("--e0110", help="optional E0110 classifications.tsv for one positive fixture")
     parser.add_argument("--canonical", help="canonical source used by the positive fixture")
     parser.add_argument("--pointer-mode", action="store_true")
+    parser.add_argument("--pointer-only", action="store_true")
     args = parser.parse_args()
     try:
         prompts = []
@@ -54,7 +55,7 @@ def main():
         for item in prompts:
             windows = item.get("windows", [])
             if not proposal_written and positive and item["name"] == positive["name"]:
-                if args.pointer_mode:
+                if args.pointer_mode or args.pointer_only:
                     selected = next(
                         (index for index, window in enumerate(windows, 1)
                          if window["byte_start"] <= positive["citation"]["byte_start"]
@@ -64,13 +65,15 @@ def main():
                     )
                     if selected is None:
                         raise InputError("positive fixture has no covering pointer window")
-                    responses.append({
+                    response = {
                         "name": positive["name"],
                         "decision": "proposal",
                         "relation": positive["relation"],
-                        "target": positive["target"],
                         "window": selected,
-                    })
+                    }
+                    if not args.pointer_only:
+                        response["target"] = positive["target"]
+                    responses.append(response)
                 else:
                     responses.append(positive)
                 proposal_written = True
@@ -88,7 +91,7 @@ def main():
                     ("consists-of", r"consists\s+of"),
                 ):
                     if re.search(
-                        rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+{phrase}\b",
+                        rf"^\s*(?:(?:[0-9]+(?:\.[0-9]+)*|r[0-9]+)\s+)*(?:(?:a|an|the)\s+)?{escaped}\s+{phrase}\b",
                         window["text"].casefold(),
                         re.MULTILINE,
                     ):
@@ -98,23 +101,25 @@ def main():
                     break
             if not proposal_written and match:
                 window, relation = match
-                responses.append(
-                    {
-                        "name": item["name"],
-                        "decision": "proposal",
-                        "relation": relation,
-                        "target": item["name"],
-                        **({"window": windows.index(window) + 1} if args.pointer_mode else {
-                            "citation": {
-                                "page": window["page"],
-                                "byte_start": window["byte_start"],
-                                "byte_length": window["byte_length"],
-                                "source_sha256": item["source_sha256"],
-                                "text": window["text"],
-                            }
-                        }),
+                response = {
+                    "name": item["name"],
+                    "decision": "proposal",
+                    "relation": relation,
+                }
+                if args.pointer_mode or args.pointer_only:
+                    response["window"] = windows.index(window) + 1
+                    if not args.pointer_only:
+                        response["target"] = item["name"]
+                else:
+                    response["target"] = item["name"]
+                    response["citation"] = {
+                        "page": window["page"],
+                        "byte_start": window["byte_start"],
+                        "byte_length": window["byte_length"],
+                        "source_sha256": item["source_sha256"],
+                        "text": window["text"],
                     }
-                )
+                responses.append(response)
                 proposal_written = True
             else:
                 responses.append({"name": item["name"], "decision": "abstain"})

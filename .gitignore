@@ -4,6 +4,7 @@
 .cache/
 *.rejected
 *.part
+__pycache__/
 
 # Sibling checkouts, if anyone clones them inside this tree instead of beside it
 /standard-new/

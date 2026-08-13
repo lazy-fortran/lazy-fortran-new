@@ -38,6 +38,7 @@ def parser():
     result.add_argument("--source-file", default="unspecified")
     result.add_argument("--model-sha256", default="unspecified")
     result.add_argument("--pointer-mode", action="store_true")
+    result.add_argument("--pointer-only", action="store_true")
     result.add_argument(
         "--api-key-env",
         default="",
@@ -95,8 +96,8 @@ def call_api(url, payload, timeout, api_key_env):
         raise InputError(f"llama.cpp API request failed: {exc}") from exc
 
 
-def response_format(name, pointer_mode, window_count):
-    if not pointer_mode:
+def response_format(name, pointer_mode, window_count, pointer_only=False):
+    if not pointer_mode and not pointer_only:
         return {"type": "json_object"}
     allowed_windows = list(range(1, window_count + 1)) or [0]
     schema = {
@@ -109,11 +110,12 @@ def response_format(name, pointer_mode, window_count):
                 "type": "string",
                 "enum": ["is", "is-one-of", "means", "consists-of"],
             },
-            "target": {"type": "string", "maxLength": 512},
             "window": {"type": "integer", "enum": allowed_windows},
         },
         "required": ["name", "decision"],
     }
+    if not pointer_only:
+        schema["properties"]["target"] = {"type": "string", "maxLength": 512}
     return {
         "type": "json_schema",
         "json_schema": {"name": "e0111_proposal", "strict": True, "schema": schema},
@@ -140,7 +142,10 @@ def main():
                 "max_tokens": args.max_tokens,
                 "stream": False,
                 "response_format": response_format(
-                    item["name"], args.pointer_mode, len(item.get("windows", []))
+                    item["name"],
+                    args.pointer_mode,
+                    len(item.get("windows", [])),
+                    args.pointer_only,
                 ),
             }
             if args.deepseek_cloud:
@@ -189,6 +194,7 @@ def main():
                     "source_file": args.source_file,
                     "model_sha256": args.model_sha256,
                     "pointer_mode": args.pointer_mode,
+                    "pointer_only": args.pointer_only,
                     "api_key_env": args.api_key_env,
                     "deepseek_cloud": args.deepseek_cloud,
                     "requests": len(responses),

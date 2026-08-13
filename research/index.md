@@ -114,6 +114,8 @@ Runs recorded: 153
 | E0110 | running | 0 | Can one bounded Fortran source normalizer mechanically resolve the final |
 | E0111 | running | 0 | Can Qwen3.5-2B propose source-cited local semantic facts for the E0106 |
 | E0112 | reported | 1 | Which local model and quantization is the least measured-cost configuration |
+| E0113 | running | 0 | Does deterministic full-document retrieval plus at most two repairs let |
+| E0114 | running | 0 | Can a vision-capable Qwen or Gemma checkpoint translate a rule directly |
 
 ## Run status
 
@@ -185,7 +187,9 @@ Runs recorded: 153
 | [D0048](decisions/D0048-strict-source-form-semantic-acceptance.md) | accepted |  | Strict source-form semantic acceptance |
 | [D0049](decisions/D0049-liberal-mechanical-discovery-and-small-model-overlap.md) | amended by D0050 |  | Liberal mechanical discovery with small-model overlap |
 | [D0050](decisions/D0050-ordered-local-model-ladder-and-cheapest-reliable-winner.md) | amended by D0051 | Amends D0049 | Ordered local-model ladder and cheapest reliable winner |
-| [D0051](decisions/D0051-deterministic-citation-reconstruction-for-model-proposals.md) | accepted | Amends D0050 | Deterministic citation reconstruction for model proposals |
+| [D0051](decisions/D0051-deterministic-citation-reconstruction-for-model-proposals.md) | amended by D0052 | Amends D0050 | Deterministic citation reconstruction for model proposals |
+| [D0052](decisions/D0052-full-document-retrieval-and-bounded-gate-repair.md) | amended by D0053 | Amends D0051 | Full-document retrieval with bounded deterministic gate repair |
+| [D0053](decisions/D0053-translation-oracle-and-visual-first-controls.md) | accepted | Amends D0052 | Solved-translation oracle and visual-first controls |
 
 ### Proposed decisions
 

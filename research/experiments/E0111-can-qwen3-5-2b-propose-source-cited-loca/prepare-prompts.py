@@ -17,6 +17,7 @@ from e0111_common import (
     normalized_name,
     utf8_window,
 )
+from e0111_retrieval import retrieve
 
 
 DEFAULT_MODEL = "Qwen/Qwen3.5-2B"
@@ -60,6 +61,16 @@ def parser():
     result.add_argument("--window-bytes", type=int, default=DEFAULT_WINDOW_BYTES)
     result.add_argument("--max-windows", type=int, default=0)
     result.add_argument("--pointer-mode", action="store_true")
+    result.add_argument(
+        "--pointer-only",
+        action="store_true",
+        help="return only a source-window pointer; the gate derives target/citation",
+    )
+    result.add_argument(
+        "--full-retrieval",
+        action="store_true",
+        help="retrieve candidate definition windows from the complete canonical text",
+    )
     return result
 
 
@@ -71,6 +82,33 @@ def prompt_for(row, windows, settings):
             "{text}\nEND WINDOW".format(index=index, **window)
         )
     source_text = "\n\n".join(source) if source else "NO SOURCE WINDOW WAS FOUND."
+    if settings["pointer_only"]:
+        allowed_windows = ", ".join(str(index) for index in range(1, len(windows) + 1))
+        window_rule = (
+            f"There are exactly {len(windows)} supplied window(s); window must be "
+            f"one of: {allowed_windows or 'none'}."
+        )
+        return f"""Read only the source evidence below.
+
+Candidate residue name: {row["name"]}
+Normalized candidate token: {normalized_name(row["name"])}
+
+If exactly one supplied window contains the normalized candidate as the
+subject of an exact definition using `is`, `is-one-of`, `means`, or
+`consists-of`, return a proposal. {window_rule} Select the 1-based window
+index and the matching relation. The deterministic gate will derive the
+target and citation from that window. Otherwise return abstain. Do not use
+memory or any source outside the windows.
+
+Return exactly one JSON object with no Markdown and no extra keys.
+Proposal shape:
+{{"name":"{row["name"]}","decision":"proposal","relation":"is","window":1}}
+Abstention shape:
+{{"name":"{row["name"]}","decision":"abstain"}}
+
+{source_text}
+
+Final output: one JSON object, with name exactly {row["name"]}."""
     if settings["pointer_mode"]:
         allowed_windows = ", ".join(str(index) for index in range(1, len(windows) + 1))
         window_rule = (
@@ -163,12 +201,15 @@ def main():
             raise InputError("temperature must be between 0 and 2")
         if not 0.0 < args.top_p <= 1.0:
             raise InputError("top-p must be greater than 0 and at most 1")
-        windows_by_name = {}
+        e0110_windows = {}
+        for name, (page, byte_start) in e0110.items():
+            e0110_windows.setdefault(name, []).append(
+                utf8_window(raw, page, byte_start, ranges, args.window_bytes)
+            )
+        base_windows_by_name = {}
         for row in residue:
             windows = []
-            if row["name"] in e0110:
-                page, byte_start = e0110[row["name"]]
-                windows.append(utf8_window(raw, page, byte_start, ranges, args.window_bytes))
+            windows.extend(e0110_windows.get(row["name"], []))
             for anchor in row["matching"]:
                 page = containing_page(ranges, anchor["byte_start"], 1)
                 if page != anchor["page"]:
@@ -186,7 +227,7 @@ def main():
             selected = list(unique.values())
             if args.max_windows:
                 selected = selected[:args.max_windows]
-            windows_by_name[row["name"]] = selected
+            base_windows_by_name[row["name"]] = selected
         outdir = Path(args.outdir)
         outdir.mkdir(parents=True, exist_ok=True)
         settings = {
@@ -204,10 +245,20 @@ def main():
             "window_bytes": args.window_bytes,
             "max_windows": args.max_windows,
             "e0110_overlap_windows": len(e0110),
-            "pointer_mode": args.pointer_mode,
+            "pointer_mode": args.pointer_mode or args.pointer_only,
+            "pointer_only": args.pointer_only,
+            "full_retrieval": args.full_retrieval,
         }
+        retrieved = (
+            retrieve(raw, ranges, residue, e0110_windows, args.window_bytes)
+            if args.full_retrieval
+            else base_windows_by_name
+        )
         prompts = []
         for row_number, row in enumerate(residue, 1):
+            selected_windows = retrieved[row["name"]]
+            if args.max_windows:
+                selected_windows = selected_windows[: args.max_windows]
             prompts.append(
                 {
                     "row": row_number,
@@ -215,9 +266,10 @@ def main():
                     "classification": row["new_class"],
                     "matching_records": row["matching_records"],
                     "source_sha256": args.source_sha256,
-                    "windows": windows_by_name[row["name"]],
-                    "pointer_mode": args.pointer_mode,
-                    "prompt": prompt_for(row, windows_by_name[row["name"]], settings),
+                    "windows": selected_windows,
+                    "pointer_mode": args.pointer_mode or args.pointer_only,
+                    "pointer_only": args.pointer_only,
+                    "prompt": prompt_for(row, selected_windows, settings),
                 }
             )
         jsonl_write(outdir / "prompts.jsonl", prompts)

@@ -315,9 +315,16 @@ acceptance, and zero candidate-specific branches. E0111 is retained as a
 predeclared Qwen/Gemma ladder against the same 127 rows, using deterministic
 citation reconstruction from a model-selected evidence window. It has Q6/Q8
 controls for smaller models, thinking only after non-thinking failure,
-two-attempt repeatability, and no automatic promotions. M3 exits only after
-the ladder reports either a reliable measured-cost winner or a complete
-failure state.
+two-attempt repeatability, and no automatic promotions. E0113 replaces that
+terminal comparison with full-document deterministic retrieval, a three-call
+bounded gate/repair protocol, explicit total/setup/inference timing, and a
+six-row E0110 solved-translation oracle. Its discovery metric excludes those
+six oracle rows; its translation metric is exact E0110-key agreement on all
+six. E0114 separately tests Qwen and Gemma vision-capable checkpoints directly
+on rendered PDF pages before canonical text processing. Neither experiment
+promotes semantic facts automatically. M3 exits only after the text protocol
+reports its complete state and solved-translation quality; visual results
+remain a separate control.
 
 ### M4. Generated frontend vertical slice (pending)
 
