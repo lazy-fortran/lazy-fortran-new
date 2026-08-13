@@ -22,6 +22,7 @@ inputs:
   tool_schema: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/tool-schema.json
   harness: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/e0115_harness.py
   runner: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/run-local-tools.py
+  summarizer: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/summarize.py
   test: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/test.sh
   fixed_window_control: E0112
   full_retrieval_control: E0113

@@ -338,6 +338,10 @@ false negative in E0115, not a green result; D0057 bounds each row at twelve
 turns after the provisional 17-row attempt exposed an expensive non-terminating
 tool loop. Two provisional partial cells exposed deterministic page-boundary
 bugs; both are recorded as harness controls and excluded from model results.
+The first complete local bounded-tool cell (Qwen 3.5 2B, reasoning off) is now
+recorded: 6 accepted, 57 abstentions and 64 hard failures over 127 rows, with
+4/6 exact oracle translations and one novel accepted row. The remaining local
+model/protocol cells are still pending.
 Unavailable checkpoints and
 inapplicable visual cells remain explicit denominator entries.
 
