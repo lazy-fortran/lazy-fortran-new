@@ -421,6 +421,10 @@ E0095 executes C721 through a generic nested evaluator over
 @IMPLICATION_FORMS@ constructors. It covers true, false and vacuous implication
 cases with @IMPLICATION_GFORTRAN@ gfortran agreements and
 @IMPLICATION_LINKED@ source-linked results.
+E0096 executes C734 through @NOT_OR_FORMS@ nested constructors over
+@NOT_OR_CASES@ witnesses. It accepts @NOT_OR_ACCEPTS@ case and rejects
+@NOT_OR_REJECTS@, with @NOT_OR_AGREEMENTS@ agreements across
+@NOT_OR_COMPILERS@ behavioral compiler observations.
 
 ## 5. Reproducibility and limitations
 
@@ -462,7 +466,8 @@ E0094 already classifies all @DISPATCHER_ACCEPTED@ accepted rows across
 @DISPATCHER_CONSTRUCTORS@ top-level constructors. Its dispatcher is structural
 coverage and does not execute those nested predicates. E0095 executes one
 nested implication rule and leaves the other accepted predicate bodies as
-table data.
+table data. E0096 executes a nested C734 not-or rule and leaves the remaining
+accepted predicate bodies as table data.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -519,6 +524,11 @@ E0095 extends execution to @IMPLICATION_FORMS@ nested constructors over
 @IMPLICATION_CASES@ witnesses. It accepts @IMPLICATION_ACCEPTS@ implication
 cases, rejects @IMPLICATION_REJECTS@, and agrees with gfortran on
 @IMPLICATION_GFORTRAN@ cases. This remains a bounded evaluator slice.
+E0096 then covers @NOT_OR_FORMS@ nested constructors over
+@NOT_OR_CASES@ witnesses. It accepts @NOT_OR_ACCEPTS@ case and rejects
+@NOT_OR_REJECTS@, with @NOT_OR_AGREEMENTS@ agreements across
+@NOT_OR_COMPILERS@ behavioral compiler observations. This remains a bounded
+evaluator slice.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,

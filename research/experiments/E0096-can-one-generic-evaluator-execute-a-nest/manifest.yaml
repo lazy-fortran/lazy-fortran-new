@@ -2,9 +2,9 @@ id: "E0096"
 title: "Nested not-or intrinsic-type evaluator for C734"
 question: >
   Can one generic evaluator execute a nested not-or intrinsic-type predicate
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 # Every commit the result depends on. Exact, not "main".
 repos:

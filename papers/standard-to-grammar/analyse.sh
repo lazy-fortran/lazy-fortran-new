@@ -147,6 +147,7 @@ assert_run R000101 '.status == "accepted" and .experiment == "E0092" and .verifi
 assert_run R000102 '.status == "accepted" and .experiment == "E0093" and .verification.zero_model_calls == true and .verification.predecessor_evaluator_cases == 6 and .verification.diagnostic_records == 6 and .verification.accepted_records == 3 and .verification.error_records == 3 and .verification.diagnostic_oracle_difference == 0 and .verification.standard_source_links == 6 and .verification.source_file_hashes == 6 and .verification.predicate_records == 6 and .verification.generic_operation_without_rule_ids == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000103 '.status == "accepted" and .experiment == "E0094" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.accepted_predicate_rows == 22 and .verification.dispatcher_rows == 22 and .verification.unique_top_level_constructors == 9 and .verification.dispatch_oracle_difference == 0 and .verification.provenance_matches == 22 and .verification.unsupported_constructor_rows == 0 and .verification.generated_dispatcher_without_rule_ids == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000104 '.status == "accepted" and .experiment == "E0095" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 1 and .verification.generic_constructor_forms == 4 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 1 and .verification.fact_matches == 1 and .verification.evaluator_cases == 3 and .verification.implication_accepts == 2 and .verification.implication_rejects == 1 and .verification.gfortran_agreement == 3 and .verification.diagnostic_rows == 1 and .verification.source_linked_results == 3 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000105 '.status == "accepted" and .experiment == "E0096" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 1 and .verification.generic_constructor_forms == 4 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 1 and .verification.fact_matches == 1 and .verification.evaluator_cases == 3 and .verification.evaluator_accepts == 1 and .verification.evaluator_rejects == 2 and .verification.behavioral_compilers == 6 and .verification.behavioral_agreements == 3 and .verification.diagnostic_rows == 2 and .verification.source_linked_results == 3 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -880,6 +881,22 @@ implication_linked=$(metric R000104 '.verification.source_linked_results')
 implication_projections=$(metric R000104 '.verification.parser_projection_records')
 implication_model_calls=$(metric R000104 '.verification.model_calls')
 implication_negative_control=$(metric R000104 '.verification.negative_control')
+not_or_predecessor=$(metric R000105 '.verification.predecessor_rule_rows')
+not_or_selected=$(metric R000105 '.verification.selected_rule_rows')
+not_or_forms=$(metric R000105 '.verification.generic_constructor_forms')
+not_or_difference=$(metric R000105 '.verification.target_oracle_difference')
+not_or_provenance=$(metric R000105 '.verification.provenance_matches')
+not_or_facts=$(metric R000105 '.verification.fact_matches')
+not_or_cases=$(metric R000105 '.verification.evaluator_cases')
+not_or_accepts=$(metric R000105 '.verification.evaluator_accepts')
+not_or_rejects=$(metric R000105 '.verification.evaluator_rejects')
+not_or_compilers=$(metric R000105 '.verification.behavioral_compilers')
+not_or_agreements=$(metric R000105 '.verification.behavioral_agreements')
+not_or_diagnostics=$(metric R000105 '.verification.diagnostic_rows')
+not_or_linked=$(metric R000105 '.verification.source_linked_results')
+not_or_projections=$(metric R000105 '.verification.parser_projection_records')
+not_or_model_calls=$(metric R000105 '.verification.model_calls')
+not_or_negative_control=$(metric R000105 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1917,6 +1934,27 @@ EOF
 | Model calls | $implication_model_calls |
 | Controlled mutation | $implication_negative_control |
 
+## E0096 generic nested not-or evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | $not_or_predecessor |
+| Selected rule rows | $not_or_selected |
+| Generic constructor forms | $not_or_forms |
+| Independent target-oracle difference | $not_or_difference |
+| Provenance matches | $not_or_provenance |
+| Fact matches | $not_or_facts |
+| Evaluator cases | $not_or_cases |
+| Evaluator cases accepted | $not_or_accepts |
+| Evaluator cases rejected | $not_or_rejects |
+| Behavioral compiler observations | $not_or_compilers |
+| Behavioral agreements | $not_or_agreements |
+| Diagnostic rows | $not_or_diagnostics |
+| Source-linked results | $not_or_linked |
+| Parser projections | $not_or_projections |
+| Model calls | $not_or_model_calls |
+| Controlled mutation | $not_or_negative_control |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2451,6 +2489,22 @@ rendered=${rendered//@IMPLICATION_LINKED@/$implication_linked}
 rendered=${rendered//@IMPLICATION_PROJECTIONS@/$implication_projections}
 rendered=${rendered//@IMPLICATION_MODEL_CALLS@/$implication_model_calls}
 rendered=${rendered//@IMPLICATION_NEGATIVE_CONTROL@/$implication_negative_control}
+rendered=${rendered//@NOT_OR_PREDECESSOR@/$not_or_predecessor}
+rendered=${rendered//@NOT_OR_SELECTED@/$not_or_selected}
+rendered=${rendered//@NOT_OR_FORMS@/$not_or_forms}
+rendered=${rendered//@NOT_OR_DIFFERENCE@/$not_or_difference}
+rendered=${rendered//@NOT_OR_PROVENANCE@/$not_or_provenance}
+rendered=${rendered//@NOT_OR_FACTS@/$not_or_facts}
+rendered=${rendered//@NOT_OR_CASES@/$not_or_cases}
+rendered=${rendered//@NOT_OR_ACCEPTS@/$not_or_accepts}
+rendered=${rendered//@NOT_OR_REJECTS@/$not_or_rejects}
+rendered=${rendered//@NOT_OR_COMPILERS@/$not_or_compilers}
+rendered=${rendered//@NOT_OR_AGREEMENTS@/$not_or_agreements}
+rendered=${rendered//@NOT_OR_DIAGNOSTICS@/$not_or_diagnostics}
+rendered=${rendered//@NOT_OR_LINKED@/$not_or_linked}
+rendered=${rendered//@NOT_OR_PROJECTIONS@/$not_or_projections}
+rendered=${rendered//@NOT_OR_MODEL_CALLS@/$not_or_model_calls}
+rendered=${rendered//@NOT_OR_NEGATIVE_CONTROL@/$not_or_negative_control}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

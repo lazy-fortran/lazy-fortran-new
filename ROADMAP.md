@@ -601,6 +601,10 @@ evidence for the thesis.
       `eq` interpretation over true, false and vacuous C721 witnesses, with
       three gfortran agreements and source-linked results (E0095, regenerate
       with `research/experiments/E0095-can-one-generic-evaluator-execute-a-nest/analyse.sh`)
+- [x] Execute a nested `not`/`or` predicate with generic `eq` and
+      `intrinsic-type-name` facts over C734 witnesses, agreeing with gfortran
+      and Flang on all three cases (E0096, regenerate with
+      `research/experiments/E0096-can-one-generic-evaluator-execute-a-nest/analyse.sh`)
 - [ ] Connect the generated diagnostic operation to the production
       `fortfront-new` frontend. Keep unresolved rows, including C1588, out of
       accepted semantic wiring

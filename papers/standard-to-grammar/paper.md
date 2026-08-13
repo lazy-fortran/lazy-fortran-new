@@ -421,6 +421,10 @@ E0095 executes C721 through a generic nested evaluator over
 4 constructors. It covers true, false and vacuous implication
 cases with 3 gfortran agreements and
 3 source-linked results.
+E0096 executes C734 through 4 nested constructors over
+3 witnesses. It accepts 1 case and rejects
+2, with 3 agreements across
+6 behavioral compiler observations.
 
 ## 5. Reproducibility and limitations
 
@@ -462,7 +466,8 @@ E0094 already classifies all 22 accepted rows across
 9 top-level constructors. Its dispatcher is structural
 coverage and does not execute those nested predicates. E0095 executes one
 nested implication rule and leaves the other accepted predicate bodies as
-table data.
+table data. E0096 executes a nested C734 not-or rule and leaves the remaining
+accepted predicate bodies as table data.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -519,6 +524,11 @@ E0095 extends execution to 4 nested constructors over
 3 witnesses. It accepts 2 implication
 cases, rejects 1, and agrees with gfortran on
 3 cases. This remains a bounded evaluator slice.
+E0096 then covers 4 nested constructors over
+3 witnesses. It accepts 1 case and rejects
+2, with 3 agreements across
+6 behavioral compiler observations. This remains a bounded
+evaluator slice.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -1556,6 +1566,27 @@ The following rows are extracted from the accepted projection run records.
 | Implication cases rejected | 1 |
 | gfortran agreements | 3 |
 | Diagnostic rows | 1 |
+| Source-linked results | 3 |
+| Parser projections | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
+## E0096 generic nested not-or evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Selected rule rows | 1 |
+| Generic constructor forms | 4 |
+| Independent target-oracle difference | 0 |
+| Provenance matches | 1 |
+| Fact matches | 1 |
+| Evaluator cases | 3 |
+| Evaluator cases accepted | 1 |
+| Evaluator cases rejected | 2 |
+| Behavioral compiler observations | 6 |
+| Behavioral agreements | 3 |
+| Diagnostic rows | 2 |
 | Source-linked results | 3 |
 | Parser projections | 0 |
 | Model calls | 0 |

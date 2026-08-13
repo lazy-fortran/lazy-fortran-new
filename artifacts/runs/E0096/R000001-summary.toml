@@ -1,0 +1,41 @@
+name        = "E0096-R000001-generic-nested-not-or-evaluator-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/d040e76"
+sha256      = "d64104c2828779d1a94972cbdd656659a54186381bddb0d27d68b487aa92611d"
+bytes       = 721
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of the generic nested not-or evaluator over C734 witnesses"
+path        = ".cache/runs/E0096/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+e0090_summary_sha256 = "6eac160c592660bdeffc6460ccb6efc33b0c00e945a31e05029b7b23fdebf622"
+target_oracle_sha256 = "52f3587e5ce6ad81e4faa0a32ca50f9be02ba6270135a5330f7d40c0cc2a1a36"
+witness_oracle_sha256 = "2c93d328073048aca53d5ed5da6629975fdbd23a5e76e3a931e63aeeb78f2dd3"
+selected_rules_sha256 = "18aa54c1f78120666a2924590641c862ae6820a34e850dd481a884d38a97032d"
+witness_results_sha256 = "5778ee05d23e21de30573da44aaf534916e38fd08692f6e17a36f21cf9cd6590"
+generator = "lazy-fortran-new E0096 generic nested not-or evaluator"
+generator_commit = "d040e76"
+checker = "research/experiments/E0096-can-one-generic-evaluator-execute-a-nest/analyse.sh"
+checker_commit = "d040e76"
+predecessor_rule_rows = 22
+selected_rule_rows = 1
+generic_constructor_forms = 4
+target_oracle_difference = 0
+provenance_matches = 1
+fact_matches = 1
+evaluator_cases = 3
+evaluator_accepts = 1
+evaluator_rejects = 2
+behavioral_compilers = 6
+behavioral_agreements = 3
+diagnostic_rows = 2
+source_linked_results = 3
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0096-can-one-generic-evaluator-execute-a-nest/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

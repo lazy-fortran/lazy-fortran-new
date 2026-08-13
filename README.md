@@ -98,6 +98,8 @@ classifies all 22 accepted predicate rows with one generic dispatcher covering
 9 top-level constructors. The production `fortfront-new` repository has not
 been created yet. E0095 executes one nested `implies` predicate with generic
 `and`, `present` and `eq` interpretation over three source witnesses.
+E0096 executes a nested `not`/`or` predicate over intrinsic-type facts and
+agrees with gfortran and Flang on three witnesses.
 Regenerate
 paper numbers with `papers/standard-to-grammar/analyse.sh` and the laboratory
 index with `scripts/index.sh`.
