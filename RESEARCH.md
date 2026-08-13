@@ -107,6 +107,20 @@ Statuses: `accepted`, `parse_failure`, `type_failure`, `semantic_failure`,
 Large payloads, prompts, responses, benchmark dumps, traces, are referenced by
 path, never inlined. See "Artifacts" below for where they live.
 
+### Agent episodes
+
+Experiments that let a model call tools retain one append-only JSONL episode
+trace per row. The trace records the validated tool name and arguments,
+source-result IDs and byte counts, call and tool duration, token counts when
+available, finish reason, gate state and terminal result. The experiment
+manifest fixes tool names, output limits, call/submission budgets, checkpoint
+rules and the complete model/protocol matrix before execution. A tool result
+must be replayable from the pinned source and must not contain a hidden answer.
+Missing, unavailable and inapplicable cells are recorded explicitly; they are
+not removed from the denominator. A model-produced abstention is a measured
+false negative unless the experiment's manifest explicitly defines a different
+endpoint.
+
 ---
 
 ## Origin labels

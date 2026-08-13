@@ -116,6 +116,7 @@ Runs recorded: 153
 | E0112 | reported | 1 | Which local model and quantization is the least measured-cost configuration |
 | E0113 | running | 0 | Does deterministic full-document retrieval plus at most two repairs let |
 | E0114 | running | 0 | Can a vision-capable Qwen or Gemma checkpoint translate a rule directly |
+| E0115 | draft | 0 | Does bounded native-tool access let the declared local, cloud and Luna |
 
 ## Run status
 
@@ -190,6 +191,7 @@ Runs recorded: 153
 | [D0051](decisions/D0051-deterministic-citation-reconstruction-for-model-proposals.md) | amended by D0052 | Amends D0050 | Deterministic citation reconstruction for model proposals |
 | [D0052](decisions/D0052-full-document-retrieval-and-bounded-gate-repair.md) | amended by D0053 | Amends D0051 | Full-document retrieval with bounded deterministic gate repair |
 | [D0053](decisions/D0053-translation-oracle-and-visual-first-controls.md) | accepted | Amends D0052 | Solved-translation oracle and visual-first controls |
+| [D0054](decisions/D0054-bounded-tool-assisted-evidence-acquisition.md) | accepted |  | Bounded tool-assisted evidence acquisition |
 
 ### Proposed decisions
 

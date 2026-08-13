@@ -1,0 +1,139 @@
+id: "E0115"
+title: "Bounded native-tool evidence acquisition for source-backed residue"
+question: >
+  Does bounded native-tool access let the declared local, cloud and Luna
+  models resolve source-backed residue more accurately than fixed retrieval,
+  without making cost and failure accounting incomparable?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: ""
+
+repos:
+  lazy-fortran-new: "f4b1eac"
+  standard-new: "ae2ee71"
+
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  residue: .cache/runs/E0106/R000001/residue-classifications.tsv
+  solved_oracle: .cache/runs/E0110/R000001/accepted-definitions.tsv
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  tool_schema: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/tool-schema.json
+  fixed_window_control: E0112
+  full_retrieval_control: E0113
+  visual_control: E0114
+
+models:
+  qwen:
+    - qwen35-2b
+    - qwen35-4b
+    - qwen35-9b
+    - qwen36-27b
+    - qwen36-35b-a3b
+  gemma:
+    - gemma4-e2b
+    - gemma4-e4b
+    - gemma4-26b-a4b
+    - gemma4-31b
+  cloud:
+    - deepseek-v4-flash
+  codex:
+    - gpt56-luna-codex-cli
+
+matrix:
+  text_protocols:
+    - id: fixed-window
+      baseline: E0112
+      tools: false
+      modality: text
+    - id: full-retrieval
+      baseline: E0113
+      tools: false
+      modality: text
+    - id: bounded-tools
+      baseline: null
+      tools: true
+      modality: text
+  reasoning_modes: [off, on]
+  visual_protocol:
+    id: visual-first-page
+    baseline: E0114
+    modality: image
+    eligible: [qwen35-9b, qwen36-27b, qwen36-35b-a3b, gemma4-e2b, gemma4-e4b, gemma4-26b-a4b, gemma4-31b]
+    reasoning_modes: [off, on]
+  row_sets:
+    - id: residue
+      rows: 127
+      primary: true
+    - id: solved-translation-oracle
+      rows: 6
+      primary: true
+
+fixed_protocol:
+  seed: 1101
+  temperature: 0
+  top_p: 1
+  max_evidence_calls: 8
+  max_submissions: 3
+  max_repairs: 3
+  max_source_bytes: 32768
+  max_wall_s_per_row: 300
+  output: pointer-only
+  tool_transport: native-structured-calls
+  reasoning_isolation: separate-predeclared-cell
+
+metrics:
+  primary:
+    - resolved_rows
+    - resolution_rate
+    - oracle_exact_matches
+    - oracle_translation_accuracy
+    - wrong_accepts
+    - abstained_after_budget
+    - hard_failures
+    - model_errors
+  evidence:
+    - relevant_evidence_hits
+    - evidence_hit_rate
+    - tool_calls
+    - submissions
+    - repair_iterations
+    - source_bytes_returned
+  cost:
+    - wall_s_total
+    - setup_wall_s
+    - inference_wall_s
+    - tool_wall_s
+    - input_tokens
+    - output_tokens
+    - cost_usd
+
+denominator: >
+  Every eligible model x every declared text protocol x every reasoning mode
+  has all 127 residue rows and all six solved-oracle rows. Visual cells use
+  the six solved-oracle rows and are present only for models with a declared
+  image projector; all other model/visual combinations are recorded as
+  not_applicable with a reason. Missing checkpoints, unavailable credentials
+  and transport failures remain explicit failed cells.
+
+independent_oracle: >
+  The deterministic gate recomputes the target, relation, source bytes, page
+  containment and citation from the pinned canonical source. E0110 supplies
+  the expected key for each solved row. Tool results are replayed from the
+  trajectory and cannot alter the oracle.
+
+trajectory_protocol: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/PROTOCOL.md
+analysis: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/plot.py
+
+falsifiable_by: >
+  A hidden answer-bearing tool, an unbounded call or byte budget, a missing
+  model/variant cell, an edited trajectory, an uncounted failed call, or a
+  gate result that cannot be replayed from the pinned source falsifies the
+  comparison.
+
+gate: >
+  Do not report a winner until every applicable matrix cell has a terminal
+  summary, every failed or unavailable cell is labelled, trajectories replay
+  through the independent gate, and the report contains paired tables for all
+  models and variants. No result is promoted into StandardIR.

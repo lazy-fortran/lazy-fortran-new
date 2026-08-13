@@ -38,7 +38,12 @@ ladder and uses deterministic citation reconstruction from a model-selected
 evidence window. D0052/D0053 now define E0113's full-document retrieval,
 bounded repair, total timing and six-row solved-translation oracle, plus
 E0114's separate visual-first PDF-page control. Neither experiment may
-promote semantic facts automatically or add parser wiring.
+promote semantic facts automatically or add parser wiring. D0054 defines
+E0115's bounded native-tool evidence protocol: the model may search and read
+source-backed spans, but the deterministic gate still derives targets and
+citations. E0115 compares every declared model across fixed-window,
+full-retrieval and tool-assisted text variants, with reasoning modes isolated
+as separate cells; visual cells remain a separate modality.
 
 ## Exit and handoff
 

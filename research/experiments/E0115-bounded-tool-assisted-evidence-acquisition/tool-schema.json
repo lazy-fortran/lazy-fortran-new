@@ -1,0 +1,77 @@
+{
+  "schema_version": "e0115-tools-v1",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "search_standard",
+        "description": "Search the pinned canonical standard for source evidence. The result contains snippets and provenance only; it never contains a derived target or gate decision.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "query": {"type": "string", "minLength": 1, "maxLength": 160},
+            "mode": {"type": "string", "enum": ["exact", "definition", "rule", "reference"]},
+            "max_results": {"type": "integer", "minimum": 1, "maximum": 8}
+          },
+          "required": ["query", "mode", "max_results"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "read_span",
+        "description": "Read a bounded expansion around one source result returned by this episode.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "result_id": {"type": "string", "minLength": 1, "maxLength": 80},
+            "before_bytes": {"type": "integer", "minimum": 0, "maximum": 2048},
+            "after_bytes": {"type": "integer", "minimum": 0, "maximum": 2048}
+          },
+          "required": ["result_id", "before_bytes", "after_bytes"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "read_rule",
+        "description": "Read one numbered normative rule and its source metadata.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "rule_number": {"type": "string", "pattern": "^[A-Z][0-9]{3,5}$"}
+          },
+          "required": ["rule_number"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "submit_pointer",
+        "description": "Submit a pointer-only translation for deterministic validation. Do not include target text or a citation.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {"type": "string", "minLength": 1, "maxLength": 160},
+            "decision": {"type": "string", "enum": ["accept", "abstain"]},
+            "relation": {"type": "string", "enum": ["alias", "definition", "lexical", "metavariable", "semantic", "unresolved"]},
+            "evidence_ids": {
+              "type": "array",
+              "minItems": 0,
+              "maxItems": 8,
+              "items": {"type": "string", "minLength": 1, "maxLength": 80}
+            }
+          },
+          "required": ["name", "decision", "relation", "evidence_ids"]
+        }
+      }
+    }
+  ]
+}
