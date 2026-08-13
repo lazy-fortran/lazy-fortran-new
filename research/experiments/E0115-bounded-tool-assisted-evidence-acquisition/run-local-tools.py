@@ -142,13 +142,20 @@ def tool_event(episode, tool_call):
     return name, arguments, result
 
 
-def run_row(args, raw, ranges, residue, e0110, name, tools):
+def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=None):
     episode = harness.Episode(raw, ranges, residue, e0110, name)
     messages = [
         {"role": "system", "content": system_prompt(name)},
         {"role": "user", "content": user_prompt(name)},
     ]
     events = []
+    def emit(event):
+        if trajectory_stream is None:
+            events.append(event)
+        else:
+            trajectory_stream.write(json.dumps({"name": name, **event}, ensure_ascii=False, sort_keys=True) + "\n")
+            trajectory_stream.flush()
+
     model_errors = []
     gate_rejections = 0
     started = time.monotonic()
@@ -170,7 +177,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools):
             message, raw_response = call_model(args.api_url, payload, args.timeout)
         except RuntimeError as exc:
             model_errors.append({"turn": turn, "error": str(exc)})
-            events.append({"turn": turn, "kind": "model_error", "error": str(exc)})
+            emit({"turn": turn, "kind": "model_error", "error": str(exc)})
             return {
                 "name": name,
                 "status": "hard_failure",
@@ -183,7 +190,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools):
                 "model_errors": model_errors,
                 "events": events,
             }
-        events.append(
+        emit(
             {
                 "turn": turn,
                 "kind": "model",
@@ -196,7 +203,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools):
         if not isinstance(calls, list) or len(calls) != 1:
             error = "model did not emit exactly one native tool call"
             model_errors.append({"turn": turn, "error": error})
-            events.append({"turn": turn, "kind": "model_error", "error": error})
+            emit({"turn": turn, "kind": "model_error", "error": error})
             return {
                 "name": name,
                 "status": "hard_failure",
@@ -214,7 +221,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools):
             tool_name, arguments, result = tool_event(episode, call)
         except RuntimeError as exc:
             model_errors.append({"turn": turn, "error": str(exc)})
-            events.append({"turn": turn, "kind": "model_error", "error": str(exc)})
+            emit({"turn": turn, "kind": "model_error", "error": str(exc)})
             return {
                 "name": name,
                 "status": "hard_failure",
@@ -227,7 +234,7 @@ def run_row(args, raw, ranges, residue, e0110, name, tools):
                 "model_errors": model_errors,
                 "events": events,
             }
-        events.append({"turn": turn, "kind": "tool", "tool": tool_name, "arguments": arguments, "result": result})
+        emit({"turn": turn, "kind": "tool", "tool": tool_name, "arguments": arguments, "result": result})
         messages.append(message)
         messages.append(
             {
@@ -301,14 +308,23 @@ def main():
     outdir.mkdir(parents=True, exist_ok=True)
     tools = tool_spec()
     rows = []
-    for name in names:
-        rows.append(run_row(args, raw, ranges, residue, e0110, name, tools))
-    write_jsonl(outdir / "rows.jsonl", rows)
-    events = []
-    for row in rows:
-        for event in row.pop("events"):
-            events.append({"name": row["name"], **event})
-    write_jsonl(outdir / "trajectory.jsonl", events)
+    with (outdir / "trajectory.jsonl").open("w", encoding="utf-8", newline="\n") as trajectory, \
+        (outdir / "rows.jsonl").open("w", encoding="utf-8", newline="\n") as row_file:
+        for name in names:
+            row = run_row(args, raw, ranges, residue, e0110, name, tools, trajectory)
+            clean_row = {key: value for key, value in row.items() if key != "events"}
+            rows.append(clean_row)
+            row_file.write(json.dumps(clean_row, ensure_ascii=False, sort_keys=True) + "\n")
+            row_file.flush()
+            trajectory.write(
+                json.dumps(
+                    {"name": name, "kind": "row_result", "status": clean_row["status"]},
+                    ensure_ascii=False,
+                    sort_keys=True,
+                )
+                + "\n"
+            )
+            trajectory.flush()
     counts = {status: sum(row["status"] == status for row in rows) for status in ("accepted", "abstained_after_budget", "hard_failure")}
     wall_total = time.monotonic() - started
     summary = {

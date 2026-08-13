@@ -25,6 +25,8 @@ episode = harness.Episode(raw, ranges, residue, e0110, "module-name")
 found = episode.call("search_standard", {"query": "module-name", "mode": "definition", "max_results": 8})
 assert found["status"] == "ok" and found["results"]
 result_id = found["results"][0]["result_id"]
+expanded = episode.call("read_span", {"result_id": result_id, "before_bytes": 2048, "after_bytes": 2048})
+assert expanded["status"] == "ok" and expanded["result"]["page"] == 319
 accepted = episode.call(
     "submit_pointer",
     {"name": "module-name", "decision": "accept", "relation": "semantic", "evidence_ids": [result_id]},

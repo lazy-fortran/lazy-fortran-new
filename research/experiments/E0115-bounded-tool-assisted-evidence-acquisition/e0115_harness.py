@@ -178,8 +178,12 @@ class Episode:
         if not isinstance(after_bytes, int) or not 0 <= after_bytes <= 2048:
             raise ToolError("after_bytes must be in 0..2048")
         source = self._results[result_id]
-        start = max(0, source["byte_start"] - before_bytes)
-        end = min(len(self.raw), source["byte_start"] + source["byte_length"] + after_bytes)
+        page_start, page_length = next(
+            (start, length) for number, start, length in self.ranges if number == source["page"]
+        )
+        page_end = page_start + page_length
+        start = max(page_start, source["byte_start"] - before_bytes)
+        end = min(page_end, source["byte_start"] + source["byte_length"] + after_bytes)
         return {"status": "ok", "result": self._evidence(start, end, "span", anchor=source["byte_start"])}
 
     def read_rule(self, rule_number):
