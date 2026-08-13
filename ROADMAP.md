@@ -308,11 +308,13 @@ conflict does not block this milestone or the production parser.
 Core 0 constraints, definitions, relations, and fact dependencies have a
 measured resolution state. D0046's structure-first extractor and E0106's
 independent residue measurement are complete. D0048 defines the strict
-source-form acceptance boundary. The next gate is a stricter source-backed
-definition recognizer over the 60 unique candidate rows; the 66 ambiguous and
-one unsupported row remain unresolved. Any remaining local holes are measured
-only through a separately authorized model experiment with independent
-formalization, provenance, and behavioral oracles.
+source-form acceptance boundary. E0110 is the final bounded mechanical pass:
+liberal discovery through three declarative normalization operations, strict
+acceptance, and zero candidate-specific branches. E0111 runs one Qwen3.5-2B
+source-citation pass over the same 127 rows, with no automatic promotions and
+an explicit overlap comparison against E0110. These are the final M3 discovery
+inputs before a successor decision; larger models, errata or semantic wiring
+are not silently added.
 
 ### M4. Generated frontend vertical slice (pending)
 

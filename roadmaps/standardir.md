@@ -30,8 +30,10 @@ states remain representable. D0046's structure-index slice is integrated in
 `standard-new` at `ae2ee71`. Its output remains evidence rather than semantic
 facts. E0106 measured it against the pinned E0100/E0104 residue; no alias or
 relation promotion followed from the index. D0048 now defines the strict
-source-form acceptance boundary. The next step is a stricter source-backed
-definition recognizer over the unique candidates.
+source-form acceptance boundary. D0049 authorizes one final bounded
+normalization pass (E0110) with liberal discovery and strict acceptance, plus
+one overlapping Qwen3.5-2B citation experiment (E0111). Neither pass may
+promote semantic facts automatically or add parser wiring.
 
 ## Exit and handoff
 
