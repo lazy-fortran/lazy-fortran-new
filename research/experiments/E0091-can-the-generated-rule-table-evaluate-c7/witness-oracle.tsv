@@ -1,0 +1,3 @@
+case_id	checker_status	gfortran_status	kind_value	constraint_id	standard_line	standard_page	checker_expectation
+positive	0	0	1	C719	3297	80	accepted
+negative	1	1	-1	C719	3297	80	negative-kind
