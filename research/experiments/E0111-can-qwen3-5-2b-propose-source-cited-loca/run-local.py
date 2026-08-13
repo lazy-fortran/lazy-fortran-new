@@ -31,6 +31,11 @@ def parser():
     result.add_argument("--context", type=int, default=DEFAULT_CONTEXT)
     result.add_argument("--max-tokens", type=int, default=768)
     result.add_argument("--timeout", type=float, default=120.0)
+    result.add_argument("--thinking", choices=("off", "on"), default="off")
+    result.add_argument("--candidate", default="unspecified")
+    result.add_argument("--source-repo", default="unspecified")
+    result.add_argument("--source-file", default="unspecified")
+    result.add_argument("--model-sha256", default="unspecified")
     return result
 
 
@@ -95,26 +100,22 @@ def main():
             }
             try:
                 result = call_api(args.api_url, payload, args.timeout)
-            except InputError as exc:
+                choices = result.get("choices") if isinstance(result, dict) else None
+                if not isinstance(choices, list) or len(choices) != 1:
+                    raise InputError(f"API response for {item['name']} lacks one choice")
+                message = choices[0].get("message") if isinstance(choices[0], dict) else None
+                content = message.get("content") if isinstance(message, dict) else None
+                if not isinstance(content, str):
+                    raise InputError(f"API response for {item['name']} lacks text content")
+                proposal = json.loads(content)
+                if not isinstance(proposal, dict):
+                    raise InputError(f"model response for {item['name']} is not an object")
+                if proposal.get("name") != item["name"]:
+                    raise InputError(f"model response name mismatch for {item['name']}")
+                responses.append(proposal)
+            except (InputError, json.JSONDecodeError, TypeError) as exc:
                 errors.append({"name": item["name"], "error": str(exc)})
                 responses.append({"name": item["name"], "decision": "abstain"})
-                continue
-            choices = result.get("choices") if isinstance(result, dict) else None
-            if not isinstance(choices, list) or len(choices) != 1:
-                raise InputError(f"API response for {item['name']} lacks one choice")
-            message = choices[0].get("message") if isinstance(choices[0], dict) else None
-            content = message.get("content") if isinstance(message, dict) else None
-            if not isinstance(content, str):
-                raise InputError(f"API response for {item['name']} lacks text content")
-            try:
-                proposal = json.loads(content)
-            except json.JSONDecodeError as exc:
-                raise InputError(f"model response for {item['name']} is not one JSON object") from exc
-            if not isinstance(proposal, dict):
-                raise InputError(f"model response for {item['name']} is not an object")
-            if proposal.get("name") != item["name"]:
-                raise InputError(f"model response name mismatch for {item['name']}")
-            responses.append(proposal)
         jsonl_write(args.responses, responses)
         errors_path = Path(args.responses).with_name("model-errors.jsonl")
         jsonl_write(errors_path, errors)
@@ -131,6 +132,11 @@ def main():
                     "top_p": args.top_p,
                     "context": args.context,
                     "max_tokens": args.max_tokens,
+                    "thinking": args.thinking,
+                    "candidate": args.candidate,
+                    "source_repo": args.source_repo,
+                    "source_file": args.source_file,
+                    "model_sha256": args.model_sha256,
                     "requests": len(responses),
                     "model_errors": len(errors),
                 },

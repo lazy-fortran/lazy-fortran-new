@@ -111,6 +111,9 @@ Runs recorded: 152
 | E0107 | draft | 0 | Can exact normative definition forms mechanically resolve the E0106 unique candidates? |
 | E0108 | draft | 0 | Can an independent traversal validate strict definition candidates without semantic inference? |
 | E0109 | draft | 0 | Can the strict semantic residue ledger close the M3 accounting gate? |
+| E0110 | running | 0 | Can one bounded Fortran source normalizer mechanically resolve the final |
+| E0111 | running | 0 | Can Qwen3.5-2B propose source-cited local semantic facts for the E0106 |
+| E0112 | running | 0 | Which local model and quantization is the least measured-cost configuration |
 
 ## Run status
 
@@ -180,6 +183,8 @@ Runs recorded: 152
 | [D0046](decisions/D0046-structure-first-semantic-residue.md) | accepted |  | Structure-first semantic residue adjudication |
 | [D0047](decisions/D0047-coordinator-lab-work-during-agent-waves.md) | accepted | Amends D0045 | Coordinator laboratory work during agent waves |
 | [D0048](decisions/D0048-strict-source-form-semantic-acceptance.md) | accepted |  | Strict source-form semantic acceptance |
+| [D0049](decisions/D0049-liberal-mechanical-discovery-and-small-model-overlap.md) | amended by D0050 |  | Liberal mechanical discovery with small-model overlap |
+| [D0050](decisions/D0050-ordered-local-model-ladder-and-cheapest-reliable-winner.md) | accepted | Amends D0049 | Ordered local-model ladder and cheapest reliable winner |
 
 ### Proposed decisions
 

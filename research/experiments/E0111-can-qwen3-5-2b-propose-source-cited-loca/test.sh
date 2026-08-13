@@ -28,10 +28,11 @@ with open(target, "w", encoding="utf-8") as stream:
     for row in rows:
         stream.write(json.dumps(row) + "\n")
 PY
-if python3 "$exp/validate-responses.py" "$tmp/tampered.jsonl" \
+python3 "$exp/validate-responses.py" "$tmp/tampered.jsonl" \
     --e0110 "$root/.cache/runs/E0110/R000001/classifications.tsv" \
-    --outdir "$tmp/rejected"; then
-    echo "E0111: tampered citation was accepted" >&2
+    --outdir "$tmp/rejected"
+if ! grep -q $'strict_validator_rejects\t1' "$tmp/rejected/summary.tsv"; then
+    echo "E0111: tampered citation was not rejected" >&2
     exit 1
 fi
 echo "E0111 fixture and tampered-citation gates passed"

@@ -2,6 +2,7 @@
 """Prepare one bounded, source-window prompt for every E0106 residue row."""
 
 import argparse
+import csv
 import json
 from pathlib import Path
 
@@ -22,7 +23,7 @@ DEFAULT_QUANTIZATION = "Q4_K_M"
 DEFAULT_SEED = 1101
 DEFAULT_TEMPERATURE = 0.0
 DEFAULT_TOP_P = 1.0
-DEFAULT_CONTEXT = 8192
+DEFAULT_CONTEXT = 4096
 DEFAULT_WINDOW_BYTES = 384
 
 
@@ -40,6 +41,10 @@ def parser():
     result.add_argument(
         "--pages",
         default=str(root / ".cache/runs/E0001/R000003/j3-24-007.pages.index"),
+    )
+    result.add_argument(
+        "--e0110",
+        default=str(root / ".cache/runs/E0110/R000001/classifications.tsv"),
     )
     result.add_argument(
         "--outdir", default=str(root / ".cache/runs/E0111/R000001")
@@ -82,6 +87,10 @@ page, byte_start, byte_length, source_sha256, and text are checked against the
 canonical source and page index. Never invent a citation. This is a proposal
 inventory only: it does not promote a semantic fact.
 
+Some windows are deterministic E0110 overlap windows. They are included so
+the model is tested on the same source evidence as the mechanical path; they
+do not change the strict validator or permit a citation outside the windows.
+
 Residue row: {row["name"]}
 E0106 classification: {row["new_class"]}
 E0106 matching records: {row["matching_records"]}
@@ -97,6 +106,22 @@ def main():
         raw = load_canonical(args.canonical, args.source_sha256)
         ranges = load_page_index(args.pages, len(raw))
         residue = load_residue(args.residue)
+        e0110 = {}
+        with Path(args.e0110).open(encoding="utf-8", newline="") as stream:
+            for row in csv.DictReader(stream, delimiter="\t"):
+                if row.get("classification") != "strict-definition":
+                    continue
+                if row.get("source_sha256") != args.source_sha256:
+                    raise InputError("E0110 source hash differs from canonical source")
+                try:
+                    page = int(row["page"])
+                    byte_start = int(row["byte_start"])
+                    byte_length = int(row["byte_length"])
+                except (KeyError, ValueError) as exc:
+                    raise InputError("E0110 strict row has an invalid source span") from exc
+                if containing_page(ranges, byte_start, byte_length) != page:
+                    raise InputError("E0110 strict row page does not contain its source span")
+                e0110[row["name"]] = (page, byte_start)
         if args.context < 256 or args.window_bytes < 32:
             raise InputError("context or window size is too small")
         if not 0.0 <= args.temperature <= 2.0:
@@ -116,6 +141,9 @@ def main():
                 windows.append(
                     utf8_window(raw, page, anchor["byte_start"], ranges, args.window_bytes)
                 )
+            if row["name"] in e0110:
+                page, byte_start = e0110[row["name"]]
+                windows.append(utf8_window(raw, page, byte_start, ranges, args.window_bytes))
             unique = {
                 (item["page"], item["byte_start"], item["byte_length"]): item
                 for item in windows
@@ -138,6 +166,7 @@ def main():
             "repair_attempts": 0,
             "source_sha256": args.source_sha256,
             "window_bytes": args.window_bytes,
+            "e0110_overlap_windows": len(e0110),
         }
         prompts = []
         for row_number, row in enumerate(residue, 1):

@@ -219,13 +219,18 @@ def main():
                 f"got {len(response_items)}"
             )
         accepted = []
+        rejected = []
         seen = set()
         for item in response_items:
             name = item.get("name") if isinstance(item, dict) else None
             if name in seen:
                 raise InputError(f"duplicate response for {name}")
             seen.add(name)
-            proposal = validate_response(item, expected_names, raw, ranges, args.source_sha256)
+            try:
+                proposal = validate_response(item, expected_names, raw, ranges, args.source_sha256)
+            except InputError as exc:
+                rejected.append({"name": name, "error": str(exc)})
+                continue
             if proposal is not None:
                 accepted.append(proposal)
         if seen != expected_names:
@@ -270,6 +275,11 @@ def main():
         ) as stream:
             for item in accepted:
                 stream.write(json.dumps(item, ensure_ascii=False, sort_keys=True) + "\n")
+        with (outdir / "rejected-proposals.jsonl").open(
+            "w", encoding="utf-8", newline="\n"
+        ) as stream:
+            for item in rejected:
+                stream.write(json.dumps(item, ensure_ascii=False, sort_keys=True) + "\n")
         with (outdir / "overlap.tsv").open("w", encoding="utf-8", newline="") as stream:
             writer = csv.writer(stream, delimiter="\t", lineterminator="\n")
             writer.writerow(
@@ -301,7 +311,7 @@ def main():
             ("prompts_expected", len(residue)),
             ("proposals_returned", len(accepted)),
             ("strict_validator_accepts", len(accepted)),
-            ("strict_validator_rejects", 0),
+            ("strict_validator_rejects", len(rejected)),
             ("abstentions", len(residue) - len(accepted)),
             ("overlap_rows", agreements + disagreements),
             ("overlap_agreements", agreements),

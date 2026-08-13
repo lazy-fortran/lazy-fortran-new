@@ -1,0 +1,142 @@
+id: "E0112"
+title: "Ordered local-model ladder for source-cited residue convergence"
+question: >
+  Which local model and quantization is the least measured-cost configuration
+  that reliably agrees with the deterministic E0110 facts and adds at least
+  one independently source-validated residue fact?
+status: running          # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: ""
+
+repos:
+  lazy-fortran-new: "98e7775"
+  standard-new: "ae2ee71"
+
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  e0106_residue: .cache/runs/E0106/R000001/residue-classifications.tsv
+  e0110_output: .cache/runs/E0110/R000001/classifications.tsv
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  prompt_builder: research/experiments/E0111-can-qwen3-5-2b-propose-source-cited-loca/prepare-prompts.py
+
+# The order is fixed before observing results. A candidate is not skipped
+# because a larger model is expected to be better. Smaller-model Q6/Q8 rows
+# are quantization controls, not new model families.
+ladder:
+  - candidate: qwen35-4b
+    model: Qwen/Qwen3.5-4B
+    source_repo: unsloth/Qwen3.5-4B-GGUF
+    files: [Qwen3.5-4B-Q4_K_M.gguf, Qwen3.5-4B-Q6_K.gguf, Qwen3.5-4B-Q8_0.gguf]
+    active_params_b: 4
+  - candidate: qwen35-9b
+    model: Qwen/Qwen3.5-9B
+    source_repo: unsloth/Qwen3.5-9B-GGUF
+    files: [Qwen3.5-9B-Q4_K_M.gguf, Qwen3.5-9B-Q6_K.gguf, Qwen3.5-9B-Q8_0.gguf]
+    active_params_b: 9
+  - candidate: qwen36-35b-a3b
+    model: Qwen/Qwen3.6-35B-A3B
+    source_repo: ggml-org/Qwen3.6-35B-A3B-GGUF
+    files: [Qwen3.6-35B-A3B-Q4_K_M.gguf]
+    active_params_b: 3
+  - candidate: qwen36-27b
+    model: Qwen/Qwen3.6-27B
+    source_repo: ggml-org/Qwen3.6-27B-GGUF
+    files: [Qwen3.6-27B-Q4_K_M.gguf]
+    active_params_b: 27
+  - candidate: gemma4-e2b
+    model: google/gemma-4-E2B-it
+    source_repo: unsloth/gemma-4-E2B-it-GGUF
+    files: [gemma-4-E2B-it-Q4_K_M.gguf, gemma-4-E2B-it-Q6_K.gguf, gemma-4-E2B-it-Q8_0.gguf]
+    active_params_b: 2
+  - candidate: gemma4-e4b
+    model: google/gemma-4-E4B-it
+    source_repo: unsloth/gemma-4-E4B-it-GGUF
+    files: [gemma-4-E4B-it-Q4_K_M.gguf, gemma-4-E4B-it-Q6_K.gguf, gemma-4-E4B-it-Q8_0.gguf]
+    active_params_b: 4
+  - candidate: gemma4-26b-a4b
+    model: google/gemma-4-26B-A4B-it
+    source_repo: unsloth/gemma-4-26B-A4B-it-GGUF
+    files: [gemma-4-26B-A4B-it-UD-Q4_K_M.gguf]
+    active_params_b: 4
+  - candidate: gemma4-31b
+    model: google/gemma-4-31B-it
+    source_repo: unsloth/gemma-4-31B-it-GGUF
+    files: [gemma-4-31B-it-Q4_K_M.gguf]
+    active_params_b: 31
+
+variables:
+  quantization_order: [Q4_K_M, Q6_K, Q8_0]
+  reasoning_order: [off, on-after-off-failure]
+  attempts_per_configuration: [2]
+  repair_attempts: [0]
+  seed: [1101]
+  temperature: [0]
+  top_p: [1]
+  context: [4096]
+  max_tokens: [384]
+  mtp: [disabled]
+
+metrics:
+  - residue_rows
+  - prompts_sent
+  - proposals_returned
+  - strict_validator_accepts
+  - strict_validator_rejects
+  - abstentions
+  - overlap_rows
+  - overlap_agreements
+  - overlap_disagreements
+  - model_errors
+  - novel_accepted_rows
+  - repeat_key_agreement
+  - wall_s
+  - output_tokens
+
+denominator: >
+  All 127 E0106 residue rows. Every configuration receives the same prompt
+  JSONL after E0110 overlap windows are added. Errors, rejected proposals and
+  abstentions remain in the denominator.
+
+independent_oracle: >
+  validate-responses.py recomputes canonical bytes, page containment, source
+  hash, allowed relation form and subject position. E0110 overlap is compared
+  by normalized candidate, relation and exact source span. No model output is
+  promoted automatically.
+
+reliability_gate: >
+  A configuration works reliably only when two attempts preserve all 127
+  response rows, have zero model errors and zero strict-validator rejections,
+  reproduce every accepted E0110 key with zero disagreement, accept at least
+  one additional non-E0110 row, and have identical accepted-key sets between
+  attempts. If no candidate reaches this gate, retain the complete failure
+  ladder and do not choose a production model.
+
+selection: >
+  Keep the reliable configuration with the lowest measured wall time per
+  prompt; use active_params_b and then quantization as tie-breakers. The
+  ordered ladder is an escalation order, not a cost ranking: a sparse 35B-A3B
+  candidate may therefore be cheaper than a dense 9B candidate. Do not retain
+  failed model files after the run; retain the selected working file outside
+  git and record its hash.
+
+falsifiable_by: >
+  Any missing denominator row, nondeterministic accepted-key set, citation
+  accepted outside canonical bytes, overlap disagreement, model error or lack
+  of a novel accepted row falsifies the reliability claim for that
+  configuration.
+
+gate: >
+  Run the fixed ladder in order, trying reasoning on only after a non-thinking
+  configuration fails. For smaller models, try Q6_K and Q8_0 controls before
+  advancing. Stop only at the declared reliability gate or after the full
+  ladder is exhausted. Record every attempted configuration and retain only a
+  reliable winner, if one exists.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, llama_server, poppler, oracle_versions]
+
+analysis: research/experiments/E0111-can-qwen3-5-2b-propose-source-cited-loca/validate-responses.py
+plot: research/experiments/E0112-can-model-ladder-converge-source-cited-residue/plot-convergence.py

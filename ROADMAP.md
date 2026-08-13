@@ -310,11 +310,12 @@ measured resolution state. D0046's structure-first extractor and E0106's
 independent residue measurement are complete. D0048 defines the strict
 source-form acceptance boundary. E0110 is the final bounded mechanical pass:
 liberal discovery through three declarative normalization operations, strict
-acceptance, and zero candidate-specific branches. E0111 runs one Qwen3.5-2B
-source-citation pass over the same 127 rows, with no automatic promotions and
-an explicit overlap comparison against E0110. These are the final M3 discovery
-inputs before a successor decision; larger models, errata or semantic wiring
-are not silently added.
+acceptance, and zero candidate-specific branches. E0111 is retained as a
+2B pilot; D0050 corrects its missing overlap windows. E0112 now runs the
+predeclared Qwen/Gemma ladder against the same 127 rows, with Q6/Q8 controls
+for smaller models, thinking only after non-thinking failure, two-attempt
+repeatability, and no automatic promotions. M3 exits only after the ladder
+reports either a reliable measured-cost winner or a complete failure state.
 
 ### M4. Generated frontend vertical slice (pending)
 

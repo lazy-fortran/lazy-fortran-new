@@ -1,7 +1,7 @@
 # D0049. Liberal mechanical discovery with small-model overlap
 
 Date: 2026-08-13
-Status: accepted
+Status: amended by D0050
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context
