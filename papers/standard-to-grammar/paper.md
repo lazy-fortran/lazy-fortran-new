@@ -71,6 +71,9 @@ parser wiring, generated local parser operations, and a measured semantic
 formalization boundary. The evidence does not establish complete Fortran
 semantics, a complete parser, or a compiler.
 
+**Keywords:** Fortran, grammar recovery, StandardIR, provenance, parser
+generation, semantic formalization, reproducible research
+
 ## 1. Scope and claim
 
 The paper evaluates one claim: a language standard can provide the maintained
@@ -451,6 +454,17 @@ evaluator. E0095, E0096 and E0097 extend execution to bounded nested and
 finite-domain forms. The remaining accepted predicates are table data rather
 than evaluated semantics. The comparison corpus is evidence for adjudication
 and not a normative input.
+
+### 5.1 Data and code availability
+
+The laboratory repository contains the analysis scripts, manifests, run
+records, decision records and generated manuscript sources. The external J3
+document and comparison artifacts are identified by URL and SHA-256 and are
+retrieved into an ignored cache by `scripts/fetch.sh`. No external source is
+vendored. A fresh checkout can regenerate the tables with
+`papers/standard-to-grammar/analyse.sh`, render the PDF with
+`papers/standard-to-grammar/render.sh`, and run the repository checks with
+`scripts/selftest.sh`.
 
 ## 6. Next experiment
 
