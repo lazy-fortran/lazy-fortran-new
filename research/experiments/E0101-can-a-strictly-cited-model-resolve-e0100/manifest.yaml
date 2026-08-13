@@ -2,9 +2,9 @@ id: "E0101"
 title: "Strictly cited model harness for E0100 residue"
 question: >
   Can a strictly cited model resolve E0100 residue without unsupported citations or alias promotion?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
