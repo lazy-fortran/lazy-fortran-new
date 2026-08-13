@@ -331,7 +331,9 @@ reliably. D0056 makes E0115 local-only: it uses the declared Qwen and Gemma
 checkpoints through pinned llama.cpp, while DeepSeek and Luna remain historical
 controls only. E0115 is the next comparison gate: it gives every
 eligible local model the same bounded native evidence tools and runs the complete
-predeclared model x protocol x reasoning matrix. Abstention is a measured
+predeclared model x protocol x reasoning matrix. Its deterministic local tool
+environment and native llama.cpp loop now pass fixture gates and a one-row Qwen
+3.5 2B smoke control; the full matrix has not started. Abstention is a measured
 false negative in E0115, not a green result; unavailable checkpoints and
 inapplicable visual cells remain explicit denominator entries.
 

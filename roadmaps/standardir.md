@@ -49,6 +49,9 @@ checkpoints run through pinned llama.cpp; DeepSeek and Luna remain historical
 controls. E0115 compares every declared local model across fixed-window,
 full-retrieval and tool-assisted text variants, with reasoning modes isolated
 as separate cells; visual cells remain a separate modality.
+The deterministic evidence environment and native llama.cpp loop pass their
+fixture gates and a one-row Qwen 3.5 2B smoke control; no full E0115 matrix has
+run yet.
 
 ## Exit and handoff
 
