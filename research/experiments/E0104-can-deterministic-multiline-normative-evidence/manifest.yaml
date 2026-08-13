@@ -1,0 +1,55 @@
+id: "E0104"
+title: "Deterministic multi-line normative evidence search"
+question: >
+  Can bounded adjacent-line, two-line-window, and sentence-continuation patterns
+  reduce the E0100 normative-evidence residue without inference or model calls?
+status: reported
+opened: "2026-08-13"
+closed: "2026-08-13"
+
+repos:
+  lazy-fortran-new: "087c5d7"
+
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  e0100_classifications: .cache/runs/E0100/R000001/classifications.tsv
+  e0100_spans: .cache/runs/E0100/R000001/candidate-spans.tsv
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+
+variables:
+  window_patterns: [adjacent-line, two-line-window, sentence-continuation]
+  model_calls: [zero]
+
+model_selection: "No model calls; all extraction, matching, classification, and checks are deterministic."
+metrics:
+  - e0100_residue_rows
+  - e0100_candidate_class
+  - new_unique_candidates
+  - new_ambiguous_candidates
+  - new_no_candidates
+  - retained_source_spans
+  - model_calls
+  - alias_promotions
+
+denominator: >
+  The 127 distinct E0100 rows classified as ambiguous candidate or no candidate.
+  E0100's 54 mechanically-supported rows are the baseline comparison class and
+  are not rescanned as residue.
+
+independent_oracle: >
+  A second traversal reads the same canonical text into physical lines and
+  recomputes every candidate key, pattern, line range, page range, and source
+  hash without reading the primary traversal's output.
+
+falsifiable_by: >
+  Any dropped or duplicated residue row, changed E0100 class, missing exact
+  source window/page/hash/span, disagreement between traversals, accepted
+  tampered window or hash, model call, alias promotion, or suffix/grammar rule.
+
+gate: >
+  Verify the pinned E0100 inputs; classify all 127 rows against baseline and
+  new classes; retain exact evidence; require independent agreement; and make
+  a tampered window/hash fail.
+
+analysis: research/experiments/E0104-can-deterministic-multiline-normative-evidence/analyse.sh
