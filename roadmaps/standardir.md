@@ -37,8 +37,11 @@ incomplete. E0112 supplies the corrected ordered Qwen/Gemma convergence
 ladder and uses deterministic citation reconstruction from a model-selected
 evidence window. D0052/D0053 now define E0113's full-document retrieval,
 bounded repair, total timing and six-row solved-translation oracle, plus
-E0114's separate visual-first PDF-page control. Neither experiment may
-promote semantic facts automatically or add parser wiring. D0054 defines
+E0114's separate visual-first PDF-page control. Both are reported with
+failures retained; neither promoted semantic facts or added parser wiring.
+D0055 pins the current llama.cpp b10405 runtime and records the conservative
+Gemma 4 configuration after the old scheduler assertion was isolated as a
+toolchain failure. D0054 defines
 E0115's bounded native-tool evidence protocol: the model may search and read
 source-backed spans, but the deterministic gate still derives targets and
 citations. E0115 compares every declared model across fixed-window,

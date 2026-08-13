@@ -3,9 +3,9 @@ title: "Visual-first VLM translation of mechanically solved PDF rules"
 question: >
   Can a vision-capable Qwen or Gemma checkpoint translate a rule directly
   from its rendered normative PDF page before canonical text processing?
-status: running          # draft | running | reported | abandoned
+status: reported          # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 repos:
   lazy-fortran-new: "da9d86e"
@@ -31,6 +31,13 @@ fixed_protocol:
   repair_feedback: generic-gate-failure-only
   whitespace_normalization: collapse-and-strip
 
+toolchain:
+  runtime: "llama.cpp b10405, commit e79e4bf660e19f2ad851e06c6913f7a8c5852621"
+  build: "CUDA 13.3, native SM120, static llama-server"
+  local_config: "--split-mode none --main-gpu 0 --flash-attn off --ctx-size 8192 --parallel 1"
+  common_generation: "seed=1101, temperature=0, top_p=1, reasoning=off"
+  runtime_decision: D0055
+
 metrics:
   - oracle_rows
   - exact_target_matches
@@ -55,5 +62,10 @@ falsifiable_by: >
   unbounded repair, or target accepted without comparison to E0110 falsifies
   the visual-first protocol.
 
-analysis: research/experiments/E0114-can-visual-first-vlm-translation-read-pdf-pages/prepare-pages.py
+analysis: >
+  python3 research/experiments/E0113-can-bounded-repair-and-translation-oracle-converge/record-results.py
+  && python3 research/experiments/E0113-can-bounded-repair-and-translation-oracle-converge/plot-results.py
+  --text .cache/runs/E0113/R000001/analysis/text.tsv
+  --visual .cache/runs/E0113/R000001/analysis/visual.tsv
+  --outdir .cache/runs/E0113/R000001/plot
 runner: research/experiments/E0114-can-visual-first-vlm-translation-read-pdf-pages/run-vlm.py

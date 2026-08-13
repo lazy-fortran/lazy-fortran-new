@@ -321,10 +321,13 @@ bounded gate/repair protocol, explicit total/setup/inference timing, and a
 six-row E0110 solved-translation oracle. Its discovery metric excludes those
 six oracle rows; its translation metric is exact E0110-key agreement on all
 six. E0114 separately tests Qwen and Gemma vision-capable checkpoints directly
-on rendered PDF pages before canonical text processing. Neither experiment
-promotes semantic facts automatically. M3 exits only after the text protocol
-reports its complete state and solved-translation quality; visual results
-remain a separate control. E0115 is the next comparison gate: it gives every
+on rendered PDF pages before canonical text processing. Both experiments are
+now reported with all failures retained; neither promoted semantic facts.
+The first six local text cells used the old llama.cpp wrapper. Gemma 4 E4B
+was then repeated under the pinned b10405 runtime and conservative single-GPU
+configuration after the old loader assertion was isolated as a toolchain
+failure (D0055). M3 remains open because the residue was not resolved
+reliably. E0115 is the next comparison gate: it gives every
 eligible model the same bounded native evidence tools and runs the complete
 predeclared model x protocol x reasoning matrix. Abstention is a measured
 false negative in E0115, not a green result; unavailable checkpoints and

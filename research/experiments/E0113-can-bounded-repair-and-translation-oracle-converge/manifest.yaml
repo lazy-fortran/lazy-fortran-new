@@ -4,9 +4,9 @@ question: >
   Does deterministic full-document retrieval plus at most two repairs let
   local, cloud and Codex Luna models safely identify source-backed residue,
   and how accurately do they translate definitions already solved mechanically?
-status: running          # draft | running | reported | abandoned
+status: reported          # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 repos:
   lazy-fortran-new: "db70331e7f94528aad06c86d3993888d6a992d45"
@@ -84,6 +84,14 @@ fixed_protocol:
   reasoning: off-baseline
   abstention: valid-green-terminal
 
+toolchain:
+  old_local_runtime: "llama.cpp 19e92c3 (control only; used for the first six local text cells)"
+  current_local_runtime: "llama.cpp b10405, commit e79e4bf660e19f2ad851e06c6913f7a8c5852621"
+  current_build: "CUDA 13.3, native SM120, static llama-server"
+  current_gemma4_config: "--split-mode none --main-gpu 0 --flash-attn off --ctx-size 8192 --parallel 1"
+  common_generation: "seed=1101, temperature=0, top_p=1, reasoning=off"
+  runtime_decision: D0055
+
 metrics:
   - residue_rows
   - accepted
@@ -130,5 +138,10 @@ falsifiable_by: >
   disagreement between the independent gate and E0110 oracle falsifies the
   protocol claim.
 
-analysis: research/experiments/E0111-can-qwen3-5-2b-propose-source-cited-loca/run-iterative.py
+analysis: >
+  python3 research/experiments/E0113-can-bounded-repair-and-translation-oracle-converge/record-results.py
+  && python3 research/experiments/E0113-can-bounded-repair-and-translation-oracle-converge/plot-results.py
+  --text .cache/runs/E0113/R000001/analysis/text.tsv
+  --visual .cache/runs/E0113/R000001/analysis/visual.tsv
+  --outdir .cache/runs/E0113/R000001/plot
 report: research/experiments/E0113-can-bounded-repair-and-translation-oracle-converge/REPORT.md

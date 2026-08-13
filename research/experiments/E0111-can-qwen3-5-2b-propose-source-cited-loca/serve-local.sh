@@ -7,6 +7,9 @@ server="${LLAMA_SERVER:-$HOME/.local/bin/llama-server}"
 port="${PORT:-8080}"
 ctx_size="${CTX_SIZE:-4096}"
 reasoning="${REASONING:-off}"
+split_mode="${SPLIT_MODE:-layer}"
+main_gpu="${MAIN_GPU:-0}"
+flash_attn="${FLASH_ATTN:-on}"
 test -x "$server" || { echo "E0111: llama-server not executable: $server" >&2; exit 1; }
 test -f "$model" || { echo "E0111: model absent; run fetch-model.sh first" >&2; exit 1; }
 
@@ -21,5 +24,7 @@ exec "$server" \
     --temp 0 \
     --top-p 1 \
     --fit off \
-    --flash-attn on \
+    --split-mode "$split_mode" \
+    --main-gpu "$main_gpu" \
+    --flash-attn "$flash_attn" \
     --reasoning "$reasoning"
