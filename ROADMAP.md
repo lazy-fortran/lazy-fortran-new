@@ -200,10 +200,16 @@ unresolved-name denominator and found 54 mechanically-supported candidates,
 46 ambiguous candidates, and 81 names with no candidate, with zero model calls.
 E0101 now provides the strict residue package and citation validator, but its
 model execution is blocked until the pinned E0100 cache and an explicit local
-model runner exist; it made zero calls and adjudicated nothing. The next wave
-may add semantic-rule-table consumption, extend typed AST/MIR structure, and
-continue target source normalization. These slices must not change a contract
-in place.
+model runner exist; it made zero calls and adjudicated nothing.
+
+Wave F is complete for four additive production slices: a bounded StandardIR
+semantic-item table, canonical typed program-root SX in the frontend, explicit
+program-root lowering into the existing MIR witness, and a reloc-free RISC-V
+ELF64 object writer. Each slice was independently tested, merged into the
+corresponding main branch, pushed, and cleaned up. M3 remains pending: no
+semantic residue was promoted and no contract was changed in place. The next
+wave may consume these integrated boundaries and continue semantic-table use,
+typed frontend/MIR structure, and independent backend object validation.
 
 ## Numbered milestones
 

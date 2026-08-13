@@ -20,9 +20,10 @@ abandoned slice remains in the run ledger with its last commit and failure
 state before cleanup. A later slice starts from the newly integrated commit,
 not from a stale long-lived task branch.
 
-Wave E is complete for the bounded handoff slices. The next wave starts only
-from its integrated `main` commits and uses disjoint repositories or disjoint
-production files.
+Wave F is complete for four bounded slices: StandardIR semantic-item table,
+frontend typed-root SX, program-root-to-MIR lowering, and the RISC-V ELF64
+object writer. The next wave starts only from their integrated `main` commits
+and uses disjoint repositories or disjoint production files.
 
 The cleanup sequence is explicit:
 

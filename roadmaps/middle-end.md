@@ -11,11 +11,12 @@ The middle end is target-independent and must not import ISA or ABI details.
 - provide a stable MIR importer/exporter for differential backend tests.
 
 The first target-independent function boundary, witness-bounded canonical MIR
-SX handoff, and canonical frontend-v0 SX-to-MIR lowering are integrated and
-remain additive. The bounded frontend result lowers into that boundary. A
-backend worker may consume a pinned MIR fixture before the full middle end
-exists, but it must not redefine MIR in the backend repository. Target-specific
-legalization begins only after the MIR contract revision is integrated.
+SX handoff, canonical frontend-v0 SX-to-MIR lowering, and explicit program-root
+lowering are integrated and remain additive. The bounded frontend result lowers
+into that boundary. A backend worker may consume a pinned MIR fixture before
+the full middle end exists, but it must not redefine MIR in the backend
+repository. Target-specific legalization begins only after the MIR contract
+revision is integrated.
 
 ## Exit and handoff
 

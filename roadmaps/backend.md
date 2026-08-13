@@ -16,12 +16,13 @@ encoders/decoders and behavioral tests belong to `fortback-new`.
 - synthesize and verify instruction selection, then measure cost.
 
 The bounded `riscv-opcodes` and AARCHMRS source importers, canonical
-TargetIR-v0 SX handoff, and AArch64 fixed ADD/SUB codec are integrated and
-preserve source identity through their encoding fixtures. ISA ingestion,
-semantics, encoders, decoders, ABI metadata and object writing do not wait for
-the frontend. Legalization and instruction selection do wait for `mir-v0`.
-RISC-V and AArch64 remain the first correctness targets. x86-64 is a concurrent
-source-quality comparison, not a prerequisite for them.
+TargetIR-v0 SX handoff, AArch64 fixed ADD/SUB codec, and a reloc-free RISC-V
+ELF64 object writer are integrated and preserve source identity through their
+encoding fixtures. ISA ingestion, semantics, encoders, decoders, ABI metadata
+and object writing do not wait for the frontend. Legalization and instruction
+selection do wait for `mir-v0`. RISC-V and AArch64 remain the first correctness
+targets. x86-64 is a concurrent source-quality comparison, not a prerequisite
+for them.
 
 ## Provenance and exit
 
