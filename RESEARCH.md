@@ -199,13 +199,14 @@ publishes all proposed decisions in a handoff table.
 ## Parallel production work
 
 `lazy-fortran-new` is the sole planning and evidence repository. A production
-slice is delegated with one exact sibling checkout, branch, base commit, file
-scope and test command. The coordinator first checks status and branch
-divergence. The checkout/worktree must be clean and exclusive to that task.
-The delegate uses GPT-5.6 Luna through
-`~/code/prompts/scripts/gpt-delegate.sh` and writes no laboratory files.
+slice is delegated to one native Codex subagent with one exact sibling
+checkout, branch, base commit, file scope and test command. The coordinator
+first checks status and branch divergence. The checkout/worktree must be clean
+and exclusive to that task. The subagent uses GPT-5.6 Luna and writes no
+laboratory files. `~/code/prompts/scripts/gpt-delegate.sh` is reserved for
+bounded reproducible `codex exec` experiments and transcripts.
 
-The delegate report contains:
+The subagent report contains:
 
 ```text
 repository, branch/worktree, base commit, resulting commit

@@ -218,25 +218,20 @@ non-overlapping files and an exact base commit. Before launch, the coordinator
 checks that the assigned checkout or worktree is clean, on the expected branch,
 and at the recorded base. Two agents never share a mutable worktree.
 
-Use the installed one-shot wrapper with GPT-5.6 Luna, one invocation per
-production repository. The `--dir` argument is the assigned checkout, for
-example `../standard-new` or `../fortback-new`:
+Use native Codex subagents with GPT-5.6 Luna for parallel production slices.
+Give each subagent the absolute assigned checkout path, branch, exact base
+commit, file scope and test command; for example, `/home/ert/code/standard-new`
+or `/home/ert/code/fortback-new`. Do not use `gpt-delegate.sh` to delegate
+production work: that wrapper is only for bounded reproducible `codex exec`
+experiments and transcripts.
 
-```sh
-~/code/prompts/scripts/gpt-delegate.sh \
-  --dir /home/ert/code/standard-new \
-  --model gpt-5.6-luna \
-  --prompt-file /tmp/standard-new-slice.md \
-  --out /tmp/standard-new-slice.answer \
-  --json-log /tmp/standard-new-slice.events.jsonl
-```
-
-Launch independent invocations in parallel only when their repository, branch
-and file scope do not overlap. The prompt must require a concise report of
-base commit, branch/worktree, allowed paths, commit, changed files, commands
-run, independent-oracle results, warnings, decisions encountered, experiment
-needed and blockers. Agents may commit only within their assigned production
-repository. Pushing is a separate explicit action.
+Launch independent subagents in parallel only when their repository, branch and
+file scope do not overlap. The prompt must require a concise report of base
+commit, branch/worktree, allowed paths, commit, changed files, commands run,
+independent-oracle results, warnings, decisions encountered, experiment needed
+and blockers. Agents may commit only within their assigned production
+repository. Pushing is a separate explicit action. Let native Codex manage the
+subagent lifetime and result collection; do not background or poll processes.
 
 After reports arrive, the central agent checks the commits, runs the relevant
 gates, writes or updates decisions and experiments, appends runs, updates the

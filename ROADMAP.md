@@ -149,12 +149,12 @@ The generic boundary is kept at StandardIR, typed facts, expansion algebra,
 provenance, exporters and wiring. PDF layout, R/C notation, wording patterns,
 errata and lexical data remain a Fortran-specific adapter for now.
 
-[D0043](research/decisions/D0043-central-roadmap-and-delegated-production-slices.md)
+[D0045](research/decisions/D0045-native-codex-subagents-for-parallel-slices.md)
 keeps this roadmap as the sole program planning authority. `standard-new`,
 `fortfront-new`, `ffc-new` and `fortback-new` remain production-only sibling
 repositories. Their specifications, generated source and behavioral tests stay
 there, while decisions, experiments, runs, provenance and integration pins stay
-in this laboratory. Independent GPT-5.6 Luna agents may work on bounded,
+in this laboratory. Independent native GPT-5.6 Luna subagents may work on bounded,
 non-overlapping slices in those sibling directories and report commits back to
 the central agent for metadata updates.
 

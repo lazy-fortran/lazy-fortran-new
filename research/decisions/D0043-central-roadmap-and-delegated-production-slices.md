@@ -1,7 +1,7 @@
 # D0043. Central roadmap and delegated production slices
 
 Date: 2026-08-13
-Status: accepted
+Status: superseded by D0045
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context
