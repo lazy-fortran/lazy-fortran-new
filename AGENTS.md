@@ -221,9 +221,7 @@ and at the recorded base. Two agents never share a mutable worktree.
 Use native Codex subagents with GPT-5.6 Luna for parallel production slices.
 Give each subagent the absolute assigned checkout path, branch, exact base
 commit, file scope and test command; for example, `/home/ert/code/standard-new`
-or `/home/ert/code/fortback-new`. Do not use `gpt-delegate.sh` to delegate
-production work: that wrapper is only for bounded reproducible `codex exec`
-experiments and transcripts.
+or `/home/ert/code/fortback-new`.
 
 Launch independent subagents in parallel only when their repository, branch and
 file scope do not overlap. The prompt must require a concise report of base
