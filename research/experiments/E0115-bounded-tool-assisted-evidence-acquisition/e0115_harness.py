@@ -7,6 +7,7 @@ and typed statuses, never a derived target or citation to the model.
 
 import csv
 import hashlib
+import bisect
 import re
 import sys
 from pathlib import Path
@@ -22,6 +23,42 @@ import e0111_common as common  # noqa: E402
 RELATIONS = {"alias", "definition", "lexical", "metavariable", "semantic", "unresolved"}
 MODES = {"exact", "definition", "rule", "reference"}
 RULE_LINE = re.compile(r"^\s*(?:[0-9]+(?:\.[0-9]+)*\s+)?[RC][0-9]{3,5}\s+")
+RULE_ID_LINE = re.compile(r"^\s*(?:[0-9]+(?:\.[0-9]+)*\s+)?(?P<rule>[RC][0-9]{3,5})\s+")
+PRODUCTION = re.compile(
+    r"\b(?P<rule>R[0-9]{3,5})\s+(?P<lhs>[A-Za-z][A-Za-z0-9-]*)\s+is\s+(?P<rhs>.*)",
+    re.IGNORECASE | re.DOTALL,
+)
+
+# These are the three source-defined assumed syntax rules, not parser
+# conveniences.  Keeping them as a small declarative table lets the gate
+# validate their instantiations without adding one branch per residue name.
+ASSUMED_RULES = {
+    "R401": "list",
+    "R402": "name",
+    "R403": "scalar",
+}
+
+# The lexical class names are source terms; their source facts are carried by
+# the numbered productions and the pinned lexical projection.  The set is
+# deliberately small and data-like rather than a candidate-specific rescue
+# list.
+LEXICAL_CLASSES = {"digit", "letter", "rep-char"}
+
+
+def candidate_guidance(name):
+    """Return generic search guidance derived from the candidate shape."""
+    normalized = name.rstrip(",")
+    if normalized.endswith("-list"):
+        return "If no direct production is found, inspect assumed rule R401 (xyz-list)."
+    if normalized.endswith("-name"):
+        return "If no direct production is found, inspect assumed rule R402 (xyz-name)."
+    if normalized.startswith("scalar-"):
+        return "If no direct production is found, inspect assumed rule R403 (scalar-xyz)."
+    if normalized in LEXICAL_CLASSES or not re.fullmatch(
+        r"[A-Za-z][A-Za-z0-9-]*", normalized
+    ):
+        return "Treat this as a possible lexical/operator token and locate a numbered production containing it on the right-hand side."
+    return "Search for a direct numbered production or a normative prose definition."
 
 
 class ToolError(Exception):
@@ -68,11 +105,16 @@ def page_for(ranges, start, length):
     return common.containing_page(ranges, start, max(1, length))
 
 
-def page_at(ranges, start):
-    matches = [number for number, page_start, page_length in ranges if page_start <= start < page_start + page_length]
-    if len(matches) != 1:
+def page_at(ranges, start, page_starts=None):
+    if page_starts is None:
+        page_starts = [page_start for _number, page_start, _length in ranges]
+    index = bisect.bisect_right(page_starts, start) - 1
+    if index < 0:
         raise ToolError(f"byte offset is not contained by exactly one page: {start}")
-    return matches[0]
+    number, page_start, page_length = ranges[index]
+    if not page_start <= start < page_start + page_length:
+        raise ToolError(f"byte offset is not contained by exactly one page: {start}")
+    return number
 
 
 class Episode:
@@ -95,7 +137,13 @@ class Episode:
             raise ToolError(f"candidate is outside the residue denominator: {name}")
         self.raw = raw
         self.ranges = ranges
+        self.page_starts = [page_start for _number, page_start, _length in ranges]
         self.lines = line_inventory(raw)
+        self.rule_indices = {}
+        for index, (_start, _end, line) in enumerate(self.lines):
+            match = RULE_ID_LINE.match(line)
+            if match is not None:
+                self.rule_indices.setdefault(match.group("rule"), index)
         self.name = name.rstrip(",")
         self.e0110 = e0110
         self.max_evidence_calls = max_evidence_calls
@@ -126,15 +174,36 @@ class Episode:
     def _evidence(self, start, end, kind, *, anchor=None):
         if start < 0 or end <= start or end > len(self.raw):
             raise ToolError("evidence span is outside canonical source")
-        text = self.raw[start:end].decode("utf-8")
+        # Page and byte limits are measured in bytes, while the canonical
+        # source is UTF-8.  A clipped span may therefore end in the middle of
+        # an en dash, apostrophe, or another multibyte source character. Keep
+        # the provenance byte span bounded, but expose only a decodable inner
+        # span to the model.
+        text_start, text_end = None, None
+        for left in range(4):
+            for right in range(4):
+                candidate_start = start + left
+                candidate_end = end - right
+                if candidate_end <= candidate_start:
+                    continue
+                try:
+                    text = self.raw[candidate_start:candidate_end].decode("utf-8")
+                except UnicodeDecodeError:
+                    continue
+                text_start, text_end = candidate_start, candidate_end
+                break
+            if text_start is not None:
+                break
+        if text_start is None:
+            raise ToolError("evidence span cannot be decoded as UTF-8")
         self._budget_bytes(len(text.encode("utf-8")))
         result_id = self._next_id("e")
         record = {
             "result_id": result_id,
             "kind": kind,
             "page": page_for(self.ranges, start, end - start),
-            "byte_start": start,
-            "byte_length": end - start,
+            "byte_start": text_start,
+            "byte_length": text_end - text_start,
             "text": text,
         }
         if anchor is not None:
@@ -197,21 +266,21 @@ class Episode:
         self._evidence_call()
         if not isinstance(rule_number, str) or not re.fullmatch(r"[RC][0-9]{3,5}", rule_number):
             raise ToolError("rule_number must match R/C followed by 3..5 digits")
-        for index, (start, end, line) in enumerate(self.lines):
-            if not re.search(rf"\b{re.escape(rule_number)}\b", line):
+        index = self.rule_indices.get(rule_number)
+        if index is None:
+            raise ToolError("rule not found")
+        start, end, _line = self.lines[index]
+        page = page_at(self.ranges, start, self.page_starts)
+        final = end
+        for next_start, next_end, next_line in self.lines[index + 1 :]:
+            if not next_line.strip(" \t\r\n\f"):
                 continue
-            page = page_at(self.ranges, start)
-            final = end
-            for next_start, next_end, next_line in self.lines[index + 1 :]:
-                if not next_line.strip(" \t\r\n\f"):
-                    continue
-                if page_at(self.ranges, next_start) != page:
-                    break
-                if RULE_LINE.match(next_line):
-                    break
-                final = next_end
-            return {"status": "ok", "result": self._evidence(start, final, "rule", anchor=start)}
-        raise ToolError("rule not found")
+            if page_at(self.ranges, next_start, self.page_starts) != page:
+                break
+            if RULE_LINE.match(next_line):
+                break
+            final = next_end
+        return {"status": "ok", "result": self._evidence(start, final, "rule", anchor=start)}
 
     def _definition_match(self, evidence):
         token = re.escape(self.name)
@@ -228,6 +297,71 @@ class Episode:
         return {
             "name": self.name,
             "relation": "definition",
+            "page": page_for(self.ranges, absolute, max(1, len(match.group(0).encode("utf-8")))),
+            "byte_start": absolute,
+            "byte_length": len(match.group(0).encode("utf-8")),
+            "source_sha256": hashlib.sha256(self.raw).hexdigest(),
+            "evidence_ids": [evidence["result_id"]],
+            "origin": "LLM",
+        }
+
+    def _production_match(self, evidence):
+        """Classify a numbered source production without deriving a target."""
+        text = evidence["text"]
+        candidate = self.name
+        candidate_re = re.escape(candidate)
+        for match in PRODUCTION.finditer(text):
+            rule = match.group("rule").upper()
+            lhs = match.group("lhs")
+            rhs = re.split(
+                r"\n\s*(?:[0-9]+\s+)?R[0-9]{3,5}\s+",
+                match.group("rhs"),
+                maxsplit=1,
+                flags=re.IGNORECASE,
+            )[0]
+            if lhs.casefold() == candidate.casefold():
+                return match, "definition"
+            assumed = ASSUMED_RULES.get(rule)
+            if assumed == "list" and candidate.casefold().endswith("-list"):
+                return match, "metavariable"
+            if assumed == "name" and candidate.casefold().endswith("-name"):
+                return match, "metavariable"
+            if assumed == "scalar" and candidate.casefold().startswith("scalar-"):
+                return match, "metavariable"
+
+            # A residue term that is a lexical class or a punctuation/operator
+            # is a terminal when it occurs in the RHS of a numbered production.
+            # Ordinary RHS nonterminals are not accepted by this fallback:
+            # they need their own source definition or an assumed rule.
+            terminal = candidate in LEXICAL_CLASSES or not re.fullmatch(
+                r"[A-Za-z][A-Za-z0-9-]*", candidate
+            )
+            if terminal and re.search(
+                rf"(?<![A-Za-z0-9_-]){candidate_re}(?![A-Za-z0-9_-])",
+                rhs,
+                re.IGNORECASE,
+            ):
+                return match, "lexical"
+        return None
+
+    def _source_match(self, evidence):
+        direct = self._definition_match(evidence)
+        if direct is not None:
+            direct["source_relation"] = "definition"
+            return direct
+        production = self._production_match(evidence)
+        if production is None:
+            return None
+        match, source_relation = production
+        absolute = evidence["byte_start"] + len(
+            evidence["text"][: match.start()]
+        .encode("utf-8")
+        )
+        return {
+            "name": self.name,
+            "relation": "metavariable" if source_relation == "metavariable" else "lexical",
+            "source_relation": source_relation,
+            "rule": match.group("rule").upper(),
             "page": page_for(self.ranges, absolute, max(1, len(match.group(0).encode("utf-8")))),
             "byte_start": absolute,
             "byte_length": len(match.group(0).encode("utf-8")),
@@ -260,13 +394,21 @@ class Episode:
                 return {"status": "rejected", "code": "unknown-evidence-id"}
         accepted = None
         for evidence_id in evidence_ids:
-            accepted = self._definition_match(self._results[evidence_id])
+            accepted = self._source_match(self._results[evidence_id])
             if accepted is not None:
                 accepted["relation"] = relation
                 accepted["evidence_ids"] = list(evidence_ids)
                 break
         if accepted is None:
-            return {"status": "rejected", "code": "no-source-backed-definition"}
+            return {
+                "status": "rejected",
+                "code": "no-source-backed-definition",
+                "message": (
+                    "Evidence must contain a direct definition, one of the "
+                    "source-defined assumed rules R401/R402/R403, or a "
+                    "numbered production that defines a lexical/operator token."
+                ),
+            }
         self.accepted = accepted
         self.terminal = "accepted"
         return {"status": "accepted"}

@@ -50,15 +50,16 @@ controls. E0115 compares every declared local model across fixed-window,
 full-retrieval and tool-assisted text variants, with reasoning modes isolated
 as separate cells; visual cells remain a separate modality.
 The deterministic evidence environment and native llama.cpp loop pass their
-fixture gates and a one-row Qwen 3.5 2B smoke control; no full E0115 matrix has
-run yet. A provisional 17-row cell was stopped after exposing an expensive
-non-terminating tool loop, and a second 28-row control exposed a page-boundary
-bug in `read_rule`; both are excluded from model results and recorded as
-harness controls. The deterministic read-rule sweep now covers all 1,168
-canonical R/C identifiers with zero failures. D0057 now bounds rows at twelve
-turns. The first complete local bounded-tool cell (Qwen 3.5 2B, reasoning off)
-is recorded with 6 accepted, 57 abstentions, 64 hard failures and 4/6 exact
-oracle translations; the remaining matrix cells are pending.
+fixture gates and a one-row Qwen 3.5 2B smoke control. A provisional 17-row
+cell, a 28-row page-boundary control and a partial Qwen 3.5 4B cell exposed
+harness defects; all are excluded from model results and retained as controls.
+The deterministic read-rule sweep covers all 1,168 canonical R/C identifiers
+with zero failures. D0058 amends D0057: the gate recognizes direct definitions,
+R401/R402/R403 assumed rules and numbered RHS lexical/operator terminals, spans
+are UTF-8-safe, and model-class turn caps are used. The first complete local
+bounded-tool cell (Qwen 3.5 2B, reasoning off) is recorded with 6 accepted, 57
+abstentions, 64 hard failures and 4/6 exact oracle translations; corrected
+convergence cells are pending.
 
 ## Exit and handoff
 

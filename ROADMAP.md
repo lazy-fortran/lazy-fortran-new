@@ -333,15 +333,16 @@ controls only. E0115 is the next comparison gate: it gives every
 eligible local model the same bounded native evidence tools and runs the complete
 predeclared model x protocol x reasoning matrix. Its deterministic local tool
 environment and native llama.cpp loop now pass fixture gates and a one-row Qwen
-3.5 2B smoke control; the full matrix has not started. Abstention is a measured
-false negative in E0115, not a green result; D0057 bounds each row at twelve
-turns after the provisional 17-row attempt exposed an expensive non-terminating
-tool loop. Two provisional partial cells exposed deterministic page-boundary
-bugs; both are recorded as harness controls and excluded from model results.
-The first complete local bounded-tool cell (Qwen 3.5 2B, reasoning off) is now
-recorded: 6 accepted, 57 abstentions and 64 hard failures over 127 rows, with
-4/6 exact oracle translations and one novel accepted row. The remaining local
-model/protocol cells are still pending.
+3.5 2B smoke control. Abstention is a measured false negative in E0115, not a
+green result. D0058 amends D0057: the gate now recognizes direct definitions,
+R401/R402/R403 assumed rules and numbered RHS lexical/operator terminals, UTF-8
+byte clipping is safe, and model-class turn caps are 12/16/20. Two provisional
+partial cells and a partial Qwen 3.5 4B control exposed deterministic boundary
+bugs; all are retained as harness controls and excluded from model results. The
+first complete local bounded-tool cell (Qwen 3.5 2B, reasoning off) is recorded:
+6 accepted, 57 abstentions and 64 hard failures over 127 rows, with 4/6 exact
+oracle translations and one novel accepted row. The corrected convergence
+cells start with Qwen 3.6 35B-A3B and 27B, then use smaller fallback cells.
 Unavailable checkpoints and
 inapplicable visual cells remain explicit denominator entries.
 

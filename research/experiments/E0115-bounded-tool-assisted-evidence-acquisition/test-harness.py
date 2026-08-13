@@ -28,6 +28,14 @@ assert found["status"] == "ok" and found["results"]
 result_id = found["results"][0]["result_id"]
 expanded = episode.call("read_span", {"result_id": result_id, "before_bytes": 2048, "after_bytes": 2048})
 assert expanded["status"] == "ok" and expanded["result"]["page"] == 319
+
+# UTF-8 negative control: deliberately clip the source immediately after a
+# multibyte character and require the bounded result to remain decodable.
+utf8_start = raw.index("–".encode("utf-8"))
+utf8_episode = harness.Episode(raw, ranges, residue, e0110, "module-name")
+utf8_result = utf8_episode._evidence(utf8_start - 2, utf8_start + 2, "fixture")
+assert "�" not in utf8_result["text"]
+utf8_result["text"].encode("utf-8").decode("utf-8")
 accepted = episode.call(
     "submit_pointer",
     {"name": "module-name", "decision": "accept", "relation": "semantic", "evidence_ids": [result_id]},
@@ -58,9 +66,45 @@ else:
     raise AssertionError("evidence-call budget was not enforced")
 
 rule_ids = sorted(set(re.findall(rb"\b[RC][0-9]{3,5}\b", raw)))
+rule_episode = harness.Episode(
+    raw,
+    ranges,
+    residue,
+    e0110,
+    "module-name",
+    max_evidence_calls=len(rule_ids) + 1,
+    max_source_bytes=16 * 1024 * 1024,
+)
 for rule_id in rule_ids:
-    rule_episode = harness.Episode(raw, ranges, residue, e0110, "module-name")
     checked = rule_episode.call("read_rule", {"rule_number": rule_id.decode("ascii")})
     assert checked["status"] == "ok"
+
+def checked_submission(name, rule_number, relation):
+    episode = harness.Episode(raw, ranges, residue, e0110, name)
+    result = episode.call("read_rule", {"rule_number": rule_number})
+    assert result["status"] == "ok"
+    accepted = episode.call(
+        "submit_pointer",
+        {
+            "name": name,
+            "decision": "accept",
+            "relation": relation,
+            "evidence_ids": [result["result"]["result_id"]],
+        },
+    )
+    assert accepted == {"status": "accepted"}
+    return episode.accepted
+
+for name, rule, relation in (
+    ("only-list", "R401", "metavariable"),
+    ("module-name", "R402", "metavariable"),
+    ("scalar-int-expr", "R403", "metavariable"),
+    ("digit", "R601", "lexical"),
+    (".AND.", "R1020", "lexical"),
+    (".FALSE.", "R725", "lexical"),
+    (".NIL.", "R1527", "lexical"),
+    ("..", "R827", "lexical"),
+):
+    checked_submission(name, rule, relation)
 
 print("E0115 deterministic tool gate passed")

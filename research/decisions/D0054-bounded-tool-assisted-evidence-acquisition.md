@@ -1,7 +1,7 @@
 # D0054. Bounded tool-assisted evidence acquisition
 
 Date: 2026-08-13
-Status: accepted
+Status: amended by D0058
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context

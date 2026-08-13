@@ -48,11 +48,19 @@ start episode
   -> terminal row result
 ```
 
-The budgets are eight evidence calls, three submissions, twelve model turns,
-32 KiB of source text and 300 seconds per row. The runner never silently
-increases a budget. It flushes the trajectory after every model/tool event and
-the row result after every completed row; resume replays the recorded
-trajectory rather than reissuing a successful tool call.
+The budgets are eight evidence calls, three submissions, a predeclared model
+class turn cap, 32 KiB of source text and 300 seconds per row. The current caps
+are twelve turns for checkpoints up to 4B, sixteen for 9B/26B, and twenty for
+dense 27B/31B or sparse 35B-A3B. Reasoning-off runs precede a separately
+recorded reasoning-on retry after failure. The runner never silently increases
+a budget. It flushes the trajectory after every model/tool event and the row
+result after every completed row; resume replays the recorded trajectory
+rather than reissuing a successful tool call.
+
+The gate recognizes direct source definitions, the normative assumed rules
+R401/R402/R403, and lexical/operator terminals on numbered production
+right-hand sides. It does not accept an ordinary syntax name merely because it
+appears on a right-hand side. Source spans are UTF-8-safe at byte/page limits.
 
 ## Trace
 

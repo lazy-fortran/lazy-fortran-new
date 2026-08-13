@@ -1,7 +1,7 @@
 # D0057. Bound native evidence episodes by twelve turns
 
 Date: 2026-08-13
-Status: accepted
+Status: amended by D0058
 
 ## Context
 
