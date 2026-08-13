@@ -91,6 +91,7 @@ generated grammar targets, including tree-sitter, to have no fatal structural
 failure.
 
 This is a target-export boundary, not evidence for an unresolved StandardIR
-name. D0029 keeps the specialized direct parser as the production target and
-treats tree-sitter as a derived differential export. Further normalization
-would require target-specific choices.
+name. Under D0029, the selected production-parser portion of M2 is complete:
+the specialized direct parser is the production target and tree-sitter is a
+derived differential export. Further normalization would require
+target-specific choices and is not on the production critical path.
