@@ -25,7 +25,7 @@ if len(unique_names) != 60: raise SystemExit("E0109: E0106 unique denominator is
 
 def read(path):
     with open(path, newline="") as stream: rows = list(csv.DictReader(stream, delimiter="\t"))
-    required = {"name", "classification", "form", "page", "byte_start", "byte_length", "source_hash", "origin"}
+    required = {"name", "classification", "form", "page", "byte_start", "byte_length", "source_sha256", "origin"}
     if not rows or not required <= set(rows[0]): raise SystemExit(f"E0109: malformed {path}")
     if len({row["name"] for row in rows}) != len(rows): raise SystemExit(f"E0109: duplicate rows in {path}")
     return rows
@@ -34,14 +34,14 @@ strict_rows = read(strict_path)
 independent_rows = read(independent_path)
 if {row["name"] for row in strict_rows} != unique_names: raise SystemExit("E0109: strict denominator differs")
 if {row["name"] for row in independent_rows} != unique_names: raise SystemExit("E0109: independent denominator differs")
-fields = ["name", "classification", "form", "page", "byte_start", "byte_length", "source_hash", "origin"]
+fields = ["name", "classification", "form", "page", "byte_start", "byte_length", "source_sha256", "origin"]
 left = sorted(tuple(row[field] for field in fields) for row in strict_rows)
 right = sorted(tuple(row[field] for field in fields) for row in independent_rows)
 if left != right: raise SystemExit("E0109: independent fields differ")
 allowed = {"strict-definition", "ambiguous-definition", "unsupported-definition"}
 if any(row["classification"] not in allowed for row in strict_rows): raise SystemExit("E0109: unknown classification")
 if any(row["origin"] != "MECHANICAL" for row in strict_rows + independent_rows): raise SystemExit("E0109: non-mechanical origin")
-if any(not row["source_hash"] or int(row["page"]) <= 0 or int(row["byte_start"]) < 0 or int(row["byte_length"]) <= 0 for row in strict_rows):
+if any(not row["source_sha256"] or int(row["page"]) <= 0 or int(row["byte_start"]) < 0 or int(row["byte_length"]) <= 0 for row in strict_rows):
     raise SystemExit("E0109: incomplete source provenance")
 
 counts = Counter(row["classification"] for row in strict_rows)
