@@ -198,9 +198,12 @@ projection, frontend-v0 SX reader, witness-bounded MIR SX handoff, and
 TargetIR-v0 SX handoff are integrated. E0100 independently reproduced the 181
 unresolved-name denominator and found 54 mechanically-supported candidates,
 46 ambiguous candidates, and 81 names with no candidate, with zero model calls.
-The next wave may add AST and semantic-rule consumption, extend the deterministic
-name evidence experiment, and continue target source normalization. These
-slices must not change a contract in place.
+E0101 now provides the strict residue package and citation validator, but its
+model execution is blocked until the pinned E0100 cache and an explicit local
+model runner exist; it made zero calls and adjudicated nothing. The next wave
+may add semantic-rule-table consumption, extend typed AST/MIR structure, and
+continue target source normalization. These slices must not change a contract
+in place.
 
 ## Numbered milestones
 
