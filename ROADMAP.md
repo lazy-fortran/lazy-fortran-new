@@ -139,6 +139,97 @@ as sole author and targets *Nature Computational Science* aspirationally after
 semantic formalization and generated frontend measurements establish the
 broader result. Top programming languages venues remain fallback targets.
 
+[D0041](research/decisions/D0041-fortran-first-adapter-and-mechanical-syntax-closure.md)
+sets the immediate order. We finish the Fortran/J3 adapter and mechanically
+close the complete syntax reference set before starting new model-assisted
+semantic work, generalized multi-standard tooling or the production frontend.
+E0055 already demonstrated the D0024/D0026 expansion projection. The next run
+must carry that accepted layer into the current E0074-derived integration.
+The generic boundary is kept at StandardIR, typed facts, expansion algebra,
+provenance, exporters and wiring. PDF layout, R/C notation, wording patterns,
+errata and lexical data remain a Fortran-specific adapter for now.
+
+## Numbered milestones
+
+These milestones are the externally meaningful stops in the roadmap. A
+milestone is complete only when its gate is demonstrated by an experiment or
+an independently checked artifact.
+
+### M0. Laboratory and provenance foundation (complete)
+
+The laboratory repository, source pins, decision and run ledgers, provenance
+gate, reproducible scripts, and comparison boundaries exist and pass their
+repository checks.
+
+### M1. Normative syntax extraction (complete)
+
+The pinned J3/24-007 PDF yields the complete numbered syntax span as
+provenance-bearing StandardIR. The canonical SX round-trip and the EBNF,
+ANTLR4, Bison, tree-sitter, and direct-parser projections are reproducible.
+The remaining reference closure is deliberately carried forward as the next
+milestone's input.
+
+### M2. Closed syntax and sane generated grammars (next)
+
+The complete selected Fortran syntax profile reaches a closed, source-backed
+reference state. Every referenced name is accounted for as an explicit
+production, an R401/R402/R403 assumed expansion, a lexical fact, a fixed
+erratum/token operation, or a source-backed semantic-only fact. The selected
+parser profile has zero unresolved, disputed, or unclassified parser names.
+An explicitly unsupported profile feature is a separate exclusion decision,
+not a hidden resolution.
+
+The generated EBNF, ANTLR4, Bison, tree-sitter, and specialized direct-parser
+inputs are structurally sane. They retain provenance, contain no unresolved
+symbols, and pass their target validators without fatal errors. Target
+warnings remain reported as evidence under D0030. The direct parser has no
+dispatch collisions, and its generated source compiles. E0098 is the
+experiment for this milestone.
+
+### M3. Source-backed Core 0 semantics (pending)
+
+Core 0 constraints, definitions, relations, and fact dependencies have a
+measured resolution state. Deterministic formalization is exhausted first.
+Any remaining local holes are measured through the small-model-to-larger-model
+ladder, with independent formalization, provenance, and behavioral oracles.
+
+### M4. Generated frontend vertical slice (pending)
+
+`fortfront-new` parses a closed profile, builds the generated AST, resolves a
+small semantic contract, emits source-linked diagnostics, and lowers one
+useful construct. Structural wiring comes from schemas and architecture
+metadata. No local fragment adds compiler-wide modules, callers, or dispatch.
+
+### M5. Practical generated frontend (pending)
+
+The generated frontend accepts a pinned real Fortran corpus, agrees with
+independent compiler oracles on the declared behavior, and has measured
+throughput and memory against at least two established frontends.
+
+### M6. Self-hosted compiler pipeline (pending)
+
+The generated compiler compiles the SX reader, StandardIR engine, ImplIR
+checker, and generators. The result reports the deterministic, search,
+model-assisted, and handwritten fractions of the language-specific
+implementation.
+
+**Immediate syntax-closure gate (E0098, manifest recorded):**
+
+- [ ] Reintegrate D0024, D0026, D0027 and fixed errata into the complete
+      522-record projection. Do not use the narrower E0074 alias-only profile
+      as the current baseline.
+- [ ] Apply R401/R402/R403 mechanically as typed source-provenanced
+      expansions, preserving list repetition/separators, aliases and scalar
+      constraints.
+- [ ] Classify every remaining reference as explicit, assumed-expansion,
+      lexical, erratum/token, semantic-only, disputed or unresolved. Retain
+      provenance for every state and silently drop none.
+- [ ] Reach zero unclassified parser names in EBNF, ANTLR4, Bison, tree-sitter
+      and direct wiring. Semantic-only records may remain outside parser
+      aliases, but not without source-linked facts.
+- [ ] Only after this gate decide whether any residue warrants a small-model
+      local proposal. No model is used to rediscover R401/R402/R403.
+
 ---
 
 ## Phase 0. Laboratory
@@ -428,6 +519,9 @@ evidence for the thesis.
 - [x] Apply D0024, D0026 and D0027 to one composite input and measure the
       remaining target-export boundary (E0055, regenerate with
       `research/experiments/E0055-can-accepted-projection-decisions-produc/analyse.sh`)
+- [ ] Restore that accepted deterministic projection in the current complete
+      integration and close the reference state machine mechanically (E0098,
+      manifest recorded. The analysis script is added with the run.)
 - [x] Normalize the compact target-export structural failures mechanically:
       left recursion and nullable wrappers, retaining target warnings and the
       remaining tree-sitter boundary (E0056, regenerate with
@@ -638,6 +732,11 @@ evidence for the thesis.
 
 ### 1.7 Semantic formalization
 
+The E0081--E0097 records are bounded historical semantic measurements. New
+semantic formalization, model escalation and frontend work wait at the
+D0041/E0098 syntax-closure gate so that the unresolved-name denominator is not
+contaminated by an incomplete integration layer.
+
 - [ ] StandardIR constraints, definitions, relations and rules over Core 0
       clauses
 - [x] E0083 records subject, applicability, required facts and provided facts
@@ -729,6 +828,10 @@ comparisons from behavioral oracle comparisons.
 ---
 
 ## Phase 2. `fortfront-new`: generated frontend
+
+Phase 2 remains blocked until the D0041/E0098 mechanical syntax-closure gate
+has passed. The frontend may then start from a closed, provenance-bearing
+Fortran profile without requiring a generalized document-ingestion framework.
 
 - [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
 - [ ] Generate the lexer from the lexical specification

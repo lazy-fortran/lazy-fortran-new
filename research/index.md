@@ -99,6 +99,7 @@ Runs recorded: 106
 | E0095 | reported | 1 | Can one generic evaluator execute a nested implies predicate with source facts |
 | E0096 | reported | 1 | Can one generic evaluator execute a nested not-or intrinsic-type predicate |
 | E0097 | reported | 1 | Can one generic evaluator execute accepted finite-domain predicates over |
+| E0098 | draft | 0 | Can the current complete StandardIR projection close every parser reference mechanically? |
 
 ## Run status
 
@@ -159,6 +160,7 @@ Runs recorded: 106
 | [D0038](decisions/D0038-first-paper-scope-and-publication-gate.md) | superseded by D0040 |  | First paper scope and publication gate |
 | [D0039](decisions/D0039-disposable-local-artifact-browser.md) | accepted |  | A disposable local browser for generated run artifacts |
 | [D0040](decisions/D0040-defer-paper-for-broader-result.md) | accepted | Supersedes D0038 | Defer the paper until the broader generated-infrastructure result |
+| [D0041](decisions/D0041-fortran-first-adapter-and-mechanical-syntax-closure.md) | accepted |  | Fortran-first adapter and mechanical syntax closure |
 
 ### Proposed decisions
 

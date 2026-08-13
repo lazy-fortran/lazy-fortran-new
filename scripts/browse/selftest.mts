@@ -13,6 +13,7 @@ import * as assert from 'node:assert/strict'
 import * as fs from 'node:fs'
 import * as os from 'node:os'
 import * as path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { checkRelative, isInside, realRoot, resolveInRoot } from './paths.mts'
 import { classify, indexRunDirectory, listRuns, resolveRun } from './index.mts'
 import { loadProvenance, manifestForFile, parseFlatToml, resolveReference } from './provenance.mts'
@@ -394,6 +395,25 @@ check('highlighting preserves the text it was given', () => {
     assert.equal(unrender(highlight('sx', sample)), sample)
     const fortran = "    if (n > 0) call parse_x2D_y(context, ok)  ! trailing 'comment'\n"
     assert.equal(unrender(highlight('fortran', fortran)), fortran)
+})
+
+// ----------------------------------------------------------------- the shell
+
+// The client resolves every element it drives by id at load time, so a rename
+// in either file is a TypeError that blanks the whole viewer. Neither file is
+// the authority here: the test fails when the two disagree.
+check('every element the client drives by id exists in the shell markup', () => {
+    const here = path.dirname(fileURLToPath(import.meta.url))
+    const shell = fs.readFileSync(path.join(here, 'shell.html'), 'utf8')
+    const client = fs.readFileSync(path.join(here, 'client.js'), 'utf8')
+    const declared = new Set([...shell.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]))
+    const used = [...client.matchAll(/\bel\('([^']+)'\)/g)].map((m) => m[1])
+    assert.ok(used.length > 0, 'found no element lookups, so this check proves nothing')
+    for (const id of new Set(used)) {
+        assert.ok(declared.has(id), `client.js drives #${id}, which shell.html does not declare`)
+    }
+    // Negative control: the same scan has to reject an id that is absent.
+    assert.equal(declared.has('nav-toggle') && !declared.has('not-an-element'), true)
 })
 
 process.stdout.write(`\n${checks - failures}/${checks} checks passed\n`)

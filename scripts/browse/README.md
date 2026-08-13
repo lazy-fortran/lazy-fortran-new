@@ -20,3 +20,9 @@ as `R000083`.
 
 The server rebuilds the file view on each request. Restart it when new run
 directories are added so the run selector discovers them.
+
+On a screen narrower than the breakpoints in `style.css`, the file list moves
+behind the `files` button and the SX record list sits above the tree rather than
+beside it. `wrap` soft-wraps long grammar lines; it hides the line numbers while
+it is on, because a wrapped line no longer occupies one visual row. Neither is a
+different view of the artifact, and neither is remembered between sessions.

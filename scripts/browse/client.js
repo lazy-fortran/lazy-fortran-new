@@ -12,9 +12,19 @@ const state = {
     mode: 'raw',
     records: null,
     record: null,
+    wrap: false,
 }
 
 const el = (id) => document.getElementById(id)
+
+// The file list is a sidebar on a wide screen and a drawer over the content on
+// a phone. Which one it is, is the stylesheet's decision; this only carries the
+// open/closed bit, which is inert at widths where the sidebar is always shown.
+function setNav(open) {
+    document.body.classList.toggle('nav-open', open)
+    el('nav-toggle').setAttribute('aria-expanded', String(open))
+    el('nav-scrim').hidden = !open
+}
 
 async function api(path, params) {
     const url = new URL(path, location.origin)
@@ -112,9 +122,10 @@ async function loadRun(ref, wantPath, wantMode) {
         const link = document.createElement('a')
         link.href = '#'
         link.dataset.path = entry.rel
-        link.append(text('span', 'size', bytes(entry.bytes)), document.createTextNode(entry.rel))
+        link.append(text('span', 'name', entry.rel), text('span', 'size', bytes(entry.bytes)))
         link.onclick = (event) => {
             event.preventDefault()
+            setNav(false)
             openFile(entry.rel)
         }
         nav.append(link)
@@ -122,9 +133,10 @@ async function loadRun(ref, wantPath, wantMode) {
     const provLink = document.createElement('a')
     provLink.href = '#'
     provLink.dataset.path = ''
-    provLink.textContent = 'run provenance'
+    provLink.append(text('span', 'name', 'run provenance'))
     provLink.onclick = (event) => {
         event.preventDefault()
+        setNav(false)
         showRunProvenance()
     }
     nav.prepend(provLink)
@@ -177,16 +189,32 @@ async function openFile(path, wantMode) {
     tabs.replaceChildren()
     for (const mode of modes) {
         const button = text('button', mode === chosen ? 'on' : null, mode)
+        button.dataset.mode = mode
         button.onclick = () => showMode(mode)
         tabs.append(button)
     }
+    if (!file.binary && file.kind !== 'tsv') tabs.append(text('span', 'spacer'), wrapButton())
     await showMode(chosen)
+}
+
+// Soft wrap is a view setting, not a file setting: it survives moving between
+// files, and it lives in memory only.
+function wrapButton() {
+    const button = text('button', state.wrap ? 'on' : null, 'wrap')
+    button.id = 'wrap-toggle'
+    button.title = 'soft-wrap long lines; line numbers are hidden while wrapped'
+    button.onclick = () => {
+        state.wrap = !state.wrap
+        document.body.classList.toggle('wrap', state.wrap)
+        button.classList.toggle('on', state.wrap)
+    }
+    return button
 }
 
 async function showMode(mode) {
     state.mode = mode
-    for (const button of el('tabs').querySelectorAll('button')) {
-        button.classList.toggle('on', button.textContent === mode)
+    for (const button of el('tabs').querySelectorAll('button[data-mode]')) {
+        button.classList.toggle('on', button.dataset.mode === mode)
     }
     if (mode === 'raw') showRaw()
     else if (mode === 'tree') await showTree()
@@ -301,7 +329,9 @@ function renderNode(node, depth) {
         .map((child) => (child.a !== undefined ? atomText(child) : `(${child.l.length && child.l[0].a !== undefined ? child.l[0].a : '…'} …)`))
         .join(' ')
     const summary = document.createElement('summary')
-    summary.append(head, document.createTextNode(' '), text('span', 'dim', brief.slice(0, 110)))
+    // Capped only to bound the node, not to fit a width: the stylesheet elides
+    // the preview against the actual pane.
+    summary.append(head, text('span', 'dim', brief.slice(0, 300)))
     details.append(summary)
     for (const child of operands) details.append(renderNode(child, depth + 1))
     return details
@@ -367,10 +397,17 @@ function showRunProvenanceInto(content) {
     }
 }
 
+el('nav-toggle').onclick = () => setNav(!document.body.classList.contains('nav-open'))
+el('nav-scrim').onclick = () => setNav(false)
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setNav(false)
+})
+
 el('jump-form').onsubmit = async (event) => {
     event.preventDefault()
     const query = el('jump').value.trim()
     if (!query) return
+    setNav(false)
     try {
         const found = await api('/api/resolve', { q: query })
         await loadRun(found.ref)

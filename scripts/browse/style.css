@@ -30,13 +30,23 @@ body {
     font: 13px/1.5 var(--mono);
     display: flex;
     flex-direction: column;
+    /* A phone browser's toolbar is inside 100%, so the bottom of the file view
+       hides under it. 100dvh is the visible box. */
+    overscroll-behavior: none;
+}
+
+@supports (height: 100dvh) {
+    body {
+        height: 100dvh;
+    }
 }
 
 header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 6px 10px;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    padding: 6px max(10px, env(safe-area-inset-right)) 6px max(10px, env(safe-area-inset-left));
     border-bottom: 1px solid var(--line);
     background: var(--panel);
     flex: 0 0 auto;
@@ -73,6 +83,17 @@ button {
 #jump-form {
     display: inline-flex;
     gap: 4px;
+    min-width: 0;
+}
+
+#jump {
+    min-width: 0;
+}
+
+/* The drawer control and its backdrop exist only under the narrow layout. */
+#nav-toggle,
+#nav-scrim {
+    display: none;
 }
 
 main {
@@ -98,14 +119,15 @@ nav h2 {
     margin: 12px 10px 4px;
 }
 
+/* Flex rather than a float, so the name ellipsizes against the size column
+   instead of running under it when the drawer is narrow. */
 nav a {
-    display: block;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
     padding: 2px 10px;
     color: var(--fg);
     text-decoration: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 nav a:hover {
@@ -117,10 +139,17 @@ nav a.active {
     color: var(--accent);
 }
 
+nav a .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
 nav a .size {
     color: var(--dim);
-    float: right;
-    margin-left: 8px;
+    margin-left: auto;
+    flex: 0 0 auto;
 }
 
 #view {
@@ -131,23 +160,39 @@ nav a .size {
 }
 
 #file-head {
-    padding: 6px 10px;
+    padding: 6px max(10px, env(safe-area-inset-right)) 6px max(10px, env(safe-area-inset-left));
     border-bottom: 1px solid var(--line);
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 4px 12px;
     align-items: baseline;
+    flex: 0 0 auto;
 }
 
 #file-head .path {
     color: var(--accent);
+    overflow-wrap: anywhere;
 }
 
 #tabs {
     display: flex;
     gap: 6px;
-    padding: 4px 10px;
+    padding: 4px max(10px, env(safe-area-inset-right)) 4px max(10px, env(safe-area-inset-left));
     border-bottom: 1px solid var(--line);
+    /* A scroll container is not auto-sized by its content, so the row has to be
+       pinned or it collapses to the height of its own scrollbar. */
+    flex: 0 0 auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+#tabs::-webkit-scrollbar {
+    display: none;
+}
+
+#tabs button {
+    flex: 0 0 auto;
 }
 
 #tabs button.on {
@@ -155,10 +200,17 @@ nav a .size {
     color: var(--accent);
 }
 
+#tabs .spacer {
+    flex: 1 1 auto;
+}
+
 #content {
     flex: 1 1 auto;
     overflow: auto;
     min-height: 0;
+    /* Long grammar lines scroll sideways here; keep that gesture from turning
+       into a page-level rubber band or a back-navigation swipe. */
+    overscroll-behavior: contain;
 }
 
 .code {
@@ -181,6 +233,24 @@ pre.gutter {
     user-select: none;
     position: sticky;
     left: 0;
+    z-index: 1;
+}
+
+/* Soft wrap, for reading a 200-character Bison rule on a phone. Line numbers
+   stop corresponding to visual rows once a line wraps, so the gutter goes with
+   them rather than lying. */
+body.wrap #content pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+body.wrap #content pre.gutter {
+    display: none;
+}
+
+#wrap-toggle.on {
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 table.tsv {
@@ -263,22 +333,38 @@ table.tsv th {
     margin-left: 14px;
 }
 
+/* The one-line preview is elided by the box rather than by a character count,
+   so a wide screen shows more of it and a phone shows no overflow. */
 .sx-tree summary {
     cursor: pointer;
     list-style: none;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
 }
 
 .sx-tree summary::before {
-    content: "▸ ";
+    content: "▸";
     color: var(--dim);
+    flex: 0 0 auto;
 }
 
 .sx-tree details[open] > summary::before {
-    content: "▾ ";
+    content: "▾";
 }
 
+.sx-tree summary .dim {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* A leaf carries the (source ...) provenance: document, rule, page and a
+   64-character hash. It has to wrap, or it sets the scroll width of the pane. */
 .sx-tree .leaf {
     margin-left: 28px;
+    overflow-wrap: anywhere;
 }
 
 .status-good {
@@ -293,6 +379,15 @@ table.tsv th {
 .empty {
     color: var(--dim);
     padding: 8px 10px;
+}
+
+/* Provenance section headings, in the same register as the sidebar's. The
+   default h2 costs three lines of a phone screen. */
+#content h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 10px 0 0;
 }
 
 /* Token classes emitted by highlight.mts. */
@@ -333,4 +428,184 @@ table.tsv th {
 }
 .t-warn {
     color: var(--warn);
+}
+
+/* --------------------------------------------------------------- touch and
+   narrow layouts. Three independent axes: a coarse pointer needs bigger
+   targets at any width (an iPad in landscape is 1024px and still a finger), a
+   medium width needs a thinner sidebar, and a phone-width screen has no room
+   for a sidebar at all. */
+
+@media (pointer: coarse) {
+    select,
+    input,
+    button {
+        /* Under 16px iOS Safari zooms the page when the field takes focus, and
+           never zooms back. */
+        font-size: 16px;
+        padding: 6px 10px;
+        min-height: 40px;
+    }
+
+    nav a,
+    .sx-list a {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    nav h2 {
+        margin-top: 16px;
+    }
+
+    .sx-tree summary,
+    .sx-tree .leaf {
+        padding: 4px 0;
+    }
+}
+
+/* iPad portrait, and phones in landscape: keep the sidebar, take back width. */
+@media (max-width: 1000px) {
+    nav {
+        width: 224px;
+    }
+
+    .sx-list {
+        width: 200px;
+    }
+
+    #root-path {
+        display: none;
+    }
+}
+
+/* Phone width in portrait. The sidebar becomes a drawer over the content,
+   because 300px of 390px is not a layout. */
+@media (max-width: 700px) {
+    #nav-toggle {
+        display: inline-block;
+        flex: 0 0 auto;
+    }
+
+    body.nav-open #nav-toggle {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+    nav {
+        position: fixed;
+        z-index: 20;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: min(84vw, 320px);
+        padding-left: env(safe-area-inset-left);
+        border-right: 1px solid var(--line);
+        transform: translateX(-100%);
+        transition: transform 0.18s ease-out;
+    }
+
+    body.nav-open nav {
+        transform: none;
+    }
+
+    #nav-scrim {
+        display: block;
+        position: fixed;
+        z-index: 15;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+    }
+
+    #nav-scrim[hidden] {
+        display: none;
+    }
+
+    #view {
+        padding-right: env(safe-area-inset-right);
+        padding-left: env(safe-area-inset-left);
+    }
+
+    /* The record list and the tree stack instead of splitting a 390px row. */
+    .sx {
+        flex-direction: column;
+    }
+
+    .sx-list {
+        width: auto;
+        max-height: 42%;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .sx-tree {
+        flex: 1 1 auto;
+    }
+
+    /* Nesting indents cost a tenth of the viewport per level otherwise. */
+    .sx-tree details {
+        margin-left: 9px;
+    }
+
+    .sx-tree .leaf {
+        margin-left: 18px;
+    }
+
+    /* A key and its value do not fit on one row, so they take two. */
+    .kv {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .kv dt {
+        margin-top: 6px;
+    }
+
+    .brand {
+        display: none;
+    }
+
+    #run-select {
+        flex: 1 1 8em;
+        min-width: 0;
+    }
+
+    pre {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    table.tsv th,
+    table.tsv td {
+        padding: 4px 6px;
+    }
+}
+
+/* Phones in landscape have about 390px of height. Give the rows back to the
+   file view. */
+@media (max-height: 500px) and (pointer: coarse) {
+    header,
+    #file-head,
+    #tabs {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    select,
+    input,
+    button {
+        min-height: 34px;
+        padding: 3px 8px;
+    }
+
+    nav a,
+    .sx-list a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    nav {
+        transition: none;
+    }
 }
