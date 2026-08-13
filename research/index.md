@@ -156,7 +156,9 @@ Runs recorded: 106
 | [D0035](decisions/D0035-deterministic-normative-prose-first.md) | accepted |  | Deterministic normative-prose resolution precedes model escalation |
 | [D0036](decisions/D0036-bounded-predicate-formalization.md) | accepted |  | Bounded predicate formalization records |
 | [D0037](decisions/D0037-cross-clause-prohibition-normalization.md) | accepted |  | Cross-clause prohibition normalization |
-| [D0038](decisions/D0038-first-paper-scope-and-publication-gate.md) | accepted |  | First paper scope and publication gate |
+| [D0038](decisions/D0038-first-paper-scope-and-publication-gate.md) | superseded by D0040 |  | First paper scope and publication gate |
+| [D0039](decisions/D0039-disposable-local-artifact-browser.md) | accepted |  | A disposable local browser for generated run artifacts |
+| [D0040](decisions/D0040-defer-paper-for-broader-result.md) | accepted | Supersedes D0038 | Defer the paper until the broader generated-infrastructure result |
 
 ### Proposed decisions
 

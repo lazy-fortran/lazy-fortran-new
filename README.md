@@ -102,9 +102,9 @@ E0096 executes a nested `not`/`or` predicate over intrinsic-type facts and
 agrees with gfortran and Flang on three witnesses. E0097 executes C7117 and
 C7118 through one generic finite-domain evaluator over six binary and octal
 DATA witnesses, agreeing with both compilers on all six.
-Regenerate
-paper numbers with `papers/standard-to-grammar/analyse.sh` and the laboratory
-index with `scripts/index.sh`.
+Regenerate the laboratory index with `scripts/index.sh`. The earlier
+syntax-only manuscript was retired under D0040. Its experiments and generated
+outputs remain in the research ledger and ignored run cache.
 
 ## Licence
 

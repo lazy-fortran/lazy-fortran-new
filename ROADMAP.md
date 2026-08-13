@@ -130,15 +130,14 @@ predicates, and emit structured source-linked diagnostics. The production
 the parser behavior comparison across LFortran, Flang and gfortran. Broad
 comparison adjudication, complete semantic coverage and the Phase 2 frontend
 gate remain open. Regenerate this snapshot's experiment values with
-`scripts/index.sh` and the paper values with
-`papers/standard-to-grammar/analyse.sh`.
+`scripts/index.sh`.
 
-[D0038](research/decisions/D0038-first-paper-scope-and-publication-gate.md)
-accepts the current `standard-to-grammar` package as the first-paper
-scope. Its claims stop at provenance-preserving syntax projection,
-deterministic wiring, generated local operations and bounded semantic
-evidence. Production frontend integration is follow-up work and does not block
-this paper.
+[D0040](research/decisions/D0040-defer-paper-for-broader-result.md) supersedes
+D0038. The syntax-only manuscript was retired. The research evidence remains
+in the run ledger and ignored cache. The planned paper has Christopher Albert
+as sole author and targets *Nature Computational Science* aspirationally after
+semantic formalization and generated frontend measurements establish the
+broader result. Top programming languages venues remain fallback targets.
 
 ---
 
@@ -713,21 +712,19 @@ size per remaining rule, and the comparison-corpus disagreement rates with
 adjudications. The comparison report must separate structural grammar
 comparisons from behavioral oracle comparisons.
 
-### First-paper package ([D0038](research/decisions/D0038-first-paper-scope-and-publication-gate.md))
+### Deferred paper plan ([D0040](research/decisions/D0040-defer-paper-for-broader-result.md))
 
-- [x] Venue-neutral manuscript generated from the pinned run set with
-      `papers/standard-to-grammar/analyse.sh`
-- [x] Reproducible PDF rendered into the ignored cache with
-      `papers/standard-to-grammar/render.sh`
-- [x] Run and artifact ledgers, generated tables, claims and limitations pass
-      the repository gates, including `scripts/selftest.sh`,
-      `scripts/check-decisions.sh` and `scripts/check-commit-references.sh`
-- [ ] Author list and target venue selected
-- [ ] Submission or preprint upload completed
-
-**Package gate: met.** The committed manuscript is ready for the external
-author and venue choices. The two unchecked items are external publication
-actions, not missing laboratory evidence.
+- [x] Retire the syntax-only manuscript and submission package
+- [x] Preserve its evidence in append-only runs, artifact manifests and
+      ignored generated outputs
+- [x] Record Christopher Albert as sole planned author
+- [x] Record *Nature Computational Science* as the aspirational target
+- [ ] Measure the semantic mechanical/model-assisted residue
+- [ ] Start and validate the generated `fortfront-new` frontend
+- [ ] Compare generated infrastructure with established frontends on a real
+      Fortran corpus
+- [ ] Write the broader manuscript after those measurements
+- [ ] Reassess venue fit and submit
 
 ---
 

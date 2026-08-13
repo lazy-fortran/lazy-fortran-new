@@ -1,7 +1,7 @@
 # D0038. First paper scope and publication gate
 
 Date: 2026-08-13
-Status: accepted
+Status: superseded by D0040
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context

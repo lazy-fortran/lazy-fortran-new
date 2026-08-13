@@ -236,6 +236,24 @@ with their formalization, implementation, tests and verification state. The inde
 generated, never edited. If a number is wrong, the fix is in the data or the
 script.
 
+### Reading a run's artifacts
+
+The payloads themselves live in the gitignored cache, so nothing above shows
+them. `scripts/browse.sh` prints the file index of one run directory, and serves
+a read-only local viewer for the SX, EBNF, ANTLR4, Bison, tree-sitter and
+generated Fortran in it, with the manifest and ledger run beside each file:
+
+```sh
+scripts/browse.sh index --run E0074/R000001    # or --run R000083, the ledger ID
+scripts/browse.sh serve --run E0074/R000001    # http://127.0.0.1:7373/
+scripts/browse.sh selftest
+```
+
+It is a viewer and nothing else: read-only, loopback only, no stored state, no
+dependencies, and no gate depends on it. `research/decisions/D0039-disposable-local-artifact-browser.md`
+states the bounds and what would mean deleting it, and `scripts/browse/README.md`
+documents the commands.
+
 ---
 
 ## Papers

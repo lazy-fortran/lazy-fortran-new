@@ -24,7 +24,8 @@ decision record first.
 - `ROADMAP.md`: phases, current position, what blocks what.
 - `RESEARCH.md`: how experiments, runs and decisions are recorded.
 - `repos.toml`: production repositories and oracle repositories.
-- `scripts/`: clone, status, update, fetch, experiment and index helpers.
+- `scripts/`: clone, status, update, fetch, experiment and index helpers, plus
+  `browse.sh`, the disposable read-only viewer for cached run artifacts (D0039).
 - `research/experiments/`: one directory per experiment, `E<NNNN>-<slug>`.
 - `research/runs/`: append-only JSONL, one file per month.
 - `research/decisions/`: one file per decision, `D<NNNN>-<slug>.md`.

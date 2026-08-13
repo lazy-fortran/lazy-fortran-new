@@ -1,0 +1,336 @@
+/* One stylesheet, no framework. Dark by default because these artifacts are
+   read next to a terminal. */
+
+:root {
+    --bg: #14161a;
+    --panel: #1b1e24;
+    --line: #2a2f38;
+    --fg: #d6dae1;
+    --dim: #808896;
+    --accent: #7aa2f7;
+    --good: #8fbf7f;
+    --bad: #e06c75;
+    --warn: #d8a657;
+    --mono: ui-monospace, "JetBrains Mono", "DejaVu Sans Mono", monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font: 13px/1.5 var(--mono);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+    flex: 0 0 auto;
+}
+
+.brand {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.grow {
+    flex: 1 1 auto;
+}
+
+.dim {
+    color: var(--dim);
+}
+
+select,
+input,
+button {
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font: inherit;
+    padding: 2px 6px;
+}
+
+button {
+    cursor: pointer;
+}
+
+#jump-form {
+    display: inline-flex;
+    gap: 4px;
+}
+
+main {
+    flex: 1 1 auto;
+    display: flex;
+    min-height: 0;
+}
+
+nav {
+    width: 300px;
+    flex: 0 0 auto;
+    overflow: auto;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+    padding-bottom: 20px;
+}
+
+nav h2 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    margin: 12px 10px 4px;
+}
+
+nav a {
+    display: block;
+    padding: 2px 10px;
+    color: var(--fg);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+nav a:hover {
+    background: #232833;
+}
+
+nav a.active {
+    background: #2b3242;
+    color: var(--accent);
+}
+
+nav a .size {
+    color: var(--dim);
+    float: right;
+    margin-left: 8px;
+}
+
+#view {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+#file-head {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: baseline;
+}
+
+#file-head .path {
+    color: var(--accent);
+}
+
+#tabs {
+    display: flex;
+    gap: 6px;
+    padding: 4px 10px;
+    border-bottom: 1px solid var(--line);
+}
+
+#tabs button.on {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+#content {
+    flex: 1 1 auto;
+    overflow: auto;
+    min-height: 0;
+}
+
+.code {
+    display: flex;
+    align-items: flex-start;
+}
+
+pre {
+    margin: 0;
+    padding: 6px 10px;
+    white-space: pre;
+    tab-size: 4;
+}
+
+pre.gutter {
+    color: var(--dim);
+    text-align: right;
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+    user-select: none;
+    position: sticky;
+    left: 0;
+}
+
+table.tsv {
+    border-collapse: collapse;
+    margin: 8px 10px;
+}
+
+table.tsv th,
+table.tsv td {
+    border: 1px solid var(--line);
+    padding: 2px 8px;
+    text-align: left;
+}
+
+table.tsv th {
+    color: var(--accent);
+}
+
+.kv {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1px 14px;
+    margin: 8px 10px;
+}
+
+.kv dt {
+    color: var(--dim);
+}
+
+.kv dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.sx {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+}
+
+.sx-list {
+    width: 320px;
+    flex: 0 0 auto;
+    overflow: auto;
+    border-right: 1px solid var(--line);
+}
+
+.sx-list input {
+    width: calc(100% - 20px);
+    margin: 8px 10px;
+}
+
+.sx-list a {
+    display: block;
+    padding: 1px 10px;
+    color: var(--fg);
+    text-decoration: none;
+}
+
+.sx-list a:hover {
+    background: #232833;
+}
+
+.sx-list a.active {
+    background: #2b3242;
+}
+
+.sx-list .id {
+    color: var(--accent);
+    margin-right: 6px;
+}
+
+.sx-tree {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 8px 10px;
+}
+
+.sx-tree details {
+    margin-left: 14px;
+}
+
+.sx-tree summary {
+    cursor: pointer;
+    list-style: none;
+}
+
+.sx-tree summary::before {
+    content: "▸ ";
+    color: var(--dim);
+}
+
+.sx-tree details[open] > summary::before {
+    content: "▾ ";
+}
+
+.sx-tree .leaf {
+    margin-left: 28px;
+}
+
+.status-good {
+    color: var(--good);
+}
+
+.status-bad {
+    color: var(--bad);
+}
+
+.note,
+.empty {
+    color: var(--dim);
+    padding: 8px 10px;
+}
+
+/* Token classes emitted by highlight.mts. */
+.t-comment {
+    color: #6b7280;
+    font-style: italic;
+}
+.t-str {
+    color: #9ece6a;
+}
+.t-kw {
+    color: #bb9af7;
+}
+.t-builtin {
+    color: #7dcfff;
+}
+.t-def {
+    color: #e0af68;
+}
+.t-field {
+    color: #7aa2f7;
+}
+.t-num {
+    color: #ff9e64;
+}
+.t-punct {
+    color: #6c7793;
+}
+.t-op {
+    color: #89ddff;
+}
+.t-ident,
+.t-atom {
+    color: var(--fg);
+}
+.t-bad {
+    color: var(--bad);
+}
+.t-warn {
+    color: var(--warn);
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <!-- Without this iOS lays the page out at 980px and scales it down, so
+             every media query below reports a desktop width. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="color-scheme" content="dark" />
+        <title>run artifacts</title>
+        <link rel="stylesheet" href="/static/style.css" />
+    </head>
+    <body>
+        <header>
+            <button id="nav-toggle" type="button" aria-expanded="false" aria-controls="files" title="file list">files</button>
+            <span class="brand">run artifacts</span>
+            <select id="run-select" title="run directory"></select>
+            <form id="jump-form">
+                <input id="jump" type="text" size="14" placeholder="R000083 or E0074/R000001" />
+                <button type="submit">go</button>
+            </form>
+            <span id="run-meta"></span>
+            <span class="grow"></span>
+            <span id="root-path" class="dim"></span>
+        </header>
+        <main>
+            <div id="nav-scrim" hidden></div>
+            <nav id="files"></nav>
+            <section id="view">
+                <div id="file-head"></div>
+                <div id="tabs"></div>
+                <div id="content"></div>
+            </section>
+        </main>
+        <script src="/static/client.js"></script>
+    </body>
+</html>
