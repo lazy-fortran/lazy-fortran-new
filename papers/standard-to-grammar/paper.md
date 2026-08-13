@@ -42,6 +42,9 @@ predicate rows and 22 dispatch rows. Its C601 checker
 accepts the positive witness with status 0 and rejects
 the negative witness with status 1. Both results retain
 source links.
+The C719 evaluator accepts its positive witness with status 0
+and rejects its negative witness with status 1. Both retain the
+J3 source link.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -381,6 +384,11 @@ rows. The generated C601 checker accepts the one-character witness and rejects
 the 64-character witness with source-linked status and diagnostic records. The
 gfortran controls agree. This is a table and one-rule evaluator slice, not a
 complete semantic engine.
+E0091 applies the same generated-table path to C719. It derives the lower bound
+0 from the accepted predicate, preserves 1 source
+provenance matches, and agrees with gfortran on positive and negative
+witnesses. This extends operational evaluation to two simple predicates while
+leaving the other accepted rows as table data.
 
 ## 5. Reproducibility and limitations
 
@@ -392,10 +400,10 @@ sources are never vendored.
 
 The study uses one Fortran working draft and one selected syntax span. It does
 not measure parser throughput, complete semantic coverage, diagnostic quality,
-or model cost. The grammar exports are syntax projections. The E0090 checker
-implements only C601. The other accepted predicates are table data rather than
-evaluated semantics. The comparison corpus is evidence for adjudication and
-not a normative input.
+or model cost. The grammar exports are syntax projections. The E0090 and E0091
+checkers implement only C601 and C719. The other accepted predicates are table
+data rather than evaluated semantics. The comparison corpus is evidence for
+adjudication and not a normative input.
 
 ## 6. Next experiment
 
@@ -404,9 +412,14 @@ and 22 dispatch rows. It evaluates C601 on one positive and
 one negative real-source witness: checker statuses are
 0 and 1, gfortran statuses are
 0 and 1, and both results retain
-source links. C1588 remains outside the table. The next experiment should
-extend the evaluator to another simple predicate or test the same rule table
-through the generated frontend, while keeping unresolved rows excluded.
+source links. C1588 remains outside the table.
+
+E0091 extends the evaluator to C719. It accepts the positive witness with
+status 0 and rejects the negative witness with status
+1. Gfortran agrees and both results retain source links.
+The next experiment should extend the evaluator to another simple accepted
+predicate or test the same rule table through the generated frontend, while
+keeping unresolved rows excluded.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -443,7 +456,8 @@ rule rows and 22 dispatch rows. The table has
 22 source-evidence matches. Its C601 evaluator accepts the
 positive witness and rejects the negative witness with source-linked results.
 gfortran agrees. This establishes the first generated semantic table and local
-diagnostic boundary, not complete semantic coverage.
+diagnostic boundary, not complete semantic coverage. E0091 extends the same
+boundary to C719 while leaving the other accepted predicates unevaluated.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -1387,6 +1401,28 @@ The following rows are extracted from the accepted projection run records.
 | C601 negative gfortran status | 1 |
 | C601 positive source-linked result | 1 |
 | C601 negative source-linked result | 1 |
+| Parser projection records | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
+## E0091 generated C719 evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| C719 target rule rows | 1 |
+| Independent target-oracle difference | 0 |
+| C719 provenance matches | 1 |
+| C719 fact matches | 1 |
+| Generated lower bound | 0 |
+| Positive checker status | 0 |
+| Negative checker status | 1 |
+| Positive diagnostic rows | 0 |
+| Negative diagnostic rows | 1 |
+| Positive gfortran status | 0 |
+| Negative gfortran status | 1 |
+| Positive source-linked result | 1 |
+| Negative source-linked result | 1 |
 | Parser projection records | 0 |
 | Model calls | 0 |
 | Controlled mutation | observed_failure |

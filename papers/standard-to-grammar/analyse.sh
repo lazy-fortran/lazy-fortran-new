@@ -142,6 +142,7 @@ assert_run R000096 '.status == "accepted" and .experiment == "E0087" and .verifi
 assert_run R000097 '.status == "accepted" and .experiment == "E0088" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.target_rows == 1 and .verification.witness_rows == 3 and .verification.source_hash_matches == 6 and .verification.target_source_evidence_matches == 3 and .verification.witness_source_evidence_matches == 3 and .verification.selected_candidate == "not-or" and .verification.disputed_remaining == 0 and .verification.independent_oracle_difference == 0 and .verification.behavioral_compilers == 2 and .verification.behavioral_valid_accepts == 2 and .verification.behavioral_invalid_rejects == 4 and .verification.behavioral_difference == 0 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000098 '.status == "accepted" and .experiment == "E0089" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_rows == 23 and .verification.resolved_constraints == 22 and .verification.disputed_constraints == 0 and .verification.unresolved_constraints == 265 and .verification.accepted_predicates == 22 and .verification.competing_candidate_records == 0 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 22 and .verification.independent_oracle_agreement == 0 and .verification.adjudication_gate_violations == 0 and .verification.required_fact_records == 49 and .verification.provided_fact_records == 22 and .verification.dependency_edges == 71 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000099 '.status == "accepted" and .experiment == "E0090" and .verification.zero_model_calls == true and .verification.accepted_predecessor_rows == 22 and .verification.generated_rule_rows == 22 and .verification.generated_dispatch_rows == 22 and .verification.table_oracle_difference == 0 and .verification.unique_rule_ids == 22 and .verification.provenance_matches == 22 and .verification.source_evidence_matches == 22 and .verification.unresolved_rows_emitted == 0 and .verification.c1588_rows_emitted == 0 and .verification.c601_checker_positive_status == 0 and .verification.c601_checker_negative_status == 1 and .verification.c601_positive_diagnostic_rows == 0 and .verification.c601_negative_diagnostic_rows == 1 and .verification.c601_positive_gfortran_status == 0 and .verification.c601_negative_gfortran_status == 1 and .verification.c601_positive_source_linked == 1 and .verification.c601_negative_source_linked == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000100 '.status == "accepted" and .experiment == "E0091" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.target_rule_rows == 1 and .verification.target_table_difference == 0 and .verification.target_provenance_matches == 1 and .verification.target_fact_matches == 1 and .verification.generated_bound == 0 and .verification.checker_positive_status == 0 and .verification.checker_negative_status == 1 and .verification.positive_diagnostic_rows == 0 and .verification.negative_diagnostic_rows == 1 and .verification.positive_gfortran_status == 0 and .verification.negative_gfortran_status == 1 and .verification.positive_source_linked == 1 and .verification.negative_source_linked == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -805,6 +806,23 @@ c601_negative_linked=$(metric R000099 '.verification.c601_negative_source_linked
 rule_table_projections=$(metric R000099 '.verification.parser_projection_records')
 rule_table_model_calls=$(metric R000099 '.verification.model_calls')
 rule_table_negative=$(metric R000099 '.verification.negative_control')
+c719_predecessor=$(metric R000100 '.verification.predecessor_rule_rows')
+c719_rows=$(metric R000100 '.verification.target_rule_rows')
+c719_difference=$(metric R000100 '.verification.target_table_difference')
+c719_provenance=$(metric R000100 '.verification.target_provenance_matches')
+c719_facts=$(metric R000100 '.verification.target_fact_matches')
+c719_bound=$(metric R000100 '.verification.generated_bound')
+c719_positive=$(metric R000100 '.verification.checker_positive_status')
+c719_negative=$(metric R000100 '.verification.checker_negative_status')
+c719_positive_diagnostics=$(metric R000100 '.verification.positive_diagnostic_rows')
+c719_negative_diagnostics=$(metric R000100 '.verification.negative_diagnostic_rows')
+c719_positive_gfortran=$(metric R000100 '.verification.positive_gfortran_status')
+c719_negative_gfortran=$(metric R000100 '.verification.negative_gfortran_status')
+c719_positive_linked=$(metric R000100 '.verification.positive_source_linked')
+c719_negative_linked=$(metric R000100 '.verification.negative_source_linked')
+c719_projections=$(metric R000100 '.verification.parser_projection_records')
+c719_model_calls=$(metric R000100 '.verification.model_calls')
+c719_negative_control=$(metric R000100 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1747,6 +1765,28 @@ EOF
 | Model calls | $rule_table_model_calls |
 | Controlled mutation | $rule_table_negative |
 
+## E0091 generated C719 evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | $c719_predecessor |
+| C719 target rule rows | $c719_rows |
+| Independent target-oracle difference | $c719_difference |
+| C719 provenance matches | $c719_provenance |
+| C719 fact matches | $c719_facts |
+| Generated lower bound | $c719_bound |
+| Positive checker status | $c719_positive |
+| Negative checker status | $c719_negative |
+| Positive diagnostic rows | $c719_positive_diagnostics |
+| Negative diagnostic rows | $c719_negative_diagnostics |
+| Positive gfortran status | $c719_positive_gfortran |
+| Negative gfortran status | $c719_negative_gfortran |
+| Positive source-linked result | $c719_positive_linked |
+| Negative source-linked result | $c719_negative_linked |
+| Parser projection records | $c719_projections |
+| Model calls | $c719_model_calls |
+| Controlled mutation | $c719_negative_control |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2211,6 +2251,23 @@ rendered=${rendered//@C601_NEGATIVE_LINKED@/$c601_negative_linked}
 rendered=${rendered//@RULE_TABLE_PROJECTIONS@/$rule_table_projections}
 rendered=${rendered//@RULE_TABLE_MODEL_CALLS@/$rule_table_model_calls}
 rendered=${rendered//@RULE_TABLE_NEGATIVE@/$rule_table_negative}
+rendered=${rendered//@C719_PREDECESSOR@/$c719_predecessor}
+rendered=${rendered//@C719_ROWS@/$c719_rows}
+rendered=${rendered//@C719_DIFFERENCE@/$c719_difference}
+rendered=${rendered//@C719_PROVENANCE@/$c719_provenance}
+rendered=${rendered//@C719_FACTS@/$c719_facts}
+rendered=${rendered//@C719_BOUND@/$c719_bound}
+rendered=${rendered//@C719_POSITIVE@/$c719_positive}
+rendered=${rendered//@C719_NEGATIVE@/$c719_negative}
+rendered=${rendered//@C719_POSITIVE_DIAGNOSTICS@/$c719_positive_diagnostics}
+rendered=${rendered//@C719_NEGATIVE_DIAGNOSTICS@/$c719_negative_diagnostics}
+rendered=${rendered//@C719_POSITIVE_GFORTRAN@/$c719_positive_gfortran}
+rendered=${rendered//@C719_NEGATIVE_GFORTRAN@/$c719_negative_gfortran}
+rendered=${rendered//@C719_POSITIVE_LINKED@/$c719_positive_linked}
+rendered=${rendered//@C719_NEGATIVE_LINKED@/$c719_negative_linked}
+rendered=${rendered//@C719_PROJECTIONS@/$c719_projections}
+rendered=${rendered//@C719_MODEL_CALLS@/$c719_model_calls}
+rendered=${rendered//@C719_NEGATIVE_CONTROL@/$c719_negative_control}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

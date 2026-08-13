@@ -925,6 +925,28 @@ The following rows are extracted from the accepted projection run records.
 | Model calls | 0 |
 | Controlled mutation | observed_failure |
 
+## E0091 generated C719 evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| C719 target rule rows | 1 |
+| Independent target-oracle difference | 0 |
+| C719 provenance matches | 1 |
+| C719 fact matches | 1 |
+| Generated lower bound | 0 |
+| Positive checker status | 0 |
+| Negative checker status | 1 |
+| Positive diagnostic rows | 0 |
+| Negative diagnostic rows | 1 |
+| Positive gfortran status | 0 |
+| Negative gfortran status | 1 |
+| Positive source-linked result | 1 |
+| Negative source-linked result | 1 |
+| Parser projection records | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

@@ -575,9 +575,13 @@ evidence for the thesis.
       and negative real-source witnesses with a source-linked diagnostic. Both
       generated checking and gfortran agree (E0090, regenerate with
       `research/experiments/E0090-can-accepted-predicates-generate-a-seman/analyse.sh`)
-- [ ] Extend the generated evaluator to another simple accepted predicate or
-      run the rule table through the generated frontend. Keep unresolved rows,
-      including C1588, out of accepted semantic wiring
+- [x] Extend operational evaluation to C719, deriving its nonnegative bound
+      from the accepted predicate and agreeing with gfortran on positive and
+      negative witnesses with source-linked diagnostics (E0091, regenerate
+      with `research/experiments/E0091-can-the-generated-rule-table-evaluate-c7/analyse.sh`)
+- [ ] Extend the evaluator to another simple accepted predicate or run the rule
+      table through the generated frontend. Keep unresolved rows, including
+      C1588, out of accepted semantic wiring
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)
