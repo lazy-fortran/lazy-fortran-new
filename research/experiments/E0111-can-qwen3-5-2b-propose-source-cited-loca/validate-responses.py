@@ -35,6 +35,8 @@ def parser():
         default=str(root / ".cache/runs/E0001/R000003/j3-24-007.pages.index"),
     )
     result.add_argument("--e0110", required=True, help="E0110 classifications.tsv")
+    result.add_argument("--prompts", help="prepared prompts, required by pointer mode")
+    result.add_argument("--pointer-mode", action="store_true")
     result.add_argument("--outdir", required=True, help="ignored-cache validation output")
     result.add_argument("--errors", help="optional model-errors.jsonl emitted by run-local.py")
     result.add_argument("--source-sha256", default=DEFAULT_SOURCE_SHA256)
@@ -54,6 +56,104 @@ def read_jsonl(path):
             return records
     except OSError as exc:
         raise InputError(f"cannot read responses {path}: {exc}") from exc
+
+
+def read_prompt_windows(path):
+    if not path:
+        raise InputError("pointer mode requires --prompts")
+    try:
+        with Path(path).open(encoding="utf-8") as stream:
+            rows = [json.loads(line) for line in stream]
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InputError(f"cannot read pointer prompts {path}: {exc}") from exc
+    if len(rows) != 127 or any(not isinstance(row, dict) for row in rows):
+        raise InputError("pointer prompts do not contain 127 objects")
+    result = {}
+    for row in rows:
+        name = row.get("name")
+        windows = row.get("windows")
+        if not isinstance(name, str) or not isinstance(windows, list):
+            raise InputError("pointer prompt lacks name or windows")
+        if name in result:
+            raise InputError(f"duplicate pointer prompt: {name}")
+        result[name] = windows
+    return result
+
+
+def validate_pointer_response(item, expected_names, prompt_windows, raw, ranges, source_hash):
+    if not isinstance(item, dict):
+        raise InputError("response line is not an object")
+    name = item.get("name")
+    if name not in expected_names:
+        raise InputError(f"unknown response name: {name!r}")
+    decision = item.get("decision")
+    if decision == "abstain":
+        if set(item) != {"name", "decision"}:
+            raise InputError(f"{name}: abstain must not carry proposal fields")
+        return None
+    if decision != "proposal" or set(item) != {"name", "decision", "relation", "target", "window"}:
+        raise InputError(f"{name}: pointer proposal fields are not exact")
+    relation = item["relation"]
+    if relation not in {"is", "is-one-of", "means", "consists-of"}:
+        raise InputError(f"{name}: relation is not allowed")
+    if not isinstance(item["target"], str) or not item["target"].strip() or len(item["target"]) > 512:
+        raise InputError(f"{name}: target is empty or too long")
+    window_index = item["window"]
+    if not isinstance(window_index, int) or isinstance(window_index, bool):
+        raise InputError(f"{name}: window is not an integer")
+    windows = prompt_windows[name]
+    if window_index < 1 or window_index > len(windows):
+        raise InputError(f"{name}: window is outside supplied evidence")
+    window = windows[window_index - 1]
+    required = {"page", "byte_start", "byte_length", "text"}
+    if not isinstance(window, dict) or not required <= set(window):
+        raise InputError(f"{name}: supplied window metadata is malformed")
+    start = window["byte_start"]
+    length = window["byte_length"]
+    if not isinstance(start, int) or not isinstance(length, int) or start < 0 or length < 1:
+        raise InputError(f"{name}: supplied window span is invalid")
+    try:
+        source_text = raw[start : start + length].decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise InputError(f"{name}: supplied window is not UTF-8") from exc
+    if source_text != window["text"]:
+        raise InputError(f"{name}: supplied window differs from canonical bytes")
+    normalized = normalized_name(name)
+    escaped = re.escape(normalized.casefold())
+    patterns = {
+        "is-one-of": rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+is\s+one\s+of\b",
+        "is": rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+is\b(?!\s+one\s+of\b)",
+        "means": rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+means\b",
+        "consists-of": rf"^\s*[0-9]+\s+(?:r[0-9]+\s+)?{escaped}\s+consists\s+of\b",
+    }
+    matches = list(re.finditer(patterns[relation], source_text.casefold(), re.MULTILINE))
+    if len(matches) != 1:
+        raise InputError(f"{name}: selected window has {len(matches)} exact subject definitions")
+    match = matches[0]
+    line_start = source_text.rfind("\n", 0, match.start()) + 1
+    line_end = source_text.find("\n", match.end())
+    if line_end < 0:
+        line_end = len(source_text)
+    citation_start = start + len(source_text[:line_start].encode("utf-8"))
+    citation_end = start + len(source_text[:line_end].encode("utf-8"))
+    citation = raw[citation_start:citation_end]
+    page = containing_page(ranges, citation_start, len(citation))
+    return {
+        "normalized": normalized,
+        "relation": relation,
+        "page": page,
+        "byte_start": citation_start,
+        "byte_length": len(citation),
+        "target": item["target"],
+        "name": name,
+        "citation": {
+            "page": page,
+            "byte_start": citation_start,
+            "byte_length": len(citation),
+            "source_sha256": source_hash,
+            "text": citation.decode("utf-8"),
+        },
+    }
 
 
 def validate_response(item, expected_names, raw, ranges, source_hash):
@@ -212,6 +312,9 @@ def main():
         ranges = load_page_index(args.pages, len(raw))
         residue = load_residue(args.residue)
         expected_names = {row["name"] for row in residue}
+        prompt_windows = read_prompt_windows(args.prompts) if args.pointer_mode else None
+        if prompt_windows is not None and set(prompt_windows) != expected_names:
+            raise InputError("pointer prompt names differ from the residue denominator")
         response_items = read_jsonl(args.responses)
         if len(response_items) != len(expected_names):
             raise InputError(
@@ -227,7 +330,18 @@ def main():
                 raise InputError(f"duplicate response for {name}")
             seen.add(name)
             try:
-                proposal = validate_response(item, expected_names, raw, ranges, args.source_sha256)
+                proposal = (
+                    validate_pointer_response(
+                        item,
+                        expected_names,
+                        prompt_windows,
+                        raw,
+                        ranges,
+                        args.source_sha256,
+                    )
+                    if args.pointer_mode
+                    else validate_response(item, expected_names, raw, ranges, args.source_sha256)
+                )
             except InputError as exc:
                 rejected.append({"name": name, "error": str(exc)})
                 continue

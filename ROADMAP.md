@@ -312,10 +312,12 @@ source-form acceptance boundary. E0110 is the final bounded mechanical pass:
 liberal discovery through three declarative normalization operations, strict
 acceptance, and zero candidate-specific branches. E0111 is retained as a
 2B pilot; D0050 corrects its missing overlap windows. E0112 now runs the
-predeclared Qwen/Gemma ladder against the same 127 rows, with Q6/Q8 controls
-for smaller models, thinking only after non-thinking failure, two-attempt
-repeatability, and no automatic promotions. M3 exits only after the ladder
-reports either a reliable measured-cost winner or a complete failure state.
+predeclared Qwen/Gemma ladder against the same 127 rows, using deterministic
+citation reconstruction from a model-selected evidence window. It has Q6/Q8
+controls for smaller models, thinking only after non-thinking failure,
+two-attempt repeatability, and no automatic promotions. M3 exits only after
+the ladder reports either a reliable measured-cost winner or a complete
+failure state.
 
 ### M4. Generated frontend vertical slice (pending)
 

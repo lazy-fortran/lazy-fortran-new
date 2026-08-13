@@ -34,8 +34,9 @@ source-form acceptance boundary. D0049, amended by D0050, authorizes one final
 bounded normalization pass (E0110) with liberal discovery and strict
 acceptance. E0111 is retained as a 2B pilot whose overlap windows were
 incomplete. E0112 supplies the corrected ordered Qwen/Gemma convergence
-ladder; neither experiment may promote semantic facts automatically or add
-parser wiring.
+ladder and uses deterministic citation reconstruction from a model-selected
+evidence window; neither experiment may promote semantic facts automatically
+or add parser wiring.
 
 ## Exit and handoff
 

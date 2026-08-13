@@ -36,3 +36,14 @@ if ! grep -q $'strict_validator_rejects\t1' "$tmp/rejected/summary.tsv"; then
     exit 1
 fi
 echo "E0111 fixture and tampered-citation gates passed"
+
+python3 "$exp/prepare-prompts.py" --outdir "$tmp/pointer-prompts" \
+    --e0110 "$root/.cache/runs/E0110/R000001/classifications.tsv" --pointer-mode
+python3 "$exp/mock-responses.py" "$tmp/pointer-prompts/prompts.jsonl" "$tmp/pointer-responses.jsonl" \
+    --e0110 "$root/.cache/runs/E0110/R000001/classifications.tsv" \
+    --canonical "$root/.cache/runs/E0001/R000003/j3-24-007.canonical.txt" --pointer-mode
+python3 "$exp/validate-responses.py" "$tmp/pointer-responses.jsonl" \
+    --e0110 "$root/.cache/runs/E0110/R000001/classifications.tsv" \
+    --prompts "$tmp/pointer-prompts/prompts.jsonl" --pointer-mode \
+    --outdir "$tmp/pointer-validated"
+echo "E0111 deterministic pointer-citation gate passed"

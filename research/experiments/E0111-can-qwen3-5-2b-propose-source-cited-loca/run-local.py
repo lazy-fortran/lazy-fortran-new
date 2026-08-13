@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import os
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -36,6 +37,17 @@ def parser():
     result.add_argument("--source-repo", default="unspecified")
     result.add_argument("--source-file", default="unspecified")
     result.add_argument("--model-sha256", default="unspecified")
+    result.add_argument("--pointer-mode", action="store_true")
+    result.add_argument(
+        "--api-key-env",
+        default="",
+        help="read a bearer token from this environment variable; never record its value",
+    )
+    result.add_argument(
+        "--deepseek-cloud",
+        action="store_true",
+        help="send DeepSeek cloud thinking-mode control and JSON-object output",
+    )
     return result
 
 
@@ -62,12 +74,18 @@ def load_prompts(path):
     return records
 
 
-def call_api(url, payload, timeout):
+def call_api(url, payload, timeout, api_key_env):
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    headers = {"Content-Type": "application/json"}
+    if api_key_env:
+        api_key = os.environ.get(api_key_env, "").strip()
+        if not api_key:
+            raise InputError(f"environment variable {api_key_env} is empty or unset")
+        headers["Authorization"] = f"Bearer {api_key}"
     request = urllib.request.Request(
         url,
         data=body,
-        headers={"Content-Type": "application/json"},
+        headers=headers,
         method="POST",
     )
     try:
@@ -75,6 +93,31 @@ def call_api(url, payload, timeout):
             return json.loads(response.read().decode("utf-8"))
     except (OSError, urllib.error.HTTPError, json.JSONDecodeError) as exc:
         raise InputError(f"llama.cpp API request failed: {exc}") from exc
+
+
+def response_format(name, pointer_mode, window_count):
+    if not pointer_mode:
+        return {"type": "json_object"}
+    allowed_windows = list(range(1, window_count + 1)) or [0]
+    schema = {
+        "type": "object",
+        "additionalProperties": False,
+        "properties": {
+            "name": {"type": "string", "enum": [name]},
+            "decision": {"type": "string", "enum": ["abstain", "proposal"]},
+            "relation": {
+                "type": "string",
+                "enum": ["is", "is-one-of", "means", "consists-of"],
+            },
+            "target": {"type": "string", "maxLength": 512},
+            "window": {"type": "integer", "enum": allowed_windows},
+        },
+        "required": ["name", "decision"],
+    }
+    return {
+        "type": "json_schema",
+        "json_schema": {"name": "e0111_proposal", "strict": True, "schema": schema},
+    }
 
 
 def main():
@@ -96,10 +139,17 @@ def main():
                 "seed": args.seed,
                 "max_tokens": args.max_tokens,
                 "stream": False,
-                "response_format": {"type": "json_object"},
+                "response_format": response_format(
+                    item["name"], args.pointer_mode, len(item.get("windows", []))
+                ),
             }
+            if args.deepseek_cloud:
+                payload["thinking"] = {
+                    "type": "disabled" if args.thinking == "off" else "enabled"
+                }
+                payload["response_format"] = {"type": "json_object"}
             try:
-                result = call_api(args.api_url, payload, args.timeout)
+                result = call_api(args.api_url, payload, args.timeout, args.api_key_env)
                 choices = result.get("choices") if isinstance(result, dict) else None
                 if not isinstance(choices, list) or len(choices) != 1:
                     raise InputError(f"API response for {item['name']} lacks one choice")
@@ -120,10 +170,11 @@ def main():
         errors_path = Path(args.responses).with_name("model-errors.jsonl")
         jsonl_write(errors_path, errors)
         config = Path(args.responses).with_name("api-config.json")
+        provider = "deepseek-api" if args.deepseek_cloud else "llama.cpp-openai-compatible"
         config.write_text(
             json.dumps(
                 {
-                    "provider": "llama.cpp-openai-compatible",
+                    "provider": provider,
                     "api_url": args.api_url,
                     "model": args.model,
                     "quantization": args.quantization,
@@ -137,6 +188,9 @@ def main():
                     "source_repo": args.source_repo,
                     "source_file": args.source_file,
                     "model_sha256": args.model_sha256,
+                    "pointer_mode": args.pointer_mode,
+                    "api_key_env": args.api_key_env,
+                    "deepseek_cloud": args.deepseek_cloud,
                     "requests": len(responses),
                     "model_errors": len(errors),
                 },

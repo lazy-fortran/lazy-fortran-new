@@ -14,6 +14,7 @@ from e0111_common import (
     load_canonical,
     load_page_index,
     load_residue,
+    normalized_name,
     utf8_window,
 )
 
@@ -57,46 +58,80 @@ def parser():
     result.add_argument("--top-p", type=float, default=DEFAULT_TOP_P)
     result.add_argument("--context", type=int, default=DEFAULT_CONTEXT)
     result.add_argument("--window-bytes", type=int, default=DEFAULT_WINDOW_BYTES)
+    result.add_argument("--max-windows", type=int, default=0)
+    result.add_argument("--pointer-mode", action="store_true")
     return result
 
 
 def prompt_for(row, windows, settings):
     source = []
-    for window in windows:
+    for index, window in enumerate(windows, 1):
         source.append(
-            "WINDOW page={page} byte_start={byte_start} byte_length={byte_length}\n"
-            "{text}\nEND WINDOW".format(**window)
+            "WINDOW index={index} page={page} byte_start={byte_start} byte_length={byte_length}\n"
+            "{text}\nEND WINDOW".format(index=index, **window)
         )
     source_text = "\n\n".join(source) if source else "NO SOURCE WINDOW WAS FOUND."
+    if settings["pointer_mode"]:
+        allowed_windows = ", ".join(str(index) for index in range(1, len(windows) + 1))
+        window_rule = (
+            f"There are exactly {len(windows)} supplied window(s); window must be "
+            f"one of: {allowed_windows or 'none'}."
+        )
+        return f"""Read only the source evidence below.
+
+Candidate residue name: {row["name"]}
+Normalized candidate token: {normalized_name(row["name"])}
+
+If exactly one supplied window contains the normalized candidate as the
+subject of an exact definition using `is`, `is-one-of`, `means`, or
+`consists-of`, return a proposal. {window_rule} Use the 1-based window index,
+a concise target, and the matching relation. Otherwise return abstain. Do
+not use memory or any source outside the windows.
+
+Return exactly one JSON object with no Markdown. Copy the raw candidate name
+exactly. Proposal shape:
+{{"name":"{row["name"]}","decision":"proposal","relation":"is","target":"...","window":1}}
+Abstention shape:
+{{"name":"{row["name"]}","decision":"abstain"}}
+
+{source_text}
+
+Final output: one JSON object, with name exactly {row["name"]}."""
+    output_contract = """The proposal form is
+{"name":"...","decision":"proposal","relation":"...","target":"...",
+"citation":{"page":N,"byte_start":N,"byte_length":N,
+"source_sha256":"...","text":"..."}}."""
+    citation_instruction = "The citation must copy an exact UTF-8 byte span from one supplied window."
     return f"""You are the bounded local-model subject of experiment E0111.
 Reason only over the source windows supplied below. Do not use model memory,
 comparison grammars, or unstated source text.
 
 Emit exactly one JSON object and no Markdown. The object must have either the
 form {{"name":"...","decision":"abstain"}} or the form
-{{"name":"...","decision":"proposal","relation":"...","target":"...",
-"citation":{{"page":N,"byte_start":N,"byte_length":N,
-"source_sha256":"...","text":"..."}}}}. Do not emit any other keys.
+{output_contract} Do not emit any other keys.
 The name must be copied exactly as supplied. Use one of the exact relation
 tokens `is`, `is-one-of`, `means`, or `consists-of`, and a concise target. A
 proposal is allowed only when the supplied source text contains the candidate
 as the subject of that exact definition form; otherwise abstain.
 
-The citation must copy an exact UTF-8 byte span from one supplied window. Its
-page, byte_start, byte_length, source_sha256, and text are checked against the
-canonical source and page index. Never invent a citation. This is a proposal
-inventory only: it does not promote a semantic fact.
+{citation_instruction} Never invent evidence. This is a proposal inventory
+only: it does not promote a semantic fact.
 
 Some windows are deterministic E0110 overlap windows. They are included so
 the model is tested on the same source evidence as the mechanical path; they
 do not change the strict validator or permit a citation outside the windows.
 
 Residue row: {row["name"]}
+Normalized candidate token for source matching: {normalized_name(row["name"])}
 E0106 classification: {row["new_class"]}
 E0106 matching records: {row["matching_records"]}
 Pinned source SHA-256: {settings["source_sha256"]}
 
 {source_text}
+
+FINAL OUTPUT CHECK: copy the residue row name exactly: {row["name"]}
+Output one JSON object now. If no exact subject-position definition is visible,
+output {{"name":"{row["name"]}","decision":"abstain"}}.
 """
 
 
@@ -122,7 +157,7 @@ def main():
                 if containing_page(ranges, byte_start, byte_length) != page:
                     raise InputError("E0110 strict row page does not contain its source span")
                 e0110[row["name"]] = (page, byte_start)
-        if args.context < 256 or args.window_bytes < 32:
+        if args.context < 256 or args.window_bytes < 32 or args.max_windows < 0:
             raise InputError("context or window size is too small")
         if not 0.0 <= args.temperature <= 2.0:
             raise InputError("temperature must be between 0 and 2")
@@ -131,6 +166,9 @@ def main():
         windows_by_name = {}
         for row in residue:
             windows = []
+            if row["name"] in e0110:
+                page, byte_start = e0110[row["name"]]
+                windows.append(utf8_window(raw, page, byte_start, ranges, args.window_bytes))
             for anchor in row["matching"]:
                 page = containing_page(ranges, anchor["byte_start"], 1)
                 if page != anchor["page"]:
@@ -141,16 +179,14 @@ def main():
                 windows.append(
                     utf8_window(raw, page, anchor["byte_start"], ranges, args.window_bytes)
                 )
-            if row["name"] in e0110:
-                page, byte_start = e0110[row["name"]]
-                windows.append(utf8_window(raw, page, byte_start, ranges, args.window_bytes))
-            unique = {
-                (item["page"], item["byte_start"], item["byte_length"]): item
-                for item in windows
-            }
-            windows_by_name[row["name"]] = [
-                unique[key] for key in sorted(unique)
-            ]
+            unique = {}
+            for item in windows:
+                key = (item["page"], item["byte_start"], item["byte_length"])
+                unique.setdefault(key, item)
+            selected = list(unique.values())
+            if args.max_windows:
+                selected = selected[:args.max_windows]
+            windows_by_name[row["name"]] = selected
         outdir = Path(args.outdir)
         outdir.mkdir(parents=True, exist_ok=True)
         settings = {
@@ -166,7 +202,9 @@ def main():
             "repair_attempts": 0,
             "source_sha256": args.source_sha256,
             "window_bytes": args.window_bytes,
+            "max_windows": args.max_windows,
             "e0110_overlap_windows": len(e0110),
+            "pointer_mode": args.pointer_mode,
         }
         prompts = []
         for row_number, row in enumerate(residue, 1):
@@ -178,6 +216,7 @@ def main():
                     "matching_records": row["matching_records"],
                     "source_sha256": args.source_sha256,
                     "windows": windows_by_name[row["name"]],
+                    "pointer_mode": args.pointer_mode,
                     "prompt": prompt_for(row, windows_by_name[row["name"]], settings),
                 }
             )

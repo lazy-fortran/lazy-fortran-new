@@ -4,9 +4,9 @@ question: >
   Which local model and quantization is the least measured-cost configuration
   that reliably agrees with the deterministic E0110 facts and adds at least
   one independently source-validated residue fact?
-status: running          # draft | running | reported | abandoned
+status: reported          # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 repos:
   lazy-fortran-new: "7b39063"
@@ -75,8 +75,10 @@ variables:
   temperature: [0]
   top_p: [1]
   context: [4096]
-  max_tokens: [384]
+  max_tokens: [128]
+  max_windows: [1]
   mtp: [disabled]
+  evidence_mode: [deterministic-pointer]
 
 metrics:
   - residue_rows
@@ -96,14 +98,15 @@ metrics:
 
 denominator: >
   All 127 E0106 residue rows. Every configuration receives the same prompt
-  JSONL after E0110 overlap windows are added. Errors, rejected proposals and
-  abstentions remain in the denominator.
+  JSONL after E0110 overlap windows are added. The model selects a supplied
+  window; the validator reconstructs the exact canonical citation. Errors,
+  rejected proposals and abstentions remain in the denominator.
 
 independent_oracle: >
   validate-responses.py recomputes canonical bytes, page containment, source
-  hash, allowed relation form and subject position. E0110 overlap is compared
-  by normalized candidate, relation and exact source span. No model output is
-  promoted automatically.
+  hash, allowed relation form and subject position from the selected window.
+  E0110 overlap is compared by normalized candidate, relation and exact source
+  span. No model output is promoted automatically.
 
 reliability_gate: >
   A configuration works reliably only when two attempts preserve all 127
@@ -140,3 +143,21 @@ toolchain:
 
 analysis: research/experiments/E0111-can-qwen3-5-2b-propose-source-cited-loca/validate-responses.py
 plot: research/experiments/E0112-can-model-ladder-converge-source-cited-residue/plot-convergence.py
+summary: research/experiments/E0112-can-model-ladder-converge-source-cited-residue/record-attempts.py
+report: research/experiments/E0112-can-model-ladder-converge-source-cited-residue/REPORT.md
+
+observed_runs:
+  - candidate: qwen36-35b-a3b
+    file: /mnt/storage/slopcode/models/unsloth_Qwen3.6-35B-A3B-MTP-GGUF/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
+    sha256: 55983c5a75a1ab969824077b3bb3de4146e82a9234072b48ad4e8f92ad3fe9f1
+  - candidate: qwen36-27b
+    file: /mnt/storage/slopcode/models/unsloth_Qwen3.6-27B-MTP-GGUF/Qwen3.6-27B-UD-Q4_K_XL.gguf
+    sha256: 4085665ee36d82a672a238a43f0e5643f2f0e39f2d7bd5d373f0ef10ecf53095
+  - candidate: gemma4-26b-a4b
+    file: /mnt/storage/slopcode/models/unsloth_gemma-4-26B-A4B-it-qat-GGUF/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf
+    sha256: dcf179a91153e3a7ece792e48ef872180d9d6ef9b7677f0a0bd3e83cfe624d5e
+  - candidate: deepseek-v4-flash
+    endpoint: https://api.deepseek.com/v1/chat/completions
+    model: deepseek-v4-flash
+    credential_env: DEEPSEEK_API_KEY
+    thinking: off

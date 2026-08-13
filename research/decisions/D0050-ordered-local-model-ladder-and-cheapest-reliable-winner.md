@@ -1,7 +1,7 @@
 # D0050. Ordered local-model ladder and cheapest reliable winner
 
 Date: 2026-08-13
-Status: accepted
+Status: amended by D0051
 Amends: D0049
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 

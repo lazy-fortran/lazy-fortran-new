@@ -3,6 +3,7 @@
 
 import argparse
 import csv
+import math
 from collections import defaultdict
 from pathlib import Path
 
@@ -131,12 +132,28 @@ def render(rows, outdir):
         "axes.spines.top": False,
         "axes.spines.right": False,
     })
-    labels = [f"{row['candidate']}\n{row['quantization']}\n{row['thinking']}" for row in rows]
+    short_labels = {
+        "qwen35-2b-raw": "Qwen 3.5\n2B raw",
+        "qwen35-4b-raw": "Qwen 3.5\n4B raw",
+        "qwen35-4b-raw-thinking": "Qwen 3.5\n4B raw + think",
+        "qwen35-4b-raw-thinking-corrected": "Qwen 3.5\n4B raw + think*",
+        "qwen35-4b-pointer": "Qwen 3.5\n4B pointer",
+        "qwen36-35b-a3b-pointer": "Qwen 3.6\n35B-A3B pointer",
+        "qwen36-27b-pointer": "Qwen 3.6\n27B pointer",
+        "gemma4-26b-a4b-pointer": "Gemma 4\n26B-A4B pointer",
+    }
+    labels = [short_labels.get(row["candidate"], row["candidate"]) for row in rows]
     x = list(range(len(rows)))
     qwen = [row["family"].lower() == "qwen" for row in rows]
-    colors = ["#35608d" if is_qwen else "#b05a3c" for is_qwen in qwen]
-    width = 7.25
-    fig, axes = plt.subplots(3, 1, figsize=(width, 6.4), sharex=True, constrained_layout=True)
+    colors = [
+        "#35608d" if row["family"].lower() == "qwen"
+        else "#6f4a8e" if row["family"].lower() == "deepseek"
+        else "#b05a3c"
+        for row in rows
+    ]
+    width = 9.5
+    fig, axes = plt.subplots(3, 1, figsize=(width, 7.4), sharex=True)
+    fig.subplots_adjust(left=0.08, right=0.99, top=0.88, bottom=0.22, hspace=0.62)
 
     accepted = [row["accepted"] for row in rows]
     novel = [row["novel"] for row in rows]
@@ -145,7 +162,7 @@ def render(rows, outdir):
     axes[0].set_ylabel("Rows / 127")
     axes[0].set_title("Source-cited residue resolution")
     axes[0].set_ylim(bottom=0)
-    axes[0].legend(loc="upper left", frameon=False, ncol=2)
+    axes[0].legend(loc="upper left", bbox_to_anchor=(0.0, 0.98), frameon=False, ncol=2)
 
     rejected = [row["rejected"] for row in rows]
     errors = [row["errors"] for row in rows]
@@ -156,15 +173,30 @@ def render(rows, outdir):
     axes[1].set_ylabel("Rows / 127")
     axes[1].set_title("Why a residue row was not accepted")
     axes[1].set_ylim(0, 127)
-    axes[1].legend(loc="upper left", frameon=False, ncol=3)
+    axes[1].legend(loc="upper left", bbox_to_anchor=(0.0, 0.98), frameon=False, ncol=3)
 
-    wall = [max(row["wall_s"] / max(row["residue_rows"], 1), 1e-6) for row in rows]
+    finite_wall = [
+        row["wall_s"] / max(row["residue_rows"], 1)
+        for row in rows
+        if math.isfinite(row["wall_s"])
+    ]
+    floor = min(finite_wall) * 0.5 if finite_wall else 1e-3
+    wall = [
+        row["wall_s"] / max(row["residue_rows"], 1)
+        if math.isfinite(row["wall_s"])
+        else math.nan
+        for row in rows
+    ]
     axes[2].bar(x, wall, color=colors, width=0.72, alpha=0.86)
     axes[2].set_yscale("log")
+    axes[2].set_ylim(bottom=floor)
     axes[2].set_ylabel("Seconds / row")
     axes[2].set_title("Measured local inference cost")
-    axes[2].set_xticks(x, labels, rotation=0)
+    axes[2].set_xticks(x, labels, rotation=32, ha="right")
     axes[2].set_xlabel("Candidate, quantization, reasoning mode")
+    for index, value in enumerate(wall):
+        if not math.isfinite(value):
+            axes[2].text(index, floor * 1.15, "n/a", ha="center", va="bottom", rotation=90, fontsize=7)
     for index, row in enumerate(rows):
         if row["reliable"]:
             axes[2].scatter(index, wall[index], marker="*", s=56, color="#111111", zorder=4)
@@ -175,9 +207,10 @@ def render(rows, outdir):
     handles = [
         Line2D([0], [0], color="#35608d", lw=6, label="Qwen"),
         Line2D([0], [0], color="#b05a3c", lw=6, label="Gemma"),
+        Line2D([0], [0], color="#6f4a8e", lw=6, label="DeepSeek cloud"),
         Line2D([0], [0], marker="*", color="#111111", lw=0, markersize=8, label="reliable configuration"),
     ]
-    fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, 1.015), ncol=3, frameon=False)
+    fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, 0.965), ncol=3, frameon=False)
     outdir.mkdir(parents=True, exist_ok=True)
     fig.savefig(outdir / "convergence.pdf", bbox_inches="tight")
     fig.savefig(outdir / "convergence.svg", bbox_inches="tight")

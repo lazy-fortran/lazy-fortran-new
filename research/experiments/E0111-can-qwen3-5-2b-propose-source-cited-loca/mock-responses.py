@@ -16,6 +16,7 @@ def main():
     parser.add_argument("responses", help="temporary or ignored-cache JSONL output")
     parser.add_argument("--e0110", help="optional E0110 classifications.tsv for one positive fixture")
     parser.add_argument("--canonical", help="canonical source used by the positive fixture")
+    parser.add_argument("--pointer-mode", action="store_true")
     args = parser.parse_args()
     try:
         prompts = []
@@ -53,7 +54,25 @@ def main():
         for item in prompts:
             windows = item.get("windows", [])
             if not proposal_written and positive and item["name"] == positive["name"]:
-                responses.append(positive)
+                if args.pointer_mode:
+                    selected = next(
+                        (index for index, window in enumerate(windows, 1)
+                         if window["byte_start"] <= positive["citation"]["byte_start"]
+                         and positive["citation"]["byte_start"] + positive["citation"]["byte_length"]
+                         <= window["byte_start"] + window["byte_length"]),
+                        None,
+                    )
+                    if selected is None:
+                        raise InputError("positive fixture has no covering pointer window")
+                    responses.append({
+                        "name": positive["name"],
+                        "decision": "proposal",
+                        "relation": positive["relation"],
+                        "target": positive["target"],
+                        "window": selected,
+                    })
+                else:
+                    responses.append(positive)
                 proposal_written = True
                 continue
             normalized = item["name"].strip()
@@ -85,13 +104,15 @@ def main():
                         "decision": "proposal",
                         "relation": relation,
                         "target": item["name"],
-                        "citation": {
-                            "page": window["page"],
-                            "byte_start": window["byte_start"],
-                            "byte_length": window["byte_length"],
-                            "source_sha256": item["source_sha256"],
-                            "text": window["text"],
-                        },
+                        **({"window": windows.index(window) + 1} if args.pointer_mode else {
+                            "citation": {
+                                "page": window["page"],
+                                "byte_start": window["byte_start"],
+                                "byte_length": window["byte_length"],
+                                "source_sha256": item["source_sha256"],
+                                "text": window["text"],
+                            }
+                        }),
                     }
                 )
                 proposal_written = True
