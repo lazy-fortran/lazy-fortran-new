@@ -133,6 +133,13 @@ gate remain open. Regenerate this snapshot's experiment values with
 `scripts/index.sh` and the paper values with
 `papers/standard-to-grammar/analyse.sh`.
 
+[D0038](research/decisions/D0038-first-paper-scope-and-publication-gate.md)
+accepts the current `standard-to-grammar` package as the first-paper
+scope. Its claims stop at provenance-preserving syntax projection,
+deterministic wiring, generated local operations and bounded semantic
+evidence. Production frontend integration is follow-up work and does not block
+this paper.
+
 ---
 
 ## Phase 0. Laboratory
@@ -705,6 +712,22 @@ semantic coverage and the fraction formalized mechanically, the minimum model
 size per remaining rule, and the comparison-corpus disagreement rates with
 adjudications. The comparison report must separate structural grammar
 comparisons from behavioral oracle comparisons.
+
+### First-paper package ([D0038](research/decisions/D0038-first-paper-scope-and-publication-gate.md))
+
+- [x] Venue-neutral manuscript generated from the pinned run set with
+      `papers/standard-to-grammar/analyse.sh`
+- [x] Reproducible PDF rendered into the ignored cache with
+      `papers/standard-to-grammar/render.sh`
+- [x] Run and artifact ledgers, generated tables, claims and limitations pass
+      the repository gates, including `scripts/selftest.sh`,
+      `scripts/check-decisions.sh` and `scripts/check-commit-references.sh`
+- [ ] Author list and target venue selected
+- [ ] Submission or preprint upload completed
+
+**Package gate: met.** The committed manuscript is ready for the external
+author and venue choices. The two unchecked items are external publication
+actions, not missing laboratory evidence.
 
 ---
 

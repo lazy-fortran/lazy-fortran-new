@@ -34,3 +34,7 @@ Planned, in the order the roadmap produces them:
 are in `papers/standard-to-grammar/`. The draft reports the extraction and
 projection result together with the unresolved-reference boundary. The other
 papers remain unstarted.
+
+The first-paper package is accepted under D0038. Its laboratory publication
+gate is met. Select authors and a venue, then use the paper directory's
+regeneration commands before submitting.

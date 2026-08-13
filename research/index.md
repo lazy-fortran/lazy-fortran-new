@@ -156,6 +156,7 @@ Runs recorded: 106
 | [D0035](decisions/D0035-deterministic-normative-prose-first.md) | accepted |  | Deterministic normative-prose resolution precedes model escalation |
 | [D0036](decisions/D0036-bounded-predicate-formalization.md) | accepted |  | Bounded predicate formalization records |
 | [D0037](decisions/D0037-cross-clause-prohibition-normalization.md) | accepted |  | Cross-clause prohibition normalization |
+| [D0038](decisions/D0038-first-paper-scope-and-publication-gate.md) | accepted |  | First paper scope and publication gate |
 
 ### Proposed decisions
 
