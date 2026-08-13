@@ -28,9 +28,9 @@ Semantic formalization remains a separate lane within the laboratory's Phase 1
 gate and must not be smuggled into syntax aliases; unresolved and disputed
 states remain representable. D0046's structure-index slice is integrated in
 `standard-new` at `ae2ee71`. Its output remains evidence rather than semantic
-facts. The next step is the laboratory measurement against the pinned
-E0100/E0104 residue; no alias or relation promotion follows from the index
-alone.
+facts. E0106 measured it against the pinned E0100/E0104 residue; no alias or
+relation promotion followed from the index. The next step is a stricter
+source-backed definition recognizer over the unique candidates.
 
 ## Exit and handoff
 

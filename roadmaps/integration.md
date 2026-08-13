@@ -10,9 +10,11 @@ pins, experiment/run records and cleanup.
 2. assign one vertical slice with explicit paths, contract revisions and gates.
 3. run independent slices concurrently only when repositories and file scopes
    do not overlap.
-4. verify each report, diff, oracle and production gate.
-5. merge verified slices promptly into the target main integration line.
-6. append the run record, update the lane and central roadmap, then remove the
+4. while agents work, execute the coordinator's independent laboratory slice
+   immediately; do not wait idle for reports or poll detached processes.
+5. verify each report, diff, oracle and production gate.
+6. merge verified slices promptly into the target main integration line.
+7. append the run record, update the lane and central roadmap, then remove the
    local worktree/branch and any published remote task branch.
 
 The coordinator never calls an unverified commit integrated. A failed or
@@ -33,11 +35,16 @@ extraction slice; no new wave should add unjustified document-specific
 heuristics or promote semantic facts before its measurement.
 
 Wave K integrated the frontend diagnostic SX, AArch64 ELF64, and bounded
-StandardIR structure-index slices. Their exact production commits and
-independent checks are recorded in the run ledger. The next M3 gate is a
-laboratory-only measurement against the E0100/E0104 residue. Production work
-may proceed concurrently only in disjoint backend codec/decoder and
-contract-first middle-end scopes.
+StandardIR structure-index slices. E0106 measured the latter against the
+E0100/E0104 residue and found candidate evidence for 126 of 127 rows without
+semantic promotion. The next M3 gate is a stricter laboratory-only definition
+measurement. Production work may proceed concurrently only in disjoint
+backend codec/decoder and contract-first middle-end scopes.
+
+Wave L integrated the AArch64 ADD/SUB decoder and frontend StandardIR
+syntax-item SX slices. The coordinator completed E0106 concurrently. Their
+exact commits and gates are recorded in the run ledger; all task worktrees and
+branches were removed after merge.
 
 The cleanup sequence is explicit:
 

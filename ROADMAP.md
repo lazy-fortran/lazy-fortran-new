@@ -249,11 +249,21 @@ frontend/MIR, TargetIR/emission, and StandardIR semantic boundaries. The next
 M3 gate is the laboratory measurement of the structure index against the
 E0100/E0104 residue; it must not promote semantic facts automatically.
 
-The next production wave may proceed in parallel with that measurement. Its
+E0106 then measured the structure index against the residue: it emitted 6,707
+source-backed records and supplied candidate evidence for 126 of 127 rows
+(60 unique, 66 ambiguous, 1 with no structural candidate), without semantic
+promotion or model calls. The next production wave may proceed in parallel
+with the stricter definition measurement. Its
 safe independent lanes are target-side codec/decoder work in `fortback-new`
 and a contract-first MIR boundary task in `ffc-new`. No task may modify the
 same production files as another task, redefine `mir-v0` inside the backend,
 or infer semantic aliases from the structure index.
+
+Wave L integrated the AArch64 ADD/SUB decoder witness in `fortback-new` and
+the canonical source-linked StandardIR syntax-item SX boundary in
+`fortfront-new`. Both were additive, warning-free, independently checked and
+cleaned after merge. The coordinator simultaneously completed E0106 in the
+laboratory, as required by D0047.
 
 ## Numbered milestones
 
@@ -296,9 +306,11 @@ conflict does not block this milestone or the production parser.
 ### M3. Source-backed Core 0 semantics (pending)
 
 Core 0 constraints, definitions, relations, and fact dependencies have a
-measured resolution state. The immediate gate is D0046's structure-first
-extractor and its independent residue measurement. Any remaining local holes
-are measured only through a separately authorized model experiment with
+measured resolution state. D0046's structure-first extractor and E0106's
+independent residue measurement are complete. The next gate is a stricter
+source-backed definition recognizer over the 60 unique candidate rows; the 66
+ambiguous and one unsupported row remain unresolved. Any remaining local
+holes are measured only through a separately authorized model experiment with
 independent formalization, provenance, and behavioral oracles.
 
 ### M4. Generated frontend vertical slice (pending)

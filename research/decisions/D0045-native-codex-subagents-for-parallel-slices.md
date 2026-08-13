@@ -1,7 +1,7 @@
 # D0045. Native Codex subagents for parallel slices
 
 Date: 2026-08-13
-Status: accepted
+Status: amended by D0047
 Supersedes: D0043
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 

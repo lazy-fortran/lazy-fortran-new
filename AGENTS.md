@@ -238,6 +238,22 @@ roadmap, and records exact production commit pins. A committed result is not
 called integrated until its base, diff and gates have been checked. Do not
 create a task runner or shared service for this workflow.
 
+### Coordinator work during agent waves
+
+While production subagents are active, the coordinator must immediately take
+an independent laboratory task when one is ready: run the next experiment,
+prepare its manifest and analysis, verify source pins, update decisions or
+roadmap metadata, or perform another non-overlapping evidence task. Do not sit
+idle waiting for agent reports. The laboratory task must not edit an agent's
+checkout, assigned production paths, or an unverified result, and it must not
+become an automatic polling loop. If no safe laboratory task exists, record
+that reason and return control rather than inventing parallel work.
+
+Every wave launch therefore has two explicit scopes: the production slices
+assigned to native Luna agents and the coordinator's independent laboratory
+slice. The coordinator integrates production results only after their reports
+arrive and the normal review gates pass.
+
 ### Contracts, waves and cleanup
 
 The lane views under `roadmaps/` and the versioned SX schemas under
