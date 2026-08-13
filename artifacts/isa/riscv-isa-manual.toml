@@ -1,0 +1,8 @@
+name      = "riscv-isa-manual"
+title     = "RISC-V Instruction Set Manual source"
+url       = "https://github.com/riscv/riscv-isa-manual/archive/846efd1c46315ed8ae3da3d15209bc49114246f5.tar.gz"
+sha256    = "586ba77f5185d26ce22f3366e9bec9993549b7f0ea9889bf6c8859da08a21761"
+bytes     = 1633090
+licence   = "CC-BY-4.0"
+retrieved = "2026-08-13"
+purpose   = "RISC-V normative ISA prose and extension/version definitions used to classify machine-readable encodings and formal-model coverage"

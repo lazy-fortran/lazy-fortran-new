@@ -1,0 +1,8 @@
+name      = "intel-sdm"
+title     = "Intel 64 and IA-32 Architectures Software Developer's Manual combined volumes"
+url       = "https://cdrdv2.intel.com/v1/dl/getContent/671200"
+sha256    = "16a9336104750613ae2f2bab6eb7a1b21a7e1ef60ced35e9ab2e0d8c7efcec68"
+bytes     = 26664910
+licence   = "Intel proprietary documentation; download for reference only, not redistributable"
+retrieved = "2026-08-13"
+purpose   = "Vendor x86-64 instruction and system-programming specification for comparison and source adjudication; no authoritative generated semantics"

@@ -1,0 +1,8 @@
+name      = "intel-xed"
+title     = "Intel XED instruction encoder and decoder data"
+url       = "https://github.com/intelxed/xed/archive/519c843c86547e2003f5a404a53358a7dcfb82f3.tar.gz"
+sha256    = "c8320f0c3ae73613058014666dfda072daa6f48995f2616c7fbc134e5094473a"
+bytes     = 1610177
+licence   = "Apache-2.0"
+retrieved = "2026-08-13"
+purpose   = "Intel x86-64 instruction encoding, decoding and operand metadata as a lower-authority comparison source"

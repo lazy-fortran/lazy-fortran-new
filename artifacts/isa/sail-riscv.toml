@@ -1,0 +1,8 @@
+name      = "sail-riscv"
+title     = "RISC-V Sail architecture model"
+url       = "https://github.com/riscv/sail-riscv/archive/aec19f42f802bafe296a367e1c9a77d5b2a45f80.tar.gz"
+sha256    = "41a12772b909600b1f9cd20d43b43cc00679147a71a5f072683d21dfe32efded"
+bytes     = 805292
+licence   = "BSD-2-Clause; third-party dependencies retain their own licences"
+retrieved = "2026-08-13"
+purpose   = "Adopted executable RISC-V ISA semantics and independent encoding/decoding reference for differential backend validation"

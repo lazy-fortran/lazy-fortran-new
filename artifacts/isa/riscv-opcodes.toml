@@ -1,0 +1,8 @@
+name      = "riscv-opcodes"
+title     = "RISC-V machine-readable instruction encodings"
+url       = "https://github.com/riscv/riscv-opcodes/archive/6bf30f5d2862f3a25400621cf32bac85749314a4.tar.gz"
+sha256    = "76a20ca8fb1b01c33a31f6ae4104f79914f9d3b90d2ba60f2ca493e9a46928b6"
+bytes     = 156695
+licence   = "BSD-3-Clause"
+retrieved = "2026-08-13"
+purpose   = "Machine-readable RISC-V instruction encodings, operand fields and extension metadata for TargetIR encoder and decoder generation"

@@ -1,0 +1,8 @@
+name      = "sail"
+title     = "Sail ISA specification language and tooling"
+url       = "https://github.com/rems-project/sail/archive/23f85b1bbc582624970bd2b0d4ecdc87f8e461e9.tar.gz"
+sha256    = "fa311a1bf267e8f6cfb609dcf872f7cf4cf77cfc5451b4b864d215420d2835ed"
+bytes     = 27635472
+licence   = "BSD-2-Clause; ASL-derived AArch64 files and third-party files retain their stated licences"
+retrieved = "2026-08-13"
+purpose   = "Pinned Sail compiler and language source required to build or inspect the RISC-V formal reference model"

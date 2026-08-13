@@ -1,0 +1,8 @@
+name      = "aarchmrs-instructions"
+title     = "Arm A-profile Architecture Machine Readable Specification Instructions.json"
+url       = "https://kernel.googlesource.com/pub/scm/linux/kernel/git/maz/AARCHMRS/+/47b5446/Instructions.json?format=TEXT"
+sha256    = "439a0003e7904a4c93df27efd2702453336e00023d5f4c8ef3f0aa28291a10e3"
+bytes     = 153821748
+licence   = "Arm A-profile Architecture Machine Readable Specification terms; Gitiles TEXT response is base64-encoded and cache-only"
+retrieved = "2026-08-13"
+purpose   = "Machine-readable A64, A32 and T32 instruction encodings and pseudocode references for TargetIR encoder and decoder generation"

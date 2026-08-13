@@ -1,0 +1,8 @@
+name      = "arm-abi-aa"
+title     = "Arm Application Binary Interface for the Arm Architecture"
+url       = "https://github.com/ARM-software/abi-aa/archive/ee4b3c12d57c8424ff60c2ae56e10690d0604ab6.tar.gz"
+sha256    = "d821bd80818e23a6f77118b1bf84fda2fba4bc1a86f78b18d0e4c7ecff444104"
+bytes     = 27345449
+licence   = "CC-BY-SA-4.0 with Arm ABI patent licence"
+retrieved = "2026-08-13"
+purpose   = "AArch64 procedure-call, ELF, DWARF and system ABI definitions for TargetIR calling-convention, relocation and object-writer generation"

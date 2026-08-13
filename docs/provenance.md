@@ -50,6 +50,17 @@ while authoring something here. Recording an entry costs nothing. Omitting one c
 | 2026-08-12 | `kaby76/fortran` | MIT | `comp/Fortran2023Parser.g4` at the pinned commit | E0020 structural grammar comparison adapter |
 | 2026-08-12 | `llvm/llvm-project` | Apache-2.0 WITH LLVM-exception | Flang `lib/Parser/Fortran-parsers.cpp` rule comments at the pinned commit | E0020 StandardIR rule-ID comparison; no implementation is imported |
 | 2026-08-12 | `lfortran/lfortran` | BSD-3-Clause | `src/lfortran/parser/parser.yy` at the pinned commit | E0020 structural Bison-rule comparison adapter |
+| 2026-08-13 | `riscv/riscv-opcodes` | BSD-3-Clause | Pinned machine-readable opcode tables at `6bf30f5d` | RISC-V TargetIR encoding and decoding source manifest |
+| 2026-08-13 | `riscv/sail-riscv` | BSD-2-Clause | Pinned Sail RISC-V model at `aec19f42` | RISC-V executable semantics and differential oracle manifest |
+| 2026-08-13 | `rems-project/sail` | BSD-2-Clause with stated exceptions | Pinned Sail tooling and language source at `23f85b1b` | RISC-V formal-model build source manifest |
+| 2026-08-13 | `riscv/riscv-isa-manual` | CC-BY-4.0 | Pinned ISA manual source at `846efd1c` | RISC-V encoding/version classification manifest |
+| 2026-08-13 | `riscv-non-isa/riscv-elf-psabi-doc` | CC-BY-4.0 | Pinned ELF psABI source at `76b837ec` | RISC-V ABI and object-writer source manifest |
+| 2026-08-13 | `AARCHMRS` mirror | Arm package terms | Pinned A-profile machine-readable package at `47b5446` | AArch64 instruction, register and feature source manifest |
+| 2026-08-13 | `ARM-software/abi-aa` | CC-BY-SA-4.0 with Arm ABI patent licence | Pinned ABI source at `ee4b3c12` | AArch64 ABI and object-writer source manifest |
+| 2026-08-13 | `intelxed/xed` | Apache-2.0 | Pinned XED source at `519c843c` | x86-64 encoding comparison source manifest |
+| 2026-08-13 | `zyantific/zydis` | MIT | Pinned Zydis source at `a95bb710` | Independent x86-64 encoding comparison source manifest |
+| 2026-08-13 | `x86-psABIs/x86-64-ABI` | No explicit licence declaration found | Pinned System V x86-64 psABI archive | x86-64 ABI source manifest |
+| 2026-08-13 | Intel SDM | Intel proprietary documentation | Combined Intel 64 and IA-32 SDM, version 092, retrieved from Intel | x86-64 vendor specification manifest |
 
 ---
 

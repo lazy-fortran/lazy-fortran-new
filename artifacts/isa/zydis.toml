@@ -1,0 +1,8 @@
+name      = "zydis"
+title     = "Zydis x86/x86-64 instruction tables"
+url       = "https://github.com/zyantific/zydis/archive/a95bb71013436547f689fc0b380f48edf663066e.tar.gz"
+sha256    = "b6e10607ea06bb519d164eccf67ae7340d7aec7a6ebfc75068957d88c8d8304c"
+bytes     = 1018556
+licence   = "MIT"
+retrieved = "2026-08-13"
+purpose   = "Independent x86-64 instruction encoding, decoding and operand metadata comparison source"

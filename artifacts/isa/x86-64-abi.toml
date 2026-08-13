@@ -1,0 +1,8 @@
+name      = "x86-64-abi"
+title     = "System V x86-64 psABI source"
+url       = "https://gitlab.com/x86-psABIs/x86-64-ABI/-/archive/e1ce098331da5dbd66e1ffc74162380bcc213236/x86-64-ABI-e1ce098331da5dbd66e1ffc74162380bcc213236.tar.gz"
+sha256    = "5e60ae466a5507bb9f0fac6c67f32559c67be0dddb4927569a4d03e6b3bed6e5"
+bytes     = 272021
+licence   = "No explicit licence declaration found in the pinned upstream archive; use is subject to the upstream specification terms"
+retrieved = "2026-08-13"
+purpose   = "System V x86-64 calling convention, ELF and relocation ABI definitions for TargetIR ABI and object-writer generation"

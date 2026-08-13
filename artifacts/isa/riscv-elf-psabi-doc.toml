@@ -1,0 +1,8 @@
+name      = "riscv-elf-psabi-doc"
+title     = "RISC-V ELF psABI source"
+url       = "https://github.com/riscv-non-isa/riscv-elf-psabi-doc/archive/76b837ec964509f4bac11c66e5d7106b6a1e626a.tar.gz"
+sha256    = "399476fa81b722d7f2be6c0159653cad592f596a6eefb49d49570a717d603a55"
+bytes     = 12532450
+licence   = "CC-BY-4.0"
+retrieved = "2026-08-13"
+purpose   = "RISC-V ELF object, relocation, calling-convention and platform ABI definitions for TargetIR ABI and object-writer generation"

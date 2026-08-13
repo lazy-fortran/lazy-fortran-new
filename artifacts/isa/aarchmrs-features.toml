@@ -1,0 +1,8 @@
+name      = "aarchmrs-features"
+title     = "Arm A-profile Architecture Machine Readable Specification Features.json"
+url       = "https://kernel.googlesource.com/pub/scm/linux/kernel/git/maz/AARCHMRS/+/47b5446/Features.json?format=TEXT"
+sha256    = "ec7fca3fdbfa09ee4ef1565dd33701beb2fe9af73272ee7c6241bb8ad88e821b"
+bytes     = 1604736
+licence   = "Arm A-profile Architecture Machine Readable Specification terms; Gitiles TEXT response is base64-encoded and cache-only"
+retrieved = "2026-08-13"
+purpose   = "AArch64/A-profile feature constraints and version relationships for TargetIR feature generation"

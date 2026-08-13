@@ -1,0 +1,8 @@
+name      = "aarchmrs-registers"
+title     = "Arm A-profile Architecture Machine Readable Specification Registers.json"
+url       = "https://kernel.googlesource.com/pub/scm/linux/kernel/git/maz/AARCHMRS/+/47b5446/Registers.json?format=TEXT"
+sha256    = "67f9bdfe7712d6e454d6774528413af6e4ab58b6c2e2e0294d06b527557db95a"
+bytes     = 124157688
+licence   = "Arm A-profile Architecture Machine Readable Specification terms; Gitiles TEXT response is base64-encoded and cache-only"
+retrieved = "2026-08-13"
+purpose   = "Machine-readable AArch64 registers and system instructions for TargetIR register and feature generation"
