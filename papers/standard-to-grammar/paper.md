@@ -31,8 +31,12 @@ predicate candidates, and
 edges with 0 adjudication-gate violations. A
 bounded cross-clause adjudication then uses 3
 normative witnesses to resolve C734 to the not-or predicate.
-its independent oracle difference is 0 and its
+Its independent oracle difference is 0 and its
 behavioral controls agree across 2 compiler frontends.
+The successor ledger contains 22 resolved,
+0 disputed, and 265 unresolved rows,
+with 71 accepted dependency edges and
+0 independent oracle difference.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -358,6 +362,12 @@ predicate, retains source evidence for the target and witnesses, and reports
 0 independent difference. Its two compiler frontends
 accept the ordinary control and reject 4 intrinsic-name
 controls. It emits no parser projections and makes no model calls.
+E0089 composes that adjudication into a successor ledger with
+22 resolved, 0 disputed, and
+265 unresolved rows. The successor preserves all other
+E0087 rows byte-for-byte, derives 71 accepted dependency edges,
+and agrees with its independent oracle with difference
+0. Its controlled mutations fail as expected.
 
 ## 5. Reproducibility and limitations
 
@@ -375,12 +385,13 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-E0088 resolves the C734 dispute under D0037 using three independent normative
-prohibition witnesses. The E0087 composite run remains immutable, so the next
-experiment should compose this successor state into a new ledger and verify
-that C734 contributes accepted dependency facts. It should then either extend
-the fact vocabulary needed by C1588 or generate the first semantic rule table,
-while preserving resolved, disputed and unresolved states.
+E0089 composes the E0088 C734 adjudication into an immutable successor ledger:
+22 resolved, 0 disputed, and
+265 unresolved rows, with 71 accepted
+dependency edges. C1588 remains unresolved. The next experiment should
+generate the first semantic rule table from the accepted predicates and test
+one positive and one negative real-source witness with a source-linked
+constraint diagnostic, while preserving the three ledger states.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -404,13 +415,13 @@ demonstrates generated parser structure and local implementation boundaries for
 the tested corpus. It does not demonstrate complete Fortran parsing.
 
 The semantic result is a composite ledger over 287 Core 0
-constraints. E0087 contains 21 resolved,
-1 disputed, and 265 unresolved records,
-with 67 accepted fact edges. E0088 resolves the one disputed
-C734 row to not-or from 3 normative
-witnesses, with 0 independent difference. A successor
-composition run is still required before that predicate enters the accepted
-dependency graph. The remaining unresolved rows retain their source identity.
+constraints. E0089 contains 22 resolved,
+0 disputed, and 265 unresolved records,
+with 71 accepted dependency edges and
+0 independent oracle difference. E0087 remains the
+immutable historical predecessor. E0089 is the successor that admits the
+C734 predicate after the E0088 adjudication. The remaining unresolved rows,
+including C1588, retain their source identity.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -1308,6 +1319,29 @@ The following rows are extracted from the accepted projection run records.
 | Behavioral difference | 0 |
 | Parser projection records | 0 |
 | Model calls | 0 |
+| Controlled mutation | observed_failure |
+
+## E0089 successor composite semantic ledger
+
+| Quantity | Value |
+|---|---:|
+| Eligible Core 0 constraints | 287 |
+| Selected policy rows | 23 |
+| Resolved constraints | 22 |
+| Disputed constraints | 0 |
+| Unresolved constraints | 265 |
+| Accepted predicates | 22 |
+| Competing candidate records | 0 |
+| Source-hash matches | 287 |
+| Source-evidence matches | 22 |
+| Independent oracle difference | 0 |
+| Adjudication-gate violations | 0 |
+| Required fact records | 49 |
+| Provided fact records | 22 |
+| Dependency edges | 71 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
 | Controlled mutation | observed_failure |
 
 ## E0054 D0027 lexical candidate comparison

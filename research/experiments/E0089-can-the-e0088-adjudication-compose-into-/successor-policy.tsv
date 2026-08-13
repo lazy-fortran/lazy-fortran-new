@@ -1,0 +1,2 @@
+constraint_id	status	predicate_a	predicate_b	adjudication	reason
+C734	resolved	(not (or (eq type-name DOUBLEPRECISION) (intrinsic-type-name type-name)))	-	accepted	E0088 cross-clause normative prohibition adjudication

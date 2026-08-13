@@ -877,6 +877,29 @@ The following rows are extracted from the accepted projection run records.
 | Model calls | 0 |
 | Controlled mutation | observed_failure |
 
+## E0089 successor composite semantic ledger
+
+| Quantity | Value |
+|---|---:|
+| Eligible Core 0 constraints | 287 |
+| Selected policy rows | 23 |
+| Resolved constraints | 22 |
+| Disputed constraints | 0 |
+| Unresolved constraints | 265 |
+| Accepted predicates | 22 |
+| Competing candidate records | 0 |
+| Source-hash matches | 287 |
+| Source-evidence matches | 22 |
+| Independent oracle difference | 0 |
+| Adjudication-gate violations | 0 |
+| Required fact records | 49 |
+| Provided fact records | 22 |
+| Dependency edges | 71 |
+| Topological-order difference | 0 |
+| Independent normalization difference | 0 |
+| Parser projection records | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

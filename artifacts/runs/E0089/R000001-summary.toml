@@ -1,0 +1,45 @@
+name        = "E0089-R000001-successor-composite-semantic-ledger-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/edbe2eb"
+sha256      = "38328fef8473ff35c2708c7b8a41b07b8fda7ee978102829fd1c521a3900c0ea"
+bytes       = 923
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of the E0088 successor composite semantic ledger"
+path        = ".cache/runs/E0089/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+canonical_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+policy_sha256 = "c033cc6db6f28346fb89a28339648635d9677e99fe90f5e96c3389d3e8a62889"
+oracle_sha256 = "74b1e8619e196f306933f0274affae899951b1a145aa5451e4b768dcdf99bbee"
+formalizations_sha256 = "f49b8eaca63af2ce6cec68f3cc61314d57cb1b445b5d835bc37e72b390f5680c"
+dependency_sha256 = "aea0bef5d5f2c4432f1d796396b8cc9beeb0ce4004db80d778de57bbc1af26d4"
+topological_sha256 = "b64f61e6edc8ff977265d91f2dc978ec1c08c088067d94f720d3ae36b0823623"
+generator = "lazy-fortran-new E0089 E0088 successor composite semantic ledger"
+generator_commit = "edbe2eb"
+checker = "research/experiments/E0089-can-the-e0088-adjudication-compose-into-/analyse.sh"
+checker_commit = "edbe2eb"
+eligible_constraints = 287
+selected_rows = 23
+resolved_constraints = 22
+disputed_constraints = 0
+unresolved_constraints = 265
+accepted_predicates = 22
+competing_candidate_records = 0
+source_hash_matches = 287
+source_evidence_matches = 22
+independent_oracle_agreement = 0
+adjudication_gate_violations = 0
+required_fact_records = 49
+provided_fact_records = 22
+dependency_edges = 71
+topological_order_difference = 0
+independent_normalization_difference = 0
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0089-can-the-e0088-adjudication-compose-into-/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

@@ -564,9 +564,15 @@ evidence for the thesis.
       model calls (E0088, regenerate with
       `research/experiments/E0088-can-independent-normative-prohibition-wi/analyse.sh`,
       [D0037](research/decisions/D0037-cross-clause-prohibition-normalization.md))
-- [ ] Compose the E0088 successor state into a new semantic ledger before
-      generating accepted dependency wiring. Retain C1588 unresolved until its
-      fact vocabulary and source witness are sufficient
+- [x] Compose the E0088 successor state into a new semantic ledger. E0089
+      preserves the predecessor rows, resolves 22 constraints, retains 265
+      unresolved constraints, and derives 71 accepted dependency edges
+      (regenerate with
+      `research/experiments/E0089-can-the-e0088-adjudication-compose-into-/analyse.sh`,
+      [D0037](research/decisions/D0037-cross-clause-prohibition-normalization.md))
+- [ ] Generate the first semantic rule table from the E0089 accepted
+      predicates. Retain C1588 unresolved until its fact vocabulary and
+      source witness are sufficient
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

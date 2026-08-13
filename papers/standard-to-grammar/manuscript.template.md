@@ -31,8 +31,12 @@ predicate candidates, and
 edges with @COMPOSITE_GATE_VIOLATIONS@ adjudication-gate violations. A
 bounded cross-clause adjudication then uses @PROHIBITION_WITNESS_ROWS@
 normative witnesses to resolve C734 to the @PROHIBITION_CANDIDATE@ predicate.
-its independent oracle difference is @PROHIBITION_DIFFERENCE@ and its
+Its independent oracle difference is @PROHIBITION_DIFFERENCE@ and its
 behavioral controls agree across @PROHIBITION_COMPILERS@ compiler frontends.
+The successor ledger contains @SUCCESSOR_RESOLVED@ resolved,
+@SUCCESSOR_DISPUTED@ disputed, and @SUCCESSOR_UNRESOLVED@ unresolved rows,
+with @SUCCESSOR_EDGES@ accepted dependency edges and
+@SUCCESSOR_DIFFERENCE@ independent oracle difference.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -358,6 +362,12 @@ predicate, retains source evidence for the target and witnesses, and reports
 @PROHIBITION_DIFFERENCE@ independent difference. Its two compiler frontends
 accept the ordinary control and reject @PROHIBITION_INVALID@ intrinsic-name
 controls. It emits no parser projections and makes no model calls.
+E0089 composes that adjudication into a successor ledger with
+@SUCCESSOR_RESOLVED@ resolved, @SUCCESSOR_DISPUTED@ disputed, and
+@SUCCESSOR_UNRESOLVED@ unresolved rows. The successor preserves all other
+E0087 rows byte-for-byte, derives @SUCCESSOR_EDGES@ accepted dependency edges,
+and agrees with its independent oracle with difference
+@SUCCESSOR_DIFFERENCE@. Its controlled mutations fail as expected.
 
 ## 5. Reproducibility and limitations
 
@@ -375,12 +385,13 @@ adjudication and not a normative input.
 
 ## 6. Next experiment
 
-E0088 resolves the C734 dispute under D0037 using three independent normative
-prohibition witnesses. The E0087 composite run remains immutable, so the next
-experiment should compose this successor state into a new ledger and verify
-that C734 contributes accepted dependency facts. It should then either extend
-the fact vocabulary needed by C1588 or generate the first semantic rule table,
-while preserving resolved, disputed and unresolved states.
+E0089 composes the E0088 C734 adjudication into an immutable successor ledger:
+@SUCCESSOR_RESOLVED@ resolved, @SUCCESSOR_DISPUTED@ disputed, and
+@SUCCESSOR_UNRESOLVED@ unresolved rows, with @SUCCESSOR_EDGES@ accepted
+dependency edges. C1588 remains unresolved. The next experiment should
+generate the first semantic rule table from the accepted predicates and test
+one positive and one negative real-source witness with a source-linked
+constraint diagnostic, while preserving the three ledger states.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -403,14 +414,14 @@ operations retain source identity and a controlled-mutation diagnostic. This
 demonstrates generated parser structure and local implementation boundaries for
 the tested corpus. It does not demonstrate complete Fortran parsing.
 
-The semantic result is a composite ledger over @COMPOSITE_ELIGIBLE@ Core 0
-constraints. E0087 contains @COMPOSITE_RESOLVED@ resolved,
-@COMPOSITE_DISPUTED@ disputed, and @COMPOSITE_UNRESOLVED@ unresolved records,
-with @COMPOSITE_EDGES@ accepted fact edges. E0088 resolves the one disputed
-C734 row to @PROHIBITION_CANDIDATE@ from @PROHIBITION_WITNESS_ROWS@ normative
-witnesses, with @PROHIBITION_DIFFERENCE@ independent difference. A successor
-composition run is still required before that predicate enters the accepted
-dependency graph. The remaining unresolved rows retain their source identity.
+The semantic result is a composite ledger over @SUCCESSOR_ELIGIBLE@ Core 0
+constraints. E0089 contains @SUCCESSOR_RESOLVED@ resolved,
+@SUCCESSOR_DISPUTED@ disputed, and @SUCCESSOR_UNRESOLVED@ unresolved records,
+with @SUCCESSOR_EDGES@ accepted dependency edges and
+@SUCCESSOR_DIFFERENCE@ independent oracle difference. E0087 remains the
+immutable historical predecessor. E0089 is the successor that admits the
+C734 predicate after the E0088 adjudication. The remaining unresolved rows,
+including C1588, retain their source identity.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,

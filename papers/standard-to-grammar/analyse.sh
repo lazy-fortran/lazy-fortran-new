@@ -140,6 +140,7 @@ assert_run R000094 '.status == "accepted" and .experiment == "E0085" and .verifi
 assert_run R000095 '.status == "accepted" and .experiment == "E0086" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.policy_rows == 3 and .verification.resolved_constraints == 2 and .verification.disputed_constraints == 1 and .verification.unresolved_constraints == 284 and .verification.normalized_predicates == 2 and .verification.competing_candidate_records == 1 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 3 and .verification.required_fact_records == 6 and .verification.provided_fact_records == 2 and .verification.dependency_edges == 8 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000096 '.status == "accepted" and .experiment == "E0087" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_rows == 23 and .verification.resolved_constraints == 21 and .verification.disputed_constraints == 1 and .verification.unresolved_constraints == 265 and .verification.accepted_predicates == 21 and .verification.competing_candidate_records == 1 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 22 and .verification.independent_oracle_agreement == 0 and .verification.adjudication_gate_violations == 0 and .verification.required_fact_records == 46 and .verification.provided_fact_records == 21 and .verification.dependency_edges == 67 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000097 '.status == "accepted" and .experiment == "E0088" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.target_rows == 1 and .verification.witness_rows == 3 and .verification.source_hash_matches == 6 and .verification.target_source_evidence_matches == 3 and .verification.witness_source_evidence_matches == 3 and .verification.selected_candidate == "not-or" and .verification.disputed_remaining == 0 and .verification.independent_oracle_difference == 0 and .verification.behavioral_compilers == 2 and .verification.behavioral_valid_accepts == 2 and .verification.behavioral_invalid_rejects == 4 and .verification.behavioral_difference == 0 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000098 '.status == "accepted" and .experiment == "E0089" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_rows == 23 and .verification.resolved_constraints == 22 and .verification.disputed_constraints == 0 and .verification.unresolved_constraints == 265 and .verification.accepted_predicates == 22 and .verification.competing_candidate_records == 0 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 22 and .verification.independent_oracle_agreement == 0 and .verification.adjudication_gate_violations == 0 and .verification.required_fact_records == 49 and .verification.provided_fact_records == 22 and .verification.dependency_edges == 71 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -765,6 +766,24 @@ prohibition_behavioral_difference=$(metric R000097 '.verification.behavioral_dif
 prohibition_projections=$(metric R000097 '.verification.parser_projection_records')
 prohibition_model_calls=$(metric R000097 '.verification.model_calls')
 prohibition_negative=$(metric R000097 '.verification.negative_control')
+successor_eligible=$(metric R000098 '.verification.eligible_constraints')
+successor_selected=$(metric R000098 '.verification.selected_rows')
+successor_resolved=$(metric R000098 '.verification.resolved_constraints')
+successor_disputed=$(metric R000098 '.verification.disputed_constraints')
+successor_unresolved=$(metric R000098 '.verification.unresolved_constraints')
+successor_predicates=$(metric R000098 '.verification.accepted_predicates')
+successor_candidates=$(metric R000098 '.verification.competing_candidate_records')
+successor_hashes=$(metric R000098 '.verification.source_hash_matches')
+successor_evidence=$(metric R000098 '.verification.source_evidence_matches')
+successor_difference=$(metric R000098 '.verification.independent_oracle_agreement')
+successor_gate_violations=$(metric R000098 '.verification.adjudication_gate_violations')
+successor_required=$(metric R000098 '.verification.required_fact_records')
+successor_provided=$(metric R000098 '.verification.provided_fact_records')
+successor_edges=$(metric R000098 '.verification.dependency_edges')
+successor_order_difference=$(metric R000098 '.verification.topological_order_difference')
+successor_normalization_difference=$(metric R000098 '.verification.independent_normalization_difference')
+successor_projections=$(metric R000098 '.verification.parser_projection_records')
+successor_negative=$(metric R000098 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1659,6 +1678,29 @@ EOF
 | Model calls | $prohibition_model_calls |
 | Controlled mutation | $prohibition_negative |
 
+## E0089 successor composite semantic ledger
+
+| Quantity | Value |
+|---|---:|
+| Eligible Core 0 constraints | $successor_eligible |
+| Selected policy rows | $successor_selected |
+| Resolved constraints | $successor_resolved |
+| Disputed constraints | $successor_disputed |
+| Unresolved constraints | $successor_unresolved |
+| Accepted predicates | $successor_predicates |
+| Competing candidate records | $successor_candidates |
+| Source-hash matches | $successor_hashes |
+| Source-evidence matches | $successor_evidence |
+| Independent oracle difference | $successor_difference |
+| Adjudication-gate violations | $successor_gate_violations |
+| Required fact records | $successor_required |
+| Provided fact records | $successor_provided |
+| Dependency edges | $successor_edges |
+| Topological-order difference | $successor_order_difference |
+| Independent normalization difference | $successor_normalization_difference |
+| Parser projection records | $successor_projections |
+| Controlled mutation | $successor_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2085,6 +2127,24 @@ rendered=${rendered//@PROHIBITION_BEHAVIORAL_DIFFERENCE@/$prohibition_behavioral
 rendered=${rendered//@PROHIBITION_PROJECTIONS@/$prohibition_projections}
 rendered=${rendered//@PROHIBITION_MODEL_CALLS@/$prohibition_model_calls}
 rendered=${rendered//@PROHIBITION_NEGATIVE@/$prohibition_negative}
+rendered=${rendered//@SUCCESSOR_ELIGIBLE@/$successor_eligible}
+rendered=${rendered//@SUCCESSOR_SELECTED@/$successor_selected}
+rendered=${rendered//@SUCCESSOR_RESOLVED@/$successor_resolved}
+rendered=${rendered//@SUCCESSOR_DISPUTED@/$successor_disputed}
+rendered=${rendered//@SUCCESSOR_UNRESOLVED@/$successor_unresolved}
+rendered=${rendered//@SUCCESSOR_PREDICATES@/$successor_predicates}
+rendered=${rendered//@SUCCESSOR_CANDIDATES@/$successor_candidates}
+rendered=${rendered//@SUCCESSOR_HASHES@/$successor_hashes}
+rendered=${rendered//@SUCCESSOR_EVIDENCE@/$successor_evidence}
+rendered=${rendered//@SUCCESSOR_DIFFERENCE@/$successor_difference}
+rendered=${rendered//@SUCCESSOR_GATE_VIOLATIONS@/$successor_gate_violations}
+rendered=${rendered//@SUCCESSOR_REQUIRED@/$successor_required}
+rendered=${rendered//@SUCCESSOR_PROVIDED@/$successor_provided}
+rendered=${rendered//@SUCCESSOR_EDGES@/$successor_edges}
+rendered=${rendered//@SUCCESSOR_ORDER_DIFFERENCE@/$successor_order_difference}
+rendered=${rendered//@SUCCESSOR_NORMALIZATION_DIFFERENCE@/$successor_normalization_difference}
+rendered=${rendered//@SUCCESSOR_PROJECTIONS@/$successor_projections}
+rendered=${rendered//@SUCCESSOR_NEGATIVE@/$successor_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}
