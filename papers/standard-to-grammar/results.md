@@ -900,6 +900,31 @@ The following rows are extracted from the accepted projection run records.
 | Parser projection records | 0 |
 | Controlled mutation | observed_failure |
 
+## E0090 generated semantic rule table and C601 diagnostic
+
+| Quantity | Value |
+|---|---:|
+| Accepted E0089 predecessor rows | 22 |
+| Generated rule rows | 22 |
+| Generated dispatch rows | 22 |
+| Independent table-oracle difference | 0 |
+| Unique rule IDs | 22 |
+| Provenance matches | 22 |
+| Source-evidence matches | 22 |
+| Unresolved rows emitted | 0 |
+| C1588 rows emitted | 0 |
+| C601 positive checker status | 0 |
+| C601 negative checker status | 1 |
+| C601 positive diagnostic rows | 0 |
+| C601 negative diagnostic rows | 1 |
+| C601 positive gfortran status | 0 |
+| C601 negative gfortran status | 1 |
+| C601 positive source-linked result | 1 |
+| C601 negative source-linked result | 1 |
+| Parser projection records | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

@@ -570,9 +570,14 @@ evidence for the thesis.
       (regenerate with
       `research/experiments/E0089-can-the-e0088-adjudication-compose-into-/analyse.sh`,
       [D0037](research/decisions/D0037-cross-clause-prohibition-normalization.md))
-- [ ] Generate the first semantic rule table from the E0089 accepted
-      predicates. Retain C1588 unresolved until its fact vocabulary and
-      source witness are sufficient
+- [x] Generate the first semantic rule table from all 22 E0089 accepted
+      predicates and 22 deterministic dispatch rows. Evaluate C601 on positive
+      and negative real-source witnesses with a source-linked diagnostic. Both
+      generated checking and gfortran agree (E0090, regenerate with
+      `research/experiments/E0090-can-accepted-predicates-generate-a-seman/analyse.sh`)
+- [ ] Extend the generated evaluator to another simple accepted predicate or
+      run the rule table through the generated frontend. Keep unresolved rows,
+      including C1588, out of accepted semantic wiring
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

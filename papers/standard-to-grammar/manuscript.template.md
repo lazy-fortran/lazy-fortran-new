@@ -37,6 +37,11 @@ The successor ledger contains @SUCCESSOR_RESOLVED@ resolved,
 @SUCCESSOR_DISPUTED@ disputed, and @SUCCESSOR_UNRESOLVED@ unresolved rows,
 with @SUCCESSOR_EDGES@ accepted dependency edges and
 @SUCCESSOR_DIFFERENCE@ independent oracle difference.
+The first generated semantic rule table contains @RULE_TABLE_ROWS@ accepted
+predicate rows and @RULE_TABLE_DISPATCH@ dispatch rows. Its C601 checker
+accepts the positive witness with status @C601_CHECKER_POSITIVE@ and rejects
+the negative witness with status @C601_CHECKER_NEGATIVE@. Both results retain
+source links.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -368,6 +373,14 @@ E0089 composes that adjudication into a successor ledger with
 E0087 rows byte-for-byte, derives @SUCCESSOR_EDGES@ accepted dependency edges,
 and agrees with its independent oracle with difference
 @SUCCESSOR_DIFFERENCE@. Its controlled mutations fail as expected.
+E0090 projects those accepted predicates into @RULE_TABLE_ROWS@ rule rows and
+@RULE_TABLE_DISPATCH@ generated dispatch rows, with
+@RULE_TABLE_PROVENANCE@ provenance matches and
+@RULE_TABLE_EVIDENCE@ source-evidence matches. It emits no unresolved or C1588
+rows. The generated C601 checker accepts the one-character witness and rejects
+the 64-character witness with source-linked status and diagnostic records. The
+gfortran controls agree. This is a table and one-rule evaluator slice, not a
+complete semantic engine.
 
 ## 5. Reproducibility and limitations
 
@@ -378,27 +391,27 @@ failure, and writes the results and manuscript. The external PDF and grammar
 sources are never vendored.
 
 The study uses one Fortran working draft and one selected syntax span. It does
-not measure parser throughput, semantic coverage, diagnostic quality, or model
-cost. The grammar exports are syntax projections. They do not encode prose
-restrictions or semantic constraints. The comparison corpus is evidence for
-adjudication and not a normative input.
+not measure parser throughput, complete semantic coverage, diagnostic quality,
+or model cost. The grammar exports are syntax projections. The E0090 checker
+implements only C601. The other accepted predicates are table data rather than
+evaluated semantics. The comparison corpus is evidence for adjudication and
+not a normative input.
 
 ## 6. Next experiment
 
-E0089 composes the E0088 C734 adjudication into an immutable successor ledger:
-@SUCCESSOR_RESOLVED@ resolved, @SUCCESSOR_DISPUTED@ disputed, and
-@SUCCESSOR_UNRESOLVED@ unresolved rows, with @SUCCESSOR_EDGES@ accepted
-dependency edges. C1588 remains unresolved. The next experiment should
-generate the first semantic rule table from the accepted predicates and test
-one positive and one negative real-source witness with a source-linked
-constraint diagnostic, while preserving the three ledger states.
+E0090 composes the accepted E0089 predicates into @RULE_TABLE_ROWS@ rule rows
+and @RULE_TABLE_DISPATCH@ dispatch rows. It evaluates C601 on one positive and
+one negative real-source witness: checker statuses are
+@C601_CHECKER_POSITIVE@ and @C601_CHECKER_NEGATIVE@, gfortran statuses are
+@C601_POSITIVE_GFORTRAN@ and @C601_NEGATIVE_GFORTRAN@, and both results retain
+source links. C1588 remains outside the table. The next experiment should
+extend the evaluator to another simple predicate or test the same rule table
+through the generated frontend, while keeping unresolved rows excluded.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
-from generated records. A later experiment can generate a semantic rule table
-from accepted predicates and test one positive and one negative real-source
-witness with a source-linked constraint diagnostic. Model escalation remains
-available for residue that survives these deterministic checks.
+from generated records. Model escalation remains available for residue that
+survives these deterministic checks.
 
 ## 7. Conclusion
 
@@ -422,6 +435,15 @@ with @SUCCESSOR_EDGES@ accepted dependency edges and
 immutable historical predecessor. E0089 is the successor that admits the
 C734 predicate after the E0088 adjudication. The remaining unresolved rows,
 including C1588, retain their source identity.
+
+E0090 turns the accepted successor predicates into @RULE_TABLE_ROWS@ generated
+rule rows and @RULE_TABLE_DISPATCH@ dispatch rows. The table has
+@RULE_TABLE_DIFFERENCE@ independent oracle difference,
+@RULE_TABLE_PROVENANCE@ provenance matches, and
+@RULE_TABLE_EVIDENCE@ source-evidence matches. Its C601 evaluator accepts the
+positive witness and rejects the negative witness with source-linked results.
+gfortran agrees. This establishes the first generated semantic table and local
+diagnostic boundary, not complete semantic coverage.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,

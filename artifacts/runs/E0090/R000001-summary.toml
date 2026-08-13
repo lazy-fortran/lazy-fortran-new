@@ -1,0 +1,48 @@
+name        = "E0090-R000001-generated-semantic-rule-table-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/e148abe"
+sha256      = "6eac160c592660bdeffc6460ccb6efc33b0c00e945a31e05029b7b23fdebf622"
+bytes       = 983
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of the generated E0089 semantic rule table and C601 source-linked diagnostic"
+path        = ".cache/runs/E0090/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+e0089_summary_sha256 = "38328fef8473ff35c2708c7b8a41b07b8fda7ee978102829fd1c521a3900c0ea"
+table_oracle_sha256 = "594e220a2233e7f6a9c7023bd9764dc32fc9576beb1e2c157523c8ee132b6cf5"
+witness_oracle_sha256 = "f0897d92d9aba47b002c72e5080e242d8400eda8172b98122febb5895b4c6634"
+rule_table_sha256 = "12e7631eb5745d78591a3a06fe782cf86c4e37d950d5aec9a05a01c9a1ef5ca9"
+dispatch_sha256 = "1f6e3e17f5fbe60b9c2a9afdf2da7309feba0728ebd29a2cd9019c480c7d8703"
+witness_results_sha256 = "9b525ba3a2d04014db5332bd2addf7a8f2c637b314abd5225ef408a0b21d9c6f"
+generator = "lazy-fortran-new E0090 generated semantic rule table and C601 witness"
+generator_commit = "e148abe"
+checker = "research/experiments/E0090-can-accepted-predicates-generate-a-seman/analyse.sh"
+checker_commit = "e148abe"
+compiler = "GNU Fortran 16.1.1 (GCC 16.1.1) 20260728"
+fo = "0.3.2"
+accepted_predecessor_rows = 22
+generated_rule_rows = 22
+generated_dispatch_rows = 22
+table_oracle_difference = 0
+unique_rule_ids = 22
+provenance_matches = 22
+source_evidence_matches = 22
+unresolved_rows_emitted = 0
+c1588_rows_emitted = 0
+c601_checker_positive_status = 0
+c601_checker_negative_status = 1
+c601_positive_diagnostic_rows = 0
+c601_negative_diagnostic_rows = 1
+c601_positive_gfortran_status = 0
+c601_negative_gfortran_status = 1
+c601_positive_source_linked = 1
+c601_negative_source_linked = 1
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0090-can-accepted-predicates-generate-a-seman/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

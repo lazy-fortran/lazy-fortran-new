@@ -141,6 +141,7 @@ assert_run R000095 '.status == "accepted" and .experiment == "E0086" and .verifi
 assert_run R000096 '.status == "accepted" and .experiment == "E0087" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_rows == 23 and .verification.resolved_constraints == 21 and .verification.disputed_constraints == 1 and .verification.unresolved_constraints == 265 and .verification.accepted_predicates == 21 and .verification.competing_candidate_records == 1 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 22 and .verification.independent_oracle_agreement == 0 and .verification.adjudication_gate_violations == 0 and .verification.required_fact_records == 46 and .verification.provided_fact_records == 21 and .verification.dependency_edges == 67 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000097 '.status == "accepted" and .experiment == "E0088" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.target_rows == 1 and .verification.witness_rows == 3 and .verification.source_hash_matches == 6 and .verification.target_source_evidence_matches == 3 and .verification.witness_source_evidence_matches == 3 and .verification.selected_candidate == "not-or" and .verification.disputed_remaining == 0 and .verification.independent_oracle_difference == 0 and .verification.behavioral_compilers == 2 and .verification.behavioral_valid_accepts == 2 and .verification.behavioral_invalid_rejects == 4 and .verification.behavioral_difference == 0 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000098 '.status == "accepted" and .experiment == "E0089" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_rows == 23 and .verification.resolved_constraints == 22 and .verification.disputed_constraints == 0 and .verification.unresolved_constraints == 265 and .verification.accepted_predicates == 22 and .verification.competing_candidate_records == 0 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 22 and .verification.independent_oracle_agreement == 0 and .verification.adjudication_gate_violations == 0 and .verification.required_fact_records == 49 and .verification.provided_fact_records == 22 and .verification.dependency_edges == 71 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000099 '.status == "accepted" and .experiment == "E0090" and .verification.zero_model_calls == true and .verification.accepted_predecessor_rows == 22 and .verification.generated_rule_rows == 22 and .verification.generated_dispatch_rows == 22 and .verification.table_oracle_difference == 0 and .verification.unique_rule_ids == 22 and .verification.provenance_matches == 22 and .verification.source_evidence_matches == 22 and .verification.unresolved_rows_emitted == 0 and .verification.c1588_rows_emitted == 0 and .verification.c601_checker_positive_status == 0 and .verification.c601_checker_negative_status == 1 and .verification.c601_positive_diagnostic_rows == 0 and .verification.c601_negative_diagnostic_rows == 1 and .verification.c601_positive_gfortran_status == 0 and .verification.c601_negative_gfortran_status == 1 and .verification.c601_positive_source_linked == 1 and .verification.c601_negative_source_linked == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -784,6 +785,26 @@ successor_order_difference=$(metric R000098 '.verification.topological_order_dif
 successor_normalization_difference=$(metric R000098 '.verification.independent_normalization_difference')
 successor_projections=$(metric R000098 '.verification.parser_projection_records')
 successor_negative=$(metric R000098 '.verification.negative_control')
+rule_table_predecessor=$(metric R000099 '.verification.accepted_predecessor_rows')
+rule_table_rows=$(metric R000099 '.verification.generated_rule_rows')
+rule_table_dispatch=$(metric R000099 '.verification.generated_dispatch_rows')
+rule_table_difference=$(metric R000099 '.verification.table_oracle_difference')
+rule_table_unique=$(metric R000099 '.verification.unique_rule_ids')
+rule_table_provenance=$(metric R000099 '.verification.provenance_matches')
+rule_table_evidence=$(metric R000099 '.verification.source_evidence_matches')
+rule_table_unresolved=$(metric R000099 '.verification.unresolved_rows_emitted')
+rule_table_c1588=$(metric R000099 '.verification.c1588_rows_emitted')
+c601_checker_positive=$(metric R000099 '.verification.c601_checker_positive_status')
+c601_checker_negative=$(metric R000099 '.verification.c601_checker_negative_status')
+c601_positive_diagnostics=$(metric R000099 '.verification.c601_positive_diagnostic_rows')
+c601_negative_diagnostics=$(metric R000099 '.verification.c601_negative_diagnostic_rows')
+c601_positive_gfortran=$(metric R000099 '.verification.c601_positive_gfortran_status')
+c601_negative_gfortran=$(metric R000099 '.verification.c601_negative_gfortran_status')
+c601_positive_linked=$(metric R000099 '.verification.c601_positive_source_linked')
+c601_negative_linked=$(metric R000099 '.verification.c601_negative_source_linked')
+rule_table_projections=$(metric R000099 '.verification.parser_projection_records')
+rule_table_model_calls=$(metric R000099 '.verification.model_calls')
+rule_table_negative=$(metric R000099 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1701,6 +1722,31 @@ EOF
 | Parser projection records | $successor_projections |
 | Controlled mutation | $successor_negative |
 
+## E0090 generated semantic rule table and C601 diagnostic
+
+| Quantity | Value |
+|---|---:|
+| Accepted E0089 predecessor rows | $rule_table_predecessor |
+| Generated rule rows | $rule_table_rows |
+| Generated dispatch rows | $rule_table_dispatch |
+| Independent table-oracle difference | $rule_table_difference |
+| Unique rule IDs | $rule_table_unique |
+| Provenance matches | $rule_table_provenance |
+| Source-evidence matches | $rule_table_evidence |
+| Unresolved rows emitted | $rule_table_unresolved |
+| C1588 rows emitted | $rule_table_c1588 |
+| C601 positive checker status | $c601_checker_positive |
+| C601 negative checker status | $c601_checker_negative |
+| C601 positive diagnostic rows | $c601_positive_diagnostics |
+| C601 negative diagnostic rows | $c601_negative_diagnostics |
+| C601 positive gfortran status | $c601_positive_gfortran |
+| C601 negative gfortran status | $c601_negative_gfortran |
+| C601 positive source-linked result | $c601_positive_linked |
+| C601 negative source-linked result | $c601_negative_linked |
+| Parser projection records | $rule_table_projections |
+| Model calls | $rule_table_model_calls |
+| Controlled mutation | $rule_table_negative |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2145,6 +2191,26 @@ rendered=${rendered//@SUCCESSOR_ORDER_DIFFERENCE@/$successor_order_difference}
 rendered=${rendered//@SUCCESSOR_NORMALIZATION_DIFFERENCE@/$successor_normalization_difference}
 rendered=${rendered//@SUCCESSOR_PROJECTIONS@/$successor_projections}
 rendered=${rendered//@SUCCESSOR_NEGATIVE@/$successor_negative}
+rendered=${rendered//@RULE_TABLE_PREDECESSOR@/$rule_table_predecessor}
+rendered=${rendered//@RULE_TABLE_ROWS@/$rule_table_rows}
+rendered=${rendered//@RULE_TABLE_DISPATCH@/$rule_table_dispatch}
+rendered=${rendered//@RULE_TABLE_DIFFERENCE@/$rule_table_difference}
+rendered=${rendered//@RULE_TABLE_UNIQUE@/$rule_table_unique}
+rendered=${rendered//@RULE_TABLE_PROVENANCE@/$rule_table_provenance}
+rendered=${rendered//@RULE_TABLE_EVIDENCE@/$rule_table_evidence}
+rendered=${rendered//@RULE_TABLE_UNRESOLVED@/$rule_table_unresolved}
+rendered=${rendered//@RULE_TABLE_C1588@/$rule_table_c1588}
+rendered=${rendered//@C601_CHECKER_POSITIVE@/$c601_checker_positive}
+rendered=${rendered//@C601_CHECKER_NEGATIVE@/$c601_checker_negative}
+rendered=${rendered//@C601_POSITIVE_DIAGNOSTICS@/$c601_positive_diagnostics}
+rendered=${rendered//@C601_NEGATIVE_DIAGNOSTICS@/$c601_negative_diagnostics}
+rendered=${rendered//@C601_POSITIVE_GFORTRAN@/$c601_positive_gfortran}
+rendered=${rendered//@C601_NEGATIVE_GFORTRAN@/$c601_negative_gfortran}
+rendered=${rendered//@C601_POSITIVE_LINKED@/$c601_positive_linked}
+rendered=${rendered//@C601_NEGATIVE_LINKED@/$c601_negative_linked}
+rendered=${rendered//@RULE_TABLE_PROJECTIONS@/$rule_table_projections}
+rendered=${rendered//@RULE_TABLE_MODEL_CALLS@/$rule_table_model_calls}
+rendered=${rendered//@RULE_TABLE_NEGATIVE@/$rule_table_negative}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}
