@@ -1,0 +1,3 @@
+case_id	checker_status	gfortran_status	name_length	constraint_id	standard_line	standard_page	checker_expectation
+positive	0	0	1	C601	2809	67	accepted
+negative	1	1	64	C601	2809	67	too-long

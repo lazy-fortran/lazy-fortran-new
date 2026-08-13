@@ -1,0 +1,23 @@
+constraint_id	predicate	required_facts	provided_facts
+C601	(le (name-length name) 63)	parsed-name	checked-name-length
+C603	(exists digit-in-label (ne (value digit-in-label) 0))	parsed-label	checked-label-digits
+C718	(and (named-constant scalar-int-constant-name) (type-is scalar-int-constant-name integer))	resolved-symbol type-fact	checked-kind-constant
+C719	(ge (value kind-param) 0)	constant-expression-value	checked-nonnegative-kind
+C721	(implies (and (present kind-param) (present exponent-letter)) (eq exponent-letter E))	parsed-kind-param parsed-exponent-letter	checked-exponent-letter
+C725	(not (has-kind-param int-literal-constant))	parsed-int-literal	checked-int-literal-kind
+C7117	(in digit (0 1))	parsed-digit	checked-digit-domain
+C7118	(in digit (0 1 2 3 4 5 6 7))	parsed-digit	checked-digit-domain
+C734	(not (or (eq type-name DOUBLEPRECISION) (intrinsic-type-name type-name)))	resolved-type type-name-fact intrinsic-type-fact	checked-type-name
+C738	(implies (or (contains-deferred-binding type-definition) (inherits-deferred-binding type-definition)) (present ABSTRACT))	type-definition deferred-binding-fact	checked-abstract-presence
+C795	(and (resolved type-name) (accessible type-name) (derived-type type-name))	resolved-symbol type-fact accessibility-fact	checked-derived-type
+C937	(implies (or (has-deferred-type-parameter allocate-object) (unlimited-polymorphic allocate-object) (abstract-type allocate-object)) (or (present type-spec) (present source-expr)))	allocate-object-facts type-parameter-fact polymorphism-fact	checked-allocate-type-source
+C1017	(implies (unlimited-polymorphic data-target) (or (unlimited-polymorphic data-pointer-object) (bind-type data-pointer-object) (sequence-type data-pointer-object)))	data-target-facts data-pointer-object-facts polymorphism-fact type-fact	checked-unlimited-target-association
+C1166	(not (and (derived-type derived-type-spec) (or (has-attribute derived-type-spec BIND) (has-attribute derived-type-spec SEQUENCE))))	parsed-type-spec type-fact type-attribute-facts	checked-select-type-spec
+C1306	(and (implies (in descriptor (I B O Z D E EN ES EX F G)) (ge w 0)) (implies (not-in descriptor (I B O Z D E EN ES EX F G)) (gt w 0)))	parsed-edit-descriptor width-fact	checked-edit-width
+C1404	(implies (eq module-nature INTRINSIC) (intrinsic-module module-name))	parsed-module-nature resolved-module-name module-kind-fact	checked-intrinsic-module
+C1405	(implies (eq module-nature NON_INTRINSIC) (nonintrinsic-module module-name))	parsed-module-nature resolved-module-name module-kind-fact	checked-nonintrinsic-module
+C1515	(and (or (abstract-interface name) (explicit-interface-procedure name)) (implies (procedure-declaration name) (declared-earlier name)) (implies (intrinsic-procedure name) (in-table-16-2 name)))	resolved-symbol interface-facts declaration-facts intrinsic-table-fact	checked-interface-name
+C1526	(or (generic-name procedure-name) (procedure-name procedure-name))	resolved-symbol symbol-kind-fact	checked-procedure-name
+C1579	(implies (present RESULT) (not (declared-in-specification entry-name)))	result-presence declaration-facts	checked-entry-result-name
+C1587	(or (declared-earlier named-constant) (use-accessible named-constant))	parsed-scalar-expr declaration-fact use-association-fact	checked-constant-reference
+C1590	(unique dummy-arg-name-list)	parsed-dummy-arg-name-list names-fact	checked-unique-dummy-args
