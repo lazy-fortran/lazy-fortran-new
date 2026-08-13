@@ -6,8 +6,9 @@ source paths supplied by the laboratory fetch contract and emits StandardIR.
 
 ## Current gate
 
-The immediate gate is M2 in `ROADMAP.md`: the complete selected syntax profile
-must be source-backed, closed and sane in all required projections. E0098 is
+M2 is complete for the selected production parser profile under D0029. The
+source-side syntax profile is closed; tree-sitter remains a non-gating derived
+differential export whose conflict inventory is retained as evidence. E0098 is
 the current measurement. Regenerate it with
 `research/experiments/E0098-can-the-current-complete-standardir-proj/analyse.sh`.
 

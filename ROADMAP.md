@@ -208,7 +208,7 @@ ANTLR4, Bison, tree-sitter, and direct-parser projections are reproducible.
 The remaining reference closure is deliberately carried forward as the next
 milestone's input.
 
-### M2. Closed syntax and sane generated grammars (next)
+### M2. Closed syntax and sane selected generated grammars (complete)
 
 The complete selected Fortran syntax profile reaches a closed, source-backed
 reference state. Every referenced name is accounted for as an explicit
@@ -218,12 +218,13 @@ parser profile has zero unresolved, disputed, or unclassified parser names.
 An explicitly unsupported profile feature is a separate exclusion decision,
 not a hidden resolution.
 
-The generated EBNF, ANTLR4, Bison, tree-sitter, and specialized direct-parser
-inputs are structurally sane. They retain provenance, contain no unresolved
-symbols, and pass their target validators without fatal errors. Target
-warnings remain reported as evidence under D0030. The direct parser has no
-dispatch collisions, and its generated source compiles. E0098 is the
-experiment for this milestone.
+The selected production parser inputs—EBNF, ANTLR4, Bison and the specialized
+direct-parser input—are structurally sane. They retain provenance, contain no
+unresolved symbols, and pass their target validators without fatal errors.
+Target warnings remain reported as evidence under D0030. The direct parser has
+no dispatch collisions, and its generated source compiles. Tree-sitter remains
+a separately reported derived differential export under D0029: its target
+conflict does not block this milestone or the production parser.
 
 ### M3. Source-backed Core 0 semantics (pending)
 
@@ -252,7 +253,7 @@ checker, and generators. The result reports the deterministic, search,
 model-assisted, and handwritten fractions of the language-specific
 implementation.
 
-**Immediate syntax-closure gate (E0098, reported but M2 remains pending):**
+**Immediate syntax-closure gate (E0098 and D0029, complete):**
 
 - [x] Reintegrate D0024, D0026, D0027 and fixed errata into the complete
       522-record projection. Do not use the narrower E0074 alias-only profile
@@ -263,19 +264,18 @@ implementation.
 - [x] Classify every remaining reference as explicit, assumed-expansion,
       lexical, erratum/token, semantic-only, disputed or unresolved. Retain
       provenance for every state and silently drop none.
-- [ ] Reach zero unclassified parser names in EBNF, ANTLR4, Bison, tree-sitter
+- [x] Reach zero unclassified parser names in EBNF, ANTLR4, Bison, tree-sitter
       and direct wiring. Semantic-only records may remain outside parser
-      aliases, but not without source-linked facts.
-- [ ] Only after this gate decide whether any residue warrants a small-model
-      local proposal. No model is used to rediscover R401/R402/R403.
+      aliases, but not without source-linked facts. Tree-sitter may still
+      report target conflicts under D0029.
+- [x] Decide whether any residue warrants a small-model local proposal. No
+      model is used to rediscover R401/R402/R403; E0098 required none.
 
 E0098 closes the source-side reference state: 469 explicit reference classes,
 100 assumed expansions, 5 lexical facts, 8 errata, and zero unresolved or
 disputed parser names. EBNF, ANTLR4, Bison and direct wiring pass. Tree-sitter
-still has a target-specific conflict after the compact one-group extension.
-The next decision is whether that derived export can be normalized compactly
-or whether its failure should remain a documented differential boundary under
-D0029. Regenerate with
+still has the documented target-specific conflict after the compact one-group
+extension; D0029 makes that export non-gating. Regenerate with
 `research/experiments/E0098-can-the-current-complete-standardir-proj/analyse.sh`.
 
 ---
@@ -877,9 +877,10 @@ comparisons from behavioral oracle comparisons.
 
 ## Phase 2. `fortfront-new`: generated frontend
 
-Phase 2 remains blocked until the D0041/E0098 mechanical syntax-closure gate
-has passed. The frontend may then start from a closed, provenance-bearing
-Fortran profile without requiring a generalized document-ingestion framework.
+Phase 2 is unblocked by the D0041/E0098 mechanical syntax-closure gate and
+D0029's selected production-parser boundary. The frontend starts from a
+closed, provenance-bearing Fortran profile without requiring a generalized
+document-ingestion framework.
 
 - [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
 - [ ] Generate the lexer from the lexical specification
