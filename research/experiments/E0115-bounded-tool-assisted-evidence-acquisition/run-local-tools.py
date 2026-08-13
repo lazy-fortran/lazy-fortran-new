@@ -113,6 +113,8 @@ def system_prompt(name, rule_hints):
         "prose definition when one exists. The standard's assumed rules are "
         "valid source evidence; do not invent a target from them. "
         f"{indexed} "
+        "The gate checks the evidence relation mechanically: the submission "
+        "must describe the source text you actually read, not a guessed target. "
         "If the evidence is insufficient or ambiguous, call submit_pointer "
         "with decision abstain. Otherwise call submit_pointer with decision "
         "accept, the candidate name, a relation category, and evidence IDs. "

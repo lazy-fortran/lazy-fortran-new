@@ -49,15 +49,34 @@ def candidate_guidance(name):
     """Return generic search guidance derived from the candidate shape."""
     normalized = name.rstrip(",")
     if normalized.endswith("-list"):
-        return "If no direct production is found, inspect assumed rule R401 (xyz-list)."
+        return (
+            "This candidate is an instance of the source-defined assumed syntax "
+            "family `xyz-list`: read rule R401 first. If R401 visibly has the "
+            "list form, submit that rule as evidence with relation `metavariable`; "
+            "do not search for a separate production for the full candidate."
+        )
     if normalized.endswith("-name"):
-        return "If no direct production is found, inspect assumed rule R402 (xyz-name)."
+        return (
+            "This candidate is an instance of the source-defined assumed syntax "
+            "family `xyz-name`: read rule R402 first. If R402 visibly has the "
+            "name form, submit that rule as evidence with relation `metavariable`; "
+            "do not search for a separate production for the full candidate."
+        )
     if normalized.startswith("scalar-"):
-        return "If no direct production is found, inspect assumed rule R403 (scalar-xyz)."
+        return (
+            "This candidate is an instance of the source-defined assumed syntax "
+            "family `scalar-xyz`: read rule R403 first. If R403 visibly has the "
+            "scalar form, submit that rule as evidence with relation `metavariable`; "
+            "do not search for a separate production for the full candidate."
+        )
     if normalized in LEXICAL_CLASSES or not re.fullmatch(
         r"[A-Za-z][A-Za-z0-9-]*", normalized
     ):
-        return "Treat this as a possible lexical/operator token and locate a numbered production containing it on the right-hand side."
+        return (
+            "This candidate is a lexical/operator candidate, not an ordinary "
+            "nonterminal. Read an indexed numbered production and submit relation "
+            "`lexical` only when its right-hand side visibly contains this token."
+        )
     return "Search for a direct numbered production or a normative prose definition."
 
 
@@ -473,13 +492,15 @@ class Episode:
                 accepted["evidence_ids"] = list(evidence_ids)
                 break
         if accepted is None:
+            guidance = candidate_guidance(self.name)
             return {
                 "status": "rejected",
                 "code": "no-source-backed-definition",
                 "message": (
                     "Evidence must contain a direct definition, one of the "
                     "source-defined assumed rules R401/R402/R403, or a "
-                    "numbered production that defines a lexical/operator token."
+                    "numbered production that defines a lexical/operator token. "
+                    f"Re-read the candidate guidance: {guidance}"
                 ),
             }
         self.accepted = accepted

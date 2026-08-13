@@ -11,6 +11,13 @@ settings, tool schema version and run ID before the first model call. The model 
 the candidate name and the task contract. It does not receive a deterministic
 target or citation.
 
+Before the first model turn, the harness may build a deterministic source-rule
+index. It supplies only candidate-shape guidance and numbered rule IDs to
+reduce blind search: for example, a `*-list` candidate is directed to the
+source-defined assumed rule R401. The model still has to read the returned
+source evidence and submit its own relation; the gate does not accept the hint
+as evidence.
+
 The residue and six-row oracle are separate labels over the same source-backed
 task shape. The oracle is never disclosed to the model.
 
