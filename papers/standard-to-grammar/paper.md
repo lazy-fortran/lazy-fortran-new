@@ -52,6 +52,9 @@ rejects 3 negative cases, and agrees with gfortran on all
 The generated diagnostic operation then emits 6
 source-linked records with 6 StandardIR links and
 6 source-file hashes.
+One generic dispatcher classifies all 22 accepted predicate
+rows across 9 top-level constructors, with
+22 provenance matches and no selected rule IDs.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -406,6 +409,10 @@ operation. It emits 6 source-linked records, with
 6 StandardIR links, 6
 source-file hashes and 6 predicate records. The
 operation contains no selected rule IDs.
+E0094 classifies all 22 accepted predicate rows across
+9 top-level constructors with one generic dispatcher.
+It retains 22 provenance matches and rejects an unknown
+constructor mutation.
 
 ## 5. Reproducibility and limitations
 
@@ -441,8 +448,11 @@ witnesses. E0093 places one generated structured diagnostic operation around
 that evaluator. It produces 6 records with
 6 StandardIR links and
 6 source-file hashes. The next experiment should
-connect this operation to the generated `fortfront-new` frontend, while
-keeping unresolved rows excluded.
+extend execution from the three measured constructors to the nested predicate
+forms, while keeping unresolved rows excluded.
+E0094 already classifies all 22 accepted rows across
+9 top-level constructors. Its dispatcher is structural
+coverage and does not execute those nested predicates.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -491,6 +501,10 @@ diagnostic records around that evaluator. The records retain
 source-file hashes and 6 predicates. The operation has
 1 selected-rule-ID scan result. Production frontend
 integration remains open.
+E0094 classifies 22 accepted predicate rows across
+9 top-level constructors with
+22 provenance matches. This dispatcher result is
+structural coverage, not nested semantic evaluation.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -1493,6 +1507,22 @@ The following rows are extracted from the accepted projection run records.
 | Source-file hashes | 6 |
 | Predicate records | 6 |
 | Generated operation without selected rule IDs | 1 |
+| Parser projections | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
+## E0094 generic predicate-form dispatcher
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Accepted predicate rows | 22 |
+| Dispatcher rows | 22 |
+| Unique top-level constructors | 9 |
+| Independent dispatch-oracle difference | 0 |
+| Provenance matches | 22 |
+| Unsupported constructor rows | 0 |
+| Generated dispatcher without selected rule IDs | 1 |
 | Parser projections | 0 |
 | Model calls | 0 |
 | Controlled mutation | observed_failure |

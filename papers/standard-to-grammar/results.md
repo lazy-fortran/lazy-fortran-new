@@ -984,6 +984,22 @@ The following rows are extracted from the accepted projection run records.
 | Model calls | 0 |
 | Controlled mutation | observed_failure |
 
+## E0094 generic predicate-form dispatcher
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Accepted predicate rows | 22 |
+| Dispatcher rows | 22 |
+| Unique top-level constructors | 9 |
+| Independent dispatch-oracle difference | 0 |
+| Provenance matches | 22 |
+| Unsupported constructor rows | 0 |
+| Generated dispatcher without selected rule IDs | 1 |
+| Parser projections | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

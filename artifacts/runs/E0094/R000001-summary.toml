@@ -1,0 +1,34 @@
+name        = "E0094-R000001-generic-predicate-dispatcher-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/de9d51f"
+sha256      = "8c908af07955ff803ba79bc7c74679b434b05e64ab1fbefe48ccd7eb11fe4553"
+bytes       = 497
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of generic top-level predicate dispatch over all E0090 accepted rows"
+path        = ".cache/runs/E0094/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+e0090_summary_sha256 = "6eac160c592660bdeffc6460ccb6efc33b0c00e945a31e05029b7b23fdebf622"
+predicate_form_oracle_sha256 = "f4beccaab6796a21f9dfd2218c413989edcd5252b30ce2c8b28f3cb43bfbab9a"
+dispatch_results_sha256 = "af7b4da7817db2b9c048f1e98308373d7457fa4743811b290f8b324c00f0843e"
+generator = "lazy-fortran-new E0094 generic predicate-form dispatcher"
+generator_commit = "de9d51f"
+checker = "research/experiments/E0094-can-one-generic-predicate-dispatcher-cla/analyse.sh"
+checker_commit = "de9d51f"
+predecessor_rule_rows = 22
+accepted_predicate_rows = 22
+dispatcher_rows = 22
+unique_top_level_constructors = 9
+dispatch_oracle_difference = 0
+provenance_matches = 22
+unsupported_constructor_rows = 0
+generated_dispatcher_without_rule_ids = 1
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0094-can-one-generic-predicate-dispatcher-cla/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

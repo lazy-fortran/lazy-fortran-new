@@ -52,6 +52,9 @@ rejects @GENERIC_NEGATIVE@ negative cases, and agrees with gfortran on all
 The generated diagnostic operation then emits @DIAGNOSTIC_RECORDS@
 source-linked records with @DIAGNOSTIC_STANDARD_LINKS@ StandardIR links and
 @DIAGNOSTIC_SOURCE_HASHES@ source-file hashes.
+One generic dispatcher classifies all @DISPATCHER_ACCEPTED@ accepted predicate
+rows across @DISPATCHER_CONSTRUCTORS@ top-level constructors, with
+@DISPATCHER_PROVENANCE@ provenance matches and no selected rule IDs.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -406,6 +409,10 @@ operation. It emits @DIAGNOSTIC_RECORDS@ source-linked records, with
 @DIAGNOSTIC_STANDARD_LINKS@ StandardIR links, @DIAGNOSTIC_SOURCE_HASHES@
 source-file hashes and @DIAGNOSTIC_PREDICATES@ predicate records. The
 operation contains no selected rule IDs.
+E0094 classifies all @DISPATCHER_ACCEPTED@ accepted predicate rows across
+@DISPATCHER_CONSTRUCTORS@ top-level constructors with one generic dispatcher.
+It retains @DISPATCHER_PROVENANCE@ provenance matches and rejects an unknown
+constructor mutation.
 
 ## 5. Reproducibility and limitations
 
@@ -441,8 +448,11 @@ witnesses. E0093 places one generated structured diagnostic operation around
 that evaluator. It produces @DIAGNOSTIC_RECORDS@ records with
 @DIAGNOSTIC_STANDARD_LINKS@ StandardIR links and
 @DIAGNOSTIC_SOURCE_HASHES@ source-file hashes. The next experiment should
-connect this operation to the generated `fortfront-new` frontend, while
-keeping unresolved rows excluded.
+extend execution from the three measured constructors to the nested predicate
+forms, while keeping unresolved rows excluded.
+E0094 already classifies all @DISPATCHER_ACCEPTED@ accepted rows across
+@DISPATCHER_CONSTRUCTORS@ top-level constructors. Its dispatcher is structural
+coverage and does not execute those nested predicates.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -491,6 +501,10 @@ diagnostic records around that evaluator. The records retain
 source-file hashes and @DIAGNOSTIC_PREDICATES@ predicates. The operation has
 @DIAGNOSTIC_GENERIC@ selected-rule-ID scan result. Production frontend
 integration remains open.
+E0094 classifies @DISPATCHER_ACCEPTED@ accepted predicate rows across
+@DISPATCHER_CONSTRUCTORS@ top-level constructors with
+@DISPATCHER_PROVENANCE@ provenance matches. This dispatcher result is
+structural coverage, not nested semantic evaluation.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,

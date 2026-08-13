@@ -593,6 +593,10 @@ evidence for the thesis.
       source-file hashes and predicates, with no selected rule IDs in the
       operation (E0093, regenerate with
       `research/experiments/E0093-can-the-generic-evaluator-feed-a-generat/analyse.sh`)
+- [x] Classify all 22 accepted predicate rows with one generic dispatcher over
+      9 top-level constructors, retaining 22 provenance matches and rejecting
+      an unknown-constructor mutation (E0094, regenerate with
+      `research/experiments/E0094-can-one-generic-predicate-dispatcher-cla/analyse.sh`)
 - [ ] Connect the generated diagnostic operation to the production
       `fortfront-new` frontend. Keep unresolved rows, including C1588, out of
       accepted semantic wiring

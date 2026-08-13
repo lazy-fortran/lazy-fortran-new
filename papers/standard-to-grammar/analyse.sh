@@ -145,6 +145,7 @@ assert_run R000099 '.status == "accepted" and .experiment == "E0090" and .verifi
 assert_run R000100 '.status == "accepted" and .experiment == "E0091" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.target_rule_rows == 1 and .verification.target_table_difference == 0 and .verification.target_provenance_matches == 1 and .verification.target_fact_matches == 1 and .verification.generated_bound == 0 and .verification.checker_positive_status == 0 and .verification.checker_negative_status == 1 and .verification.positive_diagnostic_rows == 0 and .verification.negative_diagnostic_rows == 1 and .verification.positive_gfortran_status == 0 and .verification.negative_gfortran_status == 1 and .verification.positive_source_linked == 1 and .verification.negative_source_linked == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000101 '.status == "accepted" and .experiment == "E0092" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 3 and .verification.generic_constructor_forms == 3 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 3 and .verification.fact_matches == 3 and .verification.evaluator_cases == 6 and .verification.positive_checker_accepts == 3 and .verification.negative_checker_rejects == 3 and .verification.diagnostic_rows == 3 and .verification.gfortran_agreement == 6 and .verification.source_linked_results == 6 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000102 '.status == "accepted" and .experiment == "E0093" and .verification.zero_model_calls == true and .verification.predecessor_evaluator_cases == 6 and .verification.diagnostic_records == 6 and .verification.accepted_records == 3 and .verification.error_records == 3 and .verification.diagnostic_oracle_difference == 0 and .verification.standard_source_links == 6 and .verification.source_file_hashes == 6 and .verification.predicate_records == 6 and .verification.generic_operation_without_rule_ids == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000103 '.status == "accepted" and .experiment == "E0094" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.accepted_predicate_rows == 22 and .verification.dispatcher_rows == 22 and .verification.unique_top_level_constructors == 9 and .verification.dispatch_oracle_difference == 0 and .verification.provenance_matches == 22 and .verification.unsupported_constructor_rows == 0 and .verification.generated_dispatcher_without_rule_ids == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -852,6 +853,17 @@ diagnostic_generic=$(metric R000102 '.verification.generic_operation_without_rul
 diagnostic_projections=$(metric R000102 '.verification.parser_projection_records')
 diagnostic_model_calls=$(metric R000102 '.verification.model_calls')
 diagnostic_negative_control=$(metric R000102 '.verification.negative_control')
+dispatcher_predecessor=$(metric R000103 '.verification.predecessor_rule_rows')
+dispatcher_accepted=$(metric R000103 '.verification.accepted_predicate_rows')
+dispatcher_rows=$(metric R000103 '.verification.dispatcher_rows')
+dispatcher_constructors=$(metric R000103 '.verification.unique_top_level_constructors')
+dispatcher_difference=$(metric R000103 '.verification.dispatch_oracle_difference')
+dispatcher_provenance=$(metric R000103 '.verification.provenance_matches')
+dispatcher_unsupported=$(metric R000103 '.verification.unsupported_constructor_rows')
+dispatcher_generic=$(metric R000103 '.verification.generated_dispatcher_without_rule_ids')
+dispatcher_projections=$(metric R000103 '.verification.parser_projection_records')
+dispatcher_model_calls=$(metric R000103 '.verification.model_calls')
+dispatcher_negative_control=$(metric R000103 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1853,6 +1865,22 @@ EOF
 | Model calls | $diagnostic_model_calls |
 | Controlled mutation | $diagnostic_negative_control |
 
+## E0094 generic predicate-form dispatcher
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | $dispatcher_predecessor |
+| Accepted predicate rows | $dispatcher_accepted |
+| Dispatcher rows | $dispatcher_rows |
+| Unique top-level constructors | $dispatcher_constructors |
+| Independent dispatch-oracle difference | $dispatcher_difference |
+| Provenance matches | $dispatcher_provenance |
+| Unsupported constructor rows | $dispatcher_unsupported |
+| Generated dispatcher without selected rule IDs | $dispatcher_generic |
+| Parser projections | $dispatcher_projections |
+| Model calls | $dispatcher_model_calls |
+| Controlled mutation | $dispatcher_negative_control |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2361,6 +2389,17 @@ rendered=${rendered//@DIAGNOSTIC_GENERIC@/$diagnostic_generic}
 rendered=${rendered//@DIAGNOSTIC_PROJECTIONS@/$diagnostic_projections}
 rendered=${rendered//@DIAGNOSTIC_MODEL_CALLS@/$diagnostic_model_calls}
 rendered=${rendered//@DIAGNOSTIC_NEGATIVE_CONTROL@/$diagnostic_negative_control}
+rendered=${rendered//@DISPATCHER_PREDECESSOR@/$dispatcher_predecessor}
+rendered=${rendered//@DISPATCHER_ACCEPTED@/$dispatcher_accepted}
+rendered=${rendered//@DISPATCHER_ROWS@/$dispatcher_rows}
+rendered=${rendered//@DISPATCHER_CONSTRUCTORS@/$dispatcher_constructors}
+rendered=${rendered//@DISPATCHER_DIFFERENCE@/$dispatcher_difference}
+rendered=${rendered//@DISPATCHER_PROVENANCE@/$dispatcher_provenance}
+rendered=${rendered//@DISPATCHER_UNSUPPORTED@/$dispatcher_unsupported}
+rendered=${rendered//@DISPATCHER_GENERIC@/$dispatcher_generic}
+rendered=${rendered//@DISPATCHER_PROJECTIONS@/$dispatcher_projections}
+rendered=${rendered//@DISPATCHER_MODEL_CALLS@/$dispatcher_model_calls}
+rendered=${rendered//@DISPATCHER_NEGATIVE_CONTROL@/$dispatcher_negative_control}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

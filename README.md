@@ -93,8 +93,10 @@ E0089 records the successor ledger with 22 resolved and 265 unresolved
 constraints and 71 accepted fact-dependency edges. E0090 generates 22 semantic
 rule rows and dispatch rows. E0091 and E0092 evaluate C601, C603 and C719
 through one generic evaluator. E0093 emits six structured source-linked
-diagnostic records without selected-rule IDs in its generated operation. The
-production `fortfront-new` repository has not been created yet. Regenerate
+diagnostic records without selected-rule IDs in its generated operation. E0094
+classifies all 22 accepted predicate rows with one generic dispatcher covering
+9 top-level constructors. The production `fortfront-new` repository has not
+been created yet. Regenerate
 paper numbers with `papers/standard-to-grammar/analyse.sh` and the laboratory
 index with `scripts/index.sh`.
 
