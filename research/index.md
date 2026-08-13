@@ -110,6 +110,7 @@ Runs recorded: 152
 | E0106 | reported | 1 | Can the deterministic source-structure index reduce the E0100/E0104 residue without semantic inference? |
 | E0107 | draft | 0 | Can exact normative definition forms mechanically resolve the E0106 unique candidates? |
 | E0108 | draft | 0 | Can an independent traversal validate strict definition candidates without semantic inference? |
+| E0109 | draft | 0 | Can the strict semantic residue ledger close the M3 accounting gate? |
 
 ## Run status
 
