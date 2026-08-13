@@ -107,4 +107,28 @@ for name, rule, relation in (
 ):
     checked_submission(name, rule, relation)
 
+ordinary_rhs = harness.Episode(raw, ranges, residue, e0110, "only-list")
+ordinary_rule = ordinary_rhs.call("read_rule", {"rule_number": "R1409"})
+assert ordinary_rhs.call(
+    "submit_pointer",
+    {
+        "name": "only-list",
+        "decision": "accept",
+        "relation": "definition",
+        "evidence_ids": [ordinary_rule["result"]["result_id"]],
+    },
+)["status"] == "rejected"
+
+period_rhs = harness.Episode(raw, ranges, residue, e0110, ".")
+period_rule = period_rhs.call("read_rule", {"rule_number": "R601"})
+assert period_rhs.call(
+    "submit_pointer",
+    {
+        "name": ".",
+        "decision": "accept",
+        "relation": "lexical",
+        "evidence_ids": [period_rule["result"]["result_id"]],
+    },
+)["status"] == "rejected"
+
 print("E0115 deterministic tool gate passed")

@@ -61,6 +61,17 @@ def candidate_guidance(name):
     return "Search for a direct numbered production or a normative prose definition."
 
 
+def token_pattern(query):
+    if query == ".":
+        return re.compile(r"(?<![A-Za-z0-9_.-])\.(?![A-Za-z0-9_.-])")
+    if query == "..":
+        return re.compile(r"(?<![A-Za-z0-9_.-])\.\.(?![A-Za-z0-9_.-])")
+    return re.compile(
+        rf"(?<![A-Za-z0-9_-]){re.escape(query)}(?![A-Za-z0-9_-])",
+        re.IGNORECASE,
+    )
+
+
 class ToolError(Exception):
     """A deterministic tool rejection."""
 
@@ -144,6 +155,10 @@ class Episode:
             match = RULE_ID_LINE.match(line)
             if match is not None:
                 self.rule_indices.setdefault(match.group("rule"), index)
+        self.rule_ranges = {
+            rule: self._rule_range(index)
+            for rule, index in self.rule_indices.items()
+        }
         self.name = name.rstrip(",")
         self.e0110 = e0110
         self.max_evidence_calls = max_evidence_calls
@@ -240,6 +255,21 @@ class Episode:
         if not isinstance(max_results, int) or not 1 <= max_results <= 8:
             raise ToolError("max_results must be in 1..8")
         self._evidence_call()
+        if mode == "rule":
+            pattern = token_pattern(query)
+            results = []
+            for rule in sorted(self.rule_ranges, key=lambda value: int(value[1:])):
+                if not rule.startswith("R"):
+                    continue
+                start, end = self.rule_ranges[rule]
+                text = self.raw[start:end].decode("utf-8")
+                production = PRODUCTION.search(text)
+                grammar = self._grammar_rhs(text, production) if production else ""
+                if (production and pattern.search(production.group("lhs"))) or pattern.search(grammar):
+                    results.append(self._evidence(start, end, "rule", anchor=start))
+                    if len(results) == max_results:
+                        break
+            return {"status": "ok", "query": query, "mode": mode, "results": results}
         results = []
         for start, end, _line in self._matching_lines(query, mode)[:max_results]:
             results.append(self._evidence(start, end, "search", anchor=start))
@@ -262,13 +292,7 @@ class Episode:
         end = min(page_end, source["byte_start"] + source["byte_length"] + after_bytes)
         return {"status": "ok", "result": self._evidence(start, end, "span", anchor=source["byte_start"])}
 
-    def read_rule(self, rule_number):
-        self._evidence_call()
-        if not isinstance(rule_number, str) or not re.fullmatch(r"[RC][0-9]{3,5}", rule_number):
-            raise ToolError("rule_number must match R/C followed by 3..5 digits")
-        index = self.rule_indices.get(rule_number)
-        if index is None:
-            raise ToolError("rule not found")
+    def _rule_range(self, index):
         start, end, _line = self.lines[index]
         page = page_at(self.ranges, start, self.page_starts)
         final = end
@@ -280,6 +304,60 @@ class Episode:
             if RULE_LINE.match(next_line):
                 break
             final = next_end
+        return start, final
+
+    @staticmethod
+    def _grammar_rhs(text, production):
+        if production is None:
+            return ""
+        rhs = production.group("rhs").splitlines()
+        parts = [rhs[0]] if rhs else []
+        for line in rhs[1:]:
+            normalized = re.sub(r"^\s*[0-9]+\s+", "", line).strip()
+            if re.match(r"or\b", normalized, re.IGNORECASE):
+                parts.append(normalized)
+            else:
+                break
+        return " ".join(parts)
+
+    def rule_hints(self):
+        """Return source rule IDs found by the deterministic pre-index."""
+        candidate = self.name
+        pattern = token_pattern(candidate)
+        direct = []
+        terminals = []
+        for rule in sorted(self.rule_ranges, key=lambda value: int(value[1:])):
+            if not rule.startswith("R"):
+                continue
+            start, end = self.rule_ranges[rule]
+            text = self.raw[start:end].decode("utf-8")
+            production = PRODUCTION.search(text)
+            if production is not None and production.group("lhs").casefold() == candidate.casefold():
+                direct.append(rule)
+            elif production is not None and pattern.search(self._grammar_rhs(text, production)):
+                terminals.append(rule)
+        assumed = (
+            "R401" if candidate.endswith("-list") else
+            "R402" if candidate.endswith("-name") else
+            "R403" if candidate.startswith("scalar-") else None
+        )
+        hints = direct[:6]
+        if not direct and assumed is not None:
+            hints.append(assumed)
+        for rule in terminals:
+            if rule not in hints:
+                hints.append(rule)
+            if len(hints) == 6:
+                break
+        return hints
+
+    def read_rule(self, rule_number):
+        self._evidence_call()
+        if not isinstance(rule_number, str) or not re.fullmatch(r"[RC][0-9]{3,5}", rule_number):
+            raise ToolError("rule_number must match R/C followed by 3..5 digits")
+        if rule_number not in self.rule_ranges:
+            raise ToolError("rule not found")
+        start, final = self.rule_ranges[rule_number]
         return {"status": "ok", "result": self._evidence(start, final, "rule", anchor=start)}
 
     def _definition_match(self, evidence):
@@ -313,12 +391,7 @@ class Episode:
         for match in PRODUCTION.finditer(text):
             rule = match.group("rule").upper()
             lhs = match.group("lhs")
-            rhs = re.split(
-                r"\n\s*(?:[0-9]+\s+)?R[0-9]{3,5}\s+",
-                match.group("rhs"),
-                maxsplit=1,
-                flags=re.IGNORECASE,
-            )[0]
+            rhs = self._grammar_rhs(text, match)
             if lhs.casefold() == candidate.casefold():
                 return match, "definition"
             assumed = ASSUMED_RULES.get(rule)

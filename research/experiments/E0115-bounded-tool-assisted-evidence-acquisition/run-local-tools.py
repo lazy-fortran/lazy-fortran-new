@@ -97,7 +97,14 @@ def call_model(url, payload, timeout):
     return message, data
 
 
-def system_prompt(name):
+def system_prompt(name, rule_hints):
+    indexed = (
+        "The deterministic source index found these possible numbered rule IDs: "
+        + ", ".join(rule_hints)
+        + ". Read them before broad searching; the index supplies locations, not a decision."
+        if rule_hints
+        else "The deterministic source index found no numbered rule ID; use the search tools."
+    )
     return (
         "You are a source-evidence assistant. Work only through the four "
         "declared tools. Find a normative source-backed definition or relation "
@@ -105,6 +112,7 @@ def system_prompt(name):
         f"{harness.candidate_guidance(name)} Prefer a direct production or "
         "prose definition when one exists. The standard's assumed rules are "
         "valid source evidence; do not invent a target from them. "
+        f"{indexed} "
         "If the evidence is insufficient or ambiguous, call submit_pointer "
         "with decision abstain. Otherwise call submit_pointer with decision "
         "accept, the candidate name, a relation category, and evidence IDs. "
@@ -148,7 +156,7 @@ def tool_event(episode, tool_call):
 def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=None):
     episode = harness.Episode(raw, ranges, residue, e0110, name)
     messages = [
-        {"role": "system", "content": system_prompt(name)},
+        {"role": "system", "content": system_prompt(name, episode.rule_hints())},
         {"role": "user", "content": user_prompt(name)},
     ]
     events = []
