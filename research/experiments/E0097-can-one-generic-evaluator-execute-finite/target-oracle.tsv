@@ -1,0 +1,3 @@
+constraint_id	predicate	required_facts	provided_facts	line	page	source_hash
+C7117	(in digit (0 1))	parsed-digit	checked-digit-domain	4738	113	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+C7118	(in digit (0 1 2 3 4 5 6 7))	parsed-digit	checked-digit-domain	4741	113	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
