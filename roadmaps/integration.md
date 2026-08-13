@@ -32,10 +32,12 @@ escalation gate. D0046 now authorizes one bounded document-structure
 extraction slice; no new wave should add unjustified document-specific
 heuristics or promote semantic facts before its measurement.
 
-Wave K has integrated the frontend diagnostic SX and AArch64 ELF64 slices.
-Their exact production commits and independent checks are recorded in the
-run ledger. The StandardIR structure-index slice is still pending; it is the
-only active task in this wave.
+Wave K integrated the frontend diagnostic SX, AArch64 ELF64, and bounded
+StandardIR structure-index slices. Their exact production commits and
+independent checks are recorded in the run ledger. The next M3 gate is a
+laboratory-only measurement against the E0100/E0104 residue. Production work
+may proceed concurrently only in disjoint backend codec/decoder and
+contract-first middle-end scopes.
 
 The cleanup sequence is explicit:
 

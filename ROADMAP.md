@@ -241,11 +241,19 @@ abandoned run and contributes no evidence. D0046 selects a deliberately
 specified Fortran-document structure extractor as the next M3 slice; no
 relation is promoted automatically.
 
-Wave K has integrated two dependency-independent production slices: typed
-source-linked diagnostic SX in `fortfront-new` and an AArch64 ELF64 witness in
-`fortback-new`. Both passed coordinator-side `fo` gates and retain their
-existing frontend/MIR and TargetIR/emission boundaries. The `standard-new`
-structure-index slice remains the active M3 task.
+Wave K integrated three dependency-independent production slices: typed
+source-linked diagnostic SX in `fortfront-new`, an AArch64 ELF64 witness in
+`fortback-new`, and the bounded source-structure index in `standard-new`.
+All three passed coordinator-side `fo` gates and retain their existing
+frontend/MIR, TargetIR/emission, and StandardIR semantic boundaries. The next
+M3 gate is the laboratory measurement of the structure index against the
+E0100/E0104 residue; it must not promote semantic facts automatically.
+
+The next production wave may proceed in parallel with that measurement. Its
+safe independent lanes are target-side codec/decoder work in `fortback-new`
+and a contract-first MIR boundary task in `ffc-new`. No task may modify the
+same production files as another task, redefine `mir-v0` inside the backend,
+or infer semantic aliases from the structure index.
 
 ## Numbered milestones
 
