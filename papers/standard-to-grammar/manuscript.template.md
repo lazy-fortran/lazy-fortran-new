@@ -398,6 +398,11 @@ for `le`, `ge`, and `exists`/`ne`. It covers @GENERIC_SELECTED@ selected rows,
 retains @GENERIC_PROVENANCE@ provenance matches and
 @GENERIC_LINKED@ source-linked witness results, with independent difference
 @GENERIC_DIFFERENCE@.
+E0093 feeds that evaluator through one generated structured diagnostic
+operation. It emits @DIAGNOSTIC_RECORDS@ source-linked records, with
+@DIAGNOSTIC_STANDARD_LINKS@ StandardIR links, @DIAGNOSTIC_SOURCE_HASHES@
+source-file hashes and @DIAGNOSTIC_PREDICATES@ predicate records. The
+operation contains no selected rule IDs.
 
 ## 5. Reproducibility and limitations
 
@@ -411,9 +416,10 @@ The study uses one Fortran working draft and one selected syntax span. It does
 not measure parser throughput, complete semantic coverage, diagnostic quality,
 or model cost. The grammar exports are syntax projections. The E0090 and E0091
 slices evaluate C601 and C719. E0092 supplies one generic evaluator for C601,
-C603 and C719. The other accepted predicates are table data rather than
-evaluated semantics. The comparison corpus is evidence for adjudication and
-not a normative input.
+C603 and C719. E0093 supplies a structured diagnostic operation around that
+evaluator. The other accepted predicates are table data rather than evaluated
+semantics. The comparison corpus is evidence for adjudication and not a
+normative input.
 
 ## 6. Next experiment
 
@@ -428,9 +434,12 @@ E0091 extends the evaluator to C719. It accepts the positive witness with
 status @C719_POSITIVE@ and rejects the negative witness with status
 @C719_NEGATIVE@. Gfortran agrees and both results retain source links.
 E0092 generalizes the evaluator across three predicate constructors and six
-witnesses. The next experiment should connect this evaluator to the generated
-frontend or add a generated diagnostic operation, while keeping unresolved
-rows excluded.
+witnesses. E0093 places one generated structured diagnostic operation around
+that evaluator. It produces @DIAGNOSTIC_RECORDS@ records with
+@DIAGNOSTIC_STANDARD_LINKS@ StandardIR links and
+@DIAGNOSTIC_SOURCE_HASHES@ source-file hashes. The next experiment should
+connect this operation to the generated `fortfront-new` frontend, while
+keeping unresolved rows excluded.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -473,7 +482,12 @@ E0092 then covers @GENERIC_FORMS@ generic predicate constructors over
 @GENERIC_CASES@ witnesses. It accepts @GENERIC_POSITIVE@ positive cases and
 rejects @GENERIC_NEGATIVE@ negative cases, with @GENERIC_GFORTRAN@ agreements
 and @GENERIC_LINKED@ source-linked results. This is a generic evaluator slice,
-not complete semantic coverage.
+not complete semantic coverage. E0093 emits @DIAGNOSTIC_RECORDS@ structured
+diagnostic records around that evaluator. The records retain
+@DIAGNOSTIC_STANDARD_LINKS@ StandardIR links, @DIAGNOSTIC_SOURCE_HASHES@
+source-file hashes and @DIAGNOSTIC_PREDICATES@ predicates. The operation has
+@DIAGNOSTIC_GENERIC@ selected-rule-ID scan result. Production frontend
+integration remains open.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,

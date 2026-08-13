@@ -583,9 +583,14 @@ evidence for the thesis.
       over C601, C603 and C719. Run six witnesses with six gfortran agreements
       and source-linked results (E0092, regenerate with
       `research/experiments/E0092-can-one-generic-evaluator-execute-three-/analyse.sh`)
-- [ ] Connect the generic evaluator to the generated frontend or add a
-      generated diagnostic operation. Keep unresolved rows, including C1588,
-      out of accepted semantic wiring
+- [x] Feed the generic evaluator through one generated structured diagnostic
+      operation. Emit six source-linked records with StandardIR locations,
+      source-file hashes and predicates, with no selected rule IDs in the
+      operation (E0093, regenerate with
+      `research/experiments/E0093-can-the-generic-evaluator-feed-a-generat/analyse.sh`)
+- [ ] Connect the generated diagnostic operation to the production
+      `fortfront-new` frontend. Keep unresolved rows, including C1588, out of
+      accepted semantic wiring
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

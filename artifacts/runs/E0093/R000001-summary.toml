@@ -1,0 +1,35 @@
+name        = "E0093-R000001-generated-source-linked-diagnostic-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/8c93147"
+sha256      = "4d8777a23ad6e0f6610c105fc9ae5f40696d4f620e8ced60e660b0f9832ae399"
+bytes       = 489
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of the generated structured diagnostic operation over the E0092 evaluator"
+path        = ".cache/runs/E0093/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+e0092_summary_sha256 = "e74608df7bffa6614ef8349dadd886633e2e525d412d9f28ed34fb683f012d03"
+diagnostic_oracle_sha256 = "4b151413577899c4c384696fa67160311ca4f7f61c181d333703c18dc90e7842"
+diagnostic_records_sha256 = "c65d9cd1ab3c7e00887bdb598ca91d2a9327e337b6c98aecc192e560a37599c5"
+generator = "lazy-fortran-new E0093 generated source-linked diagnostic operation"
+generator_commit = "8c93147"
+checker = "research/experiments/E0093-can-the-generic-evaluator-feed-a-generat/analyse.sh"
+checker_commit = "8c93147"
+parser_projection_records = 0
+model_calls = 0
+predecessor_evaluator_cases = 6
+diagnostic_records = 6
+accepted_records = 3
+error_records = 3
+diagnostic_oracle_difference = 0
+standard_source_links = 6
+source_file_hashes = 6
+predicate_records = 6
+generic_operation_without_rule_ids = 1
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0093-can-the-generic-evaluator-feed-a-generat/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

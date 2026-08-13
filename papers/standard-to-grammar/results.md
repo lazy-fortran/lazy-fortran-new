@@ -262,7 +262,7 @@ The following rows are extracted from the accepted projection run records.
 
 | Quantity | Value |
 |---|---:|
-| Composite syntax records | 519 |
+| Composite syntax records | 6 |
 | Diagnostic rows | 519 |
 | Rows with page, byte span, and source hash | 519 |
 | Known source lookup | 1 |
@@ -964,6 +964,23 @@ The following rows are extracted from the accepted projection run records.
 | gfortran agreements | 6 |
 | Source-linked results | 6 |
 | Parser projection records | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
+## E0093 generated source-linked diagnostic operation
+
+| Quantity | Value |
+|---|---:|
+| E0092 evaluator cases | 6 |
+| Structured diagnostic records | 6 |
+| Accepted records | 3 |
+| Error records | 3 |
+| Independent diagnostic-oracle difference | 0 |
+| Standard source links | 6 |
+| Source-file hashes | 6 |
+| Predicate records | 6 |
+| Generated operation without selected rule IDs | 1 |
+| Parser projections | 0 |
 | Model calls | 0 |
 | Controlled mutation | observed_failure |
 

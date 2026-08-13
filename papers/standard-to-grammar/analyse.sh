@@ -144,6 +144,7 @@ assert_run R000098 '.status == "accepted" and .experiment == "E0089" and .verifi
 assert_run R000099 '.status == "accepted" and .experiment == "E0090" and .verification.zero_model_calls == true and .verification.accepted_predecessor_rows == 22 and .verification.generated_rule_rows == 22 and .verification.generated_dispatch_rows == 22 and .verification.table_oracle_difference == 0 and .verification.unique_rule_ids == 22 and .verification.provenance_matches == 22 and .verification.source_evidence_matches == 22 and .verification.unresolved_rows_emitted == 0 and .verification.c1588_rows_emitted == 0 and .verification.c601_checker_positive_status == 0 and .verification.c601_checker_negative_status == 1 and .verification.c601_positive_diagnostic_rows == 0 and .verification.c601_negative_diagnostic_rows == 1 and .verification.c601_positive_gfortran_status == 0 and .verification.c601_negative_gfortran_status == 1 and .verification.c601_positive_source_linked == 1 and .verification.c601_negative_source_linked == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000100 '.status == "accepted" and .experiment == "E0091" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.target_rule_rows == 1 and .verification.target_table_difference == 0 and .verification.target_provenance_matches == 1 and .verification.target_fact_matches == 1 and .verification.generated_bound == 0 and .verification.checker_positive_status == 0 and .verification.checker_negative_status == 1 and .verification.positive_diagnostic_rows == 0 and .verification.negative_diagnostic_rows == 1 and .verification.positive_gfortran_status == 0 and .verification.negative_gfortran_status == 1 and .verification.positive_source_linked == 1 and .verification.negative_source_linked == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000101 '.status == "accepted" and .experiment == "E0092" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 3 and .verification.generic_constructor_forms == 3 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 3 and .verification.fact_matches == 3 and .verification.evaluator_cases == 6 and .verification.positive_checker_accepts == 3 and .verification.negative_checker_rejects == 3 and .verification.diagnostic_rows == 3 and .verification.gfortran_agreement == 6 and .verification.source_linked_results == 6 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000102 '.status == "accepted" and .experiment == "E0093" and .verification.zero_model_calls == true and .verification.predecessor_evaluator_cases == 6 and .verification.diagnostic_records == 6 and .verification.accepted_records == 3 and .verification.error_records == 3 and .verification.diagnostic_oracle_difference == 0 and .verification.standard_source_links == 6 and .verification.source_file_hashes == 6 and .verification.predicate_records == 6 and .verification.generic_operation_without_rule_ids == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -839,6 +840,18 @@ generic_linked=$(metric R000101 '.verification.source_linked_results')
 generic_projections=$(metric R000101 '.verification.parser_projection_records')
 generic_model_calls=$(metric R000101 '.verification.model_calls')
 generic_negative_control=$(metric R000101 '.verification.negative_control')
+diagnostic_predecessor=$(metric R000102 '.verification.predecessor_evaluator_cases')
+diagnostic_records=$(metric R000102 '.verification.diagnostic_records')
+diagnostic_accepted=$(metric R000102 '.verification.accepted_records')
+diagnostic_errors=$(metric R000102 '.verification.error_records')
+diagnostic_difference=$(metric R000102 '.verification.diagnostic_oracle_difference')
+diagnostic_standard_links=$(metric R000102 '.verification.standard_source_links')
+diagnostic_source_hashes=$(metric R000102 '.verification.source_file_hashes')
+diagnostic_predicates=$(metric R000102 '.verification.predicate_records')
+diagnostic_generic=$(metric R000102 '.verification.generic_operation_without_rule_ids')
+diagnostic_projections=$(metric R000102 '.verification.parser_projection_records')
+diagnostic_model_calls=$(metric R000102 '.verification.model_calls')
+diagnostic_negative_control=$(metric R000102 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1823,6 +1836,23 @@ EOF
 | Model calls | $generic_model_calls |
 | Controlled mutation | $generic_negative_control |
 
+## E0093 generated source-linked diagnostic operation
+
+| Quantity | Value |
+|---|---:|
+| E0092 evaluator cases | $diagnostic_predecessor |
+| Structured diagnostic records | $diagnostic_records |
+| Accepted records | $diagnostic_accepted |
+| Error records | $diagnostic_errors |
+| Independent diagnostic-oracle difference | $diagnostic_difference |
+| Standard source links | $diagnostic_standard_links |
+| Source-file hashes | $diagnostic_source_hashes |
+| Predicate records | $diagnostic_predicates |
+| Generated operation without selected rule IDs | $diagnostic_generic |
+| Parser projections | $diagnostic_projections |
+| Model calls | $diagnostic_model_calls |
+| Controlled mutation | $diagnostic_negative_control |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2319,6 +2349,18 @@ rendered=${rendered//@GENERIC_LINKED@/$generic_linked}
 rendered=${rendered//@GENERIC_PROJECTIONS@/$generic_projections}
 rendered=${rendered//@GENERIC_MODEL_CALLS@/$generic_model_calls}
 rendered=${rendered//@GENERIC_NEGATIVE_CONTROL@/$generic_negative_control}
+rendered=${rendered//@DIAGNOSTIC_PREDECESSOR@/$diagnostic_predecessor}
+rendered=${rendered//@DIAGNOSTIC_RECORDS@/$diagnostic_records}
+rendered=${rendered//@DIAGNOSTIC_ACCEPTED@/$diagnostic_accepted}
+rendered=${rendered//@DIAGNOSTIC_ERRORS@/$diagnostic_errors}
+rendered=${rendered//@DIAGNOSTIC_DIFFERENCE@/$diagnostic_difference}
+rendered=${rendered//@DIAGNOSTIC_STANDARD_LINKS@/$diagnostic_standard_links}
+rendered=${rendered//@DIAGNOSTIC_SOURCE_HASHES@/$diagnostic_source_hashes}
+rendered=${rendered//@DIAGNOSTIC_PREDICATES@/$diagnostic_predicates}
+rendered=${rendered//@DIAGNOSTIC_GENERIC@/$diagnostic_generic}
+rendered=${rendered//@DIAGNOSTIC_PROJECTIONS@/$diagnostic_projections}
+rendered=${rendered//@DIAGNOSTIC_MODEL_CALLS@/$diagnostic_model_calls}
+rendered=${rendered//@DIAGNOSTIC_NEGATIVE_CONTROL@/$diagnostic_negative_control}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}
