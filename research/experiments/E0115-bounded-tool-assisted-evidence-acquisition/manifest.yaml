@@ -86,11 +86,12 @@ fixed_protocol:
   max_evidence_calls: 8
   max_submissions: 3
   max_repairs: 3
-  max_turns_per_row: 20
+  max_turns_per_row: 12
   max_source_bytes: 32768
   max_wall_s_per_row: 300
   output: pointer-only
   tool_transport: native-structured-calls
+  durable_trace: flush-every-event-and-completed-row
   reasoning_isolation: separate-predeclared-cell
 
 metrics:

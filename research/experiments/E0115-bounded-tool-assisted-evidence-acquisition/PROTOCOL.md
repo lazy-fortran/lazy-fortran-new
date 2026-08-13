@@ -48,11 +48,11 @@ start episode
   -> terminal row result
 ```
 
-The budgets are eight evidence calls, three submissions, three repairs,
+The budgets are eight evidence calls, three submissions, twelve model turns,
 32 KiB of source text and 300 seconds per row. The runner never silently
-increases a budget. It writes a checkpoint at row boundaries and after every
-completed tool result; resume replays the recorded trajectory rather than
-reissuing a successful tool call.
+increases a budget. It flushes the trajectory after every model/tool event and
+the row result after every completed row; resume replays the recorded
+trajectory rather than reissuing a successful tool call.
 
 ## Trace
 

@@ -33,7 +33,7 @@ def parser():
     result.add_argument("--top-p", type=float, default=1.0)
     result.add_argument("--max-tokens", type=int, default=512)
     result.add_argument("--timeout", type=float, default=180.0)
-    result.add_argument("--max-turns", type=int, default=20)
+    result.add_argument("--max-turns", type=int, default=12)
     result.add_argument("--limit", type=int, default=0)
     result.add_argument("--only-name", default="")
     result.add_argument("--quantization", default="unspecified")
