@@ -20,6 +20,9 @@ inputs:
   canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
   page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
   tool_schema: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/tool-schema.json
+  harness: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/e0115_harness.py
+  runner: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/run-local-tools.py
+  test: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/test.sh
   fixed_window_control: E0112
   full_retrieval_control: E0113
   visual_control: E0114
@@ -83,6 +86,7 @@ fixed_protocol:
   max_evidence_calls: 8
   max_submissions: 3
   max_repairs: 3
+  max_turns_per_row: 20
   max_source_bytes: 32768
   max_wall_s_per_row: 300
   output: pointer-only
