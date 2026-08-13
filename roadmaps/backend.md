@@ -15,8 +15,9 @@ encoders/decoders and behavioral tests belong to `fortback-new`.
 - connect `mir-v0` only after its contract revision is integrated.
 - synthesize and verify instruction selection, then measure cost.
 
-The bounded `riscv-opcodes` and AARCHMRS source importers are integrated and
-preserve source identity through their encoding fixtures. ISA ingestion,
+The bounded `riscv-opcodes` and AARCHMRS source importers and the canonical
+TargetIR-v0 SX handoff are integrated and preserve source identity through
+their encoding fixtures. ISA ingestion,
 semantics, encoders, decoders, ABI metadata and object writing do not wait for
 the frontend. Legalization and instruction selection do wait for `mir-v0`.
 RISC-V and AArch64 remain the first correctness targets. x86-64 is a concurrent

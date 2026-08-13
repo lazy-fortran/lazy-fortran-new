@@ -193,12 +193,14 @@ their input contracts are integrated. The coordinator merges verified slices
 frequently and deletes their clean local and remote task branches after the
 merged commit is recorded.
 
-Wave C is complete for its bounded handoffs: the StandardIR production adapter,
-frontend-v0 SX handoff, frontend-v0 to MIR lowering, and AArch64 source
-ingestion are integrated. E0099 remains an explicitly blocked experiment
-attempt. The next wave may extend the real production projection, add AST and
-semantic-rule consumption, add MIR serialization, and continue target source
-normalization. These slices must not change a contract in place.
+Wave D is complete for its bounded handoffs: the StandardIR production
+projection, frontend-v0 SX reader, witness-bounded MIR SX handoff, and
+TargetIR-v0 SX handoff are integrated. E0100 independently reproduced the 181
+unresolved-name denominator and found 54 mechanically-supported candidates,
+46 ambiguous candidates, and 81 names with no candidate, with zero model calls.
+The next wave may add AST and semantic-rule consumption, extend the deterministic
+name evidence experiment, and continue target source normalization. These
+slices must not change a contract in place.
 
 ## Numbered milestones
 

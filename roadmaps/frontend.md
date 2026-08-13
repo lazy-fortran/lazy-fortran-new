@@ -11,10 +11,10 @@ behavioral tests. Experiment history and contract revisions remain in the lab.
 3. connect source-linked diagnostics and the accepted semantic rule table.
 4. lower a declared vertical slice into `mir-v0`.
 
-The bounded program-witness parser and source-linked result boundary are
-integrated. Only the first two steps depend on M2. Diagnostic and semantic
-slices may run in parallel once their StandardIR records and provenance fields
-are pinned.
+The bounded program-witness parser, source-linked result boundary, canonical
+frontend-v0 SX handoff, and reader are integrated. Only the first two steps
+depend on M2. Diagnostic and semantic slices may run in parallel once their
+StandardIR records and provenance fields are pinned.
 The `mir-v0` producer boundary must not be changed inside a frontend slice.
 
 ## Exit and handoff

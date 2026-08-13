@@ -21,11 +21,10 @@ the current measurement. Regenerate it with
 - complete the StandardIR schema and generated visitor contract.
 - expose stable provenance-bearing records to the frontend lane.
 
-The first source-backed production API slice is integrated. The next slice may
-connect the existing PDF/JSONL projection to that API without changing the
-legacy interchange format. Semantic formalization remains a separate lane
-within the laboratory's Phase 1 gate and must not be smuggled into syntax
-aliases.
+The source-backed production API and the PDF/JSONL projection mode are
+integrated. The legacy interchange format remains unchanged. Semantic
+formalization remains a separate lane within the laboratory's Phase 1 gate and
+must not be smuggled into syntax aliases.
 
 ## Exit and handoff
 
