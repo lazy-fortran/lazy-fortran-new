@@ -231,7 +231,8 @@ commit, branch/worktree, allowed paths, commit, changed files, commands run,
 independent-oracle results, warnings, decisions encountered, experiment needed
 and blockers. Agents may commit only within their assigned production
 repository. Pushing is a separate explicit action. Let native Codex manage the
-subagent lifetime and result collection; do not background or poll processes.
+subagent lifetime and result collection; use its managed wait/result mechanism
+when a result is needed. Do not background or self-poll processes.
 
 After reports arrive, the central agent checks the commits, runs the relevant
 gates, writes or updates decisions and experiments, appends runs, updates the
