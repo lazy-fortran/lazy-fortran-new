@@ -577,7 +577,7 @@ or a compiler. Those claims require separate corpora and experiments.
    <https://doi.org/10.1002/spe.423>.
 3. L. J. Kedward et al., "The State of Fortran," *Computing in Science &
    Engineering* (2022).
-4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0037 in this repository.
+4. `DESIGN.md`, `RESEARCH.md`, and decisions D0018--D0038 in this repository.
 5. The structural comparison and behavioral oracle sources listed in
    `docs/provenance.md` and `docs/literature.md`.
 
