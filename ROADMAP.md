@@ -579,9 +579,13 @@ evidence for the thesis.
       from the accepted predicate and agreeing with gfortran on positive and
       negative witnesses with source-linked diagnostics (E0091, regenerate
       with `research/experiments/E0091-can-the-generated-rule-table-evaluate-c7/analyse.sh`)
-- [ ] Extend the evaluator to another simple accepted predicate or run the rule
-      table through the generated frontend. Keep unresolved rows, including
-      C1588, out of accepted semantic wiring
+- [x] Generalize the evaluator across `le`, `ge` and `exists`/`ne` constructors
+      over C601, C603 and C719. Run six witnesses with six gfortran agreements
+      and source-linked results (E0092, regenerate with
+      `research/experiments/E0092-can-one-generic-evaluator-execute-three-/analyse.sh`)
+- [ ] Connect the generic evaluator to the generated frontend or add a
+      generated diagnostic operation. Keep unresolved rows, including C1588,
+      out of accepted semantic wiring
 - [x] Compare the generated syntax against the `standard` `.g4` corpus and
       kaby76 structurally where the formats permit (E0020, regenerate with
       `research/experiments/E0020-how-do-the-deterministic-standardir-synt/analyse.sh`)

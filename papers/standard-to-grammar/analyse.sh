@@ -143,6 +143,7 @@ assert_run R000097 '.status == "accepted" and .experiment == "E0088" and .verifi
 assert_run R000098 '.status == "accepted" and .experiment == "E0089" and .verification.zero_model_calls == true and .verification.eligible_constraints == 287 and .verification.selected_rows == 23 and .verification.resolved_constraints == 22 and .verification.disputed_constraints == 0 and .verification.unresolved_constraints == 265 and .verification.accepted_predicates == 22 and .verification.competing_candidate_records == 0 and .verification.source_hash_matches == 287 and .verification.source_evidence_matches == 22 and .verification.independent_oracle_agreement == 0 and .verification.adjudication_gate_violations == 0 and .verification.required_fact_records == 49 and .verification.provided_fact_records == 22 and .verification.dependency_edges == 71 and .verification.topological_order_difference == 0 and .verification.independent_normalization_difference == 0 and .verification.parser_projection_records == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000099 '.status == "accepted" and .experiment == "E0090" and .verification.zero_model_calls == true and .verification.accepted_predecessor_rows == 22 and .verification.generated_rule_rows == 22 and .verification.generated_dispatch_rows == 22 and .verification.table_oracle_difference == 0 and .verification.unique_rule_ids == 22 and .verification.provenance_matches == 22 and .verification.source_evidence_matches == 22 and .verification.unresolved_rows_emitted == 0 and .verification.c1588_rows_emitted == 0 and .verification.c601_checker_positive_status == 0 and .verification.c601_checker_negative_status == 1 and .verification.c601_positive_diagnostic_rows == 0 and .verification.c601_negative_diagnostic_rows == 1 and .verification.c601_positive_gfortran_status == 0 and .verification.c601_negative_gfortran_status == 1 and .verification.c601_positive_source_linked == 1 and .verification.c601_negative_source_linked == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000100 '.status == "accepted" and .experiment == "E0091" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.target_rule_rows == 1 and .verification.target_table_difference == 0 and .verification.target_provenance_matches == 1 and .verification.target_fact_matches == 1 and .verification.generated_bound == 0 and .verification.checker_positive_status == 0 and .verification.checker_negative_status == 1 and .verification.positive_diagnostic_rows == 0 and .verification.negative_diagnostic_rows == 1 and .verification.positive_gfortran_status == 0 and .verification.negative_gfortran_status == 1 and .verification.positive_source_linked == 1 and .verification.negative_source_linked == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000101 '.status == "accepted" and .experiment == "E0092" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 3 and .verification.generic_constructor_forms == 3 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 3 and .verification.fact_matches == 3 and .verification.evaluator_cases == 6 and .verification.positive_checker_accepts == 3 and .verification.negative_checker_rejects == 3 and .verification.diagnostic_rows == 3 and .verification.gfortran_agreement == 6 and .verification.source_linked_results == 6 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -823,6 +824,21 @@ c719_negative_linked=$(metric R000100 '.verification.negative_source_linked')
 c719_projections=$(metric R000100 '.verification.parser_projection_records')
 c719_model_calls=$(metric R000100 '.verification.model_calls')
 c719_negative_control=$(metric R000100 '.verification.negative_control')
+generic_predecessor=$(metric R000101 '.verification.predecessor_rule_rows')
+generic_selected=$(metric R000101 '.verification.selected_rule_rows')
+generic_forms=$(metric R000101 '.verification.generic_constructor_forms')
+generic_difference=$(metric R000101 '.verification.target_oracle_difference')
+generic_provenance=$(metric R000101 '.verification.provenance_matches')
+generic_facts=$(metric R000101 '.verification.fact_matches')
+generic_cases=$(metric R000101 '.verification.evaluator_cases')
+generic_positive=$(metric R000101 '.verification.positive_checker_accepts')
+generic_negative=$(metric R000101 '.verification.negative_checker_rejects')
+generic_diagnostics=$(metric R000101 '.verification.diagnostic_rows')
+generic_gfortran=$(metric R000101 '.verification.gfortran_agreement')
+generic_linked=$(metric R000101 '.verification.source_linked_results')
+generic_projections=$(metric R000101 '.verification.parser_projection_records')
+generic_model_calls=$(metric R000101 '.verification.model_calls')
+generic_negative_control=$(metric R000101 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1787,6 +1803,26 @@ EOF
 | Model calls | $c719_model_calls |
 | Controlled mutation | $c719_negative_control |
 
+## E0092 generic three-predicate evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | $generic_predecessor |
+| Selected rule rows | $generic_selected |
+| Generic constructor forms | $generic_forms |
+| Independent target-oracle difference | $generic_difference |
+| Provenance matches | $generic_provenance |
+| Fact matches | $generic_facts |
+| Evaluator cases | $generic_cases |
+| Positive cases accepted | $generic_positive |
+| Negative cases rejected | $generic_negative |
+| Diagnostic rows | $generic_diagnostics |
+| gfortran agreements | $generic_gfortran |
+| Source-linked results | $generic_linked |
+| Parser projection records | $generic_projections |
+| Model calls | $generic_model_calls |
+| Controlled mutation | $generic_negative_control |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2268,6 +2304,21 @@ rendered=${rendered//@C719_NEGATIVE_LINKED@/$c719_negative_linked}
 rendered=${rendered//@C719_PROJECTIONS@/$c719_projections}
 rendered=${rendered//@C719_MODEL_CALLS@/$c719_model_calls}
 rendered=${rendered//@C719_NEGATIVE_CONTROL@/$c719_negative_control}
+rendered=${rendered//@GENERIC_PREDECESSOR@/$generic_predecessor}
+rendered=${rendered//@GENERIC_SELECTED@/$generic_selected}
+rendered=${rendered//@GENERIC_FORMS@/$generic_forms}
+rendered=${rendered//@GENERIC_DIFFERENCE@/$generic_difference}
+rendered=${rendered//@GENERIC_PROVENANCE@/$generic_provenance}
+rendered=${rendered//@GENERIC_FACTS@/$generic_facts}
+rendered=${rendered//@GENERIC_CASES@/$generic_cases}
+rendered=${rendered//@GENERIC_POSITIVE@/$generic_positive}
+rendered=${rendered//@GENERIC_NEGATIVE@/$generic_negative}
+rendered=${rendered//@GENERIC_DIAGNOSTICS@/$generic_diagnostics}
+rendered=${rendered//@GENERIC_GFORTRAN@/$generic_gfortran}
+rendered=${rendered//@GENERIC_LINKED@/$generic_linked}
+rendered=${rendered//@GENERIC_PROJECTIONS@/$generic_projections}
+rendered=${rendered//@GENERIC_MODEL_CALLS@/$generic_model_calls}
+rendered=${rendered//@GENERIC_NEGATIVE_CONTROL@/$generic_negative_control}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

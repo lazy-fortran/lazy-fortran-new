@@ -45,6 +45,10 @@ source links.
 The C719 evaluator accepts its positive witness with status @C719_POSITIVE@
 and rejects its negative witness with status @C719_NEGATIVE@. Both retain the
 J3 source link.
+One generic evaluator then covers @GENERIC_FORMS@ predicate constructor forms
+over @GENERIC_CASES@ witnesses. It accepts @GENERIC_POSITIVE@ positive cases,
+rejects @GENERIC_NEGATIVE@ negative cases, and agrees with gfortran on all
+@GENERIC_GFORTRAN@ cases.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -389,6 +393,11 @@ E0091 applies the same generated-table path to C719. It derives the lower bound
 provenance matches, and agrees with gfortran on positive and negative
 witnesses. This extends operational evaluation to two simple predicates while
 leaving the other accepted rows as table data.
+E0092 replaces those rule-specific evaluator slices with one generic evaluator
+for `le`, `ge`, and `exists`/`ne`. It covers @GENERIC_SELECTED@ selected rows,
+retains @GENERIC_PROVENANCE@ provenance matches and
+@GENERIC_LINKED@ source-linked witness results, with independent difference
+@GENERIC_DIFFERENCE@.
 
 ## 5. Reproducibility and limitations
 
@@ -401,9 +410,10 @@ sources are never vendored.
 The study uses one Fortran working draft and one selected syntax span. It does
 not measure parser throughput, complete semantic coverage, diagnostic quality,
 or model cost. The grammar exports are syntax projections. The E0090 and E0091
-checkers implement only C601 and C719. The other accepted predicates are table
-data rather than evaluated semantics. The comparison corpus is evidence for
-adjudication and not a normative input.
+slices evaluate C601 and C719. E0092 supplies one generic evaluator for C601,
+C603 and C719. The other accepted predicates are table data rather than
+evaluated semantics. The comparison corpus is evidence for adjudication and
+not a normative input.
 
 ## 6. Next experiment
 
@@ -417,9 +427,10 @@ source links. C1588 remains outside the table.
 E0091 extends the evaluator to C719. It accepts the positive witness with
 status @C719_POSITIVE@ and rejects the negative witness with status
 @C719_NEGATIVE@. Gfortran agrees and both results retain source links.
-The next experiment should extend the evaluator to another simple accepted
-predicate or test the same rule table through the generated frontend, while
-keeping unresolved rows excluded.
+E0092 generalizes the evaluator across three predicate constructors and six
+witnesses. The next experiment should connect this evaluator to the generated
+frontend or add a generated diagnostic operation, while keeping unresolved
+rows excluded.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -458,6 +469,11 @@ positive witness and rejects the negative witness with source-linked results.
 gfortran agrees. This establishes the first generated semantic table and local
 diagnostic boundary, not complete semantic coverage. E0091 extends the same
 boundary to C719 while leaving the other accepted predicates unevaluated.
+E0092 then covers @GENERIC_FORMS@ generic predicate constructors over
+@GENERIC_CASES@ witnesses. It accepts @GENERIC_POSITIVE@ positive cases and
+rejects @GENERIC_NEGATIVE@ negative cases, with @GENERIC_GFORTRAN@ agreements
+and @GENERIC_LINKED@ source-linked results. This is a generic evaluator slice,
+not complete semantic coverage.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,

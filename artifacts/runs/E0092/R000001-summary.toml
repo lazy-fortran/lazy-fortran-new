@@ -1,0 +1,42 @@
+name        = "E0092-R000001-generic-three-predicate-evaluator-summary"
+url         = "https://github.com/lazy-fortran/lazy-fortran-new/tree/dde3336"
+sha256      = "e74608df7bffa6614ef8349dadd886633e2e525d412d9f28ed34fb683f012d03"
+bytes       = 709
+licence     = "MIT adapter; source documents retain their own licences"
+retrieved   = "2026-08-13"
+purpose     = "Summary of the generic evaluator over C601, C603 and C719"
+path        = ".cache/runs/E0092/R000001/summary.tsv"
+origin      = "MECHANICAL"
+format      = "tab-separated metric summary"
+source      = "j3-24-007"
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+e0090_summary_sha256 = "6eac160c592660bdeffc6460ccb6efc33b0c00e945a31e05029b7b23fdebf622"
+target_oracle_sha256 = "c0e0d360dd69c8573da5fb0d08516aef8da4befa29c64a70cc8343292d2b804c"
+witness_oracle_sha256 = "770cc2b238fc5a5ccb1062c44913b6af43a31d5319c18ac1a527d9346e45118c"
+selected_rules_sha256 = "2c69d517c057ae66c3da4a63f09790294c2179a48480262c095ed8556695d45d"
+witness_results_sha256 = "7e8d66600ed6032eaddf4f7a65c49af52c0ace39647e2614785fdabff96b51da"
+generator = "lazy-fortran-new E0092 generic three-predicate evaluator"
+generator_commit = "dde3336"
+checker = "research/experiments/E0092-can-one-generic-evaluator-execute-three-/analyse.sh"
+checker_commit = "dde3336"
+compiler = "GNU Fortran 16.1.1 (GCC 16.1.1) 20260728"
+fo = "0.3.2"
+predecessor_rule_rows = 22
+selected_rule_rows = 3
+generic_constructor_forms = 3
+target_oracle_difference = 0
+provenance_matches = 3
+fact_matches = 3
+evaluator_cases = 6
+positive_checker_accepts = 3
+negative_checker_rejects = 3
+diagnostic_rows = 3
+gfortran_agreement = 6
+source_linked_results = 6
+parser_projection_records = 0
+model_calls = 0
+negative_control = "observed_failure"
+
+# Regenerate and verify with:
+#   research/experiments/E0092-can-one-generic-evaluator-execute-three-/analyse.sh
+# Verify the artifact hash and size with sha256sum and stat.

@@ -45,6 +45,10 @@ source links.
 The C719 evaluator accepts its positive witness with status 0
 and rejects its negative witness with status 1. Both retain the
 J3 source link.
+One generic evaluator then covers 3 predicate constructor forms
+over 6 witnesses. It accepts 3 positive cases,
+rejects 3 negative cases, and agrees with gfortran on all
+6 cases.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -389,6 +393,11 @@ E0091 applies the same generated-table path to C719. It derives the lower bound
 provenance matches, and agrees with gfortran on positive and negative
 witnesses. This extends operational evaluation to two simple predicates while
 leaving the other accepted rows as table data.
+E0092 replaces those rule-specific evaluator slices with one generic evaluator
+for `le`, `ge`, and `exists`/`ne`. It covers 3 selected rows,
+retains 3 provenance matches and
+6 source-linked witness results, with independent difference
+0.
 
 ## 5. Reproducibility and limitations
 
@@ -401,9 +410,10 @@ sources are never vendored.
 The study uses one Fortran working draft and one selected syntax span. It does
 not measure parser throughput, complete semantic coverage, diagnostic quality,
 or model cost. The grammar exports are syntax projections. The E0090 and E0091
-checkers implement only C601 and C719. The other accepted predicates are table
-data rather than evaluated semantics. The comparison corpus is evidence for
-adjudication and not a normative input.
+slices evaluate C601 and C719. E0092 supplies one generic evaluator for C601,
+C603 and C719. The other accepted predicates are table data rather than
+evaluated semantics. The comparison corpus is evidence for adjudication and
+not a normative input.
 
 ## 6. Next experiment
 
@@ -417,9 +427,10 @@ source links. C1588 remains outside the table.
 E0091 extends the evaluator to C719. It accepts the positive witness with
 status 0 and rejects the negative witness with status
 1. Gfortran agrees and both results retain source links.
-The next experiment should extend the evaluator to another simple accepted
-predicate or test the same rule table through the generated frontend, while
-keeping unresolved rows excluded.
+E0092 generalizes the evaluator across three predicate constructors and six
+witnesses. The next experiment should connect this evaluator to the generated
+frontend or add a generated diagnostic operation, while keeping unresolved
+rows excluded.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -458,6 +469,11 @@ positive witness and rejects the negative witness with source-linked results.
 gfortran agrees. This establishes the first generated semantic table and local
 diagnostic boundary, not complete semantic coverage. E0091 extends the same
 boundary to C719 while leaving the other accepted predicates unevaluated.
+E0092 then covers 3 generic predicate constructors over
+6 witnesses. It accepts 3 positive cases and
+rejects 3 negative cases, with 6 agreements
+and 6 source-linked results. This is a generic evaluator slice,
+not complete semantic coverage.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -1423,6 +1439,26 @@ The following rows are extracted from the accepted projection run records.
 | Negative gfortran status | 1 |
 | Positive source-linked result | 1 |
 | Negative source-linked result | 1 |
+| Parser projection records | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
+## E0092 generic three-predicate evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Selected rule rows | 3 |
+| Generic constructor forms | 3 |
+| Independent target-oracle difference | 0 |
+| Provenance matches | 3 |
+| Fact matches | 3 |
+| Evaluator cases | 6 |
+| Positive cases accepted | 3 |
+| Negative cases rejected | 3 |
+| Diagnostic rows | 3 |
+| gfortran agreements | 6 |
+| Source-linked results | 6 |
 | Parser projection records | 0 |
 | Model calls | 0 |
 | Controlled mutation | observed_failure |

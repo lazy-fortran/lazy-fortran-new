@@ -947,6 +947,26 @@ The following rows are extracted from the accepted projection run records.
 | Model calls | 0 |
 | Controlled mutation | observed_failure |
 
+## E0092 generic three-predicate evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Selected rule rows | 3 |
+| Generic constructor forms | 3 |
+| Independent target-oracle difference | 0 |
+| Provenance matches | 3 |
+| Fact matches | 3 |
+| Evaluator cases | 6 |
+| Positive cases accepted | 3 |
+| Negative cases rejected | 3 |
+| Diagnostic rows | 3 |
+| gfortran agreements | 6 |
+| Source-linked results | 6 |
+| Parser projection records | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
