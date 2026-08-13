@@ -68,6 +68,13 @@ def page_for(ranges, start, length):
     return common.containing_page(ranges, start, max(1, length))
 
 
+def page_at(ranges, start):
+    matches = [number for number, page_start, page_length in ranges if page_start <= start < page_start + page_length]
+    if len(matches) != 1:
+        raise ToolError(f"byte offset is not contained by exactly one page: {start}")
+    return matches[0]
+
+
 class Episode:
     """One bounded model episode for one candidate name."""
 
@@ -193,10 +200,10 @@ class Episode:
         for index, (start, end, line) in enumerate(self.lines):
             if not re.search(rf"\b{re.escape(rule_number)}\b", line):
                 continue
-            page = page_for(self.ranges, start, max(1, end - start))
+            page = page_at(self.ranges, start)
             final = end
             for next_start, next_end, next_line in self.lines[index + 1 :]:
-                if page_for(self.ranges, next_start, max(1, next_end - next_start)) != page:
+                if page_at(self.ranges, next_start) != page:
                     break
                 if RULE_LINE.match(next_line):
                     break

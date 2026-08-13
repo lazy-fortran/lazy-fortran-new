@@ -38,6 +38,8 @@ assert episode.accepted["page"] == 319
 rule_episode = harness.Episode(raw, ranges, residue, e0110, "module-name")
 rule = rule_episode.call("read_rule", {"rule_number": "R1409"})
 assert rule["status"] == "ok" and "module-name" in rule["result"]["text"]
+boundary_rule = rule_episode.call("read_rule", {"rule_number": "R705"})
+assert boundary_rule["status"] == "ok" and boundary_rule["result"]["page"] == 80
 try:
     rule_episode.call("read_span", {"result_id": "missing", "before_bytes": 0, "after_bytes": 0})
 except harness.ToolError:

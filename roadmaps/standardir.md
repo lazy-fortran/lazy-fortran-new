@@ -52,7 +52,9 @@ as separate cells; visual cells remain a separate modality.
 The deterministic evidence environment and native llama.cpp loop pass their
 fixture gates and a one-row Qwen 3.5 2B smoke control; no full E0115 matrix has
 run yet. A provisional 17-row cell was stopped after exposing an expensive
-non-terminating tool loop; D0057 now bounds rows at twelve turns.
+non-terminating tool loop, and a second 28-row control exposed a page-boundary
+bug in `read_rule`; both are excluded from model results and recorded as
+harness controls. D0057 now bounds rows at twelve turns.
 
 ## Exit and handoff
 

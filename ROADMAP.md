@@ -336,7 +336,9 @@ environment and native llama.cpp loop now pass fixture gates and a one-row Qwen
 3.5 2B smoke control; the full matrix has not started. Abstention is a measured
 false negative in E0115, not a green result; D0057 bounds each row at twelve
 turns after the provisional 17-row attempt exposed an expensive non-terminating
-tool loop. Unavailable checkpoints and
+tool loop. Two provisional partial cells exposed deterministic page-boundary
+bugs; both are recorded as harness controls and excluded from model results.
+Unavailable checkpoints and
 inapplicable visual cells remain explicit denominator entries.
 
 ### M4. Generated frontend vertical slice (pending)
