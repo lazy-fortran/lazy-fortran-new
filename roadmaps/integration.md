@@ -23,8 +23,10 @@ not from a stale long-lived task branch.
 Wave H is complete for three bounded slices: frontend typed-program-unit SX,
 program-declaration-SX-to-MIR lowering, and the RISC-V instruction-to-ELF
 witness. E0102 is recorded separately as the first strict Luna semantic
-escalation. The next wave starts only from their integrated `main` commits and
-uses disjoint repositories or disjoint production files.
+escalation. Wave I is complete for warning cleanup in StandardIR, the
+frontend, and the backend, plus the E0103 deterministic relation audit. The
+next wave starts only from their integrated `main` commits and uses disjoint
+repositories or disjoint production files.
 
 The cleanup sequence is explicit:
 

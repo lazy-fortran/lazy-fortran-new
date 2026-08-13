@@ -223,6 +223,14 @@ relations passed exact citation validation and 120 rows were abstained; no
 relation was promoted into StandardIR. M3 therefore remains pending and the
 abstentions remain the next semantic work item.
 
+Wave I is complete for the three production warning-cleanup slices and the
+E0103 deterministic audit. Fresh `fo lint` and full `fo` gates are clean in all
+four production checkouts. E0103 independently verified all seven accepted
+Luna citations, retained six trailing-comma artifacts, matched five names to
+StandardIR lhs after explicit normalization, classified two semantic targets,
+and promoted nothing. The next semantic step is adjudicating the 120 E0102
+abstentions under the same source-backed boundary.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
