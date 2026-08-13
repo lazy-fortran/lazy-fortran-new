@@ -5,6 +5,15 @@ The analysis command is
 It reads the ignored E0102 response and residue package, then writes the
 ignored run tables under `.cache/runs/E0103/R000001`.
 
+The independent negative-control command is:
+
+```sh
+research/experiments/E0103-can-seven-strict-citation-relations-be-normalized/test.sh
+```
+
+It changes one retained citation line in a temporary model-output copy,
+requires `analyse.sh` to fail, and compares two positive summaries.
+
 ## Question
 
 Can the seven relation rows accepted by the strict E0102 Luna citation gate be
@@ -38,6 +47,7 @@ from the committed E0013 SX.
 | StandardIR promotions | 0 |
 | Model calls | 0 |
 | Independent traversal difference | 0 |
+| Negative control | passed |
 
 | Name as accepted | Normalized name | Relation | Target class | Citation | Normalized StandardIR lhs |
 |---|---|---|---|---|---|
