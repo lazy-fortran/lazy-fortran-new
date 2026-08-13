@@ -196,6 +196,41 @@ publishes all proposed decisions in a handoff table.
 
 ---
 
+## Parallel production work
+
+`lazy-fortran-new` is the sole planning and evidence repository. A production
+slice is delegated with one exact sibling checkout, branch, base commit, file
+scope and test command. The coordinator first checks status and branch
+divergence; the checkout/worktree must be clean and exclusive to that task.
+The delegate uses GPT-5.6 Luna through
+`~/code/prompts/scripts/gpt-delegate.sh` and writes no laboratory files.
+
+The delegate report contains:
+
+```text
+repository, branch/worktree, base commit, resulting commit
+allowed paths and forbidden paths
+changed files
+commands and tests, including independent-oracle results and warnings
+decisions encountered
+experiment or run record needed
+blockers and suggested next slice
+```
+
+Independent slices may run concurrently only when their repositories and file
+scopes do not overlap. The central agent is the only one that turns reports
+into accepted decisions, experiment manifests, append-only runs, provenance
+entries, roadmap changes or cross-repository commit pins. Production commits
+contain production code, specifications, generated source and tests; research
+metadata stays here.
+
+The coordinator records the model, prompt/log paths or hashes, production commit
+and dependency pins in the append-only run record. A commit is reported as
+`committed` until its base, diff and gates are independently checked; only then
+is it `integrated`.
+
+---
+
 ## Artifacts
 
 `artifacts/` contains **manifests only**. No payloads: no PDFs, corpora or

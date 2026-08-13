@@ -2,9 +2,9 @@ id: "E0098"
 title: "Mechanical closure of the complete StandardIR parser references"
 question: >
   Can the current complete StandardIR projection close every parser reference mechanically?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
-closed: ""
+closed: "2026-08-13"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -17,7 +17,7 @@ inputs:
   profile: complete-core
   syntax: E0013-R000002
   prior_projection: E0055-R000001
-  decisions: [D0024, D0026, D0027, D0041]
+  decisions: [D0024, D0026, D0027, D0041, D0042]
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:

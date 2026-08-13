@@ -209,6 +209,41 @@ insufficient, the change is irreversible beyond scope, or new authority is
 needed. A later implementation must link the accepted decision in its commit
 or experiment record.
 
+## Parallel production slices
+
+The laboratory is the planning and evidence authority. Production agents work
+in the assigned sibling checkout, not here, and never edit laboratory metadata.
+The central roadmap supplies one bounded slice per agent; slices must have
+non-overlapping files and an exact base commit. Before launch, the coordinator
+checks that the assigned checkout or worktree is clean, on the expected branch,
+and at the recorded base. Two agents never share a mutable worktree.
+
+Use the installed one-shot wrapper with GPT-5.6 Luna, one invocation per
+production repository. The `--dir` argument is the assigned checkout, for
+example `../standard-new` or `../fortback-new`:
+
+```sh
+~/code/prompts/scripts/gpt-delegate.sh \
+  --dir /home/ert/code/standard-new \
+  --model gpt-5.6-luna \
+  --prompt-file /tmp/standard-new-slice.md \
+  --out /tmp/standard-new-slice.answer \
+  --json-log /tmp/standard-new-slice.events.jsonl
+```
+
+Launch independent invocations in parallel only when their repository, branch
+and file scope do not overlap. The prompt must require a concise report of
+base commit, branch/worktree, allowed paths, commit, changed files, commands
+run, independent-oracle results, warnings, decisions encountered, experiment
+needed and blockers. Agents may commit only within their assigned production
+repository. Pushing is a separate explicit action.
+
+After reports arrive, the central agent checks the commits, runs the relevant
+gates, writes or updates decisions and experiments, appends runs, updates the
+roadmap, and records exact production commit pins. A committed result is not
+called integrated until its base, diff and gates have been checked. Do not
+create a task runner or shared service for this workflow.
+
 ## Documentation rules
 
 No marketing language. No emoji, and no severity shouting. Terse, specific, and

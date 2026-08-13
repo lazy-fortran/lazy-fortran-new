@@ -1,7 +1,7 @@
 # D0027. Projection of lexical primitive records
 
 Date: 2026-08-12
-Status: accepted
+Status: amended by D0042
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context

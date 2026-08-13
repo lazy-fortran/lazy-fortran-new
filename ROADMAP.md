@@ -149,6 +149,22 @@ The generic boundary is kept at StandardIR, typed facts, expansion algebra,
 provenance, exporters and wiring. PDF layout, R/C notation, wording patterns,
 errata and lexical data remain a Fortran-specific adapter for now.
 
+[D0043](research/decisions/D0043-central-roadmap-and-delegated-production-slices.md)
+keeps this roadmap as the sole program planning authority. `standard-new`,
+`fortfront-new`, `ffc-new` and `fortback-new` remain production-only sibling
+repositories; their specifications, generated source and behavioral tests stay
+there, while decisions, experiments, runs, provenance and integration pins stay
+in this laboratory. Independent GPT-5.6 Luna agents may work on bounded,
+non-overlapping slices in those sibling directories and report commits back to
+the central agent for metadata updates.
+
+The backend lane is active as a parallel program lane, not a second planning
+repository. Its implementation roadmap is maintained here under Phase 5 and
+its eventual production work will happen in `../fortback-new`. The backend
+does not wait for the frontend to begin TargetIR, ISA ingestion, encoders,
+decoders, register/feature metadata, ABI metadata or object writing. MIR-
+dependent legalization and instruction selection wait for the MIR contract.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
@@ -213,15 +229,15 @@ checker, and generators. The result reports the deterministic, search,
 model-assisted, and handwritten fractions of the language-specific
 implementation.
 
-**Immediate syntax-closure gate (E0098, manifest recorded):**
+**Immediate syntax-closure gate (E0098, reported but M2 remains pending):**
 
-- [ ] Reintegrate D0024, D0026, D0027 and fixed errata into the complete
+- [x] Reintegrate D0024, D0026, D0027 and fixed errata into the complete
       522-record projection. Do not use the narrower E0074 alias-only profile
       as the current baseline.
-- [ ] Apply R401/R402/R403 mechanically as typed source-provenanced
+- [x] Apply R401/R402/R403 mechanically as typed source-provenanced
       expansions, preserving list repetition/separators, aliases and scalar
       constraints.
-- [ ] Classify every remaining reference as explicit, assumed-expansion,
+- [x] Classify every remaining reference as explicit, assumed-expansion,
       lexical, erratum/token, semantic-only, disputed or unresolved. Retain
       provenance for every state and silently drop none.
 - [ ] Reach zero unclassified parser names in EBNF, ANTLR4, Bison, tree-sitter
@@ -229,6 +245,15 @@ implementation.
       aliases, but not without source-linked facts.
 - [ ] Only after this gate decide whether any residue warrants a small-model
       local proposal. No model is used to rediscover R401/R402/R403.
+
+E0098 closes the source-side reference state: 469 explicit reference classes,
+100 assumed expansions, 5 lexical facts, 8 errata, and zero unresolved or
+disputed parser names. EBNF, ANTLR4, Bison and direct wiring pass; tree-sitter
+still has a target-specific conflict after the compact one-group extension.
+The next decision is whether that derived export can be normalized compactly
+or whether its failure should remain a documented differential boundary under
+D0029. Regenerate with
+`research/experiments/E0098-can-the-current-complete-standardir-proj/analyse.sh`.
 
 ---
 
@@ -914,6 +939,9 @@ add-a-rank test.
 ---
 
 ## Phase 5. `fortback-new`: generated backend
+
+This is the central implementation roadmap for the future `../fortback-new`
+checkout. Do not add a second production roadmap merely to repeat these gates.
 
 - [ ] Repository created, `AGENTS.md` + symlink, CI, text gate
 - [ ] Target description language, derived from the ISA specifications rather

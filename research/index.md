@@ -99,7 +99,7 @@ Runs recorded: 106
 | E0095 | reported | 1 | Can one generic evaluator execute a nested implies predicate with source facts |
 | E0096 | reported | 1 | Can one generic evaluator execute a nested not-or intrinsic-type predicate |
 | E0097 | reported | 1 | Can one generic evaluator execute accepted finite-domain predicates over |
-| E0098 | draft | 0 | Can the current complete StandardIR projection close every parser reference mechanically? |
+| E0098 | reported | 0 | Can the current complete StandardIR projection close every parser reference mechanically? |
 
 ## Run status
 
@@ -146,7 +146,7 @@ Runs recorded: 106
 | [D0024](decisions/D0024-assumed-syntax-expansions.md) | accepted |  | Resolution record for assumed syntax expansions |
 | [D0025](decisions/D0025-fixed-source-errata-overlay.md) | accepted |  | Fixed source errata overlay |
 | [D0026](decisions/D0026-overlapping-resolution-facts.md) | accepted |  | Overlapping resolution facts |
-| [D0027](decisions/D0027-lexical-primitive-projection.md) | accepted |  | Projection of lexical primitive records |
+| [D0027](decisions/D0027-lexical-primitive-projection.md) | amended by D0042 |  | Projection of lexical primitive records |
 | [D0028](decisions/D0028-default-decision-principles.md) | accepted |  | Default decision principles and autonomous resolution |
 | [D0029](decisions/D0029-specialized-direct-parser-production-target.md) | accepted |  | Specialized direct parser is the production target |
 | [D0030](decisions/D0030-generated-export-warning-policy.md) | accepted |  | Generated export warnings are retained evidence |
@@ -161,6 +161,8 @@ Runs recorded: 106
 | [D0039](decisions/D0039-disposable-local-artifact-browser.md) | accepted |  | A disposable local browser for generated run artifacts |
 | [D0040](decisions/D0040-defer-paper-for-broader-result.md) | accepted | Supersedes D0038 | Defer the paper until the broader generated-infrastructure result |
 | [D0041](decisions/D0041-fortran-first-adapter-and-mechanical-syntax-closure.md) | accepted |  | Fortran-first adapter and mechanical syntax closure |
+| [D0042](decisions/D0042-source-defined-unicode-lexical-facts.md) | accepted | Amends D0027 | Source-defined Unicode lexical facts |
+| [D0043](decisions/D0043-central-roadmap-and-delegated-production-slices.md) | accepted |  | Central roadmap and delegated production slices |
 
 ### Proposed decisions
 
