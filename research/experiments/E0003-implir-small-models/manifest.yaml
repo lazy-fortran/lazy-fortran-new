@@ -23,20 +23,22 @@ inputs:
 variables:
   representation: [fortran, implir]
   dense_primary:
-    - Qwen/Qwen3-0.6B
-    - Qwen/Qwen3-1.7B
-    - Qwen/Qwen3-4B
-    - Qwen/Qwen3-8B
-    - Qwen/Qwen3-14B
+    - Qwen/Qwen3.5-0.8B
+    - Qwen/Qwen3.5-2B
+    - Qwen/Qwen3.5-4B
+    - Qwen/Qwen3.5-9B
   gemma_controls:
     - google/gemma-4-E2B-it
     - google/gemma-4-E4B-it
     - google/gemma-4-12B-it
     - google/gemma-4-26B-A4B-it
     - google/gemma-4-31B-it
-  qwen_controls:
+  qwen3.5_controls:
     - Qwen/Qwen3.5-27B
     - Qwen/Qwen3.5-35B-A3B
+  qwen3.6_controls:
+    - Qwen/Qwen3.6-27B
+    - Qwen/Qwen3.6-35B-A3B
 
 metrics:
   - accepted
@@ -74,12 +76,14 @@ independent_oracle: >
   alone is insufficient.
 
 model_selection: >
-  The Qwen3 dense checkpoints are the same-family capability ladder. Gemma 4
-  supplies dense E2B, E4B, 12B and 31B checkpoints plus the 26B-A4B MoE
-  checkpoint. Qwen3.5 supplies 27B dense and 35B-A3B MoE controls. Each
-  checkpoint revision, quantization, context limit, thinking mode and decoding
-  configuration is pinned before the first run. No model is labeled SOTA by
-  this experiment.
+  Qwen3.5 supplies the current small dense ladder (0.8B, 2B, 4B and 9B),
+  followed by 27B dense and 35B-A3B MoE controls. Qwen3.6 supplies the newer
+  27B dense and 35B-A3B MoE generation controls. Gemma 4 supplies dense E2B,
+  E4B, 12B and 31B checkpoints plus the 26B-A4B MoE checkpoint. Qwen3 is
+  retained only as a historical baseline and is not part of the active ladder.
+  Each checkpoint revision, quantization, context limit, thinking mode and
+  decoding configuration is pinned before the first run. No model is labeled
+  SOTA by this experiment.
 
 toolchain:
   record_in_run: true
