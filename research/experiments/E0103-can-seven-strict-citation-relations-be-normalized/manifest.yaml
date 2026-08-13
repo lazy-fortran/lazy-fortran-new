@@ -1,0 +1,67 @@
+id: "E0103"
+title: "Mechanical audit of seven strict-citation relations"
+question: >
+  Can the seven relation rows accepted by the strict E0102 Luna citation gate
+  be normalized and classified from committed evidence without promoting any
+  row into StandardIR?
+status: reported
+opened: "2026-08-13"
+closed: "2026-08-13"
+
+repos:
+  lazy-fortran-new: "fb3f219"
+  standard-new: "7abd7b1"
+
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  e0102_model_output: .cache/runs/E0101/R000003/model-output.jsonl
+  e0102_residue_package: .cache/runs/E0101/R000003/residue.jsonl
+  standardir: .cache/runs/E0013/R000002/j3-24-007.standardir.sx
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+
+variables:
+  name_normalization: [explicit-trailing-comma-removal]
+  model_calls: [zero]
+  standardir_promotion: [none]
+
+model_selection: "No model call. The audit reads the ignored E0102 output directly and independently traverses its JSONL rows, the residue package, canonical text, and StandardIR SX."
+
+metrics:
+  - accepted_relation_rows
+  - exact_source_citation_validity
+  - trailing_punctuation_name_artifacts
+  - standardir_lhs_matches_after_normalization
+  - semantic_non_parser_targets
+  - standardir_promotions
+  - model_calls
+
+denominator: >
+  Exactly the seven rows whose decision is relation in the ignored E0102
+  model-output JSONL. Duplicate normalized names remain separate rows. No
+  abstained or mechanically-supported E0100 row enters this denominator.
+
+independent_oracle: >
+  A second traversal independently extracts relation objects from the model
+  JSONL, checks their names against the ignored residue package, validates each
+  citation against the canonical line, page, source hash and span, and scans
+  every StandardIR (lhs ...) token. It compares the complete row key set with
+  the primary audit output. The run cannot pass by reading E0102 summary fields.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  Any relation row dropped or duplicated, any citation mismatch, any
+  punctuation artifact removed from the retained name, any false StandardIR
+  lhs match, any semantic target classified as parser syntax, or any emitted
+  StandardIR promotion fails the gate.
+
+gate: >
+  Read exactly seven relation rows from the ignored E0102 output, retain all
+  names and comma artifacts, independently verify the seven canonical
+  citations and StandardIR lhs traversal, classify parser and semantic target
+  rows, emit zero promotions and zero model calls, and report all seven rows.
+
+analysis: research/experiments/E0103-can-seven-strict-citation-relations-be-normalized/analyse.sh
