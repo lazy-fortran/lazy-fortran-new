@@ -231,6 +231,14 @@ StandardIR lhs after explicit normalization, classified two semantic targets,
 and promoted nothing. The next semantic step is adjudicating the 120 E0102
 abstentions under the same source-backed boundary.
 
+Wave J is complete for the bounded frontend semantic-table consumer, the
+program-unit-to-MIR structural bridge, and E0104's multi-line mechanical
+search. E0104 retained 2,471 source spans but resolved zero rows uniquely: all
+127 residue names became ambiguous. This is the planned escalation boundary,
+not a reason to add more ad hoc windows. Further progress now requires a
+choice between a larger cited model pass and a deliberately specified
+Fortran-document structure extractor; no relation is promoted automatically.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A

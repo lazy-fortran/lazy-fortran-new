@@ -25,8 +25,11 @@ program-declaration-SX-to-MIR lowering, and the RISC-V instruction-to-ELF
 witness. E0102 is recorded separately as the first strict Luna semantic
 escalation. Wave I is complete for warning cleanup in StandardIR, the
 frontend, and the backend, plus the E0103 deterministic relation audit. The
-next wave starts only from their integrated `main` commits and uses disjoint
-repositories or disjoint production files.
+Wave J is complete for the frontend semantic-table consumer, the program-unit
+structural bridge, and E0104's bounded multi-line search. E0104 produced no
+unique resolutions, so the coordinator pauses at the documented semantic
+escalation gate for a decision on the next method. No new wave should add
+unjustified document-specific heuristics before that decision.
 
 The cleanup sequence is explicit:
 
