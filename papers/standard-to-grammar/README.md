@@ -24,7 +24,9 @@ papers/standard-to-grammar/submission.sh
 ```
 
 The bundle is written to the ignored cache unless an output directory is
-provided as the first argument.
+provided as the first argument. The manifest records the SHA-256 and byte
+size of every payload file. The manifest itself is excluded because it would
+otherwise hash itself.
 
 The remaining publication actions are external: choose the author list and
 venue, then submit the regenerated PDF and its repository commit.

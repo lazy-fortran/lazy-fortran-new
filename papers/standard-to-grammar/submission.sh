@@ -21,6 +21,22 @@ commit=$(git -C "$repo_root" rev-parse HEAD)
 pdf_sha256=$(sha256sum "$pdf" | cut -d' ' -f1)
 pdf_bytes=$(stat -c '%s' "$pdf")
 generated=$(date -u +%Y-%m-%d)
+payload_files=(
+    "paper.pdf"
+    "README.md"
+    "paper.md"
+    "results.md"
+    "pins.toml"
+    "runs.txt"
+)
+
+payload_sha256() {
+    sha256sum "$output/$1" | cut -d' ' -f1
+}
+
+payload_bytes() {
+    stat -c '%s' "$output/$1"
+}
 
 {
     printf 'name = "standard-to-grammar-submission-bundle"\n'
@@ -32,6 +48,19 @@ generated=$(date -u +%Y-%m-%d)
     printf 'analysis = "papers/standard-to-grammar/analyse.sh"\n'
     printf 'render = "papers/standard-to-grammar/render.sh"\n'
     printf 'verification = ["scripts/selftest.sh", "scripts/check-decisions.sh", "scripts/check-commit-references.sh"]\n'
+    printf 'payload_files = ['
+    separator=''
+    for file in "${payload_files[@]}"; do
+        printf '%s "%s"' "$separator" "$file"
+        separator=','
+    done
+    printf ' ]\n'
+    for file in "${payload_files[@]}"; do
+        printf '\n[[payload]]\n'
+        printf 'path = "%s"\n' "$file"
+        printf 'sha256 = "%s"\n' "$(payload_sha256 "$file")"
+        printf 'bytes = %s\n' "$(payload_bytes "$file")"
+    done
 } >"$output/manifest.toml"
 
 printf 'standard-to-grammar: wrote submission bundle to %s\n' "$output"
