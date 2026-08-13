@@ -42,23 +42,24 @@ def fail(message):
 
 
 def normalized_name(name):
-    value = name.strip().casefold()
+    value = name.strip()
     if not value:
         fail("empty candidate name")
-    if not re.fullmatch(r"[^\w\s]+", value):
-        value = re.sub(r"[^\w\s-]+$", "", value)
+    if value.endswith(","):
+        value = value[:-1]
     return value
 
 
 def parse_integer(value, field):
-    if not re.fullmatch(r"[0-9]+", value):
-        fail(f"{field} is not a non-negative decimal integer: {value!r}")
+    if not re.fullmatch(r"-?[0-9]+", value):
+        fail(f"{field} is not a signed decimal integer: {value!r}")
     return int(value)
 
 
 def parse_pages(path, raw_length):
     ranges = []
     bytes_lines = 0
+    separator_length = 0
     for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         fields = line.split()
         if not fields:
@@ -66,9 +67,13 @@ def parse_pages(path, raw_length):
         if fields[0] == "canonical-format":
             if fields != ["canonical-format", "1"]:
                 fail(f"malformed page index line {line_number}")
-        elif fields[0] in {"origin", "encoding", "separator"}:
+        elif fields[0] in {"origin", "encoding"}:
             if len(fields) != 2:
                 fail(f"malformed page index line {line_number}")
+        elif fields[0] == "separator":
+            if fields != ["separator", "FORM-FEED"]:
+                fail(f"malformed page separator line {line_number}")
+            separator_length = 1
         elif fields[0] == "pages":
             if len(fields) != 2 or not re.fullmatch(r"[0-9]+", fields[1]):
                 fail(f"malformed page index line {line_number}")
@@ -97,7 +102,8 @@ def parse_pages(path, raw_length):
     previous_end = 0
     seen_pages = set()
     for number, start, length in ranges:
-        if number in seen_pages or start != previous_end:
+        expected_start = previous_end if not seen_pages else previous_end + separator_length
+        if number in seen_pages or start != expected_start:
             fail("page index ranges are not a contiguous unique partition")
         seen_pages.add(number)
         previous_end = start + length
@@ -238,27 +244,36 @@ def read_candidates(path, raw, ranges, records_by_span, source_hash):
                 fail(f"candidate normalized name differs at row {line_number}")
             if row["classification"] not in classifications:
                 fail(f"unrecognized candidate classification at row {line_number}")
+            classification = row["classification"]
             form = row["form"]
-            if form not in {"is", "is-one-of", "means", "consists-of", "explicit-name-heading"}:
+            if form != "-" and not all(part in {"is", "is-one-of", "means", "consists-of", "explicit-name-heading"}
+                                       for part in form.split("|")):
                 fail(f"unrecognized candidate form at row {line_number}")
             page = parse_integer(row["page"], "candidate page")
             start = parse_integer(row["byte_start"], "candidate byte_start")
             length = parse_integer(row["byte_length"], "candidate byte_length")
-            if page < 1 or length < 1 or start + length > len(raw):
-                fail(f"candidate span outside canonical bytes at row {line_number}")
             if row["source_sha256"] != source_hash or row["origin"] != "MECHANICAL":
                 fail(f"candidate provenance differs at row {line_number}")
-            source_text = raw[start:start + length].decode("utf-8")
-            if row[text_field] != source_text:
-                fail(f"candidate source text differs at row {line_number}")
-            if page != containing_page(ranges, start, length):
-                fail(f"candidate page does not contain span at row {line_number}")
-            source_record = records_by_span.get((start, length))
-            if source_record is None or source_record["page"] != page or source_record["text"] != source_text:
-                fail(f"candidate span is not an E0106 source record at row {line_number}")
-            forms = recognized_forms(name, source_text, source_record["kind"])
-            if forms != [form]:
-                fail(f"candidate form is not independently recognized at row {line_number}")
+            if classification == "unsupported-definition":
+                if (form, page, start, length, row[text_field]) != ("-", 0, -1, 0, "-"):
+                    fail(f"unsupported row carries source evidence at row {line_number}")
+                source_text = "-"
+            else:
+                if page < 1 or start < 0 or length < 1 or start + length > len(raw):
+                    fail(f"candidate span outside canonical bytes at row {line_number}")
+                source_text = raw[start:start + length].decode("utf-8")
+                if row[text_field] != source_text:
+                    fail(f"candidate source text differs at row {line_number}")
+                if page != containing_page(ranges, start, length):
+                    fail(f"candidate page does not contain span at row {line_number}")
+                source_record = records_by_span.get((start, length))
+                if source_record is None or source_record["page"] != page or source_record["text"] != source_text:
+                    fail(f"candidate span is not an E0106 source record at row {line_number}")
+                forms = recognized_forms(name, source_text, source_record["kind"])
+                if classification == "strict-definition" and forms != [form]:
+                    fail(f"candidate form is not independently recognized at row {line_number}")
+                if classification == "ambiguous-definition" and not set(form.split("|")) <= set(forms):
+                    fail(f"ambiguous candidate form is not independently recognized at row {line_number}")
             key = (normalized, page, start, length, form)
             if key in keys:
                 fail(f"duplicate candidate row for {name!r}")
@@ -268,8 +283,8 @@ def read_candidates(path, raw, ranges, records_by_span, source_hash):
                          "page": page, "byte_start": start, "byte_length": length,
                          "source_hash": source_hash, "origin": "MECHANICAL",
                          "text": source_text})
-    if not rows:
-        fail("E0107 strict candidate file has no rows")
+    if len(rows) != 60:
+        fail(f"E0107 strict candidate file has {len(rows)} rows, expected 60")
     return rows
 
 
@@ -282,8 +297,8 @@ def validate(canonical, pages, structure, candidates, source_hash):
     rows = read_candidates(candidates, raw, ranges, by_span, source_hash)
 
     # The independent traversal is keyed by source bytes, not by E0107's
-    # summary counts. Every strict row must have exactly one source-backed
-    # name/form witness, and every witness key must occur once in the file.
+    # summary counts. Strict and ambiguous rows have source-backed witnesses;
+    # unsupported rows deliberately retain an explicit empty citation.
     independent = {(row["normalized"], row["byte_start"], row["byte_length"], row["form"])
                    for row in rows}
     if len(independent) != len(rows):

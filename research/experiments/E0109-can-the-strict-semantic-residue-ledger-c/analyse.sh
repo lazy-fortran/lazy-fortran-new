@@ -41,8 +41,15 @@ if left != right: raise SystemExit("E0109: independent fields differ")
 allowed = {"strict-definition", "ambiguous-definition", "unsupported-definition"}
 if any(row["classification"] not in allowed for row in strict_rows): raise SystemExit("E0109: unknown classification")
 if any(row["origin"] != "MECHANICAL" for row in strict_rows + independent_rows): raise SystemExit("E0109: non-mechanical origin")
-if any(not row["source_sha256"] or int(row["page"]) <= 0 or int(row["byte_start"]) < 0 or int(row["byte_length"]) <= 0 for row in strict_rows):
-    raise SystemExit("E0109: incomplete source provenance")
+for row in strict_rows:
+    if row["classification"] == "strict-definition":
+        if (not row["source_sha256"] or int(row["page"]) <= 0 or
+                int(row["byte_start"]) < 0 or int(row["byte_length"]) <= 0):
+            raise SystemExit("E0109: incomplete strict source provenance")
+    elif row["classification"] == "unsupported-definition":
+        if (row["form"], int(row["page"]), int(row["byte_start"]),
+                int(row["byte_length"])) != ("-", 0, -1, 0):
+            raise SystemExit("E0109: unsupported row has a non-empty citation")
 
 counts = Counter(row["classification"] for row in strict_rows)
 with open(summary_path, "w") as output:
