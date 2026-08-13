@@ -1041,6 +1041,27 @@ The following rows are extracted from the accepted projection run records.
 | Model calls | 0 |
 | Controlled mutation | observed_failure |
 
+## E0097 generic finite-domain evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Selected rule rows | 2 |
+| Generic constructor forms | 1 |
+| Independent target-oracle difference | 0 |
+| Provenance matches | 2 |
+| Fact matches | 2 |
+| Evaluator cases | 6 |
+| Evaluator cases accepted | 4 |
+| Evaluator cases rejected | 2 |
+| Behavioral compiler observations | 12 |
+| Behavioral agreements | 6 |
+| Diagnostic rows | 2 |
+| Source-linked results | 6 |
+| Parser projections | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |

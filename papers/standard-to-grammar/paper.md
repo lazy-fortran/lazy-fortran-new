@@ -59,6 +59,10 @@ E0095 executes one nested `implies` predicate over 3
 witnesses using 4 generic constructor forms. It accepts
 2 implication cases, rejects 1, and
 agrees with gfortran on 3 cases.
+E0097 executes C7117 and C7118 through one generic finite-domain evaluator.
+It covers 6 binary and octal DATA witnesses, accepts
+4 cases, rejects 2, and agrees with two
+behavioral compilers on 6 cases.
 The reported experiments use zero model calls.
 
 These results support a bounded claim. A pinned standard can act as the
@@ -425,6 +429,10 @@ E0096 executes C734 through 4 nested constructors over
 3 witnesses. It accepts 1 case and rejects
 2, with 3 agreements across
 6 behavioral compiler observations.
+E0097 executes C7117 and C7118 through one generic finite-domain evaluator
+over 6 binary and octal DATA witnesses. It accepts
+4 cases, rejects 2, and agrees with both
+behavioral compilers on 6 cases.
 
 ## 5. Reproducibility and limitations
 
@@ -439,9 +447,10 @@ not measure parser throughput, complete semantic coverage, diagnostic quality,
 or model cost. The grammar exports are syntax projections. The E0090 and E0091
 slices evaluate C601 and C719. E0092 supplies one generic evaluator for C601,
 C603 and C719. E0093 supplies a structured diagnostic operation around that
-evaluator. The other accepted predicates are table data rather than evaluated
-semantics. The comparison corpus is evidence for adjudication and not a
-normative input.
+evaluator. E0095, E0096 and E0097 extend execution to bounded nested and
+finite-domain forms. The remaining accepted predicates are table data rather
+than evaluated semantics. The comparison corpus is evidence for adjudication
+and not a normative input.
 
 ## 6. Next experiment
 
@@ -468,6 +477,8 @@ coverage and does not execute those nested predicates. E0095 executes one
 nested implication rule and leaves the other accepted predicate bodies as
 table data. E0096 executes a nested C734 not-or rule and leaves the remaining
 accepted predicate bodies as table data.
+E0097 then executes two finite-domain rules through one generic `in` evaluator,
+while retaining the other accepted predicate bodies as table data.
 
 After that gate, the direct parser remains the production target selected by
 D0029. Structural wiring, registration, and source identity continue to come
@@ -529,6 +540,11 @@ E0096 then covers 4 nested constructors over
 2, with 3 agreements across
 6 behavioral compiler observations. This remains a bounded
 evaluator slice.
+E0097 extends the same evaluator boundary to two finite-domain rules. It
+covers 6 binary and octal DATA witnesses through one generic `in`
+constructor, accepts 4 cases, rejects 2, and
+agrees with both behavioral compilers on 6 cases. This
+remains a bounded evaluator slice.
 
 The evidence supports a bounded conclusion. A pinned language standard can be
 made the maintained source for syntax projection, parser wiring, provenance,
@@ -1588,6 +1604,27 @@ The following rows are extracted from the accepted projection run records.
 | Behavioral agreements | 3 |
 | Diagnostic rows | 2 |
 | Source-linked results | 3 |
+| Parser projections | 0 |
+| Model calls | 0 |
+| Controlled mutation | observed_failure |
+
+## E0097 generic finite-domain evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | 22 |
+| Selected rule rows | 2 |
+| Generic constructor forms | 1 |
+| Independent target-oracle difference | 0 |
+| Provenance matches | 2 |
+| Fact matches | 2 |
+| Evaluator cases | 6 |
+| Evaluator cases accepted | 4 |
+| Evaluator cases rejected | 2 |
+| Behavioral compiler observations | 12 |
+| Behavioral agreements | 6 |
+| Diagnostic rows | 2 |
+| Source-linked results | 6 |
 | Parser projections | 0 |
 | Model calls | 0 |
 | Controlled mutation | observed_failure |

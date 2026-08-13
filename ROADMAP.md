@@ -123,9 +123,10 @@ failures and zero scope difference, with a controlled count mutation
 (`research/experiments/E0033-does-the-complete-core-extraction-report/analyse.sh`).
 E0004 and E0005 now report their broad and contiguous extraction gates.
 E0089 records the current semantic successor ledger with 22 resolved and 265
-unresolved constraints. E0090--E0093 generate semantic rule rows, evaluate
-three predicate forms and emit structured source-linked diagnostics. The
-production `fortfront-new` repository has not been created yet. E0041 records
+unresolved constraints. E0090--E0097 generate semantic rule rows, classify
+nine top-level forms, execute nested implication, not-or and finite-domain
+predicates, and emit structured source-linked diagnostics. The production
+`fortfront-new` repository has not been created yet. E0041 records
 the parser behavior comparison across LFortran, Flang and gfortran. Broad
 comparison adjudication, complete semantic coverage and the Phase 2 frontend
 gate remain open. Regenerate this snapshot's experiment values with
@@ -605,6 +606,11 @@ evidence for the thesis.
       `intrinsic-type-name` facts over C734 witnesses, agreeing with gfortran
       and Flang on all three cases (E0096, regenerate with
       `research/experiments/E0096-can-one-generic-evaluator-execute-a-nest/analyse.sh`)
+- [x] Execute C7117 and C7118 through one generic finite-domain `in` evaluator
+      over six binary and octal DATA witnesses, with four accepted cases, two
+      rejected cases, and six agreements across gfortran and Flang (E0097,
+      regenerate with
+      `research/experiments/E0097-can-one-generic-evaluator-execute-finite/analyse.sh`)
 - [ ] Connect the generated diagnostic operation to the production
       `fortfront-new` frontend. Keep unresolved rows, including C1588, out of
       accepted semantic wiring

@@ -148,6 +148,7 @@ assert_run R000102 '.status == "accepted" and .experiment == "E0093" and .verifi
 assert_run R000103 '.status == "accepted" and .experiment == "E0094" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.accepted_predicate_rows == 22 and .verification.dispatcher_rows == 22 and .verification.unique_top_level_constructors == 9 and .verification.dispatch_oracle_difference == 0 and .verification.provenance_matches == 22 and .verification.unsupported_constructor_rows == 0 and .verification.generated_dispatcher_without_rule_ids == 1 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000104 '.status == "accepted" and .experiment == "E0095" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 1 and .verification.generic_constructor_forms == 4 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 1 and .verification.fact_matches == 1 and .verification.evaluator_cases == 3 and .verification.implication_accepts == 2 and .verification.implication_rejects == 1 and .verification.gfortran_agreement == 3 and .verification.diagnostic_rows == 1 and .verification.source_linked_results == 3 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 assert_run R000105 '.status == "accepted" and .experiment == "E0096" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 1 and .verification.generic_constructor_forms == 4 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 1 and .verification.fact_matches == 1 and .verification.evaluator_cases == 3 and .verification.evaluator_accepts == 1 and .verification.evaluator_rejects == 2 and .verification.behavioral_compilers == 6 and .verification.behavioral_agreements == 3 and .verification.diagnostic_rows == 2 and .verification.source_linked_results == 3 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
+assert_run R000106 '.status == "accepted" and .experiment == "E0097" and .verification.zero_model_calls == true and .verification.predecessor_rule_rows == 22 and .verification.selected_rule_rows == 2 and .verification.generic_constructor_forms == 1 and .verification.target_oracle_difference == 0 and .verification.provenance_matches == 2 and .verification.fact_matches == 2 and .verification.evaluator_cases == 6 and .verification.evaluator_accepts == 4 and .verification.evaluator_rejects == 2 and .verification.behavioral_compilers == 12 and .verification.behavioral_agreements == 6 and .verification.diagnostic_rows == 2 and .verification.source_linked_results == 6 and .verification.parser_projection_records == 0 and .verification.model_calls == 0 and .verification.negative_control == "observed_failure"'
 
 document_pages=$(metric R000017 '.verification.pages')
 core_pages=$(metric R000017 '.verification.core_pages')
@@ -897,6 +898,22 @@ not_or_linked=$(metric R000105 '.verification.source_linked_results')
 not_or_projections=$(metric R000105 '.verification.parser_projection_records')
 not_or_model_calls=$(metric R000105 '.verification.model_calls')
 not_or_negative_control=$(metric R000105 '.verification.negative_control')
+finite_predecessor=$(metric R000106 '.verification.predecessor_rule_rows')
+finite_selected=$(metric R000106 '.verification.selected_rule_rows')
+finite_forms=$(metric R000106 '.verification.generic_constructor_forms')
+finite_difference=$(metric R000106 '.verification.target_oracle_difference')
+finite_provenance=$(metric R000106 '.verification.provenance_matches')
+finite_facts=$(metric R000106 '.verification.fact_matches')
+finite_cases=$(metric R000106 '.verification.evaluator_cases')
+finite_accepts=$(metric R000106 '.verification.evaluator_accepts')
+finite_rejects=$(metric R000106 '.verification.evaluator_rejects')
+finite_compilers=$(metric R000106 '.verification.behavioral_compilers')
+finite_agreements=$(metric R000106 '.verification.behavioral_agreements')
+finite_diagnostics=$(metric R000106 '.verification.diagnostic_rows')
+finite_linked=$(metric R000106 '.verification.source_linked_results')
+finite_projections=$(metric R000106 '.verification.parser_projection_records')
+finite_model_calls=$(metric R000106 '.verification.model_calls')
+finite_negative_control=$(metric R000106 '.verification.negative_control')
 
 results="$paper_dir/results.md"
 {
@@ -1955,6 +1972,27 @@ EOF
 | Model calls | $not_or_model_calls |
 | Controlled mutation | $not_or_negative_control |
 
+## E0097 generic finite-domain evaluator
+
+| Quantity | Value |
+|---|---:|
+| E0090 predecessor rule rows | $finite_predecessor |
+| Selected rule rows | $finite_selected |
+| Generic constructor forms | $finite_forms |
+| Independent target-oracle difference | $finite_difference |
+| Provenance matches | $finite_provenance |
+| Fact matches | $finite_facts |
+| Evaluator cases | $finite_cases |
+| Evaluator cases accepted | $finite_accepts |
+| Evaluator cases rejected | $finite_rejects |
+| Behavioral compiler observations | $finite_compilers |
+| Behavioral agreements | $finite_agreements |
+| Diagnostic rows | $finite_diagnostics |
+| Source-linked results | $finite_linked |
+| Parser projections | $finite_projections |
+| Model calls | $finite_model_calls |
+| Controlled mutation | $finite_negative_control |
+
 ## E0054 D0027 lexical candidate comparison
 
 | Quantity | Value |
@@ -2505,6 +2543,22 @@ rendered=${rendered//@NOT_OR_LINKED@/$not_or_linked}
 rendered=${rendered//@NOT_OR_PROJECTIONS@/$not_or_projections}
 rendered=${rendered//@NOT_OR_MODEL_CALLS@/$not_or_model_calls}
 rendered=${rendered//@NOT_OR_NEGATIVE_CONTROL@/$not_or_negative_control}
+rendered=${rendered//@FINITE_PREDECESSOR@/$finite_predecessor}
+rendered=${rendered//@FINITE_SELECTED@/$finite_selected}
+rendered=${rendered//@FINITE_FORMS@/$finite_forms}
+rendered=${rendered//@FINITE_DIFFERENCE@/$finite_difference}
+rendered=${rendered//@FINITE_PROVENANCE@/$finite_provenance}
+rendered=${rendered//@FINITE_FACTS@/$finite_facts}
+rendered=${rendered//@FINITE_CASES@/$finite_cases}
+rendered=${rendered//@FINITE_ACCEPTS@/$finite_accepts}
+rendered=${rendered//@FINITE_REJECTS@/$finite_rejects}
+rendered=${rendered//@FINITE_COMPILERS@/$finite_compilers}
+rendered=${rendered//@FINITE_AGREEMENTS@/$finite_agreements}
+rendered=${rendered//@FINITE_DIAGNOSTICS@/$finite_diagnostics}
+rendered=${rendered//@FINITE_LINKED@/$finite_linked}
+rendered=${rendered//@FINITE_PROJECTIONS@/$finite_projections}
+rendered=${rendered//@FINITE_MODEL_CALLS@/$finite_model_calls}
+rendered=${rendered//@FINITE_NEGATIVE_CONTROL@/$finite_negative_control}
 rendered=${rendered//@PROSE_BOUNDARY@/$prose_boundary}
 rendered=${rendered//@BOUNDED_LOGICAL_UNITS@/$bounded_logical_units}
 rendered=${rendered//@BOUNDED_TABLE_ROWS@/$bounded_table_rows}

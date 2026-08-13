@@ -99,7 +99,9 @@ classifies all 22 accepted predicate rows with one generic dispatcher covering
 been created yet. E0095 executes one nested `implies` predicate with generic
 `and`, `present` and `eq` interpretation over three source witnesses.
 E0096 executes a nested `not`/`or` predicate over intrinsic-type facts and
-agrees with gfortran and Flang on three witnesses.
+agrees with gfortran and Flang on three witnesses. E0097 executes C7117 and
+C7118 through one generic finite-domain evaluator over six binary and octal
+DATA witnesses, agreeing with both compilers on all six.
 Regenerate
 paper numbers with `papers/standard-to-grammar/analyse.sh` and the laboratory
 index with `scripts/index.sh`.
