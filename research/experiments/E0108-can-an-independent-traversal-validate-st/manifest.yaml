@@ -1,0 +1,72 @@
+id: "E0108"
+title: "Independent validation of strict definition candidates"
+question: >
+  Can an independent traversal validate strict definition candidates without semantic inference?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "fdc2bdc"
+  standard-new: "ae2ee71"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  e0107_candidates: .cache/runs/E0107/R000001/strict-candidates.tsv
+  e0106_structure: .cache/runs/E0106/R000001/structure.jsonl
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  traversal: [independent-byte-and-form-recomputation]
+  model_calls: [zero]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model calls; this is an independent deterministic validation."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - candidate_rows
+  - independently_validated_rows
+  - disagreements
+  - malformed_controls_rejected
+  - tampered_controls_rejected
+  - model_calls
+  - semantic_promotions
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  The exact strict-candidate rows emitted by E0107. No additional names may
+  enter through the independent traversal.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >
+  Recompute source spans, normalized forms, page ranges and source hashes from
+  raw canonical bytes; compare only the declared candidate keys and reject
+  malformed page indexes and tampered source bytes.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  Any disagreement, dropped or added candidate, invalid span, accepted
+  malformed index, accepted tampered source, model call or semantic promotion.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >
+  Independently validate every E0107 strict candidate and both negative
+  controls, with zero disagreements, model calls and semantic promotions.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/experiments/E0108-can-an-independent-traversal-validate-st/analyse.sh

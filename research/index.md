@@ -108,6 +108,8 @@ Runs recorded: 152
 | E0104 | reported | 1 | Can bounded adjacent-line, two-line-window, and sentence-continuation patterns |
 | E0105 | abandoned | 1 | Can a larger cited model resolve the remaining E0102 abstentions? |
 | E0106 | reported | 1 | Can the deterministic source-structure index reduce the E0100/E0104 residue without semantic inference? |
+| E0107 | draft | 0 | Can exact normative definition forms mechanically resolve the E0106 unique candidates? |
+| E0108 | draft | 0 | Can an independent traversal validate strict definition candidates without semantic inference? |
 
 ## Run status
 
