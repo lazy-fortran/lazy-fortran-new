@@ -2,6 +2,7 @@
 """Independent behavioral checks for the E0115 deterministic tool gate."""
 
 import importlib.util
+import re
 from pathlib import Path
 
 
@@ -55,5 +56,11 @@ except harness.ToolError as exc:
     assert "budget" in str(exc)
 else:
     raise AssertionError("evidence-call budget was not enforced")
+
+rule_ids = sorted(set(re.findall(rb"\b[RC][0-9]{3,5}\b", raw)))
+for rule_id in rule_ids:
+    rule_episode = harness.Episode(raw, ranges, residue, e0110, "module-name")
+    checked = rule_episode.call("read_rule", {"rule_number": rule_id.decode("ascii")})
+    assert checked["status"] == "ok"
 
 print("E0115 deterministic tool gate passed")

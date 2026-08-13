@@ -54,7 +54,9 @@ fixture gates and a one-row Qwen 3.5 2B smoke control; no full E0115 matrix has
 run yet. A provisional 17-row cell was stopped after exposing an expensive
 non-terminating tool loop, and a second 28-row control exposed a page-boundary
 bug in `read_rule`; both are excluded from model results and recorded as
-harness controls. D0057 now bounds rows at twelve turns.
+harness controls. The deterministic read-rule sweep now covers all 1,168
+canonical R/C identifiers with zero failures. D0057 now bounds rows at twelve
+turns.
 
 ## Exit and handoff
 

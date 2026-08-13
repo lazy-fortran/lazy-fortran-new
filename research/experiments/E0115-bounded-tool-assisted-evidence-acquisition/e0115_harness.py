@@ -203,6 +203,8 @@ class Episode:
             page = page_at(self.ranges, start)
             final = end
             for next_start, next_end, next_line in self.lines[index + 1 :]:
+                if not next_line.strip(" \t\r\n\f"):
+                    continue
                 if page_at(self.ranges, next_start) != page:
                     break
                 if RULE_LINE.match(next_line):
