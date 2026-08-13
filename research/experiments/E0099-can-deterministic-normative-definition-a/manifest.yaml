@@ -1,0 +1,51 @@
+id: "E0099"
+title: "Deterministic normative-definition evidence search"
+question: >
+  Can deterministic normative definition and cross-reference search classify the
+  181 E0022 unresolved names without invented aliases?
+status: abandoned
+opened: "2026-08-13"
+closed: "2026-08-13"
+
+repos:
+  lazy-fortran-new: "1dd3321"
+  standard-new: "7344c65"
+  oracle-standard: "160032a"
+  oracle-kaby76: "ba846bb"
+
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  standardir: artifacts/runs/E0013/R000002-standardir.toml
+  canonical_text: artifacts/runs/E0001/R000003-canonical-text.toml
+  comparison_sources:
+    - artifacts/grammars/standard-fortran2023-parser.toml
+    - artifacts/grammars/kaby76-fortran2023-parser.toml
+
+variables: {}
+model_selection: "No model calls; deterministic-only control."
+metrics:
+  - mechanically_resolved
+  - ambiguous_candidates
+  - no_definitional_evidence
+  - source_spans_retained
+denominator: >
+  The 181 distinct unresolved names and their 472 reference occurrences from
+  the pinned E0022 audit.
+independent_oracle: >
+  The E0022 independent reference traversal and the pinned normative text.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+falsifiable_by: >
+  The denominator cannot be reproduced, candidate accounting is incomplete, or
+  source evidence is reported without a normative span.
+gate: >
+  Reproduce the E0022 denominator and classify every name with retained source
+  evidence or an explicit residue.
+analysis: research/experiments/E0099-can-deterministic-normative-definition-a/analyse.sh
+blocked_by: >
+  The exact pinned comparison repositories required by the E0022 rerun are not
+  available in the workspace: oracle-standard 160032a and oracle-kaby76
+  ba846bb. No experiment script or output was produced, and no classification
+  was claimed.
