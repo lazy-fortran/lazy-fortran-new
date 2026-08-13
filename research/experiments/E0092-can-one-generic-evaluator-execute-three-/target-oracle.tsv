@@ -1,0 +1,4 @@
+constraint_id	predicate	required_facts	provided_facts	line	page	constructor_form
+C601	(le (name-length name) 63)	parsed-name	checked-name-length	2809	67	le
+C603	(exists digit-in-label (ne (value digit-in-label) 0))	parsed-label	checked-label-digits	2878	69	exists-ne
+C719	(ge (value kind-param) 0)	constant-expression-value	checked-nonnegative-kind	3297	80	ge
