@@ -235,9 +235,11 @@ Wave J is complete for the bounded frontend semantic-table consumer, the
 program-unit-to-MIR structural bridge, and E0104's multi-line mechanical
 search. E0104 retained 2,471 source spans but resolved zero rows uniquely: all
 127 residue names became ambiguous. This is the planned escalation boundary,
-not a reason to add more ad hoc windows. Further progress now requires a
-choice between a larger cited model pass and a deliberately specified
-Fortran-document structure extractor; no relation is promoted automatically.
+not a reason to add more ad hoc windows. The attempted E0105 larger-model run
+was unauthorized and interrupted before valid output; it is retained as an
+abandoned run and contributes no evidence. D0046 selects a deliberately
+specified Fortran-document structure extractor as the next M3 slice; no
+relation is promoted automatically.
 
 ## Numbered milestones
 
@@ -280,9 +282,10 @@ conflict does not block this milestone or the production parser.
 ### M3. Source-backed Core 0 semantics (pending)
 
 Core 0 constraints, definitions, relations, and fact dependencies have a
-measured resolution state. Deterministic formalization is exhausted first.
-Any remaining local holes are measured through the small-model-to-larger-model
-ladder, with independent formalization, provenance, and behavioral oracles.
+measured resolution state. The immediate gate is D0046's structure-first
+extractor and its independent residue measurement. Any remaining local holes
+are measured only through a separately authorized model experiment with
+independent formalization, provenance, and behavioral oracles.
 
 ### M4. Generated frontend vertical slice (pending)
 

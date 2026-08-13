@@ -26,7 +26,8 @@ semantic-item adapter, bounded semantic-item table, and explicit resolution
 queries are integrated. The legacy interchange format remains unchanged.
 Semantic formalization remains a separate lane within the laboratory's Phase 1
 gate and must not be smuggled into syntax aliases; unresolved and disputed
-states remain representable.
+states remain representable. D0046's next structure-index slice belongs in this
+lane, but its output remains evidence rather than semantic facts.
 
 ## Exit and handoff
 

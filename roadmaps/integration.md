@@ -28,8 +28,9 @@ frontend, and the backend, plus the E0103 deterministic relation audit. The
 Wave J is complete for the frontend semantic-table consumer, the program-unit
 structural bridge, and E0104's bounded multi-line search. E0104 produced no
 unique resolutions, so the coordinator pauses at the documented semantic
-escalation gate for a decision on the next method. No new wave should add
-unjustified document-specific heuristics before that decision.
+escalation gate. D0046 now authorizes one bounded document-structure
+extraction slice; no new wave should add unjustified document-specific
+heuristics or promote semantic facts before its measurement.
 
 The cleanup sequence is explicit:
 
