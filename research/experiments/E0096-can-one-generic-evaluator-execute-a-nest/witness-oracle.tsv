@@ -1,0 +1,4 @@
+case_id	constraint_id	checker_status	gfortran_status	flang_status	shape	intrinsic_name	expectation
+c734-positive	C734	0	0	0	derived-name	MYTYPE	accepted
+c734-doubleprecision	C734	1	1	1	doubleprecision-name	DOUBLEPRECISION	rejected
+c734-integer	C734	1	1	1	integer-name	INTEGER	rejected

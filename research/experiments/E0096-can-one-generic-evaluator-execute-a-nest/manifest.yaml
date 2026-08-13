@@ -1,0 +1,90 @@
+id: "E0096"
+title: "Nested not-or intrinsic-type evaluator for C734"
+question: >
+  Can one generic evaluator execute a nested not-or intrinsic-type predicate
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-13"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: ""
+  standard-new: "c6cd889"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  predecessor: E0090-R000001
+  target_oracle: research/experiments/E0096-can-one-generic-evaluator-execute-a-nest/target-oracle.tsv
+  witness_oracle: research/experiments/E0096-can-one-generic-evaluator-execute-a-nest/witness-oracle.tsv
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  predecessor_table: [E0090]
+  predicate: [C734]
+  behavioral_oracles: [gfortran, flang-new]
+  model_calls: [zero]
+  parser_projection: [none]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model calls. The evaluator interprets generic not, or, eq
+and intrinsic-type-name constructors from the pinned predicate row."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - predecessor_rule_rows
+  - selected_rule_rows
+  - generic_constructor_forms
+  - target_oracle_difference
+  - provenance_matches
+  - fact_matches
+  - evaluator_cases
+  - evaluator_accepts
+  - evaluator_rejects
+  - behavioral_compilers
+  - behavioral_agreements
+  - diagnostic_rows
+  - source_linked_results
+  - parser_projection_records
+  - model_calls
+  - negative_control
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  The C734 row selected from the 22 accepted E0090 predicates. Three module
+  sources exercise a permitted derived type name, DOUBLEPRECISION, and the
+  intrinsic name INTEGER. The other 21 accepted rows and all 265 unresolved
+  rows are excluded.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >
+  A separately maintained target oracle fixes C734's predicate, facts and J3
+  location. A separate three-row witness oracle fixes evaluator outcomes and
+  gfortran and Flang outcomes for real sources. A predicate mutation must
+  change the permitted-name result.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  The predecessor table or C734 row changes, the evaluator mishandles either
+  forbidden intrinsic name, a source loses provenance, either behavioral
+  compiler disagrees, or the predicate mutation leaves the positive result
+  unchanged.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >
+  Rerun E0090, select exactly C734, interpret the nested generic constructors,
+  agree with the independent target and witness oracles on three real-source
+  cases and two behavioral compilers, retain source-linked diagnostics, observe
+  the predicate mutation, and use zero parser projections and zero model calls.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/experiments/E0096-can-one-generic-evaluator-execute-a-nest/analyse.sh

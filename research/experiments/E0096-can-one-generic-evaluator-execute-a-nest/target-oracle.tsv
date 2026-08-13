@@ -1,0 +1,2 @@
+constraint_id	predicate	required_facts	provided_facts	line	page	source_hash
+C734	(not (or (eq type-name DOUBLEPRECISION) (intrinsic-type-name type-name)))	resolved-type type-name-fact intrinsic-type-fact	checked-type-name	3618	87	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
