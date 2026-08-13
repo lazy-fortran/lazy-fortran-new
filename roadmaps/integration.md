@@ -20,6 +20,20 @@ abandoned slice remains in the run ledger with its last commit and failure
 state before cleanup. A later slice starts from the newly integrated commit,
 not from a stale long-lived task branch.
 
+The cleanup sequence is explicit:
+
+```sh
+git worktree remove /path/to/task-worktree
+git branch -d task-branch
+git ls-remote --exit-code --heads origin task-branch
+git push origin --delete task-branch
+git fetch origin --prune
+```
+
+Run the remote deletion only when the preceding lookup finds the branch. An
+absent remote branch is already clean. A dirty worktree, an unmerged branch or
+a network/authentication error stops cleanup for review.
+
 ## Cross-lane gates
 
 - StandardIR output is source-backed before frontend acceptance claims.
