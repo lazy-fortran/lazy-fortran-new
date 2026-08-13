@@ -14,10 +14,11 @@ behavioral tests. Experiment history and contract revisions remain in the lab.
 The bounded program-witness parser, source-linked result boundary, canonical
 frontend-v0 SX handoff and reader, typed program-root boundary with canonical
 SX, standalone typed program-declaration SX boundary, bounded typed
-program-unit aggregate, bounded semantic-table consumer, and generic
-semantic-witness validator are integrated. Only the first two steps depend on
-M2. Diagnostic and semantic slices may run in parallel once their StandardIR
-records and provenance fields are pinned.
+program-unit aggregate, bounded semantic-table consumer, generic
+semantic-witness validator, and typed source-linked diagnostic SX boundary are
+integrated. Only the first two steps depend on M2. Diagnostic and semantic
+slices may run in parallel once their StandardIR records and provenance fields
+are pinned.
 The `mir-v0` producer boundary must not be changed inside a frontend slice.
 
 ## Exit and handoff

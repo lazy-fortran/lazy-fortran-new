@@ -241,6 +241,12 @@ abandoned run and contributes no evidence. D0046 selects a deliberately
 specified Fortran-document structure extractor as the next M3 slice; no
 relation is promoted automatically.
 
+Wave K has integrated two dependency-independent production slices: typed
+source-linked diagnostic SX in `fortfront-new` and an AArch64 ELF64 witness in
+`fortback-new`. Both passed coordinator-side `fo` gates and retain their
+existing frontend/MIR and TargetIR/emission boundaries. The `standard-new`
+structure-index slice remains the active M3 task.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A

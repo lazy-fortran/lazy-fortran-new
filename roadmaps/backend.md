@@ -17,10 +17,10 @@ encoders/decoders and behavioral tests belong to `fortback-new`.
 
 The bounded `riscv-opcodes` and AARCHMRS source importers, canonical
 TargetIR-v0 SX handoff, AArch64 fixed ADD/SUB codec, reloc-free RISC-V ELF64
-object writing, stream-unit output, and a single-instruction RISC-V-to-ELF
-witness are integrated and preserve source identity through their encoding
-fixtures. ISA ingestion, semantics, encoders, decoders, ABI metadata and
-object writing do not wait for the frontend.
+object writing, stream-unit output, single-instruction RISC-V-to-ELF witness,
+and the AArch64 ELF64 witness are integrated and preserve source identity
+through their encoding fixtures. ISA ingestion, semantics, encoders, decoders,
+ABI metadata and object writing do not wait for the frontend.
 Legalization and instruction selection do wait for `mir-v0`. RISC-V and
 AArch64 remain the first correctness targets. x86-64 is a concurrent
 source-quality comparison, not a prerequisite for them.
