@@ -22,10 +22,11 @@ the current measurement. Regenerate it with
 - expose stable provenance-bearing records to the frontend lane.
 
 The source-backed production API, PDF/JSONL projection mode, caller-backed
-semantic-item adapter, and bounded semantic-item table are integrated. The
-legacy interchange format remains unchanged. Semantic formalization remains a
-separate lane within the laboratory's Phase 1 gate and must not be smuggled
-into syntax aliases; unresolved and disputed states remain representable.
+semantic-item adapter, bounded semantic-item table, and explicit resolution
+queries are integrated. The legacy interchange format remains unchanged.
+Semantic formalization remains a separate lane within the laboratory's Phase 1
+gate and must not be smuggled into syntax aliases; unresolved and disputed
+states remain representable.
 
 ## Exit and handoff
 

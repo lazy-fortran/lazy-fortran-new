@@ -205,11 +205,15 @@ model runner exist; it made zero calls and adjudicated nothing.
 Wave F is complete for four additive production slices: a bounded StandardIR
 semantic-item table, canonical typed program-root SX in the frontend, explicit
 program-root lowering into the existing MIR witness, and a reloc-free RISC-V
-ELF64 object writer. Each slice was independently tested, merged into the
-corresponding main branch, pushed, and cleaned up. M3 remains pending: no
-semantic residue was promoted and no contract was changed in place. The next
-wave may consume these integrated boundaries and continue semantic-table use,
-typed frontend/MIR structure, and independent backend object validation.
+ELF64 object writer. Wave G then added deterministic semantic-table queries, a
+standalone typed program-declaration SX boundary, a canonical program-root-SX
+to-MIR bridge, and stream-unit ELF64 output. Each slice was independently
+tested, merged into the corresponding main branch, pushed, and cleaned up. M3
+remains pending: no semantic residue was promoted and no contract was changed
+in place. E0101 now has a regenerated 127-row package; its only remaining
+blocker is the absence of an explicit model runner. The next wave may consume
+these integrated boundaries and continue semantic-table use, typed frontend/MIR
+structure, and independent backend object validation.
 
 ## Numbered milestones
 
