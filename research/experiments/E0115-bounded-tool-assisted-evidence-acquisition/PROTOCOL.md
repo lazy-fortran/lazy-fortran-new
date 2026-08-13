@@ -68,6 +68,9 @@ The gate recognizes direct source definitions, the normative assumed rules
 R401/R402/R403, and lexical/operator terminals on numbered production
 right-hand sides. It does not accept an ordinary syntax name merely because it
 appears on a right-hand side. Source spans are UTF-8-safe at byte/page limits.
+When a direct prose definition is available, it takes precedence over an
+assumed family rule; a family rule is accepted only when no direct definition
+is available.
 
 ## Trace
 
