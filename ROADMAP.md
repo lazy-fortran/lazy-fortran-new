@@ -129,10 +129,12 @@ predicates, and emit structured source-linked diagnostics. Wave B is now
 integrated: `standard-new` exposes source-backed StandardIR records,
 `fortfront-new` consumes caller-supplied syntax witnesses for a bounded
 program slice, `ffc-new` owns the target-independent MIR function boundary,
-and `fortback-new` imports a bounded `riscv-opcodes` witness. E0041 records
-the parser behavior comparison across LFortran, Flang and gfortran. Broad
-comparison adjudication, complete semantic coverage and the Phase 2 frontend
-gate remain open. Regenerate this snapshot's experiment values with
+and `fortback-new` imports bounded `riscv-opcodes` and AARCHMRS witnesses. The
+first deterministic E0099 name-resolution attempt is explicitly blocked by
+missing historical comparison pins; it made no classifications. E0041
+records the parser behavior comparison across LFortran, Flang and gfortran.
+Broad comparison adjudication, complete semantic coverage and the Phase 2
+frontend gate remain open. Regenerate this snapshot's experiment values with
 `scripts/index.sh`.
 
 [D0040](research/decisions/D0040-defer-paper-for-broader-result.md) supersedes
@@ -191,10 +193,12 @@ their input contracts are integrated. The coordinator merges verified slices
 frequently and deletes their clean local and remote task branches after the
 merged commit is recorded.
 
-Wave B is complete. The next wave may independently extend the source-backed
-StandardIR handoff, lower the bounded frontend result into `mir-v0`, ingest the
-next machine-readable target source, and measure deterministic recovery of the
-181-name residue. These slices must not change a contract in place.
+Wave C is complete for its bounded handoffs: the StandardIR production adapter,
+frontend-v0 SX handoff, frontend-v0 to MIR lowering, and AArch64 source
+ingestion are integrated. E0099 remains an explicitly blocked experiment
+attempt. The next wave may extend the real production projection, add AST and
+semantic-rule consumption, add MIR serialization, and continue target source
+normalization. These slices must not change a contract in place.
 
 ## Numbered milestones
 
