@@ -97,13 +97,20 @@ def call_model(url, payload, timeout):
     return message, data
 
 
-def system_prompt(name, rule_hints):
+def system_prompt(name, rule_hints, direct_definition=False):
     indexed = (
         "The deterministic source index found these possible numbered rule IDs: "
         + ", ".join(rule_hints)
         + ". Read them before broad searching; the index supplies locations, not a decision."
         if rule_hints
         else "The deterministic source index found no numbered rule ID; use the search tools."
+    )
+    direct = (
+        "The source text index also found a direct prose definition for this "
+        "exact candidate; search mode definition first and prefer that evidence "
+        "over any family fallback."
+        if direct_definition
+        else "The source text index found no direct prose definition for this exact candidate."
     )
     return (
         "You are a source-evidence assistant. Work only through the four "
@@ -112,7 +119,7 @@ def system_prompt(name, rule_hints):
         f"{harness.candidate_guidance(name)} Prefer a direct production or "
         "prose definition when one exists. The standard's assumed rules are "
         "valid source evidence; do not invent a target from them. "
-        f"{indexed} "
+        f"{indexed} {direct} "
         "The gate checks the evidence relation mechanically: the submission "
         "must describe the source text you actually read, not a guessed target. "
         "If the evidence is insufficient or ambiguous, call submit_pointer "
@@ -158,7 +165,14 @@ def tool_event(episode, tool_call):
 def run_row(args, raw, ranges, residue, e0110, name, tools, trajectory_stream=None):
     episode = harness.Episode(raw, ranges, residue, e0110, name)
     messages = [
-        {"role": "system", "content": system_prompt(name, episode.rule_hints())},
+        {
+            "role": "system",
+            "content": system_prompt(
+                name,
+                episode.rule_hints(),
+                episode.direct_definition_available,
+            ),
+        },
         {"role": "user", "content": user_prompt(name)},
     ]
     events = []

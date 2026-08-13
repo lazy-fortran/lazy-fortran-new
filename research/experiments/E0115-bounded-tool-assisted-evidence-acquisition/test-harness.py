@@ -97,7 +97,6 @@ def checked_submission(name, rule_number, relation):
 
 for name, rule, relation in (
     ("only-list", "R401", "metavariable"),
-    ("module-name", "R402", "metavariable"),
     ("scalar-int-expr", "R403", "metavariable"),
     ("digit", "R601", "lexical"),
     (".AND.", "R1020", "lexical"),
@@ -106,6 +105,18 @@ for name, rule, relation in (
     ("..", "R827", "lexical"),
 ):
     checked_submission(name, rule, relation)
+
+module_fallback = harness.Episode(raw, ranges, residue, e0110, "module-name")
+module_rule = module_fallback.call("read_rule", {"rule_number": "R402"})
+assert module_fallback.call(
+    "submit_pointer",
+    {
+        "name": "module-name",
+        "decision": "accept",
+        "relation": "metavariable",
+        "evidence_ids": [module_rule["result"]["result_id"]],
+    },
+)["status"] == "rejected"
 
 ordinary_rhs = harness.Episode(raw, ranges, residue, e0110, "only-list")
 ordinary_rule = ordinary_rhs.call("read_rule", {"rule_number": "R1409"})

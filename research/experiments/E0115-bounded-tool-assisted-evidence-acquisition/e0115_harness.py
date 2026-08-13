@@ -53,21 +53,24 @@ def candidate_guidance(name):
             "This candidate is an instance of the source-defined assumed syntax "
             "family `xyz-list`: read rule R401 first. If R401 visibly has the "
             "list form, submit that rule as evidence with relation `metavariable`; "
-            "do not search for a separate production for the full candidate."
+            "do not search for a separate production for the full candidate and "
+            "do not abstain merely because the candidate has no own production."
         )
     if normalized.endswith("-name"):
         return (
             "This candidate is an instance of the source-defined assumed syntax "
             "family `xyz-name`: read rule R402 first. If R402 visibly has the "
             "name form, submit that rule as evidence with relation `metavariable`; "
-            "do not search for a separate production for the full candidate."
+            "do not search for a separate production for the full candidate unless "
+            "a direct prose definition for this exact candidate is found first."
         )
     if normalized.startswith("scalar-"):
         return (
             "This candidate is an instance of the source-defined assumed syntax "
             "family `scalar-xyz`: read rule R403 first. If R403 visibly has the "
             "scalar form, submit that rule as evidence with relation `metavariable`; "
-            "do not search for a separate production for the full candidate."
+            "do not search for a separate production for the full candidate and "
+            "do not abstain merely because the candidate has no own production."
         )
     if normalized in LEXICAL_CLASSES or not re.fullmatch(
         r"[A-Za-z][A-Za-z0-9-]*", normalized
@@ -179,6 +182,9 @@ class Episode:
             for rule, index in self.rule_indices.items()
         }
         self.name = name.rstrip(",")
+        self.direct_definition_available = bool(
+            self._matching_lines(self.name, "definition")
+        )
         self.e0110 = e0110
         self.max_evidence_calls = max_evidence_calls
         self.max_submissions = max_submissions
@@ -414,11 +420,23 @@ class Episode:
             if lhs.casefold() == candidate.casefold():
                 return match, "definition"
             assumed = ASSUMED_RULES.get(rule)
-            if assumed == "list" and candidate.casefold().endswith("-list"):
+            if (
+                assumed == "list"
+                and candidate.casefold().endswith("-list")
+                and not self.direct_definition_available
+            ):
                 return match, "metavariable"
-            if assumed == "name" and candidate.casefold().endswith("-name"):
+            if (
+                assumed == "name"
+                and candidate.casefold().endswith("-name")
+                and not self.direct_definition_available
+            ):
                 return match, "metavariable"
-            if assumed == "scalar" and candidate.casefold().startswith("scalar-"):
+            if (
+                assumed == "scalar"
+                and candidate.casefold().startswith("scalar-")
+                and not self.direct_definition_available
+            ):
                 return match, "metavariable"
 
             # A residue term that is a lexical class or a punctuation/operator
