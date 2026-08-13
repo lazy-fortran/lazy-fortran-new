@@ -1,0 +1,7 @@
+(contract-witness
+  (contract mir)
+  (version 0)
+  (function main)
+  (opcode return)
+  (value-kind integer)
+  (source-rule R501))

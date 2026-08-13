@@ -1,0 +1,7 @@
+(contract-witness
+  (contract frontend)
+  (version 0)
+  (status rejected)
+  (severity error)
+  (message invalid-source)
+  (span (file witness.f90) (start-byte 0) (end-byte 1) (source-hash fixture)))

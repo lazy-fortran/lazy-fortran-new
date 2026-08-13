@@ -1,0 +1,8 @@
+(contract-registry
+  (revision 0)
+  (compatibility additive)
+  (contract standardir 0 standard-new fortfront-new ffc-new)
+  (contract frontend 0 fortfront-new ffc-new tools)
+  (contract mir 0 ffc-new fortback-new)
+  (contract targetir 0 fortback-new backend-generators)
+  (contract emission 0 fortback-new ffc-new driver))

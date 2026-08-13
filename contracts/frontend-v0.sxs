@@ -1,0 +1,19 @@
+(schema frontend-v0
+  (primitive name)
+  (primitive int)
+  (enum severity note warning error)
+  (enum status accepted rejected)
+  (record source-span
+    (file name)
+    (start-byte int)
+    (end-byte int)
+    (source-hash name))
+  (record diagnostic
+    (status status)
+    (severity severity)
+    (message name)
+    (span source-span))
+  (record frontend-result
+    (status status)
+    (root-kind name)
+    (diagnostic-count int)))

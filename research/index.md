@@ -163,6 +163,7 @@ Runs recorded: 106
 | [D0041](decisions/D0041-fortran-first-adapter-and-mechanical-syntax-closure.md) | accepted |  | Fortran-first adapter and mechanical syntax closure |
 | [D0042](decisions/D0042-source-defined-unicode-lexical-facts.md) | accepted | Amends D0027 | Source-defined Unicode lexical facts |
 | [D0043](decisions/D0043-central-roadmap-and-delegated-production-slices.md) | accepted |  | Central roadmap and delegated production slices |
+| [D0044](decisions/D0044-parallel-lanes-and-contract-lifecycle.md) | accepted |  | Parallel lanes, versioned contracts and branch lifecycle |
 
 ### Proposed decisions
 

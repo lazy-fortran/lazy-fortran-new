@@ -108,6 +108,15 @@ else
     fail "decision checker negative control did not complete"
 fi
 
+# ------------------------------------------------------ 7c. central contracts
+check "7c. versioned SX contracts and fixtures validate"
+if "$ROOT/scripts/check-contracts.sh" >/dev/null 2>&1 &&
+   "$ROOT/scripts/check-contracts.sh" --self-test >/dev/null 2>&1; then
+    pass
+else
+    fail "run scripts/check-contracts.sh"
+fi
+
 # ------------------------------------------------------- 8. internal doc links
 check "8. relative links in documents resolve"
 broken=""

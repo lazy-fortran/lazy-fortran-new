@@ -1,0 +1,7 @@
+(contract-witness
+  (contract targetir)
+  (version 0)
+  (target riscv64)
+  (instruction add)
+  (origin authoritative-machine-readable)
+  (source (artifact riscv-opcodes) (object add) (source-hash fixture)))

@@ -201,7 +201,7 @@ publishes all proposed decisions in a handoff table.
 `lazy-fortran-new` is the sole planning and evidence repository. A production
 slice is delegated with one exact sibling checkout, branch, base commit, file
 scope and test command. The coordinator first checks status and branch
-divergence; the checkout/worktree must be clean and exclusive to that task.
+divergence. The checkout/worktree must be clean and exclusive to that task.
 The delegate uses GPT-5.6 Luna through
 `~/code/prompts/scripts/gpt-delegate.sh` and writes no laboratory files.
 
@@ -221,13 +221,29 @@ Independent slices may run concurrently only when their repositories and file
 scopes do not overlap. The central agent is the only one that turns reports
 into accepted decisions, experiment manifests, append-only runs, provenance
 entries, roadmap changes or cross-repository commit pins. Production commits
-contain production code, specifications, generated source and tests; research
+contain production code, specifications, generated source and tests. Research
 metadata stays here.
 
 The coordinator records the model, prompt/log paths or hashes, production commit
 and dependency pins in the append-only run record. A commit is reported as
-`committed` until its base, diff and gates are independently checked; only then
+`committed` until its base, diff and gates are independently checked. Only then
 is it `integrated`.
+
+## Contracts and integration lifecycle
+
+`contracts/` is the sole central authority for cross-repository interface
+revisions. `.sxs` schemas are authoritative. Fixtures are canonical witnesses.
+The coordinator records the contract revision, source pins and production
+commit together in the run record. Contract revisions are additive by default.
+breaking changes require a new revision, a decision and a migration slice.
+
+Integration is intentionally frequent. Once a committed slice has passed its
+base, scope, diff, independent-oracle and repository gates, the coordinator
+merges it into the target main integration line and records the merged commit.
+The clean task worktree and local branch are then removed. A remote task branch,
+if one was published, is deleted after the merge. An abandoned slice is
+recorded with its last commit and failure state before the same cleanup. No
+force deletion is used for dirty or unmerged state without explicit authority.
 
 ---
 

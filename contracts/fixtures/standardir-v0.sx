@@ -1,0 +1,9 @@
+(contract-witness
+  (contract standardir)
+  (version 0)
+  (kind syntax-item)
+  (id R501)
+  (lhs program)
+  (origin mechanical)
+  (resolution resolved)
+  (source (document J3-24-007) (clause 1) (rule R501) (page 45) (source-hash fixture)))

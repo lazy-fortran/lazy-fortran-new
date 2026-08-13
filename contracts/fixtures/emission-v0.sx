@@ -1,0 +1,6 @@
+(contract-witness
+  (contract emission)
+  (version 0)
+  (format elf)
+  (target riscv64)
+  (section-count 1))

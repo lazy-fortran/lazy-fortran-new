@@ -213,7 +213,7 @@ or experiment record.
 
 The laboratory is the planning and evidence authority. Production agents work
 in the assigned sibling checkout, not here, and never edit laboratory metadata.
-The central roadmap supplies one bounded slice per agent; slices must have
+The central roadmap supplies one bounded slice per agent. Slices must have
 non-overlapping files and an exact base commit. Before launch, the coordinator
 checks that the assigned checkout or worktree is clean, on the expected branch,
 and at the recorded base. Two agents never share a mutable worktree.
@@ -244,6 +244,27 @@ roadmap, and records exact production commit pins. A committed result is not
 called integrated until its base, diff and gates have been checked. Do not
 create a task runner or shared service for this workflow.
 
+### Contracts, waves and cleanup
+
+The lane views under `roadmaps/` and the versioned SX schemas under
+`contracts/` are central coordination metadata. A production task consumes the
+exact contract revisions named in its assignment. Contract changes are
+additive by default. A breaking change gets a new central revision, decision
+record and migration slice. Production repositories do not copy the research
+ledger or add local roadmaps.
+
+Use dependency-ready waves. One vertical slice is the default unit: one
+exclusive worktree, one short-lived branch, one exact base and one verifiable
+commit. Merge verified slices frequently into the target repository's main
+integration line rather than accumulating a long-lived lane branch.
+
+After merge and the relevant CI gate, record the merged commit and remove the
+clean task worktree and local branch. If a task branch was published, delete
+the remote task branch after the merge. For an abandoned task, record its last
+commit and failure first, then perform the same cleanup. Never force-delete a
+dirty worktree or an unmerged branch without explicit authorization. The
+coordinator owns these lifecycle actions. Agents do not delete shared state.
+
 ## Documentation rules
 
 No marketing language. No emoji, and no severity shouting. Terse, specific, and
@@ -267,6 +288,7 @@ refusals, in the style of `fortad/ROADMAP.md`, are the target.
 2. Every file path cited in any document exists.
 3. `bash -n` passes on every script. `scripts/fetch.sh` fails loudly when given
    a corrupted expected hash. A verifier that cannot be made to fail is not
-   evidence that anything was verified.
+   evidence that anything was verified. `scripts/check-contracts.sh` validates
+   every central contract schema and witness, including its negative control.
 4. Prose has been through the `deslop` skill and `fo` is green wherever Fortran
    exists.

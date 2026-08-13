@@ -152,7 +152,7 @@ errata and lexical data remain a Fortran-specific adapter for now.
 [D0043](research/decisions/D0043-central-roadmap-and-delegated-production-slices.md)
 keeps this roadmap as the sole program planning authority. `standard-new`,
 `fortfront-new`, `ffc-new` and `fortback-new` remain production-only sibling
-repositories; their specifications, generated source and behavioral tests stay
+repositories. Their specifications, generated source and behavioral tests stay
 there, while decisions, experiments, runs, provenance and integration pins stay
 in this laboratory. Independent GPT-5.6 Luna agents may work on bounded,
 non-overlapping slices in those sibling directories and report commits back to
@@ -164,6 +164,29 @@ its eventual production work will happen in `../fortback-new`. The backend
 does not wait for the frontend to begin TargetIR, ISA ingestion, encoders,
 decoders, register/feature metadata, ABI metadata or object writing. MIR-
 dependent legalization and instruction selection wait for the MIR contract.
+
+## Parallel lane index and wave gates
+
+The lane details are central and live in `roadmaps/`: StandardIR,
+`fortfront-new`, `ffc-new`, `fortback-new`, and integration. Cross-repository
+interfaces are central versioned SX schemas in `contracts/`, validated by
+`scripts/check-contracts.sh`. Production repositories do not receive local
+roadmaps or research ledgers. D0044 defines the contract and branch lifecycle.
+
+```text
+standardir-v0 ──→ frontend-v0 ──→ mir-v0 ──→ fortback legalization/ISel
+       │                              ▲                 │
+       └──────────────→ tools         │                 ▼
+targetir-v0 ──────────────────────────┘          emission-v0
+```
+
+Wave A can run independent StandardIR closure, backend source provenance and
+production scaffolds. Wave B consumes the integrated contract revisions for
+StandardIR and TargetIR. Wave C connects the frontend and MIR boundary. Wave D
+starts legalization, instruction selection and end-to-end validation only after
+their input contracts are integrated. The coordinator merges verified slices
+frequently and deletes their clean local and remote task branches after the
+merged commit is recorded.
 
 ## Numbered milestones
 
@@ -248,7 +271,7 @@ implementation.
 
 E0098 closes the source-side reference state: 469 explicit reference classes,
 100 assumed expansions, 5 lexical facts, 8 errata, and zero unresolved or
-disputed parser names. EBNF, ANTLR4, Bison and direct wiring pass; tree-sitter
+disputed parser names. EBNF, ANTLR4, Bison and direct wiring pass. Tree-sitter
 still has a target-specific conflict after the compact one-group extension.
 The next decision is whether that derived export can be normalized compactly
 or whether its failure should remain a documented differential boundary under

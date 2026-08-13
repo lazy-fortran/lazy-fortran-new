@@ -1,0 +1,18 @@
+(schema mir-v0
+  (primitive name)
+  (primitive int)
+  (enum value-kind integer real logical address)
+  (enum opcode add sub mul div load store compare branch call return)
+  (record value
+    (id int)
+    (kind value-kind)
+    (type name))
+  (record instruction
+    (id int)
+    (opcode opcode)
+    (result value)
+    (source-rule name))
+  (record function
+    (name name)
+    (entry-block int)
+    (instruction-count int)))

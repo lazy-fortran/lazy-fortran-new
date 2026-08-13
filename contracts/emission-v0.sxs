@@ -1,0 +1,18 @@
+(schema emission-v0
+  (primitive name)
+  (primitive int)
+  (enum format elf macho coff)
+  (enum relocation absolute pc-relative)
+  (record section
+    (name name)
+    (alignment int)
+    (bytes name))
+  (record relocation
+    (section name)
+    (offset int)
+    (symbol name)
+    (kind relocation))
+  (record object
+    (format format)
+    (target name)
+    (section-count int)))
