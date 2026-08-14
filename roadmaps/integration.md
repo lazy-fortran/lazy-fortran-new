@@ -67,9 +67,16 @@ hashes, and its task branch was deleted after push. The frontend generator
 remains in flight; this handoff does not redefine `mir-v0`, promote semantic
 facts, or close M3/M4.
 
+Wave AA has integrated the deterministic `frontend-ast-v0` generator and its
+checked-in generated Fortran records in `fortfront-new`. The generator,
+canonical SX witness, malformed/unsupported schema controls, negative
+provenance/span/count cases and full `fo` gate passed; the task branch was
+deleted after push. E0119 still needs its append-only run record and analysis
+script before it can be reported as an experiment.
+
 The current bounded production pins are `standard-new`
 `27329a701575f32776281f235290e465c5588105`, `fortfront-new`
-`b2a792ff605038745cd512a72fb4e7a1c28e37bc`, `ffc-new`
+`bb9f4a08a0600b048823a0654d6282db16d893db`, `ffc-new`
 `76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
 `ddd960972006da6ba6a0b11122a30ae17da58441`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`

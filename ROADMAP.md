@@ -354,6 +354,13 @@ hashes, and its task branch was deleted after push. The frontend generator
 remains in flight; this handoff does not redefine `mir-v0`, promote semantic
 facts, or close M3/M4.
 
+Wave AA has integrated the deterministic `frontend-ast-v0` generator and its
+checked-in generated Fortran records in `fortfront-new`. The generator,
+canonical SX witness, malformed/unsupported schema controls, negative
+provenance/span/count cases and full `fo` gate passed; the task branch was
+deleted after push. E0119 still needs its append-only run record and analysis
+script before it can be reported as an experiment.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
@@ -548,7 +555,9 @@ contract from the frontend result contract. It consumes the pinned
 whether program-root, program-declaration and program-unit records, canonical
 SX and wiring can be generated and compiled without handwritten
 language-specific dispatch. The experiment remains draft until the generator,
-freshness command and independent behavioral oracle exist.
+freshness command and independent behavioral oracle now exist, but the
+experiment remains draft until its append-only run record and analysis script
+are committed.
 
 ### M5. Practical generated frontend (pending)
 

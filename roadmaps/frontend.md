@@ -19,7 +19,10 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`b2a792ff605038745cd512a72fb4e7a1c28e37bc`. Only the
+`bb9f4a08a0600b048823a0654d6282db16d893db`. The deterministic
+`frontend-ast-v0` generator, checked-in generated records, canonical SX
+serialization, schema-derived dispatcher and freshness/negative tests are
+also integrated. Only the
 first two steps depend on M2. Diagnostic and semantic
 slices may run in parallel once their StandardIR records and provenance fields
 are pinned.

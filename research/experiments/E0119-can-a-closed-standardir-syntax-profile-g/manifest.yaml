@@ -10,7 +10,7 @@ closed: ""
 repos:
   lazy-fortran-new: "724e6c01091b9d76137a3f4890049ad315dda9f8"
   standard-new: "27329a701575f32776281f235290e465c5588105"
-  fortfront-new: "b2a792ff605038745cd512a72fb4e7a1c28e37bc"
+  fortfront-new: "bb9f4a08a0600b048823a0654d6282db16d893db"
   ffc-new: "76f765bc1da01b6e4feb62354d743371b6467e55"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
