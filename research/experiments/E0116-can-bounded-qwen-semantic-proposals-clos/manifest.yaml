@@ -53,6 +53,7 @@ metrics:
   - witness_promoted_rows
   - witness_disputed_rows
   - witness_unwitnessed_rows
+  - malformed_tool_call_repairs
   - negative_control
 
 denominator: >

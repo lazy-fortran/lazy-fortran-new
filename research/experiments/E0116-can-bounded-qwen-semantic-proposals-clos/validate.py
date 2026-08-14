@@ -15,7 +15,8 @@ def parse_args():
     result.add_argument("rows")
     result.add_argument("--constraints", required=True)
     result.add_argument("--prior", required=True)
-    result.add_argument("--trajectory", required=True)
+    result.add_argument("--trajectory", required=True, action="append",
+                        help="one or more append-only trajectory files")
     result.add_argument("--expected", type=int, default=287)
     result.add_argument("--allow-subset", action="store_true",
                         help="validate an explicitly selected ordered subset")
@@ -48,18 +49,19 @@ def main():
         raise SystemExit("E0116 validator: duplicate constraint rows")
 
     trajectory_results = {}
-    for line in Path(args.trajectory).read_text(encoding="utf-8").splitlines():
-        event = json.loads(line)
-        if event.get("kind") != "tool":
-            continue
-        result = event.get("result")
-        if isinstance(result, dict) and isinstance(result.get("result"), dict):
-            for evidence in [result["result"]]:
-                if "result_id" in evidence:
-                    trajectory_results.setdefault(event["row_key"], set()).add(evidence["result_id"])
-        if isinstance(result, dict) and isinstance(result.get("proposal"), dict):
-            proposal = result["proposal"]
-            trajectory_results.setdefault(event["row_key"], set()).update(proposal.get("evidence_ids", []))
+    for trajectory_path in args.trajectory:
+        for line in Path(trajectory_path).read_text(encoding="utf-8").splitlines():
+            event = json.loads(line)
+            if event.get("kind") != "tool":
+                continue
+            result = event.get("result")
+            if isinstance(result, dict) and isinstance(result.get("result"), dict):
+                for evidence in [result["result"]]:
+                    if "result_id" in evidence:
+                        trajectory_results.setdefault(event["row_key"], set()).add(evidence["result_id"])
+            if isinstance(result, dict) and isinstance(result.get("proposal"), dict):
+                proposal = result["proposal"]
+                trajectory_results.setdefault(event["row_key"], set()).update(proposal.get("evidence_ids", []))
 
     accepted = 0
     unresolved = 0

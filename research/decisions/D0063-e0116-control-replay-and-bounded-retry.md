@@ -1,6 +1,6 @@
 # D0063 — Replay controls and retry only terminal residuals
 
-Status: accepted
+Status: amended by D0064
 Date: 2026-08-14
 Amends: D0062
 

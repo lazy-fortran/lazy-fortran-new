@@ -374,6 +374,8 @@ stage for a generic source form.
 [D0063] then defines control replay and one bounded retry over only unresolved
 or hard-failure row keys; both attempts remain immutable and are merged only by
 validated row key.
+[D0064] keeps malformed native tool JSON inside the episode as a counted,
+bounded repair turn instead of ending the row before its declared turn cap.
 
 The numbered M3 execution sequence is:
 

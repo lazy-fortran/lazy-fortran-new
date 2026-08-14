@@ -228,7 +228,13 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
         except RuntimeError as exc:
             model_errors.append({"turn": turn, "error": str(exc)})
             emit({"turn": turn, "kind": "model_error", "error": str(exc)})
-            break
+            messages.append(message)
+            messages.append({
+                "role": "user",
+                "content": f"The last native tool call was malformed: {exc}. "
+                           "Call exactly one declared tool again with valid JSON.",
+            })
+            continue
         emit({"turn": turn, "kind": "tool", "tool": tool_name, "arguments": arguments, "result": result})
         messages.append(message)
         messages.append({
