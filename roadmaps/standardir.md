@@ -35,7 +35,12 @@ rather than semantic facts. The recovered ordering repair is integrated at
 `standard-new` commit
 `a25eae1d1a98703bcf717cf4406c4e797cdeb2b4` and adds no semantic aliases. E0106 measured it against the pinned
 E0100/E0104 residue; no alias or
-relation promotion followed from the index. D0048 now defines the strict
+relation promotion followed from the index. The typed `standardir-grammar-v0`
+producer is integrated at `standard-new`
+`071acf5cc23200441b28309b50a6c8ccd5922e0e` and preserves all six normalized
+node kinds, nested structure, alternative order, provenance, origin and
+resolution through canonical SX. It remains a contract producer only; applying
+it to PDF text and wiring the consumer are separate gates. D0048 now defines the strict
 source-form acceptance boundary. D0049, amended by D0050, authorizes one final
 bounded normalization pass (E0110) with liberal discovery and strict
 acceptance. E0111 is retained as a 2B pilot whose overlap windows were

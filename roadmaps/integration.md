@@ -231,9 +231,17 @@ leaving ambiguity explicit. Both passed coordinator-side full `fo` with zero
 warnings and are recorded as `R000226` and `R000227`. No parser state,
 backtracking, ISA dispatch, ABI, MIR or instruction selection was added.
 
+The StandardIR half of D0076 is now integrated at `standard-new`
+`071acf5cc23200441b28309b50a6c8ccd5922e0e` and recorded as `R000229`. The
+typed producer validates and canonically reads/writes all six normalized node
+kinds, nested optional/repeat/choice/group structure, alternative order and
+source provenance. It does not apply the contract to PDF text, invent aliases
+or choose parser dispatch. The producer-to-consumer pipeline remains the next
+frontend handoff gate.
+
 The current bounded production pins are `standard-new`
-`985d684a2c8e5f4394b3473c8bdc3a9`, `fortfront-new`
-`199c383ede97fe78f91a738d16c28e946c15f072`, `ffc-new`
+`071acf5cc23200441b28309b50a6c8ccd5922e0e`, `fortfront-new`
+`49dd337728df9bbcc451042ed11a26842f92341b`, `ffc-new`
 `555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
 `b533414aae80052308434fc725500cf2d028a1ac`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`

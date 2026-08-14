@@ -495,8 +495,12 @@ The frontend half of D0076 is now integrated at
 `fortfront-new` `49dd337728df9bbcc451042ed11a26842f92341b` and recorded as
 `R000228`. It is a typed consumer boundary with independent malformed,
 provenance and resolution controls; it does not claim that `standard-new`
-already emits the new contract. The producer and full source-to-consumer gate
-remain open.
+already emits the new contract. The source-backed producer is now integrated
+at `standard-new` `071acf5cc23200441b28309b50a6c8ccd5922e0e` and recorded as
+`R000229`. It validates and canonically reads/writes the flat node contract,
+including nested structure and provenance, but does not apply the contract to
+PDF text or invent parser dispatch. The full producer-to-consumer pipeline
+gate remains open.
 
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
