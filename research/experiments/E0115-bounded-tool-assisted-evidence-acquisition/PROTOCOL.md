@@ -104,6 +104,11 @@ path. The first-pass rows remain the primary denominator; the combined result
 selects a retry row only for that same candidate and retains duplicate base
 rows.
 
+`assemble-results.py` is the analysis boundary: it substitutes retry rows by
+candidate name while preserving every duplicate base row, recomputes summaries
+through `summarize.py`, and emits the matrix and initial/final convergence TSVs
+consumed by the two plotting scripts.
+
 The primary text comparison is:
 
 ```text
