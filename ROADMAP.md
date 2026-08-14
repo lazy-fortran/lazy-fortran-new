@@ -397,6 +397,14 @@ lanes and do not block semantic formalization. M3 closes only after the
 complete Core 0 semantic ledger has a measured accepted, unresolved and
 disputed state and its promoted subset passes the behavioral witness gate.
 
+The current M3 execution is E0116: the local Qwen 3.6 35B-A3B service runs on
+`mailuefterl` at the declared local API endpoint, with no SSH tunnel. The
+text-only semantic run has the auxiliary `whisper-server` stopped so the
+35B profile retains its normal 128K context and large batch configuration;
+reasoning is disabled for this cell. The C702 smoke control passed before the
+complete run. The complete result is not reported until its append-only run
+record, replay validation and behavioral-witness status are written.
+
 ### M4. Generated frontend vertical slice (pending)
 
 `fortfront-new` parses a closed profile, builds the generated AST, resolves a
@@ -1250,8 +1258,10 @@ neglected, so they are listed.
   with the probe.
 - Phase 2 does not start before E0001--E0003 report. The measurement is the
   point of Phase 1, and building the frontend first consumes the evidence.
-- Phase 5 does not start before Phase 4 has a stable MIR, or the target
-  description is shaped by a moving interface.
+- Target-specification extraction, provenance, encoders, decoders, register
+  metadata, ABI metadata and object writing may proceed before Phase 4 has a
+  stable MIR. Backend legalization and instruction selection wait for the
+  integrated `mir-v0` contract; neither production lane may redefine it.
 - Phase 6 gates on Core 0 sufficiency, discovered during Phases 3 to 5, and may
   force Core 0 to grow. That growth is the E10 result, not a scheduling
   failure.

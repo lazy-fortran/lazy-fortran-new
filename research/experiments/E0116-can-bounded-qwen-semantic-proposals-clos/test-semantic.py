@@ -57,6 +57,18 @@ def main():
     else:
         raise AssertionError("unsafe predicate constructor was accepted")
 
+    try:
+        harness.ConstraintEpisode._validate_predicate(
+            {"op": "eq", "args": ["colon", "type-param-value"]}
+        )
+    except harness.GateError:
+        pass
+    else:
+        raise AssertionError("field-to-field equality was accepted as a value relation")
+
+    for accepted in prior.values():
+        harness.ConstraintEpisode._validate_predicate(harness._parse_sx(accepted["predicate"]))
+
     invalid = harness.ConstraintEpisode(raw, ranges, constraints, row, prior)
     invalid_evidence = invalid.read_constraint()
     result = invalid.submit_semantic(

@@ -43,8 +43,8 @@ def parser():
 
 def local_url(url):
     parsed = urllib.parse.urlparse(url)
-    if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "localhost", "::1"}:
-        raise SystemExit("E0116 runner: --api-url must point to a local HTTP tunnel")
+    if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "localhost", "::1", "10.77.0.10"}:
+        raise SystemExit("E0116 runner: --api-url must point to the local model server")
 
 
 def call_model(url, payload, timeout):
@@ -89,13 +89,29 @@ For accept, return a small typed predicate object with exactly {{"op": OP,
 "args": [...]}}. Allowed OP values are: and, or, not, implies, eq, ne, lt, le,
 gt, ge, in, not-in, present, absent, has, type-is, rank-is, scalar, constant,
 unique, same-as, named, accessible, derived, processor-supports, count-le and
-count-ge. Do not use code, prose, eval, an unlisted operator, or a parser rule.
+count-ge, value, name-length, exists, named-constant, has-kind-param,
+contains-deferred-binding, inherits-deferred-binding, resolved,
+has-deferred-type-parameter, unlimited-polymorphic, abstract-type, derived-type,
+intrinsic-module, nonintrinsic-module, intrinsic-type-name,
+intrinsic-procedure, abstract-interface, explicit-interface-procedure,
+procedure-declaration, declared-earlier, use-accessible, declared-in-specification, has-attribute,
+bind-type, sequence-type, in-table-16-2, generic-name and procedure-name.
+Do not use code, prose, eval, an unlisted operator, or a parser rule.
 Facts are lowercase kebab-case identifiers. Use only facts needed by this one
 constraint. Evidence IDs must be IDs returned by the tools. The deterministic
 gate owns source hash, byte span, page, rule association, schema acceptance and
 promotion; you only propose the local predicate fragment. If the clause cannot
 be represented faithfully by this schema after reading the source, abstain so
-the row is retained for a later schema extension."""
+the row is retained for a later schema extension.
+
+For eq, ne, lt, le, gt and ge, put the value field first and a literal second,
+for example {{"op":"eq","args":["exponent-letter","E"]}} or
+{{"op":"eq","args":["type-param-value",":"]}}. Never compare two lowercase
+fact-like names; use same-as for field-to-field identity. Use JSON arrays for
+finite domains, not an invented predicate or executable expression. For a
+clause of the generic form “X shall not be Y except in context Z”, use the
+canonical shape implies(forbidden-condition, allowed-context), rather than a
+negated conjunction."""
 
 
 def user_prompt(row):
@@ -118,7 +134,7 @@ def tool_event(episode, tool_call):
         raise RuntimeError("tool arguments are not an object")
     try:
         result = episode.call(name, arguments)
-    except (harness.GateError, TypeError, KeyError) as exc:
+    except (harness.GateError, harness.common.InputError, TypeError, KeyError) as exc:
         result = {"status": "error", "code": "tool_rejected", "message": str(exc)}
     return name, arguments, result
 
@@ -169,6 +185,7 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
             "seed": args.seed,
             "max_tokens": args.max_tokens,
             "stream": False,
+            "chat_template_kwargs": {"enable_thinking": args.thinking == "on"},
         }
         call_started = time.monotonic()
         try:
@@ -253,11 +270,11 @@ def main():
     constraint_file = predecessor / "constraint-spans.tsv"
     if not constraint_file.exists():
         subprocess.run([str(E0081), str(predecessor)], check=True)
-    raw = common.load_canonical(args.canonical, args.source_sha256)
+    raw = harness.common.load_canonical(args.canonical, args.source_sha256)
     source_hash = hashlib.sha256(raw).hexdigest()
     if source_hash != args.source_sha256:
         raise SystemExit("E0116 runner: canonical source hash differs")
-    ranges = common.load_page_index(args.pages, len(raw))
+    ranges = harness.common.load_page_index(args.pages, len(raw))
     rows = harness.load_constraints(constraint_file)
     prior = harness.load_prior(ROOT / ".cache/runs/E0087/R000001/formalizations.tsv")
     if args.only_constraint:

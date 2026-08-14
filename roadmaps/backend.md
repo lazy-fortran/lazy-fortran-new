@@ -25,6 +25,10 @@ Legalization and instruction selection do wait for `mir-v0`. RISC-V and
 AArch64 remain the first correctness targets. x86-64 is a concurrent
 source-quality comparison, not a prerequisite for them.
 
+The current RISC-V codec slice is `fortback-new` commit
+`805e8243d4fe37238b80bbbec524d7954e27ac8a`; it adds source-preserving `and`
+encoding/decoding coverage with an independent behavioral fixture.
+
 ## Provenance and exit
 
 Every TargetIR fact retains artifact identity, source object, source hash and

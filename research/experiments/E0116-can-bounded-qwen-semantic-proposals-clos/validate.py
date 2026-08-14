@@ -17,6 +17,8 @@ def parse_args():
     result.add_argument("--prior", required=True)
     result.add_argument("--trajectory", required=True)
     result.add_argument("--expected", type=int, default=287)
+    result.add_argument("--allow-subset", action="store_true",
+                        help="validate an explicitly selected ordered subset")
     result.add_argument("--outdir", required=True)
     return result.parse_args()
 
@@ -30,8 +32,18 @@ def main():
         raise SystemExit(f"E0116 validator: expected {args.expected} rows, got {len(rows)}")
     expected_ids = [row["row_key"] for row in constraints]
     actual_ids = [row.get("row_key") for row in rows]
-    if actual_ids != expected_ids:
-        raise SystemExit("E0116 validator: row order or denominator differs")
+    by_id = {row["row_key"]: row for row in constraints}
+    if args.allow_subset:
+        if any(row_key not in by_id for row_key in actual_ids):
+            raise SystemExit("E0116 validator: subset contains an unknown row")
+        positions = [expected_ids.index(row_key) for row_key in actual_ids]
+        if positions != sorted(positions):
+            raise SystemExit("E0116 validator: subset is not in source order")
+        expected_rows = [by_id[row_key] for row_key in actual_ids]
+    else:
+        if actual_ids != expected_ids:
+            raise SystemExit("E0116 validator: row order or denominator differs")
+        expected_rows = constraints
     if len(set(actual_ids)) != len(actual_ids):
         raise SystemExit("E0116 validator: duplicate constraint rows")
 
@@ -54,7 +66,7 @@ def main():
     failures = 0
     control_exact = 0
     proposals = []
-    for row, expected in zip(rows, constraints):
+    for row, expected in zip(rows, expected_rows):
         status = row.get("status")
         proposal = row.get("proposal")
         if status == "reference-only":

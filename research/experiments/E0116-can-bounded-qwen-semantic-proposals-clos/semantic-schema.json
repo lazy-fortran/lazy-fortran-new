@@ -4,7 +4,15 @@
     "and", "or", "not", "implies", "eq", "ne", "lt", "le", "gt", "ge",
     "in", "not-in", "present", "absent", "has", "type-is", "rank-is",
     "scalar", "constant", "unique", "same-as", "named", "accessible",
-    "derived", "processor-supports", "count-le", "count-ge"
+    "derived", "processor-supports", "count-le", "count-ge", "value",
+    "name-length", "exists", "named-constant", "has-kind-param",
+    "contains-deferred-binding", "inherits-deferred-binding", "resolved",
+    "has-deferred-type-parameter", "unlimited-polymorphic", "abstract-type",
+    "derived-type", "intrinsic-module", "nonintrinsic-module",
+    "intrinsic-type-name", "intrinsic-procedure", "abstract-interface",
+    "explicit-interface-procedure", "procedure-declaration", "declared-earlier",
+    "use-accessible", "declared-in-specification", "has-attribute", "bind-type", "sequence-type",
+    "in-table-16-2", "generic-name", "procedure-name"
   ],
   "facts": "lowercase kebab-case identifiers",
   "terms": "strings, integers, booleans, or nested lists of terms"

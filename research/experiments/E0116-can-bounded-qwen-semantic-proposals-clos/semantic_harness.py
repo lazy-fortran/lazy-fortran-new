@@ -27,6 +27,14 @@ ALLOWED_OPS = {
     "in", "not-in", "present", "absent", "has", "type-is", "rank-is",
     "scalar", "constant", "unique", "same-as", "named", "accessible",
     "derived", "processor-supports", "count-le", "count-ge",
+    "value", "name-length", "exists", "named-constant", "has-kind-param",
+    "contains-deferred-binding", "inherits-deferred-binding", "resolved",
+    "has-deferred-type-parameter", "unlimited-polymorphic", "abstract-type",
+    "derived-type", "intrinsic-module", "nonintrinsic-module",
+    "intrinsic-type-name", "intrinsic-procedure", "abstract-interface",
+    "explicit-interface-procedure", "procedure-declaration", "declared-earlier",
+    "use-accessible", "declared-in-specification", "has-attribute", "bind-type", "sequence-type",
+    "in-table-16-2", "generic-name", "procedure-name",
 }
 
 
@@ -150,7 +158,10 @@ class ConstraintEpisode:
         if self.source_bytes > self.max_source_bytes:
             raise GateError("source-byte budget exhausted")
         result_id = self._next_id()
-        page = common.containing_page(self.ranges, start, end - start)
+        try:
+            page = common.containing_page(self.ranges, start, end - start)
+        except common.InputError as exc:
+            raise GateError(f"evidence span is not contained by one page: {exc}") from exc
         record = {
             "result_id": result_id,
             "kind": kind,
@@ -261,6 +272,14 @@ class ConstraintEpisode:
             raise GateError(f"predicate constructor is not allowed: {op}")
         if not isinstance(args, list) or not 1 <= len(args) <= 8:
             raise GateError("predicate args must contain 1..8 values")
+        if op in {"eq", "ne", "lt", "le", "gt", "ge"} and len(args) >= 2:
+            left, right = args[0], args[1]
+            if (isinstance(left, str) and FACT_RE.fullmatch(left) and
+                    isinstance(right, str) and FACT_RE.fullmatch(right)):
+                raise GateError(
+                    "binary value relation compares two fact-like names; "
+                    "use a literal on the right or same-as for two fields"
+                )
         for arg in args:
             if isinstance(arg, dict) and "op" in arg:
                 cls._validate_predicate(arg)
@@ -273,6 +292,17 @@ class ConstraintEpisode:
             raise GateError(f"{field} must be a list of at most 16 facts")
         if any(not isinstance(value, str) or not FACT_RE.fullmatch(value) for value in values):
             raise GateError(f"{field} contains a malformed fact identifier")
+
+    @staticmethod
+    def _contains_op(node, wanted):
+        if isinstance(node, dict):
+            return node.get("op") == wanted or any(
+                ConstraintEpisode._contains_op(value, wanted)
+                for value in node.get("args", [])
+            )
+        if isinstance(node, list):
+            return any(ConstraintEpisode._contains_op(value, wanted) for value in node)
+        return False
 
     def submit_semantic(
         self,
@@ -307,6 +337,12 @@ class ConstraintEpisode:
         self._validate_facts(required_facts, "required_facts")
         self._validate_facts(provided_facts, "provided_facts")
         self._validate_predicate(predicate)
+        if (re.search(r"\bshall\s+not\b.*\bexcept\b", self.row["source_text"], re.IGNORECASE)
+                and not self._contains_op(predicate, "implies")):
+            return {
+                "status": "rejected",
+                "code": "exception-constraint-needs-implication",
+            }
         if witnesses is not None:
             if not isinstance(witnesses, list) or len(witnesses) > 8:
                 return {"status": "rejected", "code": "invalid-witness-list"}
@@ -375,6 +411,7 @@ class ConstraintEpisode:
 def _parse_sx(value):
     """Parse the small prior-control S-expression subset for exact controls."""
     tokens = re.findall(r"\(|\)|[^\s()]+", value)
+    parse_ops = set(ALLOWED_OPS)
     position = 0
 
     def parse():
@@ -387,16 +424,27 @@ def _parse_sx(value):
             if position >= len(tokens):
                 raise GateError("malformed prior predicate")
             op = tokens[position]
-            position += 1
-            args = []
-            while position < len(tokens) and tokens[position] != ")":
-                args.append(parse())
+            if op in parse_ops:
+                position += 1
+                args = []
+                while position < len(tokens) and tokens[position] != ")":
+                    args.append(parse())
+            else:
+                args = [parse()]
+                while position < len(tokens) and tokens[position] != ")":
+                    args.append(parse())
+                if position >= len(tokens):
+                    raise GateError("malformed prior predicate")
+                position += 1
+                return args
             if position >= len(tokens):
                 raise GateError("malformed prior predicate")
             position += 1
             return {"op": op, "args": args}
         if token == ")":
             raise GateError("malformed prior predicate")
+        if re.fullmatch(r"-?[0-9]+", token):
+            return int(token)
         return token
 
     result = parse()
