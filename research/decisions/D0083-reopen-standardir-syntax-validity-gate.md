@@ -1,7 +1,7 @@
 # D0083 — Reopen the StandardIR syntax-validity gate after independent audit
 
 Date: 2026-08-14
-Status: accepted
+Status: amended by D0084
 
 ## Context
 

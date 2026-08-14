@@ -1,7 +1,7 @@
 # D0080 — Run the Qwen 3.8 27B replication matrix next
 
 Date: 2026-08-14
-Status: accepted
+Status: superseded by D0084
 
 ## Context
 

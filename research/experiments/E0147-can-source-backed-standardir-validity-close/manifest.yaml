@@ -1,0 +1,81 @@
+id: "E0147"
+title: "Source-backed StandardIR validity audit"
+question: >
+  Can the complete selected StandardIR syntax profile be reconstructed from
+  source spans with generic continuation, notation and occurrence policies
+  that pass independent positive and negative controls?
+status: draft         # draft | running | reported | abandoned
+opened: "2026-08-14"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "05206850726b599137629306ef14e9eaffd931f2"
+  standard-new: "cc8a7e11b61037d50f8d2e46fdb7c362952d3737"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  canonical_text: E0001-R000003-j3-24-007-canonical-text
+  raw_standardir: E0013-R000002-j3-24-007-complete-core-standardir
+  historical_structural_audit: E0033
+
+variables:
+  source_boundary: [same_page, page_break, page_header_footer]
+  notation: [identifier, punctuation, unicode_operator, delimiter, ellipsis, list_form]
+  identity: [unique_occurrence, repeated_occurrence, identical_duplicate, conflicting_duplicate]
+  reference_class: [production, lexical, assumed_syntax, fixed_erratum, semantic_only, unresolved]
+
+model_selection: >
+  No model calls. Qwen 3.8 27B is a later residual-resolution option only
+  after this audit has produced a bounded, source-backed residue.
+
+metrics:
+  - production_occurrences_discovered
+  - continuation_spans_complete
+  - source_span_witnesses_passed
+  - notation_lexemes_classified
+  - malformed_notation_records
+  - duplicate_occurrences_explained
+  - reference_classes_closed
+  - unresolved_references
+  - positive_controls_passed
+  - negative_controls_rejected
+  - exportable_records
+  - target_validator_failures
+  - warnings
+  - model_calls
+
+denominator: >
+  Every numbered production occurrence in the selected complete-core span,
+  every source continuation attached to it, every normalized notation node and
+  every nonterminal-looking reference. The audit denominator includes the
+  declared positive and negative controls and is not reduced after inspection.
+
+independent_oracle: >
+  Independently authored source-span and notation witnesses, canonical source
+  bytes and page evidence, duplicate/occurrence checks, reference-closure
+  traversal, target validators and mutation controls. SX round-trip alone is
+  explicitly insufficient.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, standard-new-commit, source-sha256]
+
+falsifiable_by: >
+  A continuation is dropped or absorbs prose, a punctuation or Unicode glyph
+  is silently misclassified, two source occurrences collapse without an
+  explanation, a reference remains unclassified, a negative mutation passes,
+  or an export is generated from a non-source-valid record.
+
+gate: >
+  The complete selected profile has source-span-complete, notation-valid,
+  occurrence-explained and reference-classified records; all independent
+  positive and negative controls pass; only source-valid records feed grammar
+  exports; and the report names any explicit unsupported or unresolved residue.
+
+analysis: >
+  The terminal audit command is supplied and pinned by standard-new before the
+  first run. No run is valid until that command and its independent controls
+  are recorded in the run ledger.

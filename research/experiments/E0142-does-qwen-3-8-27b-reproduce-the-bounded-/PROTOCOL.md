@@ -1,6 +1,12 @@
 # E0142 protocol
 
-E0142 is wired but intentionally unstarted. It repeats the existing semantic
+This campaign is frozen and abandoned as of 2026-08-14 under D0084. E0112,
+E0113 and E0114 remain immutable historical cells. E0115 was interrupted at
+65 of 127 rows and is recorded as R000266. E0116, E0117 and E0123 must not be
+started from this protocol. The next Qwen 3.8 27B work begins only after the
+source-backed StandardIR validity gate in E0147 has produced a stable input.
+
+E0142 was wired as a replication campaign. It repeats the existing semantic
 experiments with the logical model profile `qwen38-27b` and the currently active
 local llama.cpp service at:
 
@@ -82,8 +88,7 @@ records and the heartbeat/ETA. The rule register, pipeline flows and source
 library connect those cases to StandardIR, MIR, TargetIR, ISA, ABI and
 microarchitecture material without copying it into this experiment.
 
-No later cell is started by creating this file. E0112 is the first active cell;
-its terminal validation must complete before the next protocol is launched.
-Before each cell, pin the preflight values in the run manifest. Adding another
-model requires a model profile and a run cell, not a copied plot
+No later cell is started by this file. Before any future model cell, pin the
+source-valid input and preflight values in a successor experiment manifest.
+Adding another model requires a model profile and a run cell, not a copied plot
 implementation.

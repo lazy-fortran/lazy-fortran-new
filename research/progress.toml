@@ -4,17 +4,17 @@
 # lines-of-code coverage and the unweighted total is only an orientation aid.
 
 [lanes.syntax]
-title = "StandardIR syntax and grammar exports"
-completed = 5
+title = "StandardIR syntax validity and grammar exports"
+completed = 2
 total = 5
-basis = "Five evidence gates: extraction, canonical SX, EBNF, ANTLR/Bison, tree-sitter and differential export checks."
-evidence = "E0013|E0016|E0017|E0018|E0019|E0129|E0134"
+basis = "Five gates: source extraction, canonical SX, source-valid right-hand sides, closed references, and export validation. The first two are structural gates; E0147 is required before the remaining three count."
+evidence = "E0013|E0016|E0017|E0018|E0019|E0129|E0134|E0147"
 
 [lanes.semantic]
 title = "Normative definitions and static semantics"
 completed = 1
 total = 4
-basis = "Source-backed semantic ledger exists; mechanical closure, witnessed promotion and full semantic execution remain separate gates."
+basis = "Source-backed semantic ledger exists; mechanical closure, witnessed promotion and full semantic execution remain separate gates. Historical model cells remain evidence and do not count as a current completion gate while D0084 freezes the lane."
 evidence = "E0141|E0115|E0116|E0117|E0123|E0142"
 
 [lanes.frontend]

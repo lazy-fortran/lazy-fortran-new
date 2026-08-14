@@ -33,10 +33,12 @@ E0131 is accepted as `R000239` at `fortback-new` commit
 RISC-V/AArch64 source normalization. E0130 is accepted as `R000240` at
 `fortfront-new` commit `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, providing a
 bounded parser-neutral frontier that preserves accepted, rejected, ambiguous
-and unresolved outcomes. E0142 is now the active M3 model replication. E0123
-is reported as `R000254`: its exact merge, replay validator and witness gate
-completed without row loss, but 69 rows remain unwitnessed and 94 disputed, so
-it promotes no semantic fact and does not close M3.
+and unresolved outcomes. E0142 is abandoned under D0084. Its completed cells
+remain immutable evidence; E0115 was stopped at 65 of 127 rows and is recorded
+as `R000266`, while E0116, E0117 and E0123 were not started in this campaign.
+E0123 is reported as `R000254`: its exact merge, replay validator and witness
+gate completed without row loss, but 69 rows remain unwitnessed and 94
+disputed, so it promotes no semantic fact and does not close M3.
 E0133 is
 accepted as `R000241` at `fortback-new` commit
 `deb66f94126143d76ea25c1faf197d5150c7c0f4`: no additional parsed family is
@@ -48,9 +50,10 @@ clearing without changing `mir-v0`. E0134 is accepted as `R000245` at the
 existing `standard-new` commit `25486db92b0805201fa90104dc6f637ecce84942`:
 the 519-record accepted composite emits all four grammar formats with 519
 provenance annotations, while the three source-only records remain explicit.
-E0142 is the active M3 model gate; the production slices do not block its
-semantic result. E0123's deterministic post-run gate is complete as `R000254`;
-its unresolved, disputed and unwitnessed outcomes remain part of the evidence.
+The E0142 model gate is frozen. Its results do not establish the next semantic
+input because the StandardIR syntax validity gate is open. E0123's
+deterministic post-run gate remains complete as `R000254`; its unresolved,
+disputed and unwitnessed outcomes remain part of the historical evidence.
 E0135 is accepted as `R000247` at `ffc-new` commit
 `335629b753f440b2960bf9fef0e6b275094c79ec`, adding a target-independent
 in-memory block-range table without revising `mir-v0`. E0136 is accepted as
@@ -85,15 +88,12 @@ query at `fortback-new` `a149015`. All four passed full `fo` with zero warnings;
 their task branches and worktrees are removed. These slices remain independent
 of semantic promotion.
 
-E0142 is the active model replication. New local runs use the
-logical `qwen38-27b` profile through the externally managed
-`http://127.0.0.1:8080/v1/chat/completions` endpoint; the harness does not
-start, stop, reload or reconfigure that service. It repeats the fixed-window,
-full-retrieval, bounded-tool, typed-predicate, required-witness and residual-
-retry protocols, with one fresh thinking-on episode only after a failed
-reasoning-off episode. Qwen 3.6 35B-A3B remains the historical control, and
-reported manifests and append-only runs are not rewritten. Visual cells are
-terminal `not_applicable` unless preflight proves image capability.
+E0142 is abandoned under D0084. The externally managed Qwen 3.8 27B service
+at `http://127.0.0.1:8080/v1/chat/completions` remains available for later,
+source-valid residual work. No model replication, model comparison, plot
+campaign or semantic promotion may resume until E0147 closes the
+source-backed StandardIR validity gate. Historical manifests and append-only
+runs remain unchanged except for the new stopped-run record `R000266`.
 
 The first valid E0142/E0112 cell is now terminal as `R000262`: strict
 pointer-only prompts and validation agree, with 4/4 solved-oracle overlap
@@ -103,12 +103,14 @@ failure because its prompts allowed target-bearing responses while the
 validator required pointer-only responses. The corrected runner and regression
 tests are in `1349c81`; no later E0142 cell has been started.
 
-The independent audit recorded in D0083 also reopens the StandardIR syntax
-validity gate. E0013/E0033 proved structural extraction, provenance,
-round-trip and projection reproducibility; they did not prove faithful
-right-hand sides. Page-continuation loss, punctuation attachment/classification
-and occurrence deduplication now require a new source-backed audit in
-`standard-new` before M1/M2 can again be called complete.
+The independent audit recorded in D0083 and expanded by D0084 reopens the
+StandardIR syntax validity gate. E0013/E0033 proved structural extraction,
+provenance, round-trip and projection reproducibility; they did not prove
+faithful right-hand sides. The concrete root causes are page-local
+continuation detection, whitespace tokenization, first-character terminal
+classification and R-number-only occurrence identity. E0147 is the required
+source-backed audit and repair boundary in `standard-new`; no model run may
+consume its output as normative grammar before that gate closes.
 
 The unified read-only research library is now the single human-facing browser
 for this state. Start it with `scripts/browse.sh serve`; D0082 supersedes the
@@ -120,11 +122,23 @@ material and backend. It writes no index or database and does not start work.
 The progress numbers are named evidence gates, not code-coverage claims; update
 them only when the corresponding gate is accepted and recorded in the ledger.
 
-**Active replication checklist — E0142 / Qwen 3.8 27B.** The service must be
-available on `127.0.0.1:8080` before the one-shot preflight. E0112 is now
-terminal; no later cell is started until it reaches its own terminal validation
-result. Complete these cells in order, retaining every terminal outcome and
-the historical control outputs:
+**Current goal-mode handoff.** In `../standard-new`, implement the generic
+source-backed StandardIR validity pipeline required by E0147. Reconstruct
+cross-page productions, lex and parse notation without whitespace or
+capitalization heuristics, separate source occurrences from canonical
+productions, classify the complete reference closure, and add independent
+positive and negative controls. Run the audit over the complete selected
+profile, repair the generic causes, regenerate the four grammar exports, and
+record the terminal E0147 result. Do not run E0142 or any older model matrix.
+Use Qwen 3.8 27B only after E0147 produces a bounded, source-valid residual,
+and only through a new experiment manifest with source-span and witness gates.
+
+**Frozen replication checklist — E0142 / Qwen 3.8 27B.** This checklist is
+retained as historical protocol documentation. It is not an execution queue.
+The campaign stopped under D0084 because its StandardIR-derived task input is
+not yet source-valid. E0112, E0113 and E0114 are terminal historical cells;
+E0115 stopped at 65 of 127 rows as `R000266`; E0116, E0117 and E0123 are
+deferred and must not be started from this checklist:
 
 The row sets are regenerated by the existing commands named in
 `research/experiments/E0142-does-qwen-3-8-27b-reproduce-the-bounded-/PROTOCOL.md`
@@ -148,40 +162,35 @@ changes a denominator.
       `.cache/runs/E0114/R000002/qwen38-27b-visual-first-off/`, recorded as
       `R000265`; Qwen 3.8 matched 5/6 targets, with five retained model errors
       and one hard failure).
-- [ ] E0115: repeat bounded native-tool evidence acquisition for 127 residue
-      rows and six solved-oracle rows.
-- [ ] E0116: repeat typed semantic proposals for all 287 constraint rows.
-- [ ] E0117: replay required witnesses for all 287 rows; this is a
-      deterministic gate, not extra model authority.
-- [ ] E0123: repeat the exact 53-row residual retry and retain its 234
-      immutable controls by exact row key.
-- [ ] Run every existing validator, replay and witness gate; append one
-      terminal run record and generate the comparison tables/plots.
-- [ ] After each experiment becomes terminal, run its dedicated E0142 plot
-      entry point and upload exactly one current PNG to slopbox. Keep PNG/PDF/
-      SVG outputs only under `.cache/runs/E0142/plots/`.
+- [ ] E0115: stopped at 65 of 127 rows, recorded as `R000266`; its preliminary
+      accepted count is not a terminal model result.
+- [ ] E0116: deferred until a source-valid semantic input exists.
+- [ ] E0117: deferred until a source-valid semantic input exists.
+- [ ] E0123: deferred until a source-valid predecessor exists.
+- [ ] E0147: run the source-backed StandardIR validity audit and generic repair
+      sequence below. This is the next experiment and uses no model calls.
+- [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
+      a new manifest and a source-span witness gate.
 
-D0080 fixes this as the immediate priority. No new model ladder or semantic
-promotion is started before the E0142 checklist has a complete terminal
-matrix. D0081 fixes the shared campaign/plot boundary: historical model rows
-remain visible, new Qwen 3.8 rows are added automatically, and later Qwen or
-Gemma profiles require no copied plotting code. The active campaign compares
-Qwen 3.8 27B against the retained Qwen 3.6 35B-A3B control; no other new model
-is scheduled now.
+D0084 fixes source validity as the immediate priority. No model ladder,
+semantic replication, comparison plot or promotion is started before E0147
+closes its gate. D0081 remains the plotting boundary for a later campaign:
+historical rows remain visible and new Qwen 3.8 rows are added automatically,
+but no new model row is scheduled now.
 
 The current pushed production pins are therefore `standard-new`
 `cc8a7e1`, `fortfront-new` `db5eaec`, `ffc-new` `3253849`, and `fortback-new`
-`a149015`. E0142 is the active M3 model replication; E0123's deterministic
-post-run gate is reported as `R000254`, and the production slices do not close
-semantic promotion.
+`a149015`. E0142 is abandoned; E0123's deterministic post-run gate is
+reported as `R000254`, and the production slices do not close semantic
+promotion.
 
 The reusable local runner now sends llama.cpp's per-request
 `chat_template_kwargs.enable_thinking` control for both reasoning modes and
 derives the strict response schema from the prompt manifest. The first retry
 also exposed a prompt-generation/validator pointer-contract mismatch; that
 cell is retained as `R000261`, and the regenerated strict prompt set produced
-the valid `R000262` result. No later E0142 cell starts until its predecessor
-has a terminal, validated result.
+the valid `R000262` result. E0142 is frozen and has no later cell to launch;
+any future Qwen run requires a successor manifest after E0147.
 
 ## Current position
 
@@ -752,9 +761,10 @@ rows were processed, the exact 53-row replacement set was verified, all 287
 rows were merged, and the negative control failed as expected. The merged
 ledger has 280 schema/source-gate-accepted rows, 4 hard failures and 2
 unresolved rows; the witness gate reports 69 unwitnessed and 94 disputed rows.
-No semantic fact was promoted. E0142 is the active model replication and
-repeats the seven protocol families listed in the checklist above with Qwen
-3.8 27B.
+No semantic fact was promoted. E0142 was the planned Qwen 3.8 27B replication,
+but D0084 stopped it because its source task layer is not yet source-valid.
+These semantic results remain historical controls and do not define the next
+input.
 
 D0073 fixes the repair boundary for this and later semantic runs: deterministic
 processing may repair transport representation, but may not rewrite predicate
@@ -772,8 +782,9 @@ repeated source forms compile mechanically. Qwen receives one local residual
 task and bounded source tools, and returns only a typed local fragment. It may
 not invent fact names, citations, dependencies or wiring. Schema, provenance,
 replay and independent witness gates decide acceptance; a schema-valid model
-proposal is not itself a semantic fact. E0142 applies this boundary with
-Qwen 3.8 27B, retaining every attempt, failure, timing, token count and
+proposal is not itself a semantic fact. Qwen 3.8 27B will apply this boundary
+only after E0147 produces a source-valid residual, in a new successor
+manifest that retains every attempt, failure, timing, token count and
 unavailable visual cell.
 
 D0075 fixes the next lexer boundary: source-defined lexical facts remain
@@ -850,7 +861,65 @@ no dispatch collisions, and its generated source compiles. Tree-sitter remains
 a separately reported derived differential export under D0029: its target
 conflict does not block this milestone or the production parser.
 
+### M1/M2 recovery sequence: source validity before model use
+
+E0147 is the next gate. The implementation belongs in `standard-new`; the lab
+owns the denominator, decision, manifest and run evidence. The production
+repair is one generic pipeline with these boundaries:
+
+1. Preserve canonical source evidence. Each production occurrence keeps its
+   raw lines, page rectangles, byte start and end, source rule and document
+   hash. A span may cross a page boundary. Page headers, footers and prose are
+   classified as layout or boundary records, not discarded before the grammar
+   parser sees them.
+2. Record occurrences before canonicalization. The identity key is the source
+   document hash, source byte span and occurrence ordinal. The normalized
+   production key is separate. Repeated identical occurrences, repeated
+   definitions and conflicting occurrences become explicit outcomes.
+3. Lex the notation with a source-independent token policy. The lexer must
+   separate punctuation, delimiters, Unicode operators, ellipsis, quoted
+   terminals and identifier-like metavariables even when the PDF has no spaces.
+   It must retain the raw lexeme and emit `unclassified` when policy cannot
+   decide. Capitalization and first-character tests are not grammar meaning.
+4. Parse notation before assigning StandardIR semantics. The parser produces a
+   lossless notation tree. A declared normalization table then maps only
+   supported alternatives, sequences, optional groups, repetition, terminals,
+   references and standard list forms into StandardIR nodes. A failed mapping
+   remains rejected or unresolved with its source witness.
+5. Audit continuation and source coverage independently. The audit compares
+   every accepted normalized expression with its complete canonical source
+   span. It has positive witnesses for same-page, cross-page, page-furniture,
+   punctuation, Unicode, ellipsis and list cases, plus mutation controls that
+   must fail when a continuation, token boundary or span is changed.
+6. Classify the reference closure. Every reference is reported as a numbered
+   production, lexical fact, R401/R402/R403 assumed syntax, fixed D0025 erratum,
+   semantic-only name or unresolved. An unresolved reference is a measured
+   state. It is not silently converted into a parser alias.
+7. Generate exports only from `source-valid` records. EBNF, ANTLR4, Bison,
+   tree-sitter and the direct parser receive the same accepted StandardIR
+   stream. Each export must retain source provenance, pass its own validator,
+   and report warnings and unsupported constructs separately.
+8. Close M1 and M2 separately. M1 closes when source spans, notation and
+   occurrence identity pass the independent audit. M2 closes only when the
+   selected reference profile is classified and every selected export passes
+   its target gate. Historical structural exports remain available for
+   comparison but cannot close either gate.
+
+The Qwen 3.8 27B path starts after step 8. It receives only the bounded
+source-backed residue produced by this pipeline. It may propose a typed local
+interpretation or unresolved state. Deterministic source checks, provenance,
+replay and independent witnesses decide acceptance. It never repairs the
+complete grammar, chooses wiring or changes the denominator. Semantic M3 work
+may be designed in parallel, but no result is promoted into compiler wiring
+until M1 and M2 are closed.
+
 ### M3. Source-backed Core 0 semantics (pending)
+
+The M3 model lane is frozen by D0084 until M1 and M2 have a source-valid
+StandardIR input. The paragraphs below record historical experiments and
+their gates. They are not an execution queue. The next Qwen 3.8 27B task is a
+new residual-resolution experiment created after E0147, not a continuation of
+E0142.
 
 Core 0 constraints, definitions, relations, and fact dependencies have a
 measured resolution state. D0046's structure-first extractor and E0106's
@@ -981,9 +1050,9 @@ schema-accepted proposals, four hard failures and two unresolved rows. Its
 deterministic validation, witness and exact row-key merge gates remain
 pending. D0073 still forbids semantic rewrites during that post-run gate.
 
-E0142 is now the current M3 execution plan. It repeats E0112, E0113, E0114,
-E0115, E0116, E0117 and E0123 with Qwen 3.8 27B on
-`127.0.0.1:8080`; the complete checklist and execution order are above.
+E0142 is abandoned. The next M3 execution plan is conditional: close E0147,
+construct the source-valid residual and then create a new Qwen 3.8 27B
+successor cell with the source-span and witness gates intact.
 
 The predecessor and source-oracle evidence remain historical controls. E0117
 is `R000193` with 233 schema-accepted proposals, 16 unresolved rows, 37 hard
@@ -1033,7 +1102,8 @@ checker, and generators. The result reports the deterministic, search,
 model-assisted, and handwritten fractions of the language-specific
 implementation.
 
-**Immediate syntax-closure gate (E0098 and D0029, complete):**
+**Historical syntax-closure projection (E0098 and D0029, structurally complete;
+source-validity reopened by D0084):**
 
 - [x] Reintegrate D0024, D0026, D0027 and fixed errata into the complete
       522-record projection. Do not use the narrower E0074 alias-only profile
@@ -1051,12 +1121,16 @@ implementation.
 - [x] Decide whether any residue warrants a small-model local proposal. No
       model is used to rediscover R401/R402/R403; E0098 required none.
 
-E0098 closes the source-side reference state: 469 explicit reference classes,
-100 assumed expansions, 5 lexical facts, 8 errata, and zero unresolved or
-disputed parser names. EBNF, ANTLR4, Bison and direct wiring pass. Tree-sitter
-still has the documented target-specific conflict after the compact one-group
-extension; D0029 makes that export non-gating. Regenerate with
+E0098 closes the historical source-side reference projection: 469 explicit
+reference classes, 100 assumed expansions, 5 lexical facts, 8 errata, and zero
+unresolved or disputed parser names in that projection. It does not establish
+that the extracted right-hand sides or source spans are faithful. EBNF,
+ANTLR4, Bison and direct wiring pass their historical structural gates.
+Tree-sitter still has the documented target-specific conflict after the
+compact one-group extension; D0029 makes that export non-gating. Regenerate with
 `research/experiments/E0098-can-the-current-complete-standardir-proj/analyse.sh`.
+E0147 must independently re-establish source validity before this projection
+can feed a normative parser.
 
 ---
 
@@ -1581,8 +1655,10 @@ contaminated by an incomplete integration layer.
 - [x] E0123: complete the already-run residual retry's exact row-key merge,
       validator, witness and mutation gates (`R000254`); retain its unresolved,
       disputed and unwitnessed outcomes and promote no semantic fact
-- [ ] E0142: repeat E0112, E0113, E0114, E0115, E0116, E0117 and E0123 with
-      Qwen 3.8 27B; follow the active replication checklist above
+- [ ] E0142: abandoned under D0084 after E0115 was stopped at 65 of 127 rows;
+      do not restart its matrix
+- [ ] E0147: close the source-backed StandardIR validity gate before any new
+      semantic model cell
 - [x] `unresolved` and `disputed` states exercised on real clauses, not just
       supported in principle (E0085 and E0086)
 - [x] Composite adjudication gate preserves the three states and excludes
