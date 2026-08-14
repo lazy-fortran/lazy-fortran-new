@@ -77,9 +77,9 @@ lowering gates.
 
 The current bounded production pins are `standard-new`
 `27329a701575f32776281f235290e465c5588105`, `fortfront-new`
-`bb9f4a08a0600b048823a0654d6282db16d893db`, `ffc-new`
+`4893474cc4b4f3675363a49e5ac4bc5df763e112`, `ffc-new`
 `76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
-`ddd960972006da6ba6a0b11122a30ae17da58441`, all on clean `main` branches
+`5150468b2417de47187cb554eda31c06820de50d`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

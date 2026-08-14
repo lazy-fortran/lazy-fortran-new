@@ -97,6 +97,13 @@ matching with zero mutation-control failures. The other 228 accepted model
 rows have explicit `oracle_unavailable` status, and no compiler fixture was
 safe to invoke. M3 remains open; this validates the gate rather than closing
 the semantic residue.
+E0120 is reported as `R000195`: a hash-pinned, generic sentence-form pass
+reconstructed 23 source-linked records over the 287 occurrence denominator,
+including 15 records beyond the E0083 baseline. It retained 258 unsupported
+and six no-match rows, accepted no ambiguous rows, made zero model calls and
+passed four mutation controls. This is an expanded independent source oracle,
+not semantic sufficiency or promotion. The next gate is an E0118 successor
+that generates finite cases from these 23 independently reconstructed records.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.

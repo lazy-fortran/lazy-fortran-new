@@ -362,6 +362,24 @@ deleted after push. E0119 is reported accepted as `R000192` for this first
 AST/wiring slice; the complete M4 lexer, parser, semantic and lowering gates
 remain pending.
 
+E0120 is now reported as `R000195`. Its generic sentence-form extractor
+reconstructed 23 source-linked constraint records from the pinned normative
+text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
+constraint occurrences, classified 258 as unsupported and six as no-match,
+accepted no ambiguous rows, made zero model calls, and passed four independent
+input/predicate mutation controls. The inventory is occurrence-based, so the
+two source rows carrying identifier C704 remain distinct. This expands the
+independent source oracle but does not validate semantic sufficiency or close
+M3; the next gate is to feed the expanded oracle into independently generated
+finite cases.
+
+The current production pins after the latest bounded integration wave are
+`fortfront-new` `4893474cc4b4f3675363a49e5ac4bc5df763e112` and
+`fortback-new` `5150468b2417de47187cb554eda31c06820de50d`; both are clean
+`main` branches with coordinator-side full `fo` verification. The StandardIR
+and FFC pins remain `27329a701575f32776281f235290e465c5588105` and
+`76f765bc1da01b6e4feb62354d743371b6467e55`.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A

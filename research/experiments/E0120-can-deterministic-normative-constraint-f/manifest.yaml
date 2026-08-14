@@ -7,10 +7,11 @@ question: >
 status: reported         # draft | running | reported | abandoned
 opened: "2026-08-14"
 closed: "2026-08-14"
+reported_run: R000195
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "5e85b532b5ee601ca86fecc305d9cf6f7265764a"
+  lazy-fortran-new: "1cd1308"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
