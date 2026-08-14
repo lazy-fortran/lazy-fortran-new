@@ -255,6 +255,11 @@ preserves mixed-target order and provenance and reuses generic lookup/codecs.
 Neither slice adds parser/token dispatch, semantic promotion, ISA-specific
 mnemonic branches, ABI/MIR wiring or a new cross-repository contract.
 
+E0128 is the active independent middle-end slice in `ffc-new`: it tests a
+complete target-independent opcode histogram over validated MIR function
+bodies. It must preserve `mir-v0`, clear output on malformed input, and add no
+target, ABI or backend behavior.
+
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
 round-trips normalized TargetIR encoding records through a private generic SX

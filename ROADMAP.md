@@ -22,7 +22,9 @@ normalized TargetIR table. E0126 is now accepted as `R000236` at
 `fortfront-new` commit `d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, providing
 language-neutral nullable and first-symbol fixed-point analysis over the flat
 grammar table. Neither semantic promotion nor parser/backend wiring is implied
-by these slices.
+by these slices. E0128 is now the active independent middle-end gate: a
+complete target-independent MIR opcode histogram over validated function
+bodies, with no `mir-v0` revision.
 
 ## Current position
 
