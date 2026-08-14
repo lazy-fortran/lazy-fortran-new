@@ -97,6 +97,13 @@ Execution may be chunked by model or hardware, but the analysis script reads
 the materialized matrix and reports missing cells. A model is not dropped when
 another model reaches a useful result.
 
+For an adaptive cell, `retry-incomplete.py` runs at most one declared retry for
+each unique incomplete candidate name. Retry output directories use a hash of
+the candidate name, so punctuation-only candidates cannot alter the output
+path. The first-pass rows remain the primary denominator; the combined result
+selects a retry row only for that same candidate and retains duplicate base
+rows.
+
 The primary text comparison is:
 
 ```text
