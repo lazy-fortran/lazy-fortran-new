@@ -143,6 +143,7 @@ Runs recorded: 250
 | E0139 | reported | 1 | Can TargetIR-v0 feature metadata be queried generically |
 | E0140 | reported | 1 | Can the generic MIR block table construct validated multi-block partitions |
 | E0141 | reported | 1 | Can source-backed semantic-items SX be canonicalized deterministically |
+| E0142 | draft | 0 | Does Qwen 3.8 27B reproduce the bounded semantic protocol stack |
 
 ## Run status
 
@@ -244,6 +245,7 @@ Runs recorded: 250
 | [D0076](decisions/D0076-versioned-standardir-grammar-handoff.md) | accepted |  | — Version the normalized StandardIR grammar handoff |
 | [D0077](decisions/D0077-keep-targetir-encoding-sx-private.md) | accepted |  | — Keep TargetIR encoding SX private until a consumer requires it |
 | [D0078](decisions/D0078-scale-reusable-mechanisms-before-more-witnesses.md) | accepted |  | Scale reusable mechanisms before adding more witnesses |
+| [D0079](decisions/D0079-qwen38-27b-default-replication.md) | accepted |  | — Use Qwen 3.8 27B as the default local replication model |
 
 ### Proposed decisions
 

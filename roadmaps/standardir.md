@@ -78,6 +78,17 @@ predicate for an ambiguous semantic clause. Schema, provenance and behavioral
 gates remain authoritative. Cross-model campaigns retain complete denominators
 and publish ignored plot artifacts through the slopbox handoff without adding a
 service to this repository.
+
+D0079 and E0142 define the next model replication boundary. New local runs
+default to logical profile `qwen38-27b` through the existing externally managed
+`127.0.0.1:8080` llama.cpp endpoint; the harness never starts, stops, reloads or
+reconfigures that service. Qwen 3.6 35B-A3B remains the historical control.
+E0142 repeats the existing fixed-window, full-retrieval, bounded-tool,
+typed-predicate, witness and residual-retry protocols without changing their
+gates. Reasoning is off first, with at most one fresh thinking-on episode after
+failure. Visual cells are explicitly `not_applicable` unless preflight proves
+image capability. Deterministic extraction, provenance, schema, replay,
+witnesses and promotion remain outside model control.
 D0060 closes the source-backed name/evidence subphase: the deterministic closure
 covers all 127 residue rows, and nine local Qwen/Gemma bounded-tool cells have
 recorded first-pass, one-retry and wall-time data. The adaptive matrix and

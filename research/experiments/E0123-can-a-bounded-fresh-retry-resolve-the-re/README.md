@@ -22,6 +22,7 @@ Planned run shape:
 research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/run-semantic.py \
   --outdir .cache/runs/E0123/R000001 \
   --retry-from .cache/runs/E0117/R000003-full/rows.jsonl \
+  --model qwen36-35b-a3b \
   --api-url http://10.77.0.10:8080/v1/chat/completions \
   --require-witnesses --escalate-thinking \
   --max-turns 32 --max-tokens 4096 --finalization-turns 3

@@ -1,0 +1,25 @@
+# Logical local model profiles for future experiments.
+# The service is externally managed. Runs must record the server-reported model,
+# model hash, llama.cpp commit/build and runtime settings during preflight.
+
+schema_version = 1
+default_model = "qwen38-27b"
+default_endpoint = "http://127.0.0.1:8080/v1/chat/completions"
+service_lifecycle = "external; do not start, stop, reload or reconfigure"
+inference_network = "local-only"
+
+[models.qwen38-27b]
+display_name = "Qwen 3.8 27B"
+request_model = "qwen38-27b"
+role = "default"
+modalities = ["text"]
+reasoning_policy = "off-first; fresh thinking-on episode after failure"
+runtime_pin = "record at preflight"
+
+[models.qwen36-35b-a3b]
+display_name = "Qwen 3.6 35B-A3B"
+request_model = "qwen36-35b-a3b"
+role = "historical-control"
+modalities = ["text"]
+reasoning_policy = "off-first; fresh thinking-on episode after failure"
+runtime_pin = "record at preflight"

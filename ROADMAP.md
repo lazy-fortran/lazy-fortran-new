@@ -72,6 +72,16 @@ E0141 is accepted as `R000252` at `standard-new`
 transactionally consumes source-backed semantic-items SX, preserving
 provenance and explicit resolution states without inferring semantic content.
 
+E0142 is the next planned, unstarted model replication. New local runs use the
+logical `qwen38-27b` profile through the externally managed
+`http://127.0.0.1:8080/v1/chat/completions` endpoint; the harness does not
+start, stop, reload or reconfigure that service. It repeats the fixed-window,
+full-retrieval, bounded-tool, typed-predicate, required-witness and residual-
+retry protocols, with one fresh thinking-on episode only after a failed
+reasoning-off episode. Qwen 3.6 35B-A3B remains the historical control, and
+reported manifests and append-only runs are not rewritten. Visual cells are
+terminal `not_applicable` unless preflight proves image capability.
+
 The current pushed production pins are therefore `standard-new`
 `5121aa5d79b988c1d0a62bae006288801449f64d`, `fortfront-new`
 `268e312dbd8ba11cce00d8581479cf47ec077061`, `ffc-new`
@@ -656,6 +666,17 @@ attempt remains retained.
 D0074 adds compact, generic constructor-shape examples to successor prompts
 after the E0123 predecessor's repeated nesting and fact-versus-literal gate
 errors. It does not relax validation or change E0123's pinned prompt.
+
+The semantic extraction boundary is now explicit. Deterministic processing
+extracts definitions, numbered constraints, cross-references, source spans,
+fact vocabulary and dependency candidates from canonical standard text;
+repeated source forms compile mechanically. Qwen receives one local residual
+task and bounded source tools, and returns only a typed local fragment. It may
+not invent fact names, citations, dependencies or wiring. Schema, provenance,
+replay and independent witness gates decide acceptance; a schema-valid model
+proposal is not itself a semantic fact. E0142 repeats this boundary with
+Qwen 3.8 27B, retaining every attempt, failure, timing, token count and
+unavailable visual cell.
 
 D0075 fixes the next lexer boundary: source-defined lexical facts remain
 source-backed data queried by generic code, while processor-defined facts are

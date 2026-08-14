@@ -27,8 +27,8 @@ E0081 = ROOT / "research/experiments/E0081-can-deterministic-source-patterns-inv
 def parser():
     result = argparse.ArgumentParser(description=__doc__)
     result.add_argument("--outdir", required=True)
-    result.add_argument("--model", default="qwen36-35b-a3b")
-    result.add_argument("--api-url", default="http://127.0.0.1:18080/v1/chat/completions")
+    result.add_argument("--model", default="qwen38-27b")
+    result.add_argument("--api-url", default="http://127.0.0.1:8080/v1/chat/completions")
     result.add_argument("--thinking", choices=("off", "on"), default="off")
     result.add_argument("--seed", type=int, default=11601)
     result.add_argument("--temperature", type=float, default=0.0)
