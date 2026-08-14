@@ -511,6 +511,14 @@ provenance, with malformed, range, capacity and output-clearing controls.
 requires a versioned serialized TargetIR contract; it does not add ISA
 dispatch, ABI, MIR or instruction selection.
 
+The next frontend handoff wave is in progress. `standard-new` is adding the
+source-backed adapter from its existing structured production records into
+`standardir-grammar-v0`; `fortfront-new` is adding the bounded reader for that
+contract's canonical SX. Both remain deterministic data boundaries: they do
+not add PDF heuristics, aliases, parser dispatch or semantic facts. Integration
+and run records follow only after independent malformed/provenance controls and
+coordinator-side `fo` pass.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287

@@ -248,6 +248,14 @@ zero warnings and malformed, range, overlap/order, unsupported-version,
 capacity and output-clearing controls. D0077 keeps this internal until a
 second production consumer requires a versioned cross-repository contract.
 
+The next frontend handoff wave is in progress. `standard-new` is adapting its
+existing source-backed structured production output into
+`standardir-grammar-v0`; `fortfront-new` is adding a bounded reader for that
+contract's canonical SX into its existing typed consumer. These are disjoint
+data-boundary slices and do not add PDF heuristics, aliases, parser dispatch or
+semantic facts. They are not integrated until coordinator-side review and
+full `fo` pass.
+
 The parallel middle-end slice is integrated at `ffc-new`
 `31a2b5df3d5de3486b5614a041d272e1daa6b3b1` and recorded as `R000231`. It
 exposes a validated target-independent instruction-count query with
