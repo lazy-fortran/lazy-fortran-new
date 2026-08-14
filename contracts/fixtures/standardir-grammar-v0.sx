@@ -9,7 +9,8 @@
   (nodes (grammar-nodes
     (grammar-node sequence - 1 false 2 2)
     (grammar-node reference program-unit 1 false 0 0)
-    (grammar-node repeat program-unit 1 true 0 0)))
+    (grammar-node repeat - 1 true 4 1)
+    (grammar-node reference program-unit 1 false 0 0)))
   (source (source-ref
     (document J3-24-007)
     (clause 5)
