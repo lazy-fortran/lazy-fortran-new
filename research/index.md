@@ -214,6 +214,7 @@ Runs recorded: 190
 | [D0068](decisions/D0068-upstream-llama-cpp-runtime.md) | superseded by D0070 |  | — Use the clean upstream llama.cpp main runtime for local semantic runs |
 | [D0069](decisions/D0069-model-witnesses-before-independent-promotion.md) | accepted | Amends D0061 | — Require concrete model witnesses before independent semantic promotion |
 | [D0070](decisions/D0070-latest-upstream-llama-cpp-main.md) | accepted | Supersedes D0068 | — Track the latest verified upstream llama.cpp main |
+| [D0071](decisions/D0071-frontend-ast-v0-contract.md) | accepted |  | — Separate the generated frontend AST contract |
 
 ### Proposed decisions
 
