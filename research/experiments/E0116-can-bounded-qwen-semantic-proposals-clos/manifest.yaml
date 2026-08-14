@@ -4,13 +4,13 @@ question: >
   Can one fixed Qwen 3.6 35B-A3B local model propose source-backed typed
   predicates for the complete Core 0 constraint inventory when deterministic
   tools own retrieval, schema validation and acceptance?
-status: draft            # draft | running | reported | abandoned
+status: running         # draft | running | reported | abandoned
 opened: "2026-08-14"
 closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "f896e2b"
+  lazy-fortran-new: "90be8cc"
   standard-new: "ae2ee71"
 
 inputs:
@@ -70,7 +70,13 @@ independent_oracle: >
 
 toolchain:
   record_in_run: true
-  fields: [compiler, fo, poppler, llama_cpp, model_sha256]
+  fields: [compiler, fo, poppler, llama_cpp, model_sha256, service_profile]
+  llama_cpp: "19e92c3"
+  model_sha256: "55983c5a75a1ab969824077b3bb3de4146e82a9234072b48ad4e8f92ad3fe9f1"
+  service_profile: >
+    mailuefterl local llama-server; Qwen 3.6 35B-A3B Q4_K_XL, 128K context,
+    ubatch 1024, q8_0 KV, flash attention on, no SSH tunnel, whisper-server
+    stopped to leave VRAM to the model, reasoning budget 0.
 
 falsifiable_by: >
   The run is falsified by a dropped or duplicated constraint, an accepted
