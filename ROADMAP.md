@@ -1,6 +1,6 @@
 # Roadmap
 
-Snapshot: 2026-08-13. Live repository state is reported by
+Snapshot: 2026-08-14. Live repository state is reported by
 `scripts/status.sh`. Experiment manifests pin the exact commits used by each
 result. The lab and `standard-new` checkouts are clean and their current
 default-branch CI state is reported separately from those immutable pins.
@@ -264,6 +264,13 @@ the canonical source-linked StandardIR syntax-item SX boundary in
 `fortfront-new`. Both were additive, warning-free, independently checked and
 cleaned after merge. The coordinator simultaneously completed E0106 in the
 laboratory, as required by D0047.
+
+Wave M then integrated the source-linked frontend diagnostic SX continuation,
+the validated `mir-v0` instruction accessor, and a source-backed RISC-V OR
+codec slice. Their exact production pins are maintained in
+`roadmaps/integration.md`; all three were checked with the full `fo` workflow
+and their task branches were removed after merge. These are bounded production
+advances only and do not close M3.
 
 ## Numbered milestones
 

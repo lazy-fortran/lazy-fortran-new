@@ -46,10 +46,12 @@ syntax-item SX slices. The coordinator completed E0106 concurrently. Their
 exact commits and gates are recorded in the run ledger; all task worktrees and
 branches were removed after merge.
 
-The current bounded production pins are `ffc-new` `fc0e7e2107a834b701eea8d547700fb0a800d358`
-and `fortback-new` `805e8243d4fe37238b80bbbec524d7954e27ac8a`, both on clean
-`main` branches tracking `origin/main`. The corresponding StandardIR checkout
-used by E0116 is `standard-new` `ae2ee71c42d2da4cfea28c0093408e375317987b`.
+The current bounded production pins are `fortfront-new`
+`bcee6f5d2df52db10b30fbe228bd6aca38bbe353`, `ffc-new`
+`471dade524580543b14b8f25f424643ad29bcff3`, and `fortback-new`
+`cbf52e0144c6dad41847692df734ae0d2083d4b2`, all on clean `main` branches
+tracking `origin/main`. The corresponding StandardIR checkout used by E0116
+is `standard-new` `ae2ee71c42d2da4cfea28c0093408e375317987b`.
 Verify any pin with `git -C ../<repo> cat-file -t <commit>` and the branch
 state with `git -C ../<repo> status --short --branch`.
 
