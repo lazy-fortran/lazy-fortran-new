@@ -1,7 +1,7 @@
 # D0068 — Use the clean upstream llama.cpp main runtime for local semantic runs
 
 Date: 2026-08-14
-Status: accepted
+Status: superseded by D0070
 
 ## Context
 

@@ -210,8 +210,9 @@ Runs recorded: 190
 | [D0065](decisions/D0065-bounded-semantic-output-and-relation-residuals.md) | amended by D0066 | Amends D0064 | — Give semantic proposals enough output and a generic residual relation |
 | [D0066](decisions/D0066-repair-qwen-tool-dialogue.md) | amended by D0067 | Amends D0065 | — Repair the bounded Qwen tool dialogue generically |
 | [D0067](decisions/D0067-bounded-dialogue-recovery-and-thinking-escalation.md) | accepted | Amends D0066 | — Bound dialogue recovery, telemetry and thinking escalation |
-| [D0068](decisions/D0068-upstream-llama-cpp-runtime.md) | accepted |  | — Use the clean upstream llama.cpp main runtime for local semantic runs |
+| [D0068](decisions/D0068-upstream-llama-cpp-runtime.md) | superseded by D0070 |  | — Use the clean upstream llama.cpp main runtime for local semantic runs |
 | [D0069](decisions/D0069-model-witnesses-before-independent-promotion.md) | accepted | Amends D0061 | — Require concrete model witnesses before independent semantic promotion |
+| [D0070](decisions/D0070-latest-upstream-llama-cpp-main.md) | accepted | Supersedes D0068 | — Track the latest verified upstream llama.cpp main |
 
 ### Proposed decisions
 

@@ -26,11 +26,12 @@ semantic-item adapter, bounded semantic-item table, and explicit resolution
 queries are integrated. The legacy interchange format remains unchanged.
 Semantic formalization remains a separate lane within the laboratory's Phase 1
 gate and must not be smuggled into syntax aliases; unresolved and disputed
-states remain representable. D0046's structure-index slice and the generated
-typed consumer callback contract and source-linked sequence consumer are
-integrated in `standard-new` at `145b3ec`. Their output remains evidence rather
-than semantic
-facts. The recovered ordering repair is integrated at `standard-new` commit
+states remain representable. D0046's structure-index slice, the generated
+typed consumer callback contract, the source-linked sequence consumer, and the
+generated list-element consumer are integrated in `standard-new` at
+`27329a701575f32776281f235290e465c5588105`. Their output remains evidence
+rather than semantic facts. The recovered ordering repair is integrated at
+`standard-new` commit
 `a25eae1d1a98703bcf717cf4406c4e797cdeb2b4` and adds no semantic aliases. E0106 measured it against the pinned
 E0100/E0104 residue; no alias or
 relation promotion followed from the index. D0048 now defines the strict
@@ -43,9 +44,10 @@ evidence window. D0052/D0053 now define E0113's full-document retrieval,
 bounded repair, total timing and six-row solved-translation oracle, plus
 E0114's separate visual-first PDF-page control. Both are reported with
 failures retained; neither promoted semantic facts or added parser wiring.
-D0055 pins the current llama.cpp b10405 runtime and records the conservative
+D0055 pins the historical llama.cpp b10405 runtime and records the conservative
 Gemma 4 configuration after the old scheduler assertion was isolated as a
-toolchain failure. D0054 defines
+toolchain failure. D0070 supersedes D0068 for future local runs and pins the
+latest verified upstream `master`; D0054 defines
 E0115's bounded native-tool evidence protocol: the model may search and read
 source-backed spans, but the deterministic gate still derives targets and
 citations. D0056 makes E0115 local-only: only the declared Qwen and Gemma

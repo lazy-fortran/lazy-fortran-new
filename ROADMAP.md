@@ -321,6 +321,13 @@ Wave U also integrated the delayed validated MIR function-body query in
 `ffc-new` at `0beb88c`; its source-preserving and malformed-body tests passed
 the full `fo` gate. No other Wave U slice produced a verified change.
 
+Wave V integrated the StandardIR list-element consumer and generated-output
+freshness gate, the frontend diagnostic-count query, the MIR function-block
+count query, and the source-backed AArch64 LDR literal codec. Each accepted
+slice passed its independent tests and the full `fo` gate; all task branches
+were deleted after push. The slices remain contract work and do not promote
+semantic facts or close M3.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
@@ -445,9 +452,10 @@ forced-tool consumption, submit-only finalization, llama.cpp timing telemetry,
 and an explicit fresh thinking-on escalation for failed no-thinking rows. The
 local Qwen service must expose a bounded reasoning budget for that fallback;
 normal rows still request thinking off.
-[D0068] pins the semantic service to a clean CUDA build of upstream llama.cpp
-`650913862` (build 10427), installed beside the old runtime with a reversible
-versioned service path.
+[D0070] supersedes D0068 for future runs: the semantic service advances to a
+clean CUDA build of the latest verified upstream llama.cpp `master`, installed
+beside the old runtimes with a reversible versioned service path. The active
+E0117 run retains its original `650913862` runtime pin and is not rewritten.
 [D0069] requires the next proposal protocol to carry concrete fact maps and
 expected outcomes. The deterministic evaluator may report self-consistency,
 but self-consistency is not independent semantic promotion.
