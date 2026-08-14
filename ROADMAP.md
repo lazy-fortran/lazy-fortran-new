@@ -18,9 +18,11 @@ intended it. A phase ends when its gate is demonstrated by a named artifact.
 source-backed grammar producer to ordered transactional batches. E0127 is also
 accepted as `R000235` at `fortback-new` commit
 `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0`, providing a bounded mixed-target
-normalized TargetIR table. E0126 remains the active parallel gate for generic
-grammar fixed-point analysis. Neither semantic promotion nor parser/backend
-wiring is implied by these slices.
+normalized TargetIR table. E0126 is now accepted as `R000236` at
+`fortfront-new` commit `d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, providing
+language-neutral nullable and first-symbol fixed-point analysis over the flat
+grammar table. Neither semantic promotion nor parser/backend wiring is implied
+by these slices.
 
 ## Current position
 
@@ -518,14 +520,15 @@ The scale wave runs from the pushed checkpoint `06a9859`. E0125 is accepted at
 `standard-new` commit `d8740159f2fcfee359480d77f4391ef1edd0550c` (`R000234`):
 the source-backed grammar producer now batches ordered records transactionally
 and preserves the single-record result, provenance and failure clearing. E0126
-tests generic nullable/first-set analysis over the caller-supplied grammar
-table in `fortfront-new`. E0127 is accepted at `fortback-new` commit
+is accepted at `fortfront-new` commit
+`d37e7a62d25a168eb9dd54bc79e36ffd410275bf` (`R000236`): its language-neutral
+analysis computes nullable and first-symbol fixed points over the flat table,
+with explicit unresolved and overlapping-first states. E0127 is accepted at
+`fortback-new` commit
 `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0` (`R000235`): its bounded table
 preserves mixed-target order and provenance and reuses generic lookup/codecs.
-E0126 remains the disjoint deterministic slice in flight. It must demonstrate
-fixed-point structure with independent negative controls and a zero-warning
-`fo` gate. Neither slice may add parser/token dispatch, semantic promotion,
-ISA mnemonic branches, ABI/MIR wiring or a new cross-repository contract.
+Neither slice adds parser/token dispatch, semantic promotion, ISA mnemonic
+branches, ABI/MIR wiring or a new cross-repository contract.
 
 The parallel backend slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -598,7 +601,7 @@ the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `d8740159f2fcfee359480d77f4391ef1edd0550c`,
-`fortfront-new` `fe3dde3d1fabf89055d7c2494892b243fd4df0b9`, and
+`fortfront-new` `d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, and
 `fortback-new` `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `31a2b5df3d5de3486b5614a041d272e1daa6b3b1`.

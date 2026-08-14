@@ -245,16 +245,15 @@ accepted; full-document production and parser generation remain open.
 The scale wave runs from lab checkpoint `06a9859`. E0125 is accepted at
 `standard-new` commit `d8740159f2fcfee359480d77f4391ef1edd0550c` as `R000234`:
 the source-backed grammar producer now batches ordered records transactionally
-while preserving the single-record result and provenance. E0126 adds generic
-nullable/first-set analysis in `fortfront-new`, and E0127 adds a bounded
-normalized TargetIR table in `fortback-new`; both remain in flight. The
-slices are disjoint and deterministic. E0127 is accepted at `fortback-new`
-commit `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0` as `R000235`: its bounded
-table preserves mixed-target order and provenance and reuses generic
-lookup/codecs. E0126 remains in flight. Neither slice may add parser/token
-dispatch, semantic promotion, ISA-specific mnemonic branches, ABI/MIR wiring
-or a new cross-repository contract; each retains independent negative
-controls and must pass full `fo` with zero warnings before integration.
+while preserving the single-record result and provenance. E0126 is accepted
+at `fortfront-new` commit `d37e7a62d25a168eb9dd54bc79e36ffd410275bf` as
+`R000236`: its language-neutral analysis computes nullable and first-symbol
+fixed points over the flat table, with explicit unresolved and overlapping-
+first states. E0127 is accepted at `fortback-new` commit
+`fbeedd4c8c232116bdf6e9389f6a698ba7f787b0` as `R000235`: its bounded table
+preserves mixed-target order and provenance and reuses generic lookup/codecs.
+Neither slice adds parser/token dispatch, semantic promotion, ISA-specific
+mnemonic branches, ABI/MIR wiring or a new cross-repository contract.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -278,7 +277,7 @@ behavior.
 
 The current bounded production pins are `standard-new`
 `d8740159f2fcfee359480d77f4391ef1edd0550c`, `fortfront-new`
-`fe3dde3d1fabf89055d7c2494892b243fd4df0b9`, `ffc-new`
+`d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, `ffc-new`
 `31a2b5df3d5de3486b5614a041d272e1daa6b3b1`, and `fortback-new`
 `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`

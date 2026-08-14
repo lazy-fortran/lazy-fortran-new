@@ -20,7 +20,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`fe3dde3d1fabf89055d7c2494892b243fd4df0b9`. The bounded parser-quality
+`d37e7a62d25a168eb9dd54bc79e36ffd410275bf`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -105,11 +105,13 @@ as `R000233`. E0124 accepts the declared source-witness handoff with
 structural, provenance, malformed-input, resolution and capacity controls.
 Parser state, tokenization and deterministic parser generation remain pending.
 
-E0126 is the current scale slice. It tests a generic nullable/first-set
-fixed-point analysis over the caller-supplied grammar table. The analyzer must
-retain unknown, unresolved and ambiguous states and must not introduce token
-policy, parser state or Fortran-specific dispatch. Its gate is an independent
-witness matrix and a warning-free full `fo` run.
+E0126 is accepted as `R000236` at `fortfront-new` commit
+`d37e7a62d25a168eb9dd54bc79e36ffd410275bf`. It provides generic nullable and
+first-symbol fixed-point analysis over the caller-supplied grammar table,
+retaining unknown, unresolved and overlapping-first states. Optional and
+repeat are represented by the existing flat epsilon/recursive form. It does
+not introduce token policy, parser state or Fortran-specific dispatch; the
+independent witness matrix and warning-free full `fo` gate passed.
 
 ## Exit and handoff
 

@@ -2,14 +2,16 @@ id: "E0126"
 title: "Generic grammar nullable and first-set analysis"
 question: >
   Can the stored StandardIR grammar table provide deterministic generic nullable and first-set analysis without language-specific parser policy?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000236
+reported_runs: [R000236]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: 06a9859
-  fortfront-new: fe3dde3d1fabf89055d7c2494892b243fd4df0b9
+  fortfront-new: d37e7a62d25a168eb9dd54bc79e36ffd410275bf
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
