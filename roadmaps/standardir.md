@@ -26,8 +26,9 @@ semantic-item adapter, bounded semantic-item table, and explicit resolution
 queries are integrated. The legacy interchange format remains unchanged.
 Semantic formalization remains a separate lane within the laboratory's Phase 1
 gate and must not be smuggled into syntax aliases; unresolved and disputed
-states remain representable. D0046's structure-index slice is integrated in
-`standard-new` at `e98f1ae`. Its output remains evidence rather than semantic
+states remain representable. D0046's structure-index slice and the generated
+typed consumer callback contract are integrated in `standard-new` at
+`07c2418`. Their output remains evidence rather than semantic
 facts. E0106 measured it against the pinned E0100/E0104 residue; no alias or
 relation promotion followed from the index. D0048 now defines the strict
 source-form acceptance boundary. D0049, amended by D0050, authorizes one final

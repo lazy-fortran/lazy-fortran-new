@@ -17,7 +17,7 @@ SX, standalone typed program-declaration SX boundary, bounded typed
 program-unit aggregate, bounded semantic-table consumer, generic
 semantic-witness validator, and typed source-linked diagnostic SX boundary are
 integrated, and the bounded result-to-program-unit boundary is now at
-`fortfront-new` commit `ec3ede6962bb8e5c3d5329a2352249d634351b33`. Only the
+`fortfront-new` commit `04c9064e26ba54302ee2a8c58531c53bb9486980`. Only the
 first two steps depend on M2. Diagnostic and semantic
 slices may run in parallel once their StandardIR records and provenance fields
 are pinned.

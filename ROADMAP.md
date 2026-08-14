@@ -285,6 +285,12 @@ source-backed RISC-V SLL codec. Each passed the full `fo` gate and its
 independent behavioral tests; all task branches were removed after push. The
 semantic promotion gate remains unchanged.
 
+Wave P then integrated the generated typed StandardIR consumer callback
+contract, the frontend-to-MIR program-unit SX handoff, the MIR frontend-handoff
+boundary, and a source-backed AArch64 ADR codec. All four production mains are
+clean and pushed after full `fo` verification; none changes the semantic
+promotion rule.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
