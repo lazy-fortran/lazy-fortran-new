@@ -111,7 +111,13 @@ def main():
             continue
         source_row = by_key[row["row_key"]]
         episode = harness.ConstraintEpisode(raw, ranges, constraints, source_row, prior)
-        source = episode.read_constraint()["source_text"]
+        try:
+            source = episode.read_constraint()["source_text"]
+        except harness.GateError as exc:
+            result["status"] = "unwitnessed"
+            result["reason"] = str(exc)
+            results.append(result)
+            continue
         expected = exception_predicate(source)
         if expected is None:
             result["status"] = "unwitnessed"

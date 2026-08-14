@@ -35,6 +35,8 @@ def parser():
     result.add_argument("--max-turns", type=int, default=20)
     result.add_argument("--limit", type=int, default=0)
     result.add_argument("--only-constraint", default="")
+    result.add_argument("--retry-from", default="",
+                        help="retry unresolved/hard-failure row keys from a prior rows.jsonl")
     result.add_argument("--canonical", default=str(ROOT / ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"))
     result.add_argument("--pages", default=str(ROOT / ".cache/runs/E0001/R000003/j3-24-007.pages.index"))
     result.add_argument("--source-sha256", default=harness.SOURCE_HASH)
@@ -72,8 +74,18 @@ def tool_spec():
     return json.loads((HERE / "tool-schema.json").read_text(encoding="utf-8"))["tools"]
 
 
-def system_prompt(row):
+def system_prompt(row, prior):
     rules = ", ".join(row["associated_rules"])
+    control = prior.get(row["constraint_id"])
+    control_hint = ""
+    if control is not None:
+        control_hint = f"""
+This row is an independent accepted-control replay. Reproduce this canonical
+control exactly; it is not a new interpretation:
+required_facts={json.dumps(control['required_facts'], sort_keys=True)}
+provided_facts={json.dumps(control['provided_facts'], sort_keys=True)}
+predicate={json.dumps(harness._parse_sx(control['predicate']), sort_keys=True)}
+"""
     return f"""You are a semantic formalization assistant for the Fortran standard.
 Work only through the declared tools. The current source-backed constraint is
 {row['constraint_id']} associated with {rules}.
@@ -111,7 +123,8 @@ fact-like names; use same-as for field-to-field identity. Use JSON arrays for
 finite domains, not an invented predicate or executable expression. For a
 clause of the generic form “X shall not be Y except in context Z”, use the
 canonical shape implies(forbidden-condition, allowed-context), rather than a
-negated conjunction."""
+negated conjunction.
+{control_hint}"""
 
 
 def user_prompt(row):
@@ -159,7 +172,7 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
         return result
     episode = harness.ConstraintEpisode(raw, ranges, rows, row, prior)
     messages = [
-        {"role": "system", "content": system_prompt(row)},
+        {"role": "system", "content": system_prompt(row, prior)},
         {"role": "user", "content": user_prompt(row)},
     ]
     events = []
@@ -283,6 +296,17 @@ def main():
             raise SystemExit(f"E0116 runner: unknown constraint: {args.only_constraint}")
     if args.limit:
         rows = rows[: args.limit]
+    if args.retry_from:
+        prior_rows = [
+            json.loads(line)
+            for line in Path(args.retry_from).read_text(encoding="utf-8").splitlines()
+            if line
+        ]
+        retry_keys = {
+            item["row_key"] for item in prior_rows
+            if item.get("status") in {"unresolved", "hard_failure"}
+        }
+        rows = [row for row in rows if row["row_key"] in retry_keys]
     started = time.monotonic()
     results = []
     tools = tool_spec()

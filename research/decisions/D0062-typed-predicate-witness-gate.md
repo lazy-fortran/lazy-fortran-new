@@ -1,6 +1,6 @@
 # D0062 — Make typed semantic proposals value-directed and witness-gated
 
-Status: accepted
+Status: amended by D0063
 Date: 2026-08-14
 Amends: D0061
 

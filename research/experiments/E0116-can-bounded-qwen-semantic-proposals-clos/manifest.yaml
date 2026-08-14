@@ -50,6 +50,9 @@ metrics:
   - duplicate_constraint_rows
   - parser_projection_records
   - semantic_promotions
+  - witness_promoted_rows
+  - witness_disputed_rows
+  - witness_unwitnessed_rows
   - negative_control
 
 denominator: >
@@ -90,7 +93,9 @@ gate: >
   deterministic schema/source gate, compare prior accepted controls exactly,
   retain all failed or unresolved rows, pass the independent replay and
   mutation checks, and emit zero parser projections. This experiment records
-  semantic proposals; promotion requires the later witness gate.
+  semantic proposals; promotion requires the later witness gate. D0063 permits
+  one validated retry over only unresolved or hard-failure row keys, with both
+  attempts retained.
 
 analysis: >
   research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/validate.py
