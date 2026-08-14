@@ -486,21 +486,24 @@ remain open.
 D0076 now defines the next cross-repository syntax boundary as
 `standardir-grammar-v0`: a source-backed flat preorder node table that retains
 reference, token, sequence, choice, optional and repeat structure. The
-producer/consumer implementation wave is in progress in `standard-new` and
-`fortfront-new`. This contract is an input to deterministic generation; it is
-not itself a parser and does not authorize copying grammar payloads into the
-frontend.
+producer/consumer implementation wave is integrated for the declared
+source-witness handoff. This contract is an input to deterministic generation;
+it is not itself a parser and does not authorize copying grammar payloads into
+the frontend.
 
-The frontend half of D0076 is now integrated at
-`fortfront-new` `49dd337728df9bbcc451042ed11a26842f92341b` and recorded as
-`R000228`. It is a typed consumer boundary with independent malformed,
-provenance and resolution controls; it does not claim that `standard-new`
-already emits the new contract. The source-backed producer is now integrated
-at `standard-new` `071acf5cc23200441b28309b50a6c8ccd5922e0e` and recorded as
-`R000229`. It validates and canonically reads/writes the flat node contract,
-including nested structure and provenance, but does not apply the contract to
-PDF text or invent parser dispatch. The full producer-to-consumer pipeline
-gate remains open.
+The typed consumer boundary from D0076 remains integrated at `fortfront-new`
+`49dd337728df9bbcc451042ed11a26842f92341b` as `R000228`. The source-backed
+producer boundary remains integrated at `standard-new`
+`071acf5cc23200441b28309b50a6c8ccd5922e0e` as `R000229`. E0124 then connects
+the actual source-side structured production records to the contract at
+`standard-new` `4b7b0650db93b32636398e33f6be86c89c685d5e` (`R000232`) and
+reads the canonical contract SX into the typed frontend consumer at
+`fortfront-new` `fe3dde3d1fabf89055d7c2494892b243fd4df0b9` (`R000233`). Both
+passed the declared positive and negative witness gate, including nested
+structure, alternatives, provenance, origin/resolution and output clearing.
+E0124 is accepted for its declared witness denominator; full-document
+production and parser generation remain open. Neither slice adds PDF
+heuristics, aliases, parser dispatch or semantic facts.
 
 The parallel backend slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -510,14 +513,6 @@ provenance, with malformed, range, capacity and output-clearing controls.
 `D0077` keeps this representation private until a second production consumer
 requires a versioned serialized TargetIR contract; it does not add ISA
 dispatch, ABI, MIR or instruction selection.
-
-The next frontend handoff wave is in progress. `standard-new` is adding the
-source-backed adapter from its existing structured production records into
-`standardir-grammar-v0`; `fortfront-new` is adding the bounded reader for that
-contract's canonical SX. Both remain deterministic data boundaries: they do
-not add PDF heuristics, aliases, parser dispatch or semantic facts. Integration
-and run records follow only after independent malformed/provenance controls and
-coordinator-side `fo` pass.
 
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
@@ -575,8 +570,8 @@ production lookup slice is integrated in `standard-new` and recorded as
 the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
-`standard-new` `071acf5cc23200441b28309b50a6c8ccd5922e0e`,
-`fortfront-new` `49dd337728df9bbcc451042ed11a26842f92341b`, and
+`standard-new` `4b7b0650db93b32636398e33f6be86c89c685d5e`,
+`fortfront-new` `fe3dde3d1fabf89055d7c2494892b243fd4df0b9`, and
 `fortback-new` `c68bf54844fbdbb79f012c5e5e977dacc6301ce2`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `31a2b5df3d5de3486b5614a041d272e1daa6b3b1`.

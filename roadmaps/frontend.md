@@ -20,7 +20,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`49dd337728df9bbcc451042ed11a26842f92341b`. The bounded parser-quality
+`fe3dde3d1fabf89055d7c2494892b243fd4df0b9`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -94,16 +94,16 @@ retaining rule identity and provenance. This is still one-step candidate
 generation; parser state, frontier management, backtracking and tokenization
 remain separate gates.
 
-D0076's `standardir-grammar-v0` consumer is the next handoff: it validates the
-source-backed flat node tree before any deterministic parser generation. The
-consumer must retain unresolved/disputed status as non-accepted input and must
-not turn the contract into Fortran-specific token dispatch.
-The typed consumer boundary is integrated at `fortfront-new` commit
-`49dd337728df9bbcc451042ed11a26842f92341b`: it validates the flat
-`standardir-grammar-v0` node shape, preserves provenance/origin/resolution,
-rejects unresolved and disputed rules, and projects leaf sequences into the
-generic candidate machinery. The StandardIR producer and source-to-consumer
-pipeline remain pending.
+D0076's `standardir-grammar-v0` consumer validates the source-backed flat node
+tree before any deterministic parser generation. It retains
+unresolved/disputed status as non-accepted input and does not turn the
+contract into Fortran-specific token dispatch. The typed consumer boundary is
+integrated at `fortfront-new` commit `49dd337728df9bbcc451042ed11a26842f92341b`
+as `R000228`; its bounded canonical SX reader and the source-to-consumer
+continuation are integrated at `fe3dde3d1fabf89055d7c2494892b243fd4df0b9`
+as `R000233`. E0124 accepts the declared source-witness handoff with
+structural, provenance, malformed-input, resolution and capacity controls.
+Parser state, tokenization and deterministic parser generation remain pending.
 
 ## Exit and handoff
 

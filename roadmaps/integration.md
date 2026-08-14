@@ -231,13 +231,16 @@ leaving ambiguity explicit. Both passed coordinator-side full `fo` with zero
 warnings and are recorded as `R000226` and `R000227`. No parser state,
 backtracking, ISA dispatch, ABI, MIR or instruction selection was added.
 
-The StandardIR half of D0076 is now integrated at `standard-new`
-`071acf5cc23200441b28309b50a6c8ccd5922e0e` and recorded as `R000229`. The
-typed producer validates and canonically reads/writes all six normalized node
-kinds, nested optional/repeat/choice/group structure, alternative order and
-source provenance. It does not apply the contract to PDF text, invent aliases
-or choose parser dispatch. The producer-to-consumer pipeline remains the next
-frontend handoff gate.
+The StandardIR half of D0076 is integrated at `standard-new`
+`071acf5cc23200441b28309b50a6c8ccd5922e0e` as `R000229`; its source-backed
+application bridge is integrated at `4b7b0650db93b32636398e33f6be86c89c685d5e`
+as `R000232`. The parallel frontend SX reader is integrated at
+`fortfront-new` `fe3dde3d1fabf89055d7c2494892b243fd4df0b9` as `R000233`.
+Together E0124 validates the declared source-witness producer → canonical SX
+→ typed consumer handoff, preserving all six node kinds, nested structure,
+alternative order, provenance and resolution, with explicit malformed,
+unresolved, capacity and output-clearing controls. The witness gate is
+accepted; full-document production and parser generation remain open.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -248,14 +251,6 @@ zero warnings and malformed, range, overlap/order, unsupported-version,
 capacity and output-clearing controls. D0077 keeps this internal until a
 second production consumer requires a versioned cross-repository contract.
 
-The next frontend handoff wave is in progress. `standard-new` is adapting its
-existing source-backed structured production output into
-`standardir-grammar-v0`; `fortfront-new` is adding a bounded reader for that
-contract's canonical SX into its existing typed consumer. These are disjoint
-data-boundary slices and do not add PDF heuristics, aliases, parser dispatch or
-semantic facts. They are not integrated until coordinator-side review and
-full `fo` pass.
-
 The parallel middle-end slice is integrated at `ffc-new`
 `31a2b5df3d5de3486b5614a041d272e1daa6b3b1` and recorded as `R000231`. It
 exposes a validated target-independent instruction-count query with
@@ -264,8 +259,8 @@ controls. It does not change `mir-v0`, opcodes, lowering, backend, ISA or ABI
 behavior.
 
 The current bounded production pins are `standard-new`
-`071acf5cc23200441b28309b50a6c8ccd5922e0e`, `fortfront-new`
-`49dd337728df9bbcc451042ed11a26842f92341b`, `ffc-new`
+`4b7b0650db93b32636398e33f6be86c89c685d5e`, `fortfront-new`
+`fe3dde3d1fabf89055d7c2494892b243fd4df0b9`, `ffc-new`
 `31a2b5df3d5de3486b5614a041d272e1daa6b3b1`, and `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
