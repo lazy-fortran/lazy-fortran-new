@@ -140,8 +140,10 @@ changes a denominator.
       harness cell as `R000259`, the insufficient-output-budget cell as
       `R000260`, and the pointer-contract mismatch as `R000261`; the valid
       apples-to-apples result is `R000262`, recorded in the append-only ledger).
-- [ ] E0113: repeat full-retrieval repair and the six-row solved-translation
-      oracle.
+- [x] E0113: repeat full-retrieval repair and the six-row solved-translation
+      oracle (**TERMINAL** in `.cache/runs/E0113/R000002/qwen38-27b-full-
+      retrieval-off/`, recorded as `R000264`; Qwen 3.8 accepted 2/127 rows,
+      exactly 2/6 oracle translations, with no hard failures or model errors).
 - [ ] E0114: repeat the visual-first six-row oracle only when image capability
       is proven; otherwise record `not_applicable`.
 - [ ] E0115: repeat bounded native-tool evidence acquisition for 127 residue
