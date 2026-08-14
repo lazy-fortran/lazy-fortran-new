@@ -1,0 +1,91 @@
+id: "E0124"
+title: "Lossless source-backed StandardIR grammar handoff"
+question: >
+  Can source-backed StandardIR grammar records cross the versioned producer-consumer handoff without structural or provenance loss
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-14"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "bf7598cc3eebddf1f1c085af0c1268bcb7d266ae"
+  standard-new: "071acf5cc23200441b28309b50a6c8ccd5922e0e"
+  fortfront-new: "49dd337728df9bbcc451042ed11a26842f92341b"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: "source-parser-witnesses"
+  grammar_contract: contracts/standardir-grammar-v0.sxs
+  grammar_fixture: contracts/fixtures/standardir-grammar-v0.sx
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  handoff: [typed-producer-to-canonical-sx-to-typed-consumer]
+  resolution: [resolved, unresolved, disputed-negative-control]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: >
+  No model calls. The producer, canonical SX representation and consumer are
+  deterministic; any unsupported source shape remains an explicit result.
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - source_witnesses_attempted
+  - alternatives_emitted
+  - node_kinds_emitted
+  - nested_structure_preserved
+  - alternative_order_preserved
+  - provenance_fields_preserved
+  - origin_and_resolution_preserved
+  - canonical_sx_roundtrip
+  - producer_consumer_agreement
+  - accepted_results
+  - malformed_or_incomplete_rejections
+  - output_clearing_controls
+  - copied_external_payloads
+  - wall_time_s
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  Every declared positive source-parser witness covering a simple sequence,
+  optional item, repeated item, nested group and multiple alternatives, plus
+  the central contract fixture and every malformed, incomplete, unresolved and
+  disputed negative control. The denominator is the declared witness set, not
+  the full PDF grammar; full-document coverage remains a later experiment.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >
+  Independently authored expected node tables and canonical SX strings check
+  kind, name, child range, minimum, unbounded flag, root, alternative order,
+  source fields, origin and resolution. The consumer's typed result is
+  compared with those expectations; producer/consumer self-round-trip alone
+  is not sufficient.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  The experiment fails if any positive witness loses a node, changes child
+  order or repetition metadata, changes provenance/origin/resolution, produces
+  non-canonical SX, or is rejected by the consumer; if any negative control is
+  accepted; if outputs are not cleared on failure; or if external grammar
+  payloads are copied into either production repository.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >
+  Pin the final producer and consumer commits, run every declared witness
+  through source production, canonical SX and typed consumption, pass all
+  independent positive and negative controls and both repositories' full fo
+  gates, record every result and wall time, and retain unsupported source
+  shapes without claiming complete PDF coverage.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/runs/2026-08.jsonl; report by run ID with jq

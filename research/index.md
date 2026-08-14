@@ -125,6 +125,7 @@ Runs recorded: 229
 | E0121 | reported | 1 | Can the 23 mechanically reconstructed E0120 source-oracle records be |
 | E0122 | reported | 1 | Can generic finite-domain support for string length, existential, count and |
 | E0123 | running | 0 | Can a bounded fresh retry resolve the residual semantic constraint rows? |
+| E0124 | draft | 0 | Can source-backed StandardIR grammar records cross the versioned producer-consumer handoff without structural or provenance loss |
 
 ## Run status
 
