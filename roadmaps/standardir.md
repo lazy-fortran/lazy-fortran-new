@@ -88,10 +88,11 @@ passes. E0116 processes the complete denominator; it is not another
 cross-model study. D0069 defines E0117's additive witness mode: each accepted
 primary proposal must carry concrete fact assignments and expected outcomes;
 the evaluator reports self-consistency without promoting it as an independent
-semantic oracle. E0117 is now the active bounded run; its result must be
-recorded before the next semantic gate is chosen. E0118 is the prepared
-protocol-only follow-up for independent source-derived finite cases and
-compiler behavior where applicable.
+semantic oracle. E0117 is reported as `R000193`: all 287 row keys are
+retained and unique, with 233 schema-accepted proposals, 16 unresolved rows,
+37 hard failures and one reference-only occurrence. No semantic fact was
+promoted. E0118 is now the next gate, independently deriving finite source
+cases and using compiler behavior where applicable.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.

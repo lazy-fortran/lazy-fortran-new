@@ -344,9 +344,9 @@ redefine a contract, promote semantic facts, or close M3.
 Wave Y has integrated the indexed frontend program-declaration-count query and
 the source-backed RV64 SRAI codec. Both passed coordinator-side full `fo`
 gates; their task branches were deleted and their production mains are clean
-and pushed. The M4 generation experiment E0119 is drafted separately and is
-not yet running. These boundaries do not redefine a contract, promote semantic
-facts, or close M3/M4.
+and pushed. The M4 generation experiment E0119 is reported separately as
+`R000192` for its first AST/wiring slice. These boundaries do not redefine a
+contract, promote semantic facts, or close M3/M4.
 
 Wave Z has integrated the source-preserving `frontend-ast-v0` SX handoff into
 `ffc-new`. It passed coordinator-side full `fo`, retained source spans and
@@ -358,8 +358,9 @@ Wave AA has integrated the deterministic `frontend-ast-v0` generator and its
 checked-in generated Fortran records in `fortfront-new`. The generator,
 canonical SX witness, malformed/unsupported schema controls, negative
 provenance/span/count cases and full `fo` gate passed; the task branch was
-deleted after push. E0119 still needs its append-only run record and analysis
-script before it can be reported as an experiment.
+deleted after push. E0119 is reported accepted as `R000192` for this first
+AST/wiring slice; the complete M4 lexer, parser, semantic and lowering gates
+remain pending.
 
 ## Numbered milestones
 
@@ -532,15 +533,12 @@ protocol without escalation. `validate.py` reports 286 schema/source-gate
 accepted primary rows and one reference-only occurrence, with zero unresolved
 or hard-failure rows. `witness.py` promotes only one row so far; the other 285
 accepted proposals remain evidence for the next witness work and M3 is still
-open. E0117 is the active bounded run: it repeats the proposal protocol with
-witnesses required, then separates evaluator self-consistency from genuine
-independent promotion. Its manifest pins the strict harness and upstream
-llama.cpp runtime; the append-only run record, replay validation and witness
-summary will be recorded before any next semantic gate is selected.
-E0118 is now the prepared next gate: it independently materializes finite
-source-derived fact cases and uses compiler behavior only where a faithful
-fixture exists. It cannot start until E0117's terminal ledger, source pins and
-toolchain availability are recorded.
+open. E0117 is reported as `R000193`: its terminal ledger contains all 287
+unique row keys, with 233 schema-accepted proposals, 16 unresolved rows, 37
+retained hard failures and one reference-only occurrence. It made no semantic
+promotion; its evaluator output is not an independent semantic oracle. E0118
+is now the next gate: it independently materializes finite source-derived fact
+cases and uses compiler behavior only where a faithful fixture exists.
 
 ### M4. Generated frontend vertical slice (pending)
 
@@ -554,10 +552,10 @@ contract from the frontend result contract. It consumes the pinned
 `contracts/frontend-ast-v0.sxs` schema and its fixed witness, and measures
 whether program-root, program-declaration and program-unit records, canonical
 SX and wiring can be generated and compiled without handwritten
-language-specific dispatch. The experiment remains draft until the generator,
-freshness command and independent behavioral oracle now exist, but the
-experiment remains draft until its append-only run record and analysis script
-are committed.
+language-specific dispatch. The generator, freshness command and independent
+behavioral oracle now exist. Its first deterministic slice is reported
+accepted as `R000192`; this is a gate for the AST/wiring slice only, not
+completion of M4's lexer, parser, semantic or lowering requirements.
 
 ### M5. Practical generated frontend (pending)
 

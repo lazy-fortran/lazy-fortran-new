@@ -2,9 +2,10 @@ id: "E0117"
 title: "Model-supplied fact witnesses for typed semantic proposals"
 question: >
   Can source-backed model witnesses make typed semantic proposals independently testable?
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000193
 
 # Every commit the result depends on. Exact, not "main".
 repos:

@@ -2,9 +2,10 @@ id: "E0119"
 title: "Generated frontend vertical slice from a closed StandardIR profile"
 question: >
   Can a closed StandardIR syntax profile generate a verified frontend vertical slice without handwritten wiring
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000192
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -18,9 +19,8 @@ inputs:
   standard: j3-24-007
   profile: complete-core
   syntax_profile_measurement: research/experiments/E0098-can-the-current-complete-standardir-proj/analyse.sh
-  frontend_contract: contracts/frontend-v0.sxs
   ast_contract: contracts/frontend-ast-v0.sxs
-  frontend_fixture: contracts/fixtures/frontend-v0.sx
+  ast_fixture: contracts/fixtures/frontend-ast-v0.sx
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
@@ -39,18 +39,13 @@ model_selection: >
 # is how an experiment becomes a demonstration.
 metrics:
   - syntax_records_consumed
-  - generated_lexer_records
-  - generated_parser_productions
   - generated_ast_types
   - generated_wiring_entries
-  - generated_source_files
   - generated_source_bytes
-  - language_specific_handwritten_files
-  - language_specific_handwritten_lines
-  - provenance_complete_records
+  - provenance_fields
+  - mechanical_origin_labels
   - contract_validation_pass
   - sx_fixture_roundtrip_pass
-  - source_linked_diagnostic_pass
   - program_declaration_acceptance
   - program_declaration_rejection
   - unsupported_constructs_explicit

@@ -19,8 +19,11 @@ fi
 
 repo_dir() {
     case "$1" in
-        lazy-fortran-new) printf '%s\n' "$ROOT" ;;
-        standard-new) printf '%s\n' "$(resolve_repo standard-new)" ;;
+        lazy-fortran-new|laboratory) printf '%s\n' "$ROOT" ;;
+        standard|standard-new) printf '%s\n' "$(resolve_repo standard-new)" ;;
+        frontend|fortfront-new) printf '%s\n' "$(resolve_repo fortfront-new)" ;;
+        compiler|ffc-new) printf '%s\n' "$(resolve_repo ffc-new)" ;;
+        backend|fortback-new) printf '%s\n' "$(resolve_repo fortback-new)" ;;
         oracle-standard) printf '%s\n' "$(resolve_repo standard)" ;;
         oracle-fortfront) printf '%s\n' "$(resolve_repo fortfront)" ;;
         oracle-ffc) printf '%s\n' "$(resolve_repo ffc)" ;;

@@ -18,6 +18,7 @@ inputs:
   standard: j3-24-007
   profile: complete-core
   predecessor: E0117
+  predecessor_run: R000193
   predecessor_manifest: research/experiments/E0117-can-source-backed-model-witnesses-make-t/manifest.yaml
   constraint_inventory: research/experiments/E0081-can-deterministic-source-patterns-invent/analyse.sh
   canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt

@@ -57,9 +57,9 @@ Wave Y has integrated the indexed frontend program-declaration-count query.
 It passed the coordinator-side full `fo` gate and its task branch was deleted
 after push. The source-backed RV64 SRAI slice also passed the full `fo` gate,
 was merged and pushed, and its task branch was deleted. The M4 generation
-experiment E0119 is drafted separately and is not yet running. These
-boundaries do not redefine a contract, promote semantic facts, or close
-M3/M4.
+experiment E0119 is reported separately as `R000192` for its first AST/wiring
+slice. These boundaries do not redefine a contract, promote semantic facts,
+or close M3/M4.
 
 Wave Z has integrated the source-preserving `frontend-ast-v0` SX handoff into
 `ffc-new`. It passed coordinator-side full `fo`, retained source spans and
@@ -71,8 +71,9 @@ Wave AA has integrated the deterministic `frontend-ast-v0` generator and its
 checked-in generated Fortran records in `fortfront-new`. The generator,
 canonical SX witness, malformed/unsupported schema controls, negative
 provenance/span/count cases and full `fo` gate passed; the task branch was
-deleted after push. E0119 still needs its append-only run record and analysis
-script before it can be reported as an experiment.
+deleted after push. E0119 is reported accepted as `R000192` for this first
+AST/wiring slice; complete M4 still requires the lexer, parser, semantic and
+lowering gates.
 
 The current bounded production pins are `standard-new`
 `27329a701575f32776281f235290e465c5588105`, `fortfront-new`
