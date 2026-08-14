@@ -381,6 +381,9 @@ source-backed `relation` constructor for quantified/cross-clause residuals,
 and forces submission after repeated or exhausted evidence retrieval. The
 official llama.cpp tool protocol is used for named forcing; no model-specific
 or C-number-specific branch is added.
+[D0066] repairs the bounded dialogue generically: it adapts one recognized Qwen
+XML content call, excludes malformed assistant calls from the next context,
+and gives exact gate rejection feedback before the next proposal.
 
 The numbered M3 execution sequence is:
 

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import time
 import urllib.error
@@ -72,6 +73,36 @@ def call_model(url, payload, timeout):
 
 def tool_spec():
     return json.loads((HERE / "tool-schema.json").read_text(encoding="utf-8"))["tools"]
+
+
+def content_tool_call(content, turn):
+    """Adapt one Qwen XML tool call when the server leaves it in content."""
+    if not isinstance(content, str):
+        return None
+    matches = re.findall(
+        r"<tool_call>\s*<function=([A-Za-z_][A-Za-z0-9_]*)>(.*?)</function>\s*</tool_call>",
+        content,
+        flags=re.DOTALL,
+    )
+    if len(matches) != 1:
+        return None
+    name, body = matches[0]
+    arguments = {}
+    for parameter, value in re.findall(
+        r"<parameter=([A-Za-z_][A-Za-z0-9_]*)>\s*(.*?)\s*</parameter>",
+        body,
+        flags=re.DOTALL,
+    ):
+        value = value.strip()
+        try:
+            arguments[parameter] = json.loads(value)
+        except json.JSONDecodeError:
+            arguments[parameter] = value
+    return {
+        "id": f"content-call-{turn}",
+        "type": "function",
+        "function": {"name": name, "arguments": json.dumps(arguments)},
+    }
 
 
 def system_prompt(row, prior):
@@ -226,6 +257,15 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
             "usage": response.get("usage"),
         })
         calls = message.get("tool_calls", [])
+        if not calls:
+            adapted = content_tool_call(message.get("content"), turn)
+            if adapted is not None:
+                calls = [adapted]
+                emit({
+                    "turn": turn,
+                    "kind": "content_tool_adapter",
+                    "tool": adapted["function"]["name"],
+                })
         if not isinstance(calls, list) or len(calls) != 1:
             error = "model did not emit exactly one native tool call"
             model_errors.append({"turn": turn, "error": error})
@@ -239,11 +279,12 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
         except RuntimeError as exc:
             model_errors.append({"turn": turn, "error": str(exc)})
             emit({"turn": turn, "kind": "model_error", "error": str(exc)})
-            messages.append(message)
             messages.append({
                 "role": "user",
                 "content": f"The last native tool call was malformed: {exc}. "
-                           "Call exactly one declared tool again with valid JSON.",
+                           "The malformed assistant call is not retained in the "
+                           "conversation. Call exactly one declared tool again "
+                           "with valid JSON and concise arguments.",
             })
             continue
         emit({"turn": turn, "kind": "tool", "tool": tool_name, "arguments": arguments, "result": result})
@@ -278,6 +319,16 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
             break
         if result.get("status") in {"rejected", "error"}:
             gate_rejections += int(result.get("status") == "rejected")
+            if tool_name == "submit_semantic":
+                messages.append({
+                    "role": "user",
+                    "content": "The deterministic gate rejected that proposal: "
+                               f"{result.get('message', result.get('code', 'unknown'))}. "
+                               "Submit a concise replacement; do not repeat the "
+                               "rejected predicate. If the primitive constructors "
+                               "cannot express the source-backed relation, use the "
+                               "generic relation constructor instead.",
+                })
             continue
     else:
         status = "hard_failure"

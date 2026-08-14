@@ -2,6 +2,7 @@
 """Independent fixture and negative tests for the E0116 semantic gate."""
 
 import hashlib
+import importlib.util
 import json
 import subprocess
 import tempfile
@@ -9,6 +10,13 @@ from pathlib import Path
 
 import semantic_harness as harness
 import witness
+
+
+RUNNER_PATH = Path(__file__).resolve().parent / "run-semantic.py"
+RUNNER_SPEC = importlib.util.spec_from_file_location("e0116_runner", RUNNER_PATH)
+assert RUNNER_SPEC and RUNNER_SPEC.loader
+runner = importlib.util.module_from_spec(RUNNER_SPEC)
+RUNNER_SPEC.loader.exec_module(runner)
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -56,6 +64,16 @@ def main():
                                        "allocatable-attribute": False}) is True
     assert witness.evaluate(expected, {"type-param-value": ":", "pointer-attribute": False,
                                        "allocatable-attribute": False}) is False
+
+    adapted = runner.content_tool_call(
+        "<tool_call><function=read_rule>\n"
+        "<parameter=rule_number>\nR911\n</parameter>\n"
+        "</function></tool_call>",
+        4,
+    )
+    assert adapted["function"]["name"] == "read_rule"
+    assert json.loads(adapted["function"]["arguments"]) == {"rule_number": "R911"}
+    assert runner.content_tool_call("<tool_call><function=read_rule></tool_call>", 5) is None
 
     try:
         harness.ConstraintEpisode._validate_predicate({"op": "eval", "args": ["x"]})

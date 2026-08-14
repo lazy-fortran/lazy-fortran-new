@@ -1,7 +1,7 @@
 # D0065 — Give semantic proposals enough output and a generic residual relation
 
 Date: 2026-08-14
-Status: accepted
+Status: amended by D0066
 Amends: D0064
 
 ## Context
