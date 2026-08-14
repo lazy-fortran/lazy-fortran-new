@@ -291,18 +291,25 @@ boundary, and a source-backed AArch64 ADR codec. All four production mains are
 clean and pushed after full `fo` verification; none changes the semantic
 promotion rule.
 
-Wave R then integrated a source-linked StandardIR semantic sequence consumer,
-a frontend diagnostic query, a MIR source-rule query, and a source-backed
-RISC-V ORI codec. All four passed their independent tests and full `fo` gates;
-their task branches were removed after push. These are production-boundary
-advances only and do not promote semantic facts.
-
 Wave Q integrated the typed frontend program-unit query, the MIR handoff
 round-trip validation, and paired AArch64 ADRP support. The StandardIR
 consumer extension was abandoned before verification, reverted cleanly, and
 is retained as run `R000189`; `standard-new` therefore remains at the Wave P
 pin. The three accepted slices are pushed and do not change M3's semantic
 promotion gate.
+
+Wave R then integrated a source-linked StandardIR semantic sequence consumer,
+a frontend diagnostic query, a MIR source-rule query, and a source-backed
+RISC-V ORI codec. All four passed their independent tests and full `fo` gates;
+their task branches were removed after push. These are production-boundary
+advances only and do not promote semantic facts.
+
+Wave S integrated a typed frontend result-span query, a validated MIR block
+query, and a source-backed RISC-V ANDI codec. The parallel StandardIR
+generated-consumer extension was abandoned after its generator failed on stale
+module ordering; it is retained as `R000190` and made no production change.
+The three accepted slices are pushed and the semantic promotion rule is
+unchanged.
 
 ## Numbered milestones
 
