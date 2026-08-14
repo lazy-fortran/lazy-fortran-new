@@ -160,11 +160,18 @@ coordinator-side full `fo` passed with zero warnings; the task branch was
 removed and no separate task worktree existed. No frontend token wiring was
 added.
 
+The backend codec continuation is integrated at `fortback-new`
+`9baabf418280812b43181330b67d10d4078e88ae`: generic whole-record encode and
+decode compose the source-record matcher with ordinal field operations,
+preserving fixed bits and clearing outputs on failure. Coordinator-side full
+`fo` passed with zero warnings; the task branch was removed and no separate
+task worktree existed. No mnemonic dispatch, ABI or MIR behavior changed.
+
 The current bounded production pins are `standard-new`
 `985d684a2c8e5f4394b3473c8bdc3a9`, `fortfront-new`
 `f931acfd99640eeda95a89b8dd56df89581ad97e`, `ffc-new`
 `555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
-`70e3e39e32258df01034ad85eedb40f57da4596d`, all on clean `main` branches
+`9baabf418280812b43181330b67d10d4078e88ae`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

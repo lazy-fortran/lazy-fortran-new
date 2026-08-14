@@ -411,6 +411,13 @@ provenance, and reports processor-defined, invalid, duplicate and overlapping
 cases explicitly. Text-policy and full `fo` gates passed with zero warnings;
 the slice is recorded as `R000215` and does not add frontend token wiring.
 
+Wave AI has integrated the generic whole-record AArch64 codec in
+`fortback-new`. It composes source-record matching with ordinal field
+extraction/insertion for encode/decode round trips, while retaining fixed bits
+and clearing outputs on failure. Full `fo` passed with zero warnings and the
+task branch was removed; the slice is recorded as `R000216`. No mnemonic
+dispatch, ABI or MIR wiring was added.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -469,7 +476,7 @@ the sibling repository at build time.
 The current production pins after the latest bounded integration wave are
 `standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
 `fortfront-new` `f931acfd99640eeda95a89b8dd56df89581ad97e`, and
-`fortback-new` `70e3e39e32258df01034ad85eedb40f57da4596d`; these are clean
+`fortback-new` `9baabf418280812b43181330b67d10d4078e88ae`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `555eb09bfb17329517176f967a3d1fda36c3159e`.
 
