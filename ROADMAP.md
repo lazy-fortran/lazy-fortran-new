@@ -291,6 +291,13 @@ boundary, and a source-backed AArch64 ADR codec. All four production mains are
 clean and pushed after full `fo` verification; none changes the semantic
 promotion rule.
 
+Wave Q integrated the typed frontend program-unit query, the MIR handoff
+round-trip validation, and paired AArch64 ADRP support. The StandardIR
+consumer extension was abandoned before verification, reverted cleanly, and
+is retained as run `R000189`; `standard-new` therefore remains at the Wave P
+pin. The three accepted slices are pushed and do not change M3's semantic
+promotion gate.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A

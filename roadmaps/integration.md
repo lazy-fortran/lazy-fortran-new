@@ -48,9 +48,9 @@ branches were removed after merge.
 
 The current bounded production pins are `standard-new`
 `07c2418a9dc0d18b3c6753aa1f976a1af065c138`, `fortfront-new`
-`04c9064e26ba54302ee2a8c58531c53bb9486980`, `ffc-new`
-`1002d8e6c39e3328481c1382fa9cc38e9e42b88a`, and `fortback-new`
-`3ddb2062c9bd47c39c337c1d1ea6ff032cec3aa5`, all on clean `main` branches
+`4c42a71ac0b302fc9c9701d454e77a73e700463c`, `ffc-new`
+`3e64529eac53e43c289559f30d4969aae10c5748`, and `fortback-new`
+`81e9c78d172ee71fd4b8c642b05f5fb7c0532842`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
