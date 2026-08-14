@@ -644,7 +644,7 @@ The current production pins after the latest bounded integration wave are
 `fortfront-new` `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, and
 `fortback-new` `deb66f94126143d76ea25c1faf197d5150c7c0f4`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
-is `7691adc1a7b96fef171f9fd0059c89401ad1c4f1`.
+is `998ab62d180b4f2940e25d2f987f4f99317c5771`.
 
 The same integration wave added bounded program, module and subroutine
 source-witness forms to `fortfront-new`: exact program, module, subroutine and
