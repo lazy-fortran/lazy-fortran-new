@@ -2,14 +2,16 @@ id: "E0133"
 title: "Additional TargetIR source families"
 question: >
   Can additional source record families normalize through the generic TargetIR batch?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000241
+reported_runs: [R000241]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: c41eda3
-  fortback-new: 576c7a4b55aa772e0723b274333dcf411f35071d
+  fortback-new: deb66f94126143d76ea25c1faf197d5150c7c0f4
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

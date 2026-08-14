@@ -33,9 +33,12 @@ E0131 is accepted as `R000239` at `fortback-new` commit
 RISC-V/AArch64 source normalization. E0130 is accepted as `R000240` at
 `fortfront-new` commit `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, providing a
 bounded parser-neutral frontier that preserves accepted, rejected, ambiguous
-and unresolved outcomes. E0123 remains the active M3 semantic retry. E0132
-and E0133 are the parallel MIR serialization and additional TargetIR source
-family gates; neither changes a versioned contract or blocks E0123.
+and unresolved outcomes. E0123 remains the active M3 semantic retry. E0133 is
+accepted as `R000241` at `fortback-new` commit
+`deb66f94126143d76ea25c1faf197d5150c7c0f4`: no additional parsed family is
+currently represented, so the generic batch now has explicit unsupported-shape
+and unknown-family transaction controls. E0132 remains the parallel MIR
+serialization gate; neither changes a versioned contract or blocks E0123.
 
 ## Current position
 

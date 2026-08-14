@@ -268,10 +268,12 @@ AArch64 records into the generic TargetIR table transactionally. E0130 is
 accepted as `R000240` at `fortfront-new`
 `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`: its bounded frontier preserves
 accepted, rejected, ambiguous and unresolved outcomes over abstract symbols.
-E0123 remains the active M3 semantic retry. E0132 and E0133 are the parallel
-target-independent MIR round-trip and additional TargetIR source-family
-experiments; they are independent of semantic promotion and do not change a
-versioned cross-repository contract.
+E0123 remains the active M3 semantic retry. E0133 is accepted as `R000241` at
+`fortback-new` `deb66f94126143d76ea25c1faf197d5150c7c0f4`: no additional parsed
+source family is currently represented, so unsupported shapes and unknown
+families are now explicitly tested as transactional failures. E0132 remains
+the parallel target-independent MIR round-trip experiment; neither is part of
+semantic promotion or a new versioned cross-repository contract.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
