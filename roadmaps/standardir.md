@@ -176,6 +176,15 @@ and are not silently included. Two earlier attempts remain retained as
 harness failures: one counted mid-line EBNF annotations incorrectly and one
 passed relative output paths across a directory change.
 
+E0141 is accepted as `R000252` at `standard-new`
+`5121aa5d79b988c1d0a62bae006288801449f64d`. The production `sxsemantic`
+command provides a deterministic, transactional intake/export boundary for
+source-backed semantic-items SX. It preserves insertion order, provenance and
+explicit resolution states, rejects malformed provenance and enums, and clears
+failed output. It is a transport and validation boundary only: it does not
+discover, infer or promote semantic facts. E0123 remains the active semantic
+recovery experiment.
+
 ## Exit and handoff
 
 The lane hands off only a versioned `standardir-v0` record set with source

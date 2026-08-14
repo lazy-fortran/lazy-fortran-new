@@ -57,13 +57,27 @@ E0137 is accepted as `R000248` at `fortfront-new` commit
 facts to gate the existing bounded frontier while retaining ambiguity and
 unresolved outcomes. This is a frontier transition slice, not complete parser
 state or tokenization, and adds no Fortran token policy.
-E0138 is the remaining active production experiment: it tests an incremental
-generic parser session over abstract tokens. E0139 is accepted as `R000249` at
-`fortback-new` `ba96b13`, adding a generic whole-array query over existing
-TargetIR-v0 feature metadata with source/origin preservation. It changes no
-versioned input or ISA-specific dispatch.
-E0140 is the next active MIR scale experiment: it constructs validated
-multi-block partitions from caller-supplied lengths without changing `mir-v0`.
+E0138 is accepted as `R000250` at `fortfront-new`
+`268e312dbd8ba11cce00d8581479cf47ec077061`: its bounded incremental session
+agrees with independent transition traces for accepted, rejected, ambiguous,
+unresolved and malformed abstract-token outcomes, with no lexer or
+Fortran-specific dispatch. E0139 remains accepted as `R000249` at `fortback-new`
+`ba96b13`, adding a generic whole-array query over existing TargetIR-v0 feature
+metadata with source/origin preservation and no schema or ISA dispatch.
+E0140 is accepted as `R000251` at `ffc-new`
+`5ac3cefe88e8c8a3d71d28533c75686712c4a812`: it constructs validated
+multi-block partitions by deterministic prefix sums without changing `mir-v0`.
+E0141 is accepted as `R000252` at `standard-new`
+`5121aa5d79b988c1d0a62bae006288801449f64d`: `sxsemantic` canonically and
+transactionally consumes source-backed semantic-items SX, preserving
+provenance and explicit resolution states without inferring semantic content.
+
+The current pushed production pins are therefore `standard-new`
+`5121aa5d79b988c1d0a62bae006288801449f64d`, `fortfront-new`
+`268e312dbd8ba11cce00d8581479cf47ec077061`, `ffc-new`
+`5ac3cefe88e8c8a3d71d28533c75686712c4a812`, and `fortback-new`
+`ba96b1337253d104c86f96a91f1b561efea25ef7`. E0123 remains the active M3
+semantic retry; these production slices do not close semantic promotion.
 
 ## Current position
 

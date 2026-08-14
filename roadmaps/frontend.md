@@ -128,10 +128,11 @@ rejected, ambiguous and unresolved outcomes, ordering and provenance. This is
 a frontier transition slice, not complete parser state or tokenization; no
 Fortran token dispatch or hand-maintained parser wiring was added.
 
-E0138 is the active incremental successor. It tests whether the existing
-generic frontier can be wrapped in a bounded parser session with equivalent
-incremental and final outcomes, without introducing lexical policy or a
-language-specific parser driver.
+E0138 is accepted as `R000250` at `fortfront-new` commit
+`268e312dbd8ba11cce00d8581479cf47ec077061`. Its bounded session agrees with
+independent transition traces for incremental and final outcomes, preserves
+accepted/rejected/ambiguous/unresolved states, and adds no lexer, Fortran token
+policy or language-specific parser driver.
 
 ## Exit and handoff
 

@@ -295,15 +295,25 @@ coordinator-side full `fo`, was pushed to main, and had its task branch
 removed. It is a frontier transition slice, not complete parser state or
 tokenization, and adds no Fortran token policy or contract change.
 
-E0138 remains active in `fortfront-new`, owning only incremental generic
-parser-session state. E0139 is accepted as `R000249` at `fortback-new`
-`ba96b13`: its generic TargetIR-v0 feature query passed coordinator-side full
-`fo`, was pushed to main, and had its task branch removed. Neither slice changes
-a versioned contract or adds language/ISA-specific dispatch.
+E0138 is accepted as `R000250` at `fortfront-new`
+`268e312dbd8ba11cce00d8581479cf47ec077061`. Its generic incremental session
+passed coordinator-side full `fo`, was pushed to main, and its task branch was
+removed. E0139 remains accepted as `R000249` at `fortback-new` `ba96b13`: its
+generic TargetIR-v0 feature query changes no versioned contract or
+ISA-specific dispatch.
 
-E0140 is now running in `ffc-new` from clean main. It owns only deterministic
-construction of validated multi-block ranges from caller-supplied lengths; it
-must not revise `mir-v0`, serialize blocks or add backend behavior.
+E0140 is accepted as `R000251` at `ffc-new`
+`5ac3cefe88e8c8a3d71d28533c75686712c4a812`. Its deterministic multi-block
+partition constructor passed coordinator-side full `fo`, was pushed to main,
+and its task branch was removed; it does not revise `mir-v0`, serialize blocks
+or add backend behavior.
+
+E0141 is accepted as `R000252` at `standard-new`
+`5121aa5d79b988c1d0a62bae006288801449f64d`. The `sxsemantic` command
+canonicalizes one typed semantic-items record transactionally, preserving
+provenance and explicit resolution states. It passed full `fo`, was pushed to
+main, and its task branch was removed; it does not infer or promote semantic
+facts and does not change the schema.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
