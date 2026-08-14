@@ -383,7 +383,15 @@ official llama.cpp tool protocol is used for named forcing; no model-specific
 or C-number-specific branch is added.
 [D0066] repairs the bounded dialogue generically: it adapts one recognized Qwen
 XML content call, excludes malformed assistant calls from the next context,
-and gives exact gate rejection feedback before the next proposal.
+and gives exact gate rejection feedback before the next proposal. [D0067]
+adds bounded transient transport retries, proposal-loop detection, one-turn
+forced-tool consumption, submit-only finalization, llama.cpp timing telemetry,
+and an explicit fresh thinking-on escalation for failed no-thinking rows. The
+local Qwen service must expose a bounded reasoning budget for that fallback;
+normal rows still request thinking off.
+[D0068] pins the semantic service to a clean CUDA build of upstream llama.cpp
+`650913862` (build 10427), installed beside the old runtime with a reversible
+versioned service path.
 
 The numbered M3 execution sequence is:
 
@@ -417,12 +425,15 @@ disputed state and its promoted subset passes the behavioral witness gate.
 The current M3 execution is E0116: the local Qwen 3.6 35B-A3B service runs on
 `mailuefterl` at the declared local API endpoint, with no SSH tunnel. The
 text-only semantic run has the auxiliary `whisper-server` stopped so the
-35B profile retains its normal 128K context and large batch configuration;
-reasoning is disabled for this cell. The C702 smoke control passed before the
-complete run. The residual protocol now uses `max_tokens=1536` and the
-llama.cpp named-tool form `{"type":"tool","name":"submit_semantic"}` when
-retrieval closes. The complete result is not reported until its append-only
-run record, replay validation and behavioral-witness status are written.
+35B profile retains its normal 128K context and large batch configuration.
+R000015 uses the clean upstream llama.cpp build pinned by D0068, starts with
+thinking off, and accepts both residual rows through the bounded recovery
+protocol without escalation. Its merged ledger has 286 schema/source-gate
+accepted primary rows and one reference-only occurrence, with zero unresolved
+or hard-failure rows. The independent witness promotes only one row so far;
+the other 285 accepted proposals remain evidence for the next witness work and
+M3 is still open. The append-only run record, replay validation and witness
+summary are recorded with the run.
 
 ### M4. Generated frontend vertical slice (pending)
 

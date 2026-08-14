@@ -1,7 +1,7 @@
 # D0066 — Repair the bounded Qwen tool dialogue generically
 
 Date: 2026-08-14
-Status: accepted
+Status: amended by D0067
 Amends: D0065
 
 ## Context

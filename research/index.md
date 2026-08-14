@@ -205,7 +205,9 @@ Runs recorded: 186
 | [D0063](decisions/D0063-e0116-control-replay-and-bounded-retry.md) | amended by D0064 | Amends D0062 | — Replay controls and retry only terminal residuals |
 | [D0064](decisions/D0064-repair-malformed-native-tool-calls.md) | amended by D0065 | Amends D0063 | — Repair malformed native tool calls inside the episode budget |
 | [D0065](decisions/D0065-bounded-semantic-output-and-relation-residuals.md) | amended by D0066 | Amends D0064 | — Give semantic proposals enough output and a generic residual relation |
-| [D0066](decisions/D0066-repair-qwen-tool-dialogue.md) | accepted | Amends D0065 | — Repair the bounded Qwen tool dialogue generically |
+| [D0066](decisions/D0066-repair-qwen-tool-dialogue.md) | amended by D0067 | Amends D0065 | — Repair the bounded Qwen tool dialogue generically |
+| [D0067](decisions/D0067-bounded-dialogue-recovery-and-thinking-escalation.md) | accepted | Amends D0066 | — Bound dialogue recovery, telemetry and thinking escalation |
+| [D0068](decisions/D0068-upstream-llama-cpp-runtime.md) | accepted |  | — Use the clean upstream llama.cpp main runtime for local semantic runs |
 
 ### Proposed decisions
 

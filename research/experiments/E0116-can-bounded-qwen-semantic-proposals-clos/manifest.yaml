@@ -24,8 +24,8 @@ inputs:
 
 variables:
   model: [qwen36-35b-a3b]
-  reasoning: [off]
-  repair_attempts: [3]
+  reasoning: [off, on-after-failure]
+  repair_attempts: [3, 2 transport]
   parser_projection: [none]
 
 model_selection: >
@@ -43,6 +43,8 @@ metrics:
   - unresolved_rows
   - hard_failures
   - repair_attempts
+  - evidence_calls
+  - submission_calls
   - tool_calls
   - model_calls
   - wall_s_total
@@ -54,6 +56,13 @@ metrics:
   - witness_disputed_rows
   - witness_unwitnessed_rows
   - malformed_tool_call_repairs
+  - transport_retries
+  - loop_recoveries
+  - finalization_turns
+  - prompt_tokens
+  - completion_tokens
+  - total_tokens
+  - thinking_escalations
   - negative_control
 
 denominator: >
@@ -75,12 +84,13 @@ independent_oracle: >
 toolchain:
   record_in_run: true
   fields: [compiler, fo, poppler, llama_cpp, model_sha256, service_profile]
-  llama_cpp: "19e92c3"
+  llama_cpp: "upstream master 650913862"
   model_sha256: "55983c5a75a1ab969824077b3bb3de4146e82a9234072b48ad4e8f92ad3fe9f1"
   service_profile: >
     mailuefterl local llama-server; Qwen 3.6 35B-A3B Q4_K_XL, 128K context,
     ubatch 1024, q8_0 KV, flash attention on, no SSH tunnel, whisper-server
-    stopped to leave VRAM to the model, reasoning budget 0.
+    stopped to leave VRAM to the model, reasoning budget 4096 for explicit
+    thinking-on escalation and request-level thinking off by default.
 
 falsifiable_by: >
   The run is falsified by a dropped or duplicated constraint, an accepted
@@ -96,7 +106,9 @@ gate: >
   mutation checks, and emit zero parser projections. This experiment records
   semantic proposals; promotion requires the later witness gate. D0063 permits
   one validated retry over only unresolved or hard-failure row keys, with both
-  attempts retained.
+  attempts retained. D0067 additionally permits one fresh thinking-on episode
+  per failed no-thinking row when explicitly enabled, while transport retries,
+  proposal-loop recovery and finalization remain bounded within each episode.
 
 analysis: >
   research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/validate.py
