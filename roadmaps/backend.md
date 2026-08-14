@@ -32,6 +32,10 @@ malformed, unsupported, invalid-operand, wrong-target and provenance controls.
 The AArch64 zero-operand NOP and
 source-preserving RISC-V `SLTI` slices and earlier RV64 shift and
 AArch64 `adr`/`adrp` slices remain in its history.
+D0072 now makes these instruction cases bootstrap witnesses rather than the
+backend's scaling mechanism. Further instruction coverage waits for the
+generic source-record to TargetIR normalization and generated codec path;
+adding another mnemonic branch alone is not an accepted backend slice.
 
 ## Provenance and exit
 

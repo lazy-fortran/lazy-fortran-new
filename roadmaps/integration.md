@@ -88,14 +88,15 @@ wrong-target controls, and preserved source provenance. Coordinator-side full
 `fo` passed; the task branch was removed and no MIR or AArch64 files changed.
 
 The parallel frontend slice is integrated at `fortfront-new`
-`f3fc7145ba4afdc7e27fdd1fd726cafd937be0b5`: a bounded program/module/subroutine
+`7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`: a bounded
+program/module/subroutine/function
 source-witness parser with exact terminator/name matching, span checks and
 rejection controls. Coordinator-side full `fo` passed, the task branch was
 removed, and no frontend-ast-v0 or mir-v0 contract changed.
 
 The current bounded production pins are `standard-new`
 `5c1d258e61c38336cfbb316b76ba8b33e4717b94`, `fortfront-new`
-`f3fc7145ba4afdc7e27fdd1fd726cafd937be0b5`, `ffc-new`
+`7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, `ffc-new`
 `76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
 `205fe1c2cf994274b87f676f07c57fddb911da23`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`

@@ -395,18 +395,22 @@ model-specific aliases or semantic promotions were added.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
-`fortfront-new` `f3fc7145ba4afdc7e27fdd1fd726cafd937be0b5`, and
+`fortfront-new` `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, and
 `fortback-new` `205fe1c2cf994274b87f676f07c57fddb911da23`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 remains `76f765bc1da01b6e4feb62354d743371b6467e55`.
 
 The same integration wave added bounded program, module and subroutine
-source-witness forms to `fortfront-new`: exact headers and
+source-witness forms to `fortfront-new`: exact program, module, subroutine and
+function headers and
 `end`/`end <kind>`/`end <kind> NAME` forms, source spans, name matching and
 malformed-input rejection are tested. The StandardIR slice also exposes a
 generic ordinal query for duplicate semantic identifiers, preserving insertion
 order and provenance. These are witness and API boundaries, not semantic
 promotions or general-language implementations.
+D0072 records the corresponding backend boundary: the existing RISC-V codec
+cases are bootstrap witnesses, and further instruction coverage now waits for
+generic source-record-to-TargetIR normalization and generated codec output.
 
 ## Numbered milestones
 

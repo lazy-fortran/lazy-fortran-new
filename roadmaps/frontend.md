@@ -19,7 +19,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`f3fc7145ba4afdc7e27fdd1fd726cafd937be0b5`. The bounded parser-quality
+`7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -35,6 +35,10 @@ terminator/name variants. The subroutine slice is integrated at
 `fortfront-new` commit `f3fc7145ba4afdc7e27fdd1fd726cafd937be0b5` with exact
 identifier-boundary, name-matching, span and malformed-input controls; it does
 not change `frontend-ast-v0` or `mir-v0`.
+The function witness slice is integrated at
+`fortfront-new` commit `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e` with the same
+bounded terminator, name, span and rejection controls; it also leaves
+`frontend-ast-v0` and `mir-v0` unchanged.
 
 The next substantive gate is E0119. Its typed AST input is the laboratory
 contract `contracts/frontend-ast-v0.sxs` with fixed witness
