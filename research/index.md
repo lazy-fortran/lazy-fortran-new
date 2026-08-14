@@ -143,7 +143,7 @@ Runs recorded: 250
 | E0139 | reported | 1 | Can TargetIR-v0 feature metadata be queried generically |
 | E0140 | reported | 1 | Can the generic MIR block table construct validated multi-block partitions |
 | E0141 | reported | 1 | Can source-backed semantic-items SX be canonicalized deterministically |
-| E0142 | draft | 0 | Does Qwen 3.8 27B reproduce the bounded semantic protocol stack |
+| E0142 | running | 0 | Does Qwen 3.8 27B reproduce the bounded semantic protocol stack |
 
 ## Run status
 

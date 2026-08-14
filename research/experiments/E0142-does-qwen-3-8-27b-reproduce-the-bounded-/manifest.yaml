@@ -2,9 +2,10 @@ id: "E0142"
 title: "Qwen 3.8 27B replication of the bounded semantic protocol stack"
 question: >
   Does Qwen 3.8 27B reproduce the bounded semantic protocol stack
-status: draft            # draft | running | reported | abandoned
+status: running         # draft | running | reported | abandoned
 opened: "2026-08-14"
 closed: ""
+active_cell: ".cache/runs/E0112/R000002/qwen38-27b-pointer-off-a1"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
