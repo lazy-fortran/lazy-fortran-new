@@ -239,11 +239,27 @@ source provenance. It does not apply the contract to PDF text, invent aliases
 or choose parser dispatch. The producer-to-consumer pipeline remains the next
 frontend handoff gate.
 
+The parallel backend serialization slice is integrated at `fortback-new`
+`c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
+round-trips normalized TargetIR encoding records through a private generic SX
+boundary, retaining target/operation identity, fixed and ordered variable
+fields and both provenance records. It passed coordinator-side full `fo` with
+zero warnings and malformed, range, overlap/order, unsupported-version,
+capacity and output-clearing controls. D0077 keeps this internal until a
+second production consumer requires a versioned cross-repository contract.
+
+The parallel middle-end slice is integrated at `ffc-new`
+`31a2b5df3d5de3486b5614a041d272e1daa6b3b1` and recorded as `R000231`. It
+exposes a validated target-independent instruction-count query with
+independent valid, malformed, index-boundary, output-clearing and diagnostic
+controls. It does not change `mir-v0`, opcodes, lowering, backend, ISA or ABI
+behavior.
+
 The current bounded production pins are `standard-new`
 `071acf5cc23200441b28309b50a6c8ccd5922e0e`, `fortfront-new`
 `49dd337728df9bbcc451042ed11a26842f92341b`, `ffc-new`
-`555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
-`b533414aae80052308434fc725500cf2d028a1ac`, all on clean `main` branches
+`31a2b5df3d5de3486b5614a041d272e1daa6b3b1`, and `fortback-new`
+`c68bf54844fbdbb79f012c5e5e977dacc6301ce2`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

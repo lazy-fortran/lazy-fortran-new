@@ -502,6 +502,15 @@ including nested structure and provenance, but does not apply the contract to
 PDF text or invent parser dispatch. The full producer-to-consumer pipeline
 gate remains open.
 
+The parallel backend slice is integrated at `fortback-new`
+`c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
+adds a generic private SX round trip for normalized TargetIR encoding records,
+including target/operation identity, fixed and ordered variable fields and
+provenance, with malformed, range, capacity and output-clearing controls.
+`D0077` keeps this representation private until a second production consumer
+requires a versioned serialized TargetIR contract; it does not add ISA
+dispatch, ABI, MIR or instruction selection.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -558,11 +567,11 @@ production lookup slice is integrated in `standard-new` and recorded as
 the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
-`standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
-`fortfront-new` `199c383ede97fe78f91a738d16c28e946c15f072`, and
-`fortback-new` `b533414aae80052308434fc725500cf2d028a1ac`; these are clean
+`standard-new` `071acf5cc23200441b28309b50a6c8ccd5922e0e`,
+`fortfront-new` `49dd337728df9bbcc451042ed11a26842f92341b`, and
+`fortback-new` `c68bf54844fbdbb79f012c5e5e977dacc6301ce2`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
-is `555eb09bfb17329517176f967a3d1fda36c3159e`.
+is `31a2b5df3d5de3486b5614a041d272e1daa6b3b1`.
 
 The same integration wave added bounded program, module and subroutine
 source-witness forms to `fortfront-new`: exact program, module, subroutine and
