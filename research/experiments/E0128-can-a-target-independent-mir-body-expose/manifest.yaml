@@ -2,14 +2,16 @@ id: "E0128"
 title: "Whole-body target-independent MIR opcode histogram"
 question: >
   Can a target-independent MIR body expose a complete deterministic opcode histogram without changing mir-v0?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000237
+reported_runs: [R000237]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: e5de64b
-  ffc-new: 31a2b5df3d5de3486b5614a041d272e1daa6b3b1
+  ffc-new: 7691adc1a7b96fef171f9fd0059c89401ad1c4f1
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

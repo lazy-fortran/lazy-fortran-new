@@ -255,10 +255,11 @@ preserves mixed-target order and provenance and reuses generic lookup/codecs.
 Neither slice adds parser/token dispatch, semantic promotion, ISA-specific
 mnemonic branches, ABI/MIR wiring or a new cross-repository contract.
 
-E0128 is the active independent middle-end slice in `ffc-new`: it tests a
-complete target-independent opcode histogram over validated MIR function
-bodies. It must preserve `mir-v0`, clear output on malformed input, and add no
-target, ABI or backend behavior.
+E0128 is accepted as `R000237` at `ffc-new` commit
+`7691adc1a7b96fef171f9fd0059c89401ad1c4f1`: it provides a complete
+target-independent opcode histogram over validated MIR function bodies. It
+preserves `mir-v0`, clears output on malformed input, and adds no target, ABI
+or backend behavior. E0129 is the active independent StandardIR export slice.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -283,7 +284,7 @@ behavior.
 The current bounded production pins are `standard-new`
 `d8740159f2fcfee359480d77f4391ef1edd0550c`, `fortfront-new`
 `d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, `ffc-new`
-`31a2b5df3d5de3486b5614a041d272e1daa6b3b1`, and `fortback-new`
+`7691adc1a7b96fef171f9fd0059c89401ad1c4f1`, and `fortback-new`
 `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.

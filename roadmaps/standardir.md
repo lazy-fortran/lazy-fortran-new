@@ -158,6 +158,13 @@ preserving the single-record result and clearing outputs transactionally on
 failure. It does not parse the PDF or add semantic aliases. The independent
 batch oracle and warning-free full `fo` gate passed.
 
+E0129 is the current export scale slice. It consumes a normalized grammar
+batch through the existing deterministic EBNF, ANTLR4, Bison and tree-sitter
+export paths where supported, preserving rule/alternative order and source
+annotations. It must not copy comparison grammars, parse PDF text or add
+parser dispatch; its independent export oracle and warning-free full `fo` gate
+are required before integration.
+
 ## Exit and handoff
 
 The lane hands off only a versioned `standardir-v0` record set with source

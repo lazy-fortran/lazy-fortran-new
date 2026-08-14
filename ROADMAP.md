@@ -22,9 +22,11 @@ normalized TargetIR table. E0126 is now accepted as `R000236` at
 `fortfront-new` commit `d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, providing
 language-neutral nullable and first-symbol fixed-point analysis over the flat
 grammar table. Neither semantic promotion nor parser/backend wiring is implied
-by these slices. E0128 is now the active independent middle-end gate: a
-complete target-independent MIR opcode histogram over validated function
-bodies, with no `mir-v0` revision.
+by these slices. E0128 is accepted as `R000237` at `ffc-new` commit
+`7691adc1a7b96fef171f9fd0059c89401ad1c4f1`, providing a complete
+target-independent MIR opcode histogram over validated function bodies with
+no `mir-v0` revision. E0129 is now the active independent StandardIR export
+gate.
 
 ## Current position
 
@@ -606,7 +608,7 @@ The current production pins after the latest bounded integration wave are
 `fortfront-new` `d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, and
 `fortback-new` `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
-is `31a2b5df3d5de3486b5614a041d272e1daa6b3b1`.
+is `7691adc1a7b96fef171f9fd0059c89401ad1c4f1`.
 
 The same integration wave added bounded program, module and subroutine
 source-witness forms to `fortfront-new`: exact program, module, subroutine and

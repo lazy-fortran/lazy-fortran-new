@@ -34,11 +34,12 @@ It also exposes a validated instruction-count query with explicit malformed,
 index-boundary, output-clearing and diagnostic controls. This remains an
 additive consumer API; it does not change `mir-v0` or define target behavior.
 
-E0128 is the current scale slice. It tests a complete deterministic opcode
-histogram over a validated function body, including all opcode bins and the
-total instruction count. The result must remain target-independent, reject
-malformed input with cleared output, and preserve `mir-v0`; its independent
-oracle and warning-free full `fo` gate are required before integration.
+E0128 is accepted as `R000237` at `ffc-new` commit
+`7691adc1a7b96fef171f9fd0059c89401ad1c4f1`. It provides a complete
+deterministic opcode histogram over a validated function body, including all
+opcode bins and the total instruction count. It remains target-independent,
+rejects malformed input with cleared output, and preserves `mir-v0`; the
+independent oracle and warning-free full `fo` gate passed.
 
 ## Exit and handoff
 
