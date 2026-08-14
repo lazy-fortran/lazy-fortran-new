@@ -240,6 +240,13 @@ experiment or run record needed
 blockers and suggested next slice
 ```
 
+After a completion report has arrived and its commit has been recorded, the
+coordinator closes that completed agent before launching another wave. This is
+resource cleanup, not status polling: leaving completed agent threads open can
+exhaust the native concurrency limit while no productive work is running.
+Active agents are never closed or inspected without a completion event or an
+explicit user request.
+
 Independent slices may run concurrently only when their repositories and file
 scopes do not overlap. The central agent is the only one that turns reports
 into accepted decisions, experiment manifests, append-only runs, provenance
