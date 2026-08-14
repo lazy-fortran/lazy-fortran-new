@@ -47,12 +47,12 @@ python3 research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/diag
 It separates protocol-format failures from deterministic predicate-gate
 rejections before the retry is evaluated.
 
-After the retry completes, merge only the exact predecessor residual set:
+After the retry completes, run the deterministic post-run gate. It merges only
+the exact predecessor residual set, replays validation, runs the witness gate
+and writes `report.json`:
 
 ```sh
-python3 research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/merge-retry.py \
-  .cache/runs/E0117/R000003-full/rows.jsonl \
-  .cache/runs/E0123/R000001/rows.jsonl \
-  --replace-status unresolved --replace-status hard_failure \
-  --outdir .cache/runs/E0123/R000001/merged
+E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl \
+E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl \
+research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
 ```

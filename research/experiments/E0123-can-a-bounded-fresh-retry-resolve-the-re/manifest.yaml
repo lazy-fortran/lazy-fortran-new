@@ -114,9 +114,9 @@ gate: >
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: >
-  research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/
-  run-semantic.py, followed by validate.py, witness.py and merge-retry.py;
-  generated plots remain ignored.
+  research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/
+  analyse.sh; it invokes the pinned E0116 merge, validation and witness gates
+  and writes report.json. Generated plots remain ignored.
 preflight: >
   research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/
   preflight.sh; it performs one health/version check and never waits for
