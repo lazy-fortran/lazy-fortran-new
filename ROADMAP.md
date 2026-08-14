@@ -279,6 +279,12 @@ behavioral tests and full `fo` gate; the coordinator merged and pushed the
 four main branches and removed their task branches. These additive contracts
 continue in parallel with E0117 and do not close M3.
 
+Wave O then integrated a provenance-aware StandardIR source query, a typed
+frontend program-unit handoff validator, a MIR result-kind query, and a
+source-backed RISC-V SLL codec. Each passed the full `fo` gate and its
+independent behavioral tests; all task branches were removed after push. The
+semantic promotion gate remains unchanged.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
