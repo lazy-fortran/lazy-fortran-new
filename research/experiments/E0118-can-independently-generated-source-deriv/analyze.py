@@ -39,6 +39,13 @@ BOOLEAN_UNARY = {"present", "absent", "has"}
 MAX_CASES = 4096
 
 
+def derived_fact_name(prefix: str, *parts: Any) -> str:
+    values = [part for part in parts if isinstance(part, str) and FACT_NAME.fullmatch(part)]
+    if len(values) != len(parts):
+        raise OracleUnavailable(f"{prefix} arguments are not fact identifiers")
+    return "-".join((prefix, *values))
+
+
 class GateError(Exception):
     """An input or structural gate failure."""
 
@@ -222,7 +229,7 @@ def collect_oracle_domains(node: dict[str, Any], required_facts: list[str]) -> d
 
     facts: dict[str, dict[str, Any]] = {}
 
-    def add(name: str, kind: str, literal: Any = None) -> None:
+    def add(name: str, kind: str, literal: Any = None, bound: int | None = None) -> None:
         entry = facts.setdefault(name, {"types": set(), "literals": []})
         if kind == "presence":
             entry["presence"] = True
@@ -234,6 +241,8 @@ def collect_oracle_domains(node: dict[str, Any], required_facts: list[str]) -> d
             entry["types"].add(kind)
         if literal is not None and literal not in entry["literals"]:
             entry["literals"].append(literal)
+        if bound is not None:
+            entry.setdefault("bounds", []).append(bound)
 
     def visit(current: dict[str, Any]) -> None:
         op = current["op"]
@@ -247,10 +256,18 @@ def collect_oracle_domains(node: dict[str, Any], required_facts: list[str]) -> d
             if len(args) != 1 or not isinstance(args[0], dict):
                 raise OracleUnavailable("not needs one predicate operand")
             visit(args[0])
+        elif op == "exists":
+            if len(args) != 1 or not isinstance(args[0], dict):
+                raise OracleUnavailable("exists needs one predicate operand")
+            visit(args[0])
         elif op in BOOLEAN_UNARY:
             add(fact_arg(current, 0, op), "presence")
         elif op in {"named-constant", "has-kind-param"}:
             add(op, "bool")
+        elif op == "contains":
+            if len(args) != 2:
+                raise OracleUnavailable("contains needs a container and item")
+            add(derived_fact_name("contains", *args), "bool")
         elif op == "type-is":
             if len(args) != 2 or not isinstance(args[1], str):
                 raise OracleUnavailable("type-is needs a symbolic type literal")
@@ -262,7 +279,17 @@ def collect_oracle_domains(node: dict[str, Any], required_facts: list[str]) -> d
             if isinstance(left, dict) and left.get("op") == "value":
                 name = fact_arg(left, 0, "value")
             elif isinstance(left, dict) and left.get("op") == "name-length":
-                raise OracleUnavailable("name-length requires a source string domain")
+                name = fact_arg(left, 0, "name-length")
+                if not isinstance(args[1], int) or args[1] < 0:
+                    raise OracleUnavailable("name-length bound is not a nonnegative integer")
+                add(name, "str", bound=args[1])
+            elif isinstance(left, dict) and left.get("op") == "count":
+                if len(left.get("args", [])) != 2:
+                    raise OracleUnavailable("count needs an item and container")
+                name = derived_fact_name("count", *left["args"])
+                if not isinstance(args[1], int) or args[1] < 0:
+                    raise OracleUnavailable("count bound is not a nonnegative integer")
+                add(name, "int", literal=args[1])
             else:
                 name = fact_arg(current, 0, op)
             add(name, literal_type(args[1]), args[1])
@@ -302,6 +329,11 @@ def domain_values(entry: dict[str, Any]) -> list[tuple[Any, str]]:
         if entry.get("presence"):
             values.insert(0, (None, "typed-absent"))
         values.extend([("", "typed-boundary-empty"), ("__other__", "typed-boundary-other")])
+        for bound in entry.get("bounds", []):
+            if bound > 0:
+                values.append(("a" * (bound - 1), "typed-boundary-low"))
+            values.append(("a" * bound, "typed-boundary-exact"))
+            values.append(("a" * (bound + 1), "typed-boundary-high"))
         return dedupe_values(values)
     if kind in {"int", "float"}:
         values: list[tuple[Any, str]] = []
@@ -373,6 +405,11 @@ def oracle_term_value(term: Any, facts: dict[str, Any]) -> Any:
         if not isinstance(value, str):
             raise OracleUnavailable("name-length source fact is not a string")
         return len(value)
+    if isinstance(term, dict) and term.get("op") == "count":
+        args = term.get("args", [])
+        if len(args) != 2:
+            raise OracleUnavailable("count needs an item and container")
+        return oracle_value(facts, derived_fact_name("count", *args))
     if isinstance(term, str):
         return oracle_value(facts, term)
     return term
@@ -391,11 +428,15 @@ def oracle_expectation(node: dict[str, Any], facts: dict[str, Any], required_fac
         return (not oracle_expectation(args[0], facts, required_facts)) or oracle_expectation(args[1], facts, required_facts)
     if op == "not":
         return not oracle_expectation(args[0], facts, required_facts)
+    if op == "exists":
+        return oracle_expectation(args[0], facts, required_facts)
     if op in BOOLEAN_UNARY:
         value = oracle_value(facts, fact_arg(node, 0, op))
         return bool(value) if op != "absent" else not bool(value)
     if op in {"named-constant", "has-kind-param"}:
         return bool(oracle_value(facts, op))
+    if op == "contains":
+        return bool(oracle_value(facts, derived_fact_name("contains", *args)))
     if op == "same-as":
         return oracle_value(facts, fact_arg(node, 0, op)) == oracle_value(facts, fact_arg(node, 1, op))
     if op == "type-is":
@@ -850,7 +891,12 @@ def main() -> int:
         case_records.extend(evaluated)
         record["case_count"] = len(evaluated)
         record["model_consistency"] = diagnostics["model_consistency"]
-        record["source_case_status"] = "self_consistent" if all(case["case_status"] == "match" for case in evaluated) else "mismatch"
+        if any(case["case_status"] == "mismatch" for case in evaluated):
+            record["source_case_status"] = "mismatch"
+        elif any(case["case_status"] == "candidate_unavailable" for case in evaluated):
+            record["source_case_status"] = "candidate_unavailable"
+        else:
+            record["source_case_status"] = "self_consistent"
         counters["source_case_rows"] += len(evaluated)
         counters["source_case_positive"] += sum(case["case_class"] == "positive" for case in evaluated)
         counters["source_case_negative"] += sum(case["case_class"] == "negative" for case in evaluated)
