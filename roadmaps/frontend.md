@@ -20,7 +20,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`199c383ede97fe78f91a738d16c28e946c15f072`. The bounded parser-quality
+`49dd337728df9bbcc451042ed11a26842f92341b`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -98,6 +98,12 @@ D0076's `standardir-grammar-v0` consumer is the next handoff: it validates the
 source-backed flat node tree before any deterministic parser generation. The
 consumer must retain unresolved/disputed status as non-accepted input and must
 not turn the contract into Fortran-specific token dispatch.
+The typed consumer boundary is integrated at `fortfront-new` commit
+`49dd337728df9bbcc451042ed11a26842f92341b`: it validates the flat
+`standardir-grammar-v0` node shape, preserves provenance/origin/resolution,
+rejects unresolved and disputed rules, and projects leaf sequences into the
+generic candidate machinery. The StandardIR producer and source-to-consumer
+pipeline remain pending.
 
 ## Exit and handoff
 
