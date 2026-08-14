@@ -4,13 +4,13 @@ question: >
   Can the complete selected StandardIR syntax profile be reconstructed from
   source spans with generic continuation, notation and occurrence policies
   that pass independent positive and negative controls?
-status: running       # draft | running | reported | abandoned
+status: reported       # draft | running | reported | abandoned
 opened: "2026-08-14"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: "05206850726b599137629306ef14e9eaffd931f2"
-  standard-new: "17525dbef6ec7a44ee701bc400841e8a907708df"
+  standard-new: "65b38f49b1795e50db1765ee7b7366f405830b25"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
@@ -44,6 +44,9 @@ metrics:
   - exportable_records
   - target_validator_failures
   - target_validator_warnings
+  - bison_shift_reduce_conflicts
+  - bison_reduce_reduce_conflicts
+  - unreachable_derived_records
   - warnings
   - model_calls
 
@@ -80,7 +83,8 @@ gate: >
   subgate may be accepted separately, but it does not close this experiment.
 
 analysis: >
-  The source audit commands and the grammar-oracle command are supplied and
-  pinned by standard-new before the terminal run. No run is valid until those
-  commands, their independent controls and every validator log are recorded
-  in the run ledger.
+  The complete replay command
+  run-source-backed-closure.sh creates the closed source-backed inputs, all
+  four projections, independent validator logs and the negative controls. No
+  run is valid until that command, its exact repository commits and every
+  validator log are recorded in the run ledger.

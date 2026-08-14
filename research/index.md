@@ -148,7 +148,7 @@ Runs recorded: 266
 | E0144 | reported | 1 | Can the generic grammar session keep failed frontier pushes transactional? |
 | E0145 | reported | 1 | Can the target-independent MIR boundary report exact canonical SX body size? |
 | E0146 | reported | 1 | Can TargetIR provide a generic source-origin query over normalized records? |
-| E0147 | running | 2 | Can the complete selected StandardIR syntax profile be reconstructed from |
+| E0147 | reported | 2 | Can the complete selected StandardIR syntax profile be reconstructed from |
 
 ## Run status
 

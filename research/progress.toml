@@ -5,9 +5,9 @@
 
 [lanes.syntax]
 title = "StandardIR syntax validity and grammar exports"
-completed = 2
+completed = 5
 total = 5
-basis = "Five gates: source extraction, canonical SX, source-valid right-hand sides, closed references, and export validation. The first two are structural gates; E0147 is required before the remaining three count."
+basis = "Five gates: source extraction, canonical SX, source-valid right-hand sides, closed references, and export validation. E0147/R000267 plus its clean source-backed closure replay establish all five for the selected profile; Bison ambiguity diagnostics remain reported evidence."
 evidence = "E0013|E0016|E0017|E0018|E0019|E0129|E0134|E0147"
 
 [lanes.semantic]

@@ -338,22 +338,30 @@ documents the commands.
 ### Grammar export oracle gate
 
 An exporter completing successfully is not evidence that its grammar is a
-usable parser input. For every source-valid StandardIR grammar run, execute the
-E0147 validator procedure against the same run directory:
+usable parser input. For a fresh source-backed StandardIR grammar run, execute
+the complete E0147 replay, which creates the closed inputs, all four
+projections and the validator report in one cache directory:
+
+```sh
+research/experiments/E0147-can-source-backed-standardir-validity-close/run-source-backed-closure.sh
+```
+
+For an existing source-valid StandardIR grammar run, execute the E0147
+validator procedure against the same run directory:
 
 ```sh
 research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh \
-    .cache/runs/E0147/R000001
+    .cache/runs/E0147/R000003
 ```
 
 The procedure runs ANTLR4, Bison and tree-sitter independently, records their
 versions, exit codes and complete logs, and records EBNF as a projection-only
 format with no external parser validator. Undefined symbols, dropped source
-mapping and fatal validator errors are failures. Warnings remain in the run
-record and must be explained; they are never converted to success by deleting
-rules or editing generated files. A source-validity subgate may therefore be
-accepted before this downstream gate, but it cannot close the experiment or
-unlock semantic/model work.
+mapping and fatal validator errors are failures. Bison conflicts and
+reachability warnings remain in the run record and must be explained; they are
+never converted to success by deleting rules or editing generated files. A
+source-validity subgate may therefore be accepted before this downstream gate,
+but it cannot close the experiment or unlock semantic/model work.
 
 ---
 

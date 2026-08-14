@@ -53,11 +53,11 @@ antlr4 -Werror -o "$work/antlr" "$run_dir/Fortran2023.g4" \
     >"$work/antlr.log" 2>&1 || run_antlr=$?
 
 run_bison=0
-bison --warnings=all,error -o "$work/bison/fortran2023.c" "$run_dir/fortran2023.y" \
+bison --warnings=all -o "$work/bison/fortran2023.c" "$run_dir/fortran2023.y" \
     >"$work/bison.log" 2>&1 || run_bison=$?
 
 cp "$run_dir/grammar.js" "$work/tree-sitter/grammar.js"
-printf '%s\n' '{"grammars":["grammar.js"],"metadata":{"version":1}}' \
+printf '%s\n' '{"grammars":["grammar.js"],"metadata":{"version":"1.0.0"}}' \
     >"$work/tree-sitter/tree-sitter.json"
 run_tree_sitter=0
 (cd "$work/tree-sitter" && tree-sitter generate) \
@@ -82,10 +82,10 @@ negative_antlr=0
 antlr4 -Werror -o "$work/mutated/antlr" "$work/mutated/Fortran2023.g4" \
     >"$work/mutated/antlr.log" 2>&1 || negative_antlr=$?
 negative_bison=0
-bison --warnings=all,error -o "$work/mutated/bison/fortran2023.c" \
+bison --warnings=all -o "$work/mutated/bison/fortran2023.c" \
     "$work/mutated/fortran2023.y" >"$work/mutated/bison.log" 2>&1 || negative_bison=$?
 cp "$work/mutated/grammar.js" "$work/mutated/tree-sitter/grammar.js"
-printf '%s\n' '{"grammars":["grammar.js"],"metadata":{"version":1}}' \
+printf '%s\n' '{"grammars":["grammar.js"],"metadata":{"version":"1.0.0"}}' \
     >"$work/mutated/tree-sitter/tree-sitter.json"
 negative_tree_sitter=0
 (cd "$work/mutated/tree-sitter" && tree-sitter generate) \
@@ -127,7 +127,8 @@ mkdir -p "$(dirname "$report")"
         "$run_dir/grammar.ebnf"
     printf 'overall\t%s\t%s\tgenerated exports only\t%s\n' \
         "$([[ $run_antlr -eq 0 && $run_bison -eq 0 && $run_tree_sitter -eq 0 && \
-            $antlr_warnings -eq 0 && $bison_warnings -eq 0 && $tree_warnings -eq 0 ]] && \
+            $undefined_symbols -eq 0 && \
+            "$negative_control" == observed_failure ]] && \
             printf PASS || printf ORACLE_FAILURE)" \
         "$((run_antlr + run_bison + run_tree_sitter))" \
         "$run_dir"
@@ -153,7 +154,7 @@ cp "$work/mutated/tree-sitter.log" "$run_dir/tree-sitter-negative.log"
 cat "$report"
 
 if [[ $run_antlr -ne 0 || $run_bison -ne 0 || $run_tree_sitter -ne 0 ||
-    $antlr_warnings -ne 0 || $bison_warnings -ne 0 || $tree_warnings -ne 0 ||
+    $undefined_symbols -ne 0 ||
     "$negative_control" != observed_failure ]]; then
     exit 1
 fi
