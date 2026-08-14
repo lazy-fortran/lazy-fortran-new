@@ -1,0 +1,58 @@
+id: "E0130"
+title: "Parser-neutral grammar frontier"
+question: >
+  Can generic grammar facts drive a deterministic parser frontier over abstract symbols?
+status: running          # draft | running | reported | abandoned
+opened: "2026-08-14"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: 554a350
+  fortfront-new: d37e7a62d25a168eb9dd54bc79e36ffd410275bf
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: grammar-frontier-witnesses
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  forms: [sequence, choice, nullable_prefix, recursion]
+  outcomes: [accept, reject, ambiguous, unresolved]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "none; deterministic parser-neutral frontier only"
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - accepted_sequences
+  - rejected_sequences
+  - ambiguous_sequences
+  - unresolved_sequences
+  - frontier_state_determinism
+  - fo_warnings
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: "Every abstract symbol sequence in the fixed frontier witness set, including accepted, rejected, ambiguous and unresolved controls."
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: "Independently authored expected frontier transitions and terminal outcomes for abstract grammar tables; no comparison parser is the oracle."
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: "Any hidden Fortran token assumption, nondeterministic transition, wrong terminal result, silent unresolved acceptance, or nonzero warning."
+
+# The condition that closes the experiment and the evidence it must report.
+gate: "The frontier agrees with every independent abstract witness, preserves ambiguity and unresolved states explicitly, rejects malformed tables, and passes full fo with zero warnings without changing mir-v0."
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: "research/experiments/E0130-can-generic-grammar-facts-drive-a-determ/analyse.sh"

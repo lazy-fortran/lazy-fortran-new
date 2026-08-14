@@ -131,6 +131,7 @@ Runs recorded: 235
 | E0127 | reported | 1 | Can normalized TargetIR encoding records be accumulated into a validated bounded table suitable for generated codec data? |
 | E0128 | reported | 1 | Can a target-independent MIR body expose a complete deterministic opcode histogram without changing mir-v0? |
 | E0129 | running | 0 | Can a normalized StandardIR grammar batch generate ordered canonical grammar exports for all declared formats? |
+| E0130 | running | 0 | Can generic grammar facts drive a deterministic parser frontier over abstract symbols? |
 
 ## Run status
 
