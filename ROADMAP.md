@@ -62,6 +62,8 @@ generic parser session over abstract tokens. E0139 is accepted as `R000249` at
 `fortback-new` `ba96b13`, adding a generic whole-array query over existing
 TargetIR-v0 feature metadata with source/origin preservation. It changes no
 versioned input or ISA-specific dispatch.
+E0140 is the next active MIR scale experiment: it constructs validated
+multi-block partitions from caller-supplied lengths without changing `mir-v0`.
 
 ## Current position
 

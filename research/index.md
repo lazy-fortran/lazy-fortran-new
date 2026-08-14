@@ -141,6 +141,7 @@ Runs recorded: 247
 | E0137 | reported | 1 | Can generic grammar facts gate bounded frontier transitions over abstract tokens |
 | E0138 | running | 0 | Can a generic parser session consume abstract tokens incrementally |
 | E0139 | reported | 1 | Can TargetIR-v0 feature metadata be queried generically |
+| E0140 | running | 0 | Can the generic MIR block table construct validated multi-block partitions |
 
 ## Run status
 

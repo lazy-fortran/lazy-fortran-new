@@ -301,6 +301,10 @@ parser-session state. E0139 is accepted as `R000249` at `fortback-new`
 `fo`, was pushed to main, and had its task branch removed. Neither slice changes
 a versioned contract or adds language/ISA-specific dispatch.
 
+E0140 is now running in `ffc-new` from clean main. It owns only deterministic
+construction of validated multi-block ranges from caller-supplied lengths; it
+must not revise `mir-v0`, serialize blocks or add backend behavior.
+
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
 round-trips normalized TargetIR encoding records through a private generic SX

@@ -54,6 +54,11 @@ target-independent block-range table and query, validates ordered contiguous
 coverage and preserves the current single-block APIs and `mir-v0` SX behavior.
 Serialization and backend consumption remain future boundaries.
 
+E0140 is the active construction successor. It owns only the generic
+partition-to-range construction needed to make multi-block tables useful. It
+must preserve the existing single-block behavior and stop before any MIR
+serialization or backend contract revision.
+
 ## Exit and handoff
 
 Every emitted operation carries source-rule identity where available. The lane
