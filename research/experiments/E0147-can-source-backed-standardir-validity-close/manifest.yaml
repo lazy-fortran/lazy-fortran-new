@@ -4,9 +4,8 @@ question: >
   Can the complete selected StandardIR syntax profile be reconstructed from
   source spans with generic continuation, notation and occurrence policies
   that pass independent positive and negative controls?
-status: reported      # draft | running | reported | abandoned
+status: running       # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: "2026-08-14"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -44,6 +43,7 @@ metrics:
   - negative_controls_rejected
   - exportable_records
   - target_validator_failures
+  - target_validator_warnings
   - warnings
   - model_calls
 
@@ -55,9 +55,10 @@ denominator: >
 
 independent_oracle: >
   Independently authored source-span and notation witnesses, canonical source
-  bytes and page evidence, duplicate/occurrence checks, reference-closure
-  traversal, target validators and mutation controls. SX round-trip alone is
-  explicitly insufficient.
+  bytes and page evidence, duplicate/occurrence checks, deterministic
+  source-backed reference closure, ANTLR4/Bison/tree-sitter generation and
+  validator runs, and mutation controls. SX round-trip alone is explicitly
+  insufficient.
 
 toolchain:
   record_in_run: true
@@ -66,16 +67,20 @@ toolchain:
 falsifiable_by: >
   A continuation is dropped or absorbs prose, a punctuation or Unicode glyph
   is silently misclassified, two source occurrences collapse without an
-  explanation, a reference remains unclassified, a negative mutation passes,
-  or an export is generated from a non-source-valid record.
+  explanation, a reference remains unclassified, a target validator rejects
+  an export, a negative mutation passes, or an export is generated from a
+  non-source-valid record.
 
 gate: >
   The complete selected profile has source-span-complete, notation-valid,
   occurrence-explained and reference-classified records; all independent
   positive and negative controls pass; only source-valid records feed grammar
-  exports; and the report names any explicit unsupported or unresolved residue.
+  exports; ANTLR4, Bison and tree-sitter accept those exports; and the report
+  names any explicit unsupported or unresolved residue. A source-validity
+  subgate may be accepted separately, but it does not close this experiment.
 
 analysis: >
-  The terminal audit command is supplied and pinned by standard-new before the
-  first run. No run is valid until that command and its independent controls
-  are recorded in the run ledger.
+  The source audit commands and the grammar-oracle command are supplied and
+  pinned by standard-new before the terminal run. No run is valid until those
+  commands, their independent controls and every validator log are recorded
+  in the run ledger.

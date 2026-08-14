@@ -7,11 +7,15 @@ source paths supplied by the laboratory fetch contract and emits StandardIR.
 
 ## Current gate
 
-M2 is complete for the selected production parser profile under D0029. The
-source-side syntax profile is closed; tree-sitter remains a non-gating derived
-differential export whose conflict inventory is retained as evidence. E0098 is
-the current measurement. Regenerate it with
-`research/experiments/E0098-can-the-current-complete-standardir-proj/analyse.sh`.
+M1's source-validity subgate is accepted as E0147/R000267 at
+`standard-new` `17525dbef6ec7a44ee701bc400841e8a907708df`. M2 is not complete.
+The current E0147 output is a source-valid baseline only: its first independent
+ANTLR4, Bison and tree-sitter validator run rejected unresolved references.
+Those validators are all mandatory; tree-sitter is not a non-gating exception.
+The automatic closure and target-normalization procedure is maintained in
+`research/experiments/E0147-can-source-backed-standardir-validity-close/` and
+must finish before semantic or model work resumes. Historical E0098 remains
+comparison evidence, not the current gate.
 
 ## Independent slices
 
@@ -200,7 +204,8 @@ discover, infer or promote semantic facts. E0142 is the active semantic
 replication experiment; E0123 is reported as `R000254` after its deterministic
 post-run merge, replay validator and independent witness gate. Its 69
 unwitnessed and 94 disputed rows remain evidence and no semantic fact was
-promoted.
+promoted. E0142 is frozen under D0084; no model replication resumes until
+E0147's reference-closure and three-validator gate is accepted.
 
 ## Exit and handoff
 

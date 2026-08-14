@@ -335,6 +335,26 @@ dependencies, and no gate depends on it. `research/decisions/D0039-disposable-lo
 states the bounds and what would mean deleting it, and `scripts/browse/README.md`
 documents the commands.
 
+### Grammar export oracle gate
+
+An exporter completing successfully is not evidence that its grammar is a
+usable parser input. For every source-valid StandardIR grammar run, execute the
+E0147 validator procedure against the same run directory:
+
+```sh
+research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh \
+    .cache/runs/E0147/R000001
+```
+
+The procedure runs ANTLR4, Bison and tree-sitter independently, records their
+versions, exit codes and complete logs, and records EBNF as a projection-only
+format with no external parser validator. Undefined symbols, dropped source
+mapping and fatal validator errors are failures. Warnings remain in the run
+record and must be explained; they are never converted to success by deleting
+rules or editing generated files. A source-validity subgate may therefore be
+accepted before this downstream gate, but it cannot close the experiment or
+unlock semantic/model work.
+
 ---
 
 ## Papers
