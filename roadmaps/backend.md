@@ -91,3 +91,10 @@ preserving order and provenance while reusing the generic validator and
 codec. It adds no mnemonic dispatch, ISA-specific branches, ABI/MIR wiring or
 new shared contract; the independent mixed-family table oracle and
 warning-free full `fo` gate passed.
+
+E0131 is the active source-ingestion scale slice. It batches existing RISC-V
+and AArch64 source records into the generic normalized TargetIR table while
+preserving order, provenance and transactional failure. It must not add
+mnemonic dispatch, importer whitelists, ISA-specific codec branches, ABI/MIR
+wiring, serialization or a new contract; its independent mixed-source oracle
+and warning-free full `fo` gate are required before integration.

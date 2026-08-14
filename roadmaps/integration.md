@@ -260,7 +260,8 @@ E0128 is accepted as `R000237` at `ffc-new` commit
 target-independent opcode histogram over validated MIR function bodies. It
 preserves `mir-v0`, clears output on malformed input, and adds no target, ABI
 or backend behavior. E0129 is the active independent StandardIR export slice;
-E0130 is the parallel parser-neutral frontier slice in `fortfront-new`.
+E0130 is the parallel parser-neutral frontier slice in `fortfront-new`; E0131
+is the parallel mixed-source TargetIR normalization slice in `fortback-new`.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
