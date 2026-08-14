@@ -116,6 +116,7 @@ has no feature field, so this is deliberately a provenance boundary rather than
 a feature-policy claim. No ISA payload, mnemonic dispatch or TargetIR contract
 change was introduced.
 
-E0139 is the active TargetIR-v0 metadata successor. It may query the existing
-feature-bearing SX witness records generically, preserving source and origin,
-but may not change the schema or add ISA-specific feature branches.
+E0139 is accepted as `R000249` at `fortback-new` `ba96b13`. It adds a generic
+whole-array query over existing feature-bearing TargetIR-v0 SX instruction
+records, returning ordered original indices while preserving source and origin.
+The SX schema is unchanged and no ISA-specific feature branch was added.

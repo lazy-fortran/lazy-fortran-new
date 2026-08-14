@@ -57,10 +57,11 @@ E0137 is accepted as `R000248` at `fortfront-new` commit
 facts to gate the existing bounded frontier while retaining ambiguity and
 unresolved outcomes. This is a frontier transition slice, not complete parser
 state or tokenization, and adds no Fortran token policy.
-E0138 and E0139 are the next active production experiments: E0138 tests an
-incremental generic parser session over abstract tokens, and E0139 tests a
-generic query over the existing TargetIR-v0 feature metadata. Both reuse
-versioned inputs and must stop before language- or ISA-specific dispatch.
+E0138 is the remaining active production experiment: it tests an incremental
+generic parser session over abstract tokens. E0139 is accepted as `R000249` at
+`fortback-new` `ba96b13`, adding a generic whole-array query over existing
+TargetIR-v0 feature metadata with source/origin preservation. It changes no
+versioned input or ISA-specific dispatch.
 
 ## Current position
 
@@ -651,7 +652,7 @@ the sibling repository at build time.
 The current production pins after the latest bounded integration wave are
 `standard-new` `25486db92b0805201fa90104dc6f637ecce84942`,
 `fortfront-new` `d27f2bbc6cde7dc351320e4f3de82a61a8f435d6`, and
-`fortback-new` `403a1ba`; these are clean
+`fortback-new` `ba96b13`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `335629b753f440b2960bf9fef0e6b275094c79ec`.
 

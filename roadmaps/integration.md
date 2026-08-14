@@ -295,10 +295,11 @@ coordinator-side full `fo`, was pushed to main, and had its task branch
 removed. It is a frontier transition slice, not complete parser state or
 tokenization, and adds no Fortran token policy or contract change.
 
-E0138 and E0139 are now running in parallel from the clean current frontend
-and backend mains. E0138 owns only incremental generic parser-session state;
-E0139 owns only TargetIR-v0 feature metadata lookup. Neither may change a
-versioned contract or add language/ISA-specific dispatch.
+E0138 remains active in `fortfront-new`, owning only incremental generic
+parser-session state. E0139 is accepted as `R000249` at `fortback-new`
+`ba96b13`: its generic TargetIR-v0 feature query passed coordinator-side full
+`fo`, was pushed to main, and had its task branch removed. Neither slice changes
+a versioned contract or adds language/ISA-specific dispatch.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -324,7 +325,7 @@ The current bounded production pins are `standard-new`
 `25486db92b0805201fa90104dc6f637ecce84942`, `fortfront-new`
 `d27f2bbc6cde7dc351320e4f3de82a61a8f435d6`, `ffc-new`
 `335629b753f440b2960bf9fef0e6b275094c79ec`, and `fortback-new`
-`403a1ba`, all on clean `main` branches
+`ba96b13`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
