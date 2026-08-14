@@ -82,4 +82,16 @@ assert failed["status"] == "hard_failure"
 assert failed["model_errors"]
 novel = runner.run_row(args, raw, ranges, residue, e0110, "scalar-int-variable", [])
 assert novel["oracle"] is None
+
+malformed_episode = harness.Episode(raw, ranges, residue, e0110, "module-name")
+_, _, malformed = runner.tool_event(
+    malformed_episode,
+    {
+        "function": {
+            "name": "search_standard",
+            "arguments": json.dumps({"query": "module-name", "mode": "definition"}),
+        }
+    },
+)
+assert malformed["status"] == "error" and malformed["code"] == "tool_rejected"
 print("E0115 native local-tool loop passed")

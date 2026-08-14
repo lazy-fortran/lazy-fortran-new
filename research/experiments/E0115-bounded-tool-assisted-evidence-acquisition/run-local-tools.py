@@ -157,7 +157,7 @@ def tool_event(episode, tool_call):
         raise RuntimeError("tool arguments are not an object")
     try:
         result = episode.call(name, arguments)
-    except (harness.ToolError, harness.common.InputError) as exc:
+    except (harness.ToolError, harness.common.InputError, TypeError) as exc:
         result = {"status": "error", "code": "tool_rejected", "message": str(exc)}
     return name, arguments, result
 
