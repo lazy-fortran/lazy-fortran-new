@@ -1,0 +1,58 @@
+id: "E0133"
+title: "Additional TargetIR source families"
+question: >
+  Can additional source record families normalize through the generic TargetIR batch?
+status: running          # draft | running | reported | abandoned
+opened: "2026-08-14"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: c41eda3
+  fortback-new: 576c7a4b55aa772e0723b274333dcf411f35071d
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: targetir-additional-source-families
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  source_families: [existing_riscv, existing_aarch64, additional_supported]
+  controls: [malformed, wrong_target, unsupported, duplicate, capacity]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "none; deterministic TargetIR source normalization only"
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - normalized_record_count
+  - source_order_preserved
+  - source_provenance_preserved
+  - generic_table_agreement
+  - failure_transactionality
+  - fo_warnings
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: "Every additional record family already represented by a parsed source type in fortback-new, plus the existing RISC-V/AArch64 controls and every declared negative control; unsupported families are retained as explicit outcomes."
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: "Independently authored normalized TargetIR records and expected rejection states; existing codecs are differential checks, not the sole oracle."
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: "Any family-specific dispatch hidden in the generic batch, dropped/reordered records, lost provenance, partial output after failure, unsupported-family misclassification, or nonzero warning."
+
+# The condition that closes the experiment and the evidence it must report.
+gate: "Every eligible existing source family either normalizes through the generic batch or is explicitly reported unsupported, all controls reject transactionally, provenance is preserved, no new cross-repository contract is added, and full fo passes with zero warnings."
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: research/experiments/E0133-can-additional-source-record-families-no/analyse.sh
