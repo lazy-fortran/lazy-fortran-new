@@ -343,8 +343,16 @@ first complete local bounded-tool cell (Qwen 3.5 2B, reasoning off) is recorded:
 6 accepted, 57 abstentions and 64 hard failures over 127 rows, with 4/6 exact
 oracle translations and one novel accepted row. The corrected convergence
 cells start with Qwen 3.6 35B-A3B and 27B, then use smaller fallback cells.
-Unavailable checkpoints and
-inapplicable visual cells remain explicit denominator entries.
+D0059 now fixes the semantic recovery boundary: deterministic normalization
+accepts unique typed source relations; a bounded local LLM may only navigate
+evidence or propose a small typed predicate for the residual; deterministic
+schema, provenance and behavioral gates remain authoritative. The complete
+Qwen 3.6 35B-A3B adaptive cell resolves 127/127 residue rows and 6/6 solved
+oracle rows exactly. The remaining local model cells are a cross-model
+comparison of this protocol, not semantic promotion. Campaign data and
+commands are recorded in git, generated plot files remain ignored, and PNGs
+are handed off through slopbox. Unavailable checkpoints and inapplicable visual
+cells remain explicit denominator entries.
 
 ### M4. Generated frontend vertical slice (pending)
 
@@ -980,6 +988,11 @@ comparisons from behavioral oracle comparisons.
 - [x] Record Christopher Albert as sole planned author
 - [x] Record *Nature Computational Science* as the aspirational target
 - [ ] Measure the semantic mechanical/model-assisted residue
+- [ ] Run the deterministic-first semantic residual campaign across the local
+      Qwen/Gemma matrix; retain all failures and publish its convergence plots
+      through the D0059 slopbox handoff
+- [ ] Promote only typed semantic predicates that pass source, schema and
+      behavioral gates; keep unresolved prose separate from generated wiring
 - [ ] Start and validate the generated `fortfront-new` frontend
 - [ ] Compare generated infrastructure with established frontends on a real
       Fortran corpus

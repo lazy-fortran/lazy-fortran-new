@@ -59,7 +59,13 @@ R401/R402/R403 assumed rules and numbered RHS lexical/operator terminals, spans
 are UTF-8-safe, and model-class turn caps are used. The first complete local
 bounded-tool cell (Qwen 3.5 2B, reasoning off) is recorded with 6 accepted, 57
 abstentions, 64 hard failures and 4/6 exact oracle translations; corrected
-convergence cells are pending.
+convergence cells are pending. D0059 makes the next semantic lane
+deterministic-first: unique typed relations are accepted mechanically, while a
+bounded local LLM may only navigate evidence or propose a small typed
+predicate for an ambiguous semantic clause. Schema, provenance and behavioral
+gates remain authoritative. Cross-model campaigns retain complete denominators
+and publish ignored plot artifacts through the slopbox handoff without adding a
+service to this repository.
 
 ## Exit and handoff
 
