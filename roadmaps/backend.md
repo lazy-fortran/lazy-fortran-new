@@ -109,9 +109,9 @@ unknown families after a valid prefix reject transactionally. No importer
 payload, mnemonic dispatch, ISA-specific codec branch, ABI/MIR wiring,
 serialization or new contract was introduced.
 
-E0136 is the active successor boundary. It tests whether the existing
-source-backed normalized records can expose generic feature metadata without
-adding unpinned ISA payloads, mnemonic dispatch or a TargetIR contract change.
-The experiment retains the existing mixed-family and failure controls and must
-report a clean boundary if the current source records do not contain enough
-information.
+E0136 is accepted as `R000246` at `fortback-new` commit `403a1ba`. It adds a
+generic exact-source provenance query over normalized records, preserving order,
+source identity and transactional failure controls. The current record shape
+has no feature field, so this is deliberately a provenance boundary rather than
+a feature-policy claim. No ISA payload, mnemonic dispatch or TargetIR contract
+change was introduced.

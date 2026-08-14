@@ -48,11 +48,11 @@ including typed results and source-linked instructions, and fixes failure
 output clearing. Current `mir-v0` has one representable block, so the gate does
 not claim multi-block support; it adds no target details or new contract.
 
-E0135 is the active successor boundary. It tests a compact target-independent
-multi-block table/query while preserving the current single-block behavior. It
-must stop before changing `mir-v0` if additive representation is insufficient;
-the result is either a validated generic slice or an explicit contract decision
-point, never an implicit revision.
+E0135 is accepted as `R000247` at `ffc-new` commit
+`335629b753f440b2960bf9fef0e6b275094c79ec`. It adds an in-memory,
+target-independent block-range table and query, validates ordered contiguous
+coverage and preserves the current single-block APIs and `mir-v0` SX behavior.
+Serialization and backend consumption remain future boundaries.
 
 ## Exit and handoff
 

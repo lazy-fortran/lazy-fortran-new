@@ -121,6 +121,13 @@ existing warning sites and introduces no Fortran token policy, arbitrary
 backtracking, semantic rules or new contract; its independent frontier oracle
 and warning-free full `fo` gate passed.
 
+E0137 is accepted as `R000248` at `fortfront-new` commit
+`d27f2bbc6cde7dc351320e4f3de82a61a8f435d6`. It uses available nullable and
+FIRST facts to gate the existing bounded frontier, preserving accepted,
+rejected, ambiguous and unresolved outcomes, ordering and provenance. This is
+a frontier transition slice, not complete parser state or tokenization; no
+Fortran token dispatch or hand-maintained parser wiring was added.
+
 ## Exit and handoff
 
 The lane passes a typed, source-linked result with accepted/rejected status,

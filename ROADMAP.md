@@ -44,14 +44,19 @@ clearing without changing `mir-v0`. E0134 is accepted as `R000245` at the
 existing `standard-new` commit `25486db92b0805201fa90104dc6f637ecce84942`:
 the 519-record accepted composite emits all four grammar formats with 519
 provenance annotations, while the three source-only records remain explicit.
-E0123 remains the only active gate in this wave and the production slices do
-not block its semantic result.
-E0135 and E0136 are the next independent production experiments. E0135 tests
-whether a target-independent multi-block MIR boundary can be added without
-silently revising `mir-v0`; E0136 tests whether existing source-backed TargetIR
-records can expose generic feature metadata without ISA-specific branches.
-Both are running from clean pinned production mains and must either pass their
-generic gates or record a precise contract boundary.
+E0123 remains the active M3 semantic gate; the production slices do not block
+its semantic result.
+E0135 is accepted as `R000247` at `ffc-new` commit
+`335629b753f440b2960bf9fef0e6b275094c79ec`, adding a target-independent
+in-memory block-range table without revising `mir-v0`. E0136 is accepted as
+`R000246` at `fortback-new` commit `403a1ba`, adding a generic exact-source
+provenance query over normalized records. Neither adds target/ABI behavior or
+silently changes a contract.
+E0137 is accepted as `R000248` at `fortfront-new` commit
+`d27f2bbc6cde7dc351320e4f3de82a61a8f435d6`. It uses available nullable/FIRST
+facts to gate the existing bounded frontier while retaining ambiguity and
+unresolved outcomes. This is a frontier transition slice, not complete parser
+state or tokenization, and adds no Fortran token policy.
 
 ## Current position
 
@@ -641,10 +646,10 @@ the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `25486db92b0805201fa90104dc6f637ecce84942`,
-`fortfront-new` `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, and
-`fortback-new` `deb66f94126143d76ea25c1faf197d5150c7c0f4`; these are clean
+`fortfront-new` `d27f2bbc6cde7dc351320e4f3de82a61a8f435d6`, and
+`fortback-new` `403a1ba`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
-is `998ab62d180b4f2940e25d2f987f4f99317c5771`.
+is `335629b753f440b2960bf9fef0e6b275094c79ec`.
 
 The same integration wave added bounded program, module and subroutine
 source-witness forms to `fortfront-new`: exact program, module, subroutine and

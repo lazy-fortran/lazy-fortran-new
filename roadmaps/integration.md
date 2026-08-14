@@ -281,12 +281,19 @@ emits all four formats with 519 provenance annotations and passes the mutation
 control, while the three source-only records remain explicit. Neither slice
 is part of semantic promotion or a new versioned cross-repository contract.
 
-E0135 and E0136 are now running in parallel from the clean current `ffc-new`
-and `fortback-new` mains. E0135 owns only the target-independent MIR
-multi-block boundary; E0136 owns only generic feature metadata over existing
-TargetIR records. Neither may silently revise a contract or add target-specific
-dispatch. The coordinator will integrate only a verified commit or record the
-experiment's explicit no-change boundary.
+E0135 and E0136 are accepted as `R000247` and `R000246`. E0135 is integrated at
+`ffc-new` `335629b753f440b2960bf9fef0e6b275094c79ec` and owns only the
+target-independent MIR block-range table. E0136 is integrated at `fortback-new`
+`403a1ba` and owns only generic exact-source provenance lookup. Both passed
+coordinator-side full `fo`, were pushed to main, and had their task branches
+removed; neither revises a contract or adds target-specific dispatch.
+
+E0137 is accepted as `R000248` at `fortfront-new`
+`d27f2bbc6cde7dc351320e4f3de82a61a8f435d6`. It owns only nullable/FIRST fact
+gating for the existing generic frontier over abstract tokens. It passed
+coordinator-side full `fo`, was pushed to main, and had its task branch
+removed. It is a frontier transition slice, not complete parser state or
+tokenization, and adds no Fortran token policy or contract change.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -310,9 +317,9 @@ behavior.
 
 The current bounded production pins are `standard-new`
 `25486db92b0805201fa90104dc6f637ecce84942`, `fortfront-new`
-`5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, `ffc-new`
-`998ab62d180b4f2940e25d2f987f4f99317c5771`, and `fortback-new`
-`deb66f94126143d76ea25c1faf197d5150c7c0f4`, all on clean `main` branches
+`d27f2bbc6cde7dc351320e4f3de82a61a8f435d6`, `ffc-new`
+`335629b753f440b2960bf9fef0e6b275094c79ec`, and `fortback-new`
+`403a1ba`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
