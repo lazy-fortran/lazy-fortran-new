@@ -40,8 +40,12 @@ currently represented, so the generic batch now has explicit unsupported-shape
 and unknown-family transaction controls. E0132 is accepted as `R000242` at
 `ffc-new` commit `998ab62d180b4f2940e25d2f987f4f99317c5771`, adding an
 independent canonical MIR body round-trip gate and fixing failure-output
-clearing without changing `mir-v0`. E0123 remains the only active gate in
-this wave and neither production slice blocks its semantic result.
+clearing without changing `mir-v0`. E0134 is accepted as `R000245` at the
+existing `standard-new` commit `25486db92b0805201fa90104dc6f637ecce84942`:
+the 519-record accepted composite emits all four grammar formats with 519
+provenance annotations, while the three source-only records remain explicit.
+E0123 remains the only active gate in this wave and the production slices do
+not block its semantic result.
 
 ## Current position
 

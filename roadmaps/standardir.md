@@ -167,6 +167,15 @@ rules, interleaved LHS groups and unsupported normalized shapes. It does not
 copy comparison grammars, parse PDF text or add parser dispatch; the
 independent export oracle and warning-free full `fo` gate passed.
 
+E0134 is accepted as `R000245` against `standard-new` commit
+`25486db92b0805201fa90104dc6f637ecce84942`. The pinned 522-record source
+corpus yields the accepted 519-record composite input; all four existing
+deterministic exporters emit 519 provenance annotations and respond to a
+controlled LHS mutation. The three deferred source-only records remain named
+and are not silently included. Two earlier attempts remain retained as
+harness failures: one counted mid-line EBNF annotations incorrectly and one
+passed relative output paths across a directory change.
+
 ## Exit and handoff
 
 The lane hands off only a versioned `standardir-v0` record set with source

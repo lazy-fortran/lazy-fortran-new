@@ -275,8 +275,11 @@ families are now explicitly tested as transactional failures. E0132 is
 accepted as `R000242` at `ffc-new`
 `998ab62d180b4f2940e25d2f987f4f99317c5771`: its canonical MIR body SX gate
 preserves typed/source-linked fields and clears output on failure without
-changing `mir-v0`. Neither slice is part of semantic promotion or a new
-versioned cross-repository contract.
+changing `mir-v0`. E0134 is accepted as `R000245` against `standard-new`
+`25486db92b0805201fa90104dc6f637ecce84942`: the 519-record accepted composite
+emits all four formats with 519 provenance annotations and passes the mutation
+control, while the three source-only records remain explicit. Neither slice
+is part of semantic promotion or a new versioned cross-repository contract.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
