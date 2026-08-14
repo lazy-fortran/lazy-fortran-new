@@ -19,7 +19,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`f931acfd99640eeda95a89b8dd56df89581ad97e`. The bounded parser-quality
+`c704f047fadc64b771279111becff78ed2c835f3`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -58,6 +58,12 @@ and handles empty and invalid query inputs. The next substantive frontend gate
 is the lexer/parser, followed by semantic and lowering gates. None of these
 structural steps may change `mir-v0` or add hand-maintained language-wide
 dispatch.
+
+The lexer-facing lexical-fact classifier is integrated at
+`c704f047fadc64b771279111becff78ed2c835f3`. It consumes caller-supplied
+source-backed facts, validates provenance before lookup, and reports scalar,
+ambiguity, processor-defined and invalid-input states. It is a classifier
+boundary only; source tokenization and grammar dispatch remain pending.
 
 ## Exit and handoff
 

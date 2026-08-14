@@ -418,6 +418,13 @@ and clearing outputs on failure. Full `fo` passed with zero warnings and the
 task branch was removed; the slice is recorded as `R000216`. No mnemonic
 dispatch, ABI or MIR wiring was added.
 
+Wave AJ has integrated the frontend lexical-fact classifier in `fortfront-new`
+under D0075. It consumes caller-supplied source-backed facts, validates
+provenance at lookup time, and exposes explicit scalar, ambiguity,
+processor-defined and invalid-input states. Full `fo` passed with zero
+warnings; the task branch was removed and the slice is recorded as `R000217`.
+It does not yet tokenize source or wire grammar dispatch.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -475,7 +482,7 @@ the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
-`fortfront-new` `f931acfd99640eeda95a89b8dd56df89581ad97e`, and
+`fortfront-new` `c704f047fadc64b771279111becff78ed2c835f3`, and
 `fortback-new` `9baabf418280812b43181330b67d10d4078e88ae`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `555eb09bfb17329517176f967a3d1fda36c3159e`.

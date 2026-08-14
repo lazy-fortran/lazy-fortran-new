@@ -167,9 +167,17 @@ preserving fixed bits and clearing outputs on failure. Coordinator-side full
 `fo` passed with zero warnings; the task branch was removed and no separate
 task worktree existed. No mnemonic dispatch, ABI or MIR behavior changed.
 
+The frontend lexical continuation is integrated at `fortfront-new`
+`c704f047fadc64b771279111becff78ed2c835f3`: a caller-supplied,
+source-provenance-validated scalar classifier reports match, no-match,
+ambiguity, processor-defined and invalid-input states. Coordinator-side full
+`fo` passed with zero warnings; the task branch was removed and no separate
+task worktree existed. No keyword dispatch, grammar, parser or `mir-v0`
+behavior changed.
+
 The current bounded production pins are `standard-new`
 `985d684a2c8e5f4394b3473c8bdc3a9`, `fortfront-new`
-`f931acfd99640eeda95a89b8dd56df89581ad97e`, `ffc-new`
+`c704f047fadc64b771279111becff78ed2c835f3`, `ffc-new`
 `555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
 `9baabf418280812b43181330b67d10d4078e88ae`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
