@@ -41,7 +41,11 @@ append-only and records every model turn, native tool call, source byte range,
 submission, rejection, retry, token count, wall time and terminal status.
 The fixed-pointer local runner uses a completion budget of at least 768 tokens;
 128 tokens is retained only as a failed harness control because it truncated
-valid JSON outputs.
+valid JSON outputs. Fixed-pointer prompts are generated with `--pointer-only`
+and the local runner is invoked with both `--pointer-mode --pointer-only`.
+The runner also infers the strict response schema from the prompt manifest and
+rejects an explicit prompt/schema mismatch, so a weaker API schema cannot be
+mistaken for a model failure.
 
 The deterministic side performs source segmentation, citation and hash checks,
 cross-reference resolution, predicate/schema validation, witness construction,

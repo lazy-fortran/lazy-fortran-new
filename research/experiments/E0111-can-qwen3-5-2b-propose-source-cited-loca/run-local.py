@@ -133,14 +133,34 @@ def response_format(name, pointer_mode, window_count, pointer_only=False):
     }
 
 
+def infer_pointer_contract(prompts, requested_mode, requested_only):
+    """Make the prompt manifest and API response schema agree."""
+    prompt_only = bool(prompts) and all(
+        item.get("pointer_only") is True for item in prompts
+    )
+    if requested_only and not prompt_only:
+        raise InputError("--pointer-only requires prompts generated with --pointer-only")
+    effective_only = requested_only or prompt_only
+    return requested_mode or effective_only, effective_only
+
+
 def main():
     args = parser().parse_args()
     if args.context < 256 or args.max_tokens < 1:
         raise SystemExit("E0111 run-local: context/max-tokens is too small")
+    if args.pointer_only and not args.pointer_mode:
+        raise SystemExit("E0111 run-local: --pointer-only requires --pointer-mode")
     if not 0.0 <= args.temperature <= 2.0 or not 0.0 < args.top_p <= 1.0:
         raise SystemExit("E0111 run-local: invalid temperature or top-p")
     try:
         prompts = load_prompts(args.prompts)
+        # The prompt manifest is part of the request contract.  Infer the
+        # strict schema from it when the caller omitted the redundant flag;
+        # this prevents a pointer-only cell from silently sending a weaker
+        # response schema to the model.
+        pointer_mode, pointer_only = infer_pointer_contract(
+            prompts, args.pointer_mode, args.pointer_only
+        )
         responses = []
         errors = []
         progress_path = Path(args.responses).with_name("progress.json")
@@ -167,9 +187,9 @@ def main():
                 "stream": False,
                 "response_format": response_format(
                     item["name"],
-                    args.pointer_mode,
+                    pointer_mode,
                     len(item.get("windows", [])),
-                    args.pointer_only,
+                    pointer_only,
                 ),
             }
             if args.deepseek_cloud:
@@ -233,8 +253,8 @@ def main():
                     "source_repo": args.source_repo,
                     "source_file": args.source_file,
                     "model_sha256": args.model_sha256,
-                    "pointer_mode": args.pointer_mode,
-                    "pointer_only": args.pointer_only,
+                    "pointer_mode": pointer_mode,
+                    "pointer_only": pointer_only,
                     "api_key_env": args.api_key_env,
                     "deepseek_cloud": args.deepseek_cloud,
                     "requests": len(responses),

@@ -30,6 +30,22 @@ assert module.apply_reasoning_control(cloud, "off", deepseek_cloud=True) == {
 
 print("E0111 per-request reasoning controls passed")
 
+pointer_schema = module.response_format("x", True, 2, pointer_only=True)
+pointer_properties = pointer_schema["json_schema"]["schema"]["properties"]
+assert set(pointer_properties) == {"name", "decision", "relation", "window"}
+assert "target" not in pointer_properties
+assert module.response_format("x", True, 2, pointer_only=False)["json_schema"]["schema"]["properties"].get("target")
+assert module.infer_pointer_contract(
+    [{"pointer_only": True}], True, False
+) == (True, True)
+try:
+    module.infer_pointer_contract([{"pointer_only": False}], True, True)
+except module.InputError:
+    pass
+else:
+    raise AssertionError("pointer-only mismatch was not rejected")
+print("E0111 pointer-only response contract passed")
+
 with tempfile.TemporaryDirectory() as directory:
     path = Path(directory) / "stream.jsonl"
     module.jsonl_append(path, {"name": "first"})
