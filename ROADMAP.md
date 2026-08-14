@@ -392,6 +392,12 @@ without an accepted model proposal and the 215 rows without an independent
 oracle remain explicit denominator statuses. String-length, count,
 existential and containment terms are now handled by generic machinery; no
 model-specific aliases or semantic promotions were added.
+E0123 is prepared as the next bounded semantic retry. It keeps all 287 E0117
+row keys, retries only the 53 unresolved or hard-failure rows with a fresh
+Qwen 3.6 35B-A3B episode and one thinking-on escalation, and retains the 234
+prior terminal rows as immutable controls. It will use D0070's verified
+llama.cpp master service; the run remains unstarted until that service reports
+healthy and its version is recorded.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
@@ -411,6 +417,8 @@ promotions or general-language implementations.
 D0072 records the corresponding backend boundary: the existing RISC-V codec
 cases are bootstrap witnesses, and further instruction coverage now waits for
 generic source-record-to-TargetIR normalization and generated codec output.
+The decision is recorded in
+`research/decisions/D0072-targetir-generated-backend-boundary.md`.
 
 ## Numbered milestones
 

@@ -1,0 +1,23 @@
+# E0123: fresh bounded retry of residual semantic rows
+
+E0123 retries only the 53 E0117 rows that ended `unresolved` or
+`hard_failure`. It keeps the 234 other rows as immutable predecessor controls,
+starts each retry as a fresh episode, requests thinking off first, and permits
+one fresh thinking-on episode after failure. Required witness maps, source
+evidence, schema validation and row-key merging remain deterministic gates.
+
+The runtime is the verified upstream llama.cpp master build recorded in the
+manifest. The service must be healthy before the run is launched; its health
+check and exact version output belong in the run record.
+
+Planned run shape:
+
+```sh
+research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/run-semantic.py \
+  --outdir .cache/runs/E0123/R000001 \
+  --retry-from .cache/runs/E0117/R000003-full/rows.jsonl \
+  --require-witnesses --escalate-thinking \
+  --max-turns 32 --max-tokens 4096 --finalization-turns 3
+```
+
+The command is not run until the latest llama.cpp service reports healthy.

@@ -124,6 +124,7 @@ Runs recorded: 203
 | E0120 | reported | 1 | Can deterministic normative constraint-form extraction expand the independent |
 | E0121 | reported | 1 | Can the 23 mechanically reconstructed E0120 source-oracle records be |
 | E0122 | reported | 1 | Can generic finite-domain support for string length, existential, count and |
+| E0123 | draft | 0 | Can a bounded fresh retry resolve the residual semantic constraint rows? |
 
 ## Run status
 
