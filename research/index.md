@@ -119,6 +119,7 @@ Runs recorded: 187
 | E0115 | reported | 14 | Does bounded native-tool access let local Qwen and Gemma models resolve |
 | E0116 | reported | 1 | Can one fixed Qwen 3.6 35B-A3B local model propose source-backed typed |
 | E0117 | running | 0 | Can source-backed model witnesses make typed semantic proposals independently testable? |
+| E0118 | draft | 0 | Can independently generated source-derived finite fact cases validate |
 
 ## Run status
 
