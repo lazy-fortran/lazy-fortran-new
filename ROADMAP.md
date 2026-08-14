@@ -384,18 +384,29 @@ mutation controls, invoked no compiler, and promoted no semantic fact. M3
 remains open; the next semantic step is to formalize the still-unavailable
 predicate families or hand them to the bounded model protocol.
 
-The current production pins after the latest bounded integration wave are
-`fortfront-new` `452a1573c859d151d177391c0b5d135d0391e61c` and
-`fortback-new` `dcbae9882850efbe246b8faf22394306589ce530`; both are clean
-`main` branches with coordinator-side full `fo` verification. The StandardIR
-and FFC pins remain `27329a701575f32776281f235290e465c5588105` and
-`76f765bc1da01b6e4feb62354d743371b6467e55`.
+E0122 reports the generic finite-materialization continuation as `R000199`.
+The E0120 source oracle produced 93 cases over its 18 rows that overlap an
+accepted E0117 proposal: 36 exact matches, zero mismatches, zero evaluator
+errors and 57 explicit `candidate_unavailable` outcomes. The five source rows
+without an accepted model proposal and the 215 rows without an independent
+oracle remain explicit denominator statuses. String-length, count,
+existential and containment terms are now handled by generic machinery; no
+model-specific aliases or semantic promotions were added.
 
-The same integration wave added a bounded module source-witness parser to
-`fortfront-new`: exact `module NAME` and `end`/`end module`/`end module NAME`
-forms, source spans, name matching and malformed-input rejection are tested.
-It remains a witness slice, not a general Fortran parser or a semantic module
-implementation.
+The current production pins after the latest bounded integration wave are
+`standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
+`fortfront-new` `f3fc7145ba4afdc7e27fdd1fd726cafd937be0b5`, and
+`fortback-new` `205fe1c2cf994274b87f676f07c57fddb911da23`; these are clean
+`main` branches with coordinator-side full `fo` verification. The FFC pin
+remains `76f765bc1da01b6e4feb62354d743371b6467e55`.
+
+The same integration wave added bounded program, module and subroutine
+source-witness forms to `fortfront-new`: exact headers and
+`end`/`end <kind>`/`end <kind> NAME` forms, source spans, name matching and
+malformed-input rejection are tested. The StandardIR slice also exposes a
+generic ordinal query for duplicate semantic identifiers, preserving insertion
+order and provenance. These are witness and API boundaries, not semantic
+promotions or general-language implementations.
 
 ## Numbered milestones
 

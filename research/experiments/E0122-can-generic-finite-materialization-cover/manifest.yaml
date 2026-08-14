@@ -1,0 +1,70 @@
+id: "E0122"
+title: "Generic finite materialization of normative predicate forms"
+question: >
+  Can generic finite-domain support for string length, existential, count and
+  containment terms materialize the expanded E0120 source oracle without
+  source mismatches, evaluator errors or model-specific branches?
+status: reported         # draft | running | reported | abandoned
+opened: "2026-08-14"
+closed: "2026-08-14"
+reported_run: R000199
+
+repos:
+  lazy-fortran-new: "43104bb"
+
+inputs:
+  predecessor: E0121
+  predecessor_run: R000196
+  terminal_ledger: .cache/runs/E0117/R000003-full/rows.jsonl
+  terminal_ledger_sha256: "1db61994f88775fb0bf79d79bfc12db147199b07e316564515330fc859d3a958"
+  expanded_oracle: research/experiments/E0120-can-deterministic-normative-constraint-f/source-oracle.tsv
+  expanded_oracle_sha256: "e42fc8180ca5be02e1ce8cac7554776179da3437e7209c93d254493b6c074183"
+  predicate_schema: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json
+  predicate_schema_sha256: "8fffdb7c943b8ade657a2b1a91636714e2fb2a1b9231f6fa88a59f62940e352b"
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+
+variables:
+  predicate_terms: [name-length, count]
+  predicate_forms: [exists, contains, conjunction, implication, exclusion]
+  candidate_alias_inference: [forbidden]
+  model_calls: [zero]
+
+metrics:
+  - eligible_constraint_rows
+  - independent_oracle_rows
+  - oracle_model_overlap_rows
+  - oracle_model_no_overlap_rows
+  - oracle_no_model_rows
+  - source_case_rows
+  - source_case_oracle_matches
+  - source_case_oracle_mismatches
+  - source_case_oracle_unavailable
+  - candidate_unavailable_cases
+  - evaluator_errors
+  - mutation_controls
+  - mutation_control_failures
+  - semantic_promotions
+  - model_calls
+  - wall_s_total
+
+denominator: >
+  All 287 retained E0117 rows, the 23 E0120 oracle records, and every finite
+  case generated for an accepted model/oracle overlap. Missing model rows and
+  unavailable candidate fact names remain counted rather than filtered.
+
+independent_oracle: >
+  The E0120 source-oracle AST and its SHA-256 are parsed separately from the
+  E0117 JSON predicates. Generic derived fact names represent count and
+  containment terms; no source-specific synonym or candidate-specific branch
+  is introduced.
+
+gate: >
+  Retain all rows, materialize every source form available for an overlap,
+  report no source mismatches or evaluator errors, retain candidate-unavailable
+  and no-overlap outcomes explicitly, pass mutation controls, make zero model
+  calls and promote zero semantic facts.
+
+analysis: >
+  E0118's generic analyse.sh with E0118_ORACLE set to the pinned E0120
+  source-oracle.tsv and E0118_OUTDIR set to .cache/runs/E0122/R000001.

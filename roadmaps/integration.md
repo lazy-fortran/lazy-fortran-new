@@ -81,17 +81,23 @@ codec with canonical encoding, malformed/unsupported/wrong-target controls,
 and preserved source provenance. Coordinator-side full `fo` passed, the task
 branch was removed, and no MIR or AArch64 files changed.
 
+The following backend slice is integrated at `fortback-new`
+`205fe1c2cf994274b87f676f07c57fddb911da23`: a source-backed RV64I `XORI`
+codec with canonical encoding/decoding, malformed/unsupported/invalid-operand/
+wrong-target controls, and preserved source provenance. Coordinator-side full
+`fo` passed; the task branch was removed and no MIR or AArch64 files changed.
+
 The parallel frontend slice is integrated at `fortfront-new`
-`452a1573c859d151d177391c0b5d135d0391e61c`: a bounded module source-witness
-parser with exact terminator/name matching, span checks and rejection controls.
-Coordinator-side full `fo` passed, the task branch was removed, and no
-frontend-ast-v0 or mir-v0 contract changed.
+`f3fc7145ba4afdc7e27fdd1fd726cafd937be0b5`: a bounded program/module/subroutine
+source-witness parser with exact terminator/name matching, span checks and
+rejection controls. Coordinator-side full `fo` passed, the task branch was
+removed, and no frontend-ast-v0 or mir-v0 contract changed.
 
 The current bounded production pins are `standard-new`
-`27329a701575f32776281f235290e465c5588105`, `fortfront-new`
-`452a1573c859d151d177391c0b5d135d0391e61c`, `ffc-new`
+`5c1d258e61c38336cfbb316b76ba8b33e4717b94`, `fortfront-new`
+`f3fc7145ba4afdc7e27fdd1fd726cafd937be0b5`, `ffc-new`
 `76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
-`dcbae9882850efbe246b8faf22394306589ce530`, all on clean `main` branches
+`205fe1c2cf994274b87f676f07c57fddb911da23`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

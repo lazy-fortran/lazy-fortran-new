@@ -29,7 +29,7 @@ gate and must not be smuggled into syntax aliases; unresolved and disputed
 states remain representable. D0046's structure-index slice, the generated
 typed consumer callback contract, the source-linked sequence consumer, and the
 generated list-element consumer are integrated in `standard-new` at
-`27329a701575f32776281f235290e465c5588105`. Their output remains evidence
+`5c1d258e61c38336cfbb316b76ba8b33e4717b94`. Their output remains evidence
 rather than semantic facts. The recovered ordering repair is integrated at
 `standard-new` commit
 `a25eae1d1a98703bcf717cf4406c4e797cdeb2b4` and adds no semantic aliases. E0106 measured it against the pinned
@@ -109,6 +109,16 @@ That successor is E0121, reported as `R000196`: 49 finite cases were emitted,
 were explicitly `candidate_unavailable` because the model's fact names were
 not present in the source oracle. The other 226 source cases remain explicit
 `oracle_unavailable`; no compiler was invoked and no fact was promoted.
+E0122 then extended the generic finite materializer for string-length, count,
+existential and containment terms. Its `R000199` replay emits 93 cases for the
+18 overlapping oracle rows, with 36 matches, zero mismatches and zero
+evaluator errors. It retains 57 candidate-unavailable outcomes and the five
+oracle rows with no accepted model proposal; no semantic fact is promoted.
+The current production slice also exposes a generic ordinal occurrence query
+for duplicate semantic identifiers, preserving insertion order, source
+provenance and resolution state; it is covered by independent duplicate and
+malformed-input controls in `standard-new` commit
+`5c1d258e61c38336cfbb316b76ba8b33e4717b94`.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.
