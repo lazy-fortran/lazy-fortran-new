@@ -428,12 +428,12 @@ text-only semantic run has the auxiliary `whisper-server` stopped so the
 35B profile retains its normal 128K context and large batch configuration.
 R000015 uses the clean upstream llama.cpp build pinned by D0068, starts with
 thinking off, and accepts both residual rows through the bounded recovery
-protocol without escalation. Its merged ledger has 286 schema/source-gate
+protocol without escalation. `validate.py` reports 286 schema/source-gate
 accepted primary rows and one reference-only occurrence, with zero unresolved
-or hard-failure rows. The independent witness promotes only one row so far;
-the other 285 accepted proposals remain evidence for the next witness work and
-M3 is still open. The append-only run record, replay validation and witness
-summary are recorded with the run.
+or hard-failure rows. `witness.py` promotes only one row so far; the other 285
+accepted proposals remain evidence for the next witness work and M3 is still
+open. The append-only run record, replay validation and witness summary are
+recorded with the run.
 
 ### M4. Generated frontend vertical slice (pending)
 

@@ -4,9 +4,9 @@ question: >
   Can one fixed Qwen 3.6 35B-A3B local model propose source-backed typed
   predicates for the complete Core 0 constraint inventory when deterministic
   tools own retrieval, schema validation and acceptance?
-status: running         # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
