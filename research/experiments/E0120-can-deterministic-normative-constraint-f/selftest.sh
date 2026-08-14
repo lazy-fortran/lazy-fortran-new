@@ -48,6 +48,12 @@ if run "$canonical" "$pages" "$tmp/bad-constraints.tsv" "$baseline" >"$tmp/inven
     exit 1
 fi
 
+sed 's/maximum length/maximum width/' "$constraints" >"$tmp/bad-inventory.tsv"
+if run "$canonical" "$pages" "$tmp/bad-inventory.tsv" "$baseline" >"$tmp/inventory-hash.log" 2>&1; then
+    echo 'inventory byte mutation was accepted' >&2
+    exit 1
+fi
+
 sed 's/(le (name-length name) 63)/(le (name-length name) 64)/' \
     "$baseline" >"$tmp/bad-baseline.tsv"
 if run "$canonical" "$pages" "$constraints" "$tmp/bad-baseline.tsv" "$(sha256sum "$tmp/bad-baseline.tsv" | cut -d' ' -f1)" >"$tmp/predicate.log" 2>&1; then
@@ -55,4 +61,4 @@ if run "$canonical" "$pages" "$constraints" "$tmp/bad-baseline.tsv" "$(sha256sum
     exit 1
 fi
 
-echo 'E0120 selftest: positive expansion, source-byte, source-hash, and predicate mutations all behaved as expected'
+echo 'E0120 selftest: positive expansion, source-byte, source-hash, inventory, and predicate mutations all behaved as expected'

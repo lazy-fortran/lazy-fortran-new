@@ -93,7 +93,9 @@ gate: >
   Run the analyzer over all 287 rows, retain every non-accepted status, emit
   source-linked accepted records with MECHANICAL origin, match the eight E0083
   predicates independently, report the expansion count, and pass all mutation
-  controls with zero model calls.
+  controls with zero model calls. The canonical text, page index, constraint
+  inventory, structure index, residue table and baseline oracle hashes are all
+  enforced before extraction.
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: >

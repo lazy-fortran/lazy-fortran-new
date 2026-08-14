@@ -37,8 +37,9 @@ research/experiments/E0120-can-deterministic-normative-constraint-f/selftest.sh
 ```
 
 The selftest checks the positive expansion and requires rejection of mutated
-source bytes, an inventory source hash and an E0083 predicate. Regenerate the
-numbers beside the command above; no counts are maintained manually here.
+source bytes, an inventory source hash and bytes, and an E0083 predicate.
+Regenerate the numbers beside the command above; no counts are maintained
+manually here.
 
 Limitations: this is sentence-form extraction, not a Fortran semantic parser.
 Compound clauses, cross-sentence references, prose with unresolved domain

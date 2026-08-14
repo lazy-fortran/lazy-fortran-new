@@ -15,6 +15,8 @@ from pathlib import Path
 SOURCE_HASH = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 CANONICAL_HASH = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
 PAGE_INDEX_HASH = "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+CONSTRAINT_INVENTORY_HASH = "d91018ffc4b777131f5e7cea6206cb41e27909d5a3cb91f869c568c84c1bdc44"
+STRUCTURE_HASH = "e356c022053de28b1186690c02e6ec7888deb92bdb8498db2b2b5746d5335ff9"
 RESIDUE_HASH = "a8f01a00df7aa9013807ca53e005a3ed1688de9ae33c6191ad371dfa79e1c6a8"
 BASELINE_HASH = "4b3288383fb36b7a1b619fcae7c7affecdbc805d7ba55878feee5d90c3fd2fba"
 ORIGIN = "MECHANICAL"
@@ -329,6 +331,10 @@ def main() -> None:
         fail("canonical text hash mismatch")
     if digest(args.pages) != PAGE_INDEX_HASH:
         fail("page index hash mismatch")
+    if digest(args.constraints) != CONSTRAINT_INVENTORY_HASH:
+        fail("constraint inventory hash mismatch")
+    if digest(args.structure) != STRUCTURE_HASH:
+        fail("E0106 structure hash mismatch")
     if digest(args.residue) != RESIDUE_HASH:
         fail("E0106 residue hash mismatch")
     if digest(args.baseline) != args.baseline_hash:
@@ -398,7 +404,7 @@ def main() -> None:
         "page_containment_matches": len(accepted),
         "structure_context_matches": sum(row["structure_context"] != "-" for row in accepted),
         "oracle_predicate_matches": len(baseline_by_id), "model_calls": 0,
-        "mutation_controls": 3,
+        "mutation_controls": 4,
     }
     with (args.outdir / "summary.tsv").open("w") as stream:
         stream.write("metric\tvalue\n")
