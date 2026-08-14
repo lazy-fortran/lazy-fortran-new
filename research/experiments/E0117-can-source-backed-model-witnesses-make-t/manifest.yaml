@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "16cfbe6"
+  lazy-fortran-new: "da386af"
   standard-new: "ae2ee71"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -70,7 +70,7 @@ independent_oracle: >
 toolchain:
   record_in_run: true
   fields: [compiler, fo, poppler, llama_cpp, model_sha256, service_profile]
-  llama_cpp: "upstream master 650913862 / build 10427"
+  llama_cpp: "upstream master 65091386227039bfb81ee3426537656e3b4a3f83 / build 10427"
   service_profile: "mailuefterl Qwen 3.6 35B-A3B Q4_K_XL; reasoning off"
 
 # What result would disappoint you? If nothing would, this is not an experiment.
