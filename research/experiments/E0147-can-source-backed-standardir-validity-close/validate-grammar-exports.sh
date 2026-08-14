@@ -63,6 +63,42 @@ run_tree_sitter=0
 (cd "$work/tree-sitter" && tree-sitter generate) \
     >"$work/tree-sitter.log" 2>&1 || run_tree_sitter=$?
 
+first_reference=$(sed -n -E 's/^[[:space:]]*:[^;]*\b(r_[A-Za-z0-9_]+).*/\1/p' \
+    "$run_dir/Fortran2023.g4" | head -n 1)
+if [[ -z "$first_reference" ]]; then
+    printf 'could not find a grammar reference for the negative control\n' >&2
+    exit 2
+fi
+mutated_reference=r_e0147_unknown_control
+mkdir "$work/mutated"
+sed "0,/${first_reference}/s//${mutated_reference}/" "$run_dir/Fortran2023.g4" \
+    >"$work/mutated/Fortran2023.g4"
+sed "0,/${first_reference}/s//${mutated_reference}/" "$run_dir/fortran2023.y" \
+    >"$work/mutated/fortran2023.y"
+sed "0,/${first_reference}/s//${mutated_reference}/" "$run_dir/grammar.js" \
+    >"$work/mutated/grammar.js"
+mkdir "$work/mutated/antlr" "$work/mutated/bison" "$work/mutated/tree-sitter"
+negative_antlr=0
+antlr4 -Werror -o "$work/mutated/antlr" "$work/mutated/Fortran2023.g4" \
+    >"$work/mutated/antlr.log" 2>&1 || negative_antlr=$?
+negative_bison=0
+bison --warnings=all,error -o "$work/mutated/bison/fortran2023.c" \
+    "$work/mutated/fortran2023.y" >"$work/mutated/bison.log" 2>&1 || negative_bison=$?
+cp "$work/mutated/grammar.js" "$work/mutated/tree-sitter/grammar.js"
+printf '%s\n' '{"grammars":["grammar.js"],"metadata":{"version":1}}' \
+    >"$work/mutated/tree-sitter/tree-sitter.json"
+negative_tree_sitter=0
+(cd "$work/mutated/tree-sitter" && tree-sitter generate) \
+    >"$work/mutated/tree-sitter.log" 2>&1 || negative_tree_sitter=$?
+negative_mentions=$((
+    $(count_matches "$mutated_reference" "$work/mutated/antlr.log") +
+    $(count_matches "$mutated_reference" "$work/mutated/bison.log") +
+    $(count_matches "$mutated_reference" "$work/mutated/tree-sitter.log")
+))
+negative_control=$([[ $negative_antlr -ne 0 && $negative_bison -ne 0 && \
+    $negative_tree_sitter -ne 0 && $negative_mentions -gt 0 ]] && \
+    printf observed_failure || printf FAILED)
+
 antlr_errors=$(count_matches '^error\(' "$work/antlr.log")
 bison_errors=$(count_matches 'error:' "$work/bison.log")
 tree_errors=$(count_matches 'Error:|ReferenceError:|SyntaxError:' "$work/tree-sitter.log")
@@ -103,15 +139,21 @@ mkdir -p "$(dirname "$report")"
     printf 'bison_warnings\t%s\t\t\t\n' "$bison_warnings"
     printf 'tree_sitter_warnings\t%s\t\t\t\n' "$tree_warnings"
     printf 'undefined_symbol_diagnostics\t%s\t\t\t\n' "$undefined_symbols"
+    printf 'negative_control\t%s\t\t\t\n' "$negative_control"
+    printf 'negative_control_mentions\t%s\t\t\t\n' "$negative_mentions"
 } >"$report"
 
 cp "$work/antlr.log" "$run_dir/antlr4.log"
 cp "$work/bison.log" "$run_dir/bison.log"
 cp "$work/tree-sitter.log" "$run_dir/tree-sitter.log"
+cp "$work/mutated/antlr.log" "$run_dir/antlr4-negative.log"
+cp "$work/mutated/bison.log" "$run_dir/bison-negative.log"
+cp "$work/mutated/tree-sitter.log" "$run_dir/tree-sitter-negative.log"
 
 cat "$report"
 
 if [[ $run_antlr -ne 0 || $run_bison -ne 0 || $run_tree_sitter -ne 0 ||
-    $antlr_warnings -ne 0 || $bison_warnings -ne 0 || $tree_warnings -ne 0 ]]; then
+    $antlr_warnings -ne 0 || $bison_warnings -ne 0 || $tree_warnings -ne 0 ||
+    "$negative_control" != observed_failure ]]; then
     exit 1
 fi
