@@ -48,6 +48,12 @@ including typed results and source-linked instructions, and fixes failure
 output clearing. Current `mir-v0` has one representable block, so the gate does
 not claim multi-block support; it adds no target details or new contract.
 
+E0135 is the active successor boundary. It tests a compact target-independent
+multi-block table/query while preserving the current single-block behavior. It
+must stop before changing `mir-v0` if additive representation is insufficient;
+the result is either a validated generic slice or an explicit contract decision
+point, never an implicit revision.
+
 ## Exit and handoff
 
 Every emitted operation carries source-rule identity where available. The lane

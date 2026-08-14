@@ -136,6 +136,8 @@ Runs recorded: 243
 | E0132 | reported | 1 | Can a target-independent MIR body round-trip through a stable canonical SX boundary? |
 | E0133 | reported | 1 | Can additional source record families normalize through the generic TargetIR batch? |
 | E0134 | reported | 3 | Can the source-backed StandardIR corpus pass the batch grammar export boundary |
+| E0135 | running | 0 | Can a target-independent MIR block table scale beyond the single-block witness without target details |
+| E0136 | running | 0 | Can source-backed TargetIR feature records scale the generic backend table without ISA branches |
 
 ## Run status
 

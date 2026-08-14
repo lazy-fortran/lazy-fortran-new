@@ -46,6 +46,12 @@ the 519-record accepted composite emits all four grammar formats with 519
 provenance annotations, while the three source-only records remain explicit.
 E0123 remains the only active gate in this wave and the production slices do
 not block its semantic result.
+E0135 and E0136 are the next independent production experiments. E0135 tests
+whether a target-independent multi-block MIR boundary can be added without
+silently revising `mir-v0`; E0136 tests whether existing source-backed TargetIR
+records can expose generic feature metadata without ISA-specific branches.
+Both are running from clean pinned production mains and must either pass their
+generic gates or record a precise contract boundary.
 
 ## Current position
 
@@ -636,7 +642,7 @@ the sibling repository at build time.
 The current production pins after the latest bounded integration wave are
 `standard-new` `25486db92b0805201fa90104dc6f637ecce84942`,
 `fortfront-new` `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, and
-`fortback-new` `576c7a4b55aa772e0723b274333dcf411f35071d`; these are clean
+`fortback-new` `deb66f94126143d76ea25c1faf197d5150c7c0f4`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `7691adc1a7b96fef171f9fd0059c89401ad1c4f1`.
 

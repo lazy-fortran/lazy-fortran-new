@@ -281,6 +281,13 @@ emits all four formats with 519 provenance annotations and passes the mutation
 control, while the three source-only records remain explicit. Neither slice
 is part of semantic promotion or a new versioned cross-repository contract.
 
+E0135 and E0136 are now running in parallel from the clean current `ffc-new`
+and `fortback-new` mains. E0135 owns only the target-independent MIR
+multi-block boundary; E0136 owns only generic feature metadata over existing
+TargetIR records. Neither may silently revise a contract or add target-specific
+dispatch. The coordinator will integrate only a verified commit or record the
+experiment's explicit no-change boundary.
+
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
 round-trips normalized TargetIR encoding records through a private generic SX
@@ -304,8 +311,8 @@ behavior.
 The current bounded production pins are `standard-new`
 `25486db92b0805201fa90104dc6f637ecce84942`, `fortfront-new`
 `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, `ffc-new`
-`7691adc1a7b96fef171f9fd0059c89401ad1c4f1`, and `fortback-new`
-`576c7a4b55aa772e0723b274333dcf411f35071d`, all on clean `main` branches
+`998ab62d180b4f2940e25d2f987f4f99317c5771`, and `fortback-new`
+`deb66f94126143d76ea25c1faf197d5150c7c0f4`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
