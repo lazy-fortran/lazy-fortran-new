@@ -23,10 +23,10 @@ it must not redefine MIR in the backend repository. Target-specific
 legalization begins only after the MIR contract revision is integrated.
 
 The current additive MIR boundary is `ffc-new` commit
-`76f765bc1da01b6e4feb62354d743371b6467e55`; its behavioral tests cover
+`1d356b42dd7821cfebea9fec78291a2c37e456e8`; its behavioral tests cover
 whitespace- or delimiter-containing SX atoms and validated typed opcode
-and result-kind queries at the instruction boundary, plus a typed frontend
-handoff, function-block-count, block-instruction, result-type, and generated
+and result ID/kind/type queries at the instruction boundary, plus a typed
+frontend handoff, function-block-count, block-instruction, and generated
 frontend-AST handoff boundaries.
 
 ## Exit and handoff

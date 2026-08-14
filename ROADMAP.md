@@ -362,6 +362,14 @@ deleted after push. E0119 is reported accepted as `R000192` for this first
 AST/wiring slice; the complete M4 lexer, parser, semantic and lowering gates
 remain pending.
 
+Wave AB has integrated two disjoint additive boundaries: the generic AArch64
+fixed-record validator/matcher in `fortback-new` and the MIR instruction
+result-ID query in `ffc-new`. Both passed coordinator-side full `fo` with zero
+warnings, their task branches were removed after push, and neither changes a
+contract, adds target-specific MIR behavior or closes M3/M4. The exact
+production commits are maintained in `roadmaps/integration.md` and recorded as
+`R000207` and `R000208`.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -411,7 +419,7 @@ The current production pins after the latest bounded integration wave are
 `fortfront-new` `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, and
 `fortback-new` `600457fb60eb74ee99cd2d647c6382bcf21f1afe`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
-remains `76f765bc1da01b6e4feb62354d743371b6467e55`.
+is `1d356b42dd7821cfebea9fec78291a2c37e456e8`.
 
 The same integration wave added bounded program, module and subroutine
 source-witness forms to `fortfront-new`: exact program, module, subroutine and

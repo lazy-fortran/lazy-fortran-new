@@ -101,6 +101,13 @@ selection, name independence, malformed metadata, unsupported words, target
 identity and source provenance. Coordinator-side full `fo` passed, the task
 branch was removed, and no mnemonic dispatch, ABI or MIR behavior changed.
 
+The parallel middle-end slice is integrated at `ffc-new`
+`1d356b42dd7821cfebea9fec78291a2c37e456e8`: a generic instruction result-ID
+query reusing the validated MIR accessor, with independent valid, malformed,
+index-boundary, output-clearing and diagnostic controls. Coordinator-side full
+`fo` passed, the task branch was removed, and `mir-v0`, frontend lowering and
+backend-specific details were unchanged.
+
 The parallel frontend slice is integrated at `fortfront-new`
 `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`: a bounded
 program/module/subroutine/function
@@ -111,7 +118,7 @@ removed, and no frontend-ast-v0 or mir-v0 contract changed.
 The current bounded production pins are `standard-new`
 `5c1d258e61c38336cfbb316b76ba8b33e4717b94`, `fortfront-new`
 `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, `ffc-new`
-`76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
+`1d356b42dd7821cfebea9fec78291a2c37e456e8`, and `fortback-new`
 `600457fb60eb74ee99cd2d647c6382bcf21f1afe`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
