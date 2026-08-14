@@ -399,6 +399,18 @@ full `fo` gate passed with zero warnings and the task branch was removed; it is
 recorded as `R000213`. The complete M4 lexer, parser, semantic and lowering
 gates remain open.
 
+Wave AG has integrated the first target-independent MIR analysis utility in
+`ffc-new`: `mir_function_opcode_count_at` counts validated `mir-v0` opcodes
+without importing target details. It passed the full `fo` gate with zero
+warnings and malformed/boundary controls, and is recorded as `R000214`. The
+MIR contract and frontend/backend ownership boundaries remain unchanged.
+
+Wave AH has integrated the source-backed lexical scalar lookup in
+`standard-new` under D0075. It matches ranges and exact scalars, returns source
+provenance, and reports processor-defined, invalid, duplicate and overlapping
+cases explicitly. Text-policy and full `fo` gates passed with zero warnings;
+the slice is recorded as `R000215` and does not add frontend token wiring.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -453,11 +465,11 @@ The frontend may not hardcode Fortran token names or reread the PDF. The first
 production lookup slice is the current parallel `standard-new` task.
 
 The current production pins after the latest bounded integration wave are
-`standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
+`standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
 `fortfront-new` `f931acfd99640eeda95a89b8dd56df89581ad97e`, and
 `fortback-new` `70e3e39e32258df01034ad85eedb40f57da4596d`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
-is `1d356b42dd7821cfebea9fec78291a2c37e456e8`.
+is `555eb09bfb17329517176f967a3d1fda36c3159e`.
 
 The same integration wave added bounded program, module and subroutine
 source-witness forms to `fortfront-new`: exact program, module, subroutine and

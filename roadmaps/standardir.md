@@ -29,7 +29,7 @@ gate and must not be smuggled into syntax aliases; unresolved and disputed
 states remain representable. D0046's structure-index slice, the generated
 typed consumer callback contract, the source-linked sequence consumer, and the
 generated list-element consumer are integrated in `standard-new` at
-`5c1d258e61c38336cfbb316b76ba8b33e4717b94`. Their output remains evidence
+`985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`. Their output remains evidence
 rather than semantic facts. The recovered ordering repair is integrated at
 `standard-new` commit
 `a25eae1d1a98703bcf717cf4406c4e797cdeb2b4` and adds no semantic aliases. E0106 measured it against the pinned
@@ -118,7 +118,7 @@ The current production slice also exposes a generic ordinal occurrence query
 for duplicate semantic identifiers, preserving insertion order, source
 provenance and resolution state; it is covered by independent duplicate and
 malformed-input controls in `standard-new` commit
-`5c1d258e61c38336cfbb316b76ba8b33e4717b94`.
+`985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`.
 E0123 is the active semantic retry gate: it preserves all 287 E0117 row keys,
 reprocesses only the 53 unresolved or hard-failure rows with a fresh Qwen 3.6
 35B-A3B episode and one thinking-on escalation, and retains the other 234
@@ -135,6 +135,12 @@ the independent witness gate and one terminal run record. Only independently
 witnessed rows may be promoted. Any residual rows start a named D0074
 successor; no broad model comparison or opportunistic schema change is allowed
 at this handoff.
+D0075 fixes the lexical handoff for the next frontend phase: the
+source-defined lexical facts in StandardIR are queried as data by scalar value,
+with target/class/provenance returned from the matching fact. Processor-defined
+facts remain explicit unsupported/non-match results until a separate target
+policy is supplied. The production lookup must not hardcode Fortran token names
+or copy lexical payloads into the frontend.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.

@@ -144,10 +144,26 @@ coordinator-side full `fo` passed with zero warnings, the task branch was
 removed and no separate task worktree existed. No parser, lowering or
 `mir-v0` behavior changed.
 
+The parallel middle-end continuation is integrated at `ffc-new`
+`555eb09bfb17329517176f967a3d1fda36c3159e`: a target-independent opcode-count
+analysis over validated MIR bodies covers all ten `mir-v0` opcodes, repeated
+instructions, malformed bodies, invalid opcode values and output clearing.
+Coordinator-side full `fo` passed with zero warnings; the task branch was
+removed and no separate task worktree existed. No contract, frontend lowering,
+ISA or ABI details changed.
+
+The StandardIR lexical continuation is integrated at `standard-new`
+`985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`: generic source-backed scalar
+lookup returns the matching target/class/provenance and reports processor-
+defined, invalid, duplicate and overlapping cases explicitly. Text-policy and
+coordinator-side full `fo` passed with zero warnings; the task branch was
+removed and no separate task worktree existed. No frontend token wiring was
+added.
+
 The current bounded production pins are `standard-new`
-`5c1d258e61c38336cfbb316b76ba8b33e4717b94`, `fortfront-new`
+`985d684a2c8e5f4394b3473c8bdc3a9`, `fortfront-new`
 `f931acfd99640eeda95a89b8dd56df89581ad97e`, `ffc-new`
-`1d356b42dd7821cfebea9fec78291a2c37e456e8`, and `fortback-new`
+`555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
 `70e3e39e32258df01034ad85eedb40f57da4596d`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
