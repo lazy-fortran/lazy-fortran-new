@@ -239,7 +239,7 @@ gate: >
 # its deterministic analysis command must be pinned before status changes.
 analysis: >
   analyse.sh invokes analyze.py with no model or compiler calls. The default
-  input is .cache/runs/E0117/R000003-full/rows.jsonl and the default ignored
+  input is .cache/runs/E0117/R000003-full/rows.jsonl and the default
   independent oracle is research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv,
   and the default ignored output is .cache/runs/E0118/R000001. The command writes rows.jsonl,
   cases.jsonl, compiler-cells.jsonl, mutations.jsonl, summary.json and
