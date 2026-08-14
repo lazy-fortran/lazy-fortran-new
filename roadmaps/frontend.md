@@ -19,7 +19,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`2bb1bdd1fe0f75164b8de4bfd1c1c6db9d710cca`. The bounded parser-quality
+`e98bc27d1ad275001df5c040931213b0da34c4c7`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -68,7 +68,12 @@ boundary only. The following UTF-8 span boundary is integrated at
 classifies a span through those facts, retains the matched fact, and gives
 no-match, unsupported, ambiguous and invalid-fact states distinct from an
 empty span. It remains a lexer-facing classifier boundary only; source
-tokenization and grammar dispatch remain pending.
+tokenization and grammar dispatch remain pending. The next scanner boundary
+is integrated at `fortfront-new` commit
+`e98bc27d1ad275001df5c040931213b0da34c4c7`: it partitions source into
+maximal same-fact UTF-8 spans with bounded output, provenance and explicit
+unmatched, unsupported, ambiguous, malformed and capacity states. It still
+does not choose a Fortran token or grammar policy.
 
 ## Exit and handoff
 
