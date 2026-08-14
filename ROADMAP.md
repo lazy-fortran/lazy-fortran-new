@@ -446,6 +446,12 @@ D0074 adds compact, generic constructor-shape examples to successor prompts
 after the E0123 predecessor's repeated nesting and fact-versus-literal gate
 errors. It does not relax validation or change E0123's pinned prompt.
 
+D0075 fixes the next lexer boundary: source-defined lexical facts remain
+source-backed data queried by generic code, while processor-defined facts are
+explicit non-match/unsupported results until a separate target policy exists.
+The frontend may not hardcode Fortran token names or reread the PDF. The first
+production lookup slice is the current parallel `standard-new` task.
+
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
 `fortfront-new` `f931acfd99640eeda95a89b8dd56df89581ad97e`, and
