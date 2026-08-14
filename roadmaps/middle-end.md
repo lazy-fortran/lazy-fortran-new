@@ -22,9 +22,10 @@ worker may consume a pinned MIR fixture before the full middle end exists, but
 it must not redefine MIR in the backend repository. Target-specific
 legalization begins only after the MIR contract revision is integrated.
 
-The current additive boundary guard is in `ffc-new` commit
-`471dade524580543b14b8f25f424643ad29bcff3`; its behavioral test rejects
-whitespace- or delimiter-containing SX atoms at the typed MIR boundary.
+The current additive MIR boundary is `ffc-new` commit
+`c77f7fdd6e539e3506aabb380eb2156d9d2b6ab2`; its behavioral tests cover
+whitespace- or delimiter-containing SX atoms and validated typed opcode
+queries at the instruction boundary.
 
 ## Exit and handoff
 

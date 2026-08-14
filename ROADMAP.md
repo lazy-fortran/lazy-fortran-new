@@ -272,6 +272,13 @@ codec slice. Their exact production pins are maintained in
 and their task branches were removed after merge. These are bounded production
 advances only and do not close M3.
 
+Wave N then integrated a provenance-preserving StandardIR semantic-table query,
+a typed MIR opcode query, a source-backed RISC-V XOR codec, and a bounded
+frontend result-to-program-unit boundary. Each slice passed its independent
+behavioral tests and full `fo` gate; the coordinator merged and pushed the
+four main branches and removed their task branches. These additive contracts
+continue in parallel with E0117 and do not close M3.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A

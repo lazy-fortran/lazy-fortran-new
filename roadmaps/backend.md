@@ -26,7 +26,7 @@ AArch64 remain the first correctness targets. x86-64 is a concurrent
 source-quality comparison, not a prerequisite for them.
 
 The current RISC-V codec slice is `fortback-new` commit
-`cbf52e0f9f55c0463f7fd40b4fb6bfe05f4f7989`; it adds source-preserving `or`
+`8dd1c04b327d0a0f83087e24ab19a93745f65142`; it adds source-preserving `xor`
 encoding/decoding coverage with an independent behavioral fixture.
 
 ## Provenance and exit
