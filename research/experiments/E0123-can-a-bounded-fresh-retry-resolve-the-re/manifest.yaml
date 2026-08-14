@@ -9,7 +9,7 @@ run_id: R000206
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "32e72d7"
+  lazy-fortran-new: "b90fae7"
   standard-new: "5c1d258e61c38336cfbb316b76ba8b33e4717b94"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -21,6 +21,7 @@ inputs:
   canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
   page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
   semantic_schema: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json
+  post_run_merge_gate_commit: "28124d0"
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
