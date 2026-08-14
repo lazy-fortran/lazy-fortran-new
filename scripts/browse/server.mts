@@ -10,9 +10,10 @@ import * as fs from 'node:fs'
 import * as http from 'node:http'
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { indexRunDirectory, listRuns, resolveRun, type Kind } from './index.mts'
+import { classify, indexRunDirectory, listRuns, resolveRun, type Kind } from './index.mts'
 import { gutter, highlight, tsvTable } from './highlight.mts'
 import { loadProvenance, manifestForFile, resolveReference, type Provenance } from './provenance.mts'
+import { caseDetail, cases, flow, flows, isaFile, library, progress, ruleRegister, sourceFile } from './research.mts'
 import { parseSx, summarize, type SxDocument, type SxNode } from './sx.mts'
 import { resolveInRoot } from './paths.mts'
 
@@ -76,8 +77,28 @@ function readBounded(abs: string): { text: string; truncated: boolean; sha256: s
 }
 
 function looksBinary(kind: Kind, text: string): boolean {
-    if (kind === 'binary') return true
+    if (kind === 'binary' || kind === 'pdf') return true
     return text.slice(0, 8000).includes('\0')
+}
+
+function externalView(abs: string, relative: string, manifest: string | null = null): Record<string, unknown> {
+    const stat = fs.statSync(abs)
+    const { text, truncated, sha256 } = readBounded(abs)
+    const guessed = classify(relative)
+    const binary = looksBinary(guessed.kind, text)
+    const lines = binary ? 0 : text.split('\n').length
+    return {
+        path: relative,
+        kind: guessed.kind,
+        bytes: stat.size,
+        sha256,
+        truncated,
+        binary,
+        lines,
+        html: binary ? '' : highlight(guessed.kind, text),
+        gutter: binary ? '' : gutter(lines),
+        manifest,
+    }
 }
 
 // One parsed SX document is kept, keyed by identity and mtime. This is a memo
@@ -150,9 +171,6 @@ function buildFileView(opts: ServerOptions, prov: Provenance, ref: string, rel: 
 }
 
 export function startServer(opts: ServerOptions): http.Server {
-    const prov = loadProvenance(opts.repoRoot)
-    const refs = listRuns(opts.root)
-
     const staticFiles: Record<string, { file: string; type: string }> = {
         '/': { file: 'shell.html', type: 'text/html; charset=utf-8' },
         '/static/client.js': { file: 'client.js', type: 'text/javascript; charset=utf-8' },
@@ -182,6 +200,8 @@ export function startServer(opts: ServerOptions): http.Server {
             }
 
             if (url.pathname === '/api/root') {
+                const refs = listRuns(opts.root)
+                const prov = loadProvenance(opts.repoRoot)
                 json(res, 200, {
                     root: opts.root,
                     repoRoot: opts.repoRoot,
@@ -197,6 +217,8 @@ export function startServer(opts: ServerOptions): http.Server {
             }
 
             if (url.pathname === '/api/resolve') {
+                const refs = listRuns(opts.root)
+                const prov = loadProvenance(opts.repoRoot)
                 const canonical = refs.map((ref) => provRefOf(opts, ref))
                 const found = resolveReference(prov, query.get('q') ?? '', canonical)
                 const ref = found === null ? null : refs[canonical.indexOf(found)]
@@ -205,6 +227,7 @@ export function startServer(opts: ServerOptions): http.Server {
             }
 
             if (url.pathname === '/api/run') {
+                const prov = loadProvenance(opts.repoRoot)
                 const run = resolveRun(opts.root, query.get('ref') ?? opts.focus)
                 if (!run.ok) {
                     json(res, 400, { error: run.reason })
@@ -233,12 +256,96 @@ export function startServer(opts: ServerOptions): http.Server {
                             record: l.record,
                         })),
                     },
+                    progress: progress(opts.root, run.ref),
+                    cases: cases(opts.root, run.ref).slice(0, 2000),
                 })
                 return
             }
 
+            if (url.pathname === '/api/library') {
+                json(res, 200, library(opts.repoRoot, opts.root, loadProvenance(opts.repoRoot)))
+                return
+            }
+
+            if (url.pathname === '/api/rules') {
+                json(res, 200, { rules: ruleRegister(opts.root) })
+                return
+            }
+
+            if (url.pathname === '/api/flow') {
+                const selected = flow(query.get('id') ?? 'production')
+                json(res, selected ? 200 : 404, selected ?? { error: 'unknown flow' })
+                return
+            }
+
+            if (url.pathname === '/api/flows') {
+                json(res, 200, { flows: flows() })
+                return
+            }
+
+            if (url.pathname === '/api/repos') {
+                const data = library(opts.repoRoot, opts.root, loadProvenance(opts.repoRoot))
+                json(res, 200, { repos: data.production_repos ?? [] })
+                return
+            }
+
+            if (url.pathname === '/api/source-file') {
+                const selected = sourceFile(opts.repoRoot, query.get('repo') ?? '', query.get('path') ?? '')
+                if ('error' in selected) { json(res, 404, selected); return }
+                json(res, 200, externalView(selected.abs, `${selected.repo ?? query.get('repo')}/${selected.path}`))
+                return
+            }
+
+            if (url.pathname === '/api/isa-file') {
+                const selected = isaFile(opts.repoRoot, query.get('name') ?? '')
+                if ('error' in selected) { json(res, 404, selected); return }
+                const fileName = path.basename(selected.abs)
+                json(res, 200, { ...externalView(selected.abs, fileName, selected.manifest), fields: selected.fields })
+                return
+            }
+
+            if (url.pathname === '/api/progress') {
+                const ref = query.get('ref') ?? opts.focus
+                json(res, 200, { ref, progress: progress(opts.root, ref) })
+                return
+            }
+
+            if (url.pathname === '/api/cases') {
+                const ref = query.get('ref') ?? opts.focus
+                json(res, 200, { ref, cases: cases(opts.root, ref) })
+                return
+            }
+
+            if (url.pathname === '/api/case') {
+                const ref = query.get('ref') ?? opts.focus
+                const value = caseDetail(opts.root, ref, Number(query.get('i') ?? '-1'))
+                json(res, 'error' in value ? 404 : 200, value)
+                return
+            }
+
+            if (url.pathname === '/api/research-file') {
+                const rel = query.get('path') ?? ''
+                if (
+                    rel.startsWith('/') || rel.includes('..') || rel.includes('\\') ||
+                    !/^(ROADMAP\.md|DESIGN\.md|RESEARCH\.md|docs\/|roadmaps\/|research\/|artifacts\/)/.test(rel)
+                ) {
+                    json(res, 400, { error: 'research path is not allowlisted' })
+                    return
+                }
+                const abs = path.resolve(opts.repoRoot, rel)
+                const root = fs.realpathSync(opts.repoRoot)
+                const real = fs.realpathSync(abs)
+                if (real !== root && !real.startsWith(`${root}${path.sep}`)) {
+                    json(res, 400, { error: 'research path escapes repository' })
+                    return
+                }
+                const data = readBounded(real)
+                json(res, 200, { path: rel, ...data })
+                return
+            }
+
             if (url.pathname === '/api/file') {
-                const view = buildFileView(opts, prov, query.get('ref') ?? opts.focus, query.get('path') ?? '')
+                const view = buildFileView(opts, loadProvenance(opts.repoRoot), query.get('ref') ?? opts.focus, query.get('path') ?? '')
                 if ('error' in view) {
                     json(res, 400, view)
                     return
@@ -261,7 +368,9 @@ export function startServer(opts: ServerOptions): http.Server {
                     return
                 }
                 const buffer = fs.readFileSync(resolved.abs)
-                send(res, 200, 'text/plain; charset=utf-8', buffer.subarray(0, MAX_CONTENT))
+                const entry = indexRunDirectory(run.abs, run.ref).entries.find((item) => item.rel === rel)
+                const type = entry?.kind === 'pdf' ? 'application/pdf' : 'text/plain; charset=utf-8'
+                send(res, 200, type, buffer.subarray(0, MAX_CONTENT))
                 return
             }
 

@@ -57,6 +57,22 @@ header {
     font-weight: 600;
 }
 
+.header-nav {
+    display: inline-flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.header-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.header-nav button.on {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
 .grow {
     flex: 1 1 auto;
 }
@@ -381,6 +397,225 @@ table.tsv th {
     padding: 8px 10px;
 }
 
+.library-intro,
+.progress-card,
+.run-card,
+.library-row,
+.rule-row,
+.flow-node,
+.case-detail,
+.source-toolbar,
+.source-view {
+    margin: 8px 10px;
+    padding: 10px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    overflow-wrap: anywhere;
+}
+
+.library-intro h1 {
+    font-size: 16px;
+    margin: 0 0 4px;
+}
+
+.library-intro p,
+.progress-card p,
+.run-card p,
+.library-row p,
+.rule-row p,
+.flow-node p {
+    margin: 4px 0;
+}
+
+.progress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 8px;
+    padding: 8px 10px;
+}
+
+.progress-grid .progress-card,
+.run-cards .run-card {
+    margin: 0;
+}
+
+.progress-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.progress-percent {
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.progress-bar {
+    height: 6px;
+    margin: 8px 0;
+    background: var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--accent);
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 10px;
+}
+
+.button-row button.on {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.run-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+    padding: 8px 10px;
+}
+
+.library-list {
+    padding: 4px 0;
+}
+
+.library-row strong,
+.library-row > span {
+    margin-right: 10px;
+}
+
+.library-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-scroll {
+    overflow: auto;
+    padding: 8px 10px;
+}
+
+.library-table th,
+.library-table td {
+    border-bottom: 1px solid var(--line);
+    padding: 4px 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.library-table th {
+    color: var(--accent);
+}
+
+.flow-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px;
+}
+
+.flow-node {
+    width: min(700px, calc(100% - 20px));
+    margin: 0;
+}
+
+.flow-node.source { border-left: 3px solid var(--warn); }
+.flow-node.mechanical { border-left: 3px solid var(--accent); }
+.flow-node.llm { border-left: 3px solid #bb9af7; }
+.flow-node.gate { border-left: 3px solid var(--good); }
+.flow-node.artifact { border-left: 3px solid #7dcfff; }
+
+.flow-arrow {
+    color: var(--dim);
+    font-size: 18px;
+}
+
+.wide-filter {
+    width: calc(100% - 20px);
+    margin: 8px 10px;
+}
+
+.rule-list {
+    display: grid;
+    gap: 4px;
+    padding-bottom: 10px;
+}
+
+.rule-row strong,
+.rule-domain {
+    margin-right: 10px;
+}
+
+.rule-domain {
+    color: var(--accent);
+}
+
+.case-controls,
+.source-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.case-controls {
+    padding: 8px 10px;
+}
+
+.case-controls select {
+    max-width: 100%;
+    flex: 1 1 18em;
+}
+
+.case-json {
+    overflow: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.source-browser {
+    display: flex;
+    min-height: 55vh;
+}
+
+.source-list {
+    width: 320px;
+    flex: 0 0 auto;
+    overflow: auto;
+    border-right: 1px solid var(--line);
+}
+
+.source-list input {
+    width: calc(100% - 20px);
+    margin: 8px 10px;
+}
+
+.source-list a {
+    display: block;
+    padding: 3px 10px;
+    color: var(--fg);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.source-list a:hover {
+    background: #232833;
+}
+
+.source-view {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    overflow: auto;
+}
+
 /* Provenance section headings, in the same register as the sidebar's. The
    default h2 costs three lines of a phone screen. */
 #content h2 {
@@ -548,6 +783,35 @@ table.tsv th {
 
     .sx-tree .leaf {
         margin-left: 18px;
+    }
+
+    .header-nav {
+        order: 5;
+        flex: 1 1 100%;
+    }
+
+    .header-nav button {
+        flex: 1 1 auto;
+    }
+
+    .source-browser {
+        flex-direction: column;
+    }
+
+    .source-list {
+        width: auto;
+        max-height: 38%;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .source-view {
+        min-height: 300px;
+    }
+
+    .progress-grid,
+    .run-cards {
+        grid-template-columns: 1fr;
     }
 
     /* A key and its value do not fit on one row, so they take two. */

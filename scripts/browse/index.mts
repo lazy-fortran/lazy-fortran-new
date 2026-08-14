@@ -11,6 +11,7 @@ import { isInside, resolveInRoot } from './paths.mts'
 
 export type Kind =
     | 'sx'
+    | 'pdf'
     | 'ebnf'
     | 'antlr'
     | 'bison'
@@ -51,6 +52,7 @@ const MAX_DEPTH = 6
 export function classify(rel: string): { kind: Kind; section: Section } {
     const name = path.posix.basename(rel).toLowerCase()
     const ext = name.includes('.') ? name.slice(name.lastIndexOf('.')) : ''
+    if (ext === '.pdf') return { kind: 'pdf', section: 'standardir' }
     if (ext === '.sx') return { kind: 'sx', section: 'standardir' }
     if (ext === '.ebnf') return { kind: 'ebnf', section: 'grammar' }
     if (ext === '.g4') return { kind: 'antlr', section: 'grammar' }

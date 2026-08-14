@@ -1,8 +1,10 @@
-# Disposable artifact browser
+# Research library browser
 
-This directory contains the client and server implementation accepted by
-D0039. It reads existing files from `.cache/runs`, writes no state, and binds
-only to loopback.
+This directory contains the unified, read-only research library accepted by
+D0082, which supersedes the run-only view in D0039. It reads lab metadata, the
+four sibling production repositories, and existing files from `.cache/runs`;
+it writes no state and binds only to loopback. Repository files and run records
+remain authoritative.
 
 From the repository root:
 
@@ -12,17 +14,21 @@ scripts/browse.sh index --run E0074/R000001
 scripts/browse.sh serve --run E0074/R000001
 ```
 
-Open `http://127.0.0.1:7373/` after starting the server. Use `Ctrl-C` to stop
-it. The browser displays canonical SX as raw text and a structural tree, plus
-EBNF, ANTLR4, Bison, tree-sitter, generated Fortran, metrics, logs, and
-provenance. A run can be selected by `E0074/R000001` or by its ledger ID such
-as `R000083`.
+Open `http://127.0.0.1:7373/` after starting the server. The default page is
+the library overview. It provides lane-level evidence progress, active-run
+heartbeats and ETA, four clickable pipeline views, a searchable rule register,
+a case browser for prompts/responses/gates, and a source library for
+StandardIR/frontend/MIR/TargetIR code and pinned ISA/ABI/microarchitecture
+material. The existing run view displays canonical SX as raw text and a
+structural tree, plus EBNF, ANTLR4, Bison, tree-sitter, generated Fortran,
+metrics, logs, and provenance.
 
-The server rebuilds the file view on each request. Restart it when new run
-directories are added so the run selector discovers them.
+The server rebuilds projections on each request. Refresh the library after new
+run directories or source commits are added; no generated index is written.
+Use `Ctrl-C` to stop it. A run can be selected by `E0074/R000001` or by its
+ledger ID such as `R000083`.
 
-On a screen narrower than the breakpoints in `style.css`, the file list moves
-behind the `files` button and the SX record list sits above the tree rather than
-beside it. `wrap` soft-wraps long grammar lines; it hides the line numbers while
-it is on, because a wrapped line no longer occupies one visual row. Neither is a
-different view of the artifact, and neither is remembered between sessions.
+On narrow screens, the file list moves behind the `files` button, flow nodes
+stack vertically, and the source list sits above the highlighted source. The
+`wrap` control soft-wraps long grammar lines and hides line numbers while it is
+on, because a wrapped line no longer occupies one visual row.
