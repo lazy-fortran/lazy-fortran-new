@@ -527,6 +527,11 @@ provenance, with malformed, range, capacity and output-clearing controls.
 requires a versioned serialized TargetIR contract; it does not add ISA
 dispatch, ABI, MIR or instruction selection.
 
+`D0078 <research/decisions/D0078-scale-reusable-mechanisms-before-more-witnesses.md>`
+now governs the post-witness order: scale reusable batch, fixed-point and
+table mechanisms before adding isolated instruction, token or accessor
+witnesses.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287

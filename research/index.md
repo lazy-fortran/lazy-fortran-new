@@ -229,6 +229,7 @@ Runs recorded: 232
 | [D0075](decisions/D0075-source-defined-lexical-facts-are-data.md) | accepted |  | — Keep source-defined lexical facts as queried data |
 | [D0076](decisions/D0076-versioned-standardir-grammar-handoff.md) | accepted |  | — Version the normalized StandardIR grammar handoff |
 | [D0077](decisions/D0077-keep-targetir-encoding-sx-private.md) | accepted |  | — Keep TargetIR encoding SX private until a consumer requires it |
+| [D0078](decisions/D0078-scale-reusable-mechanisms-before-more-witnesses.md) | accepted |  | Scale reusable mechanisms before adding more witnesses |
 
 ### Proposed decisions
 

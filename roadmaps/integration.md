@@ -262,6 +262,10 @@ zero warnings and malformed, range, overlap/order, unsupported-version,
 capacity and output-clearing controls. D0077 keeps this internal until a
 second production consumer requires a versioned cross-repository contract.
 
+D0078 now governs the post-witness order: scale reusable batch, fixed-point
+and table mechanisms before adding isolated instruction, token or accessor
+witnesses.
+
 The parallel middle-end slice is integrated at `ffc-new`
 `31a2b5df3d5de3486b5614a041d272e1daa6b3b1` and recorded as `R000231`. It
 exposes a validated target-independent instruction-count query with
