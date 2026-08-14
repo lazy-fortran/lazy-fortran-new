@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import re
@@ -43,6 +44,8 @@ def parser():
                         help="stop an episode after this many identical rejected proposals")
     result.add_argument("--escalate-thinking", action="store_true",
                         help="retry unresolved or failed rows once with thinking on")
+    result.add_argument("--require-witnesses", action="store_true",
+                        help="require accepted proposals to include fact assignments and expected outcomes")
     result.add_argument("--limit", type=int, default=0)
     result.add_argument("--only-constraint", default="")
     result.add_argument("--retry-from", default="",
@@ -120,8 +123,14 @@ def call_model(url, payload, timeout, http_retries=0):
     raise last_error
 
 
-def tool_spec():
-    return json.loads((HERE / "tool-schema.json").read_text(encoding="utf-8"))["tools"]
+def tool_spec(require_witnesses=False):
+    tools = json.loads((HERE / "tool-schema.json").read_text(encoding="utf-8"))["tools"]
+    if require_witnesses:
+        tools = copy.deepcopy(tools)
+        submit = next(tool for tool in tools
+                      if tool["function"]["name"] == "submit_semantic")
+        submit["function"]["parameters"]["required"].append("witnesses")
+    return tools
 
 
 def content_tool_call(content, turn):
@@ -154,7 +163,7 @@ def content_tool_call(content, turn):
     }
 
 
-def system_prompt(row, prior):
+def system_prompt(row, prior, require_witnesses=False):
     rules = ", ".join(row["associated_rules"])
     control = prior.get(row["constraint_id"])
     control_hint = ""
@@ -165,6 +174,18 @@ control exactly; it is not a new interpretation:
 required_facts={json.dumps(control['required_facts'], sort_keys=True)}
 provided_facts={json.dumps(control['provided_facts'], sort_keys=True)}
 predicate={json.dumps(harness._parse_sx(control['predicate']), sort_keys=True)}
+"""
+    witness_hint = ""
+    if require_witnesses:
+        witness_hint = """
+For every accept proposal, witnesses is required and must contain one to eight
+objects of the form {\"label\":\"short-case-name\",\"expect\":true or false,
+\"facts\":{\"fact-name\": value}}. Facts are concrete assignments for the
+predicate's lowercase facts; use only JSON booleans, strings, integers, or
+arrays. Choose cases that exercise the constraint, including positive and
+negative cases when the predicate distinguishes them. The deterministic
+harness checks predicate evaluation for each case; these cases are evidence
+for a later independent witness and do not themselves promote the proposal.
 """
     return f"""You are a semantic formalization assistant for the Fortran standard.
 Work only through the declared tools. The current source-backed constraint is
@@ -209,6 +230,7 @@ finite domains, not an invented predicate or executable expression. For a
 clause of the generic form “X shall not be Y except in context Z”, use the
 canonical shape implies(forbidden-condition, allowed-context), rather than a
 negated conjunction.
+{witness_hint}
 {control_hint}"""
 
 
@@ -289,9 +311,11 @@ def run_row_attempt(args, raw, ranges, rows, prior, row, tools, trajectory, thin
         }, sort_keys=True) + "\n")
         trajectory.flush()
         return result
-    episode = harness.ConstraintEpisode(raw, ranges, rows, row, prior)
+    episode = harness.ConstraintEpisode(
+        raw, ranges, rows, row, prior, require_witnesses=args.require_witnesses
+    )
     messages = [
-        {"role": "system", "content": system_prompt(row, prior)},
+        {"role": "system", "content": system_prompt(row, prior, args.require_witnesses)},
         {"role": "user", "content": user_prompt(row)},
     ]
     events = []
@@ -608,7 +632,7 @@ def main():
         rows = [row for row in rows if row["row_key"] in retry_keys]
     started = time.monotonic()
     results = []
-    tools = tool_spec()
+    tools = tool_spec(args.require_witnesses)
     with (outdir / "trajectory.jsonl").open("w", encoding="utf-8") as trajectory, (outdir / "rows.jsonl").open("w", encoding="utf-8") as row_file:
         for row in rows:
             result = run_row(args, raw, ranges, harness.load_constraints(constraint_file), prior, row, tools, trajectory)
@@ -621,6 +645,7 @@ def main():
     summary = {
         "model": args.model,
         "thinking": args.thinking,
+        "require_witnesses": args.require_witnesses,
         "eligible_constraints": len(results),
         "proposal_rows": sum(row["proposal"] is not None for row in results),
         "schema_accepted_rows": sum(row["status"] == "accepted" for row in results),

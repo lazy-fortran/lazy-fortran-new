@@ -117,7 +117,7 @@ class ConstraintEpisode:
     """One bounded model episode; all derived provenance remains gate-owned."""
 
     def __init__(self, raw, ranges, rows, row, prior, max_evidence_calls=10,
-                 max_source_bytes=32768):
+                 max_source_bytes=32768, require_witnesses=False):
         self.raw = raw
         self.ranges = ranges
         self.lines = _line_inventory(raw)
@@ -126,6 +126,7 @@ class ConstraintEpisode:
         self.prior = prior
         self.max_evidence_calls = max_evidence_calls
         self.max_source_bytes = max_source_bytes
+        self.require_witnesses = require_witnesses
         self.evidence_calls = 0
         self.submissions = 0
         self.source_bytes = 0
@@ -354,16 +355,25 @@ class ConstraintEpisode:
                 "status": "rejected",
                 "code": "exception-constraint-needs-implication",
             }
+        if self.require_witnesses and (not isinstance(witnesses, list) or not witnesses):
+            return {"status": "rejected", "code": "witnesses-required"}
         if witnesses is not None:
             if not isinstance(witnesses, list) or len(witnesses) > 8:
                 return {"status": "rejected", "code": "invalid-witness-list"}
             for witness in witnesses:
-                if not isinstance(witness, dict) or set(witness) != {"label", "expect"}:
+                required_keys = {"label", "expect", "facts"} if self.require_witnesses else {"label", "expect"}
+                if not isinstance(witness, dict) or set(witness) != required_keys:
                     return {"status": "rejected", "code": "invalid-witness"}
                 if not isinstance(witness["label"], str) or not witness["label"].strip():
                     return {"status": "rejected", "code": "invalid-witness-label"}
                 if not isinstance(witness["expect"], bool):
                     return {"status": "rejected", "code": "invalid-witness-expectation"}
+                if self.require_witnesses:
+                    facts = witness["facts"]
+                    if not isinstance(facts, dict) or any(
+                            not isinstance(name, str) or not FACT_RE.fullmatch(name)
+                            for name in facts):
+                        return {"status": "rejected", "code": "invalid-witness-facts"}
         covered = False
         for evidence_id in evidence_ids:
             text = self.results[evidence_id]["text"]

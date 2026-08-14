@@ -79,7 +79,10 @@ cross-references, validates source hashes and evidence, checks the predicate
 schema and prior accepted controls, and retains every failed row. Accepted
 proposals remain ledger artifacts until an independent behavioral witness gate
 passes. E0116 processes the complete denominator; it is not another
-cross-model study.
+cross-model study. D0069 defines E0117's additive witness mode: each accepted
+primary proposal must carry concrete fact assignments and expected outcomes;
+the evaluator reports self-consistency without promoting it as an independent
+semantic oracle.
 
 ## Exit and handoff
 

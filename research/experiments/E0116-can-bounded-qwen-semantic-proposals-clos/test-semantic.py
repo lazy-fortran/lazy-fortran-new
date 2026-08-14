@@ -67,6 +67,30 @@ def main():
     assert witness.evaluate(expected, {"type-param-value": ":", "pointer-attribute": False,
                                        "allocatable-attribute": False}) is False
 
+    witnessed_episode = harness.ConstraintEpisode(
+        raw, ranges, constraints, row, prior, require_witnesses=True
+    )
+    witnessed_evidence = witnessed_episode.read_constraint()
+    missing = witnessed_episode.submit_semantic(
+        "C702", "accept", "type-param-value", "declaration of an entity",
+        ["type-param-value", "entity-attributes"], ["checked-type-param-value"],
+        expected, [witnessed_evidence["result_id"]]
+    )
+    assert missing == {"status": "rejected", "code": "witnesses-required"}
+    accepted_with_witness = witnessed_episode.submit_semantic(
+        "C702", "accept", "type-param-value", "declaration of an entity",
+        ["type-param-value", "entity-attributes"], ["checked-type-param-value"],
+        expected, [witnessed_evidence["result_id"]], [
+            {"label": "pointer", "expect": True,
+             "facts": {"type-param-value": ":", "pointer-attribute": True,
+                       "allocatable-attribute": False}},
+            {"label": "missing-attribute", "expect": False,
+             "facts": {"type-param-value": ":", "pointer-attribute": False,
+                       "allocatable-attribute": False}},
+        ]
+    )
+    assert accepted_with_witness["status"] == "accepted"
+
     adapted = runner.content_tool_call(
         "<tool_call><function=read_rule>\n"
         "<parameter=rule_number>\nR911\n</parameter>\n"

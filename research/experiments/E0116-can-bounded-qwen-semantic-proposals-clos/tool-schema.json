@@ -73,7 +73,20 @@
             "provided_facts": {"type": "array", "maxItems": 16, "items": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"}},
             "predicate": {"type": "object"},
             "evidence_ids": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"type": "string", "minLength": 1, "maxLength": 80}},
-            "witnesses": {"type": "array", "maxItems": 8, "items": {"type": "object"}}
+            "witnesses": {
+              "type": "array",
+              "maxItems": 8,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "label": {"type": "string", "minLength": 1},
+                  "expect": {"type": "boolean"},
+                  "facts": {"type": "object", "additionalProperties": true}
+                },
+                "required": ["label", "expect", "facts"]
+              }
+            }
           },
           "required": ["constraint_id", "decision", "subject", "applicability", "required_facts", "provided_facts", "predicate", "evidence_ids"]
         }

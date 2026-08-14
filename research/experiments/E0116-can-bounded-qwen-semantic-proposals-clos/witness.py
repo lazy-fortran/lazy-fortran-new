@@ -66,9 +66,55 @@ def evaluate(node, environment):
         return not evaluate(args[0], environment)
     if op == "eq":
         left, right = args[:2]
-        return environment.get(left) == right
+        return environment.get(left, left) == environment.get(right, right)
+    if op == "ne":
+        left, right = args[:2]
+        return environment.get(left, left) != environment.get(right, right)
+    if op in {"lt", "le", "gt", "ge"}:
+        left, right = args[:2]
+        left = environment.get(left, left)
+        right = environment.get(right, right)
+        return {"lt": left < right, "le": left <= right,
+                "gt": left > right, "ge": left >= right}[op]
+    if op in {"in", "not-in"}:
+        value = environment.get(args[0], args[0])
+        domain = args[1] if len(args) > 1 else []
+        result = value in domain
+        return result if op == "in" else not result
     if op in {"has", "present"}:
         return bool(environment.get(args[0], False))
+    if op == "absent":
+        return not bool(environment.get(args[0], False))
+    if op == "same-as":
+        left, right = args[:2]
+        return environment.get(left, left) == environment.get(right, right)
+    if op in {"type-is", "rank-is", "value", "named-constant"}:
+        left, right = args[:2]
+        return environment.get(left, left) == environment.get(right, right)
+    if op in {"scalar", "constant", "unique", "named", "accessible", "derived",
+              "processor-supports", "exists", "has-kind-param",
+              "contains-deferred-binding", "inherits-deferred-binding", "resolved",
+              "has-deferred-type-parameter", "unlimited-polymorphic", "abstract-type",
+              "derived-type", "intrinsic-module", "nonintrinsic-module",
+              "intrinsic-type-name", "intrinsic-procedure", "abstract-interface",
+              "explicit-interface-procedure", "procedure-declaration",
+              "declared-earlier", "use-accessible", "declared-in-specification",
+              "has-attribute", "bind-type", "sequence-type", "in-table-16-2",
+              "generic-name", "procedure-name"}:
+        return bool(environment.get(args[0], False))
+    if op in {"count-le", "count-ge"}:
+        value = environment.get(args[0], args[0])
+        count = len(value) if isinstance(value, (list, tuple, set, dict)) else value
+        bound = args[1]
+        return count <= bound if op == "count-le" else count >= bound
+    if op == "name-length":
+        value = environment.get(args[0], args[0])
+        return len(str(value)) == args[1]
+    if op == "relation":
+        relation = args[0]
+        if relation not in environment:
+            raise ValueError(f"witness evaluator does not support relation {relation}")
+        return bool(environment[relation])
     raise ValueError(f"witness evaluator does not support {op}")
 
 
@@ -120,7 +166,35 @@ def main():
             continue
         expected = exception_predicate(source)
         if expected is None:
-            result["status"] = "unwitnessed"
+            model_witnesses = proposal.get("witnesses", [])
+            if not model_witnesses:
+                result["status"] = "unwitnessed"
+                results.append(result)
+                continue
+            unsupported = False
+            for model_witness in model_witnesses:
+                label = model_witness.get("label", "")
+                facts = model_witness.get("facts", {})
+                expectation = model_witness.get("expect")
+                try:
+                    observed = evaluate(proposal["predicate"], facts)
+                except (KeyError, TypeError, ValueError) as exc:
+                    unsupported = True
+                    result["cases"][label] = {
+                        "expected": expectation, "observed": None, "error": str(exc)
+                    }
+                else:
+                    result["cases"][label] = {
+                        "expected": expectation, "observed": observed
+                    }
+            result["witness_mode"] = "model-self-consistency"
+            result["status"] = (
+                "unwitnessed" if unsupported else
+                "self-consistent" if all(
+                    case["observed"] == case["expected"]
+                    for case in result["cases"].values()
+                ) else "disputed"
+            )
             results.append(result)
             continue
         proposal_predicate = proposal["predicate"]
@@ -152,6 +226,7 @@ def main():
         "rows": len(results),
         "accepted_rows": sum(row.get("status") == "accepted" for row in rows),
         "promoted_rows": sum(row["status"] == "promoted" for row in results),
+        "self_consistent_rows": sum(row["status"] == "self-consistent" for row in results),
         "disputed_rows": sum(row["status"] == "disputed" for row in results),
         "unwitnessed_rows": sum(row["status"] == "unwitnessed" for row in results),
         "not_applicable_rows": sum(row["status"] == "not-applicable" for row in results),

@@ -118,6 +118,7 @@ Runs recorded: 187
 | E0114 | reported | 7 | Can a vision-capable Qwen or Gemma checkpoint translate a rule directly |
 | E0115 | reported | 14 | Does bounded native-tool access let local Qwen and Gemma models resolve |
 | E0116 | reported | 1 | Can one fixed Qwen 3.6 35B-A3B local model propose source-backed typed |
+| E0117 | running | 0 | Can source-backed model witnesses make typed semantic proposals independently testable? |
 
 ## Run status
 
@@ -208,6 +209,7 @@ Runs recorded: 187
 | [D0066](decisions/D0066-repair-qwen-tool-dialogue.md) | amended by D0067 | Amends D0065 | — Repair the bounded Qwen tool dialogue generically |
 | [D0067](decisions/D0067-bounded-dialogue-recovery-and-thinking-escalation.md) | accepted | Amends D0066 | — Bound dialogue recovery, telemetry and thinking escalation |
 | [D0068](decisions/D0068-upstream-llama-cpp-runtime.md) | accepted |  | — Use the clean upstream llama.cpp main runtime for local semantic runs |
+| [D0069](decisions/D0069-model-witnesses-before-independent-promotion.md) | accepted | Amends D0061 | — Require concrete model witnesses before independent semantic promotion |
 
 ### Proposed decisions
 

@@ -392,6 +392,9 @@ normal rows still request thinking off.
 [D0068] pins the semantic service to a clean CUDA build of upstream llama.cpp
 `650913862` (build 10427), installed beside the old runtime with a reversible
 versioned service path.
+[D0069] requires the next proposal protocol to carry concrete fact maps and
+expected outcomes. The deterministic evaluator may report self-consistency,
+but self-consistency is not independent semantic promotion.
 
 The numbered M3 execution sequence is:
 
@@ -432,8 +435,10 @@ protocol without escalation. `validate.py` reports 286 schema/source-gate
 accepted primary rows and one reference-only occurrence, with zero unresolved
 or hard-failure rows. `witness.py` promotes only one row so far; the other 285
 accepted proposals remain evidence for the next witness work and M3 is still
-open. The append-only run record, replay validation and witness summary are
-recorded with the run.
+open. E0117 is the next bounded run: repeat the proposal protocol with
+witnesses required, then separate evaluator self-consistency from genuine
+independent promotion. The append-only run record, replay validation and
+witness summary are recorded with each run.
 
 ### M4. Generated frontend vertical slice (pending)
 
