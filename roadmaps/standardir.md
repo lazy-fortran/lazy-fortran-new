@@ -119,11 +119,15 @@ for duplicate semantic identifiers, preserving insertion order, source
 provenance and resolution state; it is covered by independent duplicate and
 malformed-input controls in `standard-new` commit
 `5c1d258e61c38336cfbb316b76ba8b33e4717b94`.
-E0123 is the next semantic retry gate: it preserves all 287 E0117 row keys,
+E0123 is the active semantic retry gate: it preserves all 287 E0117 row keys,
 reprocesses only the 53 unresolved or hard-failure rows with a fresh Qwen 3.6
 35B-A3B episode and one thinking-on escalation, and retains the other 234
 rows as immutable controls. It is pinned to D0070's verified llama.cpp master
-runtime and remains draft until the service health/version check is recorded.
+runtime; the one-shot service health/version preflight has passed, but the run
+remains unreported until its validators, witness gate and exact merge gate
+pass. D0073 fixes the later repair boundary: deterministic processing may
+repair transport representation, never predicate meaning, fact names,
+missing nesting or source evidence.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.

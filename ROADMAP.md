@@ -392,17 +392,24 @@ without an accepted model proposal and the 215 rows without an independent
 oracle remain explicit denominator statuses. String-length, count,
 existential and containment terms are now handled by generic machinery; no
 model-specific aliases or semantic promotions were added.
-E0123 is prepared as the next bounded semantic retry. It keeps all 287 E0117
-row keys, retries only the 53 unresolved or hard-failure rows with a fresh
-Qwen 3.6 35B-A3B episode and one thinking-on escalation, and retains the 234
-prior terminal rows as immutable controls. It will use D0070's verified
-llama.cpp master service; the run remains unstarted until that service reports
-healthy and its version is recorded.
+E0123 is the active bounded semantic retry. It keeps all 287 E0117 row keys,
+retries only the 53 unresolved or hard-failure rows with a fresh Qwen 3.6
+35B-A3B episode and one thinking-on escalation, and retains the 234 prior
+terminal rows as immutable controls. Its manifest records D0070's verified
+llama.cpp master service and the one-shot health/version preflight. The run is
+not reported until its rows, validator, witness gate and exact merge gate have
+all completed.
+
+D0073 fixes the repair boundary for this and later semantic runs: deterministic
+processing may repair transport representation, but may not rewrite predicate
+operators, invent facts, infer missing nesting or substitute evidence. The
+model must receive the rejection and submit a bounded replacement; every
+attempt remains retained.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
 `fortfront-new` `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, and
-`fortback-new` `c48922d5dd9ebc9b0524a1f6eb14c3697c5e7327`; these are clean
+`fortback-new` `600457fb60eb74ee99cd2d647c6382bcf21f1afe`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 remains `76f765bc1da01b6e4feb62354d743371b6467e55`.
 
@@ -421,6 +428,9 @@ The decision is recorded in
 `research/decisions/D0072-targetir-generated-backend-boundary.md`.
 The first implementation step is now integrated: a generic source-record-
 driven RV64I I-format codec helper with no new mnemonic dispatch.
+The second is integrated as a generic AArch64 fixed-record validator/matcher
+over imported ADD, SUB and NOP records, with no mnemonic dispatch, ABI or MIR
+behavior.
 
 ## Numbered milestones
 

@@ -94,6 +94,13 @@ XORI, shift-shaped and JALR-shaped records through independent metadata,
 operand, target and provenance controls. Coordinator-side full `fo` passed,
 the task branch was removed, and no MIR or AArch64 files changed.
 
+The second post-D0072 backend slice is integrated at `fortback-new`
+`600457fb60eb74ee99cd2d647c6382bcf21f1afe`: a generic AArch64 fixed-record
+validator/matcher over imported ADD, SUB and NOP records. It checks mask/match
+selection, name independence, malformed metadata, unsupported words, target
+identity and source provenance. Coordinator-side full `fo` passed, the task
+branch was removed, and no mnemonic dispatch, ABI or MIR behavior changed.
+
 The parallel frontend slice is integrated at `fortfront-new`
 `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`: a bounded
 program/module/subroutine/function
@@ -105,7 +112,7 @@ The current bounded production pins are `standard-new`
 `5c1d258e61c38336cfbb316b76ba8b33e4717b94`, `fortfront-new`
 `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, `ffc-new`
 `76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
-`c48922d5dd9ebc9b0524a1f6eb14c3697c5e7327`, all on clean `main` branches
+`600457fb60eb74ee99cd2d647c6382bcf21f1afe`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
