@@ -4,13 +4,14 @@ question: >
   Can independently generated source-derived finite fact cases validate
   model-supplied typed predicates, with compiler behavior confirming the
   applicable cases where a faithful fixture and compiler are available?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000194
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "166a7d8"
+  lazy-fortran-new: "c360f23"
   standard-new: "e98f1ae2a42cc0f1467c57ec4942149a1489ecb2"
 
 # What goes in. The E0117 files and active run artifacts are inputs only.
@@ -25,6 +26,7 @@ inputs:
   page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
   predicate_schema: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json
   independent_oracle: research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv
+  independent_oracle_sha256: 4b3288383fb36b7a1b619fcae7c7affecdbc805d7ba55878feee5d90c3fd2fba
   source_case_policy: source-derived finite-case policy below
 
 # E0118 consumes the terminal E0117 proposal ledger. It makes no new model

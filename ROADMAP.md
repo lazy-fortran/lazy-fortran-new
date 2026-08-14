@@ -537,8 +537,12 @@ open. E0117 is reported as `R000193`: its terminal ledger contains all 287
 unique row keys, with 233 schema-accepted proposals, 16 unresolved rows, 37
 retained hard failures and one reference-only occurrence. It made no semantic
 promotion; its evaluator output is not an independent semantic oracle. E0118
-is now the next gate: it independently materializes finite source-derived fact
-cases and uses compiler behavior only where a faithful fixture exists.
+is now reported as `R000194`: it independently checks the five-row overlap
+with the committed E0083 source oracle in 30 finite cases, with 30 matches,
+zero mismatches and zero mutation-control failures. The other 228 accepted
+model rows have no independent source oracle and remain explicitly
+`oracle_unavailable`; no compiler fixture was safe to invoke. E0118 therefore
+validates the gate, not the unresolved semantic residue, and M3 remains open.
 
 ### M4. Generated frontend vertical slice (pending)
 

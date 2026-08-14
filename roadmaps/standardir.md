@@ -91,8 +91,12 @@ the evaluator reports self-consistency without promoting it as an independent
 semantic oracle. E0117 is reported as `R000193`: all 287 row keys are
 retained and unique, with 233 schema-accepted proposals, 16 unresolved rows,
 37 hard failures and one reference-only occurrence. No semantic fact was
-promoted. E0118 is now the next gate, independently deriving finite source
-cases and using compiler behavior where applicable.
+promoted. E0118 is reported as `R000194`: its committed E0083 source oracle
+overlaps five E0117 model rows and yields 30 independent finite cases, all
+matching with zero mutation-control failures. The other 228 accepted model
+rows have explicit `oracle_unavailable` status, and no compiler fixture was
+safe to invoke. M3 remains open; this validates the gate rather than closing
+the semantic residue.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.
