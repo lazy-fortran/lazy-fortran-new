@@ -334,6 +334,13 @@ passed its independent tests and the full `fo` gate; all task branches were
 deleted after push. These additive boundaries do not redefine a contract,
 promote semantic facts, or close M3.
 
+Wave X has integrated the indexed frontend program-declaration query and the
+source-backed RV64 SRLI codec. Both passed coordinator-side full `fo` gates;
+their task branches were deleted and their production mains are clean and
+pushed. The MIR instruction result-type query also passed its coordinator-side
+full `fo` gate and was merged and pushed. These additive boundaries do not
+redefine a contract, promote semantic facts, or close M3.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A

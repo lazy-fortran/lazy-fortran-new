@@ -46,11 +46,18 @@ syntax-item SX slices. The coordinator completed E0106 concurrently. Their
 exact commits and gates are recorded in the run ledger; all task worktrees and
 branches were removed after merge.
 
+Wave X has integrated the indexed frontend program-declaration query and the
+source-backed RV64 SRLI codec. Both passed coordinator-side full `fo` gates;
+their task branches were deleted and their production mains are clean and
+pushed. The MIR instruction result-type query also passed its coordinator-side
+full `fo` gate and was merged and pushed. These additive boundaries do not
+redefine a contract, promote semantic facts, or close M3.
+
 The current bounded production pins are `standard-new`
 `27329a701575f32776281f235290e465c5588105`, `fortfront-new`
-`99f0dec60bd8e0913588cb3d45583bb709711ec6`, `ffc-new`
-`38d1a494d3fe5bd205ae7f03198549933a42a9cd`, and `fortback-new`
-`5aa73a84863bf6383909b71582c4c75a9d46b2a1`, all on clean `main` branches
+`9d28326dcf3ae62d6be42cdbd109adf146e16956`, `ffc-new`
+`28c1469ba5b8821993b8da70d4bf457dd335fe57`, and `fortback-new`
+`bde234c9bce4f58b26471d572a0e50575f051177`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
