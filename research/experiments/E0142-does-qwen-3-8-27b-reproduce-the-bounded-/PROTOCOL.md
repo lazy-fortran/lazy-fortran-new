@@ -41,6 +41,14 @@ replay and exact row-key merging. The model sees one local task plus bounded
 source tools; it never owns fact vocabulary, dependency wiring, promotion or
 compiler architecture.
 
+The declarative campaign index and shared collector are in `campaign.toml` and
+`plot_campaign.py`. The seven `plots/plot-E*.py` entry points select a protocol
+but share all collection and rendering code. They scan terminal summaries under
+`.cache/runs`, so a new model row appears automatically when its existing
+protocol postprocessor writes the declared summary format. They write PNG/PDF/
+SVG only below the ignored run area; each PNG is uploaded separately after its
+experiment becomes terminal.
+
 For the semantic cells, deterministic extraction first supplies the numbered
 constraint, definitions, cross-references, source spans, known fact vocabulary
 and dependency candidates. Repeated source forms are compiled mechanically.
@@ -55,5 +63,6 @@ When reproducing an older Qwen 3.6 run, pass its pinned model and endpoint
 explicitly. The new default profile is for new runs only. Historical manifests
 and append-only run records are not rewritten.
 
-No cell is started by creating this file. Before execution, add the successor
-assembly/plot script and pin the preflight values in the run manifest.
+No cell is started by creating this file. Before execution, pin the preflight
+values in the run manifest. Adding another model requires a model profile and a
+run cell, not a copied plot implementation.

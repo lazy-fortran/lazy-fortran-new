@@ -16,6 +16,7 @@ inputs:
   profile: complete-core
   prior_protocols: [E0112, E0113, E0114, E0115, E0116, E0117, E0123]
   model_profiles: research/model-profiles.toml
+  campaign: research/experiments/E0142-does-qwen-3-8-27b-reproduce-the-bounded-/campaign.toml
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
@@ -85,6 +86,7 @@ gate: >
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: >
-  Reuse the pinned E0115/E0116/E0117/E0123 analysis gates and add a successor
-  assembly before execution; no report exists until every applicable cell is
-  terminal.
+  Reuse the pinned protocol analysis gates, then run
+  research/experiments/E0142-does-qwen-3-8-27b-reproduce-the-bounded-/plot_campaign.py
+  through the seven plot entry points; no report exists until every applicable
+  cell is terminal.

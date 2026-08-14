@@ -79,16 +79,21 @@ gates remain authoritative. Cross-model campaigns retain complete denominators
 and publish ignored plot artifacts through the slopbox handoff without adding a
 service to this repository.
 
-D0079 and E0142 define the next model replication boundary. New local runs
-default to logical profile `qwen38-27b` through the existing externally managed
-`127.0.0.1:8080` llama.cpp endpoint; the harness never starts, stops, reloads or
-reconfigures that service. Qwen 3.6 35B-A3B remains the historical control.
-E0142 repeats the existing fixed-window, full-retrieval, bounded-tool,
-typed-predicate, witness and residual-retry protocols without changing their
-gates. Reasoning is off first, with at most one fresh thinking-on episode after
+D0079 and D0080 make E0142 the immediate model replication boundary. New local
+runs default to logical profile `qwen38-27b` through the separately managed
+`127.0.0.1:8080` llama.cpp endpoint; the harness never starts, stops, reloads
+or reconfigures that service. E0142 repeats E0112, E0113, E0114, E0115, E0116,
+E0117 and E0123 with Qwen 3.8 27B, preserving their denominators and gates.
+Reasoning is off first, with at most one fresh thinking-on episode after
 failure. Visual cells are explicitly `not_applicable` unless preflight proves
 image capability. Deterministic extraction, provenance, schema, replay,
-witnesses and promotion remain outside model control.
+witnesses and promotion remain outside model control. The checklist and
+execution order are maintained in the central `ROADMAP.md`.
+D0081 keeps the seven comparison plots on one shared collector and one
+declarative campaign index. Existing protocol runners and validators remain
+authoritative; the collector only reads terminal summaries, discovers new
+model rows automatically and writes ignored figures for the per-experiment
+slopbox handoff.
 D0060 closes the source-backed name/evidence subphase: the deterministic closure
 covers all 127 residue rows, and nine local Qwen/Gemma bounded-tool cells have
 recorded first-pass, one-retry and wall-time data. The adaptive matrix and
@@ -136,17 +141,15 @@ for duplicate semantic identifiers, preserving insertion order, source
 provenance and resolution state; it is covered by independent duplicate and
 malformed-input controls in `standard-new` commit
 `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`.
-E0123 is the active semantic retry gate: it preserves all 287 E0117 row keys,
-reprocesses only the 53 unresolved or hard-failure rows with a fresh Qwen 3.6
-35B-A3B episode and one thinking-on escalation, and retains the other 234
-rows as immutable controls. It is pinned to D0070's verified llama.cpp master
-runtime; the one-shot service health/version preflight has passed, but the run
-remains unreported until its validators, witness gate and exact merge gate
-pass. D0073 fixes the later repair boundary: deterministic processing may
-repair transport representation, never predicate meaning, fact names,
-missing nesting or source evidence. D0074 adds compact generic constructor
-shape examples to successor prompts; it does not change E0123's pinned prompt
-or validator.
+E0123's Qwen 3.6 35B-A3B model phase is complete and its output is retained
+under `.cache/runs/E0123/R000001`; its validators, witness gate and exact merge
+gate remain pending. E0142 is now the active semantic replication gate. It
+repeats E0112, E0113, E0114, E0115, E0116, E0117 and E0123 with Qwen 3.8 27B
+through the separately managed `127.0.0.1:8080` endpoint. D0073 fixes the
+repair boundary: deterministic processing may repair transport representation,
+never predicate meaning, fact names, missing nesting or source evidence.
+D0074 adds compact generic constructor shape examples to successor prompts; it
+does not change the historical E0123 prompt or validator.
 After E0123, the coordinator runs the exact replacement merge, `validate.py`,
 the independent witness gate and one terminal run record. Only independently
 witnessed rows may be promoted. Any residual rows start a named D0074
@@ -193,8 +196,9 @@ command provides a deterministic, transactional intake/export boundary for
 source-backed semantic-items SX. It preserves insertion order, provenance and
 explicit resolution states, rejects malformed provenance and enums, and clears
 failed output. It is a transport and validation boundary only: it does not
-discover, infer or promote semantic facts. E0123 remains the active semantic
-recovery experiment.
+discover, infer or promote semantic facts. E0142 is the active semantic
+replication experiment; E0123 remains an unreported predecessor until its
+deterministic post-run gates complete.
 
 ## Exit and handoff
 

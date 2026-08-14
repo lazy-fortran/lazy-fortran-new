@@ -246,6 +246,8 @@ Runs recorded: 250
 | [D0077](decisions/D0077-keep-targetir-encoding-sx-private.md) | accepted |  | — Keep TargetIR encoding SX private until a consumer requires it |
 | [D0078](decisions/D0078-scale-reusable-mechanisms-before-more-witnesses.md) | accepted |  | Scale reusable mechanisms before adding more witnesses |
 | [D0079](decisions/D0079-qwen38-27b-default-replication.md) | accepted |  | — Use Qwen 3.8 27B as the default local replication model |
+| [D0080](decisions/D0080-run-the-27b-replication-before-new-model-selection.md) | accepted |  | — Run the Qwen 3.8 27B replication matrix next |
+| [D0081](decisions/D0081-shared-campaign-plot-boundary.md) | accepted |  | — Use one declarative campaign and shared plot collector |
 
 ### Proposed decisions
 

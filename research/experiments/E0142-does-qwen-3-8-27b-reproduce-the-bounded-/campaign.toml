@@ -1,0 +1,38 @@
+# Declarative campaign index. Execution remains in the referenced protocol
+# runners; this file is not a service or an orchestration framework.
+schema_version = 1
+default_model = "qwen38-27b"
+comparison_model = "qwen36-35b-a3b"
+endpoint = "http://127.0.0.1:8080/v1/chat/completions"
+run_policy = "new-qwen38-cells-only; historical rows are immutable"
+png_policy = "ignored-run-output; upload each completed experiment separately"
+
+protocol_ids = ["E0112", "E0113", "E0114", "E0115", "E0116", "E0117", "E0123"]
+
+[protocols.E0112]
+description = "fixed-pointer residue"
+plot_script = "plots/plot-E0112.py"
+
+[protocols.E0113]
+description = "full-retrieval repair and solved oracle"
+plot_script = "plots/plot-E0113.py"
+
+[protocols.E0114]
+description = "visual-first solved oracle"
+plot_script = "plots/plot-E0114.py"
+
+[protocols.E0115]
+description = "bounded native tools"
+plot_script = "plots/plot-E0115.py"
+
+[protocols.E0116]
+description = "typed semantic predicates"
+plot_script = "plots/plot-E0116.py"
+
+[protocols.E0117]
+description = "required witnesses"
+plot_script = "plots/plot-E0117.py"
+
+[protocols.E0123]
+description = "residual retry and immutable controls"
+plot_script = "plots/plot-E0123.py"
