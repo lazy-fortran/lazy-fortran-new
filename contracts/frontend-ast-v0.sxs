@@ -1,0 +1,19 @@
+(schema frontend-ast-v0
+  (primitive name)
+  (primitive int)
+  (record source-span
+    (file name)
+    (start-byte int)
+    (end-byte int)
+    (source-hash name))
+  (record program-root
+    (name name)
+    (span source-span))
+  (record program-declaration
+    (declaration-kind name)
+    (name name)
+    (span source-span))
+  (record program-unit
+    (root program-root)
+    (declaration-count int)
+    (declaration program-declaration)))

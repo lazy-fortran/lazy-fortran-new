@@ -1,0 +1,7 @@
+(contract-witness
+  (contract frontend-ast)
+  (version 0)
+  (root-name main)
+  (declaration-count 1)
+  (declaration-kind program)
+  (declaration-name main))

@@ -19,6 +19,7 @@ inputs:
   profile: complete-core
   syntax_profile_measurement: research/experiments/E0098-can-the-current-complete-standardir-proj/analyse.sh
   frontend_contract: contracts/frontend-v0.sxs
+  ast_contract: contracts/frontend-ast-v0.sxs
   frontend_fixture: contracts/fixtures/frontend-v0.sx
 
 # The axes being varied. Omit the key if there is only one condition.
