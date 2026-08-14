@@ -16,8 +16,16 @@ Planned run shape:
 research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/run-semantic.py \
   --outdir .cache/runs/E0123/R000001 \
   --retry-from .cache/runs/E0117/R000003-full/rows.jsonl \
+  --api-url http://10.77.0.10:8080/v1/chat/completions \
   --require-witnesses --escalate-thinking \
   --max-turns 32 --max-tokens 4096 --finalization-turns 3
 ```
 
-The command is not run until the latest llama.cpp service reports healthy.
+Run the one-shot preflight first; it refuses a loading/unavailable endpoint or
+an unexpected llama.cpp binary:
+
+```sh
+research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/preflight.sh
+```
+
+The semantic command is not run until this preflight passes.

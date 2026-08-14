@@ -402,7 +402,7 @@ healthy and its version is recorded.
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
 `fortfront-new` `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, and
-`fortback-new` `205fe1c2cf994274b87f676f07c57fddb911da23`; these are clean
+`fortback-new` `c48922d5dd9ebc9b0524a1f6eb14c3697c5e7327`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 remains `76f765bc1da01b6e4feb62354d743371b6467e55`.
 
@@ -419,6 +419,8 @@ cases are bootstrap witnesses, and further instruction coverage now waits for
 generic source-record-to-TargetIR normalization and generated codec output.
 The decision is recorded in
 `research/decisions/D0072-targetir-generated-backend-boundary.md`.
+The first implementation step is now integrated: a generic source-record-
+driven RV64I I-format codec helper with no new mnemonic dispatch.
 
 ## Numbered milestones
 

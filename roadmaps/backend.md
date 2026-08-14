@@ -26,9 +26,10 @@ AArch64 remain the first correctness targets. x86-64 is a concurrent
 source-quality comparison, not a prerequisite for them.
 
 The current target codec slice is `fortback-new` commit
-`205fe1c2cf994274b87f676f07c57fddb911da23`; it adds a source-backed
-RISC-V RV64I `XORI` codec after the `SLTIU` slice, with independent canonical,
-malformed, unsupported, invalid-operand, wrong-target and provenance controls.
+`c48922d5dd9ebc9b0524a1f6eb14c3697c5e7327`; it adds a source-record-driven
+generic RV64I I-format encoder/decoder over the existing `XORI`, shift-shaped
+and `JALR`-shaped records, with independent canonical, malformed metadata,
+unsupported-format, invalid-operand, wrong-target and provenance controls.
 The AArch64 zero-operand NOP and
 source-preserving RISC-V `SLTI` slices and earlier RV64 shift and
 AArch64 `adr`/`adrp` slices remain in its history.
@@ -36,6 +37,8 @@ D0072 now makes these instruction cases bootstrap witnesses rather than the
 backend's scaling mechanism. Further instruction coverage waits for the
 generic source-record to TargetIR normalization and generated codec path;
 adding another mnemonic branch alone is not an accepted backend slice.
+The generic I-format helper is the first step across that boundary; it adds no
+mnemonic enum, importer whitelist entry or instruction-kind dispatch branch.
 
 ## Provenance and exit
 

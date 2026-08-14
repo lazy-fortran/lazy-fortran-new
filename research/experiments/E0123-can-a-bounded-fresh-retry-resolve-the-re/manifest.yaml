@@ -2,9 +2,10 @@ id: "E0123"
 title: "Fresh bounded retry of residual semantic rows"
 question: >
   Can a bounded fresh retry resolve the residual semantic constraint rows?
-status: draft            # draft | running | reported | abandoned
+status: running          # draft | running | reported | abandoned
 opened: "2026-08-14"
 closed: ""
+run_id: R000206
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -113,3 +114,7 @@ analysis: >
   research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/
   run-semantic.py, followed by validate.py, witness.py and merge-retry.py;
   generated plots remain ignored.
+preflight: >
+  research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/
+  preflight.sh; it performs one health/version check and never waits for
+  service readiness.

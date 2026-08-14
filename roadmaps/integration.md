@@ -87,6 +87,13 @@ codec with canonical encoding/decoding, malformed/unsupported/invalid-operand/
 wrong-target controls, and preserved source provenance. Coordinator-side full
 `fo` passed; the task branch was removed and no MIR or AArch64 files changed.
 
+The first post-D0072 backend slice is integrated at `fortback-new`
+`c48922d5dd9ebc9b0524a1f6eb14c3697c5e7327`: a generic source-record-driven
+RV64I I-format encoder/decoder. It adds no mnemonic dispatch branch and checks
+XORI, shift-shaped and JALR-shaped records through independent metadata,
+operand, target and provenance controls. Coordinator-side full `fo` passed,
+the task branch was removed, and no MIR or AArch64 files changed.
+
 The parallel frontend slice is integrated at `fortfront-new`
 `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`: a bounded
 program/module/subroutine/function
@@ -98,7 +105,7 @@ The current bounded production pins are `standard-new`
 `5c1d258e61c38336cfbb316b76ba8b33e4717b94`, `fortfront-new`
 `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, `ffc-new`
 `76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
-`205fe1c2cf994274b87f676f07c57fddb911da23`, all on clean `main` branches
+`c48922d5dd9ebc9b0524a1f6eb14c3697c5e7327`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
