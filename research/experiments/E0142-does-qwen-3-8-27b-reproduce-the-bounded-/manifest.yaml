@@ -5,11 +5,11 @@ question: >
 status: running         # draft | running | reported | abandoned
 opened: "2026-08-14"
 closed: ""
-active_cell: ".cache/runs/E0114/R000002/qwen38-27b-visual-first-off"
+active_cell: ".cache/runs/E0115/R000004/qwen38-27b-bounded-tools-off"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "0ab9f62"
+  lazy-fortran-new: "fb1ccc2"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

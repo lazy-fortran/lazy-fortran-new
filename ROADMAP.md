@@ -144,8 +144,10 @@ changes a denominator.
       oracle (**TERMINAL** in `.cache/runs/E0113/R000002/qwen38-27b-full-
       retrieval-off/`, recorded as `R000264`; Qwen 3.8 accepted 2/127 rows,
       exactly 2/6 oracle translations, with no hard failures or model errors).
-- [ ] E0114: repeat the visual-first six-row oracle only when image capability
-      is proven; otherwise record `not_applicable`.
+- [x] E0114: repeat the visual-first six-row oracle (**TERMINAL** in
+      `.cache/runs/E0114/R000002/qwen38-27b-visual-first-off/`, recorded as
+      `R000265`; Qwen 3.8 matched 5/6 targets, with five retained model errors
+      and one hard failure).
 - [ ] E0115: repeat bounded native-tool evidence acquisition for 127 residue
       rows and six solved-oracle rows.
 - [ ] E0116: repeat typed semantic proposals for all 287 constraint rows.
