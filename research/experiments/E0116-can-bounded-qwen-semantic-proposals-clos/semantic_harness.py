@@ -264,7 +264,7 @@ class ConstraintEpisode:
         raise GateError("predicate term has an unsupported JSON type")
 
     @classmethod
-    def _validate_predicate(cls, node):
+    def _validate_predicate(cls, node, strict=False):
         if not isinstance(node, dict) or set(node) != {"op", "args"}:
             raise GateError("predicate must be an object with exactly op and args")
         op = node["op"]
@@ -273,6 +273,16 @@ class ConstraintEpisode:
             raise GateError(f"predicate constructor is not allowed: {op}")
         if not isinstance(args, list) or not 1 <= len(args) <= 8:
             raise GateError("predicate args must contain 1..8 values")
+        if strict and op in {"and", "or"}:
+            if any(not isinstance(arg, dict) or "op" not in arg for arg in args):
+                raise GateError(f"{op} arguments must be nested predicates")
+        if strict and op in {"not"}:
+            if len(args) != 1 or not isinstance(args[0], dict) or "op" not in args[0]:
+                raise GateError("not requires exactly one nested predicate")
+        if strict and op == "implies":
+            if (len(args) != 2 or any(not isinstance(arg, dict) or "op" not in arg
+                                      for arg in args)):
+                raise GateError("implies requires two nested predicates")
         if op == "relation":
             if not 2 <= len(args) <= 8:
                 raise GateError("relation requires a name and at least one subject")
@@ -280,7 +290,7 @@ class ConstraintEpisode:
                 raise GateError("relation name must be a lowercase fact identifier")
             for arg in args[1:]:
                 if isinstance(arg, dict) and "op" in arg:
-                    cls._validate_predicate(arg)
+                    cls._validate_predicate(arg, strict)
                 elif not isinstance(arg, str) or not FACT_RE.fullmatch(arg):
                     raise GateError("relation subjects must be fact identifiers or predicates")
             return
@@ -292,9 +302,39 @@ class ConstraintEpisode:
                     "binary value relation compares two fact-like names; "
                     "use a literal on the right or same-as for two fields"
                 )
+            if strict and (len(args) != 2 or not isinstance(left, str) or
+                           not FACT_RE.fullmatch(left)):
+                raise GateError(f"{op} requires a fact on the left and one literal on the right")
+            if strict and isinstance(right, str) and FACT_RE.fullmatch(right):
+                raise GateError(f"{op} requires a literal on the right; use same-as for two facts")
+        if strict and op in {"in", "not-in"}:
+            if (len(args) != 2 or not isinstance(args[0], str) or
+                    not FACT_RE.fullmatch(args[0]) or not isinstance(args[1], list)):
+                raise GateError(f"{op} requires a fact and a literal list")
+        if strict and op == "same-as":
+            if (len(args) != 2 or any(not isinstance(arg, str) or not FACT_RE.fullmatch(arg)
+                                      for arg in args)):
+                raise GateError("same-as requires two fact identifiers")
+        if strict and op in {"type-is", "rank-is"}:
+            if (len(args) != 2 or not isinstance(args[0], str) or
+                    not FACT_RE.fullmatch(args[0])):
+                raise GateError(f"{op} requires a fact and one literal")
+        if strict and op in {
+                "present", "absent", "has", "scalar", "constant", "unique", "named",
+                "accessible", "derived", "processor-supports", "exists",
+                "named-constant", "has-kind-param", "contains-deferred-binding",
+                "inherits-deferred-binding", "resolved", "has-deferred-type-parameter",
+                "unlimited-polymorphic", "abstract-type", "derived-type",
+                "intrinsic-module", "nonintrinsic-module", "intrinsic-type-name",
+                "intrinsic-procedure", "abstract-interface", "explicit-interface-procedure",
+                "procedure-declaration", "declared-earlier", "use-accessible",
+                "declared-in-specification", "bind-type", "sequence-type",
+                "in-table-16-2", "generic-name", "procedure-name"}:
+            if len(args) != 1 or not isinstance(args[0], str) or not FACT_RE.fullmatch(args[0]):
+                raise GateError(f"{op} requires one fact identifier")
         for arg in args:
             if isinstance(arg, dict) and "op" in arg:
-                cls._validate_predicate(arg)
+                cls._validate_predicate(arg, strict)
             else:
                 cls._validate_term(arg)
 
@@ -348,7 +388,7 @@ class ConstraintEpisode:
             return {"status": "rejected", "code": "unknown-evidence-id"}
         self._validate_facts(required_facts, "required_facts")
         self._validate_facts(provided_facts, "provided_facts")
-        self._validate_predicate(predicate)
+        self._validate_predicate(predicate, strict=self.require_witnesses)
         if (re.search(r"\bshall\s+not\b.*\bexcept\b", self.row["source_text"], re.IGNORECASE)
                 and not self._contains_op(predicate, "implies")):
             return {

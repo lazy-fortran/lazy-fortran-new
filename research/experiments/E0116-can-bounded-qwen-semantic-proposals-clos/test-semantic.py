@@ -91,6 +91,25 @@ def main():
     )
     assert accepted_with_witness["status"] == "accepted"
 
+    malformed_episode = harness.ConstraintEpisode(
+        raw, ranges, constraints, row, prior, require_witnesses=True
+    )
+    malformed_evidence = malformed_episode.read_constraint()
+    try:
+        malformed_episode.submit_semantic(
+            "C702", "accept", "type-param-value", "declaration of an entity",
+            ["type-param-value"], ["checked-type-param-value"],
+            {"op": "and", "args": ["colon-used", {"op": "has", "args": ["pointer-attribute"]}]},
+            [malformed_evidence["result_id"]], [{
+                "label": "malformed", "expect": True,
+                "facts": {"colon-used": True, "pointer-attribute": True},
+            }]
+        )
+    except harness.GateError as exc:
+        assert "nested predicates" in str(exc)
+    else:
+        raise AssertionError("strict witness mode accepted malformed logical arguments")
+
     adapted = runner.content_tool_call(
         "<tool_call><function=read_rule>\n"
         "<parameter=rule_number>\nR911\n</parameter>\n"
