@@ -437,6 +437,13 @@ empty spans. Neither slice adds mnemonic or keyword dispatch, grammar/parser
 wiring, ABI, MIR or instruction-selection behavior; they are recorded as
 `R000218` and `R000219`.
 
+The backend normalization continuation is now integrated at `fortback-new`
+`8c4c71e33beb94a4891e3cffe17c29c54b716709`: RISC-V I-format and AArch64
+source records normalize into one provenance-bearing generic encoding record
+with fixed bits and variable fields. Full `fo` passed with zero warnings and
+explicit malformed, unsupported, wrong-target and output-clearing controls;
+the slice is `R000220`. The parallel frontend scanner remains in flight.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -495,7 +502,7 @@ the sibling repository at build time.
 The current production pins after the latest bounded integration wave are
 `standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
 `fortfront-new` `2bb1bdd1fe0f75164b8de4bfd1c1c6db9d710cca`, and
-`fortback-new` `3a1b38e84af54f70ff6baaff231d84deed31a353`; these are clean
+`fortback-new` `8c4c71e33beb94a4891e3cffe17c29c54b716709`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `555eb09bfb17329517176f967a3d1fda36c3159e`.
 
