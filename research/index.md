@@ -120,6 +120,7 @@ Runs recorded: 190
 | E0116 | reported | 1 | Can one fixed Qwen 3.6 35B-A3B local model propose source-backed typed |
 | E0117 | running | 0 | Can source-backed model witnesses make typed semantic proposals independently testable? |
 | E0118 | draft | 0 | Can independently generated source-derived finite fact cases validate |
+| E0119 | draft | 0 | Can a closed StandardIR syntax profile generate a verified frontend vertical slice without handwritten wiring |
 
 ## Run status
 

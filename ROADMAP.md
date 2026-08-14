@@ -341,6 +341,13 @@ pushed. The MIR instruction result-type query also passed its coordinator-side
 full `fo` gate and was merged and pushed. These additive boundaries do not
 redefine a contract, promote semantic facts, or close M3.
 
+Wave Y has integrated the indexed frontend program-declaration-count query and
+the source-backed RV64 SRAI codec. Both passed coordinator-side full `fo`
+gates; their task branches were deleted and their production mains are clean
+and pushed. The M4 generation experiment E0119 is drafted separately and is
+not yet running. These boundaries do not redefine a contract, promote semantic
+facts, or close M3/M4.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A

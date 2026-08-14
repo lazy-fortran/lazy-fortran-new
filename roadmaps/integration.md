@@ -53,11 +53,19 @@ pushed. The MIR instruction result-type query also passed its coordinator-side
 full `fo` gate and was merged and pushed. These additive boundaries do not
 redefine a contract, promote semantic facts, or close M3.
 
+Wave Y has integrated the indexed frontend program-declaration-count query.
+It passed the coordinator-side full `fo` gate and its task branch was deleted
+after push. The source-backed RV64 SRAI slice also passed the full `fo` gate,
+was merged and pushed, and its task branch was deleted. The M4 generation
+experiment E0119 is drafted separately and is not yet running. These
+boundaries do not redefine a contract, promote semantic facts, or close
+M3/M4.
+
 The current bounded production pins are `standard-new`
 `27329a701575f32776281f235290e465c5588105`, `fortfront-new`
-`9d28326dcf3ae62d6be42cdbd109adf146e16956`, `ffc-new`
+`b2a792ff605038745cd512a72fb4e7a1c28e37bc`, `ffc-new`
 `28c1469ba5b8821993b8da70d4bf457dd335fe57`, and `fortback-new`
-`bde234c9bce4f58b26471d572a0e50575f051177`, all on clean `main` branches
+`ddd960972006da6ba6a0b11122a30ae17da58441`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
