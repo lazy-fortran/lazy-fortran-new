@@ -123,4 +123,5 @@ preflight: >
   service readiness.
 selftest: >
   research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/test.sh
-  and test-merge-retry.sh.
+  and test-merge-retry.sh; bash -n analyse.sh and python3 -m py_compile
+  report.py.

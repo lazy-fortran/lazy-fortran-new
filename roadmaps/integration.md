@@ -122,11 +122,20 @@ source-witness parser with exact terminator/name matching, span checks and
 rejection controls. Coordinator-side full `fo` passed, the task branch was
 removed, and no frontend-ast-v0 or mir-v0 contract changed.
 
+The next parallel wave is integrated at `fortfront-new`
+`bd6436e532aa75e664b4967c4d95b810fc9ab59b` and `fortback-new`
+`19bd36aa272115dd8f2029a89fb17761b291c649`. The frontend slice adds
+schema-generated AST preorder traversal with optional callbacks; the backend
+slice adds generic ordinal extraction of retained AARCHMRS variable ranges.
+Both passed coordinator-side full `fo` with zero warnings and their local and
+remote task branches were removed. Neither changes parser semantics,
+instruction dispatch, ABI behavior or MIR.
+
 The current bounded production pins are `standard-new`
 `5c1d258e61c38336cfbb316b76ba8b33e4717b94`, `fortfront-new`
-`7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, `ffc-new`
+`bd6436e532aa75e664b4967c4d95b810fc9ab59b`, `ffc-new`
 `1d356b42dd7821cfebea9fec78291a2c37e456e8`, and `fortback-new`
-`02837b1387315929545b6d33bc03e38a6bfc90e8`, all on clean `main` branches
+`19bd36aa272115dd8f2029a89fb17761b291c649`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

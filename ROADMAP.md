@@ -376,6 +376,14 @@ out-of-range controls; the task branch was removed after push. It adds source
 metadata for later generated field extraction, not instruction dispatch or
 machine semantics, and is recorded as `R000209`.
 
+Wave AD has integrated two disjoint follow-up slices. `fortfront-new` now has
+schema-generated AST preorder traversal with safe optional callbacks, and
+`fortback-new` now extracts retained AARCHMRS variable fields by ordinal from
+source records. Both passed coordinator-side full `fo` with zero warnings,
+negative controls and cleaned local/remote task branches. They are recorded as
+`R000210` and `R000211`; neither adds parser semantics, instruction dispatch,
+ABI behavior or MIR changes.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -425,8 +433,8 @@ errors. It does not relax validation or change E0123's pinned prompt.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
-`fortfront-new` `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, and
-`fortback-new` `02837b1387315929545b6d33bc03e38a6bfc90e8`; these are clean
+`fortfront-new` `bd6436e532aa75e664b4967c4d95b810fc9ab59b`, and
+`fortback-new` `19bd36aa272115dd8f2029a89fb17761b291c649`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `1d356b42dd7821cfebea9fec78291a2c37e456e8`.
 
