@@ -25,6 +25,13 @@ slices may run in parallel once their StandardIR records and provenance fields
 are pinned.
 The `mir-v0` producer boundary must not be changed inside a frontend slice.
 
+The next substantive gate is E0119. Its typed AST input is the laboratory
+contract `contracts/frontend-ast-v0.sxs` with fixed witness
+`contracts/fixtures/frontend-ast-v0.sx`. The first generated slice must emit
+program-root, program-declaration and program-unit records plus deterministic
+SX and wiring from that schema; generated output and its regeneration command
+belong in `fortfront-new`, while the experiment and provenance remain here.
+
 ## Exit and handoff
 
 The lane passes a typed, source-linked result with accepted/rejected status,

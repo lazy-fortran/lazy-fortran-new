@@ -536,6 +536,13 @@ small semantic contract, emits source-linked diagnostics, and lowers one
 useful construct. Structural wiring comes from schemas and architecture
 metadata. No local fragment adds compiler-wide modules, callers, or dispatch.
 
+E0119 is the first gate for this milestone. It consumes the pinned
+`contracts/frontend-ast-v0.sxs` schema and its fixed witness, and measures
+whether program-root, program-declaration and program-unit records, canonical
+SX and wiring can be generated and compiled without handwritten
+language-specific dispatch. The experiment remains draft until the generator,
+freshness command and independent behavioral oracle exist.
+
 ### M5. Practical generated frontend (pending)
 
 The generated frontend accepts a pinned real Fortran corpus, agrees with
