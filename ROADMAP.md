@@ -328,6 +328,12 @@ slice passed its independent tests and the full `fo` gate; all task branches
 were deleted after push. The slices remain contract work and do not promote
 semantic facts or close M3.
 
+Wave W integrated the indexed frontend diagnostic query, the MIR block
+instruction query, and the source-backed RV64 SLLI codec. Each accepted slice
+passed its independent tests and the full `fo` gate; all task branches were
+deleted after push. These additive boundaries do not redefine a contract,
+promote semantic facts, or close M3.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A

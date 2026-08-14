@@ -16,9 +16,9 @@ frontend-v0 SX handoff and reader, typed program-root boundary with canonical
 SX, standalone typed program-declaration SX boundary, bounded typed
 program-unit aggregate, bounded semantic-table consumer, generic
 semantic-witness validator, typed source-linked diagnostic SX boundary, and
-diagnostic-count query are integrated, and the bounded result-to-program-unit
-boundary is now at `fortfront-new` commit
-`0b84cd978af21c2cf5f66841794079172225332f`. Only the
+diagnostic-count and indexed diagnostic queries are integrated, and the
+bounded result-to-program-unit boundary is now at `fortfront-new` commit
+`99f0dec60bd8e0913588cb3d45583bb709711ec6`. Only the
 first two steps depend on M2. Diagnostic and semantic
 slices may run in parallel once their StandardIR records and provenance fields
 are pinned.
