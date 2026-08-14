@@ -142,6 +142,7 @@ independent_oracle: >
 
 trajectory_protocol: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/PROTOCOL.md
 analysis: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/plot.py
+convergence_analysis: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/plot-convergence.py
 
 falsifiable_by: >
   A hidden answer-bearing tool, an unbounded call or byte budget, a missing
