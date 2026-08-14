@@ -102,7 +102,4 @@ gate: >
   slice fails.
 
 # Script that turns runs into the tables and figures in report.md.
-analysis: >
-  Before status becomes running, add the committed E0119 analyse.sh and a
-  report.md template that regenerate the declared metrics from append-only run
-  records. No plot or generated build directory is committed.
+analysis: research/experiments/E0119-can-a-closed-standardir-syntax-profile-g/analyse.sh
