@@ -105,6 +105,12 @@ as `R000233`. E0124 accepts the declared source-witness handoff with
 structural, provenance, malformed-input, resolution and capacity controls.
 Parser state, tokenization and deterministic parser generation remain pending.
 
+E0126 is the current scale slice. It tests a generic nullable/first-set
+fixed-point analysis over the caller-supplied grammar table. The analyzer must
+retain unknown, unresolved and ambiguous states and must not introduce token
+policy, parser state or Fortran-specific dispatch. Its gate is an independent
+witness matrix and a warning-free full `fo` run.
+
 ## Exit and handoff
 
 The lane passes a typed, source-linked result with accepted/rejected status,

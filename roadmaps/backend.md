@@ -83,3 +83,10 @@ origin class. Normative, derived, comparison and differential sources remain
 distinguishable. The first useful backend gate is a real object emitted from a
 small fixed machine witness and checked against an independent encoder or
 execution oracle. No ISA payload is committed to the production repository.
+
+E0127 is the current scale slice. It tests a bounded table for normalized
+TargetIR encoding records from both existing source families, preserving order
+and provenance while reusing the generic validator and codec. It must not add
+mnemonic dispatch, ISA-specific branches, ABI/MIR wiring or a new shared
+contract. Its gate is the independent mixed-family table oracle and a
+warning-free full `fo` run.
