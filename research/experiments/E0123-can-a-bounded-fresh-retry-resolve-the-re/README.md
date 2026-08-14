@@ -29,3 +29,13 @@ research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/preflight.sh
 ```
 
 The semantic command is not run until this preflight passes.
+
+After the retry completes, merge only the exact predecessor residual set:
+
+```sh
+python3 research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/merge-retry.py \
+  .cache/runs/E0117/R000003-full/rows.jsonl \
+  .cache/runs/E0123/R000001/rows.jsonl \
+  --replace-status unresolved --replace-status hard_failure \
+  --outdir .cache/runs/E0123/R000001/merged
+```

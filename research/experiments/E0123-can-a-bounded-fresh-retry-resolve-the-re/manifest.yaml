@@ -106,7 +106,8 @@ gate: >
   Run E0116's bounded protocol with --retry-from the immutable E0117 rows,
   --require-witnesses and --escalate-thinking, retain both attempts and all
   trajectories, pass validate.py and witness.py, and merge only validated
-  terminal rows by row key. The 53-row retry and the 234 predecessor controls
+  terminal rows by row key with merge-retry.py's exact unresolved/hard-failure
+  replacement-set check. The 53-row retry and the 234 predecessor controls
   must account for all 287 rows; semantic promotions remain zero.
 
 # Script that turns runs into the tables and figures in report.md.
@@ -118,3 +119,6 @@ preflight: >
   research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/
   preflight.sh; it performs one health/version check and never waits for
   service readiness.
+selftest: >
+  research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/test.sh
+  and test-merge-retry.sh.
