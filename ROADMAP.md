@@ -26,7 +26,8 @@ by these slices. E0128 is accepted as `R000237` at `ffc-new` commit
 `7691adc1a7b96fef171f9fd0059c89401ad1c4f1`, providing a complete
 target-independent MIR opcode histogram over validated function bodies with
 no `mir-v0` revision. E0129 is now the active independent StandardIR export
-gate.
+gate, and E0130 is the parallel parser-neutral frontier gate over abstract
+symbols.
 
 ## Current position
 

@@ -113,6 +113,13 @@ repeat are represented by the existing flat epsilon/recursive form. It does
 not introduce token policy, parser state or Fortran-specific dispatch; the
 independent witness matrix and warning-free full `fo` gate passed.
 
+E0130 is the active parallel parser-structure slice. It tests a bounded
+frontier over abstract symbol sequences using the grammar table and analysis
+facts, retaining accepted, rejected, ambiguous and unresolved outcomes. It
+must not introduce Fortran token policy, arbitrary backtracking, semantic
+rules or a new contract; its independent frontier oracle and warning-free full
+`fo` gate are required before integration.
+
 ## Exit and handoff
 
 The lane passes a typed, source-linked result with accepted/rejected status,
