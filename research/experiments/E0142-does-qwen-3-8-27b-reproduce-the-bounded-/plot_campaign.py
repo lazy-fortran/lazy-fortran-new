@@ -53,10 +53,11 @@ def normalize(row, experiment, modality, source, default_protocol):
     candidate = str(first(row, "candidate", "model") or model)
     protocol = str(first(row, "protocol") or default_protocol)
     reasoning = str(first(row, "thinking", "reasoning") or "off")
-    denominator = number(first(row, "residue_rows", "eligible_constraints", "oracle_rows"))
-    accepted = number(first(row, "accepted", "resolved_rows", "schema_accepted_rows", "exact_target_matches"))
+    denominator = number(first(row, "residue_rows", "eligible_constraints", "oracle_rows", "overlap_rows"))
+    accepted = number(first(row, "accepted", "resolved_rows", "schema_accepted_rows",
+                            "strict_validator_accepts", "exact_target_matches"))
     unresolved = number(first(row, "unresolved_rows", "abstained_after_budget", "abstentions"))
-    failures = number(first(row, "hard_failures", "errors"))
+    failures = number(first(row, "hard_failures", "errors", "strict_validator_rejects"))
     model_errors = number(first(row, "model_errors"))
     oracle_rows = number(first(row, "oracle_rows"))
     oracle_exact = number(first(row, "oracle_exact_matches", "exact_target_matches", "overlap_agreements"))
@@ -89,6 +90,24 @@ def read_tsv(path, experiment, modality, default_protocol):
                 for row in csv.DictReader(stream, delimiter="\t")]
 
 
+def read_metric_tsv(path, experiment, modality, default_protocol):
+    metrics = {}
+    with path.open(encoding="utf-8", newline="") as stream:
+        for row in csv.reader(stream, delimiter="\t"):
+            if len(row) == 2 and row[0] != "metric":
+                metrics[row[0]] = row[1]
+    config_path = path.parent.parent / "api-config.json"
+    try:
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        config = {}
+    row = {**metrics, **config}
+    wall_path = path.parent.parent / "wall-seconds.txt"
+    if wall_path.exists():
+        row["wall_s_total"] = wall_path.read_text(encoding="utf-8").strip()
+    return [normalize(row, experiment, modality, path, default_protocol)]
+
+
 def read_json(path, experiment, modality, default_protocol):
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -111,6 +130,8 @@ def collect(experiment):
     if experiment == "E0112":
         for path in sorted(root.rglob("aggregated.tsv")):
             rows.extend(read_tsv(path, experiment, "text", "fixed-pointer"))
+        for path in sorted(root.rglob("validation/summary.tsv")):
+            rows.extend(read_metric_tsv(path, experiment, "text", "fixed-pointer"))
     elif experiment == "E0113":
         for path in sorted(root.rglob("analysis/text.tsv")):
             rows.extend(read_tsv(path, experiment, "text", "full-retrieval"))

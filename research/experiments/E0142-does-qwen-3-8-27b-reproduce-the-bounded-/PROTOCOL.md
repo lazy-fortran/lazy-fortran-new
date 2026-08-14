@@ -68,6 +68,8 @@ When reproducing an older Qwen 3.6 run, pass its pinned model and endpoint
 explicitly. The new default profile is for new runs only. Historical manifests
 and append-only run records are not rewritten.
 
-No cell is started by creating this file. Before execution, pin the preflight
-values in the run manifest. Adding another model requires a model profile and a
-run cell, not a copied plot implementation.
+No later cell is started by creating this file. E0112 is the first active cell;
+its terminal validation must complete before the next protocol is launched.
+Before each cell, pin the preflight values in the run manifest. Adding another
+model requires a model profile and a run cell, not a copied plot
+implementation.
