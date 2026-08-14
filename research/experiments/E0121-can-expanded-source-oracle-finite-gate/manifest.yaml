@@ -1,0 +1,67 @@
+id: "E0121"
+title: "Expanded independent source-oracle finite-case gate"
+question: >
+  Can the 23 mechanically reconstructed E0120 source-oracle records be
+  consumed by the independent finite-case harness without source mismatches,
+  evaluator errors or invented fact aliases?
+status: reported         # draft | running | reported | abandoned
+opened: "2026-08-14"
+closed: "2026-08-14"
+reported_run: R000196
+
+repos:
+  lazy-fortran-new: "91995d4"
+
+inputs:
+  predecessor: E0118
+  predecessor_run: R000194
+  terminal_ledger: .cache/runs/E0117/R000003-full/rows.jsonl
+  terminal_ledger_sha256: "1db61994f88775fb0bf79d79bfc12db147199b07e316564515330fc859d3a958"
+  expanded_oracle: research/experiments/E0120-can-deterministic-normative-constraint-f/source-oracle.tsv
+  expanded_oracle_sha256: "e42fc8180ca5be02e1ce8cac7554776179da3437e7209c93d254493b6c074183"
+  predicate_schema: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json
+  predicate_schema_sha256: "8fffdb7c943b8ade657a2b1a91636714e2fb2a1b9231f6fa88a59f62940e352b"
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+
+variables:
+  source_oracle: [E0120-23-record]
+  model_calls: [zero]
+  candidate_alias_inference: [forbidden]
+
+metrics:
+  - eligible_constraint_rows
+  - independent_oracle_rows
+  - oracle_model_overlap_rows
+  - source_case_rows
+  - source_case_oracle_matches
+  - source_case_oracle_mismatches
+  - source_case_oracle_unavailable
+  - candidate_unavailable_cases
+  - evaluator_errors
+  - mutation_controls
+  - mutation_control_failures
+  - semantic_promotions
+  - model_calls
+  - wall_s_total
+
+denominator: >
+  All 287 retained E0117 row keys and every one of the 23 E0120 source-oracle
+  records. Rows and cases are never removed because a candidate is unavailable
+  or a source constructor is outside the finite materializer.
+
+independent_oracle: >
+  E0120 source-oracle.tsv, parsed independently from the E0117 JSON predicate.
+  Its SHA-256 is checked and each source-derived expected outcome is evaluated
+  from the parsed predicate AST. The candidate evaluator is separate and does
+  not add source facts or synonyms.
+
+gate: >
+  Retain all 287 rows, consume all 23 source-oracle records, report every
+  unsupported source form and candidate-unavailable case explicitly, produce
+  zero source mismatches and evaluator errors, pass mutation controls, make
+  zero model calls and promote zero semantic facts.
+
+analysis: >
+  E0118's generic analyse.sh with E0118_ORACLE set to the pinned E0120
+  source-oracle.tsv and E0118_OUTDIR set to .cache/runs/E0121/R000001.

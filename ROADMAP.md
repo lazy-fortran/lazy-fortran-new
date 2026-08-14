@@ -373,6 +373,17 @@ independent source oracle but does not validate semantic sufficiency or close
 M3; the next gate is to feed the expanded oracle into independently generated
 finite cases.
 
+E0121 reports the expanded finite-case replay as `R000196`. The 23-record
+E0120 source oracle overlapped 18 accepted E0117 proposals and produced 49
+finite cases: 34 exact matches, zero mismatches, zero evaluator errors, and
+four explicit `candidate_unavailable` cases where model fact names had no
+source-oracle counterpart. The remaining 226 source cases are explicit
+`oracle_unavailable` outcomes because their predicates or model rows do not
+provide a faithful finite domain. The run made zero model calls, passed 246
+mutation controls, invoked no compiler, and promoted no semantic fact. M3
+remains open; the next semantic step is to formalize the still-unavailable
+predicate families or hand them to the bounded model protocol.
+
 The current production pins after the latest bounded integration wave are
 `fortfront-new` `4893474cc4b4f3675363a49e5ac4bc5df763e112` and
 `fortback-new` `5150468b2417de47187cb554eda31c06820de50d`; both are clean

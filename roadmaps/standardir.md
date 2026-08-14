@@ -104,6 +104,11 @@ and six no-match rows, accepted no ambiguous rows, made zero model calls and
 passed four mutation controls. This is an expanded independent source oracle,
 not semantic sufficiency or promotion. The next gate is an E0118 successor
 that generates finite cases from these 23 independently reconstructed records.
+That successor is E0121, reported as `R000196`: 49 finite cases were emitted,
+34 matched exactly, none mismatched, none caused evaluator errors, and four
+were explicitly `candidate_unavailable` because the model's fact names were
+not present in the source oracle. The other 226 source cases remain explicit
+`oracle_unavailable`; no compiler was invoked and no fact was promoted.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.
