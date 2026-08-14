@@ -47,10 +47,10 @@ exact commits and gates are recorded in the run ledger; all task worktrees and
 branches were removed after merge.
 
 The current bounded production pins are `standard-new`
-`145b3ec57907bd3456a4fde686904b5682e735c0`, `fortfront-new`
-`bba2e31ea136b53ae3079e517d11cc4f716a9c51`, `ffc-new`
-`cce44af7ff6a2408ef68d77c475c0865ac46e0ac`, and `fortback-new`
-`249729bd40eff1b55ef48fe088544f26a7c999d1`, all on clean `main` branches
+`a25eae1d1a98703bcf717cf4406c4e797cdeb2b4`, `fortfront-new`
+`8c654b77a93dea012b6e7532b1f170c232eca80`, `ffc-new`
+`36f91385d4789894514e7b2f3a1aa93798ad8a8a`, and `fortback-new`
+`86d928c101f9d797e5d198eb874e108a026cfe5d`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

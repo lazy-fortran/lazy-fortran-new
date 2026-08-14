@@ -311,6 +311,12 @@ module ordering; it is retained as `R000190` and made no production change.
 The three accepted slices are pushed and the semantic promotion rule is
 unchanged.
 
+Wave T recovered the generated-module ordering repair in `standard-new` and
+integrated a frontend result-header query, a MIR function query, and a
+source-backed RISC-V SRA codec. The generator repair is recorded as `R000191`
+after coordinator-side full `fo` verification; all four production mains are
+now pushed and clean, with no semantic promotion.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
