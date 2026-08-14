@@ -26,10 +26,13 @@ test "$composite_records" -eq 519 || die 'composite record denominator changed'
     fo exec sxtreesitter "$input" "$outdir/grammar.js"
 ) >"$outdir/export.log" 2>&1 || die 'one of the four exporters failed'
 
-ebnf_records="$(rg -c '^\(\* rule=' "$outdir/grammar.ebnf")"
-antlr_records="$(rg -c '^// rule=' "$outdir/grammar.g4")"
-bison_records="$(rg -c '^/\* rule=' "$outdir/grammar.y")"
-treesitter_records="$(rg -c '^// rule=' "$outdir/grammar.js")"
+# EBNF keeps alternatives in one production and may place a later annotation
+# after the preceding expression on the same line. Count provenance tokens,
+# not physical lines, for every format.
+ebnf_records="$(rg -o 'rule=' "$outdir/grammar.ebnf" | wc -l | tr -d ' ')"
+antlr_records="$(rg -o 'rule=' "$outdir/grammar.g4" | wc -l | tr -d ' ')"
+bison_records="$(rg -o 'rule=' "$outdir/grammar.y" | wc -l | tr -d ' ')"
+treesitter_records="$(rg -o 'rule=' "$outdir/grammar.js" | wc -l | tr -d ' ')"
 test "$ebnf_records" -eq "$composite_records" || die 'EBNF provenance count differs'
 test "$antlr_records" -eq "$composite_records" || die 'ANTLR provenance count differs'
 test "$bison_records" -eq "$composite_records" || die 'Bison provenance count differs'
