@@ -120,9 +120,10 @@ changes a denominator.
       KV cache, flash attention, sampler, reasoning settings and image
       capability.
 - [ ] E0112: repeat fixed-pointer residue resolution for all 127 rows
-      (**RUNNING** in `.cache/runs/E0112/R000003/qwen38-27b-pointer-off-a1/`; the
-      earlier detached-launch failure is retained as `R000253`; terminal
-      condition is `validation/summary.tsv`).
+      (**RUNNING** in `.cache/runs/E0112/R000011/qwen38-27b-pointer-off-a2/`; the
+      detached-launch failure is retained as `R000253` and the completed
+      pre-control-harness cell as `R000259`; terminal condition is
+      `validation/summary.tsv`).
 - [ ] E0113: repeat full-retrieval repair and the six-row solved-translation
       oracle.
 - [ ] E0114: repeat the visual-first six-row oracle only when image capability
