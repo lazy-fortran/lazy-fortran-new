@@ -30,6 +30,17 @@ research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/preflight.sh
 
 The semantic command is not run until this preflight passes.
 
+The predecessor residual diagnosis is reproducible with:
+
+```sh
+python3 research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/diagnose-predecessor.py \
+  .cache/runs/E0117/R000003-full/rows.jsonl \
+  .cache/runs/E0117/R000003-full/trajectory.jsonl
+```
+
+It separates protocol-format failures from deterministic predicate-gate
+rejections before the retry is evaluated.
+
 After the retry completes, merge only the exact predecessor residual set:
 
 ```sh
