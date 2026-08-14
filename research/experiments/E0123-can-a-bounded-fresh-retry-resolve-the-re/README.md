@@ -6,6 +6,12 @@ starts each retry as a fresh episode, requests thinking off first, and permits
 one fresh thinking-on episode after failure. Required witness maps, source
 evidence, schema validation and row-key merging remain deterministic gates.
 
+Under [D0073](../../decisions/D0073-syntax-preserving-semantic-repair.md),
+the deterministic side may repair response transport only. It does not rewrite
+predicate operators, invent fact names, infer missing nesting or substitute
+source evidence; the model must correct a rejected proposal inside the
+bounded episode.
+
 The runtime is the verified upstream llama.cpp master build recorded in the
 manifest. The service must be healthy before the run is launched; its health
 check and exact version output belong in the run record.

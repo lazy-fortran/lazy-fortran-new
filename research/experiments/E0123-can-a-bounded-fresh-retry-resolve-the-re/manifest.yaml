@@ -22,6 +22,7 @@ inputs:
   page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
   semantic_schema: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json
   post_run_merge_gate_commit: "28124d0"
+  repair_policy: D0073
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
