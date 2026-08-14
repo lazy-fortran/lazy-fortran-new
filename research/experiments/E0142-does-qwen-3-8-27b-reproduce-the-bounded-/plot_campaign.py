@@ -59,7 +59,7 @@ def normalize(row, experiment, modality, source, default_protocol):
     unresolved = number(first(row, "unresolved_rows", "abstained_after_budget", "abstentions"))
     failures = number(first(row, "hard_failures", "errors", "strict_validator_rejects"))
     model_errors = number(first(row, "model_errors"))
-    oracle_rows = number(first(row, "oracle_rows"))
+    oracle_rows = number(first(row, "oracle_rows", "overlap_rows"))
     oracle_exact = number(first(row, "oracle_exact_matches", "exact_target_matches", "overlap_agreements"))
     wall = number(first(row, "wall_s_total", "wall_s"))
     tokens = number(first(row, "total_tokens", "output_tokens"))
@@ -207,20 +207,21 @@ def render(experiment, rows, outdir):
                "Codex": "#CC79A7", "Other": "#666666"}
     labels = [f"{r['candidate']}\n{r['protocol']} / {r['reasoning']}" for r in rows]
     x = list(range(len(rows)))
-    rates = []
-    failures = []
+    accepted_counts = []
+    not_accepted_counts = []
     oracle = []
     cost = []
     for row in rows:
         denominator = row["denominator"]
-        rates.append(row["accepted"] / denominator if denominator and math.isfinite(denominator) else math.nan)
+        accepted = row["accepted"]
+        accepted_counts.append(accepted if math.isfinite(accepted) else math.nan)
+        not_accepted_counts.append(denominator - accepted
+                                   if denominator and math.isfinite(denominator)
+                                   and math.isfinite(accepted) else math.nan)
         # These protocol counters are not mutually exclusive: a rejected
         # proposal can also be counted in the row's abstention/error tally.
         # Use the disjoint complement of strict acceptance rather than adding
         # overlapping counters and producing rates above 100 percent.
-        failures.append((denominator - row["accepted"]) / denominator
-                         if denominator and math.isfinite(denominator)
-                         and math.isfinite(row["accepted"]) else math.nan)
         oracle.append(row["oracle_exact"] / row["oracle_rows"]
                       if row["oracle_rows"] and math.isfinite(row["oracle_rows"]) else math.nan)
         cost.append(row["wall_s"] / denominator
@@ -228,12 +229,22 @@ def render(experiment, rows, outdir):
     colors = [palette.get(row["family"], palette["Other"]) for row in rows]
     fig, axes = plt.subplots(4, 1, figsize=(max(10, len(rows) * 0.26), 9.5), sharex=True)
     fig.subplots_adjust(left=0.09, right=0.99, top=0.93, bottom=0.30, hspace=0.62)
-    axes[0].bar(x, rates, color=colors, width=0.78)
-    axes[0].set_ylim(0, 1); axes[0].set_ylabel("Accepted / eligible")
-    axes[0].set_title(f"{experiment} comparison: strict accepted rate")
-    axes[1].bar(x, failures, color="#999999", width=0.78)
-    axes[1].set_ylim(bottom=0); axes[1].set_ylabel("Failure / eligible")
-    axes[1].set_title("Not accepted / eligible (all terminal failure modes)")
+    finite_accepted = [value for value in accepted_counts if math.isfinite(value)]
+    accepted_limit = max(1, math.ceil(max(finite_accepted, default=1) * 1.35))
+    axes[0].bar(x, accepted_counts, color=colors, width=0.78)
+    axes[0].set_ylim(0, accepted_limit); axes[0].set_ylabel("Rows")
+    axes[0].set_title(f"{experiment} comparison: strictly accepted rows (rate annotated)")
+    for index, row in enumerate(rows):
+        if math.isfinite(row["accepted"]) and row["denominator"] and math.isfinite(row["denominator"]):
+            rate = row["accepted"] / row["denominator"]
+            axes[0].text(index, row["accepted"] + accepted_limit * 0.025,
+                         f"{int(row['accepted'])} ({rate:.1%})",
+                         ha="center", va="bottom", fontsize=6, rotation=90)
+    finite_not_accepted = [value for value in not_accepted_counts if math.isfinite(value)]
+    not_accepted_limit = max(1, math.ceil(max(finite_not_accepted, default=1) * 1.08))
+    axes[1].bar(x, not_accepted_counts, color="#999999", width=0.78)
+    axes[1].set_ylim(0, not_accepted_limit); axes[1].set_ylabel("Rows")
+    axes[1].set_title("Rows not strictly accepted (all terminal failure modes)")
     axes[2].bar(x, oracle, color=colors, width=0.78)
     axes[2].set_ylim(0, 1); axes[2].set_ylabel("Exact / oracle")
     axes[2].set_title("Independent solved-oracle accuracy; unavailable cells remain gaps")
