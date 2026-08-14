@@ -30,6 +30,10 @@ def read_retry_rows(path: Path):
     return rows
 
 
+def optional_json(path: Path):
+    return read_json(path) if path.exists() else None
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("analysis_dir", type=Path)
@@ -44,6 +48,8 @@ def main():
             status: sum(row.get("status") == status for row in retry_rows)
             for status in ("accepted", "unresolved", "hard_failure", "reference-only")
         },
+        "retry_summary": optional_json(args.retry_rows.parent / "summary.json"),
+        "retry_config": optional_json(args.retry_rows.parent / "run-config.json"),
         "merge": read_json(args.analysis_dir / "merged" / "summary.json"),
         "validation": read_tsv(args.analysis_dir / "validate" / "summary.tsv"),
         "witness": read_json(args.analysis_dir / "witness" / "summary.json"),
