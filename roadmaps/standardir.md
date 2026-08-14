@@ -82,7 +82,8 @@ passes. E0116 processes the complete denominator; it is not another
 cross-model study. D0069 defines E0117's additive witness mode: each accepted
 primary proposal must carry concrete fact assignments and expected outcomes;
 the evaluator reports self-consistency without promoting it as an independent
-semantic oracle.
+semantic oracle. E0117 is now the active bounded run; its result must be
+recorded before the next semantic gate is chosen.
 
 ## Exit and handoff
 

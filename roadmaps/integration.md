@@ -53,8 +53,8 @@ The current bounded production pins are `standard-new`
 `8dd1c04b327d0a0f83087e24ab19a93745f65142`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
-Verify any pin with `git -C ../<repo> cat-file -t <commit>` and the branch
-state with `git -C ../<repo> status --short --branch`.
+Use the full commit argument for an immutable pin when checking a recorded
+result.
 
 The cleanup sequence is explicit:
 

@@ -449,10 +449,11 @@ protocol without escalation. `validate.py` reports 286 schema/source-gate
 accepted primary rows and one reference-only occurrence, with zero unresolved
 or hard-failure rows. `witness.py` promotes only one row so far; the other 285
 accepted proposals remain evidence for the next witness work and M3 is still
-open. E0117 is the next bounded run: repeat the proposal protocol with
-witnesses required, then separate evaluator self-consistency from genuine
-independent promotion. The append-only run record, replay validation and
-witness summary are recorded with each run.
+open. E0117 is the active bounded run: it repeats the proposal protocol with
+witnesses required, then separates evaluator self-consistency from genuine
+independent promotion. Its manifest pins the strict harness and upstream
+llama.cpp runtime; the append-only run record, replay validation and witness
+summary will be recorded before any next semantic gate is selected.
 
 ### M4. Generated frontend vertical slice (pending)
 
