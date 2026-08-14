@@ -1,7 +1,8 @@
 # StandardIR lane
 
-Owner: `standard-new`. Contract: `contracts/standardir-v0.sxs`. Primary source
-and artifact provenance remain in the laboratory. Production code consumes
+Owner: `standard-new`. Contracts: `contracts/standardir-v0.sxs` for metadata
+and `contracts/standardir-grammar-v0.sxs` for normalized grammar structure.
+Primary source and artifact provenance remain in the laboratory. Production code consumes
 source paths supplied by the laboratory fetch contract and emits StandardIR.
 
 ## Current gate

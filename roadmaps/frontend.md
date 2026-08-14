@@ -1,6 +1,7 @@
 # Frontend lane
 
-Owner: `fortfront-new`. Inputs: `standardir-v0`. Output: `frontend-v0` for the
+Owner: `fortfront-new`. Inputs: `standardir-v0` and
+`standardir-grammar-v0`. Output: `frontend-v0` for the
 middle end and tools. The repository owns generated lexer/parser/AST code and
 behavioral tests. Experiment history and contract revisions remain in the lab.
 
@@ -92,6 +93,11 @@ matching collect unique or ambiguous candidates in insertion order while
 retaining rule identity and provenance. This is still one-step candidate
 generation; parser state, frontier management, backtracking and tokenization
 remain separate gates.
+
+D0076's `standardir-grammar-v0` consumer is the next handoff: it validates the
+source-backed flat node tree before any deterministic parser generation. The
+consumer must retain unresolved/disputed status as non-accepted input and must
+not turn the contract into Fortran-specific token dispatch.
 
 ## Exit and handoff
 

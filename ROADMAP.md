@@ -483,6 +483,14 @@ recorded as `R000226` and `R000227`. Parser state/frontier management and
 ambiguity policy, as well as backend instruction selection and MIR connection,
 remain open.
 
+D0076 now defines the next cross-repository syntax boundary as
+`standardir-grammar-v0`: a source-backed flat preorder node table that retains
+reference, token, sequence, choice, optional and repeat structure. The
+producer/consumer implementation wave is in progress in `standard-new` and
+`fortfront-new`. This contract is an input to deterministic generation; it is
+not itself a parser and does not authorize copying grammar payloads into the
+frontend.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
