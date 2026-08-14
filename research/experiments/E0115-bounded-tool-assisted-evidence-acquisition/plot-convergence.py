@@ -80,8 +80,10 @@ def render(rows, outdir):
     stages = list(dict.fromkeys(row["stage"] for row in rows))
     x = list(range(len(models)))
     stage_width = 0.78 / max(len(stages), 1)
+    stage_colors = {"initial": "#0072B2", "adaptive-final": "#E69F00"}
+    stage_hatches = {"initial": "", "adaptive-final": "//"}
     fig, axes = plt.subplots(3, 1, figsize=(max(8.0, len(models) * 0.72), 7.2), sharex=True)
-    fig.subplots_adjust(left=0.09, right=0.99, top=0.91, bottom=0.20, hspace=0.52)
+    fig.subplots_adjust(left=0.09, right=0.99, top=0.84, bottom=0.20, hspace=0.52)
     for stage_index, stage in enumerate(stages):
         stage_rows = {row["model"]: row for row in rows if row["stage"] == stage}
         offsets = [value - 0.39 + stage_width / 2 + stage_index * stage_width for value in x]
@@ -91,14 +93,31 @@ def render(rows, outdir):
             else math.nan
             for model in models
         ]
-        axes[0].bar(offsets, values, width=stage_width, label=stage)
+        axes[0].bar(
+            offsets,
+            values,
+            width=stage_width,
+            label=stage,
+            color=stage_colors.get(stage, "#666666"),
+            hatch=stage_hatches.get(stage, ""),
+            edgecolor="#333333",
+            linewidth=0.3,
+        )
         oracle_values = [
             fraction(stage_rows[model], "oracle_exact_matches", "oracle_rows")
             if model in stage_rows
             else math.nan
             for model in models
         ]
-        axes[1].bar(offsets, oracle_values, width=stage_width)
+        axes[1].bar(
+            offsets,
+            oracle_values,
+            width=stage_width,
+            color=stage_colors.get(stage, "#666666"),
+            hatch=stage_hatches.get(stage, ""),
+            edgecolor="#333333",
+            linewidth=0.3,
+        )
         failure_values = [
             (
                 stage_rows[model]["abstained_after_budget"]
@@ -109,7 +128,15 @@ def render(rows, outdir):
             else math.nan
             for model in models
         ]
-        axes[2].bar(offsets, failure_values, width=stage_width)
+        axes[2].bar(
+            offsets,
+            failure_values,
+            width=stage_width,
+            color=stage_colors.get(stage, "#666666"),
+            hatch=stage_hatches.get(stage, ""),
+            edgecolor="#333333",
+            linewidth=0.3,
+        )
     axes[0].set_ylim(0, 1)
     axes[0].set_ylabel("Resolved / residue")
     axes[0].set_title("E0115 convergence: deterministic gate acceptance")
@@ -121,7 +148,12 @@ def render(rows, outdir):
     axes[2].set_title("Abstentions plus hard failures")
     axes[2].set_xticks(x, models, rotation=35, ha="right")
     axes[2].set_xlabel("Local model; bars are initial and bounded-retry stages")
-    axes[0].legend(frameon=False, ncol=min(3, len(stages)), loc="upper right")
+    axes[0].legend(
+        frameon=False,
+        ncol=min(3, len(stages)),
+        loc="upper right",
+        bbox_to_anchor=(1.0, 1.23),
+    )
     for axis, letter in zip(axes, "abc"):
         axis.text(-0.06, 1.04, letter, transform=axis.transAxes, weight="bold")
     outdir.mkdir(parents=True, exist_ok=True)

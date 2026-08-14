@@ -56,9 +56,9 @@ def read_rows(path):
 def family_color(model):
     lower = model.lower()
     if "qwen" in lower:
-        return "#35608d"
+        return "#0072B2"
     if "gemma" in lower:
-        return "#b05a3c"
+        return "#D55E00"
     raise ValueError(f"E0115 plot: non-local model is not allowed: {model}")
 
 
@@ -75,7 +75,11 @@ def render(rows, outdir):
         "axes.spines.top": False,
         "axes.spines.right": False,
     })
-    labels = [f"{r['model']}\n{r['protocol']} / {r['reasoning']}" for r in rows]
+    variants = {(r["protocol"], r["reasoning"]) for r in rows}
+    labels = [
+        r["model"] if len(variants) == 1 else f"{r['model']}\n{r['protocol']} / {r['reasoning']}"
+        for r in rows
+    ]
     x = list(range(len(rows)))
     colors = [family_color(r["model"]) for r in rows]
     resolution = [
@@ -94,19 +98,22 @@ def render(rows, outdir):
     ]
     fig, axes = plt.subplots(3, 1, figsize=(max(10, len(rows) * 0.24), 8.0), sharex=True)
     fig.subplots_adjust(left=0.08, right=0.99, top=0.92, bottom=0.28, hspace=0.58)
-    axes[0].bar(x, resolution, color=colors, width=0.8)
+    axes[0].bar(x, resolution, color=colors, edgecolor="#333333", linewidth=0.3, width=0.8)
     axes[0].set_ylim(0, 1)
     axes[0].set_ylabel("Resolved / residue")
     axes[0].set_title("E0115 complete matrix: residue resolution")
-    axes[1].bar(x, oracle, color=colors, width=0.8)
+    axes[1].bar(x, oracle, color=colors, edgecolor="#333333", linewidth=0.3, width=0.8)
     axes[1].set_ylim(0, 1)
     axes[1].set_ylabel("Exact / oracle")
     axes[1].set_title("Solved-translation oracle accuracy")
-    axes[2].bar(x, seconds, color=colors, width=0.8)
+    axes[2].bar(x, seconds, color=colors, edgecolor="#333333", linewidth=0.3, width=0.8)
     axes[2].set_ylabel("Seconds / residue row")
     axes[2].set_title("Measured total wall time")
     axes[2].set_xticks(x, labels, rotation=55, ha="right")
-    axes[2].set_xlabel("Model / protocol / reasoning; unavailable cells remain visible as gaps")
+    axes[2].set_xlabel(
+        "Local model" if len(variants) == 1
+        else "Model / protocol / reasoning; unavailable cells remain visible as gaps"
+    )
     for axis, letter in zip(axes, "abc"):
         axis.text(-0.06, 1.04, letter, transform=axis.transAxes, weight="bold")
     outdir.mkdir(parents=True, exist_ok=True)

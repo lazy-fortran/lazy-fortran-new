@@ -4,12 +4,12 @@ question: >
   Does bounded native-tool access let local Qwen and Gemma models resolve
   source-backed residue more accurately than fixed retrieval, without adding
   unsafe or unbounded evidence access?
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-13"
 closed: ""
 
 repos:
-  lazy-fortran-new: "8405afd"
+  lazy-fortran-new: "a9284bb"
   standard-new: "ae2ee71"
 
 inputs:
@@ -143,6 +143,8 @@ independent_oracle: >
 trajectory_protocol: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/PROTOCOL.md
 analysis: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/plot.py
 convergence_analysis: research/experiments/E0115-bounded-tool-assisted-evidence-acquisition/plot-convergence.py
+reported_slice: bounded-tools/text/reasoning-off/adaptive-one-retry
+reported_run: R000187
 
 falsifiable_by: >
   A hidden answer-bearing tool, an unbounded call or byte budget, a missing

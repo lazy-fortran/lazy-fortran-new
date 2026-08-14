@@ -354,6 +354,17 @@ commands are recorded in git, generated plot files remain ignored, and PNGs
 are handed off through slopbox. Unavailable checkpoints and inapplicable visual
 cells remain explicit denominator entries.
 
+D0060 closes the source-backed name/evidence subphase. The deterministic
+closure covers 127/127 residue rows; the complete bounded local text matrix
+has nine Qwen/Gemma cells with one declared retry stage. Adaptive results range
+from 84/127 to 127/127, with exact solved-translation oracle results from 0/6
+to 6/6. The matrix and initial-to-adaptive convergence figures are generated
+by `assemble-results.py`, `plot.py` and `plot-convergence.py`; their PNGs are
+ignored and handed off through slopbox. This closes name/evidence acquisition,
+not the whole semantic milestone. The next M3 slice is the typed-predicate
+pilot for an actually constraining rule such as C702. No model output from
+E0115 is promoted into StandardIR.
+
 ### M4. Generated frontend vertical slice (pending)
 
 `fortfront-new` parses a closed profile, builds the generated AST, resolves a
@@ -988,9 +999,12 @@ comparisons from behavioral oracle comparisons.
 - [x] Record Christopher Albert as sole planned author
 - [x] Record *Nature Computational Science* as the aspirational target
 - [ ] Measure the semantic mechanical/model-assisted residue
-- [ ] Run the deterministic-first semantic residual campaign across the local
-      Qwen/Gemma matrix; retain all failures and publish its convergence plots
-      through the D0059 slopbox handoff
+- [x] Run the deterministic-first source-backed name/evidence campaign across
+      the local Qwen/Gemma matrix; retain all failures and publish its matrix
+      and convergence plots through the D0059/D0060 slopbox handoff
+- [ ] Run the typed-predicate pilot for a genuinely constraining residual rule
+      such as C702; retain deterministic schema, provenance and behavioral
+      gates
 - [ ] Promote only typed semantic predicates that pass source, schema and
       behavioral gates; keep unresolved prose separate from generated wiring
 - [ ] Start and validate the generated `fortfront-new` frontend
