@@ -92,4 +92,6 @@ gate: >
   mutation checks, and emit zero parser projections. This experiment records
   semantic proposals; promotion requires the later witness gate.
 
-analysis: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/validate.py
+analysis: >
+  research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/validate.py
+  followed by witness.py for the independent promotion gate.

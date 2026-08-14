@@ -8,6 +8,7 @@ import tempfile
 from pathlib import Path
 
 import semantic_harness as harness
+import witness
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -40,8 +41,8 @@ def main():
         {"op": "implies", "args": [
             {"op": "eq", "args": ["type-param-value", ":"]},
             {"op": "or", "args": [
-                {"op": "has", "args": ["entity", "POINTER"]},
-                {"op": "has", "args": ["entity", "ALLOCATABLE"]},
+                {"op": "has", "args": ["pointer-attribute"]},
+                {"op": "has", "args": ["allocatable-attribute"]},
             ]},
         ]},
         [evidence["result_id"]],
@@ -49,6 +50,12 @@ def main():
     )
     assert result["status"] == "accepted"
     assert episode.accepted["origin"] == "LLM"
+    expected = witness.exception_predicate(evidence["source_text"])
+    assert expected == episode.accepted["predicate"]
+    assert witness.evaluate(expected, {"type-param-value": ":", "pointer-attribute": True,
+                                       "allocatable-attribute": False}) is True
+    assert witness.evaluate(expected, {"type-param-value": ":", "pointer-attribute": False,
+                                       "allocatable-attribute": False}) is False
 
     try:
         harness.ConstraintEpisode._validate_predicate({"op": "eval", "args": ["x"]})

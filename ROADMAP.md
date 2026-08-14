@@ -367,6 +367,10 @@ E0115 is promoted into StandardIR. D0061 now fixes the completion protocol:
 one local Qwen 3.6 35B-A3B proposer, bounded source tools, typed JSON
 predicates, deterministic schema/source/replay gates, and a terminal record for
 every constraint row.
+[D0062] amends that protocol after the first C702 smoke: relation operands are
+typed by position, prior controls are parsed canonically, source-span failures
+stay inside the tool boundary, and promotion requires an independent witness
+stage for a generic source form.
 
 The numbered M3 execution sequence is:
 

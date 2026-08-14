@@ -7,4 +7,5 @@ experiment="$root/research/experiments/E0116-can-bounded-qwen-semantic-proposals
 python3 -m py_compile "$experiment"/*.py
 python3 "$experiment/test-semantic.py"
 python3 "$experiment/validate.py" --help >/dev/null
+python3 "$experiment/witness.py" --help >/dev/null
 printf 'E0116 harness syntax and behavioral gates passed\n'

@@ -1,6 +1,6 @@
 # D0061 — Use Qwen as a bounded semantic-fragment proposer
 
-Status: accepted
+Status: amended by D0062
 Date: 2026-08-14
 
 ## Context
