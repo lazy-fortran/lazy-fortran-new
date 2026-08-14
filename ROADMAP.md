@@ -593,26 +593,24 @@ lanes and do not block semantic formalization. M3 closes only after the
 complete Core 0 semantic ledger has a measured accepted, unresolved and
 disputed state and its promoted subset passes the behavioral witness gate.
 
-The current M3 execution is E0116: the local Qwen 3.6 35B-A3B service runs on
-`mailuefterl` at the declared local API endpoint, with no SSH tunnel. The
-text-only semantic run has the auxiliary `whisper-server` stopped so the
-35B profile retains its normal 128K context and large batch configuration.
-R000015 uses the clean upstream llama.cpp build pinned by D0068, starts with
-thinking off, and accepts both residual rows through the bounded recovery
-protocol without escalation. `validate.py` reports 286 schema/source-gate
-accepted primary rows and one reference-only occurrence, with zero unresolved
-or hard-failure rows. `witness.py` promotes only one row so far; the other 285
-accepted proposals remain evidence for the next witness work and M3 is still
-open. E0117 is reported as `R000193`: its terminal ledger contains all 287
-unique row keys, with 233 schema-accepted proposals, 16 unresolved rows, 37
-retained hard failures and one reference-only occurrence. It made no semantic
-promotion; its evaluator output is not an independent semantic oracle. E0118
-is now reported as `R000194`: it independently checks the five-row overlap
-with the committed E0083 source oracle in 30 finite cases, with 30 matches,
-zero mismatches and zero mutation-control failures. The other 228 accepted
-model rows have no independent source oracle and remain explicitly
-`oracle_unavailable`; no compiler fixture was safe to invoke. E0118 therefore
-validates the gate, not the unresolved semantic residue, and M3 remains open.
+The current M3 execution is E0123, a fresh bounded retry of E0117's 53
+unresolved or hard-failure rows. It uses the local Qwen 3.6 35B-A3B service,
+the verified upstream llama.cpp master build, thinking off first and one
+thinking-on escalation, while retaining the other 234 E0117 rows as immutable
+controls. Its one-shot service preflight passed; the run is recorded as
+`R000206` in the manifest and remains unreported until validation, witnesses
+and exact row-key merging finish. D0073 forbids deterministic semantic
+rewrites during this retry: only transport representation may be repaired.
+
+The predecessor and source-oracle evidence remain historical controls. E0117
+is `R000193` with 233 schema-accepted proposals, 16 unresolved rows, 37 hard
+failures and one reference-only occurrence; it made no semantic promotion.
+E0118 is `R000194`, with 30/30 matches over its five-row independent overlap.
+E0120 is `R000195`, with 23 source-reconstructed records and no promotion.
+E0121 is `R000196`, with 34 exact matches among 49 emitted finite cases.
+E0122 is `R000199`, with 36/36 exact matches among 93 emitted cases and 57
+explicit candidate-unavailable outcomes. These source-oracle experiments
+validate portions of the gate; they do not close M3 or promote semantic facts.
 
 ### M4. Generated frontend vertical slice (pending)
 
