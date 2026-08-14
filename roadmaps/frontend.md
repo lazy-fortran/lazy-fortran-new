@@ -63,7 +63,12 @@ The lexer-facing lexical-fact classifier is integrated at
 `c704f047fadc64b771279111becff78ed2c835f3`. It consumes caller-supplied
 source-backed facts, validates provenance before lookup, and reports scalar,
 ambiguity, processor-defined and invalid-input states. It is a classifier
-boundary only; source tokenization and grammar dispatch remain pending.
+boundary only. The following UTF-8 span boundary is integrated at
+`fortfront-new` commit `2bb1bdd1fe0f75164b8de4bfd1c1c6db9d710cca`: it iterates source scalars by byte offsets,
+classifies a span through those facts, retains the matched fact, and gives
+no-match, unsupported, ambiguous and invalid-fact states distinct from an
+empty span. It remains a lexer-facing classifier boundary only; source
+tokenization and grammar dispatch remain pending.
 
 ## Exit and handoff
 

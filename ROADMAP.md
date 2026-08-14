@@ -425,6 +425,18 @@ processor-defined and invalid-input states. Full `fo` passed with zero
 warnings; the task branch was removed and the slice is recorded as `R000217`.
 It does not yet tokenize source or wire grammar dispatch.
 
+Wave AK has integrated two disjoint lexical/codec continuations. `fortback-new`
+`3a1b38e84af54f70ff6baaff231d84deed31a353` now composes the source-record
+RISC-V I-format matcher with a generic operand-array whole-record codec;
+`fortfront-new` `2bb1bdd1fe0f75164b8de4bfd1c1c6db9d710cca` now iterates UTF-8 scalars by byte span and classifies
+source spans using caller-supplied lexical facts. Both passed coordinator-side
+full `fo` with zero warnings and explicit malformed-input/output-clearing
+controls. The frontend change includes a small coordinator follow-up to make
+span no-match, unsupported, ambiguous and invalid-fact statuses distinct from
+empty spans. Neither slice adds mnemonic or keyword dispatch, grammar/parser
+wiring, ABI, MIR or instruction-selection behavior; they are recorded as
+`R000218` and `R000219`.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -482,8 +494,8 @@ the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
-`fortfront-new` `c704f047fadc64b771279111becff78ed2c835f3`, and
-`fortback-new` `9baabf418280812b43181330b67d10d4078e88ae`; these are clean
+`fortfront-new` `2bb1bdd1fe0f75164b8de4bfd1c1c6db9d710cca`, and
+`fortback-new` `3a1b38e84af54f70ff6baaff231d84deed31a353`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `555eb09bfb17329517176f967a3d1fda36c3159e`.
 

@@ -175,11 +175,22 @@ ambiguity, processor-defined and invalid-input states. Coordinator-side full
 task worktree existed. No keyword dispatch, grammar, parser or `mir-v0`
 behavior changed.
 
+The next lexical/codec continuation is integrated in parallel at
+`fortback-new` `3a1b38e84af54f70ff6baaff231d84deed31a353` and `fortfront-new`
+`2bb1bdd1fe0f75164b8de4bfd1c1c6db9d710cca`. The backend composes the source-record RISC-V I-format matcher with
+a generic operand-array whole-record codec. The frontend iterates UTF-8
+scalars by byte span and classifies source spans through caller-supplied
+lexical facts, with distinct no-match, unsupported, ambiguous and invalid-fact
+statuses. Both passed coordinator-side full `fo` with zero warnings and their
+output-clearing controls; no task branches or separate task worktrees remain.
+These are recorded as `R000218` and `R000219`. Neither changes grammar/parser
+dispatch, ABI, MIR or instruction selection.
+
 The current bounded production pins are `standard-new`
 `985d684a2c8e5f4394b3473c8bdc3a9`, `fortfront-new`
-`c704f047fadc64b771279111becff78ed2c835f3`, `ffc-new`
+`2bb1bdd1fe0f75164b8de4bfd1c1c6db9d710cca`, `ffc-new`
 `555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
-`9baabf418280812b43181330b67d10d4078e88ae`, all on clean `main` branches
+`3a1b38e84af54f70ff6baaff231d84deed31a353`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded
