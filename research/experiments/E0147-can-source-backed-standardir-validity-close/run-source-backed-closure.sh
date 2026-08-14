@@ -6,6 +6,7 @@ lab_root=$(cd -- "$script_dir/../../.." && pwd)
 standard_root=$(cd -- "$lab_root/../standard-new" && pwd)
 base_run="$lab_root/.cache/runs/E0147/R000002"
 run_dir="${1:-$lab_root/.cache/runs/E0147/R000003}"
+run_dir="$(cd -- "$(dirname -- "$run_dir")" && pwd)/$(basename -- "$run_dir")"
 
 if [[ ! -d "$base_run" ]]; then
     printf 'missing source-backed base run: %s\n' "$base_run" >&2
