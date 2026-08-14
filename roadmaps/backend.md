@@ -26,9 +26,10 @@ AArch64 remain the first correctness targets. x86-64 is a concurrent
 source-quality comparison, not a prerequisite for them.
 
 The current target codec slice is `fortback-new` commit
-`5150468b2417de47187cb554eda31c06820de50d`; it adds a source-backed
-AArch64 zero-operand NOP codec and independent malformed/target/word controls.
-The source-preserving RISC-V `SLTI` slice and earlier RV64 shift and
+`dcbae9882850efbe246b8faf22394306589ce530`; it adds a source-backed
+RISC-V RV64I `SLTIU` codec and independent canonical, malformed, unsupported,
+wrong-target and provenance controls. The AArch64 zero-operand NOP and
+source-preserving RISC-V `SLTI` slices and earlier RV64 shift and
 AArch64 `adr`/`adrp` slices remain in its history.
 
 ## Provenance and exit

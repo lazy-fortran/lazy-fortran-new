@@ -75,11 +75,23 @@ deleted after push. E0119 is reported accepted as `R000192` for this first
 AST/wiring slice; complete M4 still requires the lexer, parser, semantic and
 lowering gates.
 
+The next production backend slice is integrated at `fortback-new`
+`dcbae9882850efbe246b8faf22394306589ce530`: a source-backed RV64I `SLTIU`
+codec with canonical encoding, malformed/unsupported/wrong-target controls,
+and preserved source provenance. Coordinator-side full `fo` passed, the task
+branch was removed, and no MIR or AArch64 files changed.
+
+The parallel frontend slice is integrated at `fortfront-new`
+`452a1573c859d151d177391c0b5d135d0391e61c`: a bounded module source-witness
+parser with exact terminator/name matching, span checks and rejection controls.
+Coordinator-side full `fo` passed, the task branch was removed, and no
+frontend-ast-v0 or mir-v0 contract changed.
+
 The current bounded production pins are `standard-new`
 `27329a701575f32776281f235290e465c5588105`, `fortfront-new`
-`4893474cc4b4f3675363a49e5ac4bc5df763e112`, `ffc-new`
+`452a1573c859d151d177391c0b5d135d0391e61c`, `ffc-new`
 `76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
-`5150468b2417de47187cb554eda31c06820de50d`, all on clean `main` branches
+`dcbae9882850efbe246b8faf22394306589ce530`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

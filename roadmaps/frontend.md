@@ -19,9 +19,9 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`4893474cc4b4f3675363a49e5ac4bc5df763e112`. The bounded parser-quality
-slice now validates program-name matching, identifier boundaries, and exact
-root/header spans for the minimal witness parser. The deterministic
+`452a1573c859d151d177391c0b5d135d0391e61c`. The bounded parser-quality
+slice validates program-name matching, identifier boundaries, and exact
+root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
 serialization, schema-derived dispatcher and freshness/negative tests are
 also integrated. Only the

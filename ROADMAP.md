@@ -385,11 +385,17 @@ remains open; the next semantic step is to formalize the still-unavailable
 predicate families or hand them to the bounded model protocol.
 
 The current production pins after the latest bounded integration wave are
-`fortfront-new` `4893474cc4b4f3675363a49e5ac4bc5df763e112` and
-`fortback-new` `5150468b2417de47187cb554eda31c06820de50d`; both are clean
+`fortfront-new` `452a1573c859d151d177391c0b5d135d0391e61c` and
+`fortback-new` `dcbae9882850efbe246b8faf22394306589ce530`; both are clean
 `main` branches with coordinator-side full `fo` verification. The StandardIR
 and FFC pins remain `27329a701575f32776281f235290e465c5588105` and
 `76f765bc1da01b6e4feb62354d743371b6467e55`.
+
+The same integration wave added a bounded module source-witness parser to
+`fortfront-new`: exact `module NAME` and `end`/`end module`/`end module NAME`
+forms, source spans, name matching and malformed-input rejection are tested.
+It remains a witness slice, not a general Fortran parser or a semantic module
+implementation.
 
 ## Numbered milestones
 
