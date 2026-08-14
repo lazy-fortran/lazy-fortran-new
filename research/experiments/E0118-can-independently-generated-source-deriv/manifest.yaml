@@ -11,7 +11,7 @@ closed: ""
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: "166a7d8"
-  standard-new: "ae2ee71"
+  standard-new: "e98f1ae2a42cc0f1467c57ec4942149a1489ecb2"
 
 # What goes in. The E0117 files and active run artifacts are inputs only.
 inputs:
