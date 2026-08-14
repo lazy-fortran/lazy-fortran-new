@@ -2,14 +2,16 @@ id: "E0130"
 title: "Parser-neutral grammar frontier"
 question: >
   Can generic grammar facts drive a deterministic parser frontier over abstract symbols?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000240
+reported_runs: [R000240]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: 554a350
-  fortfront-new: d37e7a62d25a168eb9dd54bc79e36ffd410275bf
+  fortfront-new: 5fda6dc7858f268ac82cf8ad81e8a1483df4449f
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

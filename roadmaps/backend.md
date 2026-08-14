@@ -92,9 +92,11 @@ codec. It adds no mnemonic dispatch, ISA-specific branches, ABI/MIR wiring or
 new shared contract; the independent mixed-family table oracle and
 warning-free full `fo` gate passed.
 
-E0131 is the active source-ingestion scale slice. It batches existing RISC-V
-and AArch64 source records into the generic normalized TargetIR table while
-preserving order, provenance and transactional failure. It must not add
-mnemonic dispatch, importer whitelists, ISA-specific codec branches, ABI/MIR
-wiring, serialization or a new contract; its independent mixed-source oracle
-and warning-free full `fo` gate are required before integration.
+E0131 is accepted as `R000239` at `fortback-new` commit
+`576c7a4b55aa772e0723b274333dcf411f35071d`. It batches existing RISC-V and
+AArch64 source records into the generic normalized TargetIR table while
+preserving order, provenance and transactional failure. It remains bounded to
+the existing RISC-V I-format and AArch64 record families and table capacity.
+It adds no mnemonic dispatch, importer whitelists, ISA-specific codec
+branches, ABI/MIR wiring, serialization or a new contract; the independent
+mixed-source oracle and warning-free full `fo` gate passed.

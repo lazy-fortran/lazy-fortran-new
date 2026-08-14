@@ -2,14 +2,16 @@ id: "E0129"
 title: "Batch StandardIR grammar export"
 question: >
   Can a normalized StandardIR grammar batch generate ordered canonical grammar exports for all declared formats?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000238
+reported_runs: [R000238]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: 3c66b93
-  standard-new: d8740159f2fcfee359480d77f4391ef1edd0550c
+  standard-new: 25486db92b0805201fa90104dc6f637ecce84942
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

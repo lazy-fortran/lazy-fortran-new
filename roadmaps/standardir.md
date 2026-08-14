@@ -158,12 +158,14 @@ preserving the single-record result and clearing outputs transactionally on
 failure. It does not parse the PDF or add semantic aliases. The independent
 batch oracle and warning-free full `fo` gate passed.
 
-E0129 is the current export scale slice. It consumes a normalized grammar
+E0129 is accepted as `R000238` at `standard-new` commit
+`25486db92b0805201fa90104dc6f637ecce84942`. It consumes a normalized grammar
 batch through the existing deterministic EBNF, ANTLR4, Bison and tree-sitter
-export paths where supported, preserving rule/alternative order and source
-annotations. It must not copy comparison grammars, parse PDF text or add
-parser dispatch; its independent export oracle and warning-free full `fo` gate
-are required before integration.
+export paths, preserving rule/alternative order and source annotations. The
+adapter retains the existing emitter boundary and rejects unresolved/disputed
+rules, interleaved LHS groups and unsupported normalized shapes. It does not
+copy comparison grammars, parse PDF text or add parser dispatch; the
+independent export oracle and warning-free full `fo` gate passed.
 
 ## Exit and handoff
 

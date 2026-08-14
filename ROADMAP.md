@@ -25,9 +25,15 @@ grammar table. Neither semantic promotion nor parser/backend wiring is implied
 by these slices. E0128 is accepted as `R000237` at `ffc-new` commit
 `7691adc1a7b96fef171f9fd0059c89401ad1c4f1`, providing a complete
 target-independent MIR opcode histogram over validated function bodies with
-no `mir-v0` revision. E0129 is now the active independent StandardIR export
-gate, and E0130 is the parallel parser-neutral frontier gate over abstract
-symbols. E0131 is the parallel mixed-source TargetIR normalization gate.
+no `mir-v0` revision. E0129 is accepted as `R000238` at `standard-new`
+commit `25486db92b0805201fa90104dc6f637ecce84942`, providing deterministic
+batch export to EBNF, ANTLR4, Bison and tree-sitter with ordered provenance.
+E0131 is accepted as `R000239` at `fortback-new` commit
+`576c7a4b55aa772e0723b274333dcf411f35071d`, providing transactional mixed
+RISC-V/AArch64 source normalization. E0130 is accepted as `R000240` at
+`fortfront-new` commit `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, providing a
+bounded parser-neutral frontier that preserves accepted, rejected, ambiguous
+and unresolved outcomes.
 
 ## Current position
 
@@ -533,7 +539,18 @@ with explicit unresolved and overlapping-first states. E0127 is accepted at
 `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0` (`R000235`): its bounded table
 preserves mixed-target order and provenance and reuses generic lookup/codecs.
 Neither slice adds parser/token dispatch, semantic promotion, ISA mnemonic
-branches, ABI/MIR wiring or a new cross-repository contract.
+branches, ABI/MIR wiring or a new cross-repository contract. E0129 is accepted
+as `R000238` at `standard-new` commit
+`25486db92b0805201fa90104dc6f637ecce84942`: it batch-emits the four declared
+grammar formats from normalized records, preserving rule/alternative order and
+source annotations. It retains the existing emitter boundary and rejects
+unresolved/disputed rules, interleaved LHS groups and unsupported normalized
+shapes. E0131 is accepted as `R000239` at `fortback-new` commit
+`576c7a4b55aa772e0723b274333dcf411f35071d`: it batches the existing RISC-V and
+AArch64 source families transactionally into the generic TargetIR table while
+preserving provenance and rejecting all declared controls. Neither E0129 nor
+E0131 adds PDF parsing, comparison-grammar copying, parser dispatch, ISA
+mnemonic branches, ABI/MIR wiring or a new cross-repository contract.
 
 The parallel backend slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -605,9 +622,9 @@ production lookup slice is integrated in `standard-new` and recorded as
 the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
-`standard-new` `d8740159f2fcfee359480d77f4391ef1edd0550c`,
-`fortfront-new` `d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, and
-`fortback-new` `fbeedd4c8c232116bdf6e9389f6a698ba7f787b0`; these are clean
+`standard-new` `25486db92b0805201fa90104dc6f637ecce84942`,
+`fortfront-new` `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, and
+`fortback-new` `576c7a4b55aa772e0723b274333dcf411f35071d`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `7691adc1a7b96fef171f9fd0059c89401ad1c4f1`.
 

@@ -259,9 +259,15 @@ E0128 is accepted as `R000237` at `ffc-new` commit
 `7691adc1a7b96fef171f9fd0059c89401ad1c4f1`: it provides a complete
 target-independent opcode histogram over validated MIR function bodies. It
 preserves `mir-v0`, clears output on malformed input, and adds no target, ABI
-or backend behavior. E0129 is the active independent StandardIR export slice;
-E0130 is the parallel parser-neutral frontier slice in `fortfront-new`; E0131
-is the parallel mixed-source TargetIR normalization slice in `fortback-new`.
+or backend behavior. E0129 is accepted as `R000238` at `standard-new`
+`25486db92b0805201fa90104dc6f637ecce84942`: it emits EBNF, ANTLR4, Bison and
+tree-sitter from normalized batches with ordered source annotations and the
+declared negative controls. E0131 is accepted as `R000239` at `fortback-new`
+`576c7a4b55aa772e0723b274333dcf411f35071d`: it batches existing RISC-V and
+AArch64 records into the generic TargetIR table transactionally. E0130 is
+accepted as `R000240` at `fortfront-new`
+`5fda6dc7858f268ac82cf8ad81e8a1483df4449f`: its bounded frontier preserves
+accepted, rejected, ambiguous and unresolved outcomes over abstract symbols.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -284,10 +290,10 @@ controls. It does not change `mir-v0`, opcodes, lowering, backend, ISA or ABI
 behavior.
 
 The current bounded production pins are `standard-new`
-`d8740159f2fcfee359480d77f4391ef1edd0550c`, `fortfront-new`
-`d37e7a62d25a168eb9dd54bc79e36ffd410275bf`, `ffc-new`
+`25486db92b0805201fa90104dc6f637ecce84942`, `fortfront-new`
+`5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, `ffc-new`
 `7691adc1a7b96fef171f9fd0059c89401ad1c4f1`, and `fortback-new`
-`fbeedd4c8c232116bdf6e9389f6a698ba7f787b0`, all on clean `main` branches
+`576c7a4b55aa772e0723b274333dcf411f35071d`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

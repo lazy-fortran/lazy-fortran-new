@@ -20,7 +20,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`d37e7a62d25a168eb9dd54bc79e36ffd410275bf`. The bounded parser-quality
+`5fda6dc7858f268ac82cf8ad81e8a1483df4449f`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -113,12 +113,13 @@ repeat are represented by the existing flat epsilon/recursive form. It does
 not introduce token policy, parser state or Fortran-specific dispatch; the
 independent witness matrix and warning-free full `fo` gate passed.
 
-E0130 is the active parallel parser-structure slice. It tests a bounded
-frontier over abstract symbol sequences using the grammar table and analysis
-facts, retaining accepted, rejected, ambiguous and unresolved outcomes. It
-must not introduce Fortran token policy, arbitrary backtracking, semantic
-rules or a new contract; its independent frontier oracle and warning-free full
-`fo` gate are required before integration.
+E0130 is accepted as `R000240` at `fortfront-new` commit
+`5fda6dc7858f268ac82cf8ad81e8a1483df4449f`. It tests a bounded frontier over
+abstract symbol sequences using the grammar table and analysis facts,
+retaining accepted, rejected, ambiguous and unresolved outcomes. It fixes two
+existing warning sites and introduces no Fortran token policy, arbitrary
+backtracking, semantic rules or new contract; its independent frontier oracle
+and warning-free full `fo` gate passed.
 
 ## Exit and handoff
 
