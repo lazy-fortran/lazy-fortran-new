@@ -14,6 +14,7 @@ import json
 import re
 import shutil
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -646,6 +647,7 @@ def changed_fact_control(predicate: dict[str, Any], cases: list[dict[str, Any]])
 
 
 def main() -> int:
+    start_time = time.perf_counter()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("rows", nargs="?", type=Path, default=ROWS_DEFAULT)
     parser.add_argument("--outdir", type=Path, default=OUT_DEFAULT)
@@ -847,6 +849,7 @@ def main() -> int:
         "canonical_sha256": digest(args.canonical), "oracle_revision": ORACLE_REVISION,
         "independent_oracle_sha256": oracle_sha256,
         "compiler_policy": "unavailable_without_faithful_fixture", "compiler_paths": compiler_paths,
+        "wall_s_total": round(time.perf_counter() - start_time, 6),
         "case_set_sha256": digest(args.outdir / "cases.jsonl"),
         "rows_output_sha256": digest(args.outdir / "rows.jsonl"),
     }
