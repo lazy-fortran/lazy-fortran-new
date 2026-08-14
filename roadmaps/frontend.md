@@ -47,12 +47,15 @@ callbacks are safe, and freshness, malformed-schema and nested-order controls
 pass. This is structural AST wiring only; lexer, parser, semantic, lowering
 and `mir-v0` work remain separate gates.
 
-The next substantive gate is E0119. Its typed AST input is the laboratory
-contract `contracts/frontend-ast-v0.sxs` with fixed witness
-`contracts/fixtures/frontend-ast-v0.sx`. The first generated slice must emit
-program-root, program-declaration and program-unit records plus deterministic
-SX and wiring from that schema; generated output and its regeneration command
-belong in `fortfront-new`, while the experiment and provenance remain here.
+E0119 is complete for its first AST/wiring slice and is reported as `R000192`.
+Its typed AST input was the laboratory contract
+`contracts/frontend-ast-v0.sxs` with fixed witness
+`contracts/fixtures/frontend-ast-v0.sx`; the generated output and its
+regeneration command remain in `fortfront-new`, while the experiment and
+provenance remain here. The next substantive frontend gate is another
+schema-derived AST utility, followed by the lexer/parser, semantic and
+lowering gates. None of these structural steps may change `mir-v0` or add
+hand-maintained language-wide dispatch.
 
 ## Exit and handoff
 
