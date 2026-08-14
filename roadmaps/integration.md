@@ -63,9 +63,9 @@ or close M3/M4.
 
 Wave Z has integrated the source-preserving `frontend-ast-v0` SX handoff into
 `ffc-new`. It passed coordinator-side full `fo`, retained source spans and
-hashes, and its task branch was deleted after push. The frontend generator
-remains in flight; this handoff does not redefine `mir-v0`, promote semantic
-facts, or close M3/M4.
+hashes, and its task branch was deleted after push. Wave AA subsequently
+integrated the deterministic generator consuming that handoff; neither wave
+redefines `mir-v0`, promotes semantic facts, or closes M3/M4.
 
 Wave AA has integrated the deterministic `frontend-ast-v0` generator and its
 checked-in generated Fortran records in `fortfront-new`. The generator,

@@ -1192,10 +1192,14 @@ contaminated by an incomplete integration layer.
 - [x] E0083 derives a fact dependency graph and topological order for the
       bounded slice
 - [x] Mechanical formalization patterns first, measured by E0083
-- [ ] Small-model then larger-model escalation on the residue, one run record
+- [x] Small-model then larger-model escalation on the residue, one run record
       per attempt including failures
-- [ ] E0116: complete Qwen 3.6 35B-A3B typed-predicate proposal pass over the
-      Core 0 constraint denominator, with replay and mutation gates
+- [x] E0116: complete Qwen 3.6 35B-A3B typed-predicate proposal pass over the
+      Core 0 constraint denominator, with replay and mutation gates; E0116 is
+      reported and its unresolved/hard-failure residue is retained
+- [x] E0117: retain source-backed fact witnesses for every E0116 terminal row
+- [ ] E0123: retry the E0117 unresolved/hard-failure residue with exact row-key
+      merge, validator, witness and mutation gates
 - [x] `unresolved` and `disputed` states exercised on real clauses, not just
       supported in principle (E0085 and E0086)
 - [x] Composite adjudication gate preserves the three states and excludes
