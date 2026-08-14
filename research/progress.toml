@@ -5,9 +5,9 @@
 
 [lanes.syntax]
 title = "StandardIR syntax validity and grammar exports"
-completed = 5
+completed = 3
 total = 5
-basis = "Five gates: source extraction, canonical SX, source-valid right-hand sides, closed references, and export validation. E0147/R000267 plus its clean source-backed closure replay establish all five for the selected profile; Bison ambiguity diagnostics remain reported evidence."
+basis = "Five gates: source extraction, canonical SX, source-valid right-hand sides, closed references, and export validation. E0147/R000267 establishes the first three; Luna found that the earlier export gate accepted projections with collapsed alternatives. The generic normalizer fix is pushed as standard-new e6a03b6, but the committed replay, source-to-projection witness and fresh review must pass before the last two gates count."
 evidence = "E0013|E0016|E0017|E0018|E0019|E0129|E0134|E0147"
 
 [lanes.semantic]

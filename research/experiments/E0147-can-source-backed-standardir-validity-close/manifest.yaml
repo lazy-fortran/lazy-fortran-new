@@ -4,13 +4,13 @@ question: >
   Can the complete selected StandardIR syntax profile be reconstructed from
   source spans with generic continuation, notation and occurrence policies
   that pass independent positive and negative controls?
-status: reported       # draft | running | reported | abandoned
+status: running        # draft | running | reported | abandoned
 opened: "2026-08-14"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: "580169368adb86550d72e17b1e8f49ee30859800"
-  standard-new: "65b38f49b1795e50db1765ee7b7366f405830b25"
+  standard-new: "e6a03b6b4ddf704c882dba93847062a8a635ba4c"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
@@ -44,6 +44,9 @@ metrics:
   - exportable_records
   - target_validator_failures
   - target_validator_warnings
+  - source_projection_equivalence_witness
+  - source_projection_mapping_failures
+  - luna_review
   - bison_shift_reduce_conflicts
   - bison_reduce_reduce_conflicts
   - unreachable_derived_records
@@ -78,13 +81,16 @@ gate: >
   The complete selected profile has source-span-complete, notation-valid,
   occurrence-explained and reference-classified records; all independent
   positive and negative controls pass; only source-valid records feed grammar
-  exports; ANTLR4, Bison and tree-sitter accept those exports; and the report
-  names any explicit unsupported or unresolved residue. A source-validity
-  subgate may be accepted separately, but it does not close this experiment.
+  exports; a deterministic source-to-projection witness explains every
+  retained or generically transformed alternative; ANTLR4, Bison and
+  tree-sitter accept those exports; and the report names any explicit
+  unsupported or unresolved residue. A source-validity subgate may be
+  accepted separately, but it does not close this experiment.
 
 analysis: >
   The complete replay command
   run-source-backed-closure.sh creates the closed source-backed inputs, all
-  four projections, independent validator logs and the negative controls. No
-  run is valid until that command, its exact repository commits and every
-  validator log are recorded in the run ledger.
+  four projections, independent validator logs and the negative controls.
+  No run is valid until that command, a deterministic source-to-projection
+  equivalence witness, its exact repository commits, every validator log and
+  the required Luna review are recorded in the run ledger.

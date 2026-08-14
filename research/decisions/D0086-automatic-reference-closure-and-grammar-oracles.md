@@ -1,7 +1,7 @@
 # D0086. Make StandardIR closure and grammar validation fully automatic
 
 Date: 2026-08-14
-Status: accepted
+Status: amended by D0087
 Amends: D0084
 
 ## Context

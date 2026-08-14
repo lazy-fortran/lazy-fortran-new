@@ -351,13 +351,16 @@ validator procedure against the same run directory:
 
 ```sh
 research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh \
-    .cache/runs/E0147/R000005
+    <run-directory>
 ```
 
 The procedure runs ANTLR4, Bison and tree-sitter independently, records their
 versions, exit codes and complete logs, and records EBNF as a projection-only
 format with no external parser validator. Undefined symbols, dropped source
-mapping and fatal validator errors are failures. Bison conflicts and
+mapping and fatal validator errors are failures. A separate deterministic
+source-to-projection witness must also show that source alternatives are
+retained or explained by a generic provenance-preserving transformation;
+provenance comments alone do not count as that witness. Bison conflicts and
 reachability warnings remain in the run record and must be explained; they are
 never converted to success by deleting rules or editing generated files. A
 source-validity subgate may therefore be accepted before this downstream gate,
