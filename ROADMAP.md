@@ -291,6 +291,12 @@ boundary, and a source-backed AArch64 ADR codec. All four production mains are
 clean and pushed after full `fo` verification; none changes the semantic
 promotion rule.
 
+Wave R then integrated a source-linked StandardIR semantic sequence consumer,
+a frontend diagnostic query, a MIR source-rule query, and a source-backed
+RISC-V ORI codec. All four passed their independent tests and full `fo` gates;
+their task branches were removed after push. These are production-boundary
+advances only and do not promote semantic facts.
+
 Wave Q integrated the typed frontend program-unit query, the MIR handoff
 round-trip validation, and paired AArch64 ADRP support. The StandardIR
 consumer extension was abandoned before verification, reverted cleanly, and
