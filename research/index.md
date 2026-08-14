@@ -117,6 +117,7 @@ Runs recorded: 186
 | E0113 | reported | 12 | Does deterministic full-document retrieval plus at most two repairs let |
 | E0114 | reported | 7 | Can a vision-capable Qwen or Gemma checkpoint translate a rule directly |
 | E0115 | reported | 14 | Does bounded native-tool access let local Qwen and Gemma models resolve |
+| E0116 | draft | 0 | Can one fixed Qwen 3.6 35B-A3B local model propose source-backed typed |
 
 ## Run status
 
@@ -199,6 +200,7 @@ Runs recorded: 186
 | [D0058](decisions/D0058-generic-source-relation-gate-and-adaptive-local-budgets.md) | accepted | Amends D0054, D0057 | Generic source-relation gate and adaptive local budgets |
 | [D0059](decisions/D0059-deterministic-first-semantic-residuals.md) | accepted |  | Deterministic-first semantic residuals with bounded local proposals |
 | [D0060](decisions/D0060-e0115-name-evidence-phase.md) | accepted | Supersedes D0059 (operational result; the boundary remains in force) | — Close the source-backed name/evidence phase |
+| [D0061](decisions/D0061-qwen-semantic-proposal-loop.md) | accepted |  | — Use Qwen as a bounded semantic-fragment proposer |
 
 ### Proposed decisions
 

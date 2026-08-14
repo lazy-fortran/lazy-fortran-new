@@ -363,7 +363,39 @@ by `assemble-results.py`, `plot.py` and `plot-convergence.py`; their PNGs are
 ignored and handed off through slopbox. This closes name/evidence acquisition,
 not the whole semantic milestone. The next M3 slice is the typed-predicate
 pilot for an actually constraining rule such as C702. No model output from
-E0115 is promoted into StandardIR.
+E0115 is promoted into StandardIR. D0061 now fixes the completion protocol:
+one local Qwen 3.6 35B-A3B proposer, bounded source tools, typed JSON
+predicates, deterministic schema/source/replay gates, and a terminal record for
+every constraint row.
+
+The numbered M3 execution sequence is:
+
+1. Reconstruct the complete E0081 Core 0 constraint denominator, preserving
+   repeated cross-reference occurrences and distinguishing them from primary
+   rule bodies.
+2. Run the deterministic source pass for each row: source bytes, page, rule
+   association, canonical hash and standard-document hash.
+3. Give Qwen one constraint at a time with `read_constraint`, bounded rule and
+   search tools, and the typed predicate schema; never give it wiring authority.
+4. Validate each proposal mechanically: exact row identity, source evidence,
+   allowed constructors, typed fact identifiers and prior accepted controls.
+5. Repair a rejected proposal within the declared turn budget and retain every
+   rejection, tool call, model error, timing and final row state.
+6. Run the independent replay and mutation gates over all rows, with zero
+   parser projections and zero dropped or duplicated occurrences.
+7. Generate the semantic proposal ledger and dependency inventory, keeping
+   `accepted`, `unresolved`, `hard_failure` and `reference-only` states explicit.
+8. Promote a predicate only after the separate behavioral witness gate agrees;
+   a schema-accepted Qwen proposal alone is not a StandardIR fact.
+9. In parallel, advance `ffc-new`'s target-independent typed MIR boundary and
+   stable importer/exporter without importing ISA or ABI details.
+10. In parallel, advance `fortback-new`'s source-preserving RISC-V/AArch64
+    codec/decoder coverage without redefining `mir-v0`.
+
+Steps 1--8 are the M3 semantic lane. Steps 9--10 are independent production
+lanes and do not block semantic formalization. M3 closes only after the
+complete Core 0 semantic ledger has a measured accepted, unresolved and
+disputed state and its promoted subset passes the behavioral witness gate.
 
 ### M4. Generated frontend vertical slice (pending)
 
@@ -926,6 +958,8 @@ contaminated by an incomplete integration layer.
 - [x] Mechanical formalization patterns first, measured by E0083
 - [ ] Small-model then larger-model escalation on the residue, one run record
       per attempt including failures
+- [ ] E0116: complete Qwen 3.6 35B-A3B typed-predicate proposal pass over the
+      Core 0 constraint denominator, with replay and mutation gates
 - [x] `unresolved` and `disputed` states exercised on real clauses, not just
       supported in principle (E0085 and E0086)
 - [x] Composite adjudication gate preserves the three states and excludes

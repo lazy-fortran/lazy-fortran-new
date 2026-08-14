@@ -1,0 +1,89 @@
+id: "E0116"
+title: "Bounded Qwen semantic proposals for the Core 0 constraint ledger"
+question: >
+  Can one fixed Qwen 3.6 35B-A3B local model propose source-backed typed
+  predicates for the complete Core 0 constraint inventory when deterministic
+  tools own retrieval, schema validation and acceptance?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-14"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "f896e2b"
+  standard-new: "ae2ee71"
+
+inputs:
+  standard: j3-24-007
+  profile: complete-core
+  constraint_inventory: research/experiments/E0081-can-deterministic-source-patterns-invent/analyse.sh
+  prior_ledger: .cache/runs/E0087/R000001/formalizations.tsv
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  schema: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json
+
+variables:
+  model: [qwen36-35b-a3b]
+  reasoning: [off]
+  repair_attempts: [3]
+  parser_projection: [none]
+
+model_selection: >
+  One local Qwen 3.6 35B-A3B checkpoint through the pinned llama.cpp runtime.
+  No other model is run in this completion wave. Model output is a local
+  constructive proposal only; it never owns source locations, dependency
+  wiring or promotion.
+
+metrics:
+  - eligible_constraints
+  - proposal_rows
+  - schema_accepted_rows
+  - source_gate_accepted_rows
+  - prior_control_exact_rows
+  - unresolved_rows
+  - hard_failures
+  - repair_attempts
+  - tool_calls
+  - model_calls
+  - wall_s_total
+  - source_hash_matches
+  - duplicate_constraint_rows
+  - parser_projection_records
+  - semantic_promotions
+  - negative_control
+
+denominator: >
+  All 287 Core 0-associated numbered constraints emitted by E0081. The 21
+  previously accepted rows and one disputed row are controls; the remaining
+  rows are semantic residuals. Every row receives exactly one terminal result,
+  including model failure or unresolved status. No rule is accepted from a
+  comparison grammar or parser projection.
+
+independent_oracle: >
+  The deterministic gate independently reconstructs the complete source
+  denominator, byte spans, pages, rule associations, allowed predicate
+  constructors and prior accepted-control predicates. It rejects malformed
+  records, wrong constraint IDs, missing source evidence, source-hash changes,
+  duplicate rows and a controlled predicate/schema mutation. Behavioral
+  witness execution is a separate promotion gate and is not implied by a
+  model proposal.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, llama_cpp, model_sha256]
+
+falsifiable_by: >
+  The run is falsified by a dropped or duplicated constraint, an accepted
+  proposal without source evidence, a predicate outside the schema, a source
+  hash mismatch, an accepted control mismatch, an uncounted model/tool call,
+  parser projection output, or a mutation that the gate accepts.
+
+gate: >
+  Process all 287 rows through the bounded Qwen/tool loop, preserve every
+  terminal row and trajectory, validate each accepted proposal against the
+  deterministic schema/source gate, compare prior accepted controls exactly,
+  retain all failed or unresolved rows, pass the independent replay and
+  mutation checks, and emit zero parser projections. This experiment records
+  semantic proposals; promotion requires the later witness gate.
+
+analysis: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/validate.py

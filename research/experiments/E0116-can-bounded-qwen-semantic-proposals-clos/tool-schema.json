@@ -1,0 +1,83 @@
+{
+  "schema_version": "e0116-semantic-tools-v1",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "read_constraint",
+        "description": "Read the complete bounded source clause for the current constraint. It returns source text and provenance only.",
+        "parameters": {"type": "object", "additionalProperties": false, "properties": {}, "required": []}
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "search_standard",
+        "description": "Search the pinned canonical standard. Results contain bounded source snippets and provenance only.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "query": {"type": "string", "minLength": 1, "maxLength": 160},
+            "mode": {"type": "string", "enum": ["exact", "rule", "reference"]},
+            "max_results": {"type": "integer", "minimum": 1, "maximum": 8}
+          },
+          "required": ["query", "mode", "max_results"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "read_rule",
+        "description": "Read an associated numbered production and its bounded source metadata.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {"rule_number": {"type": "string", "pattern": "^R[0-9]{3,5}$"}},
+          "required": ["rule_number"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "read_span",
+        "description": "Read a bounded expansion around source evidence returned by this episode.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "result_id": {"type": "string", "minLength": 1, "maxLength": 80},
+            "before_bytes": {"type": "integer", "minimum": 0, "maximum": 4096},
+            "after_bytes": {"type": "integer", "minimum": 0, "maximum": 4096}
+          },
+          "required": ["result_id", "before_bytes", "after_bytes"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "submit_semantic",
+        "description": "Submit one local typed predicate proposal. The deterministic gate owns source identity, schema acceptance and promotion.",
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "constraint_id": {"type": "string", "pattern": "^C[0-9]{3,5}$"},
+            "decision": {"type": "string", "enum": ["accept", "abstain"]},
+            "subject": {"type": "string", "minLength": 1, "maxLength": 160},
+            "applicability": {"type": "string", "minLength": 1, "maxLength": 160},
+            "required_facts": {"type": "array", "maxItems": 16, "items": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"}},
+            "provided_facts": {"type": "array", "maxItems": 16, "items": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"}},
+            "predicate": {"type": "object"},
+            "evidence_ids": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"type": "string", "minLength": 1, "maxLength": 80}},
+            "witnesses": {"type": "array", "maxItems": 8, "items": {"type": "object"}}
+          },
+          "required": ["constraint_id", "decision", "subject", "applicability", "required_facts", "provided_facts", "predicate", "evidence_ids"]
+        }
+      }
+    }
+  ]
+}

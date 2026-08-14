@@ -1,0 +1,11 @@
+{
+  "schema_version": "standardir-semantic-predicate-v1",
+  "constructors": [
+    "and", "or", "not", "implies", "eq", "ne", "lt", "le", "gt", "ge",
+    "in", "not-in", "present", "absent", "has", "type-is", "rank-is",
+    "scalar", "constant", "unique", "same-as", "named", "accessible",
+    "derived", "processor-supports", "count-le", "count-ge"
+  ],
+  "facts": "lowercase kebab-case identifiers",
+  "terms": "strings, integers, booleans, or nested lists of terms"
+}
