@@ -10,9 +10,10 @@ inference_network = "local-only"
 
 [models.qwen38-27b]
 display_name = "Qwen 3.8 27B"
-request_model = "qwen38-27b"
+request_model = "qwen"
+server_model_id = "qwen"
 role = "default"
-modalities = ["text"]
+modalities = ["text", "image"]
 reasoning_policy = "off-first; fresh thinking-on episode after failure"
 runtime_pin = "record at preflight"
 

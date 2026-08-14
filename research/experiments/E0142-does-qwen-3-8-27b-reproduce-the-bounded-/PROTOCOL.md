@@ -18,6 +18,11 @@ attention, sampler settings, reasoning configuration and endpoint. If the
 server does not advertise image input, the E0114 visual cell is terminal
 `not_applicable`.
 
+The logical profile is `qwen38-27b`; the current server advertises request ID
+`qwen`. Runs record both values and never infer the profile from a model name
+alone. The current preflight reports multimodal capability, so E0114 is
+applicable unless a later preflight says otherwise.
+
 ## Matrix
 
 Run the existing protocols without changing their gates:
