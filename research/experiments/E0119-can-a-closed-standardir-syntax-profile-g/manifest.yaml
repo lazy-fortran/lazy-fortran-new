@@ -11,7 +11,7 @@ repos:
   lazy-fortran-new: "724e6c01091b9d76137a3f4890049ad315dda9f8"
   standard-new: "27329a701575f32776281f235290e465c5588105"
   fortfront-new: "b2a792ff605038745cd512a72fb4e7a1c28e37bc"
-  ffc-new: "28c1469ba5b8821993b8da70d4bf457dd335fe57"
+  ffc-new: "76f765bc1da01b6e4feb62354d743371b6467e55"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

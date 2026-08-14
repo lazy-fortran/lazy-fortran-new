@@ -61,10 +61,16 @@ experiment E0119 is drafted separately and is not yet running. These
 boundaries do not redefine a contract, promote semantic facts, or close
 M3/M4.
 
+Wave Z has integrated the source-preserving `frontend-ast-v0` SX handoff into
+`ffc-new`. It passed coordinator-side full `fo`, retained source spans and
+hashes, and its task branch was deleted after push. The frontend generator
+remains in flight; this handoff does not redefine `mir-v0`, promote semantic
+facts, or close M3/M4.
+
 The current bounded production pins are `standard-new`
 `27329a701575f32776281f235290e465c5588105`, `fortfront-new`
 `b2a792ff605038745cd512a72fb4e7a1c28e37bc`, `ffc-new`
-`28c1469ba5b8821993b8da70d4bf457dd335fe57`, and `fortback-new`
+`76f765bc1da01b6e4feb62354d743371b6467e55`, and `fortback-new`
 `ddd960972006da6ba6a0b11122a30ae17da58441`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.

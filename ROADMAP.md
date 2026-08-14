@@ -348,6 +348,12 @@ and pushed. The M4 generation experiment E0119 is drafted separately and is
 not yet running. These boundaries do not redefine a contract, promote semantic
 facts, or close M3/M4.
 
+Wave Z has integrated the source-preserving `frontend-ast-v0` SX handoff into
+`ffc-new`. It passed coordinator-side full `fo`, retained source spans and
+hashes, and its task branch was deleted after push. The frontend generator
+remains in flight; this handoff does not redefine `mir-v0`, promote semantic
+facts, or close M3/M4.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
