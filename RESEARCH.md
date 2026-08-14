@@ -351,7 +351,7 @@ validator procedure against the same run directory:
 
 ```sh
 research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh \
-    .cache/runs/E0147/R000003
+    .cache/runs/E0147/R000005
 ```
 
 The procedure runs ANTLR4, Bison and tree-sitter independently, records their

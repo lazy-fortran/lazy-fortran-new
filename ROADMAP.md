@@ -95,7 +95,7 @@ the generated outputs. The Bison report retains its 127 shift/reduce and 844
 reduce/reduce conflict diagnostics, plus 25 unreachable derived records; these
 are explicit grammar evidence, not exporter failures or silently discarded
 rules. The negative mutation is rejected by all three validators. The clean
-terminal replay and its exact commits will be recorded as the next E0147 run.
+terminal replay is recorded as E0147 `R000269`.
 Regenerate these counts with
 `research/experiments/E0147-can-source-backed-standardir-validity-close/run-source-backed-closure.sh`.
 
@@ -134,8 +134,8 @@ The progress numbers are named evidence gates, not code-coverage claims; update
 them only when the corresponding gate is accepted and recorded in the ledger.
 
 **Current goal-mode handoff.** E0147's source-validity subgate remains
-accepted as `R000267`; its downstream closure/export gate now passes in the
-clean replay from `standard-new` `65b38f4`. The source-backed pipeline
+accepted as `R000267`; its downstream closure/export gate now passes in E0147
+`R000269` from `standard-new` `65b38f4`. The source-backed pipeline
 reconstructs page-crossing productions, preserves occurrence and source-line
 identity, classifies attached punctuation and terminal/reference transitions,
 closes R401/R402 families deterministically, and runs independent positive and
@@ -228,7 +228,7 @@ changes a denominator.
 - [x] E0147: close the source-backed StandardIR validity audit, reference
       closure, and ANTLR4/Bison/tree-sitter validator gates. `R000267` is the
       source-validity subgate; the clean closure/export replay is recorded as
-      the terminal run after the metadata commit. Bison diagnostics remain
+      `R000269`. Bison diagnostics remain
       named evidence; no model calls were used.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
