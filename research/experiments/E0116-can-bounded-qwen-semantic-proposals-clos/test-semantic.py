@@ -73,6 +73,20 @@ def main():
     else:
         raise AssertionError("field-to-field equality was accepted as a value relation")
 
+    harness.ConstraintEpisode._validate_predicate({
+        "op": "relation",
+        "args": ["type-compatible", "allocate-object", "type-spec"],
+    })
+    try:
+        harness.ConstraintEpisode._validate_predicate({
+            "op": "relation",
+            "args": ["type-compatible", "allocate-object", "not a fact"],
+        })
+    except harness.GateError:
+        pass
+    else:
+        raise AssertionError("malformed relation subject was accepted")
+
     for accepted in prior.values():
         harness.ConstraintEpisode._validate_predicate(harness._parse_sx(accepted["predicate"]))
 

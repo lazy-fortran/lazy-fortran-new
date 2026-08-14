@@ -34,7 +34,7 @@ ALLOWED_OPS = {
     "intrinsic-type-name", "intrinsic-procedure", "abstract-interface",
     "explicit-interface-procedure", "procedure-declaration", "declared-earlier",
     "use-accessible", "declared-in-specification", "has-attribute", "bind-type", "sequence-type",
-    "in-table-16-2", "generic-name", "procedure-name",
+    "in-table-16-2", "generic-name", "procedure-name", "relation",
 }
 
 
@@ -272,6 +272,17 @@ class ConstraintEpisode:
             raise GateError(f"predicate constructor is not allowed: {op}")
         if not isinstance(args, list) or not 1 <= len(args) <= 8:
             raise GateError("predicate args must contain 1..8 values")
+        if op == "relation":
+            if not 2 <= len(args) <= 8:
+                raise GateError("relation requires a name and at least one subject")
+            if not isinstance(args[0], str) or not FACT_RE.fullmatch(args[0]):
+                raise GateError("relation name must be a lowercase fact identifier")
+            for arg in args[1:]:
+                if isinstance(arg, dict) and "op" in arg:
+                    cls._validate_predicate(arg)
+                elif not isinstance(arg, str) or not FACT_RE.fullmatch(arg):
+                    raise GateError("relation subjects must be fact identifiers or predicates")
+            return
         if op in {"eq", "ne", "lt", "le", "gt", "ge"} and len(args) >= 2:
             left, right = args[0], args[1]
             if (isinstance(left, str) and FACT_RE.fullmatch(left) and

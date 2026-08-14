@@ -376,6 +376,11 @@ or hard-failure row keys; both attempts remain immutable and are merged only by
 validated row key.
 [D0064] keeps malformed native tool JSON inside the episode as a counted,
 bounded repair turn instead of ending the row before its declared turn cap.
+[D0065] raises the bounded output budget to 1536, adds one generic
+source-backed `relation` constructor for quantified/cross-clause residuals,
+and forces submission after repeated or exhausted evidence retrieval. The
+official llama.cpp tool protocol is used for named forcing; no model-specific
+or C-number-specific branch is added.
 
 The numbered M3 execution sequence is:
 
@@ -411,8 +416,10 @@ The current M3 execution is E0116: the local Qwen 3.6 35B-A3B service runs on
 text-only semantic run has the auxiliary `whisper-server` stopped so the
 35B profile retains its normal 128K context and large batch configuration;
 reasoning is disabled for this cell. The C702 smoke control passed before the
-complete run. The complete result is not reported until its append-only run
-record, replay validation and behavioral-witness status are written.
+complete run. The residual protocol now uses `max_tokens=1536` and the
+llama.cpp named-tool form `{"type":"tool","name":"submit_semantic"}` when
+retrieval closes. The complete result is not reported until its append-only
+run record, replay validation and behavioral-witness status are written.
 
 ### M4. Generated frontend vertical slice (pending)
 

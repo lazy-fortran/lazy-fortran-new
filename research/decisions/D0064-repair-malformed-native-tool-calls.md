@@ -1,6 +1,6 @@
 # D0064 — Repair malformed native tool calls inside the episode budget
 
-Status: accepted
+Status: amended by D0065
 Date: 2026-08-14
 Amends: D0063
 

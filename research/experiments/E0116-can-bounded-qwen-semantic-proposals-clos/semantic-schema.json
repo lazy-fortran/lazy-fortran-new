@@ -12,7 +12,7 @@
     "intrinsic-type-name", "intrinsic-procedure", "abstract-interface",
     "explicit-interface-procedure", "procedure-declaration", "declared-earlier",
     "use-accessible", "declared-in-specification", "has-attribute", "bind-type", "sequence-type",
-    "in-table-16-2", "generic-name", "procedure-name"
+    "in-table-16-2", "generic-name", "procedure-name", "relation"
   ],
   "facts": "lowercase kebab-case identifiers",
   "terms": "strings, integers, booleans, or nested lists of terms"

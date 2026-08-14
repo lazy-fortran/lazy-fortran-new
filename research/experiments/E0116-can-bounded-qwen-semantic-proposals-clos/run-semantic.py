@@ -30,7 +30,7 @@ def parser():
     result.add_argument("--seed", type=int, default=11601)
     result.add_argument("--temperature", type=float, default=0.0)
     result.add_argument("--top-p", type=float, default=1.0)
-    result.add_argument("--max-tokens", type=int, default=768)
+    result.add_argument("--max-tokens", type=int, default=1536)
     result.add_argument("--timeout", type=float, default=180.0)
     result.add_argument("--max-turns", type=int, default=20)
     result.add_argument("--limit", type=int, default=0)
@@ -107,7 +107,12 @@ has-deferred-type-parameter, unlimited-polymorphic, abstract-type, derived-type,
 intrinsic-module, nonintrinsic-module, intrinsic-type-name,
 intrinsic-procedure, abstract-interface, explicit-interface-procedure,
 procedure-declaration, declared-earlier, use-accessible, declared-in-specification, has-attribute,
-bind-type, sequence-type, in-table-16-2, generic-name and procedure-name.
+bind-type, sequence-type, in-table-16-2, generic-name, procedure-name and
+relation. Use relation only for a source-backed semantic relation, aggregate,
+quantified condition or referenced interface that the primitive constructors
+cannot express. Its first argument is a lowercase relation name and the
+remaining arguments are lowercase fact names or nested predicates; do not use
+it to hide an ordinary equality, implication or attribute test.
 Do not use code, prose, eval, an unlisted operator, or a parser rule.
 Facts are lowercase kebab-case identifiers. Use only facts needed by this one
 constraint. Evidence IDs must be IDs returned by the tools. The deterministic
@@ -178,6 +183,9 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
     events = []
     model_errors = []
     gate_rejections = 0
+    force_submit = False
+    last_evidence_call = None
+    repeated_evidence_calls = 0
     started = time.monotonic()
 
     def emit(event):
@@ -191,7 +199,10 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
             "model": args.model,
             "messages": messages,
             "tools": tools,
-            "tool_choice": "auto",
+            "tool_choice": (
+                {"type": "tool", "name": "submit_semantic"}
+                if force_submit else "auto"
+            ),
             "parallel_tool_calls": False,
             "temperature": args.temperature,
             "top_p": args.top_p,
@@ -243,6 +254,22 @@ def run_row(args, raw, ranges, rows, prior, row, tools, trajectory):
             "name": tool_name,
             "content": json.dumps(result, ensure_ascii=False, sort_keys=True),
         })
+        if tool_name in {"read_constraint", "read_rule", "search_standard", "read_span"}:
+            fingerprint = json.dumps([tool_name, arguments], sort_keys=True)
+            if fingerprint == last_evidence_call:
+                repeated_evidence_calls += 1
+            else:
+                repeated_evidence_calls = 0
+            last_evidence_call = fingerprint
+            message_text = str(result.get("message", ""))
+            if repeated_evidence_calls >= 2 or "evidence-call budget exhausted" in message_text:
+                force_submit = True
+                messages.append({
+                    "role": "user",
+                    "content": "Evidence retrieval is now closed for this episode. "
+                               "Submit exactly one semantic proposal or abstain; do not "
+                               "request another evidence tool.",
+                })
         if result.get("status") == "accepted":
             status = "accepted"
             break
