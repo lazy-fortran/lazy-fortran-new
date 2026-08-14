@@ -462,7 +462,9 @@ D0075 fixes the next lexer boundary: source-defined lexical facts remain
 source-backed data queried by generic code, while processor-defined facts are
 explicit non-match/unsupported results until a separate target policy exists.
 The frontend may not hardcode Fortran token names or reread the PDF. The first
-production lookup slice is the current parallel `standard-new` task.
+production lookup slice is integrated in `standard-new` and recorded as
+`R000215`; the active frontend task consumes this boundary without importing
+the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
