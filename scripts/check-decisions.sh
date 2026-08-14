@@ -12,6 +12,19 @@ fail() {
     failures=$((failures + 1))
 }
 
+has_relation() {
+    local file="$1" relation="$2" target="$3"
+    awk -F': *' -v wanted_relation="$relation" -v wanted_target="$target" '
+        $1 == wanted_relation {
+            count = split($2, values, /[, ]+/)
+            for (i = 1; i <= count; i++) {
+                if (values[i] == wanted_target) found = 1
+            }
+        }
+        END { exit(found ? 0 : 1) }
+    ' "$file"
+}
+
 if [ "${1:-}" = "--self-test" ]; then
     tmp=$(mktemp -d)
     trap 'rm -rf "$tmp"' EXIT
@@ -41,7 +54,9 @@ for file in "${files[@]}"; do
     fi
     paths[$id]="$file"
 
-    title=$(sed -n "1s/^# $id\. //p" "$file")
+    # Older accepted records use an em dash after the ID; the template uses a
+    # period. Both are title syntax, not a difference in decision content.
+    title=$(sed -n -E "1s/^# ${id}(\.| —) //p" "$file")
     [ -n "$title" ] || fail "$base has no matching title heading"
     date=$(awk -F': *' '/^Date:/{print $2; exit}' "$file")
     [[ "$date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || \
@@ -52,9 +67,13 @@ for file in "${files[@]}"; do
         *) fail "$base has an invalid Status header: ${status:-<missing>}" ;;
     esac
     statuses[$id]="$status"
-    for section in Context Decision Rejected "Reversal condition"; do
-        grep -q "^## $section$" "$file" || fail "$base is missing section: $section"
-    done
+    if ! grep -q '^## Context$' "$file" && ! grep -q '^## Evidence$' "$file"; then
+        fail "$base is missing section: Context or Evidence"
+    fi
+    grep -q '^## Decision$' "$file" || fail "$base is missing section: Decision"
+    grep -q '^## Rejected' "$file" || fail "$base is missing section: Rejected"
+    grep -q '^## Reversal condition$' "$file" || \
+        fail "$base is missing section: Reversal condition"
     if [ "$status" = proposed ]; then
         grep -q '^## Decision needed$' "$file" || \
             fail "$base is proposed but has no Decision needed section"
@@ -79,14 +98,24 @@ for file in "${files[@]}"; do
         esac
         if [ "$relation" = Amends ]; then
             case "${statuses[$target]}" in
-                accepted|amended\ by\ "$id") ;;
+                accepted|amended\ by\ D[0-9][0-9][0-9][0-9]) ;;
                 *) fail "$base says Amends $target but target status is '${statuses[$target]}'" ;;
             esac
         else
             [ "${statuses[$target]}" = "$expected" ] || \
                 fail "$base says $relation $target but target status is '${statuses[$target]}'"
         fi
-    done < <(awk -F': *' '/^(Supersedes|Amends|Retracts):/{print $1 "\t" $2}' "$file")
+    done < <(awk -F': *' '
+        /^(Supersedes|Amends|Retracts):/ {
+            relation = $1
+            count = split($2, values, /[, ]+/)
+            for (i = 1; i <= count; i++) {
+                if (values[i] ~ /^D[0-9][0-9][0-9][0-9]$/) {
+                    print relation "\t" values[i]
+                }
+            }
+        }
+    ' "$file")
 
     status="${statuses[$id]}"
     if [[ "$status" =~ ^(superseded|amended)\ by\ (D[0-9]{4})$ ]]; then
@@ -95,10 +124,10 @@ for file in "${files[@]}"; do
         [ -n "$successor_file" ] || fail "$base points to missing successor $successor"
         if [ -n "$successor_file" ]; then
             if [ "${BASH_REMATCH[1]}" = superseded ]; then
-                grep -q "^Supersedes: $id$" "$successor_file" || \
+                has_relation "$successor_file" Supersedes "$id" || \
                     fail "$base successor $successor lacks Supersedes: $id"
             else
-                grep -q "^Amends: $id$" "$successor_file" || \
+                has_relation "$successor_file" Amends "$id" || \
                     fail "$base successor $successor lacks Amends: $id"
             fi
         fi

@@ -201,7 +201,7 @@ Runs recorded: 190
 | [D0056](decisions/D0056-local-only-model-harness.md) | accepted |  | Use local models for future residue harnesses |
 | [D0057](decisions/D0057-bounded-native-tool-turn-budget.md) | amended by D0058 |  | Bound native evidence episodes by twelve turns |
 | [D0058](decisions/D0058-generic-source-relation-gate-and-adaptive-local-budgets.md) | accepted | Amends D0054, D0057 | Generic source-relation gate and adaptive local budgets |
-| [D0059](decisions/D0059-deterministic-first-semantic-residuals.md) | accepted |  | Deterministic-first semantic residuals with bounded local proposals |
+| [D0059](decisions/D0059-deterministic-first-semantic-residuals.md) | superseded by D0060 |  | Deterministic-first semantic residuals with bounded local proposals |
 | [D0060](decisions/D0060-e0115-name-evidence-phase.md) | accepted | Supersedes D0059 (operational result; the boundary remains in force) | — Close the source-backed name/evidence phase |
 | [D0061](decisions/D0061-qwen-semantic-proposal-loop.md) | amended by D0062 |  | — Use Qwen as a bounded semantic-fragment proposer |
 | [D0062](decisions/D0062-typed-predicate-witness-gate.md) | amended by D0063 | Amends D0061 | — Make typed semantic proposals value-directed and witness-gated |

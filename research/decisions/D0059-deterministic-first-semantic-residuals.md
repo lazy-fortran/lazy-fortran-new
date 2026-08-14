@@ -1,7 +1,7 @@
 # D0059. Deterministic-first semantic residuals with bounded local proposals
 
 Date: 2026-08-14
-Status: accepted
+Status: superseded by D0060
 
 ## Context
 
