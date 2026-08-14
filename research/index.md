@@ -223,6 +223,7 @@ Runs recorded: 225
 | [D0073](decisions/D0073-syntax-preserving-semantic-repair.md) | accepted |  | — Keep semantic proposal repair syntax-preserving |
 | [D0074](decisions/D0074-explicit-predicate-shape-examples.md) | accepted |  | — Show typed predicate shapes explicitly in the model prompt |
 | [D0075](decisions/D0075-source-defined-lexical-facts-are-data.md) | accepted |  | — Keep source-defined lexical facts as queried data |
+| [D0076](decisions/D0076-versioned-standardir-grammar-handoff.md) | accepted |  | — Version the normalized StandardIR grammar handoff |
 
 ### Proposed decisions
 
