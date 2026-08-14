@@ -37,7 +37,12 @@ shape with fixed bits and variable fields.
 The generic codec over that normalized record is integrated at
 `fortback-new` commit `5a44f9c5906068433bf616c1687dc2f486fa5abc`: it performs
 source-family-independent encode/decode with fixed-bit matching, ordered
-variable fields and explicit failure clearing. The preceding AArch64 codec
+variable fields and explicit failure clearing. Candidate lookup over the same
+normalized record shape is integrated at `fortback-new` commit
+`e72467d97fbd8978d29c8cc69719e343a687a992`: it validates caller-supplied
+records, returns deterministic insertion-order indices, and reports
+no-match, ambiguity, malformed, unsupported-word, invalid-target and capacity
+states with cleared outputs. The preceding AArch64 codec
 commit is
 `9baabf418280812b43181330b67d10d4078e88ae`; the insertion
 commit is `70e3e39e32258df01034ad85eedb40f57da4596d`; the extraction

@@ -210,11 +210,22 @@ unsupported-word and output-clearing controls; they are recorded as `R000222`
 and `R000223`. No Fortran parser dispatch, ABI, MIR or instruction selection
 was added.
 
+Wave AN is integrated in parallel at `fortfront-new`
+`b657fad20cccb2a2166c11d1faf48d8b0d69314f` and `fortback-new`
+`e72467d97fbd8978d29c8cc69719e343a687a992`. The frontend now performs
+deterministic ordered RHS matching over caller-supplied grammar symbols while
+preserving rule provenance. The backend now looks up matching normalized
+TargetIR records in insertion order and reports ambiguity, no-match,
+malformed, unsupported-word, invalid-target and capacity states. Both passed
+coordinator-side full `fo` with zero warnings and are recorded as `R000224`
+and `R000225`. No parser state/backtracking, ISA dispatch, ABI, MIR or
+instruction selection was added.
+
 The current bounded production pins are `standard-new`
 `985d684a2c8e5f4394b3473c8bdc3a9`, `fortfront-new`
-`f75e7091798eed10e2aef2ab60dae2ba3698b6ce`, `ffc-new`
+`b657fad20cccb2a2166c11d1faf48d8b0d69314f`, `ffc-new`
 `555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
-`5a44f9c5906068433bf616c1687dc2f486fa5abc`, all on clean `main` branches
+`e72467d97fbd8978d29c8cc69719e343a687a992`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

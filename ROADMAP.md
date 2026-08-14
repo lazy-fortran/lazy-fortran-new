@@ -460,6 +460,18 @@ malformed, capacity, provenance, fixed-bit, field-range, unsupported-word and
 output-clearing controls. They are recorded as `R000222` and `R000223`.
 Neither adds Fortran parser dispatch, ABI, MIR or instruction selection.
 
+Wave AN has extended those two generic consumers without crossing their
+language-specific boundaries. `fortfront-new`
+`b657fad20cccb2a2166c11d1faf48d8b0d69314f` now matches a caller-supplied
+grammar RHS deterministically while preserving rule identity and provenance;
+`fortback-new` `e72467d97fbd8978d29c8cc69719e343a687a992` now performs
+source-family-independent normalized TargetIR candidate lookup in insertion
+order with explicit ambiguity, no-match, malformed, unsupported-word,
+invalid-target and capacity states. Both passed coordinator-side full `fo`
+with zero warnings and are recorded as `R000224` and `R000225`. Parser state,
+frontier/backtracking policy, ISA dispatch, ABI, MIR and instruction selection
+remain open rather than being smuggled into these data boundaries.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -517,8 +529,8 @@ the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
-`fortfront-new` `f75e7091798eed10e2aef2ab60dae2ba3698b6ce`, and
-`fortback-new` `5a44f9c5906068433bf616c1687dc2f486fa5abc`; these are clean
+`fortfront-new` `b657fad20cccb2a2166c11d1faf48d8b0d69314f`, and
+`fortback-new` `e72467d97fbd8978d29c8cc69719e343a687a992`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `555eb09bfb17329517176f967a3d1fda36c3159e`.
 

@@ -80,7 +80,12 @@ The grammar-consumer boundary is integrated at `fortfront-new` commit
 ordered reference/token symbols and source provenance, and deterministic LHS
 queries preserve insertion order with explicit validation and capacity
 states. It remains a data boundary; parser algorithms and dispatch are still
-pending.
+pending. The next generic RHS boundary is integrated at
+`b657fad20cccb2a2166c11d1faf48d8b0d69314f`: ordered caller-supplied symbols
+can be matched against a rule RHS with explicit malformed and mismatch states,
+while the matched rule retains identity and provenance. This remains a
+bounded matcher; parser state, frontier management, backtracking and
+language-specific token/grammar dispatch are still pending.
 
 ## Exit and handoff
 
