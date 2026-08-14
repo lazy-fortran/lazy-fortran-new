@@ -2,14 +2,16 @@ id: "E0132"
 title: "Canonical MIR body round trip"
 question: >
   Can a target-independent MIR body round-trip through a stable canonical SX boundary?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000242
+reported_runs: [R000242]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: c41eda3
-  ffc-new: 7691adc1a7b96fef171f9fd0059c89401ad1c4f1
+  ffc-new: 998ab62d180b4f2940e25d2f987f4f99317c5771
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

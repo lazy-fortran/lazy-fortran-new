@@ -271,9 +271,12 @@ accepted, rejected, ambiguous and unresolved outcomes over abstract symbols.
 E0123 remains the active M3 semantic retry. E0133 is accepted as `R000241` at
 `fortback-new` `deb66f94126143d76ea25c1faf197d5150c7c0f4`: no additional parsed
 source family is currently represented, so unsupported shapes and unknown
-families are now explicitly tested as transactional failures. E0132 remains
-the parallel target-independent MIR round-trip experiment; neither is part of
-semantic promotion or a new versioned cross-repository contract.
+families are now explicitly tested as transactional failures. E0132 is
+accepted as `R000242` at `ffc-new`
+`998ab62d180b4f2940e25d2f987f4f99317c5771`: its canonical MIR body SX gate
+preserves typed/source-linked fields and clears output on failure without
+changing `mir-v0`. Neither slice is part of semantic promotion or a new
+versioned cross-repository contract.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It

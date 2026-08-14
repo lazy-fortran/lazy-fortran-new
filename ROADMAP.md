@@ -37,8 +37,11 @@ and unresolved outcomes. E0123 remains the active M3 semantic retry. E0133 is
 accepted as `R000241` at `fortback-new` commit
 `deb66f94126143d76ea25c1faf197d5150c7c0f4`: no additional parsed family is
 currently represented, so the generic batch now has explicit unsupported-shape
-and unknown-family transaction controls. E0132 remains the parallel MIR
-serialization gate; neither changes a versioned contract or blocks E0123.
+and unknown-family transaction controls. E0132 is accepted as `R000242` at
+`ffc-new` commit `998ab62d180b4f2940e25d2f987f4f99317c5771`, adding an
+independent canonical MIR body round-trip gate and fixing failure-output
+clearing without changing `mir-v0`. E0123 remains the only active gate in
+this wave and neither production slice blocks its semantic result.
 
 ## Current position
 
