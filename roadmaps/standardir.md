@@ -151,11 +151,12 @@ The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.
 
-E0125 is the current scale slice. It batches the existing source-backed
-grammar producer over ordered caller-supplied syntax records, preserving the
-single-record result and clearing outputs transactionally on failure. It does
-not parse the PDF or add semantic aliases. Its gate is the independent batch
-oracle and a warning-free full `fo` run.
+E0125 is accepted as `R000234` at `standard-new` commit
+`d8740159f2fcfee359480d77f4391ef1edd0550c`. It batches the existing
+source-backed grammar producer over ordered caller-supplied syntax records,
+preserving the single-record result and clearing outputs transactionally on
+failure. It does not parse the PDF or add semantic aliases. The independent
+batch oracle and warning-free full `fo` gate passed.
 
 ## Exit and handoff
 

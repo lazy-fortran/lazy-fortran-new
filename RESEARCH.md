@@ -93,6 +93,14 @@ greppable and safe to append to concurrently.
 {"run":"R000341","experiment":"E0003","rule":"C851","method":"LLM","model":"Qwen/Qwen3-4B","family":"qwen3-dense","representation":"implir","standard_commit":"abc1234","generator_commit":"def5678","oracle_commits":{"gfortran":"...","lfortran":"..."},"toolchain":{"compiler":"...","fo":"...","poppler":"..."},"origin":"LLM","status":"accepted","attempts":2,"input_tokens":1834,"output_tokens":194,"wall_s":1.43,"cost_usd":0.0004,"verification":{"parse":true,"typecheck":true,"tests":true,"mutation":true},"prompt":"artifacts/model/E0003/R000341.prompt.txt","response":"artifacts/model/E0003/R000341.response.txt"}
 ```
 
+For a deterministic production slice, the record additionally names `kind` as
+`production-slice`, the repository, exact `base_commit` and resulting
+`commit`, the task branch/worktree state, and the independent-oracle result.
+The `verification` object must include the repository's full `fo` result and
+the introduced warning count. A production commit is not an accepted run
+merely because its own tests pass; the coordinator must verify the base, diff,
+scope, oracle and cleanup independently.
+
 **Runs are append-only.** A run record is never edited after it is written. A
 correction is a new run that supersedes the old one by ID, with
 `"supersedes":"R000341"`. Editing history here is falsifying data.

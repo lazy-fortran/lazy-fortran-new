@@ -242,14 +242,16 @@ alternative order, provenance and resolution, with explicit malformed,
 unresolved, capacity and output-clearing controls. The witness gate is
 accepted; full-document production and parser generation remain open.
 
-The next scale wave runs from lab checkpoint `06a9859`: E0125 batches ordered
-source-backed grammar production in `standard-new`, E0126 adds generic
+The scale wave runs from lab checkpoint `06a9859`. E0125 is accepted at
+`standard-new` commit `d8740159f2fcfee359480d77f4391ef1edd0550c` as `R000234`:
+the source-backed grammar producer now batches ordered records transactionally
+while preserving the single-record result and provenance. E0126 adds generic
 nullable/first-set analysis in `fortfront-new`, and E0127 adds a bounded
-normalized TargetIR table in `fortback-new`. The slices are disjoint and
-deterministic; none may add parser/token dispatch, semantic promotion,
-ISA-specific mnemonic branches, ABI/MIR wiring or a new cross-repository
-contract. Each must retain independent negative controls and pass full `fo`
-with zero warnings before integration.
+normalized TargetIR table in `fortback-new`; both remain in flight. The
+slices are disjoint and deterministic; none may add parser/token dispatch,
+semantic promotion, ISA-specific mnemonic branches, ABI/MIR wiring or a new
+cross-repository contract. Each retains independent negative controls and
+must pass full `fo` with zero warnings before integration.
 
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -268,7 +270,7 @@ controls. It does not change `mir-v0`, opcodes, lowering, backend, ISA or ABI
 behavior.
 
 The current bounded production pins are `standard-new`
-`4b7b0650db93b32636398e33f6be86c89c685d5e`, `fortfront-new`
+`d8740159f2fcfee359480d77f4391ef1edd0550c`, `fortfront-new`
 `fe3dde3d1fabf89055d7c2494892b243fd4df0b9`, `ffc-new`
 `31a2b5df3d5de3486b5614a041d272e1daa6b3b1`, and `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2`, all on clean `main` branches

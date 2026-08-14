@@ -505,16 +505,18 @@ E0124 is accepted for its declared witness denominator; full-document
 production and parser generation remain open. Neither slice adds PDF
 heuristics, aliases, parser dispatch or semantic facts.
 
-The next scale wave is running from the pushed checkpoint `06a9859`. E0125
-tests ordered batch production of source-backed grammar records in
-`standard-new`; E0126 tests generic nullable/first-set analysis over the
-caller-supplied grammar table in `fortfront-new`; E0127 tests a bounded
-source-family-neutral normalized TargetIR table in `fortback-new`. These are
-disjoint deterministic slices. They must demonstrate reuse over multiple
-records, fixed-point structure or mixed target records respectively, with
-independent negative controls and zero-warning `fo` gates. They must not add
-parser/token dispatch, semantic promotion, ISA mnemonic branches, ABI/MIR
-wiring or a new cross-repository contract.
+The scale wave runs from the pushed checkpoint `06a9859`. E0125 is accepted at
+`standard-new` commit `d8740159f2fcfee359480d77f4391ef1edd0550c` (`R000234`):
+the source-backed grammar producer now batches ordered records transactionally
+and preserves the single-record result, provenance and failure clearing. E0126
+tests generic nullable/first-set analysis over the caller-supplied grammar
+table in `fortfront-new`; E0127 tests a bounded source-family-neutral
+normalized TargetIR table in `fortback-new`. These remain disjoint
+deterministic slices. They must demonstrate fixed-point structure or mixed
+target records respectively, with independent negative controls and
+zero-warning `fo` gates. They must not add parser/token dispatch, semantic
+promotion, ISA mnemonic branches, ABI/MIR wiring or a new cross-repository
+contract.
 
 The parallel backend slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
@@ -581,7 +583,7 @@ production lookup slice is integrated in `standard-new` and recorded as
 the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
-`standard-new` `4b7b0650db93b32636398e33f6be86c89c685d5e`,
+`standard-new` `d8740159f2fcfee359480d77f4391ef1edd0550c`,
 `fortfront-new` `fe3dde3d1fabf89055d7c2494892b243fd4df0b9`, and
 `fortback-new` `c68bf54844fbdbb79f012c5e5e977dacc6301ce2`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
