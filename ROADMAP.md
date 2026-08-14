@@ -384,6 +384,21 @@ negative controls and cleaned local/remote task branches. They are recorded as
 `R000210` and `R000211`; neither adds parser semantics, instruction dispatch,
 ABI behavior or MIR changes.
 
+Wave AE has integrated the backend continuation at `fortback-new`: generic
+source-record-driven insertion now packs a supplied variable field value while
+preserving fixed bits and sharing the ordinal/range validation boundary. The
+full `fo` gate passed with zero warnings and the task branch was removed; the
+slice is recorded as `R000212`. No instruction names, mnemonic dispatch, ABI
+behavior or MIR wiring were added. The parallel frontend AST-query slice is
+still in flight and is not yet a production pin.
+
+Wave AF has now integrated that frontend continuation at `fortfront-new`.
+`generated_ast_kind_count` is emitted from the AST schema and tested over
+nested records, empty input, missing and empty kinds and unsupported types. The
+full `fo` gate passed with zero warnings and the task branch was removed; it is
+recorded as `R000213`. The complete M4 lexer, parser, semantic and lowering
+gates remain open.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -433,8 +448,8 @@ errors. It does not relax validation or change E0123's pinned prompt.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
-`fortfront-new` `bd6436e532aa75e664b4967c4d95b810fc9ab59b`, and
-`fortback-new` `19bd36aa272115dd8f2029a89fb17761b291c649`; these are clean
+`fortfront-new` `f931acfd99640eeda95a89b8dd56df89581ad97e`, and
+`fortback-new` `70e3e39e32258df01034ad85eedb40f57da4596d`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `1d356b42dd7821cfebea9fec78291a2c37e456e8`.
 

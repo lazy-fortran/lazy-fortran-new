@@ -26,10 +26,11 @@ AArch64 remain the first correctness targets. x86-64 is a concurrent
 source-quality comparison, not a prerequisite for them.
 
 The current target codec slices are `fortback-new` commit
-`19bd36aa272115dd8f2029a89fb17761b291c649`; it adds generic ordinal
-extraction over the bounded variable bit-range metadata in the AArch64 source
-records, preserving fixed mask/match fields and rejecting malformed,
-overlapping and out-of-range fields. The preceding metadata commit is
+`70e3e39e32258df01034ad85eedb40f57da4596d`; it adds generic ordinal
+insertion alongside extraction over the bounded variable bit-range metadata in
+the AArch64 source records, preserving fixed mask/match fields and rejecting
+malformed, overlapping and out-of-range fields. The preceding extraction
+commit is `19bd36aa272115dd8f2029a89fb17761b291c649`; the metadata commit is
 `02837b1387315929545b6d33bc03e38a6bfc90e8`. The same
 history retains the generic AArch64 fixed-record validator/matcher from
 `600457fb60eb74ee99cd2d647c6382bcf21f1afe` and the source-record-driven RV64I
@@ -45,9 +46,9 @@ backend's scaling mechanism. Further instruction coverage waits for the
 generic source-record to TargetIR normalization and generated codec path;
 adding another mnemonic branch alone is not an accepted backend slice.
 The generic I-format helper, AArch64 fixed-record matcher, variable-range
-metadata and ordinal extractor are the first steps across that boundary; none
-adds a mnemonic enum, importer whitelist entry or instruction-kind dispatch
-branch.
+metadata, ordinal extractor and ordinal inserter are the first steps across
+that boundary; none adds a mnemonic enum, importer whitelist entry or
+instruction-kind dispatch branch.
 
 ## Provenance and exit
 

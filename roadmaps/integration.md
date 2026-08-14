@@ -131,11 +131,24 @@ Both passed coordinator-side full `fo` with zero warnings and their local and
 remote task branches were removed. Neither changes parser semantics,
 instruction dispatch, ABI behavior or MIR.
 
+The backend continuation is integrated at `fortback-new`
+`70e3e39e32258df01034ad85eedb40f57da4596d`: generic ordinal field insertion
+now complements extraction and preserves fixed bits while validating source
+metadata. Coordinator-side full `fo` passed with zero warnings; the task
+branch was removed and no separate task worktree existed. No instruction
+dispatch, ABI or MIR behavior changed. The parallel frontend AST-query task
+is integrated at `fortfront-new`
+`f931acfd99640eeda95a89b8dd56df89581ad97e`: the schema-generated kind-count
+query covers nested records, empty input and invalid query types. Its
+coordinator-side full `fo` passed with zero warnings, the task branch was
+removed and no separate task worktree existed. No parser, lowering or
+`mir-v0` behavior changed.
+
 The current bounded production pins are `standard-new`
 `5c1d258e61c38336cfbb316b76ba8b33e4717b94`, `fortfront-new`
-`bd6436e532aa75e664b4967c4d95b810fc9ab59b`, `ffc-new`
+`f931acfd99640eeda95a89b8dd56df89581ad97e`, `ffc-new`
 `1d356b42dd7821cfebea9fec78291a2c37e456e8`, and `fortback-new`
-`19bd36aa272115dd8f2029a89fb17761b291c649`, all on clean `main` branches
+`70e3e39e32258df01034ad85eedb40f57da4596d`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

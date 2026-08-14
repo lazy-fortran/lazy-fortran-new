@@ -19,7 +19,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`bd6436e532aa75e664b4967c4d95b810fc9ab59b`. The bounded parser-quality
+`f931acfd99640eeda95a89b8dd56df89581ad97e`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -52,10 +52,12 @@ Its typed AST input was the laboratory contract
 `contracts/frontend-ast-v0.sxs` with fixed witness
 `contracts/fixtures/frontend-ast-v0.sx`; the generated output and its
 regeneration command remain in `fortfront-new`, while the experiment and
-provenance remain here. The next substantive frontend gate is another
-schema-derived AST utility, followed by the lexer/parser, semantic and
-lowering gates. None of these structural steps may change `mir-v0` or add
-hand-maintained language-wide dispatch.
+provenance remain here. The schema-derived AST utility gate is now integrated
+at `f931acfd99640eeda95a89b8dd56df89581ad97e`; it counts nested record kinds
+and handles empty and invalid query inputs. The next substantive frontend gate
+is the lexer/parser, followed by semantic and lowering gates. None of these
+structural steps may change `mir-v0` or add hand-maintained language-wide
+dispatch.
 
 ## Exit and handoff
 
