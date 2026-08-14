@@ -84,9 +84,10 @@ distinguishable. The first useful backend gate is a real object emitted from a
 small fixed machine witness and checked against an independent encoder or
 execution oracle. No ISA payload is committed to the production repository.
 
-E0127 is the current scale slice. It tests a bounded table for normalized
-TargetIR encoding records from both existing source families, preserving order
-and provenance while reusing the generic validator and codec. It must not add
-mnemonic dispatch, ISA-specific branches, ABI/MIR wiring or a new shared
-contract. Its gate is the independent mixed-family table oracle and a
-warning-free full `fo` run.
+E0127 is accepted as `R000235` at `fortback-new` commit
+`fbeedd4c8c232116bdf6e9389f6a698ba7f787b0`. It adds a bounded table for
+normalized TargetIR encoding records from both existing source families,
+preserving order and provenance while reusing the generic validator and
+codec. It adds no mnemonic dispatch, ISA-specific branches, ABI/MIR wiring or
+new shared contract; the independent mixed-family table oracle and
+warning-free full `fo` gate passed.

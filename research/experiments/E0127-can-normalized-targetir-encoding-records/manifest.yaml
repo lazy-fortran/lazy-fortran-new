@@ -2,14 +2,16 @@ id: "E0127"
 title: "Validated normalized TargetIR encoding table"
 question: >
   Can normalized TargetIR encoding records be accumulated into a validated bounded table suitable for generated codec data?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-14"
-closed: ""
+closed: "2026-08-14"
+reported_run: R000235
+reported_runs: [R000235]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: 06a9859
-  fortback-new: c68bf54844fbdbb79f012c5e5e977dacc6301ce2
+  fortback-new: fbeedd4c8c232116bdf6e9389f6a698ba7f787b0
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
