@@ -102,6 +102,7 @@ async function loadRoot() {
     }
     select.onchange = () => loadRun(select.value)
     const hash = readHash()
+    if (hash.ref) state.ref = hash.ref
     if (hash.view && hash.view !== 'run') {
         await showView(hash.view)
     } else if (hash.path || hash.ref) {
