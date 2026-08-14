@@ -460,6 +460,10 @@ witnesses required, then separates evaluator self-consistency from genuine
 independent promotion. Its manifest pins the strict harness and upstream
 llama.cpp runtime; the append-only run record, replay validation and witness
 summary will be recorded before any next semantic gate is selected.
+E0118 is now the prepared next gate: it independently materializes finite
+source-derived fact cases and uses compiler behavior only where a faithful
+fixture exists. It cannot start until E0117's terminal ledger, source pins and
+toolchain availability are recorded.
 
 ### M4. Generated frontend vertical slice (pending)
 
