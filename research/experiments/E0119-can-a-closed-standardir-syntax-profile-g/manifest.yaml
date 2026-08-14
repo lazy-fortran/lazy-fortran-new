@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "724e6c01091b9d76137a3f4890049ad315dda9f8"
+  lazy-fortran-new: "ee69eae6e7c3295937b4d1e62cde5ffbae7a3be4"
   standard-new: "27329a701575f32776281f235290e465c5588105"
   fortfront-new: "bb9f4a08a0600b048823a0654d6282db16d893db"
   ffc-new: "76f765bc1da01b6e4feb62354d743371b6467e55"
