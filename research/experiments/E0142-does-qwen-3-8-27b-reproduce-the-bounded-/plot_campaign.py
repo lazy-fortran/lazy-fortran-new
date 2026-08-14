@@ -86,8 +86,14 @@ def normalize(row, experiment, modality, source, default_protocol):
 
 def read_tsv(path, experiment, modality, default_protocol):
     with path.open(encoding="utf-8", newline="") as stream:
-        return [normalize(row, experiment, modality, path, default_protocol)
-                for row in csv.DictReader(stream, delimiter="\t")]
+        rows = list(csv.DictReader(stream, delimiter="\t"))
+    if experiment == "E0112" and path.name == "aggregated.tsv":
+        for row in rows:
+            # The historical aggregate predates the common schema and omits
+            # the fixed E0112 denominator. It is still a valid terminal table.
+            row.setdefault("residue_rows", "127")
+    return [normalize(row, experiment, modality, path, default_protocol)
+            for row in rows]
 
 
 def read_metric_tsv(path, experiment, modality, default_protocol):
@@ -105,6 +111,14 @@ def read_metric_tsv(path, experiment, modality, default_protocol):
     wall_path = path.parent.parent / "wall-seconds.txt"
     if wall_path.exists():
         row["wall_s_total"] = wall_path.read_text(encoding="utf-8").strip()
+    else:
+        progress_path = path.parent.parent / "progress.json"
+        try:
+            progress = json.loads(progress_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            progress = {}
+        if "elapsed_s" in progress:
+            row["wall_s_total"] = progress["elapsed_s"]
     return [normalize(row, experiment, modality, path, default_protocol)]
 
 
@@ -200,9 +214,13 @@ def render(experiment, rows, outdir):
     for row in rows:
         denominator = row["denominator"]
         rates.append(row["accepted"] / denominator if denominator and math.isfinite(denominator) else math.nan)
-        bad = sum(value for value in (row["unresolved"], row["hard_failures"], row["model_errors"])
-                  if math.isfinite(value))
-        failures.append(bad / denominator if denominator and math.isfinite(denominator) else math.nan)
+        # These protocol counters are not mutually exclusive: a rejected
+        # proposal can also be counted in the row's abstention/error tally.
+        # Use the disjoint complement of strict acceptance rather than adding
+        # overlapping counters and producing rates above 100 percent.
+        failures.append((denominator - row["accepted"]) / denominator
+                         if denominator and math.isfinite(denominator)
+                         and math.isfinite(row["accepted"]) else math.nan)
         oracle.append(row["oracle_exact"] / row["oracle_rows"]
                       if row["oracle_rows"] and math.isfinite(row["oracle_rows"]) else math.nan)
         cost.append(row["wall_s"] / denominator
@@ -215,7 +233,7 @@ def render(experiment, rows, outdir):
     axes[0].set_title(f"{experiment} comparison: strict accepted rate")
     axes[1].bar(x, failures, color="#999999", width=0.78)
     axes[1].set_ylim(bottom=0); axes[1].set_ylabel("Failure / eligible")
-    axes[1].set_title("Unresolved, hard-failure and model-error rate")
+    axes[1].set_title("Not accepted / eligible (all terminal failure modes)")
     axes[2].bar(x, oracle, color=colors, width=0.78)
     axes[2].set_ylim(0, 1); axes[2].set_ylabel("Exact / oracle")
     axes[2].set_title("Independent solved-oracle accuracy; unavailable cells remain gaps")

@@ -2,6 +2,7 @@
 
 Date: 2026-08-14
 Status: accepted
+Supersedes: D0039
 
 ## Context
 
