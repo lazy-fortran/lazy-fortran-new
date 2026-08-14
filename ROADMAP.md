@@ -505,6 +505,17 @@ E0124 is accepted for its declared witness denominator; full-document
 production and parser generation remain open. Neither slice adds PDF
 heuristics, aliases, parser dispatch or semantic facts.
 
+The next scale wave is running from the pushed checkpoint `06a9859`. E0125
+tests ordered batch production of source-backed grammar records in
+`standard-new`; E0126 tests generic nullable/first-set analysis over the
+caller-supplied grammar table in `fortfront-new`; E0127 tests a bounded
+source-family-neutral normalized TargetIR table in `fortback-new`. These are
+disjoint deterministic slices. They must demonstrate reuse over multiple
+records, fixed-point structure or mixed target records respectively, with
+independent negative controls and zero-warning `fo` gates. They must not add
+parser/token dispatch, semantic promotion, ISA mnemonic branches, ABI/MIR
+wiring or a new cross-repository contract.
+
 The parallel backend slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
 adds a generic private SX round trip for normalized TargetIR encoding records,

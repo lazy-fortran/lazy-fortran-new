@@ -2,13 +2,13 @@ id: "E0125"
 title: "Batch source-backed StandardIR grammar production"
 question: >
   Can the source-backed StandardIR grammar producer scale to an ordered record batch without losing provenance or transactional failure semantics?
-status: draft            # draft | running | reported | abandoned
+status: running          # draft | running | reported | abandoned
 opened: "2026-08-14"
 closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: 49dfe76
+  lazy-fortran-new: 06a9859
   standard-new: 4b7b0650db93b32636398e33f6be86c89c685d5e
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

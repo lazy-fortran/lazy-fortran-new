@@ -126,9 +126,9 @@ Runs recorded: 231
 | E0122 | reported | 1 | Can generic finite-domain support for string length, existential, count and |
 | E0123 | running | 0 | Can a bounded fresh retry resolve the residual semantic constraint rows? |
 | E0124 | reported | 2 | Can source-backed StandardIR grammar records cross the versioned producer-consumer handoff without structural or provenance loss |
-| E0125 | draft | 0 | Can the source-backed StandardIR grammar producer scale to an ordered record batch without losing provenance or transactional failure semantics? |
-| E0126 | draft | 0 | Can the stored StandardIR grammar table provide deterministic generic nullable and first-set analysis without language-specific parser policy? |
-| E0127 | draft | 0 | Can normalized TargetIR encoding records be accumulated into a validated bounded table suitable for generated codec data? |
+| E0125 | running | 0 | Can the source-backed StandardIR grammar producer scale to an ordered record batch without losing provenance or transactional failure semantics? |
+| E0126 | running | 0 | Can the stored StandardIR grammar table provide deterministic generic nullable and first-set analysis without language-specific parser policy? |
+| E0127 | running | 0 | Can normalized TargetIR encoding records be accumulated into a validated bounded table suitable for generated codec data? |
 
 ## Run status
 

@@ -242,6 +242,15 @@ alternative order, provenance and resolution, with explicit malformed,
 unresolved, capacity and output-clearing controls. The witness gate is
 accepted; full-document production and parser generation remain open.
 
+The next scale wave runs from lab checkpoint `06a9859`: E0125 batches ordered
+source-backed grammar production in `standard-new`, E0126 adds generic
+nullable/first-set analysis in `fortfront-new`, and E0127 adds a bounded
+normalized TargetIR table in `fortback-new`. The slices are disjoint and
+deterministic; none may add parser/token dispatch, semantic promotion,
+ISA-specific mnemonic branches, ABI/MIR wiring or a new cross-repository
+contract. Each must retain independent negative controls and pass full `fo`
+with zero warnings before integration.
+
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
 round-trips normalized TargetIR encoding records through a private generic SX
