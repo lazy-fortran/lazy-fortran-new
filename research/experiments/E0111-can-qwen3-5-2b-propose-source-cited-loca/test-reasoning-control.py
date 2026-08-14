@@ -2,6 +2,8 @@
 """Check that local and cloud reasoning controls are sent distinctly."""
 
 import importlib.util
+import json
+import tempfile
 from pathlib import Path
 
 
@@ -27,3 +29,11 @@ assert module.apply_reasoning_control(cloud, "off", deepseek_cloud=True) == {
 }
 
 print("E0111 per-request reasoning controls passed")
+
+with tempfile.TemporaryDirectory() as directory:
+    path = Path(directory) / "stream.jsonl"
+    module.jsonl_append(path, {"name": "first"})
+    assert json.loads(path.read_text(encoding="utf-8").splitlines()[0])["name"] == "first"
+    module.jsonl_append(path, {"name": "second"})
+    assert len(path.read_text(encoding="utf-8").splitlines()) == 2
+print("E0111 incremental JSONL publication passed")

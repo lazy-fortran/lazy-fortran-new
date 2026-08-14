@@ -14,14 +14,21 @@ scripts/browse.sh index --run E0074/R000001
 scripts/browse.sh serve --run E0074/R000001
 ```
 
-Open `http://127.0.0.1:7373/` after starting the server. The default page is
-the library overview. It provides lane-level evidence progress, active-run
-heartbeats and ETA, four clickable pipeline views, a searchable rule register,
-a case browser for prompts/responses/gates, and a source library for
-StandardIR/frontend/MIR/TargetIR code and pinned ISA/ABI/microarchitecture
-material. The existing run view displays canonical SX as raw text and a
-structural tree, plus EBNF, ANTLR4, Bison, tree-sitter, generated Fortran,
-metrics, logs, and provenance.
+Open `http://127.0.0.1:7373/` after starting the server. The default page is a
+small document-first landing page with direct entries for the standard,
+StandardIR, grammar exports, semantics, MIR, and backend/ISA. It provides
+progress by evidence lane, a live-run workspace with ETA and incrementally
+published inputs/outputs, a searchable rule dictionary, clickable pipeline
+views, and a source library for production code and pinned
+ISA/ABI/microarchitecture material. The standard entry opens the pinned PDF in
+the page; the other entries open the actual extracted text, SX, grammar,
+semantic, MIR and backend artifacts. The existing run view remains available
+for canonical SX trees, metrics, logs and provenance.
+
+To follow the current cell directly, use the live view link printed by the
+runner or open `#view=live&ref=E0112/R000012/qwen38-27b-pointer-off-a3` while
+that cell is active. The browser refreshes only this user-facing view every two
+seconds; it never starts, stops or controls the model service.
 
 The server rebuilds projections on each request. Refresh the library after new
 run directories or source commits are added; no generated index is written.
