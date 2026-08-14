@@ -41,6 +41,12 @@ opcode bins and the total instruction count. It remains target-independent,
 rejects malformed input with cleared output, and preserves `mir-v0`; the
 independent oracle and warning-free full `fo` gate passed.
 
+E0132 is the active MIR serialization scale gate. It exercises the existing
+canonical function-body SX importer/exporter over a broader independent witness
+matrix, including typed results and source-linked instructions, without
+changing `mir-v0`, adding target details or creating a new cross-repository
+contract.
+
 ## Exit and handoff
 
 Every emitted operation carries source-rule identity where available. The lane

@@ -100,3 +100,9 @@ the existing RISC-V I-format and AArch64 record families and table capacity.
 It adds no mnemonic dispatch, importer whitelists, ISA-specific codec
 branches, ABI/MIR wiring, serialization or a new contract; the independent
 mixed-source oracle and warning-free full `fo` gate passed.
+
+E0133 is the active additional-source-family gate. It may extend the generic
+transactional batch only to source record types already represented by the
+backend's parsed inputs. Families not represented remain explicit unsupported
+results; no importer payload, mnemonic dispatch, ISA-specific codec branch,
+ABI/MIR wiring, serialization or new contract may be introduced.
