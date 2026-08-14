@@ -221,11 +221,21 @@ coordinator-side full `fo` with zero warnings and are recorded as `R000224`
 and `R000225`. No parser state/backtracking, ISA dispatch, ABI, MIR or
 instruction selection was added.
 
+Wave AO is integrated in parallel at `fortfront-new`
+`199c383ede97fe78f91a738d16c28e946c15f072` and `fortback-new`
+`b533414aae80052308434fc725500cf2d028a1ac`. The frontend composes LHS
+lookup and exact RHS matching into deterministic unique/ambiguous candidate
+collection with preserved identity and provenance. The backend composes
+candidate lookup and generic record decode for exactly one matching record,
+leaving ambiguity explicit. Both passed coordinator-side full `fo` with zero
+warnings and are recorded as `R000226` and `R000227`. No parser state,
+backtracking, ISA dispatch, ABI, MIR or instruction selection was added.
+
 The current bounded production pins are `standard-new`
 `985d684a2c8e5f4394b3473c8bdc3a9`, `fortfront-new`
-`b657fad20cccb2a2166c11d1faf48d8b0d69314f`, `ffc-new`
+`199c383ede97fe78f91a738d16c28e946c15f072`, `ffc-new`
 `555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
-`e72467d97fbd8978d29c8cc69719e343a687a992`, all on clean `main` branches
+`b533414aae80052308434fc725500cf2d028a1ac`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

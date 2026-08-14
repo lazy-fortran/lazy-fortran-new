@@ -472,6 +472,17 @@ with zero warnings and are recorded as `R000224` and `R000225`. Parser state,
 frontier/backtracking policy, ISA dispatch, ABI, MIR and instruction selection
 remain open rather than being smuggled into these data boundaries.
 
+Wave AO has composed the preceding boundaries once more. `fortfront-new`
+`199c383ede97fe78f91a738d16c28e946c15f072` now collects unique or ambiguous
+grammar candidates by composing LHS lookup with exact RHS matching, retaining
+insertion order, identity and provenance. `fortback-new`
+`b533414aae80052308434fc725500cf2d028a1ac` now decodes a word through the
+normalized candidate lookup and generic codec only when the candidate is
+unique. Both passed coordinator-side full `fo` with zero warnings and are
+recorded as `R000226` and `R000227`. Parser state/frontier management and
+ambiguity policy, as well as backend instruction selection and MIR connection,
+remain open.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -529,8 +540,8 @@ the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
-`fortfront-new` `b657fad20cccb2a2166c11d1faf48d8b0d69314f`, and
-`fortback-new` `e72467d97fbd8978d29c8cc69719e343a687a992`; these are clean
+`fortfront-new` `199c383ede97fe78f91a738d16c28e946c15f072`, and
+`fortback-new` `b533414aae80052308434fc725500cf2d028a1ac`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `555eb09bfb17329517176f967a3d1fda36c3159e`.
 

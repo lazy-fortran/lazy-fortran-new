@@ -19,7 +19,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`f75e7091798eed10e2aef2ab60dae2ba3698b6ce`. The bounded parser-quality
+`199c383ede97fe78f91a738d16c28e946c15f072`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -86,6 +86,12 @@ can be matched against a rule RHS with explicit malformed and mismatch states,
 while the matched rule retains identity and provenance. This remains a
 bounded matcher; parser state, frontier management, backtracking and
 language-specific token/grammar dispatch are still pending.
+The next composition is integrated at `fortfront-new` commit
+`199c383ede97fe78f91a738d16c28e946c15f072`: LHS lookup and exact RHS
+matching collect unique or ambiguous candidates in insertion order while
+retaining rule identity and provenance. This is still one-step candidate
+generation; parser state, frontier management, backtracking and tokenization
+remain separate gates.
 
 ## Exit and handoff
 
