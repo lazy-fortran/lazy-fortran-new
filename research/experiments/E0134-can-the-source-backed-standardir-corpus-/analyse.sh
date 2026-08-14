@@ -8,6 +8,17 @@ source_input="${E0134_SOURCE_INPUT:-$root/.cache/runs/E0013/R000002/j3-24-007.st
 outdir="${1:-$root/.cache/runs/E0134/R000001}"
 
 die() { printf 'E0134: %s\n' "$1" >&2; exit 1; }
+
+absolute_path() {
+    case "$1" in
+        /*) printf '%s\n' "$1" ;;
+        *) printf '%s/%s\n' "$root" "$1" ;;
+    esac
+}
+
+input="$(absolute_path "$input")"
+source_input="$(absolute_path "$source_input")"
+outdir="$(absolute_path "$outdir")"
 test -d "$standard_new" || die 'standard-new checkout is missing'
 test -f "$input" || die "composite input is missing: $input"
 test -f "$source_input" || die "source input is missing: $source_input"
