@@ -130,6 +130,11 @@ repair transport representation, never predicate meaning, fact names,
 missing nesting or source evidence. D0074 adds compact generic constructor
 shape examples to successor prompts; it does not change E0123's pinned prompt
 or validator.
+After E0123, the coordinator runs the exact replacement merge, `validate.py`,
+the independent witness gate and one terminal run record. Only independently
+witnessed rows may be promoted. Any residual rows start a named D0074
+successor; no broad model comparison or opportunistic schema change is allowed
+at this handoff.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.

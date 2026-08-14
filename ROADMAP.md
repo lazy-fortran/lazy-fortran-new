@@ -370,6 +370,12 @@ contract, adds target-specific MIR behavior or closes M3/M4. The exact
 production commits are maintained in `roadmaps/integration.md` and recorded as
 `R000207` and `R000208`.
 
+Wave AC has integrated generic AARCHMRS variable-bit-range preservation in
+`fortback-new`. It passed the full `fo` gate with malformed, overlap and
+out-of-range controls; the task branch was removed after push. It adds source
+metadata for later generated field extraction, not instruction dispatch or
+machine semantics, and is recorded as `R000209`.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -420,7 +426,7 @@ errors. It does not relax validation or change E0123's pinned prompt.
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
 `fortfront-new` `7bb9eae735c21f94bb123c3c6c4048f29b6bcb7e`, and
-`fortback-new` `600457fb60eb74ee99cd2d647c6382bcf21f1afe`; these are clean
+`fortback-new` `02837b1387315929545b6d33bc03e38a6bfc90e8`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `1d356b42dd7821cfebea9fec78291a2c37e456e8`.
 
@@ -622,6 +628,14 @@ E0121 is `R000196`, with 34 exact matches among 49 emitted finite cases.
 E0122 is `R000199`, with 36/36 exact matches among 93 emitted cases and 57
 explicit candidate-unavailable outcomes. These source-oracle experiments
 validate portions of the gate; they do not close M3 or promote semantic facts.
+
+The immediate post-E0123 handoff is fixed: run the exact replacement merge,
+replay `validate.py`, run the independent witness gate, and append one terminal
+run record retaining both trajectories. If all 287 rows are terminal and the
+independent witness gate agrees, promote only that witnessed subset. If any
+row remains unresolved or hard-failed, open a successor experiment using D0074
+and its explicit shape examples; do not start a broad model comparison or
+change the schema opportunistically.
 
 ### M4. Generated frontend vertical slice (pending)
 

@@ -26,10 +26,11 @@ AArch64 remain the first correctness targets. x86-64 is a concurrent
 source-quality comparison, not a prerequisite for them.
 
 The current target codec slices are `fortback-new` commit
-`600457fb60eb74ee99cd2d647c6382bcf21f1afe`; it adds a generic AArch64
-fixed-record validator/matcher over imported ADD, SUB and NOP records, with
-independent target, mask/match, malformed metadata, unsupported-word and
-provenance controls. The same commit retains the source-record-driven RV64I
+`02837b1387315929545b6d33bc03e38a6bfc90e8`; it adds generic bounded variable
+bit-range metadata to the AArch64 source records, preserving fixed mask/match
+fields and rejecting malformed, overlapping and out-of-range fields. The same
+history retains the generic AArch64 fixed-record validator/matcher from
+`600457fb60eb74ee99cd2d647c6382bcf21f1afe` and the source-record-driven RV64I
 I-format encoder/decoder from `c48922d5dd9ebc9b0524a1f6eb14c3697c5e7327`
 over the existing `XORI`, shift-shaped
 and `JALR`-shaped records, with independent canonical, malformed metadata,
@@ -41,9 +42,9 @@ D0072 now makes these instruction cases bootstrap witnesses rather than the
 backend's scaling mechanism. Further instruction coverage waits for the
 generic source-record to TargetIR normalization and generated codec path;
 adding another mnemonic branch alone is not an accepted backend slice.
-The generic I-format helper and AArch64 fixed-record matcher are the first two
-steps across that boundary; neither adds a mnemonic enum, importer whitelist
-entry or instruction-kind dispatch branch.
+The generic I-format helper, AArch64 fixed-record matcher and variable-range
+metadata are the first three steps across that boundary; none adds a mnemonic
+enum, importer whitelist entry or instruction-kind dispatch branch.
 
 ## Provenance and exit
 
