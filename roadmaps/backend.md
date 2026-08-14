@@ -26,14 +26,19 @@ AArch64 remain the first correctness targets. x86-64 is a concurrent
 source-quality comparison, not a prerequisite for them.
 
 The current target codec slices are `fortback-new` commit
-`8c4c71e33beb94a4891e3cffe17c29c54b716709`; it adds a generic whole-record
+`5a44f9c5906068433bf616c1687dc2f486fa5abc`; it adds a generic whole-record
 encode/decode composition over ordinal insertion and extraction, preserving
 fixed mask/match fields and rejecting malformed, overlapping and out-of-range
 fields. The RISC-V continuation now exposes the same source-record boundary
 through a generic operand-array whole-record codec with explicit failure
 clearing. The new normalized TargetIR encoding boundary adapts both existing
 RISC-V I-format and AArch64 source records into one provenance-bearing record
-shape with fixed bits and variable fields. The preceding AArch64 codec commit is
+shape with fixed bits and variable fields.
+The generic codec over that normalized record is integrated at
+`fortback-new` commit `5a44f9c5906068433bf616c1687dc2f486fa5abc`: it performs
+source-family-independent encode/decode with fixed-bit matching, ordered
+variable fields and explicit failure clearing. The preceding AArch64 codec
+commit is
 `9baabf418280812b43181330b67d10d4078e88ae`; the insertion
 commit is `70e3e39e32258df01034ad85eedb40f57da4596d`; the extraction
 commit is `19bd36aa272115dd8f2029a89fb17761b291c649`; the metadata commit is

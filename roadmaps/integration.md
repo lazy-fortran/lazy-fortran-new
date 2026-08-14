@@ -199,11 +199,22 @@ ambiguous, malformed and capacity states explicitly. Full `fo` passed with
 zero warnings and it is recorded as `R000221`. Together these slices add no
 grammar/parser dispatch, ABI, MIR or instruction selection.
 
+Wave AM is integrated in parallel at `fortfront-new`
+`f75e7091798eed10e2aef2ab60dae2ba3698b6ce` and `fortback-new`
+`5a44f9c5906068433bf616c1687dc2f486fa5abc`. The frontend now stores and
+queries caller-supplied source-provenanced grammar rules by LHS in insertion
+order. The backend now encodes and decodes normalized TargetIR records without
+ISA source-module imports. Both passed coordinator-side full `fo` with zero
+warnings and explicit malformed, capacity, provenance, fixed-bit, field-range,
+unsupported-word and output-clearing controls; they are recorded as `R000222`
+and `R000223`. No Fortran parser dispatch, ABI, MIR or instruction selection
+was added.
+
 The current bounded production pins are `standard-new`
 `985d684a2c8e5f4394b3473c8bdc3a9`, `fortfront-new`
-`e98bc27d1ad275001df5c040931213b0da34c4c7`, `ffc-new`
+`f75e7091798eed10e2aef2ab60dae2ba3698b6ce`, `ffc-new`
 `555eb09bfb17329517176f967a3d1fda36c3159e`, and `fortback-new`
-`8c4c71e33beb94a4891e3cffe17c29c54b716709`, all on clean `main` branches
+`5a44f9c5906068433bf616c1687dc2f486fa5abc`, all on clean `main` branches
 tracking `origin/main`. Verify any pin with `git -C ../<repo> cat-file -t`
 and the branch state with `git -C ../<repo> status --short --branch`.
 Use the full commit argument for an immutable pin when checking a recorded

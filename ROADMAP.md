@@ -450,6 +450,16 @@ It also passed full `fo` with zero warnings and is recorded as `R000221`.
 Neither slice adds instruction/keyword dispatch, grammar/parser wiring, ABI,
 MIR or instruction selection.
 
+Wave AM has integrated the next frontend/backend pair. `fortfront-new`
+`f75e7091798eed10e2aef2ab60dae2ba3698b6ce` now stores caller-supplied,
+source-provenanced grammar rules and queries them by LHS in insertion order;
+`fortback-new` `5a44f9c5906068433bf616c1687dc2f486fa5abc` now encodes and
+decodes normalized TargetIR records without importing ISA source modules.
+Both passed coordinator-side full `fo` with zero warnings and explicit
+malformed, capacity, provenance, fixed-bit, field-range, unsupported-word and
+output-clearing controls. They are recorded as `R000222` and `R000223`.
+Neither adds Fortran parser dispatch, ABI, MIR or instruction selection.
+
 E0120 is now reported as `R000195`. Its generic sentence-form extractor
 reconstructed 23 source-linked constraint records from the pinned normative
 text: the eight E0083 baseline rows plus 15 new rows. It retained all 287
@@ -507,8 +517,8 @@ the sibling repository at build time.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `985d684a2c8e5f4394b3473c8bdc3a9de7453ab9`,
-`fortfront-new` `e98bc27d1ad275001df5c040931213b0da34c4c7`, and
-`fortback-new` `8c4c71e33beb94a4891e3cffe17c29c54b716709`; these are clean
+`fortfront-new` `f75e7091798eed10e2aef2ab60dae2ba3698b6ce`, and
+`fortback-new` `5a44f9c5906068433bf616c1687dc2f486fa5abc`; these are clean
 `main` branches with coordinator-side full `fo` verification. The FFC pin
 is `555eb09bfb17329517176f967a3d1fda36c3159e`.
 

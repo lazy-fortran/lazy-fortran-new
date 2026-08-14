@@ -19,7 +19,7 @@ semantic-witness validator, typed source-linked diagnostic SX boundary,
 diagnostic-count and indexed diagnostic queries, and the indexed
 program-declaration query are integrated. The current production pin is
 `fortfront-new` commit
-`e98bc27d1ad275001df5c040931213b0da34c4c7`. The bounded parser-quality
+`f75e7091798eed10e2aef2ab60dae2ba3698b6ce`. The bounded parser-quality
 slice validates program-name matching, identifier boundaries, and exact
 root/header spans for program and module witnesses. The deterministic
 `frontend-ast-v0` generator, checked-in generated records, canonical SX
@@ -74,6 +74,13 @@ is integrated at `fortfront-new` commit
 maximal same-fact UTF-8 spans with bounded output, provenance and explicit
 unmatched, unsupported, ambiguous, malformed and capacity states. It still
 does not choose a Fortran token or grammar policy.
+
+The grammar-consumer boundary is integrated at `fortfront-new` commit
+`f75e7091798eed10e2aef2ab60dae2ba3698b6ce`: caller-supplied rules retain
+ordered reference/token symbols and source provenance, and deterministic LHS
+queries preserve insertion order with explicit validation and capacity
+states. It remains a data boundary; parser algorithms and dispatch are still
+pending.
 
 ## Exit and handoff
 
