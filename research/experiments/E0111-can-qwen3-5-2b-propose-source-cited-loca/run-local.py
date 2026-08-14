@@ -10,7 +10,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-from e0111_common import InputError, jsonl_write, write_progress
+from e0111_common import InputError, jsonl_append, jsonl_write, write_progress
 
 
 DEFAULT_MODEL = "Qwen/Qwen3.5-2B"
@@ -144,6 +144,9 @@ def main():
         responses = []
         errors = []
         progress_path = Path(args.responses).with_name("progress.json")
+        errors_path = Path(args.responses).with_name("model-errors.jsonl")
+        Path(args.responses).write_text("", encoding="utf-8")
+        errors_path.write_text("", encoding="utf-8")
         started_monotonic = time.monotonic()
         started_at = datetime.now(timezone.utc).isoformat()
         write_progress(
@@ -190,8 +193,14 @@ def main():
                     raise InputError(f"model response name mismatch for {item['name']}")
                 responses.append(proposal)
             except (InputError, json.JSONDecodeError, TypeError) as exc:
-                errors.append({"name": item["name"], "error": str(exc)})
-                responses.append({"name": item["name"], "decision": "abstain"})
+                error = {"name": item["name"], "error": str(exc)}
+                errors.append(error)
+                jsonl_append(errors_path, error)
+                response = {"name": item["name"], "decision": "abstain"}
+                responses.append(response)
+                jsonl_append(args.responses, response)
+            else:
+                jsonl_append(args.responses, responses[-1])
             write_progress(
                 progress_path,
                 total=len(prompts),
@@ -205,9 +214,6 @@ def main():
                 ),
                 model_errors=len(errors),
             )
-        jsonl_write(args.responses, responses)
-        errors_path = Path(args.responses).with_name("model-errors.jsonl")
-        jsonl_write(errors_path, errors)
         config = Path(args.responses).with_name("api-config.json")
         provider = "deepseek-api" if args.deepseek_cloud else "llama.cpp-openai-compatible"
         config.write_text(

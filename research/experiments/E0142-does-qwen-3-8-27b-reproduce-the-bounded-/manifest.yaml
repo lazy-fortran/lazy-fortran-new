@@ -5,7 +5,7 @@ question: >
 status: running         # draft | running | reported | abandoned
 opened: "2026-08-14"
 closed: ""
-active_cell: ".cache/runs/E0112/R000011/qwen38-27b-pointer-off-a2"
+active_cell: ".cache/runs/E0112/R000012/qwen38-27b-pointer-off-a3"
 
 # Every commit the result depends on. Exact, not "main".
 repos:

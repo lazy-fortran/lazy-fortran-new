@@ -12,19 +12,18 @@
     <body>
         <header>
             <button id="nav-toggle" type="button" aria-expanded="false" aria-controls="files" title="file list">files</button>
-            <span class="brand">research library</span>
-            <span id="library-nav" class="header-nav">
-                <button type="button" data-view="library">library</button>
-                <button type="button" data-view="rules">rules</button>
-                <button type="button" data-view="flows">flows</button>
-                <button type="button" data-view="sources">sources</button>
-                <button type="button" data-view="cases">cases</button>
-            </span>
-            <select id="run-select" title="run directory"></select>
-            <form id="jump-form">
-                <input id="jump" type="text" size="14" placeholder="R000083 or E0074/R000001" />
-                <button type="submit">go</button>
-            </form>
+            <button id="home-button" type="button">home</button>
+            <span class="brand">lazy-fortran research</span>
+            <details id="run-tools">
+                <summary>run files</summary>
+                <div class="run-tools-body">
+                    <select id="run-select" title="run directory"></select>
+                    <form id="jump-form">
+                        <input id="jump" type="text" size="14" placeholder="R000083 or E0074/R000001" />
+                        <button type="submit">open</button>
+                    </form>
+                </div>
+            </details>
             <span id="run-meta"></span>
             <span class="grow"></span>
             <span id="root-path" class="dim"></span>

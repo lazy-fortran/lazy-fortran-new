@@ -19,6 +19,7 @@ const state = {
     rules: null,
     cases: null,
     caseIndex: 0,
+    liveTimer: null,
 }
 
 const el = (id) => document.getElementById(id)
@@ -30,6 +31,13 @@ function setNav(open) {
     document.body.classList.toggle('nav-open', open)
     el('nav-toggle').setAttribute('aria-expanded', String(open))
     el('nav-scrim').hidden = !open
+}
+
+function stopLiveRefresh() {
+    if (state.liveTimer !== null) {
+        clearInterval(state.liveTimer)
+        state.liveTimer = null
+    }
 }
 
 async function api(path, params) {
@@ -434,15 +442,17 @@ function navButton(label, view, detail = '') {
 function libraryNav() {
     const nav = el('files')
     nav.replaceChildren()
-    nav.append(text('h2', null, 'research library'))
+    nav.append(text('h2', null, 'start here'))
     nav.append(navButton('overview', 'library'))
-    nav.append(navButton('rule register', 'rules'))
-    nav.append(navButton('pipeline flows', 'flows'))
-    nav.append(navButton('source library', 'sources'))
-    nav.append(navButton('case browser', 'cases'))
-    nav.append(text('h2', null, 'current run'))
-    if (state.ref) nav.append(navButton(state.ref, 'run'))
-    nav.append(text('p', 'note', 'Run files remain available after selecting a run above.'))
+    nav.append(navButton('documents', 'documents'))
+    nav.append(navButton('live run', 'live'))
+    nav.append(text('h2', null, 'explore'))
+    nav.append(navButton('rule dictionary', 'rules'))
+    nav.append(navButton('architecture', 'flows'))
+    nav.append(navButton('source code', 'sources'))
+    nav.append(text('h2', null, 'artifacts'))
+    if (state.ref) nav.append(navButton('current run files', 'run'))
+    nav.append(text('p', 'note', 'Choose a document first. Details open only when requested.'))
 }
 
 function progressCard(lane) {
@@ -478,9 +488,10 @@ function section(title, body) {
 }
 
 async function showLibrary() {
+    stopLiveRefresh()
     state.view = 'library'
     libraryNav()
-    viewHeader('research library', 'read-only projections rebuilt from repository and run evidence')
+    viewHeader('research library', 'start with a document or follow the active run')
     const content = el('content')
     content.replaceChildren(text('p', 'note', 'loading library…'))
     const data = await api('/api/library')
@@ -491,66 +502,55 @@ async function showLibrary() {
     const overall = total ? Math.round(100 * done / total) : 0
     const intro = text('div', 'library-intro')
     intro.append(text('h1', null, 'Specification-generated compiler laboratory'))
-    intro.append(text('p', 'dim', `Tracked evidence-gate orientation: ${overall}% (${done}/${total}). This is not code coverage or a claim that unfinished layers are implemented.`))
-    const refresh = linkButton('refresh projections', () => showLibrary())
-    intro.append(refresh)
+    intro.append(text('p', 'dim', 'Read the maintained evidence from the source document outward. The numbers below are named evidence gates, not code coverage.'))
+    intro.append(text('p', 'progress-summary', `${overall}% of tracked gates (${done}/${total})`))
+    intro.append(linkButton('refresh', () => showLibrary()))
     content.replaceChildren(intro)
 
+    const cards = text('div', 'entry-grid')
+    const entries = [
+        ['standard', 'Standard document', 'PDF, extracted text and page index', 'standard'],
+        ['standardir', 'StandardIR', 'Canonical SX, contracts and source facts', 'standardir'],
+        ['grammar', 'Grammar exports', 'EBNF, ANTLR4, Bison and tree-sitter', 'grammar'],
+        ['semantic', 'Semantic rules', 'Facts, residue, prompts and validation', 'semantic'],
+        ['mir', 'MIR', 'Target-independent IR and handoff artifacts', 'mir'],
+        ['backend', 'Backend and ISA', 'TargetIR, ABI, instruction and μarch sources', 'backend'],
+    ]
+    for (const [id, title, detail, level] of entries) {
+        const card = text('button', 'entry-card')
+        card.append(text('strong', null, title), text('span', 'dim', detail))
+        card.onclick = () => showDocuments(level)
+        cards.append(card)
+    }
+    content.append(text('h2', 'section-title', 'Start here'), cards)
+
+    const active = (data.active_progress || []).find((item) => item.progress?.status === 'running') || (data.active_progress || []).find((item) => String(item.ref).includes('E0112'))
+    const live = text('article', 'current-run-card')
+    if (active) {
+        const p = active.progress || {}
+        live.append(text('strong', null, 'Active experiment'), text('p', 'dim', active.ref))
+        live.append(text('p', null, `${p.completed || 0}/${p.total || '?'} cases · ${p.status || 'unknown'} · ${p.eta_s == null ? 'ETA appears in live view' : `ETA ${Math.ceil(p.eta_s)}s`}`))
+        live.append(linkButton('follow live', () => showLive(active.ref)))
+    } else {
+        live.append(text('strong', null, 'No active run reported'), text('p', 'dim', 'Open run files from the run menu when a cell is available.'))
+    }
+    content.append(live)
+
+    const progress = document.createElement('details')
+    progress.className = 'home-section'
+    progress.append(text('summary', null, `Progress by layer · ${overall}%`))
     const progressGrid = text('div', 'progress-grid')
     for (const lane of lanes) progressGrid.append(progressCard(lane))
-    content.append(section('progress by layer', progressGrid))
+    progress.append(progressGrid)
+    content.append(progress)
 
-    const flows = text('div', 'button-row')
-    for (const item of data.flows || []) flows.append(linkButton(item.title, () => showFlow(item.id)))
-    content.append(section('clickable architecture views', flows))
-
-    const active = text('div', 'run-cards')
-    for (const item of (data.active_progress || []).slice(-12).reverse()) {
-        const p = item.progress || {}
-        const card = text('article', 'run-card')
-        const head = text('div', 'progress-top')
-        head.append(text('strong', null, item.ref), text('span', p.status === 'running' ? 'status-good' : 'dim', String(p.status || 'unknown')))
-        card.append(head)
-        if (p.total) {
-            const percent = Math.round(100 * Number(p.completed || 0) / Number(p.total))
-            card.append(text('p', 'dim', `${p.completed || 0}/${p.total}  ${percent}%  ${p.eta_s == null ? 'ETA unavailable' : `ETA ${Math.ceil(p.eta_s)}s`}`))
-        } else card.append(text('p', 'dim', p.note || 'no progress heartbeat'))
-        card.append(linkButton('open run', () => loadRun(item.ref)))
-        active.append(card)
-    }
-    content.append(section('run progress and ETA', active))
-
-    const sources = text('div', 'library-list')
-    for (const source of data.isa_sources || []) {
-        const row = text('div', 'library-row')
-        row.append(text('strong', null, source.name), text('span', 'dim', source.cached ? (source.verified ? 'cached · verified' : 'cached · unverified') : 'manifest only'))
-        row.append(text('p', 'dim', source.purpose))
-        if (source.cached && source.verified) row.append(linkButton('open cached source', () => showIsa(source.name)))
-        sources.append(row)
-    }
-    content.append(section('ISA, ABI and microarchitecture sources', sources))
-
-    const repos = text('div', 'library-list')
-    for (const repo of data.production_repos || []) {
-        const row = text('div', 'library-row')
-        row.append(text('strong', null, repo.name), text('span', 'dim', repo.present ? `${repo.files.length} indexed files` : 'not checked out'))
-        row.append(text('p', 'dim', repo.role))
-        if (repo.present) row.append(linkButton('browse source', () => showSources(repo.id)))
-        repos.append(row)
-    }
-    content.append(section('production source and generated components', repos))
-
-    const latest = text('div', 'table-scroll')
-    const table = document.createElement('table')
-    table.className = 'library-table'
-    table.append(rowOf(['run', 'experiment', 'status', 'origin'], true))
-    for (const run of (data.recent_runs || []).slice(0, 30)) {
-        const row = rowOf([run.run, run.experiment, run.status, run.origin])
-        row.querySelector('td').onclick = () => run.artifact && loadRun(run.run)
-        table.append(row)
-    }
-    latest.append(table)
-    content.append(section('recent ledger records', latest))
+    const more = document.createElement('details')
+    more.className = 'home-section'
+    more.append(text('summary', null, 'More ways to explore'))
+    const buttons = text('div', 'button-row')
+    buttons.append(linkButton('rule dictionary', () => showRules()), linkButton('architecture flows', () => showFlow()), linkButton('source code', () => showSources()), linkButton('all documents', () => showDocuments('all')))
+    more.append(buttons)
+    content.append(more)
     writeHash()
 }
 
@@ -562,6 +562,162 @@ function rowOf(values, header = false) {
         row.append(cell)
     }
     return row
+}
+
+async function showDocuments(level = 'all') {
+    stopLiveRefresh()
+    state.view = 'documents'
+    libraryNav()
+    viewHeader('documents', level === 'all' ? 'standard → IR → semantics → MIR → backend' : level)
+    const content = el('content')
+    content.replaceChildren(text('p', 'note', 'loading documents…'))
+    const data = state.library || await api('/api/library')
+    state.library = data
+    const title = text('div', 'document-intro')
+    title.append(text('h1', null, level === 'all' ? 'Evidence library' : `${level} documents`))
+    title.append(text('p', 'dim', 'Each item has one authoritative location. Open it to see the actual PDF, extracted text, SX, grammar, prompt evidence or IR artifact.'))
+    const choices = text('div', 'button-row')
+    for (const item of [['all', 'all'], ['standard', 'standard'], ['standardir', 'StandardIR'], ['grammar', 'grammars'], ['semantic', 'semantics'], ['mir', 'MIR'], ['backend', 'backend']] ) {
+        choices.append(linkButton(item[1], () => showDocuments(item[0]), item[0] === level ? 'on' : ''))
+    }
+    const filter = document.createElement('input')
+    filter.className = 'wide-filter'
+    filter.placeholder = 'filter documents, rules, formats, paths…'
+    const list = text('div', 'document-list')
+    content.replaceChildren(title, choices, filter, list)
+    const render = () => {
+        const needle = filter.value.trim().toLowerCase()
+        list.replaceChildren()
+        let shown = 0
+        for (const doc of data.documents || []) {
+            if (level !== 'all' && doc.level !== level) continue
+            if (needle && !`${doc.title} ${doc.level} ${doc.kind} ${doc.description} ${doc.ref || ''} ${doc.path || ''}`.toLowerCase().includes(needle)) continue
+            if (shown++ >= 240) break
+            const row = text('article', 'document-row')
+            const head = text('div', 'document-head')
+            head.append(text('strong', null, doc.title), text('span', 'document-kind', `${doc.level} · ${doc.kind}`))
+            row.append(head, text('p', 'dim', doc.description))
+            row.append(text('p', 'document-location', doc.ref ? `${doc.ref}/${doc.path}` : (doc.research_path || doc.manifest || '')))
+            if (doc.available) row.append(linkButton(doc.kind === 'pdf' ? 'open PDF' : 'open document', () => showLibraryDocument(doc)))
+            else row.append(text('span', 'dim', 'not available in cache'))
+            list.append(row)
+        }
+        if (!shown) list.append(text('p', 'empty', 'No matching documents in this level.'))
+    }
+    filter.oninput = render
+    render()
+    writeHash()
+}
+
+async function showLibraryDocument(doc) {
+    stopLiveRefresh()
+    state.view = 'document'
+    libraryNav()
+    viewHeader(doc.title, `${doc.level} · ${doc.ref ? `${doc.ref}/${doc.path}` : doc.research_path || doc.manifest || ''}`)
+    const content = el('content')
+    content.replaceChildren(text('p', 'note', 'loading document…'))
+    const data = await api('/api/library-file', { id: doc.id })
+    const intro = text('div', 'document-intro')
+    intro.append(text('h1', null, doc.title), text('p', 'dim', doc.description))
+    if (data.manifest) intro.append(text('p', 'document-location', `manifest: ${data.manifest}`))
+    const raw = text('a', 'button-link', doc.kind === 'pdf' ? 'open PDF in new tab' : 'open raw bytes')
+    raw.href = `/library-raw?id=${encodeURIComponent(doc.id)}`
+    raw.target = '_blank'
+    intro.append(raw)
+    content.replaceChildren(intro)
+    if (data.binary && data.kind === 'pdf') {
+        const frame = document.createElement('iframe')
+        frame.className = 'pdf-viewer'
+        frame.src = `/library-raw?id=${encodeURIComponent(doc.id)}`
+        frame.title = doc.title
+        content.append(frame)
+    } else if (data.binary) {
+        content.append(text('p', 'note', `Binary artifact: ${bytes(data.bytes)}. SHA-256 ${data.sha256}`))
+    } else {
+        const code = text('div', 'code document-code')
+        code.append(text('pre', 'gutter', data.gutter))
+        const source = document.createElement('pre')
+        source.innerHTML = data.html
+        code.append(source)
+        content.append(code)
+    }
+    writeHash()
+}
+
+async function refreshLive(ref, target) {
+    try {
+        const [progressData, caseData] = await Promise.all([
+            api('/api/progress', { ref }),
+            api('/api/cases', { ref }),
+        ])
+        const snapshot = progressData.progress || {}
+        const items = caseData.cases || []
+        target.replaceChildren()
+        const top = text('div', 'live-summary')
+        const completed = Number(snapshot.completed || 0)
+        const total = Number(snapshot.total || items.length || 0)
+        const percent = total ? Math.round(100 * completed / total) : 0
+        top.append(text('h1', null, 'Live run'), text('p', 'dim', ref), text('p', null, `${completed}/${total || '?'} · ${snapshot.status || 'unknown'} · ${snapshot.eta_s == null ? 'ETA unavailable' : `ETA ${Math.ceil(snapshot.eta_s)}s`}`))
+        const bar = text('div', 'progress-bar')
+        const fill = text('div', 'progress-fill')
+        fill.style.width = `${percent}%`
+        bar.append(fill)
+        top.append(bar)
+        target.append(top)
+        const columns = text('div', 'live-columns')
+        const list = text('div', 'live-case-list')
+        list.append(text('h2', null, 'inputs and outputs'))
+        for (const item of items) {
+            const button = text('button', item.index === state.caseIndex ? 'on' : '', `${item.index + 1}. ${item.key} · ${item.status}`)
+            button.onclick = async () => {
+                state.caseIndex = item.index
+                await refreshLive(ref, target)
+            }
+            list.append(button)
+        }
+        if (!items.length) list.append(text('p', 'empty', 'The runner has not published a keyed input yet.'))
+        const output = text('div', 'live-case-output')
+        output.append(text('h2', null, 'selected case'))
+        columns.append(list, output)
+        target.append(columns)
+        if (items.length) {
+            const detail = await api('/api/case', { ref, i: state.caseIndex })
+            output.append(text('h3', null, `${detail.key} · ${detail.status}`))
+            output.append(text('p', 'dim', `${detail.records} related records; the panes below update as JSONL is appended.`))
+            if (detail.prompt) output.append(section('input prompt', preJson(detail.prompt)))
+            if (detail.response) output.append(section('model output', preJson(detail.response)))
+            output.append(section('gate / trajectory records', preJson(detail.records)))
+        }
+        if (snapshot.status && snapshot.status !== 'running') stopLiveRefresh()
+    } catch (error) {
+        target.replaceChildren(text('p', 'status-bad', `live view unavailable: ${error.message || error}`))
+    }
+}
+
+async function showLive(ref = state.ref) {
+    stopLiveRefresh()
+    state.view = 'live'
+    if (ref) state.ref = ref
+    libraryNav()
+    viewHeader('live run', state.ref || 'no active run')
+    const content = el('content')
+    if (!state.ref) { content.replaceChildren(text('p', 'empty', 'No run selected.')); return }
+    const controls = text('div', 'live-controls')
+    const select = document.createElement('select')
+    for (const item of state.library?.active_progress || []) {
+        const option = document.createElement('option')
+        option.value = item.ref
+        option.textContent = item.ref
+        select.append(option)
+    }
+    select.value = state.ref
+    select.onchange = () => showLive(select.value)
+    controls.append(text('span', 'dim', 'follow'), select, linkButton('stop live refresh', stopLiveRefresh))
+    const target = text('div', 'live-target')
+    content.replaceChildren(controls, target)
+    await refreshLive(state.ref, target)
+    if (!state.liveTimer) state.liveTimer = setInterval(() => refreshLive(state.ref, target), 2000)
+    writeHash()
 }
 
 async function showFlow(id = 'production') {
@@ -582,7 +738,7 @@ async function showFlow(id = 'production') {
         const box = text('article', `flow-node ${node.kind || ''}`)
         box.append(text('strong', null, node.label), text('p', 'dim', node.detail))
         if (node.experiments) box.append(text('p', 'dim', `evidence: ${node.experiments.join(' · ')}`))
-        const action = node.repo ? linkButton(`open ${node.repo} source`, () => showSources(node.repo)) : node.path ? linkButton('open related record', () => showResearchFile(node.path)) : null
+        const action = node.repo ? linkButton(`open ${node.repo} source`, () => showSources(node.repo)) : node.path === 'artifacts/isa' ? linkButton('open backend documents', () => showDocuments('backend')) : node.path ? linkButton('open related record', () => showResearchFile(node.path)) : null
         if (action) box.append(action)
         chart.append(box)
         if (i + 1 < data.nodes.length) chart.append(text('div', 'flow-arrow', '↓'))
@@ -787,6 +943,8 @@ async function showResearchFile(file) {
 
 async function showView(view) {
     if (view === 'run') return loadRun(state.ref || state.root?.focus)
+    if (view === 'documents') return showDocuments()
+    if (view === 'live') return showLive()
     if (view === 'rules') return showRules()
     if (view === 'flows') return showFlow()
     if (view === 'sources') return showSources()
@@ -796,9 +954,7 @@ async function showView(view) {
 
 el('nav-toggle').onclick = () => setNav(!document.body.classList.contains('nav-open'))
 el('nav-scrim').onclick = () => setNav(false)
-for (const button of document.querySelectorAll('#library-nav button[data-view]')) {
-    button.onclick = () => { setNav(false); showView(button.dataset.view) }
-}
+el('home-button').onclick = () => { setNav(false); showLibrary() }
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') setNav(false)
 })

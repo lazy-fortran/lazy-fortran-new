@@ -39,6 +39,9 @@ Each applicable cell begins with reasoning off. A failed cell receives at most
 one fresh reasoning-on episode under its existing finite budget. The trace is
 append-only and records every model turn, native tool call, source byte range,
 submission, rejection, retry, token count, wall time and terminal status.
+The fixed-pointer local runner uses a completion budget of at least 768 tokens;
+128 tokens is retained only as a failed harness control because it truncated
+valid JSON outputs.
 
 The deterministic side performs source segmentation, citation and hash checks,
 cross-reference resolution, predicate/schema validation, witness construction,

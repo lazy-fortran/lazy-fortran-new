@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
 import { classify, indexRunDirectory, listRuns, resolveRun, type Kind } from './index.mts'
 import { gutter, highlight, tsvTable } from './highlight.mts'
 import { loadProvenance, manifestForFile, resolveReference, type Provenance } from './provenance.mts'
-import { caseDetail, cases, flow, flows, isaFile, library, progress, ruleRegister, sourceFile } from './research.mts'
+import { caseDetail, cases, documents, flow, flows, isaFile, library, libraryFile, progress, ruleRegister, sourceFile } from './research.mts'
 import { parseSx, summarize, type SxDocument, type SxNode } from './sx.mts'
 import { resolveInRoot } from './paths.mts'
 
@@ -283,6 +283,18 @@ export function startServer(opts: ServerOptions): http.Server {
                 return
             }
 
+            if (url.pathname === '/api/library-documents') {
+                json(res, 200, { documents: documents(opts.repoRoot, opts.root) })
+                return
+            }
+
+            if (url.pathname === '/api/library-file') {
+                const selected = libraryFile(opts.repoRoot, opts.root, query.get('id') ?? '')
+                if ('error' in selected) { json(res, 404, selected); return }
+                json(res, 200, { ...externalView(selected.abs, selected.path, selected.manifest ?? null), fields: selected.fields ?? {} })
+                return
+            }
+
             if (url.pathname === '/api/repos') {
                 const data = library(opts.repoRoot, opts.root, loadProvenance(opts.repoRoot))
                 json(res, 200, { repos: data.production_repos ?? [] })
@@ -371,6 +383,18 @@ export function startServer(opts: ServerOptions): http.Server {
                 const entry = indexRunDirectory(run.abs, run.ref).entries.find((item) => item.rel === rel)
                 const type = entry?.kind === 'pdf' ? 'application/pdf' : 'text/plain; charset=utf-8'
                 send(res, 200, type, buffer.subarray(0, MAX_CONTENT))
+                return
+            }
+
+            if (url.pathname === '/library-raw') {
+                const selected = libraryFile(opts.repoRoot, opts.root, query.get('id') ?? '')
+                if ('error' in selected) {
+                    send(res, 404, 'text/plain; charset=utf-8', `${selected.error}\n`)
+                    return
+                }
+                const ext = path.extname(selected.abs).toLowerCase()
+                const type = ext === '.pdf' ? 'application/pdf' : 'application/octet-stream'
+                send(res, 200, type, fs.readFileSync(selected.abs).subarray(0, MAX_CONTENT))
                 return
             }
 

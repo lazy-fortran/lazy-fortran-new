@@ -198,6 +198,115 @@ function requireHash(file: string): string {
     return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
 }
 
+function artifactCache(repoRoot: string, category: string, name: string): { abs: string; manifest: string; fields: Record<string, string> } | null {
+    const manifest = path.join(repoRoot, 'artifacts', category, `${name}.toml`)
+    if (!fs.existsSync(manifest)) return null
+    const fields = parseFlatToml(readText(manifest, 64 * 1024))
+    const urlPath = (fields.url || '').split('?')[0]
+    const ext = urlPath.endsWith('.tar.gz') ? 'gz' : (urlPath.split('.').pop() || 'bin')
+    const suffix = ['pdf', 'zip', 'gz', 'xz', 'zst', 'tar', 'json', 'xml', 'txt'].includes(ext) ? ext : 'bin'
+    const abs = path.join(repoRoot, '.cache', `${fields.name || name}.${suffix}`)
+    try {
+        if (!fs.statSync(abs).isFile()) return null
+        if (fields.sha256 && requireHash(abs) !== fields.sha256) return null
+    } catch { return null }
+    return { abs, manifest: path.relative(repoRoot, manifest), fields }
+}
+
+type LibraryDocument = {
+    id: string
+    title: string
+    level: string
+    kind: string
+    description: string
+    available: boolean
+    ref?: string
+    path?: string
+    research_path?: string
+    artifact?: string
+    manifest?: string
+}
+
+function libraryDocuments(repoRoot: string, root: string): LibraryDocument[] {
+    const out: LibraryDocument[] = []
+    const addRun = (id: string, title: string, level: string, ref: string, file: string, description: string) => {
+        const run = resolveRun(root, ref)
+        let available = false
+        if (run.ok) {
+            try { available = fs.statSync(path.join(run.abs, file)).isFile() } catch { /* absent output */ }
+        }
+        out.push({ id, title, level, kind: path.extname(file).slice(1) || 'text', description, available, ref, path: file })
+    }
+    const addResearch = (id: string, title: string, level: string, file: string, description: string) => {
+        const available = fs.existsSync(path.join(repoRoot, file))
+        out.push({ id, title, level, kind: path.extname(file).slice(1) || 'text', description, available, research_path: file })
+    }
+    const standard = artifactCache(repoRoot, 'standards', 'j3-24-007')
+    out.push({
+        id: 'standard-pdf', title: 'Fortran 2023 working draft — J3/24-007', level: 'standard', kind: 'pdf',
+        description: 'Pinned normative PDF. Every StandardIR source citation ultimately points here.',
+        available: Boolean(standard), artifact: standard?.fields.name || 'j3-24-007', manifest: standard?.manifest,
+    })
+    addRun('canonical-text', 'Canonical extracted standard text', 'standard', 'E0001/R000003', 'j3-24-007.canonical.txt', 'Lossless geometric reading-order text used by deterministic extraction.')
+    addRun('page-index', 'Canonical page index', 'standard', 'E0001/R000003', 'j3-24-007.pages.index', 'Page and byte boundaries used to reconstruct source citations.')
+    addRun('standardir-core', 'Complete-core StandardIR SX', 'standardir', 'E0013/R000002', 'j3-24-007.standardir.sx', 'The source-backed canonical syntax record set.')
+    addRun('standardir-integrated', 'Integrated StandardIR syntax', 'standardir', 'E0074/R000001', 'integrated-syntax.sx', 'Composite syntax input after deterministic source-defined name closure.')
+    addRun('grammar-ebnf', 'Generated EBNF', 'grammar', 'E0074/R000001', 'integrated.ebnf', 'Human-readable grammar projection with provenance.')
+    addRun('grammar-antlr', 'Generated ANTLR4 grammar', 'grammar', 'E0074/R000001', 'integrated.g4', 'ANTLR4 compatibility export; not normative input.')
+    addRun('grammar-bison', 'Generated Bison grammar', 'grammar', 'E0074/R000001', 'integrated.y', 'Bison compatibility export; not normative input.')
+    addRun('grammar-treesitter', 'Generated tree-sitter grammar', 'grammar', 'E0074/R000001', 'treesitter/grammar.js', 'tree-sitter compatibility export; not normative input.')
+    addRun('semantic-facts', 'Semantic fact ledger', 'semantic', 'E0074/R000001', 'semantic-facts.tsv', 'Source-linked semantic facts and explicit resolution states.')
+    addRun('semantic-residue', 'Unresolved semantic residue', 'semantic', 'E0074/R000001', 'unresolved-summary.tsv', 'The retained residue that drives the bounded model experiments.')
+    addResearch('design', 'Architecture and IR contracts', 'standardir', 'DESIGN.md', 'StandardIR, ImplIR, generated wiring and repository boundaries.')
+    addResearch('roadmap', 'Current cross-repository roadmap', 'project', 'ROADMAP.md', 'What is complete, active, blocked and next.')
+    addResearch('standardir-roadmap', 'StandardIR lane roadmap', 'standardir', 'roadmaps/standardir.md', 'Detailed frontend/specification progress and gates.')
+    addResearch('self-hosting', 'IR and self-hosting plan', 'mir', 'docs/self-hosting.md', 'The StandardIR → frontend → MIR bootstrap boundary.')
+    addResearch('whitepaper', 'Program thesis', 'project', 'WHITEPAPER.md', 'Why normative specifications can generate compiler infrastructure.')
+    for (const doc of runDocuments(root)) {
+        const lower = `${doc.path}`.toLowerCase()
+        if (!/mir|targetir|target|reloc|register|instruction|elf/.test(lower)) continue
+        if (out.some((item) => item.ref === doc.ref && item.path === doc.path)) continue
+        out.push({
+            id: `artifact-${String(doc.ref).replace(/[^A-Za-z0-9]/g, '-')}-${String(doc.path).replace(/[^A-Za-z0-9]/g, '-')}`,
+            title: `${doc.ref} / ${doc.path}`,
+            level: /mir/.test(lower) ? 'mir' : 'backend', kind: String(doc.kind), description: 'Generated run artifact; open it with its provenance and source context.',
+            available: true, ref: String(doc.ref), path: String(doc.path),
+        })
+        if (out.length >= 180) break
+    }
+    return out
+}
+
+export function documents(repoRoot: string, root: string): LibraryDocument[] {
+    return libraryDocuments(repoRoot, root)
+}
+
+export function libraryFile(repoRoot: string, root: string, id: string): { abs: string; path: string; manifest?: string; fields?: Record<string, string> } | { error: string } {
+    const item = libraryDocuments(repoRoot, root).find((doc) => doc.id === id)
+    if (!item) return { error: 'unknown library document' }
+    if (!item.available) return { error: 'document is not available in the current cache' }
+    if (item.artifact) {
+        const artifact = artifactCache(repoRoot, 'standards', item.artifact) ?? artifactCache(repoRoot, 'isa', item.artifact)
+        if (!artifact) return { error: 'document cache is absent or fails its manifest hash' }
+        return { abs: artifact.abs, path: path.basename(artifact.abs), manifest: artifact.manifest, fields: artifact.fields }
+    }
+    if (item.research_path) {
+        return { abs: path.join(repoRoot, item.research_path), path: item.research_path }
+    }
+    if (item.ref && item.path) {
+        const run = resolveRun(root, item.ref)
+        if (!run.ok) return { error: run.reason }
+        const abs = path.resolve(run.abs, item.path)
+        const realRoot = fs.realpathSync(run.abs)
+        let real: string
+        try { real = fs.realpathSync(abs) } catch { return { error: 'run artifact is absent' } }
+        if (real !== realRoot && !real.startsWith(`${realRoot}${path.sep}`)) return { error: 'run artifact escapes its run directory' }
+        if (!fs.statSync(real).isFile()) return { error: 'not a file' }
+        return { abs: real, path: `${item.ref}/${item.path}` }
+    }
+    return { error: 'document has no readable location' }
+}
+
 function productionRepos(repoRoot: string): Record<string, unknown>[] {
     const fields = parseFlatToml(readText(path.join(repoRoot, 'repos.toml'), 64 * 1024))
     const entries = ['standard', 'frontend', 'compiler', 'backend']
@@ -312,6 +421,7 @@ export function library(repoRoot: string, root: string, provenance = loadProvena
         generated_at: new Date().toISOString(),
         progress: progressLanes(repoRoot),
         flows: flows(),
+        documents: libraryDocuments(repoRoot, root),
         experiments,
         decisions: decisions(repoRoot),
         isa_sources: artifactSources(repoRoot),
@@ -322,7 +432,7 @@ export function library(repoRoot: string, root: string, provenance = loadProvena
             method: run.method, representation: run.representation, artifact: run.artifact,
             source: run.source,
         })),
-        documents: runDocuments(root),
+        run_documents: runDocuments(root),
         roadmap: readText(path.join(repoRoot, 'ROADMAP.md'), 32 * 1024),
     }
 }
@@ -437,7 +547,9 @@ export function cases(root: string, ref: string): Record<string, unknown>[] {
     return [...new Set(base)].map((key, index) => {
         const rows = records.get(key) ?? []
         const terminal = rows.find((item) => ['accepted', 'abstain', 'hard_failure', 'unresolved', 'reference-only'].includes(String(item.row.status)))
-        return { index, key, status: terminal?.row.status ?? 'pending', records: rows.length }
+        const response = rows.find((item) => item.file === 'responses.jsonl')?.row
+        const prompt = rows.find((item) => item.file.includes('prompts'))?.row
+        return { index, key, status: terminal?.row.status ?? response?.decision ?? prompt?.classification ?? 'pending', records: rows.length }
     })
 }
 
@@ -448,7 +560,7 @@ export function caseDetail(root: string, ref: string, index: number): Record<str
     const selected = available[index]
     if (!selected) return { error: 'no such case' }
     const records = caseRecords(run).get(String(selected.key)) ?? []
-    const prompt = records.find((item) => item.file === 'prompts.jsonl')?.row ?? null
+    const prompt = records.find((item) => item.file.includes('prompts'))?.row ?? null
     const response = records.find((item) => item.file === 'responses.jsonl')?.row ?? null
     return { ...selected, prompt, response, records }
 }

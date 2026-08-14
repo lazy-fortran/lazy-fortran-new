@@ -229,6 +229,13 @@ def jsonl_write(path, records):
             stream.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
 
 
+def jsonl_append(path, record):
+    """Publish one completed record so a read-only viewer can follow a run."""
+    with Path(path).open("a", encoding="utf-8", newline="\n") as stream:
+        stream.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
+        stream.flush()
+
+
 def write_progress(
     path,
     *,

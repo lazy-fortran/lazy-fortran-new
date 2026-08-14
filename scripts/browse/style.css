@@ -57,20 +57,43 @@ header {
     font-weight: 600;
 }
 
-.header-nav {
-    display: inline-flex;
-    gap: 4px;
-    overflow-x: auto;
-    scrollbar-width: none;
-}
-
-.header-nav::-webkit-scrollbar {
-    display: none;
-}
-
-.header-nav button.on {
+#home-button {
     color: var(--accent);
-    border-color: var(--accent);
+}
+
+#run-tools {
+    position: relative;
+}
+
+#run-tools summary {
+    cursor: pointer;
+    color: var(--dim);
+    padding: 2px 6px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    list-style: none;
+}
+
+#run-tools summary::before {
+    content: "▸ ";
+}
+
+#run-tools[open] summary::before {
+    content: "▾ ";
+}
+
+.run-tools-body {
+    position: absolute;
+    z-index: 12;
+    top: calc(100% + 5px);
+    left: 0;
+    display: flex;
+    gap: 6px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    box-shadow: 0 8px 20px #0008;
+    min-width: 320px;
 }
 
 .grow {
@@ -411,6 +434,206 @@ table.tsv th {
     border: 1px solid var(--line);
     background: var(--panel);
     overflow-wrap: anywhere;
+}
+
+.section-title {
+    margin: 18px 10px 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+}
+
+.progress-summary {
+    color: var(--accent) !important;
+    font-size: 16px;
+}
+
+.entry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.entry-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    min-height: 82px;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.entry-card:hover,
+.entry-card:focus-visible {
+    border-color: var(--accent);
+}
+
+.current-run-card,
+.document-intro,
+.home-section {
+    margin: 12px 10px;
+    padding: 10px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.current-run-card p,
+.document-intro p {
+    margin: 4px 0;
+}
+
+.home-section > summary {
+    cursor: pointer;
+    color: var(--accent);
+}
+
+.document-list {
+    display: grid;
+    gap: 6px;
+    padding: 0 10px 12px;
+}
+
+.document-row {
+    padding: 10px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.document-row p {
+    margin: 4px 0;
+}
+
+.document-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.document-kind,
+.document-location {
+    color: var(--dim);
+    overflow-wrap: anywhere;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 3px 7px;
+    color: var(--fg);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.button-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.pdf-viewer {
+    display: block;
+    width: calc(100% - 20px);
+    height: min(78vh, 900px);
+    margin: 10px;
+    border: 1px solid var(--line);
+    background: #fff;
+}
+
+.document-code {
+    min-height: 40vh;
+}
+
+.live-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+}
+
+.live-controls select {
+    min-width: min(560px, 100%);
+}
+
+.live-summary {
+    margin: 10px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.live-summary h1 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.live-summary p {
+    margin: 4px 0;
+}
+
+.live-columns {
+    display: grid;
+    grid-template-columns: minmax(200px, 0.8fr) minmax(0, 2fr);
+    min-height: 60vh;
+}
+
+.live-case-list {
+    overflow: auto;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.live-case-list h2,
+.live-case-output h2 {
+    margin: 10px;
+    font-size: 12px;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.live-case-list button {
+    display: block;
+    width: calc(100% - 12px);
+    margin: 3px 6px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.live-case-list button.on {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.live-case-output {
+    min-width: 0;
+    overflow: auto;
+    padding-bottom: 20px;
+}
+
+.live-case-output h3,
+.live-case-output > p {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.live-case-output details {
+    margin: 8px 10px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.live-case-output details > summary {
+    cursor: pointer;
+    padding: 7px;
+    color: var(--accent);
 }
 
 .library-intro h1 {
@@ -785,13 +1008,24 @@ table.tsv th {
         margin-left: 18px;
     }
 
-    .header-nav {
+    #run-tools {
         order: 5;
-        flex: 1 1 100%;
     }
 
-    .header-nav button {
-        flex: 1 1 auto;
+    .run-tools-body {
+        position: fixed;
+        top: 78px;
+        left: 10px;
+        right: 10px;
+        min-width: 0;
+        flex-wrap: wrap;
+    }
+
+    .run-tools-body select,
+    .run-tools-body form,
+    .run-tools-body input {
+        min-width: 0;
+        flex: 1 1 100%;
     }
 
     .source-browser {
@@ -807,6 +1041,24 @@ table.tsv th {
 
     .source-view {
         min-height: 300px;
+    }
+
+    .entry-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .document-head {
+        flex-direction: column;
+    }
+
+    .live-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .live-case-list {
+        max-height: 36vh;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
     }
 
     .progress-grid,
