@@ -1,7 +1,7 @@
 # D0039. A disposable local browser for generated run artifacts
 
 Date: 2026-08-13
-Status: accepted
+Status: superseded by D0082
 
 ## Context
 

@@ -5,6 +5,8 @@ import csv
 import hashlib
 import json
 import re
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -225,3 +227,40 @@ def jsonl_write(path, records):
     with Path(path).open("w", encoding="utf-8", newline="\n") as stream:
         for record in records:
             stream.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def write_progress(
+    path,
+    *,
+    total,
+    completed,
+    started_monotonic,
+    started_at,
+    current=None,
+    model_errors=0,
+    status="running",
+):
+    """Publish a crash-tolerant progress snapshot for a local model cell."""
+    elapsed = max(0.0, time.monotonic() - started_monotonic)
+    rate = completed / elapsed if completed and elapsed else 0.0
+    remaining = max(0, total - completed)
+    eta = remaining / rate if rate and remaining else 0.0
+    snapshot = {
+        "status": status,
+        "total": total,
+        "completed": completed,
+        "remaining": remaining,
+        "current": current,
+        "model_errors": model_errors,
+        "started_at": started_at,
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "elapsed_s": elapsed,
+        "rows_per_s": rate,
+        "eta_s": eta,
+    }
+    destination = Path(path)
+    temporary = destination.with_name(destination.name + ".tmp")
+    temporary.write_text(
+        json.dumps(snapshot, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    temporary.replace(destination)

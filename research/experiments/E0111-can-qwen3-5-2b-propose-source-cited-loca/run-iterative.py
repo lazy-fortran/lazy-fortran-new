@@ -6,6 +6,7 @@ import importlib.util
 import json
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -87,8 +88,8 @@ def response_from_api(args, item):
             item["name"], True, len(item.get("windows", [])), True
         ),
     }
+    runner.apply_reasoning_control(payload, args.thinking, args.deepseek_cloud)
     if args.deepseek_cloud:
-        payload["thinking"] = {"type": "disabled" if args.thinking == "off" else "enabled"}
         payload["response_format"] = {"type": "json_object"}
     result = runner.call_api(args.api_url, payload, args.timeout, args.api_key_env)
     choices = result.get("choices") if isinstance(result, dict) else None
@@ -126,6 +127,15 @@ def main():
         raise SystemExit("E0113 iterative runner: invalid temperature or top-p")
     try:
         prompts = runner.load_prompts(args.prompts)
+        progress_path = Path(args.outdir) / "progress.json"
+        started_at = datetime.now(timezone.utc).isoformat()
+        runner.write_progress(
+            progress_path,
+            total=len(prompts),
+            completed=0,
+            started_monotonic=total_started,
+            started_at=started_at,
+        )
         raw = validator.load_canonical(args.canonical, args.source_sha256)
         ranges = validator.load_page_index(args.pages, len(raw))
         residue = validator.load_residue(args.residue)
@@ -234,6 +244,17 @@ def main():
                     "oracle": oracle,
                 }
             )
+            runner.write_progress(
+                progress_path,
+                total=len(prompts),
+                completed=len(results),
+                started_monotonic=total_started,
+                started_at=started_at,
+                current=(
+                    prompts[len(results)]["name"] if len(results) < len(prompts) else None
+                ),
+                model_errors=len(model_errors),
+            )
         inference_wall = time.monotonic() - inference_started
         expected_by_name = {item["name"]: item for item in e0110}
         overlap_agreements = sum(
@@ -309,6 +330,15 @@ def main():
                 stream.write(f"{key}\t{value}\n")
         (outdir / "run-config.json").write_text(
             json.dumps(vars(args), indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        runner.write_progress(
+            progress_path,
+            total=len(prompts),
+            completed=len(results),
+            started_monotonic=total_started,
+            started_at=started_at,
+            model_errors=len(model_errors),
+            status="completed",
         )
         print(json.dumps(summary, sort_keys=True))
     except (runner.InputError, validator.InputError, OSError, ValueError) as exc:

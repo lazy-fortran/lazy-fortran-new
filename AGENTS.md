@@ -10,10 +10,13 @@ General Fortran, git, and agent rules live in `~/code/prompts/AGENTS.md` and
 is specific to this repository.
 
 **The forbidden direction.** This repository must not grow a compiler, a
-service, a database, a dashboard, or an orchestration framework. Research state
-is Markdown, TOML, JSON and JSONL in git. If `git grep`, GitHub search, or a
-generated static index can answer a question, that is the answer. Do not add a system. When some future pain proves a tool necessary, write a
-decision record first.
+database, or an orchestration framework. Research state is Markdown, TOML, JSON
+and JSONL in git. If `git grep`, GitHub search, or a generated static index can
+answer a question, that is the answer. Do not add a system. When some future
+pain proves a tool necessary, write a decision record first. The accepted
+successor D0082 permits one disposable, read-only, loopback research-library
+view in `scripts/browse/`; it may not write state, trigger work, expose
+arbitrary paths, or become a production service.
 
 ## Layout
 

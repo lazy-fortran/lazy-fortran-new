@@ -1,0 +1,58 @@
+id: "E0144"
+title: "Transactional generic grammar-session pushes"
+question: >
+  Can the generic grammar session keep failed frontier pushes transactional?
+status: reported        # draft | running | reported | abandoned
+opened: "2026-08-14"
+closed: "2026-08-14"
+reported_run: R000256
+reported_runs: [R000256]
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "4a2619d"
+  fortfront-new: "db5eaec"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: grammar-frontier-v0
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  failure: [malformed_token, undersized_output]
+  retry: [valid_after_failure]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model calls; deterministic parser-neutral session behavior."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - failed push leaves session input unchanged
+  - output count and contents are cleared on failure
+  - valid retry produces the expected frontier outcome
+  - fo warnings
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: "Independent malformed-token and undersized-output session witnesses."
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: "Independently authored retry and capacity witnesses plus the full fortfront-new fo gate."
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: "A failed push changes the session, a retry sees stale state, or the full fo gate fails."
+
+# The condition that closes the experiment and the evidence it must report.
+gate: "Both failure controls are transactional, valid retry behavior is preserved, and full fo passes with zero warnings."
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: "Run the production test and full fo; record the immutable result in research/runs/2026-08.jsonl."

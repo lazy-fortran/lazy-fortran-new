@@ -4,11 +4,13 @@
 import argparse
 import json
 import os
+import time
 import urllib.error
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
-from e0111_common import InputError, jsonl_write
+from e0111_common import InputError, jsonl_write, write_progress
 
 
 DEFAULT_MODEL = "Qwen/Qwen3.5-2B"
@@ -96,6 +98,15 @@ def call_api(url, payload, timeout, api_key_env):
         raise InputError(f"llama.cpp API request failed: {exc}") from exc
 
 
+def apply_reasoning_control(payload, thinking, deepseek_cloud=False):
+    """Apply the provider-specific per-request reasoning control."""
+    if deepseek_cloud:
+        payload["thinking"] = {"type": "disabled" if thinking == "off" else "enabled"}
+    else:
+        payload["chat_template_kwargs"] = {"enable_thinking": thinking == "on"}
+    return payload
+
+
 def response_format(name, pointer_mode, window_count, pointer_only=False):
     if not pointer_mode and not pointer_only:
         return {"type": "json_object"}
@@ -132,6 +143,16 @@ def main():
         prompts = load_prompts(args.prompts)
         responses = []
         errors = []
+        progress_path = Path(args.responses).with_name("progress.json")
+        started_monotonic = time.monotonic()
+        started_at = datetime.now(timezone.utc).isoformat()
+        write_progress(
+            progress_path,
+            total=len(prompts),
+            completed=0,
+            started_monotonic=started_monotonic,
+            started_at=started_at,
+        )
         for item in prompts:
             payload = {
                 "model": args.model,
@@ -149,10 +170,10 @@ def main():
                 ),
             }
             if args.deepseek_cloud:
-                payload["thinking"] = {
-                    "type": "disabled" if args.thinking == "off" else "enabled"
-                }
+                apply_reasoning_control(payload, args.thinking, deepseek_cloud=True)
                 payload["response_format"] = {"type": "json_object"}
+            else:
+                apply_reasoning_control(payload, args.thinking)
             try:
                 result = call_api(args.api_url, payload, args.timeout, args.api_key_env)
                 choices = result.get("choices") if isinstance(result, dict) else None
@@ -171,6 +192,19 @@ def main():
             except (InputError, json.JSONDecodeError, TypeError) as exc:
                 errors.append({"name": item["name"], "error": str(exc)})
                 responses.append({"name": item["name"], "decision": "abstain"})
+            write_progress(
+                progress_path,
+                total=len(prompts),
+                completed=len(responses),
+                started_monotonic=started_monotonic,
+                started_at=started_at,
+                current=(
+                    prompts[len(responses)]["name"]
+                    if len(responses) < len(prompts)
+                    else None
+                ),
+                model_errors=len(errors),
+            )
         jsonl_write(args.responses, responses)
         errors_path = Path(args.responses).with_name("model-errors.jsonl")
         jsonl_write(errors_path, errors)
@@ -205,6 +239,15 @@ def main():
             )
             + "\n",
             encoding="utf-8",
+        )
+        write_progress(
+            progress_path,
+            total=len(prompts),
+            completed=len(responses),
+            started_monotonic=started_monotonic,
+            started_at=started_at,
+            model_errors=len(errors),
+            status="completed",
         )
         print(f"wrote {len(responses)} llama.cpp responses to {args.responses}")
     except (InputError, OSError) as exc:

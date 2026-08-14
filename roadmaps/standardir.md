@@ -197,8 +197,10 @@ source-backed semantic-items SX. It preserves insertion order, provenance and
 explicit resolution states, rejects malformed provenance and enums, and clears
 failed output. It is a transport and validation boundary only: it does not
 discover, infer or promote semantic facts. E0142 is the active semantic
-replication experiment; E0123 remains an unreported predecessor until its
-deterministic post-run gates complete.
+replication experiment; E0123 is reported as `R000254` after its deterministic
+post-run merge, replay validator and independent witness gate. Its 69
+unwitnessed and 94 disputed rows remain evidence and no semantic fact was
+promoted.
 
 ## Exit and handoff
 

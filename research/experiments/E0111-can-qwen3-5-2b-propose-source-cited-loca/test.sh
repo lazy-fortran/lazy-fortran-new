@@ -60,3 +60,4 @@ python3 "$exp/validate-responses.py" "$tmp/pointer-only-responses.jsonl" \
     --outdir "$tmp/pointer-only-validated"
 echo "E0113 full-retrieval pointer-only gate passed"
 python3 "$exp/test-iterative.py"
+python3 "$exp/test-reasoning-control.py"

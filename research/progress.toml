@@ -1,0 +1,46 @@
+# Tracked evidence gates for the unified browser.
+# Refresh rule: the coordinator updates these values only after a named gate is
+# accepted in ROADMAP.md and recorded in research/runs/*.jsonl. They are not
+# lines-of-code coverage and the unweighted total is only an orientation aid.
+
+[lanes.syntax]
+title = "StandardIR syntax and grammar exports"
+completed = 5
+total = 5
+basis = "Five evidence gates: extraction, canonical SX, EBNF, ANTLR/Bison, tree-sitter and differential export checks."
+evidence = "E0013|E0016|E0017|E0018|E0019|E0129|E0134"
+
+[lanes.semantic]
+title = "Normative definitions and static semantics"
+completed = 1
+total = 4
+basis = "Source-backed semantic ledger exists; mechanical closure, witnessed promotion and full semantic execution remain separate gates."
+evidence = "E0141|E0115|E0116|E0117|E0123|E0142"
+
+[lanes.frontend]
+title = "Generated frontend"
+completed = 2
+total = 5
+basis = "AST/frontier contracts and bounded parser transitions exist; complete generated Fortran frontend integration is not claimed."
+evidence = "E0071|E0130|E0137|E0138|E0144"
+
+[lanes.mir]
+title = "Target-independent MIR"
+completed = 2
+total = 5
+basis = "MIR-v0 inventory, canonical round-trip, block ranges and partitions exist; the stable production contract is still open."
+evidence = "E0128|E0132|E0135|E0140|E0145"
+
+[lanes.backend]
+title = "TargetIR and generated backend"
+completed = 2
+total = 5
+basis = "Source provenance and normalized TargetIR metadata are exercised; codecs, ABI/object emission and selection remain."
+evidence = "E0127|E0131|E0136|E0139|E0146"
+
+[lanes.integration]
+title = "Frontend → MIR → backend integration"
+completed = 0
+total = 3
+basis = "No end-to-end generated compiler or self-hosting gate is counted yet."
+evidence = "ROADMAP.md|docs/self-hosting.md"

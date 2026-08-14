@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Read-only local browser for the generated artifacts in .cache/runs.
+# Read-only local research library for repository evidence and generated
+# artifacts in .cache/runs.
 #
-# Decision record: research/decisions/D0039-disposable-local-artifact-browser.md.
+# Decision record: research/decisions/D0082-unified-research-library-browser.md.
 # The tool writes nothing, stores nothing, binds loopback only and is not part
-# of any gate. Delete scripts/browse.sh and scripts/browse/ and nothing here
+# of any gate. Delete scripts/browse.sh and scripts/browse/ and no research state
 # fails.
 #
 #   scripts/browse.sh serve --run E0074/R000001

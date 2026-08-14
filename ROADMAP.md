@@ -33,8 +33,10 @@ E0131 is accepted as `R000239` at `fortback-new` commit
 RISC-V/AArch64 source normalization. E0130 is accepted as `R000240` at
 `fortfront-new` commit `5fda6dc7858f268ac82cf8ad81e8a1483df4449f`, providing a
 bounded parser-neutral frontier that preserves accepted, rejected, ambiguous
-and unresolved outcomes. E0142 is now the active M3 model replication; E0123's
-model phase is complete and its deterministic post-run gate remains pending.
+and unresolved outcomes. E0142 is now the active M3 model replication. E0123
+is reported as `R000254`: its exact merge, replay validator and witness gate
+completed without row loss, but 69 rows remain unwitnessed and 94 disputed, so
+it promotes no semantic fact and does not close M3.
 E0133 is
 accepted as `R000241` at `fortback-new` commit
 `deb66f94126143d76ea25c1faf197d5150c7c0f4`: no additional parsed family is
@@ -47,7 +49,8 @@ existing `standard-new` commit `25486db92b0805201fa90104dc6f637ecce84942`:
 the 519-record accepted composite emits all four grammar formats with 519
 provenance annotations, while the three source-only records remain explicit.
 E0142 is the active M3 model gate; the production slices do not block its
-semantic result. E0123's post-run merge and witness gate remain pending.
+semantic result. E0123's deterministic post-run gate is complete as `R000254`;
+its unresolved, disputed and unwitnessed outcomes remain part of the evidence.
 E0135 is accepted as `R000247` at `ffc-new` commit
 `335629b753f440b2960bf9fef0e6b275094c79ec`, adding a target-independent
 in-memory block-range table without revising `mir-v0`. E0136 is accepted as
@@ -73,8 +76,16 @@ E0141 is accepted as `R000252` at `standard-new`
 `5121aa5d79b988c1d0a62bae006288801449f64d`: `sxsemantic` canonically and
 transactionally consumes source-backed semantic-items SX, preserving
 provenance and explicit resolution states without inferring semantic content.
+The parallel production wave is also complete: E0143/R000255 adds
+transactional StandardIR grammar-cycle rejection at `standard-new` `cc8a7e1`,
+E0144/R000256 makes the generic grammar session push transactional at
+`fortfront-new` `db5eaec`, E0145/R000257 adds exact canonical SX-size reporting
+at `ffc-new` `3253849`, and E0146/R000258 adds the generic TargetIR source-origin
+query at `fortback-new` `a149015`. All four passed full `fo` with zero warnings;
+their task branches and worktrees are removed. These slices remain independent
+of semantic promotion.
 
-E0142 is the next planned, unstarted model replication. New local runs use the
+E0142 is the active model replication. New local runs use the
 logical `qwen38-27b` profile through the externally managed
 `http://127.0.0.1:8080/v1/chat/completions` endpoint; the harness does not
 start, stop, reload or reconfigure that service. It repeats the fixed-window,
@@ -83,6 +94,16 @@ retry protocols, with one fresh thinking-on episode only after a failed
 reasoning-off episode. Qwen 3.6 35B-A3B remains the historical control, and
 reported manifests and append-only runs are not rewritten. Visual cells are
 terminal `not_applicable` unless preflight proves image capability.
+
+The unified read-only research library is now the single human-facing browser
+for this state. Start it with `scripts/browse.sh serve`; D0082 supersedes the
+run-only browser decision D0039. Its overview derives lane percentages from
+`research/progress.toml`, its rule register spans StandardIR/semantic/MIR/
+TargetIR levels, and its flows/source library connect the standard PDF,
+generated grammars, prompts, production source, ISA/ABI/microarchitecture
+material and backend. It writes no index or database and does not start work.
+The progress numbers are named evidence gates, not code-coverage claims; update
+them only when the corresponding gate is accepted and recorded in the ledger.
 
 **Active replication checklist — E0142 / Qwen 3.8 27B.** The service must be
 available on `127.0.0.1:8080` before the one-shot preflight. The first cell,
@@ -128,12 +149,16 @@ Qwen 3.8 27B against the retained Qwen 3.6 35B-A3B control; no other new model
 is scheduled now.
 
 The current pushed production pins are therefore `standard-new`
-`5121aa5d79b988c1d0a62bae006288801449f64d`, `fortfront-new`
-`268e312dbd8ba11cce00d8581479cf47ec077061`, `ffc-new`
-`5ac3cefe88e8c8a3d71d28533c75686712c4a812`, and `fortback-new`
-`ba96b1337253d104c86f96a91f1b561efea25ef7`. E0142 is the active M3 model
-replication; E0123's completed model phase still requires its deterministic
-post-run gates, and these production slices do not close semantic promotion.
+`cc8a7e1`, `fortfront-new` `db5eaec`, `ffc-new` `3253849`, and `fortback-new`
+`a149015`. E0142 is the active M3 model replication; E0123's deterministic
+post-run gate is reported as `R000254`, and the production slices do not close
+semantic promotion.
+
+The reusable local runner now sends llama.cpp's per-request
+`chat_template_kwargs.enable_thinking` control for both reasoning modes. The
+active E0112 process was launched before that correction and is retained as a
+pre-fix harness result; no later E0142 cell starts until the corrected protocol
+has a terminal, validated E0112 result.
 
 ## Current position
 
@@ -696,14 +721,17 @@ without an accepted model proposal and the 215 rows without an independent
 oracle remain explicit denominator statuses. String-length, count,
 existential and containment terms are now handled by generic machinery; no
 model-specific aliases or semantic promotions were added.
-E0123's model phase is complete in
-`.cache/runs/E0123/R000001/summary.json`, generated by the E0116
-`run-semantic.py` command: all 53 retry rows were processed, with 47
-schema-accepted proposals, four hard failures and two unresolved rows. Its
-deterministic merge, validator, witness gate and exact merge gate remain
-pending, so E0123 is not reported or promoted. E0142 is the next active model
-replication and repeats the seven protocol families listed in the checklist
-above with Qwen 3.8 27B.
+E0123 is reported as `R000254` from
+`.cache/runs/E0123/R000001/summary.json` and
+`.cache/runs/E0123/R000001/analysis/report.json`, generated by the E0116
+`run-semantic.py` command and the deterministic post-run gates. All 53 retry
+rows were processed, the exact 53-row replacement set was verified, all 287
+rows were merged, and the negative control failed as expected. The merged
+ledger has 280 schema/source-gate-accepted rows, 4 hard failures and 2
+unresolved rows; the witness gate reports 69 unwitnessed and 94 disputed rows.
+No semantic fact was promoted. E0142 is the active model replication and
+repeats the seven protocol families listed in the checklist above with Qwen
+3.8 27B.
 
 D0073 fixes the repair boundary for this and later semantic runs: deterministic
 processing may repair transport representation, but may not rewrite predicate
@@ -1525,8 +1553,9 @@ contaminated by an incomplete integration layer.
       Core 0 constraint denominator, with replay and mutation gates; E0116 is
       reported and its unresolved/hard-failure residue is retained
 - [x] E0117: retain source-backed fact witnesses for every E0116 terminal row
-- [ ] E0123: complete the already-run residual retry's exact row-key merge,
-      validator, witness and mutation gates
+- [x] E0123: complete the already-run residual retry's exact row-key merge,
+      validator, witness and mutation gates (`R000254`); retain its unresolved,
+      disputed and unwitnessed outcomes and promote no semantic fact
 - [ ] E0142: repeat E0112, E0113, E0114, E0115, E0116, E0117 and E0123 with
       Qwen 3.8 27B; follow the active replication checklist above
 - [x] `unresolved` and `disputed` states exercised on real clauses, not just

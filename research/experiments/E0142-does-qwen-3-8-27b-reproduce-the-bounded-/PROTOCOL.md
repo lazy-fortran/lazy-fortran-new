@@ -68,6 +68,13 @@ When reproducing an older Qwen 3.6 run, pass its pinned model and endpoint
 explicitly. The new default profile is for new runs only. Historical manifests
 and append-only run records are not rewritten.
 
+The unified evidence browser is `scripts/browse.sh serve`. It is a read-only
+loopback view of the library, not an experiment runner. While a cell is active,
+open its case browser and run-progress card to inspect prompts, responses, gate
+records and the heartbeat/ETA. The rule register, pipeline flows and source
+library connect those cases to StandardIR, MIR, TargetIR, ISA, ABI and
+microarchitecture material without copying it into this experiment.
+
 No later cell is started by creating this file. E0112 is the first active cell;
 its terminal validation must complete before the next protocol is launched.
 Before each cell, pin the preflight values in the run manifest. Adding another
