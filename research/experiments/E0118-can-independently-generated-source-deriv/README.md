@@ -15,20 +15,22 @@ The command writes to the ignored `.cache/runs/E0118/R000001` directory.
 
 ## Independent source predicate
 
-The E0083 table is parsed as an S-expression table by `analyze.py`. Its
+The E0083 table is parsed as an S-expression table by `analyze.py`. The same
+loader also accepts the richer E0120 `source-oracle.tsv` table; the selected
+format is recorded in every case provenance. Its
 predicate AST is separate from the JSON predicate in each E0117 proposal.
-Case materialization reads only the E0083 AST, its source-linked fact names,
+Case materialization reads only the selected oracle AST, its source-linked fact names,
 its literal operands, its declared fact fields, and fixed typed boundaries.
 The E0117 model predicate is evaluated after materialization. Neither model
 witness facts nor model expected Booleans enter the case generator.
 
-`source_expected` is computed from the parsed E0083 AST. A case record also
-contains the independently evaluated `candidate_result`, the E0083 predicate
-text, and the E0083 file hash. A model proposal is compared only when its
-`constraint_id` has an E0083 row. An accepted proposal without that oracle row
+`source_expected` is computed from the parsed oracle AST. A case record also
+contains the independently evaluated `candidate_result`, the oracle predicate
+text, and the oracle file hash. A model proposal is compared only when its
+`constraint_id` has a row in the selected oracle. An accepted proposal without that oracle row
 gets zero cases and `source_case_status: oracle_unavailable`.
 
-The E0083 oracle hash is recorded in `summary.json`, `summary.tsv`, and the
+The selected oracle hash is recorded in `summary.json`, `summary.tsv`, and the
 case provenance. Recompute it with:
 
 ```bash
@@ -48,16 +50,18 @@ The terminal ledger lacks a model-file hash, so each candidate records that
 field as unavailable. This blocks promotion without changing the historical
 ledger.
 
-Finite comparison cases use `match`, `mismatch`, `evaluator_error`, and
-`oracle_unavailable`. Model witness scoring is diagnostic only and uses
+Finite comparison cases use `match`, `mismatch`, `candidate_unavailable`,
+`evaluator_error`, and `oracle_unavailable`. `candidate_unavailable` means the
+model predicate names facts that the independent oracle did not provide; the
+harness does not invent synonyms. Model witness scoring is diagnostic only and uses
 `self_consistent`, `self_inconsistent`, `evaluator_error`, and `not_compared`.
 Unsupported oracle forms remain explicit with their reason.
 
 ## Outputs
 
 - `rows.jsonl` contains the complete row denominator and overlap status.
-- `cases.jsonl` contains only E0083-derived cases for rows with both an E0117
-  proposal and an E0083 oracle row. It contains explicit unavailable records
+- `cases.jsonl` contains only cases derived from rows with both an E0117
+  proposal and a selected oracle row. It contains explicit unavailable records
   where finite derivation fails.
 - `compiler-cells.jsonl` contains unavailable cells for every emitted case and
   each declared compiler. Executable presence does not count as agreement.

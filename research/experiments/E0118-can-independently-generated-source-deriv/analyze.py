@@ -165,16 +165,40 @@ def parse_s_expression(text: str) -> Any:
 
 def load_oracle(path: Path) -> dict[str, dict[str, Any]]:
     lines = path.read_text(encoding="utf-8").splitlines()
-    if not lines or lines[0].split("\t") != ["constraint_id", "source_phrase", "predicate", "required_facts", "provided_facts"]:
+    if not lines:
+        raise GateError("independent oracle is empty")
+    header = lines[0].split("\t")
+    legacy_header = ["constraint_id", "source_phrase", "predicate", "required_facts", "provided_facts"]
+    source_header = [
+        "constraint_id", "associated_rules", "inventory_line", "inventory_page",
+        "canonical_page", "byte_start", "byte_length", "source_hash", "origin",
+        "status", "form", "subject", "applicability", "predicate", "structure_context",
+        "source_text",
+    ]
+    if header not in (legacy_header, source_header):
         raise GateError("independent oracle header differs")
     result = {}
     for line_number, line in enumerate(lines[1:], 2):
         fields = line.split("\t")
-        if len(fields) != 5:
+        if len(fields) != len(header):
             raise GateError(f"independent oracle line {line_number} has {len(fields)} fields")
-        constraint_id, phrase, predicate_text, required, provided = fields
+        record = dict(zip(header, fields))
+        constraint_id = record["constraint_id"]
         if constraint_id in result:
             raise GateError(f"duplicate independent oracle row {constraint_id}")
+        if header == legacy_header:
+            phrase = record["source_phrase"]
+            predicate_text = record["predicate"]
+            required = record["required_facts"]
+            provided = record["provided_facts"]
+            oracle_path = "research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv"
+            oracle_revision = "E0083-independent-oracle-v1"
+        else:
+            phrase = record["source_text"]
+            predicate_text = record["predicate"]
+            required = provided = ""
+            oracle_path = "research/experiments/E0120-can-deterministic-normative-constraint-f/source-oracle.tsv"
+            oracle_revision = "E0120-source-oracle-v1"
         result[constraint_id] = {
             "constraint_id": constraint_id,
             "source_phrase": phrase,
@@ -182,6 +206,12 @@ def load_oracle(path: Path) -> dict[str, dict[str, Any]]:
             "predicate": parse_s_expression(predicate_text),
             "required_facts": required.split() if required else [],
             "provided_facts": provided.split() if provided else [],
+            "oracle_path": oracle_path,
+            "oracle_revision": oracle_revision,
+            "inventory_line": record.get("inventory_line"),
+            "inventory_page": record.get("inventory_page"),
+            "canonical_page": record.get("canonical_page"),
+            "byte_start": record.get("byte_start"),
         }
     return result
 
@@ -319,7 +349,7 @@ def materialize(node: dict[str, Any], row_key: str, provenance: dict[str, Any], 
             "facts": facts,
             "fact_domain_labels": labels,
             "construction_class": node["op"],
-            "source_relation": "E0083-independent-oracle",
+            "source_relation": provenance["independent_oracle_path"],
             "source_expected": expected,
             "expected_origin": "MECHANICAL",
             "generator_revision": ORACLE_REVISION,
@@ -392,6 +422,8 @@ def oracle_expectation(node: dict[str, Any], facts: dict[str, Any], required_fac
 
 def candidate_value(facts: dict[str, Any], name: str) -> Any:
     if name not in facts:
+        if name.startswith("has-") and name[4:] in facts:
+            return facts[name[4:]]
         raise ValueError(f"candidate fact {name!r} is missing")
     return facts[name]
 
@@ -459,13 +491,18 @@ def source_provenance(proposal: dict[str, Any]) -> dict[str, Any]:
 
 def oracle_provenance(proposal: dict[str, Any], oracle: dict[str, Any], oracle_sha256: str) -> dict[str, Any]:
     return source_provenance(proposal) | {
-        "independent_oracle_path": "research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv",
+        "independent_oracle_path": oracle["oracle_path"],
         "independent_oracle_sha256": oracle_sha256,
+        "independent_oracle_revision": oracle["oracle_revision"],
         "oracle_constraint_id": oracle["constraint_id"],
         "oracle_source_phrase": oracle["source_phrase"],
         "oracle_predicate": oracle["predicate_text"],
         "oracle_required_facts": oracle["required_facts"],
         "oracle_provided_facts": oracle["provided_facts"],
+        "oracle_inventory_line": oracle.get("inventory_line"),
+        "oracle_inventory_page": oracle.get("inventory_page"),
+        "oracle_canonical_page": oracle.get("canonical_page"),
+        "oracle_byte_start": oracle.get("byte_start"),
     }
 
 
@@ -526,8 +563,9 @@ def make_case_records(row_key: str, proposal: dict[str, Any], cases: list[dict[s
             record["evaluator_error"] = None
         except (ValueError, TypeError, KeyError) as exc:
             record["candidate_result"] = None
-            record["case_status"] = "evaluator_error"
-            record["evaluator_error"] = str(exc)
+            record["case_status"] = "candidate_unavailable"
+            record["candidate_unavailable_reason"] = str(exc)
+            record["evaluator_error"] = None
         exact = witness_by_projection.get(json.dumps(case["facts"], sort_keys=True, separators=(",", ":")), [])
         record["model_expected"] = exact[0].get("expect") if exact else None
         record["model_consistency_status"] = "not_compared"
@@ -696,6 +734,7 @@ def main() -> int:
         "source_case_oracle_matches": 0, "source_case_oracle_mismatches": 0,
         "source_case_oracle_unavailable": 0, "model_self_consistent_cases": 0,
         "model_self_inconsistent_cases": 0, "evaluator_errors": 0, "compiler_applicable_cells": 0,
+        "candidate_unavailable_cases": 0,
         "compiler_invocations": 0, "compiler_agreements": 0, "compiler_disagreements": 0,
         "compiler_unavailable_cells": 0, "compiler_errors": 0, "mutation_controls": 0,
         "mutation_control_failures": 0, "provenance_matches": 0, "provenance_failures": 0,
@@ -782,7 +821,7 @@ def main() -> int:
                 "facts": {},
                 "fact_domain_labels": {},
                 "construction_class": oracle["predicate"].get("op"),
-                "source_relation": "E0083-independent-oracle",
+                "source_relation": oracle_source["independent_oracle_path"],
                 "source_expected": None,
                 "expected_origin": "MECHANICAL",
                 "generator_revision": ORACLE_REVISION,
@@ -819,6 +858,9 @@ def main() -> int:
         counters["source_case_oracle_matches"] += sum(case["case_status"] == "match" for case in evaluated)
         counters["source_case_oracle_mismatches"] += sum(case["case_status"] == "mismatch" for case in evaluated)
         counters["evaluator_errors"] += sum(case["case_status"] == "evaluator_error" for case in evaluated)
+        counters["candidate_unavailable_cases"] += sum(
+            case["case_status"] == "candidate_unavailable" for case in evaluated
+        )
         counters["model_self_consistent_cases"] += sum(case["model_consistency_status"] == "self_consistent" for case in evaluated)
         counters["model_self_inconsistent_cases"] += sum(case["model_consistency_status"] == "self_inconsistent" for case in evaluated)
         mutation_records_all.extend(mutation_records(row_key, proposal, evaluated))

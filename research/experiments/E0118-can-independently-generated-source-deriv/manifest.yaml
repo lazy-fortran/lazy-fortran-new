@@ -72,6 +72,7 @@ metrics:
   - model_self_consistent_cases
   - model_self_inconsistent_cases
   - evaluator_errors
+  - candidate_unavailable_cases
   - compiler_applicable_cells
   - compiler_invocations
   - compiler_agreements
