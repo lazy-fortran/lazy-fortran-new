@@ -295,6 +295,11 @@ coordinator-side full `fo`, was pushed to main, and had its task branch
 removed. It is a frontier transition slice, not complete parser state or
 tokenization, and adds no Fortran token policy or contract change.
 
+E0138 and E0139 are now running in parallel from the clean current frontend
+and backend mains. E0138 owns only incremental generic parser-session state;
+E0139 owns only TargetIR-v0 feature metadata lookup. Neither may change a
+versioned contract or add language/ISA-specific dispatch.
+
 The parallel backend serialization slice is integrated at `fortback-new`
 `c68bf54844fbdbb79f012c5e5e977dacc6301ce2` and recorded as `R000230`. It
 round-trips normalized TargetIR encoding records through a private generic SX

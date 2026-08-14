@@ -115,3 +115,7 @@ source identity and transactional failure controls. The current record shape
 has no feature field, so this is deliberately a provenance boundary rather than
 a feature-policy claim. No ISA payload, mnemonic dispatch or TargetIR contract
 change was introduced.
+
+E0139 is the active TargetIR-v0 metadata successor. It may query the existing
+feature-bearing SX witness records generically, preserving source and origin,
+but may not change the schema or add ISA-specific feature branches.

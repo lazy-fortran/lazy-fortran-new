@@ -139,6 +139,8 @@ Runs recorded: 246
 | E0135 | reported | 1 | Can a target-independent MIR block table scale beyond the single-block witness without target details |
 | E0136 | reported | 1 | Can source-backed TargetIR records expose generic provenance queries without ISA branches |
 | E0137 | reported | 1 | Can generic grammar facts gate bounded frontier transitions over abstract tokens |
+| E0138 | running | 0 | Can a generic parser session consume abstract tokens incrementally |
+| E0139 | running | 0 | Can TargetIR-v0 feature metadata be queried generically |
 
 ## Run status
 

@@ -57,6 +57,10 @@ E0137 is accepted as `R000248` at `fortfront-new` commit
 facts to gate the existing bounded frontier while retaining ambiguity and
 unresolved outcomes. This is a frontier transition slice, not complete parser
 state or tokenization, and adds no Fortran token policy.
+E0138 and E0139 are the next active production experiments: E0138 tests an
+incremental generic parser session over abstract tokens, and E0139 tests a
+generic query over the existing TargetIR-v0 feature metadata. Both reuse
+versioned inputs and must stop before language- or ISA-specific dispatch.
 
 ## Current position
 

@@ -128,6 +128,11 @@ rejected, ambiguous and unresolved outcomes, ordering and provenance. This is
 a frontier transition slice, not complete parser state or tokenization; no
 Fortran token dispatch or hand-maintained parser wiring was added.
 
+E0138 is the active incremental successor. It tests whether the existing
+generic frontier can be wrapped in a bounded parser session with equivalent
+incremental and final outcomes, without introducing lexical policy or a
+language-specific parser driver.
+
 ## Exit and handoff
 
 The lane passes a typed, source-linked result with accepted/rejected status,
