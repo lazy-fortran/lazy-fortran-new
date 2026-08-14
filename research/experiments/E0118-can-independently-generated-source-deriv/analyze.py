@@ -177,6 +177,11 @@ def load_oracle(path: Path) -> dict[str, dict[str, Any]]:
     ]
     if header not in (legacy_header, source_header):
         raise GateError("independent oracle header differs")
+    try:
+        oracle_path = path.relative_to(ROOT).as_posix()
+    except ValueError:
+        oracle_path = str(path)
+    oracle_revision = "E0083-independent-oracle-v1" if header == legacy_header else "E0120-source-oracle-v1"
     result = {}
     for line_number, line in enumerate(lines[1:], 2):
         fields = line.split("\t")
@@ -191,14 +196,10 @@ def load_oracle(path: Path) -> dict[str, dict[str, Any]]:
             predicate_text = record["predicate"]
             required = record["required_facts"]
             provided = record["provided_facts"]
-            oracle_path = "research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv"
-            oracle_revision = "E0083-independent-oracle-v1"
         else:
             phrase = record["source_text"]
             predicate_text = record["predicate"]
             required = provided = ""
-            oracle_path = "research/experiments/E0120-can-deterministic-normative-constraint-f/source-oracle.tsv"
-            oracle_revision = "E0120-source-oracle-v1"
         result[constraint_id] = {
             "constraint_id": constraint_id,
             "source_phrase": phrase,
@@ -889,6 +890,7 @@ def main() -> int:
         **counters,
         "input_rows_sha256": digest(args.rows), "schema_sha256": digest(args.schema),
         "canonical_sha256": digest(args.canonical), "oracle_revision": ORACLE_REVISION,
+        "independent_oracle_revision": next(iter(oracle_by_id.values()))["oracle_revision"] if oracle_by_id else None,
         "independent_oracle_sha256": oracle_sha256,
         "compiler_policy": "unavailable_without_faithful_fixture", "compiler_paths": compiler_paths,
         "wall_s_total": round(time.perf_counter() - start_time, 6),
