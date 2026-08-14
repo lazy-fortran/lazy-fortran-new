@@ -317,6 +317,10 @@ source-backed RISC-V SRA codec. The generator repair is recorded as `R000191`
 after coordinator-side full `fo` verification; all four production mains are
 now pushed and clean, with no semantic promotion.
 
+Wave U also integrated the delayed validated MIR function-body query in
+`ffc-new` at `0beb88c`; its source-preserving and malformed-body tests passed
+the full `fo` gate. No other Wave U slice produced a verified change.
+
 ## Numbered milestones
 
 These milestones are the externally meaningful stops in the roadmap. A
