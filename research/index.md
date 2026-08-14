@@ -135,6 +135,7 @@ Runs recorded: 240
 | E0131 | reported | 1 | Can existing RISC-V and AArch64 source records normalize into one transactional TargetIR table batch? |
 | E0132 | reported | 1 | Can a target-independent MIR body round-trip through a stable canonical SX boundary? |
 | E0133 | reported | 1 | Can additional source record families normalize through the generic TargetIR batch? |
+| E0134 | running | 0 | Can the source-backed StandardIR corpus pass the batch grammar export boundary |
 
 ## Run status
 
