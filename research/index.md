@@ -130,6 +130,7 @@ Runs recorded: 234
 | E0126 | reported | 1 | Can the stored StandardIR grammar table provide deterministic generic nullable and first-set analysis without language-specific parser policy? |
 | E0127 | reported | 1 | Can normalized TargetIR encoding records be accumulated into a validated bounded table suitable for generated codec data? |
 | E0128 | running | 0 | Can a target-independent MIR body expose a complete deterministic opcode histogram without changing mir-v0? |
+| E0129 | running | 0 | Can a normalized StandardIR grammar batch generate ordered canonical grammar exports for all declared formats? |
 
 ## Run status
 
