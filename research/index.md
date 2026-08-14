@@ -221,6 +221,7 @@ Runs recorded: 206
 | [D0071](decisions/D0071-frontend-ast-v0-contract.md) | accepted |  | — Separate the generated frontend AST contract |
 | [D0072](decisions/D0072-targetir-generated-backend-boundary.md) | accepted |  | — Stop expanding hand-maintained target instruction cases |
 | [D0073](decisions/D0073-syntax-preserving-semantic-repair.md) | accepted |  | — Keep semantic proposal repair syntax-preserving |
+| [D0074](decisions/D0074-explicit-predicate-shape-examples.md) | accepted |  | — Show typed predicate shapes explicitly in the model prompt |
 
 ### Proposed decisions
 

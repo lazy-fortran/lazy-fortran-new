@@ -127,7 +127,9 @@ runtime; the one-shot service health/version preflight has passed, but the run
 remains unreported until its validators, witness gate and exact merge gate
 pass. D0073 fixes the later repair boundary: deterministic processing may
 repair transport representation, never predicate meaning, fact names,
-missing nesting or source evidence.
+missing nesting or source evidence. D0074 adds compact generic constructor
+shape examples to successor prompts; it does not change E0123's pinned prompt
+or validator.
 The next generated-consumer extension attempt was retained as `R000190` after
 stale generated-module ordering prevented regeneration; it made no production
 change and does not alter the source/provenance contract.

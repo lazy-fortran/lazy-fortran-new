@@ -230,6 +230,15 @@ finite domains, not an invented predicate or executable expression. For a
 clause of the generic form “X shall not be Y except in context Z”, use the
 canonical shape implies(forbidden-condition, allowed-context), rather than a
 negated conjunction.
+Shape examples: valid nested Boolean forms are
+{{"op":"not","args":[{{"op":"present","args":["x"]}}]}} and
+{{"op":"implies","args":[{{"op":"has","args":["x"]}},
+{{"op":"not","args":[{{"op":"has","args":["y"]}}]}}]}};
+field identity is {{"op":"same-as","args":["x","y"]}}; a value
+comparison is {{"op":"eq","args":["x","literal"]}}; and a generic
+source-backed relation is {{"op":"relation","args":["relation-name",
+"x"]}}. Invalid shapes include {{"op":"and","args":["x","y"]}},
+{{"op":"implies","args":["x","y"]}} and eq/ne with two fact names.
 {witness_hint}
 {control_hint}"""
 

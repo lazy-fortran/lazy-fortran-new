@@ -413,6 +413,9 @@ processing may repair transport representation, but may not rewrite predicate
 operators, invent facts, infer missing nesting or substitute evidence. The
 model must receive the rejection and submit a bounded replacement; every
 attempt remains retained.
+D0074 adds compact, generic constructor-shape examples to successor prompts
+after the E0123 predecessor's repeated nesting and fact-versus-literal gate
+errors. It does not relax validation or change E0123's pinned prompt.
 
 The current production pins after the latest bounded integration wave are
 `standard-new` `5c1d258e61c38336cfbb316b76ba8b33e4717b94`,
