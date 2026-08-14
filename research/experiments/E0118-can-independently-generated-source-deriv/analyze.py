@@ -13,7 +13,6 @@ import itertools
 import json
 import re
 import shutil
-import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -23,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[3]
 SCHEMA_DEFAULT = ROOT / "research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json"
 CANONICAL_DEFAULT = ROOT / ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"
 ROWS_DEFAULT = ROOT / ".cache/runs/E0117/R000003-full/rows.jsonl"
+ORACLE_DEFAULT = ROOT / "research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv"
 OUT_DEFAULT = ROOT / ".cache/runs/E0118/R000001"
 CANONICAL_SHA256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
 STANDARD_SHA256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
@@ -127,17 +127,79 @@ def literal_type(value: Any) -> str:
     raise OracleUnavailable(f"unsupported literal type {type(value).__name__}")
 
 
-def collect_domains(node: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """Infer typed domains from constructors and their literal operands.
+def parse_s_expression(text: str) -> Any:
+    tokens = re.findall(r"\(|\)|[^\s()]+", text)
+    position = 0
 
-    This function deliberately never receives a witness or a model outcome.
-    """
+    def atom(token: str) -> Any:
+        if re.fullmatch(r"-?[0-9]+", token):
+            return int(token)
+        return token
+
+    def parse() -> Any:
+        nonlocal position
+        if position >= len(tokens):
+            raise GateError("oracle predicate ends unexpectedly")
+        token = tokens[position]
+        position += 1
+        if token != "(":
+            if token == ")":
+                raise GateError("oracle predicate has an unexpected close")
+            return atom(token)
+        values = []
+        while position < len(tokens) and tokens[position] != ")":
+            values.append(parse())
+        if position >= len(tokens):
+            raise GateError("oracle predicate has an unclosed list")
+        position += 1
+        if values and isinstance(values[0], str):
+            return {"op": values[0], "args": values[1:]}
+        return values
+
+    result = parse()
+    if position != len(tokens) or not isinstance(result, dict):
+        raise GateError("oracle predicate is not one expression")
+    return result
+
+
+def load_oracle(path: Path) -> dict[str, dict[str, Any]]:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if not lines or lines[0].split("\t") != ["constraint_id", "source_phrase", "predicate", "required_facts", "provided_facts"]:
+        raise GateError("independent oracle header differs")
+    result = {}
+    for line_number, line in enumerate(lines[1:], 2):
+        fields = line.split("\t")
+        if len(fields) != 5:
+            raise GateError(f"independent oracle line {line_number} has {len(fields)} fields")
+        constraint_id, phrase, predicate_text, required, provided = fields
+        if constraint_id in result:
+            raise GateError(f"duplicate independent oracle row {constraint_id}")
+        result[constraint_id] = {
+            "constraint_id": constraint_id,
+            "source_phrase": phrase,
+            "predicate_text": predicate_text,
+            "predicate": parse_s_expression(predicate_text),
+            "required_facts": required.split() if required else [],
+            "provided_facts": provided.split() if provided else [],
+        }
+    return result
+
+
+def collect_oracle_domains(node: dict[str, Any], required_facts: list[str]) -> dict[str, dict[str, Any]]:
+    """Infer domains from the separately parsed E0083 predicate only."""
 
     facts: dict[str, dict[str, Any]] = {}
 
     def add(name: str, kind: str, literal: Any = None) -> None:
         entry = facts.setdefault(name, {"types": set(), "literals": []})
-        entry["types"].add(kind)
+        if kind == "presence":
+            entry["presence"] = True
+            if not entry["types"]:
+                entry["types"].add(kind)
+        else:
+            if "presence" in entry["types"]:
+                entry["types"].remove("presence")
+            entry["types"].add(kind)
         if literal is not None and literal not in entry["literals"]:
             entry["literals"].append(literal)
 
@@ -145,22 +207,32 @@ def collect_domains(node: dict[str, Any]) -> dict[str, dict[str, Any]]:
         op = current["op"]
         args = current["args"]
         if op in {"and", "or", "implies"}:
-            if len(args) < 2:
-                raise OracleUnavailable(f"{op} needs at least two operands")
+            if len(args) < 2 or any(not isinstance(arg, dict) for arg in args):
+                raise OracleUnavailable(f"{op} needs predicate operands")
             for arg in args:
-                if not isinstance(arg, dict):
-                    raise OracleUnavailable(f"{op} operand is not a predicate")
                 visit(arg)
         elif op == "not":
             if len(args) != 1 or not isinstance(args[0], dict):
                 raise OracleUnavailable("not needs one predicate operand")
             visit(args[0])
         elif op in BOOLEAN_UNARY:
-            add(fact_arg(current, 0, op), "bool")
-        elif op in {"eq", "ne", "lt", "le", "gt", "ge", "type-is", "rank-is"}:
-            name = fact_arg(current, 0, op)
+            add(fact_arg(current, 0, op), "presence")
+        elif op in {"named-constant", "has-kind-param"}:
+            add(op, "bool")
+        elif op == "type-is":
+            if len(args) != 2 or not isinstance(args[1], str):
+                raise OracleUnavailable("type-is needs a symbolic type literal")
+            add("type-fact" if "type-fact" in required_facts else fact_arg(current, 0, op), "str", args[1])
+        elif op in {"eq", "ne", "lt", "le", "gt", "ge"}:
             if len(args) != 2:
                 raise OracleUnavailable(f"{op} needs two operands")
+            left = args[0]
+            if isinstance(left, dict) and left.get("op") == "value":
+                name = fact_arg(left, 0, "value")
+            elif isinstance(left, dict) and left.get("op") == "name-length":
+                raise OracleUnavailable("name-length requires a source string domain")
+            else:
+                name = fact_arg(current, 0, op)
             add(name, literal_type(args[1]), args[1])
         elif op in {"in", "not-in"}:
             name = fact_arg(current, 0, op)
@@ -169,38 +241,34 @@ def collect_domains(node: dict[str, Any]) -> dict[str, dict[str, Any]]:
             kinds = {literal_type(value) for value in args[1]}
             if len(kinds) != 1:
                 raise OracleUnavailable(f"{op} has mixed literal types")
-            kind = next(iter(kinds))
             for value in args[1]:
-                add(name, kind, value)
+                add(name, next(iter(kinds)), value)
         elif op == "same-as":
-            if len(args) != 2:
-                raise OracleUnavailable("same-as needs two fact identifiers")
             add(fact_arg(current, 0, op), "symbol")
             add(fact_arg(current, 1, op), "symbol")
-        elif op not in SUPPORTED:
-            raise OracleUnavailable(f"unsupported constructor {op}")
         else:
-            raise OracleUnavailable(f"constructor form {op} has no finite domain policy")
+            raise OracleUnavailable(f"unsupported independent oracle constructor {op}")
 
-    for current in walk_predicate(node):
-        if current is node:
-            visit(current)
-            break
+    visit(node)
     for entry in facts.values():
         if len(entry["types"]) != 1:
-            raise OracleUnavailable("fact has conflicting inferred types")
+            raise OracleUnavailable("oracle fact has conflicting inferred types")
     return facts
 
 
 def domain_values(entry: dict[str, Any]) -> list[tuple[Any, str]]:
     kind = next(iter(entry["types"]))
     literals = entry["literals"]
+    if kind == "presence":
+        return [(None, "typed-absent"), (True, "typed-present")]
     if kind == "bool":
         return [(False, "typed-false"), (True, "typed-true")]
     if kind == "symbol":
         return [("__same__", "typed-same"), ("__different__", "typed-different")]
     if kind == "str":
         values = [(value, "source-literal") for value in literals]
+        if entry.get("presence"):
+            values.insert(0, (None, "typed-absent"))
         values.extend([("", "typed-boundary-empty"), ("__other__", "typed-boundary-other")])
         return dedupe_values(values)
     if kind in {"int", "float"}:
@@ -227,8 +295,8 @@ def dedupe_values(values: list[tuple[Any, str]]) -> list[tuple[Any, str]]:
     return result
 
 
-def materialize(node: dict[str, Any], row_key: str, provenance: dict[str, Any]) -> list[dict[str, Any]]:
-    domains = collect_domains(node)
+def materialize(node: dict[str, Any], row_key: str, provenance: dict[str, Any], required_facts: list[str]) -> list[dict[str, Any]]:
+    domains = collect_oracle_domains(node, required_facts)
     names = sorted(domains)
     values = [domain_values(domains[name]) for name in names]
     count = 1
@@ -241,7 +309,7 @@ def materialize(node: dict[str, Any], row_key: str, provenance: dict[str, Any]) 
         facts = {name: choice[0] for name, choice in zip(names, choices)}
         labels = {name: choice[1] for name, choice in zip(names, choices)}
         try:
-            expected = source_expectation(node, facts)
+            expected = oracle_expectation(node, facts, required_facts)
         except OracleUnavailable:
             raise
         cases.append({
@@ -250,7 +318,7 @@ def materialize(node: dict[str, Any], row_key: str, provenance: dict[str, Any]) 
             "facts": facts,
             "fact_domain_labels": labels,
             "construction_class": node["op"],
-            "source_relation": f"schema-constructor:{node['op']}",
+            "source_relation": "E0083-independent-oracle",
             "source_expected": expected,
             "expected_origin": "MECHANICAL",
             "generator_revision": ORACLE_REVISION,
@@ -259,40 +327,64 @@ def materialize(node: dict[str, Any], row_key: str, provenance: dict[str, Any]) 
     return cases
 
 
-def source_value(facts: dict[str, Any], name: str) -> Any:
+def oracle_value(facts: dict[str, Any], name: str) -> Any:
     if name not in facts:
         raise OracleUnavailable(f"source fact {name!r} is absent from the materialized case")
     return facts[name]
 
 
-def source_expectation(node: dict[str, Any], facts: dict[str, Any]) -> bool:
-    """Source relation implementation.  It does not call the candidate evaluator."""
+def oracle_term_value(term: Any, facts: dict[str, Any]) -> Any:
+    if isinstance(term, dict) and term.get("op") == "value":
+        return oracle_value(facts, fact_arg(term, 0, "value"))
+    if isinstance(term, dict) and term.get("op") == "name-length":
+        value = oracle_value(facts, fact_arg(term, 0, "name-length"))
+        if not isinstance(value, str):
+            raise OracleUnavailable("name-length source fact is not a string")
+        return len(value)
+    if isinstance(term, str):
+        return oracle_value(facts, term)
+    return term
+
+
+def oracle_expectation(node: dict[str, Any], facts: dict[str, Any], required_facts: list[str]) -> bool:
+    """Evaluate the independently parsed E0083 predicate."""
 
     op = node["op"]
     args = node["args"]
     if op == "and":
-        return all(source_expectation(arg, facts) for arg in args)
+        return all(oracle_expectation(arg, facts, required_facts) for arg in args)
     if op == "or":
-        return any(source_expectation(arg, facts) for arg in args)
+        return any(oracle_expectation(arg, facts, required_facts) for arg in args)
     if op == "implies":
-        return (not source_expectation(args[0], facts)) or source_expectation(args[1], facts)
+        return (not oracle_expectation(args[0], facts, required_facts)) or oracle_expectation(args[1], facts, required_facts)
     if op == "not":
-        return not source_expectation(args[0], facts)
+        return not oracle_expectation(args[0], facts, required_facts)
     if op in BOOLEAN_UNARY:
-        value = source_value(facts, fact_arg(node, 0, op))
+        value = oracle_value(facts, fact_arg(node, 0, op))
         return bool(value) if op != "absent" else not bool(value)
+    if op in {"named-constant", "has-kind-param"}:
+        return bool(oracle_value(facts, op))
     if op == "same-as":
-        return source_value(facts, fact_arg(node, 0, op)) == source_value(facts, fact_arg(node, 1, op))
-    if op in {"eq", "type-is", "rank-is"}:
-        return source_value(facts, fact_arg(node, 0, op)) == args[1]
-    if op == "ne":
-        return source_value(facts, fact_arg(node, 0, op)) != args[1]
-    if op in {"lt", "le", "gt", "ge"}:
-        left = source_value(facts, fact_arg(node, 0, op))
+        return oracle_value(facts, fact_arg(node, 0, op)) == oracle_value(facts, fact_arg(node, 1, op))
+    if op == "type-is":
+        name = "type-fact" if "type-fact" in required_facts else fact_arg(node, 0, op)
+        return oracle_value(facts, name) == args[1]
+    if op in {"eq", "ne", "lt", "le", "gt", "ge"}:
+        left = oracle_term_value(args[0], facts)
         right = args[1]
-        return {"lt": left < right, "le": left <= right, "gt": left > right, "ge": left >= right}[op]
+        if op == "eq":
+            return left == right
+        if op == "ne":
+            return left != right
+        if op == "lt":
+            return left < right
+        if op == "le":
+            return left <= right
+        if op == "gt":
+            return left > right
+        return left >= right
     if op in {"in", "not-in"}:
-        result = source_value(facts, fact_arg(node, 0, op)) in args[1]
+        result = oracle_value(facts, fact_arg(node, 0, op)) in args[1]
         return result if op == "in" else not result
     raise OracleUnavailable(f"unsupported constructor {op}")
 
@@ -325,10 +417,15 @@ def evaluate_candidate(node: dict[str, Any], facts: dict[str, Any]) -> bool:
     if operator in BOOLEAN_UNARY:
         result = bool(candidate_value(facts, fact_arg(node, 0, operator)))
         return not result if operator == "absent" else result
+    if operator in {"named-constant", "has-kind-param"}:
+        if operator in facts:
+            return bool(facts[operator])
+        return bool(candidate_value(facts, fact_arg(node, 0, operator)))
     if operator == "same-as":
         return candidate_value(facts, fact_arg(node, 0, operator)) == candidate_value(facts, fact_arg(node, 1, operator))
     if operator in {"eq", "type-is", "rank-is"}:
-        return candidate_value(facts, fact_arg(node, 0, operator)) == operands[1]
+        name = "type-fact" if operator == "type-is" and "type-fact" in facts else fact_arg(node, 0, operator)
+        return candidate_value(facts, name) == operands[1]
     if operator == "ne":
         return candidate_value(facts, fact_arg(node, 0, operator)) != operands[1]
     if operator in {"lt", "le", "gt", "ge"}:
@@ -356,6 +453,18 @@ def source_provenance(proposal: dict[str, Any]) -> dict[str, Any]:
         "line": proposal.get("line"),
         "evidence_ids": proposal.get("evidence_ids", []),
         "origin": "MECHANICAL",
+    }
+
+
+def oracle_provenance(proposal: dict[str, Any], oracle: dict[str, Any], oracle_sha256: str) -> dict[str, Any]:
+    return source_provenance(proposal) | {
+        "independent_oracle_path": "research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv",
+        "independent_oracle_sha256": oracle_sha256,
+        "oracle_constraint_id": oracle["constraint_id"],
+        "oracle_source_phrase": oracle["source_phrase"],
+        "oracle_predicate": oracle["predicate_text"],
+        "oracle_required_facts": oracle["required_facts"],
+        "oracle_provided_facts": oracle["provided_facts"],
     }
 
 
@@ -542,6 +651,7 @@ def main() -> int:
     parser.add_argument("--outdir", type=Path, default=OUT_DEFAULT)
     parser.add_argument("--schema", type=Path, default=SCHEMA_DEFAULT)
     parser.add_argument("--canonical", type=Path, default=CANONICAL_DEFAULT)
+    parser.add_argument("--oracle", type=Path, default=ORACLE_DEFAULT)
     parser.add_argument("--expected-rows", type=int, default=287)
     args = parser.parse_args()
 
@@ -551,8 +661,12 @@ def main() -> int:
         raise GateError(f"predicate schema is missing: {args.schema}")
     if not args.canonical.is_file():
         raise GateError(f"canonical source is missing: {args.canonical}")
+    if not args.oracle.is_file():
+        raise GateError(f"independent oracle is missing: {args.oracle}")
     if digest(args.canonical) != CANONICAL_SHA256:
         raise GateError("canonical source hash mismatch")
+    oracle_sha256 = digest(args.oracle)
+    oracle_by_id = load_oracle(args.oracle)
     schema = json.loads(args.schema.read_text(encoding="utf-8"))
     constructors = set(schema.get("constructors", []))
     if not constructors:
@@ -585,7 +699,14 @@ def main() -> int:
         "mutation_control_failures": 0, "provenance_matches": 0, "provenance_failures": 0,
         "missing_rows": 0, "duplicate_rows": 0, "missing_cases": 0, "duplicate_cases": 0,
         "parser_projection_records": 0, "semantic_promotions": 0, "model_calls": 0,
+        "independent_oracle_rows": len(oracle_by_id), "oracle_model_overlap_rows": 0,
+        "oracle_model_no_overlap_rows": 0, "oracle_no_model_rows": 0,
     }
+    model_constraint_ids = {
+        row.get("constraint_id") for row in rows
+        if row.get("status") == "accepted" and isinstance(row.get("proposal"), dict)
+    }
+    counters["oracle_no_model_rows"] = len(set(oracle_by_id) - model_constraint_ids)
     compiler_paths = {name: compiler_version(name) for name in COMPILERS}
 
     for row in rows:
@@ -596,6 +717,7 @@ def main() -> int:
             "constraint_id": row.get("constraint_id"),
             "e0117_status": row.get("status"),
             "origin": "MECHANICAL",
+            "independent_oracle_sha256": oracle_sha256,
             "model_name": "qwen36-35b-a3b" if proposal else None,
             "model_file_sha256": None,
             "model_file_sha256_status": "unavailable_in_terminal_ledger" if proposal else None,
@@ -628,9 +750,25 @@ def main() -> int:
         counters["schema_source_accepted_rows"] += 1
         counters["provenance_matches"] += 1
         record["e0118_status"] = "schema_source_accepted"
-        record["source_provenance"] = source_provenance(proposal)
+        oracle = oracle_by_id.get(row.get("constraint_id"))
+        if oracle is None:
+            counters["oracle_model_no_overlap_rows"] += 1
+            counters["source_case_oracle_unavailable"] += 1
+            record["source_case_status"] = "oracle_unavailable"
+            record["failure"] = "no independent E0083 oracle row for constraint_id"
+            record["source_provenance"] = source_provenance(proposal)
+            row_records.append(record)
+            mutation_records_all.append({
+                "row_key": row_key, "mutation": "source-hash/provenance-substitution",
+                "original_hash": proposal.get("source_sha256"), "mutated_hash": "0" * 64,
+                "status": "rejected", "passed": True, "evidence": "source hash equality gate", "origin": "MECHANICAL",
+            })
+            continue
+        counters["oracle_model_overlap_rows"] += 1
+        oracle_source = oracle_provenance(proposal, oracle, oracle_sha256)
+        record["source_provenance"] = oracle_source
         try:
-            materialized = materialize(proposal["predicate"], row_key, source_provenance(proposal))
+            materialized = materialize(oracle["predicate"], row_key, oracle_source, oracle["required_facts"])
         except OracleUnavailable as exc:
             counters["source_case_oracle_unavailable"] += 1
             record["source_case_status"] = "oracle_unavailable"
@@ -641,12 +779,12 @@ def main() -> int:
                 "row_key": row_key,
                 "facts": {},
                 "fact_domain_labels": {},
-                "construction_class": proposal["predicate"].get("op"),
-                "source_relation": f"schema-constructor:{proposal['predicate'].get('op')}",
+                "construction_class": oracle["predicate"].get("op"),
+                "source_relation": "E0083-independent-oracle",
                 "source_expected": None,
                 "expected_origin": "MECHANICAL",
                 "generator_revision": ORACLE_REVISION,
-                "source_provenance": source_provenance(proposal),
+                "source_provenance": oracle_source,
                 "candidate_result": None,
                 "case_status": "oracle_unavailable",
                 "evaluator_error": None,
@@ -707,6 +845,7 @@ def main() -> int:
         **counters,
         "input_rows_sha256": digest(args.rows), "schema_sha256": digest(args.schema),
         "canonical_sha256": digest(args.canonical), "oracle_revision": ORACLE_REVISION,
+        "independent_oracle_sha256": oracle_sha256,
         "compiler_policy": "unavailable_without_faithful_fixture", "compiler_paths": compiler_paths,
         "case_set_sha256": digest(args.outdir / "cases.jsonl"),
         "rows_output_sha256": digest(args.outdir / "rows.jsonl"),

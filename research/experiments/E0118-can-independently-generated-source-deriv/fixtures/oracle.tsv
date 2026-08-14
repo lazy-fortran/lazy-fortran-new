@@ -1,0 +1,6 @@
+constraint_id	source_phrase	predicate	required_facts	provided_facts
+F001	fixture equality	(eq x 1)	x	checked-x
+F002	fixture implication	(implies (eq x 1) (present y))	x y	checked-x checked-y
+F003	fixture disjunction	(or (eq x 1) (eq y 2))	x y	checked-x checked-y
+F004	fixture negation	(not (present flag))	flag	checked-flag
+F005	fixture unsupported	(relation x y)	x y	checked-x checked-y

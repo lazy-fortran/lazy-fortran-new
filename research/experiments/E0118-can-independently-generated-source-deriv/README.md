@@ -1,73 +1,73 @@
-# E0118 deterministic source-finite gate
+# E0118 independent source-oracle gate
 
-`analyse.sh` consumes the frozen E0117 terminal ledger and writes a reproducible
-analysis under `.cache/runs/E0118/R000001`.
+`analyse.sh` consumes the frozen E0117 terminal ledger and the committed E0083
+oracle table. It makes no model calls and invokes no compiler.
 
 ```bash
 research/experiments/E0118-can-independently-generated-source-deriv/analyse.sh
 ```
 
-The input defaults to
-`.cache/runs/E0117/R000003-full/rows.jsonl`. `E0117_ROWS` selects another
-ledger and `E0118_OUTDIR` selects another ignored output directory. The command
-makes zero model calls and invokes no compiler.
+The default inputs are
+`.cache/runs/E0117/R000003-full/rows.jsonl` and
+`research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv`.
+Use `E0117_ROWS`, `E0118_ORACLE`, and `E0118_OUTDIR` to select alternate files.
+The command writes to the ignored `.cache/runs/E0118/R000001` directory.
 
-## Denominator and row statuses
+## Independent source predicate
 
-The command requires 287 unique retained row keys. It writes one record for
-each input row to `rows.jsonl`, including hard failures, unresolved rows, and
-the reference-only row. Rows without a proposal receive
-`no_model_predicate`, except the reference-only row, which receives
-`reference_only`. Accepted proposals receive `schema_source_accepted` after
-constructor, source-hash, source-location, and evidence checks. A failed check
-receives `schema_source_rejected`.
+The E0083 table is parsed as an S-expression table by `analyze.py`. Its
+predicate AST is separate from the JSON predicate in each E0117 proposal.
+Case materialization reads only the E0083 AST, its source-linked fact names,
+its literal operands, its declared fact fields, and fixed typed boundaries.
+The E0117 model predicate is evaluated after materialization. Neither model
+witness facts nor model expected Booleans enter the case generator.
 
-The terminal E0117 model file hash is absent from the retained ledger. Each
-candidate record therefore records `model_file_sha256: null` and
-`model_file_sha256_status: unavailable_in_terminal_ledger`. This prevents a
-promotion claim and leaves the missing provenance visible.
+`source_expected` is computed from the parsed E0083 AST. A case record also
+contains the independently evaluated `candidate_result`, the E0083 predicate
+text, and the E0083 file hash. A model proposal is compared only when its
+`constraint_id` has an E0083 row. An accepted proposal without that oracle row
+gets zero cases and `source_case_status: oracle_unavailable`.
 
-## Independent case construction
+The E0083 oracle hash is recorded in `summary.json`, `summary.tsv`, and the
+case provenance. Recompute it with:
 
-Case materialization runs before candidate evaluation and accepts only the
-predicate, its literal operands, and fixed typed boundary values. It never
-reads `witnesses`, witness fact maps, or witness `expect` values. The supported
-finite constructors are `and`, `or`, `not`, `implies`, `eq`, `ne`, `lt`, `le`,
-`gt`, `ge`, `in`, `not-in`, `present`, `absent`, `has`, `same-as`, `type-is`,
-and `rank-is`.
+```bash
+sha256sum research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv
+```
 
-Boolean facts use false and true. Integer and real facts use every predicate
-literal plus one typed value on either side. String facts use each predicate
-literal, the empty string, and `__other__`. `same-as` uses the two fixed symbol
-values `__same__` and `__different__`. A conflicting type, unsupported
-constructor, or case product above the fixed 4096-case limit receives
-`oracle_unavailable`. The unsupported form remains in the row output with its
-reason.
+## Row and case statuses
 
-`source_expectation` is a separate source-relation traversal. The candidate
-traversal is `evaluate_candidate`. Every generated case records both the
-mechanically derived `source_expected` value and the separately evaluated
-`candidate_result`. Case statuses are `match`, `mismatch`, or
-`evaluator_error`. Model witness comparisons are diagnostic only and use the
-statuses `self_consistent`, `self_inconsistent`, `evaluator_error`, and
-`not_compared`.
+The analyzer requires the E0117 retained denominator and writes one `rows.jsonl`
+record for every input `row_key`, including hard failures, unresolved rows, and
+the reference-only row. Rows without proposals receive `no_model_predicate`,
+except the reference-only row, which receives `reference_only`.
+
+Accepted proposals receive `schema_source_accepted` after the E0116 schema and
+source provenance checks. A failed check receives `schema_source_rejected`.
+The terminal ledger lacks a model-file hash, so each candidate records that
+field as unavailable. This blocks promotion without changing the historical
+ledger.
+
+Finite comparison cases use `match`, `mismatch`, `evaluator_error`, and
+`oracle_unavailable`. Model witness scoring is diagnostic only and uses
+`self_consistent`, `self_inconsistent`, `evaluator_error`, and `not_compared`.
+Unsupported oracle forms remain explicit with their reason.
 
 ## Outputs
 
-- `rows.jsonl` contains the complete row denominator and row-level statuses.
-- `cases.jsonl` contains materialized cases, source expectations, candidate
-  results, provenance, and model-consistency diagnostics.
-- `compiler-cells.jsonl` contains one explicit unavailable cell per case and
-  each declared compiler. No compiler agreement is inferred from executable
-  presence. A faithful fixture is a prerequisite for invocation.
+- `rows.jsonl` contains the complete row denominator and overlap status.
+- `cases.jsonl` contains only E0083-derived cases for rows with both an E0117
+  proposal and an E0083 oracle row. It contains explicit unavailable records
+  where finite derivation fails.
+- `compiler-cells.jsonl` contains unavailable cells for every emitted case and
+  each declared compiler. Executable presence does not count as agreement.
 - `mutations.jsonl` records expected-outcome substitution, source-hash and
-  provenance substitution, and changed typed fact controls. A rejected
-  mutation has `passed: true`. An accepted mutation has `passed: false`.
-- `summary.json` and `summary.tsv` contain the declared metrics and hashes of
-  the input and generated case set.
+  provenance substitution, and changed typed fact controls.
+- `summary.json` and `summary.tsv` contain overlap counts, case outcomes, file
+  hashes, and promotion status.
 
 The command records `semantic_promotions: 0`. It does not edit StandardIR or
-any historical E0117 artifact.
+any historical E0117 or E0083 artifact.
 
 ## Tests
 
@@ -76,12 +76,12 @@ bash -n analyse.sh selftest.sh
 selftest.sh
 ```
 
-The fixed ledger in `fixtures/ledger.jsonl` has one row per requested logical
-form, plus an unsupported `relation` constructor.
-The shell assertions are behavioral checks with expected truth values, case
-unavailability, compiler unavailability, and mutation rejection. They do not
-compare generated files with checked-in snapshots.
+The fixed fixture oracle has a model predicate that differs from its source
+predicate. The selftest asserts that the independent comparison emits a
+mismatch. It also checks logical forms, an unsupported oracle constructor, the
+oracle hash, compiler unavailability, and mutation rejection. The assertions
+inspect expected behavior rather than comparing generated files to snapshots.
 
-The current implementation has no safe compiler fixture for the full
-standard-derived cells. All compiler cells are therefore explicit unavailable
-and no compiler agreement is claimed.
+The full standard-derived compiler fixtures remain unavailable. No compiler
+agreement is claimed, and no compiler is invoked until a faithful fixture is
+added under a later bounded slice.

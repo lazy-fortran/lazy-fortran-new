@@ -24,13 +24,14 @@ inputs:
   canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
   page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
   predicate_schema: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json
+  independent_oracle: research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv
   source_case_policy: source-derived finite-case policy below
 
 # E0118 consumes the terminal E0117 proposal ledger. It makes no new model
 # calls and gives no model output authority over case construction or outcome.
 variables:
   proposal_source: [E0117-terminal-ledger]
-  case_generation: [source-derived, predeclared, finite]
+  case_generation: [independent-oracle-source, predeclared, finite]
   model_expected_outcomes: [self-consistency-only]
   behavioral_oracles: [gfortran, flang-new, lfortran-when-installed]
   parser_projection: [none]
@@ -39,8 +40,10 @@ variables:
 model_selection: >
   No model calls occur in E0118. The model-supplied typed predicates and
   model-supplied expected Booleans are frozen outputs from the pinned E0117
-  terminal ledger. E0118 evaluates them as candidates and never lets them
-  choose fact domains, expected outcomes, compiler applicability or promotion.
+  terminal ledger. E0118 evaluates model predicates as candidates against
+  cases derived from the separately committed E0083 oracle table. The model
+  output never chooses fact domains, expected outcomes, compiler applicability
+  or promotion.
 
 # Name these before running anything. Choosing a metric after seeing the data
 # is how an experiment becomes a demonstration.
@@ -50,6 +53,10 @@ metrics:
   - reference_only_rows
   - model_predicate_rows
   - no_model_predicate_rows
+  - independent_oracle_rows
+  - oracle_model_overlap_rows
+  - oracle_model_no_overlap_rows
+  - oracle_no_model_rows
   - schema_source_accepted_rows
   - schema_source_rejected_rows
   - source_case_rows
@@ -92,23 +99,26 @@ denominator: >
   no schema/source-accepted E0117 predicate are retained as
   no_model_predicate. The reference-only row is retained and cannot be
   promoted. The case denominator is every independently materialized case for
-  every row with an E0117 predicate, including cases that fail or disagree.
+  each accepted E0117 proposal that has an E0083 oracle row, including cases
+  that fail or disagree. Accepted proposals without an E0083 row have zero
+  cases and oracle_unavailable status.
   The compiler denominator is every applicable case x compiler cell. Missing
   model output, unavailable finite case derivation, unavailable compiler,
   compiler error, timeout and disagreement are explicit statuses. No row or
   case is removed because its result is unfavorable.
 
-# Cases are generated from the pinned source relation and fact domains. Model
-# witness maps are retained for comparison but are never the case oracle.
+# Cases are generated from the pinned E0083 oracle predicate and its fact
+# domains. Model witness maps are retained for comparison but are never the
+# case oracle.
 finite_case_policy:
   materialization: >
-    Freeze the complete row and predicate set, then materialize case IDs and
-    expected outcomes before evaluating any candidate. The independent case
-    generator may use only source-linked fact identifiers, declared types,
-    source literals, finite source domains and typed boundary values. It may
-    not copy a model witness map or expected Boolean. Every case records its
-    construction class and the source relation that determines its expected
-    outcome.
+    Freeze the complete row set and the separately committed E0083 oracle
+    predicate set, then materialize case IDs and expected outcomes before
+    evaluating any model candidate. The independent case generator may use
+    only oracle-linked fact identifiers, declared types, source literals,
+    finite source domains and typed boundary values. It may not copy a model
+    predicate, witness map or expected Boolean. Every case records the oracle
+    predicate and source relation that determines its expected outcome.
   finite_domains: >
     Enumerate every source-defined value when the pinned domain is finite. For
     a larger or non-enumerable domain, use the fixed constructor policy of one
@@ -124,8 +134,8 @@ finite_case_policy:
     one. Infeasible classes are recorded as not_applicable with their source
     reason.
   expected_outcome: >
-    A separate source-derived oracle computes the expected Boolean from the
-    pinned relation and fact map. The candidate evaluator is a separate
+    The E0083 oracle traversal computes the expected Boolean from its parsed
+    predicate and fact map. The candidate evaluator is a separate
     implementation and receives the fact map without the expected Boolean.
     The model's expected Boolean is scored in a separate self-consistency
     column and cannot alter the source expectation.
@@ -140,11 +150,14 @@ independent_oracle:
     supported by the cited source. A separate traversal recomputes row and
     case identity and rejects duplicate, missing or projected records.
   source_finite_behavioral: >
-    Independently derive the finite fact cases and their expected Booleans from
-    the pinned source relation. Execute the model predicate against those
-    cases with a separate evaluator. A candidate must match every applicable
-    source-derived case. A self-consistent model witness is evidence about
-    the dialogue only and never supplies the expected result.
+    Parse the committed E0083 independent-oracle predicate separately from the
+    E0117 model predicate. Derive finite fact cases and expected Booleans from
+    the E0083 predicate and its typed domains. Execute the E0117 model
+    predicate against those cases with a separate evaluator. A candidate must
+    match every applicable oracle-derived case. A self-consistent model
+    witness is evidence about the dialogue only and never supplies the expected
+    result. An accepted E0117 row without an E0083 oracle row has zero cases
+    and oracle_unavailable status.
   compiler_behavioral: >
     When a case has a faithful standard-conforming Fortran fixture and a
     declared compiler is installed, compile or execute the fixture using the
@@ -227,6 +240,7 @@ gate: >
 analysis: >
   analyse.sh invokes analyze.py with no model or compiler calls. The default
   input is .cache/runs/E0117/R000003-full/rows.jsonl and the default ignored
-  output is .cache/runs/E0118/R000001. The command writes rows.jsonl,
+  independent oracle is research/experiments/E0083-can-deterministic-predicate-patterns-for/independent-oracle.tsv,
+  and the default ignored output is .cache/runs/E0118/R000001. The command writes rows.jsonl,
   cases.jsonl, compiler-cells.jsonl, mutations.jsonl, summary.json and
   summary.tsv. The implementation does not promote StandardIR facts.
