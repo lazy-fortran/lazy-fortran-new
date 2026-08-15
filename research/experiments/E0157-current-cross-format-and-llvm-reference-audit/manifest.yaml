@@ -5,13 +5,13 @@ question: >
   StandardIR grammar projections retain their common source lineage and at
   least the relevant structural coverage of the pinned ANTLR, Bison and Flang
   parser references?
-status: draft         # draft | running | reported | abandoned
+status: reported      # draft | running | reported | abandoned
 opened: "2026-08-15"
-closed: ""
+closed: "2026-08-15"
 
 repos:
-  lazy-fortran-new: "c3aae18"
-  standard-new: "83f055d"
+  lazy-fortran-new: "c8a7294"
+  standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
   oracle-standard: "962ee30acd806ada940beb1bf8baa95fcb7e814c"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"

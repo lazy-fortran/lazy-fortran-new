@@ -2281,6 +2281,18 @@ Only after E0157's deterministic report may the required Luna read-only review
 run; model and semantic experiments remain blocked until the grammar-quality
 successor gates are explicit and green.
 
+E0157 is now reported as `R000319`. The four current outputs share exactly
+1,111 source-lineage values and the audit records both sides of the comparison:
+StandardIR is stronger in normative provenance, exact source-alternative
+identity and four-format derivation; the references are stronger in executable
+lexer/runtime integration, factoring, actions, precedence and conflict policy.
+The selected `program` profile leaves modern feature bodies such as FAIL IMAGE,
+NOTIFY WAIT, SELECT RANK and FORM TEAM intentionally unreachable; this is a
+profile gap, not permission to call the source incomplete. The next deterministic
+gate is a broader/all-root profile replay, followed by explicit conflict,
+lexer-contract, factoring and behavioral witnesses. No LLM or semantic run is
+valid evidence until that broader grammar gate is accepted.
+
 ## Ordering constraints
 
 - Phase 1.0 runs before 1.4 and can invalidate the phase. Nothing downstream of
