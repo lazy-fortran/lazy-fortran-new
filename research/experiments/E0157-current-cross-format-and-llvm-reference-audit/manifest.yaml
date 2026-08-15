@@ -119,3 +119,8 @@ replays:
     mode: current-post-fidelity-source-lineage-feature-and-tree-sitter-replay
     report: .cache/runs/E0167-audit-replay-v2
     luna_review: reviews/R000371-luna.md
+  - run: R000396
+    lazy-fortran-new: "feded6f"
+    standard-new: "fb6590c4885a38b0106f63112f6e024c20b927b5"
+    mode: explicit-reference-feature-anchor-replay
+    report: .cache/runs/E0157/R000396-anchor-input-replay
