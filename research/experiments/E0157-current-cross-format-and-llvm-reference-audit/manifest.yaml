@@ -95,7 +95,7 @@ replays:
     mode: source-lineage-feature-and-tree-sitter-replay
     luna_review: reviews/R000324-luna.md
   - run: R000350
-    lazy-fortran-new: "pending-commit"
+    lazy-fortran-new: "e0165dea399dd4ce5b6b49fd855dee819caebff0"
     standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
     mode: authoritative-source-lineage-feature-and-tree-sitter-replay
     luna_review: reviews/R000324-luna.md
