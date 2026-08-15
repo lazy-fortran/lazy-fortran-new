@@ -139,8 +139,20 @@ for token, rule, lhs, occurrence in expected:
         else:
             missing += 1
 
-header_gaps = sum(not body for _, _, body in headers)
-structure = "body-bound" if not header_gaps else "annotation-only"
+allowed_annotation_gaps = sum(
+    not body
+    and re.search(r"reason=omitted-before-target-lowering", line)
+    and (target := re.search(r"target-lhs=([^ ]+)", line))
+    and target.group(1) in omitted
+    for _, line, body in headers
+)
+header_gaps = sum(not body for _, _, body in headers) - allowed_annotation_gaps
+if header_gaps:
+    structure = "annotation-only"
+elif allowed_annotation_gaps:
+    structure = "body-bound-with-omitted-witnesses"
+else:
+    structure = "body-bound"
 status = missing == 0 and covered + skipped_count == len(expected) and header_gaps == 0
 print(f"{len(expected)}\t{covered}\t{skipped_count}\t{missing}\t{header_gaps}\t{structure}")
 sys.exit(0 if status else 1)
