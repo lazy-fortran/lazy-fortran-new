@@ -274,8 +274,8 @@ The current pushed production pins are therefore `standard-new`
 `a149015`. `standard-new` now has the generic selected-root export boundary;
 its selected replay is `.cache/runs/E0147/R000022` and still reports four
 useless nonterminals and seven useless rules under Bison, so this is progress
-but not M2 closure. Luna's independent review is pending for the current
-replay; `R000283` remains the review of the preceding selected-root slice.
+but not M2 closure. Luna's current review is `R000285`; `R000283` remains the
+review of the preceding selected-root slice.
 E0142 is abandoned; E0123's deterministic post-run gate is
 reported as `R000254`, and the production slices do not close semantic
 promotion.
