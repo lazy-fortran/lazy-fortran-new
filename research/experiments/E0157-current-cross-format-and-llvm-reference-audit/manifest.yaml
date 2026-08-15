@@ -38,9 +38,10 @@ model_selection: >
 
 metrics:
   - generated_rule_heads_and_lineage
+  - generated_emitted_lineage_and_lexer_auxiliary_counts
   - exact_source_identity_and_validator_status
   - reference_rule_heads
-  - feature_presence_matrix
+  - source_derived_feature_rule_ids_and_presence
   - source_and_reference_sha256
   - standardir_advantages
   - reference_advantages
@@ -54,26 +55,33 @@ denominator: >
 
 independent_oracle: >
   E0154 source-expression identity and grammar-generator report, E0156 lexical
-  witness report, SHA-256-pinned reference files, and an independent Python
-  inventory parser. No reference production is imported into StandardIR.
+  witness report, SHA-256-pinned reference files, parsed StandardIR SX records,
+  emitted source-lineage metadata and an independent Python inventory parser.
+  No reference production is imported into StandardIR.
 
 falsifiable_by: >
   The generated formats disagree on source lineage, a reference hash differs,
-  a claimed feature is absent from its cited file, or the analysis reports a
-  structural difference without a classification and next gate.
+  a source-derived feature has no rule ID, a generated feature is reported
+  without emitted lineage, or the analysis reports a structural difference
+  without a classification and next gate.
 
 gate: >
   Run only after E0156 passes. Require identity and all four target validators
   to pass, equal generated lineage sets, verified reference hashes, a complete
-  feature matrix, and explicit two-sided advantage findings. This gate does
-  not claim full language equivalence or replace positive/negative corpus
-  behavior.
+  source-derived feature matrix, and explicit two-sided advantage findings.
+  This gate does not claim full language equivalence or replace
+  positive/negative corpus behavior.
 
 analysis: >
   analyse.sh <run-dir> <house.g4> <kaby.g4> <lfortran.yy> <flang.cpp>
   <lexical-report> [report-dir] writes inventories.tsv, feature-matrix.tsv,
-  hashes.tsv and summary.json. The lexical report must contain
-  format_gate_status PASS before this analysis reads generated outputs.
+  hashes.tsv and summary.json. Tree-sitter counts only r_* declarations;
+  uppercase lexer definitions are excluded from rule heads and the report
+  keeps emitted lineage separate from omission metadata. Feature presence in
+  generated formats is derived from parsed StandardIR lhs/rule IDs intersected
+  with emitted source-lineage metadata, never from terminal text search. The
+  lexical report must contain format_gate_status PASS before this analysis
+  reads generated outputs.
 
 replays:
   - run: R000322
@@ -81,3 +89,13 @@ replays:
     standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
     mode: corrected-selected-program-audit
     luna_review: reviews/R000322-luna.md
+  - run: R000324
+    lazy-fortran-new: "a648194"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    mode: source-lineage-feature-and-tree-sitter-replay
+    luna_review: reviews/R000324-luna.md
+  - run: R000350
+    lazy-fortran-new: "pending-commit"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    mode: authoritative-source-lineage-feature-and-tree-sitter-replay
+    luna_review: reviews/R000324-luna.md

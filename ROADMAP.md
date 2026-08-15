@@ -231,13 +231,14 @@ report zero and pass their canonical target checks. The negative mutation
 passes. This is the current production repair slice; no downstream parser or
 LLM work is allowed to bypass it.
 
-E0158/R000321 then passed the authoritative PDF-fidelity gate: all 522 source
-records and duplicate occurrences agree with the pinned PDF extraction, and
-R741, R843, R1103, R1307 and R1315 pass continuation, page-break, token/ref
-and source-span checks. E0157/R000322 is the corrected selected-profile
-inventory and minimal Luna adjudication; its feature rows are explicitly
-lexical-presence evidence, not behavior or language equivalence. The first
-trusted all-root regeneration after that gate is E0154/R000323 at
+E0158/R000352 is the current authoritative PDF-fidelity gate: all 522 source
+records, duplicate occurrences, source hashes and token/ref leaves agree with
+the pinned canonical extraction; the PDF-to-canonical manifest lineage and
+R741, R843, R1103, R1307 and R1315 continuation/page-break witnesses pass.
+E0157/R000350 is the corrected selected-profile inventory and minimal Luna
+adjudication; its feature rows are source-lineage structural evidence, not
+behavior or language equivalence. The first trusted all-root regeneration after
+that gate is E0154/R000323 at
 `standard-new` `bedd9abc7210fc7fc16607d275ea4fa7b24144f8`: all 1,068 source
 alternatives are covered in EBNF, ANTLR4, Bison and tree-sitter, all identity
 and lexical mutations fail, and all three parser generators accept their
@@ -396,13 +397,18 @@ changes a denominator.
       target spellings. R000318 and the broader post-fidelity R000323 replay
       pass the independent checker and its mutation controls.
 - [x] E0157: correct the cross-format/reference inventory and obtain Luna's
-      minimal independent adjudication. R000322 records the corrected
-      tree-sitter count, StandardIR/source-lineage feature derivation and the
-      explicit lexical-only limitation.
+      minimal independent adjudication. R000350 records the authoritative
+      tree-sitter `r_*` rule count, StandardIR/source-lineage feature
+      derivation and the explicit structural-only limitation; R000322 remains
+      historical evidence from the previous checker and R000324 is the
+      preliminary append-only replay.
 - [x] E0158: pass the authoritative PDF-fidelity gate before fresh generation.
-      R000321 checks all source spans and duplicate occurrences plus R741,
-      R843, R1103, R1307 and R1315; R000323 is the authorized post-gate
-      all-root regeneration and parser-generator replay.
+      R000321 checks the original post-fidelity input; R000351 records a
+      preliminary strict recheck failure; and R000352 rechecks the exact
+      current E0154/R000318 source against all spans, duplicate occurrences,
+      all-record token/ref leaves, canonical-text/PDF manifest lineage and
+      R741, R843, R1103, R1307 and R1315. R000352 is the authorized gate for
+      the next regeneration. No rule-number extractor repair was needed.
 - [x] E0159: classify the all-root Bison conflict inventory (758 shift/reduce,
       3,885 reduce/reduce) and compare the result with the pinned LFortran
       conflict policy (238/180 declared conflicts). Add only generic
@@ -2366,28 +2372,28 @@ factoring/actions/precedence/conflict policy, and target-only scaffolding. No
 reference production was copied and no equivalence claim follows from head
 counts.
 
-E0157 is now reported as corrected `R000322` (the initial inventory remains
-retained as R000319). The four current outputs share exactly 1,111
-source-lineage values and the audit records both sides of the comparison:
-StandardIR is stronger in normative provenance, exact source-alternative
-identity and four-format derivation; the references are stronger in executable
-lexer/runtime integration, factoring, actions, precedence and conflict policy.
-The selected `program` profile leaves modern feature bodies such as FAIL IMAGE,
-NOTIFY WAIT, SELECT RANK and FORM TEAM intentionally unreachable; this is a
-profile gap, not permission to call the source incomplete. The next deterministic
-gate is a broader/all-root profile replay, followed by explicit conflict,
-lexer-contract, factoring and behavioral witnesses. No LLM or semantic run is
-valid evidence until that broader grammar gate is accepted.
+E0157 is now reported from the authoritative replay `R000350` (the initial
+inventories and R000322 remain retained). The four generated outputs share
+exactly 1,111 source-lineage values. Tree-sitter reports 664 `r_*` grammar
+heads; its five uppercase lexer definitions are reported separately rather
+than counted as grammar rules. Feature presence is derived from parsed
+StandardIR `lhs`/rule IDs intersected with emitted source-lineage metadata,
+not from terminal text search. StandardIR remains stronger in normative
+provenance, exact source-alternative identity and four-format derivation; the
+references remain stronger in executable lexer/runtime integration, factoring,
+actions, precedence and conflict policy. This is structural evidence, not
+language equivalence.
 
-The authoritative PDF-fidelity gate E0158 is accepted as `R000321`. It checks
-all 522 source byte spans and canonical rule-definition occurrences, all 20
-duplicate rule families, and representative continuation/token-ref witnesses
-R741, R843, R1103, R1307 and R1315. The PDF hash and negative mutation pass.
-The pre-gate all-root output R000320 is retained but is not trusted as the
-fresh broader replay. The next work is E0163 conflict classification and
-generic target lowering, followed by E0164 lexer/runtime and behavior gates;
-semantic or LLM extraction remains blocked until those deterministic gates
-pass.
+The authoritative PDF-fidelity gate E0158 is revalidated as `R000352` against
+the exact current E0154/R000318 source. It checks all 522 source byte spans and
+canonical rule-definition occurrences, all 20 duplicate rule families, and
+representative continuation/token-ref witnesses R741, R843, R1103, R1307 and
+R1315. It also checks all-record token/ref leaves, source hashes, and the
+canonical-text/PDF artifact-manifest lineage. The PDF hash and negative
+mutation pass; 46 surface-only optional-plus-ellipsis differences are reported
+explicitly. No generic extractor repair is indicated and the next four-format
+regeneration is authorized. E0164's full generated-parser runtime remains
+open; no semantic or model work resumes until that deterministic gate closes.
 
 ## Ordering constraints
 

@@ -40,10 +40,11 @@ denominator: >
 
 independent_oracle: >
   A separate Python SX reader compares every StandardIR byte-start/byte-length
-  slice against the pinned canonical extraction, counts every canonical R-rule
-  definition, lexes the five witness RHS strings into token/ref leaves and
-  exercises a negative mutation. The PDF SHA-256 is checked against the
-  artifact manifest.
+  slice against the pinned canonical extraction, verifies every source hash
+  and token/ref leaf sequence, counts every canonical R-rule definition, lexes
+  the five witness RHS strings and exercises a negative mutation. The PDF,
+  canonical text and page-index SHA-256 values are checked against the
+  artifact manifest, including the manifest's standard-new generator pin.
 
 falsifiable_by: >
   Any source span points at the wrong rule, any definition count differs,
@@ -51,13 +52,17 @@ falsifiable_by: >
   occurrences collapse, the PDF hash differs, or the negative mutation passes.
 
 gate: >
-  All source spans and duplicate occurrences agree, all five witnesses pass
-  RHS and token/ref checks, the pinned PDF is identified and the negative
-  mutation fails. Only this gate permits a fresh four-format regeneration.
+  All source spans and duplicate occurrences agree, every source hash and
+  token/ref leaf sequence passes, all five witnesses pass RHS and token/ref
+  checks, canonical text is hash-linked to the pinned PDF through its artifact
+  manifest, and the negative mutation fails. Only this gate permits a fresh
+  four-format regeneration.
 
 analysis: >
-  check.sh <standardir.sx> <canonical.txt> <pdf> <report.tsv> writes the
-  deterministic fidelity report and no generated grammar.
+  check.sh <standardir.sx> <canonical.txt> <pdf> <report.tsv>
+  [canonical-manifest] [pages.index] writes the deterministic fidelity report
+  and no generated grammar. The last two arguments default to the pinned E0001
+  manifest and page index.
 
 replays:
   - run: R000321
@@ -65,3 +70,10 @@ replays:
     standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
     mode: all-records-five-witnesses
     report: .cache/runs/E0158/R000320-pdf-fidelity.tsv
+  - run: R000352
+    lazy-fortran-new: "a648194"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    mode: authoritative-current-source-full-fidelity-and-canonical-lineage-gate
+    report: .cache/runs/E0158/R000335-pdf-fidelity-full.tsv
+    canonical_manifest: artifacts/runs/E0001/R000003-canonical-text.toml
+    page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index

@@ -71,7 +71,7 @@ regenerates with its declared 238 shift/reduce and 180 reduce/reduce conflict
 budget, whereas the current generated Bison output reports 427 and 2,266.
 No reference production was copied and no equivalence claim is made.
 
-## R000322: corrected audit and Luna adjudication
+## R000322: historical corrected audit and Luna adjudication
 
 R000319 is retained as the first inventory result, but its report directory was
 superseded after the audit checker itself was reviewed. R000322 is the
@@ -86,10 +86,38 @@ remains. The summary separately reports 1,068/1,068 identity coverage and
 feature matrix remains a lexical presence inventory: `both` means present in
 at least one generated and at least one reference body, not universal support.
 
-Luna's minimal independent review is
+Luna's earlier minimal independent review is
 `reviews/R000322-luna.md`. Its adjudication is accepted: E0157 is strong
 source/provenance evidence for the selected profile, but it is not a semantic,
 behavioral or language-equivalence proof. It also identified a remaining audit
 boundary: source-projection and lexical status are consumed as upstream gate
 reports, not independently re-derived by E0157. Those checks remain explicit
 earlier gates; E0157 does not promote them into a second authority.
+
+## R000324: source-lineage replay (preliminary record)
+
+R000324 reruns the audit after correcting two independent counting/derivation
+defects in the checker itself. The tree-sitter head parser now accepts only
+`r_*: $ =>` declarations. It therefore reports 664 grammar heads; the five
+uppercase lexer definitions (`LETTER`, `DIGIT`, `REP_CHAR`, `EN_DASH` and
+`RIGHT_SINGLE_QUOTE`) are not counted as grammar rules. The report keeps
+1,111 all-metadata lineage values and 1,107 emitted-body lineage values
+separate.
+
+The feature matrix is now derived from parsed StandardIR `syntax` records:
+each feature has explicit normative `lhs` families and source rule IDs, and a
+generated format is present only when one of those IDs occurs in emitted
+source-lineage metadata. It no longer searches generated or source text for
+terminal words. Reference columns remain structural rule-head witnesses and
+are not normative claims. The replay passes source identity, all four target
+validators, reference hashes, and the source-derived feature inventory. It
+reports 1,068/1,068 source alternatives, 1,061/1,068 emitted bodies and seven
+explicit omissions.
+
+Luna's independent adjudication is recorded in
+`reviews/R000324-luna.md`; the replay is accepted as a deterministic audit
+correction, not as parser behavior or language-equivalence evidence.
+
+The authoritative append-only run record for this replay is R000350. R000324
+is retained as the preliminary record from before the run-ID correction; the
+report and adjudication are unchanged.
