@@ -328,3 +328,14 @@ and extractor files; R000410 corrects those metadata pins without changing the
 artifacts or result. This closes source discovery and projection only. The
 generated parser targets still do not consume the layout contract, and no
 positive or negative source behavior has yet adjudicated `SAVE` / `LETTER`.
+
+## R000411: v2 carries statement applicability
+
+The pattern table now includes the clause 4.1.4 fact that syntactic classes
+ending in `-stmt` follow the source-form statement rules. The extractor emits
+ten facts, including `(statement-class-suffix ... (suffix -stmt) ...)`, and
+`standard-new` commit `4479a23fd680bdcc9af19bb7e3a606b22f1fd787` consumes the
+result with a version-2 header. This prevents a later target generator from
+silently hard-coding the suffix relation. Generated parser targets still do
+not consume the contract, and the `SAVE` / `LETTER` behavior gate remains
+open.

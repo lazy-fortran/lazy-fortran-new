@@ -24,7 +24,7 @@ inputs:
   profile_policy: research/experiments/E0171-can-current-standardir-grammar-projectio/profile-policy.tsv
   source_audit: .cache/runs/E0157/R000354
   statement_boundary_anchors: research/experiments/E0171-can-current-standardir-grammar-projectio/statement-boundary-anchors.tsv
-  lexical_layout_contract: contracts/lexical-layout-v1.sxs
+  lexical_layout_contract: contracts/lexical-layout-v2.sxs
   lexical_layout_patterns: research/experiments/E0171-can-current-standardir-grammar-projectio/layout-fact-patterns.tsv
   house_antlr: ../standard/grammars/src/Fortran2023Parser.g4
   kaby76_antlr: ../kaby76-fortran/comp/Fortran2023Parser.g4
@@ -200,6 +200,11 @@ replays:
     mode: corrected-source-backed-lexical-layout-v1-replay
     report: .cache/runs/E0171/R000409-layout-fact-source-replay-v3
     result: corrected-metadata-pins-nine-facts-and-v1-projection-pass
+  - run: R000411
+    standard-new: "4479a23fd680bdcc9af19bb7e3a606b22f1fd787"
+    mode: source-backed-lexical-layout-v2-replay
+    report: .cache/runs/E0171/R000411-layout-fact-source-replay
+    result: ten-facts-and-v2-projection-pass
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -208,11 +213,12 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000410 is the latest source-evidence and v1 projection replay. It corrects
-  the file hashes in R000409 without changing its generated artifacts or
-  observed result. R000408 is retained as a historical v0 projection gate but
-  is superseded by D0108 because its source provenance shape forced synthetic
-  rule labels. The next replay must validate one
+  R000411 is the latest source-evidence and v2 projection replay. It extracts
+  ten facts, including the source-backed statement-class selector, and projects
+  them through `standard-new` at the pinned commit. R000410 remains a v1
+  historical replay, while R000408 is retained as a v0 projection gate; D0108
+  and D0109 record why both are not authoritative. The next replay must
+  validate one
   producer-emitted transformation witness for each generated format: all four
   cover 1,068 source lineages. Source, lexical, explicit profile and witness
   gates pass; ANTLR4 and Bison pass; tree-sitter still reports the unresolved
@@ -221,7 +227,7 @@ latest_replay: >
   remain open.
 
 remaining_gates:
-  - standard-new must consume the pinned lexical-layout-v1 contract
+  - generated parser/lexer targets must consume the pinned lexical-layout-v2 contract
   - generic tree-sitter conflict policy must pass without source loss
   - lexer/runtime statement-termination and keyword/name behavior must be
     represented before adjudicating the SAVE/LETTER witness

@@ -30,16 +30,15 @@ The immediate sequence is:
 2. Normalize the Tree-sitter and Bison conflict evidence into per-conflict
    records, retaining prefixes, competing symbols, source lineages and tool
    versions.
-3. Consume the central `contracts/lexical-layout-v1.sxs` revision from
+3. Consume the central `contracts/lexical-layout-v2.sxs` revision from
    `standard-new`, extending the target lexer contract with statement-boundary,
    continuation and keyword/name behavior. R000408 is retained as a v0
-   projection experiment but is superseded by D0108 because its prose
-   provenance used synthetic rule labels. The v1 migration, source-backed
-   producer and independent positive/negative behavior witnesses are now the
-   open work. The source-discovery and v1 projection gate is now green in
-   E0171/R000410 at `standard-new` commit
-   `a08760554bddaff9bb82db76ffcfe1d8733117b0`; the generated parser targets
-   still need to consume the contract. D0106, D0107 and D0108 keep this out of normative StandardIR;
+   projection experiment is historical; D0108 corrected its prose provenance,
+   and D0109 adds the source-backed statement-class selector that v1 lacked.
+   The v2 migration is green in E0171/R000411 at `standard-new` commit
+   `4479a23fd680bdcc9af19bb7e3a606b22f1fd787`; generated parser targets still
+   need to consume the contract, and independent positive/negative behavior
+   witnesses remain open. D0106 through D0109 keep this out of normative StandardIR;
    `scripts/check-contracts.sh` is the pre-launch contract gate.
 4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts as
    source ambiguity, target limitation, lexer/profile interaction, target
