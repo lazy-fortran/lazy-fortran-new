@@ -383,6 +383,17 @@ failures remain in the ledger. The repaired and reviewed commit
 pushed. It is opt-in and does not silently change the normative StandardIR or
 claim full language equivalence.
 
+The comparison is explicitly bidirectional. LFortran, Flang, gfortran and the
+other reference artifacts are independent evidence, not authorities. A finding
+is recorded as an advantage of StandardIR when it demonstrates a stronger
+property with cited evidence—for example normative source lineage, preserved
+source occurrences, or one source projected to several formats. A finding is
+recorded as a reference advantage when the reference supplies a property we do
+not yet have, such as executable lexer/runtime behavior or parser factoring.
+Neither direction is inferred from raw counts or from the fact that one file
+looks more familiar. Every claimed advantage needs a named property, an
+evidence location and a next action or explicit disposition.
+
 The reusable local runner now sends llama.cpp's per-request
 `chat_template_kwargs.enable_thinking` control for both reasoning modes and
 derives the strict response schema from the prompt manifest. The first retry
