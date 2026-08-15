@@ -102,6 +102,19 @@ if (( lexical_status != 0 )); then
     exit "$lexical_status"
 fi
 
+if [[ -n "$role_family" ]]; then
+    role_family_status=0
+    python3 "$lab_root/research/experiments/E0160-can-generic-role-family-specialization-preserve-language/check_role_family.py" \
+        "$run_dir/input/standardir.sx" "$run_dir" "$run_dir/role-family-witnesses.tsv" \
+        >"$run_dir/role-family-witnesses.log" 2>&1 || role_family_status=$?
+    cat "$run_dir/role-family-witnesses.log"
+    printf 'role_family_witness_status\t%s\n' "$role_family_status" >>"$run_dir/metadata.tsv"
+    if (( role_family_status != 0 )); then
+        printf 'independent role-family witness gate failed; parser oracles were not invoked\n' >&2
+        exit "$role_family_status"
+    fi
+fi
+
 validator_status=0
 "$lab_root/research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh" \
     "$run_dir" "$run_dir/grammar-oracles.tsv" >"$run_dir/target-oracles.log" 2>&1 || validator_status=$?

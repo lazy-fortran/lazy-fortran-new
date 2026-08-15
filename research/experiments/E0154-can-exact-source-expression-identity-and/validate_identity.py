@@ -247,7 +247,17 @@ def mutation_control(run_dir: Path, expected: dict[SourceKey, str]) -> str:
     with tempfile.TemporaryDirectory(prefix="e0154-identity-") as temporary:
         mutated = Path(temporary) / source.name
         text = source.read_text(encoding="utf-8")
-        match = re.search(r"source-expression-sha256=([0-9a-f]{64})", text)
+        # Role-family witnesses may precede source-preservation witnesses and
+        # carry source-expression hashes for merged lineage.  The identity
+        # table below validates source-preservation rows, so mutate one of
+        # those first; otherwise the negative control can change an unrelated
+        # witness field without exercising the checker.
+        match = re.search(
+            r"(?m)^\(\* target-source-preservation[^\n]*source-expression-sha256=([0-9a-f]{64})",
+            text,
+        )
+        if match is None:
+            match = re.search(r"source-expression-sha256=([0-9a-f]{64})", text)
         if not match:
             return "PASS" if validate(run_dir, expected)[0] else "FAIL"
         replacement = "0" * 64
