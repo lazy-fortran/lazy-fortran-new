@@ -4,7 +4,7 @@ Run the deterministic audit with:
 
 ```text
 research/experiments/E0153-can-a-current-standardir-selected-export/analyse.sh \
-  .cache/runs/E0153/R000001
+  .cache/runs/E0153/R000002
 ```
 
 The generated Bison target is compared with the pinned LFortran `parser.yy` at
@@ -64,11 +64,11 @@ gaps, not newly discovered truncations in the seven source anchors:
 
 The generated validators were also rerun directly with
 `research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh
-.cache/runs/E0153/R000002`; ANTLR4, Bison, tree-sitter, the lexer-contract
-check and source-projection check passed. The inherited report consumed by
-the reproducible comparison remains hash-pinned separately, because its
-paths are stable evidence while a fresh report contains the current run
-directory paths.
+.cache/runs/E0153/R000002 .cache/runs/E0153/R000002/fresh-validator.tsv`;
+ANTLR4, Bison, tree-sitter, the lexer-contract check and source-projection
+check passed. The second argument is essential: it keeps the fresh,
+path-bearing report separate from the inherited hash-pinned report consumed by
+`analyse.sh`.
 
 * the selected Bison export starts at `program`, while LFortran starts at
   `units`; six declared StandardIR roots are explicitly omitted from this
@@ -98,6 +98,14 @@ No current comparison row licenses copying a LFortran production. The next
 correctness gates are still generic source-expression identity, complete
 profile/corpus coverage, and preservation-tested role/lexer/precedence
 specialization.
+
+The follow-up Luna review in R000301 found the corrected audit mostly sound:
+the stale paths, report overwrite, missing replay inputs and invalid
+classifications are fixed. Its remaining citation checks were corrected in
+the matrix and feature inventory: LFortran's generic `format` and
+`format_statement` are at lines 1884--1887 and 2212--2214, and the typed value
+declaration is at line 13. The disposable replay and fresh validator now pass
+with the separate report path documented above.
 
 This audit records both directions. It does not claim that either grammar is a
 complete Fortran 2023 conformance parser, and it does not close M2.

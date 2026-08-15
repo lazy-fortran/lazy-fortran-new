@@ -12,6 +12,13 @@ mkdir -p "$RUN/source"
 cp "$ROOT/.cache/runs/E0151/R000002-candidate/input/standardir.sx" "$RUN/source/standardir.sx"
 cp "$ROOT/.cache/runs/E0151/R000002-candidate/source-projection.tsv" "$RUN/source/source-projection.tsv"
 cp "$ROOT/.cache/runs/E0151/R000002-candidate/grammar-oracles.tsv" "$RUN/source/grammar-oracles.tsv"
+mkdir -p "$RUN/input"
+cp "$ROOT/.cache/runs/E0151/R000002-candidate/input/standardir.sx" "$RUN/input/standardir.sx"
+cp "$ROOT/.cache/runs/E0151/R000002-candidate/lexer-contract.jsonl" "$RUN/lexer-contract.jsonl"
+cp "$ROOT"/.cache/runs/E0151/R000002-candidate/generate-*.log "$RUN/"
+if [[ ! -f "$ORACLES" ]]; then
+    cp "$ROOT/.cache/runs/E0151/R000002-candidate/grammar-oracles.tsv" "$ORACLES"
+fi
 LFORTRAN="$RUN/references/lfortran-bison"
 SOURCE_SX="$RUN/source/standardir.sx"
 SOURCE_PROJECTION="$RUN/source/source-projection.tsv"
@@ -93,14 +100,14 @@ feature_rows = [
     ("P002", "normative-lineage", "source-lineage plus document/page/byte/hash", "no per-production J3 lineage", "standardir_advantage", "fortran2023.y provenance comments; E0152/R000001/summary.json", "retain lineage through every target normalization"),
     ("P003", "multi-format-projection", "EBNF, ANTLR4, Bison and tree-sitter", "single Bison parser target", "standardir_advantage", "E0152/R000001/summary.json", "keep exact cross-format lineage-set equality"),
     ("P004", "executable-lexer", "absent; separate source-backed lexer contract only", "yylex plus fixed/free-form tokenizer", "reference_advantage", "E0151/R000002-candidate/lexer-contract.jsonl; parser.yy:42-54", "generate a generic lexer ABI/runtime"),
-    ("P005", "typed-semantic-values", "absent", "%define api.value.type plus %type declarations", "reference_advantage", "fortran2023.y:1-20; parser.yy:17-18,329-402", "generate typed parser-value wiring from an AST contract"),
+    ("P005", "typed-semantic-values", "absent", "%define api.value.type plus %type declarations", "reference_advantage", "fortran2023.y:1-20; parser.yy:13,329-402", "generate typed parser-value wiring from an AST contract"),
     ("P006", "precedence-policy", "absent from generated Bison", "%left/%right/%precedence declarations", "reference_advantage", "fortran2023.y:1-20; parser.yy:599-611", "derive precedence only from source-backed relations"),
     ("P007", "ast-actions", "absent by design in normative syntax export", "semantic/trivia actions in productions", "reference_advantage", "fortran2023.y header; parser.yy:658-673,918-930", "generate actions from a separate AST/wiring contract"),
     ("P008", "conflict-policy", "427 shift/reduce and 2,266 reduce/reduce; no budget", "%expect 238 and %expect-rr 180", "target_specialization_gap", "E0151/R000002-candidate/grammar-oracles.tsv; parser.yy:15-18", "generic role factoring plus a retained conflict witness"),
     ("P009", "parser-role-factoring", "normative roles remain distinct", "parser-oriented categories are hand-factored", "target_specialization_gap", "E0153 comparison-matrix M039; parser.yy:2445-2505", "repair the generic factoring slice and prove preservation"),
     ("P010", "profile-coverage", "selected program root; six declared roots omitted", "units accepts multiple unit forms", "projection_gap", "grammar-oracles.tsv: omitted_declared_root_count; parser.yy:626-650", "define and test the complete production profile"),
     ("P011", "source-expression-identity", "body-bound projection, not expression identity", "not applicable to the reference", "method_gap", "source/source-projection.tsv; D0087/D0088", "emit and mutation-test an expression identity witness"),
-    ("P012", "implementation-extensions", "source-restricted normative profile", "implementation forms include union/template families", "standardir_advantage", "source-backed input; parser.yy:362-386,700-760", "keep extensions in explicit non-normative profiles"),
+    ("P012", "implementation-extensions", "source-restricted normative profile", "implementation forms include union/template families", "standardir_advantage", "source-backed input; parser.yy:362-386,770-778", "keep extensions in explicit non-normative profiles"),
     ("P013", "duplicate-source-occurrences", "identical target bodies retain merged source lineage", "no normative occurrence lineage", "standardir_advantage", "fortran2023.y:4520-4522,5952-5954; source projection", "keep occurrence identity separate from target-body identity"),
 ]
 (run / "feature-audit.tsv").write_text(
