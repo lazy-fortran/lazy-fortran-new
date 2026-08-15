@@ -43,8 +43,10 @@ The immediate sequence is:
    witnesses remain open. D0106 through D0110 keep this out of normative
    StandardIR; `scripts/check-contracts.sh` is the pre-launch contract gate.
 4. Derive and audit statement-sequence candidates by fixed-point graph
-   analysis. Retain the containing class, expression path, item derivation and
-   source facts; reject ambiguous or unsupported contexts instead of guessing.
+   analysis. R000416 is green: 58 candidates, compound repeats included, zero
+   unsupported shapes, and complete per-row source lineage. Retain the
+   containing class, expression path, item derivation and source facts; reject
+   ambiguous or unsupported contexts instead of guessing.
 5. Run independent bounded positive/negative lexer behavior for separators,
    comments, continuation and keyword/name reuse. The gate must prove nested
    `IF (...) action-stmt` and ordinary statement sequences separately.
