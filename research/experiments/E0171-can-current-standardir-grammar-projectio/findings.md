@@ -382,6 +382,20 @@ page and byte offsets but not the complete source document, clause and source
 hash on every row. The successor retains all of those fields and has the same
 58-row, zero-unsupported result.
 
+## R000419: adjacent sequence boundaries are included
+
+D0111 extends the witness beyond repeat sites. The table-driven source replay
+now emits `sequence-internal` rows after a direct statement class whenever the
+remaining sequence is nullable or statement-bearing. This adds the boundaries
+inside `if-construct`, `case-construct`, `select-rank-construct`,
+`select-type-construct`, and `where-construct`, while the nested `action-stmt`
+in `if-stmt` remains a final child and receives no inner boundary.
+
+The replay has 95 candidate rows, zero unsupported rows, and complete source
+lineage on every row. R000416 is retained as the earlier repeat-only evidence
+and is superseded by this successor. This is still a structural witness; the
+independent source behavior gate and production/full-corpus parity remain open.
+
 The bounded behavior cases are now pinned as
 `research/corpora/statement-boundary-behavior-v0.toml`. They are not a grammar
 source: the future gate generates their payloads in the ignored run cache and

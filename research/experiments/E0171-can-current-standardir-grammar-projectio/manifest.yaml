@@ -214,7 +214,12 @@ replays:
     supersedes: R000415
     mode: source-derived-statement-sequence-witness
     report: .cache/runs/E0171/R000416-statement-sequence-candidates/candidates.tsv
-    result: 58-candidates-zero-unsupported-shapes-source-facts-retained-behavior-gate-open
+    result: superseded-by-R000419-adjacent-boundary-completeness
+  - run: R000419
+    supersedes: R000416
+    mode: source-derived-statement-sequence-v2-witness
+    report: .cache/runs/E0171/R000419-statement-sequence-candidates/candidates.tsv
+    result: 95-candidates-zero-unsupported-shapes-adjacent-boundaries-included-behavior-gate-open
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -223,10 +228,10 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000416 is the latest source-evidence replay. It derives 58 statement-sequence
+  R000419 is the latest source-evidence replay. It derives 95 statement-sequence
   candidates from the StandardIR expression graph and the v2 suffix fact,
-  including compound repeated items, with zero unsupported shapes and full
-  per-row source document/clause/page/byte/hash lineage. R000411 is
+  including compound and adjacent sequence items, with zero unsupported shapes
+  and full per-row source document/clause/page/byte/hash lineage. R000411 is
   the latest source-evidence and v2 projection replay: it extracts ten facts,
   including the source-backed statement-class selector, and projects them
   through `standard-new` at the pinned commit. R000410 remains a v1 historical
