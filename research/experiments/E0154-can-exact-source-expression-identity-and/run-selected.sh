@@ -5,9 +5,14 @@ script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 lab_root=$(cd -- "$script_dir/../../.." && pwd)
 standard_root=$(cd -- "$lab_root/../standard-new" && pwd)
 source_run=${3:-"$lab_root/.cache/runs/E0147/R000022"}
-run_dir=${1:?usage: run-selected.sh <run-directory> [root] [source-run]}
+run_dir=${1:?usage: run-selected.sh <run-directory> [root|all] [source-run]}
 selected_root=${2:-program}
 run_dir="$(cd -- "$(dirname -- "$run_dir")" && pwd)/$(basename -- "$run_dir")"
+
+selected_mode=true
+if [[ "$selected_root" == all ]]; then
+    selected_mode=false
+fi
 
 if [[ -e "$run_dir" ]]; then
     printf 'refusing to overwrite run directory: %s\n' "$run_dir" >&2
@@ -42,14 +47,18 @@ for format in ebnf antlr bison treesitter; do
         bison) output="$run_dir/fortran2023.y" ;;
         treesitter) output="$run_dir/grammar.js" ;;
     esac
+    generator=(fo exec --no-build sxgrammar \
+        "$run_dir/input/standardir.sx" \
+        "$run_dir/input/classifications.sx" \
+        "$run_dir/input/roots.sx" \
+        "$run_dir/input/lexical-facts-v0.sx" \
+        "$format" "$output")
+    if "$selected_mode"; then
+        generator+=(--selected-root "$selected_root")
+    fi
     (
         cd "$standard_root"
-        /usr/bin/time -f 'elapsed_seconds=%e' fo exec --no-build sxgrammar \
-            "$run_dir/input/standardir.sx" \
-            "$run_dir/input/classifications.sx" \
-            "$run_dir/input/roots.sx" \
-            "$run_dir/input/lexical-facts-v0.sx" \
-            "$format" "$output" --selected-root "$selected_root"
+        /usr/bin/time -f 'elapsed_seconds=%e' "${generator[@]}"
     ) >"$run_dir/generate-$format.log" 2>&1
 done
 
@@ -59,7 +68,11 @@ done
     printf 'standard-new-commit\t%s\n' "$(git -C "$standard_root" rev-parse HEAD)"
     printf 'lazy-fortran-new-commit\t%s\n' "$(git -C "$lab_root" rev-parse HEAD)"
     printf 'source-run\t%s\n' "$source_run"
+if "$selected_mode"; then
     printf 'selected-root\t%s\n' "$selected_root"
+else
+    printf 'selected-root\tall-roots\n'
+fi
 printf 'source-syntax-records\t%s\n' "$(grep -c '^(syntax ' "$run_dir/input/standardir.sx")"
 printf 'source_preflight_status\t%s\n' "$preflight_status"
 } >"$run_dir/metadata.tsv"
