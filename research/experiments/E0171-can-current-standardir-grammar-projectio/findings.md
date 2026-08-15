@@ -247,3 +247,7 @@ a new statement beginning with `X`. The provisional classification is
 gate must add independent statement-boundary and keyword/name behavior
 witnesses, then rerun the exact generated profiles. No Tree-sitter `conflicts`
 entry, associativity, precedence or Bison `%expect` is justified by this run.
+
+R000405 contained the same artifact but an invalid manually typed lab commit
+pin. It is retained as an immutable failed record; R000406 supersedes it with
+the committed normalizer pin and changes no evidence or classification.

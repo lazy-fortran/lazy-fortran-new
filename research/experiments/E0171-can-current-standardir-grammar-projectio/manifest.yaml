@@ -173,6 +173,11 @@ replays:
     mode: normalized-selected-conflict-witness-inventory
     report: .cache/runs/E0171/R000404-clean-witness-replay/conflict-witnesses.tsv
     result: superseded-by-R000406-invalid-lab-pin
+  - run: R000406
+    standard-new: "4ffa9859a6af551a9ceb1d45bc5744a1522e135e"
+    mode: corrected-normalized-selected-conflict-witness-inventory
+    report: .cache/runs/E0171/R000404-clean-witness-replay/conflict-witnesses.tsv
+    result: unclassified-lexer-profile-interaction-candidate
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
