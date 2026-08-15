@@ -9,7 +9,7 @@ E0154/R000311 reran the four generated grammar formats after D0095's typed
 source/target identity repair. The standalone UTF-8 regression passed, but the
 real closure pipeline still computed several `source-expression-sha256`
 values after lexical canonicalization. The independent witness therefore
-rejected the en dash and right-quote alternatives. Six source alternatives
+rejected the en dash and right-quote alternatives. Seven source alternatives
 also disappeared into generated helpers, even though the generated targets
 were accepted by ANTLR4, Bison and tree-sitter.
 

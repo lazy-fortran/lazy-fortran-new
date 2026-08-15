@@ -188,7 +188,7 @@ must be preserved or proven generically before the gate closes.
 The typed-identity repair is now pushed as `standard-new` `cdec3fa` and its
 fresh replay is E0154/R000311. It fixes standalone UTF-8 hashing, long merged
 lineage capacity, nullable normalization witnesses and separate target hashes,
-but the real closure path still hashes after lexical canonicalization and six
+but the real closure path still hashes after lexical canonicalization and seven
 source alternatives disappear into generated helpers. D0096 is the accepted
 next boundary: capture the raw RHS identity before any target normalization,
 carry every source alternative through merged/factored output, and emit a

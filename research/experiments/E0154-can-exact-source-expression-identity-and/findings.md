@@ -74,8 +74,9 @@ negative mutation was rejected. The exact source gate nevertheless failed:
 * eight Unicode-bearing alternatives still had wrong source hashes in the
   emitted target annotations because the closure pipeline had already applied
   lexical canonicalization before the typed adapter computed its hash;
-* six source alternatives were absent from the target lineage, including
-  R401--R403 generated-helper cases and three additional transformed cases;
+* seven source alternatives were absent from the target lineage, including
+  R401--R403 generated-helper cases and four additional transformed cases
+  (R1028 and R1323, plus both R1221 alternatives);
 * target-expression hashes were now emitted separately and the merged-lineage
   buffers were no longer truncated;
 * Bison still reported 427 shift/reduce and 2,266 reduce/reduce conflicts.
