@@ -228,7 +228,13 @@ replays:
   - run: R000421
     mode: standard-new-statement-sequence-production-gate
     report: standard-new:test/test_standardir_statement_sequence
-    result: production-fixtures-pass-full-corpus-parity-open
+    result: superseded-by-R000423-production-corpus-parity
+  - run: R000423
+    supersedes: R000421
+    standard-new: "4c2d8c27027e3ba3a2c1f876d19535547db2b739"
+    mode: standard-new-statement-sequence-production-corpus-parity
+    report: .cache/runs/E0171/R000423-production-sequence-witness/production.tsv
+    result: 95-row-byte-for-byte-parity-fo-clean-full-pipeline-pass
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -237,10 +243,12 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000421 is the latest production projection gate. Its focused standard-new
-  fixtures pass with D0111 behavior, while full-corpus parity against R000420
-  remains open. R000420 is the latest source-evidence replay. It derives 95
-  statement-sequence
+  R000423 is the latest production projection gate. The `standard-new`
+  statement-sequence CLI at commit `4c2d8c2` agrees byte-for-byte with the
+  95-row R000420 source-evidence witness: zero rows are missing or extra, and
+  all source fields and canonical expression paths match. The clean full `fo`
+  pipeline passes 45 tests with zero warnings. R000420 remains the latest
+  source-evidence replay. It derives 95 statement-sequence
   candidates from the StandardIR expression graph and the v2 suffix fact,
   including compound and adjacent sequence items, with zero unsupported shapes
   and full per-row source document/clause/page/byte/hash lineage. R000411 is
