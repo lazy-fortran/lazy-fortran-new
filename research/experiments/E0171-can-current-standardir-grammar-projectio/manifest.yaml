@@ -235,6 +235,20 @@ replays:
     mode: standard-new-statement-sequence-production-corpus-parity
     report: .cache/runs/E0171/R000423-production-sequence-witness/production.tsv
     result: 95-row-byte-for-byte-parity-fo-clean-full-pipeline-pass
+  - run: R000424
+    mode: independent-source-statement-boundary-behavior
+    report: .cache/runs/E0171/R000424-statement-boundary-behavior/behavior.tsv
+    result: superseded-by-R000425-fixture-declaration-correction
+  - run: R000425
+    supersedes: R000424
+    mode: independent-source-statement-boundary-behavior
+    report: .cache/runs/E0171/R000425-statement-boundary-behavior/behavior.tsv
+    result: superseded-by-R000426-producer-hash-pin
+  - run: R000426
+    supersedes: R000425
+    mode: independent-source-statement-boundary-behavior
+    report: .cache/runs/E0171/R000426-statement-boundary-behavior/behavior.tsv
+    result: three-compiler-source-oracle-pass-target-runtime-open
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -251,7 +265,10 @@ latest_replay: >
   source-evidence replay. It derives 95 statement-sequence
   candidates from the StandardIR expression graph and the v2 suffix fact,
   including compound and adjacent sequence items, with zero unsupported shapes
-  and full per-row source document/clause/page/byte/hash lineage. R000411 is
+  and full per-row source document/clause/page/byte/hash lineage. R000426 is
+  the latest independent source-level behavior oracle: all nine generated
+  cases agree across GNU Fortran, Flang and LFortran. It does not yet prove
+  that a generated lexer/runtime consumes the witness. R000411 is
   the latest source-evidence and v2 projection replay: it extracts ten facts,
   including the source-backed statement-class selector, and projects them
   through `standard-new` at the pinned commit. E0157/R000371 and E0158/R000372
@@ -259,16 +276,16 @@ latest_replay: >
   prerequisites for the same current source hash. R000410 remains a v1
   historical replay, while R000408 is retained as a v0 projection gate; D0108
   and D0109 record why both are not authoritative. The remaining gates are
-  independent lexer/runtime behavior, source-backed boundary consumption,
-  conflict classification, parse-tree equivalence and complete bounded
-  language behavior. No model or semantic campaign is permitted before those
-  deterministic gates close.
+  target lexer/runtime behavior, source-backed boundary consumption, conflict
+  classification, parse-tree equivalence and complete bounded language
+  behavior. No model or semantic campaign is permitted before those
+  deterministic target gates close.
 
 remaining_gates:
-  - independent positive/negative lexer/runtime behavior for separators,
-    continuation, comments and keyword/name reuse
   - generated parser/lexer targets must consume the pinned lexical-layout-v2
     contract and the audited statement-sequence witness
+  - generated lexer/runtime positive/negative behavior must agree with the
+    source oracle R000426
   - generic tree-sitter conflict policy must pass without source loss
   - lexer/runtime statement-termination and keyword/name behavior must be
     independently witnessed before adjudicating the SAVE/LETTER witness

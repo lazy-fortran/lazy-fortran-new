@@ -423,3 +423,27 @@ compares the generated target with independent parser behavior. The cases keep
 newline, comment, semicolon, continuation, same-line `SAVE name`, nested
 `IF (...) action-stmt`, and missing-separator rejection separate so a passing
 aggregate cannot hide a wrong boundary class.
+
+## R000426: independent source behavior oracle
+
+The first source-level replay exposed an invalid fixture: `SAVE` is a
+specification statement and cannot be the `action-stmt` of a single-line IF.
+The corrected nested-action cases use `CONTINUE`. A second replay then exposed
+undeclared `x` in the `SAVE name` cases; declaring it before the SAVE statement
+removed that semantic confounder without changing the boundary property.
+
+R000426 generates the nine source cases from the manifest recipes and runs
+them through GNU Fortran 16.1.1, Flang 22.1.8 and LFortran 0.58.0. All seven
+expected accepted cases and both expected rejected cases agree. The report is
+`.cache/runs/E0171/R000426-statement-boundary-behavior/behavior.tsv`; reproduce
+it with:
+
+```text
+python3 research/experiments/E0171-can-current-standardir-grammar-projectio/run-statement-boundary-behavior.py \
+  research/corpora/statement-boundary-behavior-v0.toml \
+  <ignored-output-directory>
+```
+
+This closes only the independent source-language oracle. It does not close the
+generated lexer/runtime gate, which must consume the R000423 statement witness
+and reproduce these outcomes before grammar conflicts are adjudicated.

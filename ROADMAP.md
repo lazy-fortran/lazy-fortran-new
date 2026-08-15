@@ -21,16 +21,19 @@ semantic extraction or backend work resumes while the remaining deterministic
 grammar path is open. The boundary implementation derives candidates from
 StandardIR graph topology plus the v2 source facts; it does not append EOS to
 every `-stmt`, because nested `action-stmt` references are not complete source
-statements. The next gate is independent positive/negative lexer behavior,
-followed by regeneration of all four grammar targets and parser-oracle checks.
+statements. The source-level behavior oracle R000426 now passes; the next gate
+is generated lexer/runtime behavior consuming that oracle, followed by
+regeneration of all four grammar targets and parser-oracle checks.
 This is D0111 layered onto the two-tier evidence protocol in D0105; R000400
 remains the profile negative control and R000404 the current clean replay.
 
 The immediate sequence is:
 
-1. Run independent bounded positive/negative lexer behavior for separators,
-   comments, continuation and keyword/name reuse. The gate must prove nested
-   `IF (...) action-stmt` and ordinary statement sequences separately.
+1. Make the generated lexer/runtime consume the now-passing source behavior
+   oracle R000426 for separators, comments, continuation and keyword/name
+   reuse. The target gate must prove nested `IF (...) action-stmt` and
+   ordinary statement sequences separately; source/compiler agreement alone is
+   not a generated-parser result.
 2. Consume the central `contracts/lexical-layout-v2.sxs` revision from
    `standard-new`, extending the target lexer contract with statement-boundary,
    continuation and keyword/name behavior. R000408 is retained as a v0
@@ -39,7 +42,7 @@ The immediate sequence is:
    The v2 migration is green in E0171/R000411 at `standard-new` commit
    `4479a23fd680bdcc9af19bb7e3a606b22f1fd787`; generated parser targets still
    need to consume the contract, and independent positive/negative behavior
-   witnesses remain open. D0106 through D0110 keep this out of normative
+   target behavior remains open. D0106 through D0110 keep this out of normative
    StandardIR; `scripts/check-contracts.sh` is the pre-launch contract gate.
 3. Derive and audit statement-sequence candidates by fixed-point graph
    analysis. R000420 is green: 95 candidates, compound and adjacent sequence
