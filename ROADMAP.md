@@ -439,24 +439,22 @@ changes a denominator.
       E0161 preserves 359 positive and 636 negative cases. The all-roots
       candidate is 760/3,894 versus 758/3,885 and is therefore not promoted;
       no expression-precedence rewrite is inferred from this result.
-- [ ] E0164: close lexer/runtime and full positive/negative parser behavior
-      gates for the selected generated grammar, including modern feature
-      witnesses and the retained target scaffolding. R000348 closes only the
-      narrow subgates: source-verified five-row lexer contract, generator
-      smoke checks, selected lexical mutations, fortfront lexer tests (24/24),
-      E0161 bounded behavior (359/636), and E0041 external behavior (10/10).
-      It explicitly leaves the executable generated parser runtime open;
-      Luna's review is recorded beside the run. Reproduce the adjudication with
-      `research/experiments/E0164-can-source-backed-lexer-contracts-and-ge/analyse.py`.
-- [ ] E0164 parser-runtime closure: integrate a generic executable parser over
-      the pinned `standardir-grammar-v0` contract and rerun positive/negative
-      behavior, modern-feature, source-coverage and mutation gates. This is a
-      production `fortfront-new` slice, not a lab-side parser or a model task.
-      R000349 now records the first generic contract-to-frontier bridge at
-      `fortfront-new` `d6de5f47`; its focused lexer/runtime tests pass 2/2 and
-      1/1, and full `fo` passes 25/25 with zero warnings. The full grammar
-      remains open because this bounded runtime does not yet consume all
-      1,068 selected source alternatives.
+- [x] E0164 selected deterministic checkpoint: consume the complete
+      source-backed `standardir-grammar-v0` closure and pass bounded runtime
+      behavior. R000363 emits 1,220 selected rows from the raw syntax,
+      R401/R402/R403 classifications and lexical facts; R000369 independently
+      verifies 0 missing references, 0 lineage failures, mechanical origin and
+      resolved status on every row. R000364 is the current PDF-fidelity gate;
+      R000365 regenerates all four formats and runs ANTLR4, Bison and
+      tree-sitter; R000367/R000370 accept two positive and reject two negative
+      runtime witnesses. `fortfront-new` `7ab3df0` passes all 26 tests and full
+      `fo` with no production-slice warnings.
+- [ ] E0164 broad behavior successor: extend the independent positive/negative
+      parser corpus over the selected generated runtime and expand lexical
+      coverage beyond the five currently declared lexical facts. The bounded
+      E0161 359/636 and E0041 10/10 results remain upstream evidence; they do
+      not silently become a full-runtime claim. This is still deterministic
+      production work, not a lab-side parser or a model task.
 - [x] E0165: test a rule-independent parser-quality candidate only after the
       trusted source/PDF gates. The global common-prefix candidate passes source
       identity and generator smoke but worsens all-root Bison conflicts from
@@ -464,30 +462,23 @@ changes a denominator.
       Bison assertion. R000360 rejects it; `standard-new` is reverted to the
       baseline projection at `8d5ee41`. No precedence rewrite is justified.
 
-D0084's source-validity priority now extends through E0165. No semantic
+D0084's source-validity priority now extends through the E0164 selected
+deterministic checkpoint and its broad-behavior successor. No semantic
 extraction, model comparison, backend work or plotting is valid evidence until
-the deterministic grammar gates close. D0081 remains the plotting boundary
-for a later campaign; historical rows remain visible, but no new model row is
+the broad runtime/corpus gate closes. D0081 remains the plotting boundary for
+a later campaign; historical rows remain visible, but no new model row is
 scheduled now.
 
-E0164/R000348 is intentionally reported as open rather than green. The five
-source-backed lexical rows match the pinned J3 artifact hash, both selected
-grammar projections pass the three generator smoke checks and their negative
-controls, and `fortfront-new`'s generic lexer suite passes 24/24. The selected
-projection still exposes 1,068 source alternatives, 1,061 emitted bodies and
-seven omitted bodies across six declared roots; Bison remains at 427/2,266 for
-the baseline and 425/2,135 for the opt-in candidate. D0097 makes the
-source/generator/runtime separation explicit. No semantic, LLM, backend or
-plotting work is unlocked.
-
-The current pushed production pins are therefore `standard-new` `7d011f4`,
-`fortfront-new` `d6de5f4`, `ffc-new`
-`3253849`, and `fortback-new` `a149015`. `standard-new` now has the generic
-selected-root export, post-normalization reachability and source-expression
-identity witness boundaries; the
-candidate replay reports zero useless nonterminals and rules under Bison.
-M2 is still open for conflict policy, language preservation and corpus
-behavior. Luna's current review is E0151 `R000294`.
+E0164/R000348 and R000349 remain historical narrow evidence. The current
+selected deterministic checkpoint is R000363--R000370: the source-backed
+contract has 1,220 rows and zero missing references; the current four-format
+outputs cover 1,068/1,068 source alternatives; the executable runtime accepts
+two positive and rejects two negative witnesses; and the independent checks
+pass. The current pushed production pins are `standard-new` `8d5ee41`,
+`fortfront-new` `7ab3df0`, `ffc-new` `3253849`, and `fortback-new` `a149015`.
+M2 remains open for broad generated-runtime corpus behavior, full lexical
+coverage, conflict policy and language preservation. No semantic, LLM,
+backend or plotting work is unlocked.
 E0142 is abandoned; E0123's deterministic post-run gate is
 reported as `R000254`, and the production slices do not close semantic
 promotion.
@@ -2391,16 +2382,15 @@ references remain stronger in executable lexer/runtime integration, factoring,
 actions, precedence and conflict policy. This is structural evidence, not
 language equivalence.
 
-The authoritative PDF-fidelity gate E0158 is revalidated as `R000352` against
-the exact current E0154/R000318 source. It checks all 522 source byte spans and
-canonical rule-definition occurrences, all 20 duplicate rule families, and
+The authoritative PDF-fidelity gate E0158 is revalidated as `R000364` against
+the exact current E0154/R000353 source, with R000352 retained as the earlier
+authoritative record. It checks all 522 source byte spans and canonical
+rule-definition occurrences, all 20 duplicate rule families, and
 representative continuation/token-ref witnesses R741, R843, R1103, R1307 and
 R1315. It also checks all-record token/ref leaves, source hashes, and the
 canonical-text/PDF artifact-manifest lineage. The PDF hash and negative
 mutation pass; 46 surface-only optional-plus-ellipsis differences are reported
-explicitly. No generic extractor repair is indicated and the next four-format
-regeneration is authorized. E0164's full generated-parser runtime remains
-open; no semantic or model work resumes until that deterministic gate closes.
+explicitly. No generic extractor repair is indicated.
 
 E0165 tested the next generic parser-quality candidate only after those trusted
 gates. The candidate preserved source identity and generated all four formats,
@@ -2408,8 +2398,18 @@ but increased all-root Bison conflicts to 948/4,572, produced useless selected
 rules and triggered a Bison internal assertion. R000360 records the rejection;
 `standard-new` was reverted to `8d5ee41`. No precedence rewrite or global
 factoring is justified. The accepted parser policy remains D0089 GLR plus the
-validated opt-in role-family specialization from D0092/E0163. Lexer/runtime
-and full corpus behavior are still open.
+validated opt-in role-family specialization from D0092/E0163. E0164/R000363--
+R000370 now close the selected contract/runtime checkpoint; broad runtime
+corpus behavior and full lexical coverage remain open.
+D0099 records the generic runtime policy: source occurrences remain in the
+contract, while only exact duplicate generated bodies may be coalesced and all
+generated names are bounded deterministically.
+
+The current deterministic sequence is therefore: PDF fidelity; source-backed
+contract closure; four-format regeneration and parser-generator oracles; Bison
+conflict inventory; generated-runtime positive/negative witnesses; then the
+broad runtime corpus and lexer expansion. Only after that sequence is complete
+may semantic extraction, LLM/model comparisons, plots or backend work resume.
 
 ## Ordering constraints
 

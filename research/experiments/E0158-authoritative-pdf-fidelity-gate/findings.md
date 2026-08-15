@@ -78,3 +78,13 @@ R000335 is retained as the underlying report attempt with a metadata hash typo;
 R000336 is retained as a collided preliminary record. R000352 is the
 authoritative append-only run record for this gate and supersedes both metadata
 attempts without changing the underlying report.
+
+## R000364: current-source replay before the selected runtime
+
+The same deterministic checker was rerun against the exact E0154/R000353
+source evidence and retained as `.cache/runs/E0164/R000364-pdf-fidelity.tsv`.
+It again passes all 522 source spans, all 20 duplicate rule families, every
+source hash and token/ref leaf, the PDF/canonical/page-index lineage checks,
+and R741, R843, R1103, R1307 and R1315. The negative mutation fails as
+required. This is the current gate used by R000365; no extractor repair or
+rule-number-specific exception was made.

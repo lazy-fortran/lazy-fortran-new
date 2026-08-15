@@ -186,3 +186,15 @@ U+2019 in executable grammar bodies. The fresh Bison diagnostics are 758
 shift/reduce and 3,885 reduce/reduce conflicts; they are inventory evidence
 for E0159, not a source-fidelity failure. Lexer/runtime behavior, conflict
 resolution, language preservation and semantic/model work remain closed.
+
+## R000365: current selected post-fidelity replay
+
+R000365 repeats the four-format generation against the E0154/R000353 source
+evidence after the current E0158/R000364 fidelity gate. Source preflight,
+identity, lexical mutation and all three parser-generator oracles pass. The
+selected profile covers 1,068/1,068 source alternatives in EBNF, ANTLR4,
+Bison and tree-sitter. Its Bison diagnostics are 427 shift/reduce and 2,266
+reduce/reduce conflicts, with zero undefined-symbol, useless-symbol or
+useless-rule diagnostics. This is the current source/projection input for the
+E0164 generated-runtime gate; it does not by itself establish language
+equivalence.

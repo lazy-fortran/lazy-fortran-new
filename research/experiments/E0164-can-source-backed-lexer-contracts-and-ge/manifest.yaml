@@ -6,13 +6,13 @@ question: >
 status: reported            # draft | running | reported | abandoned
 opened: "2026-08-15"
 closed: "2026-08-15"
-reported_run: R000348
+reported_run: R000370
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "5abdc784d4fbac652a4c6c3f8b660cb3f1a877cf"
-  standard-new: "7d011f49e0e74e95b88a90c5894ea3358fc5ee82"
-  fortfront-new: "d6de5f47afa8870c7e1dbec5dff06ec0ba79f7a3"
+  lazy-fortran-new: "b1805d8a0e005406d083e2be8db1866c6464abe5"
+  standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
+  fortfront-new: "7ab3df0d2ca7e33d4836d502728b35c904b2bb3a"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
   oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
   oracle-gcc: "395e3d8131c189cd58e8c8061cdc77d1c44e3822"
@@ -21,8 +21,12 @@ repos:
 inputs:
   standard: j3-24-007
   profile: selected-program
-  baseline_run: E0161/R000338
-  candidate_run: E0160/R000337
+  source_run: E0154/R000353
+  contract: .cache/runs/E0164/R000363-standardir-grammar-v0-selected.sx
+  contract_validation: .cache/runs/E0164/R000369-contract-validation.tsv
+  fidelity_gate: E0164/R000364
+  generated_formats: .cache/runs/E0164/R000365-four-format-regeneration
+  runtime_behavior: .cache/runs/E0164/R000367-runtime-behavior.tsv
   lexical_facts: ../standard-new/specs/lexical-facts-v0.sx
   standard_manifest: artifacts/standards/j3-24-007.toml
   external_behavior: E0041/R000050
@@ -30,9 +34,9 @@ inputs:
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
-  projection: [baseline, role-family-candidate]
+  projection: [source-backed-selected-program]
   lexer_contract_origin: [MECHANICAL]
-  parser_runtime: [not-yet-integrated]
+  parser_runtime: [fortfront-generated-contract]
 
 # Explain whether model names form a controlled family ladder or separate
 # controls. Pin revisions and runtime settings before the first run.
@@ -52,25 +56,32 @@ metrics:
   - bounded_language_negative_cases
   - external_reference_corpus_agreement
   - generated_parser_runtime_status
+  - contract_reference_closure
+  - runtime_positive_cases
+  - runtime_negative_cases
+  - runtime_peak_rss
+  - bison_structural_conflict_inventory
   - model_calls
 
 # State the complete eligible set and exclusions before the first run. A rate
 # over the successful subset is reported alongside the strict rate.
 denominator: >
-  Both selected-program grammar projections, every row in each emitted lexer
-  contract, all four generated grammar formats, the complete E0161 bounded
-  corpus of 359 positive and 636 negative cases, the ten-case E0041 reference
-  corpus, and all 24 fortfront-new tests at the pinned production commit.
+  Every selected source-backed contract row, all four generated grammar
+  formats, the E0161 bounded corpus of 359 positive and 636 negative cases,
+  the ten-case E0041 reference corpus, the selected generated-runtime witness
+  of two positive and two negative cases, and all 26 fortfront-new tests at
+  the pinned production commit. The broad E0161/E0041 evidence remains a
+  bounded upstream corpus, not a complete Fortran behavior oracle.
 
 # State the independent behavioral or structural oracle. Self-consistency is
 # not an oracle.
 independent_oracle: >
-  A separate Python adjudicator checks contract lineage and row integrity;
-  E0147 and E0156 provide generator and lexical mutation gates; fortfront-new
-  supplies the generic lexer runtime tests; E0161 supplies an independent
-  bounded grammar recognizer; and E0041 supplies three independent external
-  frontend behavior oracles. No generated parser-runtime equivalence is
-  inferred from these components.
+  E0158 checks authoritative PDF lineage. E0154 supplies source identity,
+  lexical mutation and four-format/parser-generator gates. The independent
+  `validate-contract.py` checker recomputes contract lineage and reference
+  closure. `validate-runtime-behavior.py` checks the generated runtime's
+  positive/negative witness. E0159 supplies the deterministic Bison inventory;
+  E0161 and E0041 remain bounded external behavior evidence.
 
 # Record versions needed to reproduce each run.
 toolchain:
@@ -87,18 +98,22 @@ falsifiable_by: >
 
 # The condition that closes the experiment and the evidence it must report.
 gate: >
-  The source-backed lexer contract, all four generator projections, lexical
-  mutation controls, generic fortfront lexer tests, and positive/negative
-  reference behavior witnesses must pass. A complete E0164 closure additionally
-  requires an executable generated parser runtime consuming the selected grammar;
-  the existing fortfront lexer module alone does not satisfy that condition.
+  The PDF-fidelity gate, source-backed contract lineage and zero-reference
+  closure, all four generator projections, lexical mutation controls, the
+  executable selected generated parser runtime, and positive/negative runtime
+  witnesses must pass. This closes the selected deterministic checkpoint only;
+  broad corpus behavior, full lexical coverage, conflict resolution and
+  semantics remain separate gates.
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: >
-  research/experiments/E0164-can-source-backed-lexer-contracts-and-ge/analyse.py
-  <baseline-dir> <candidate-dir> <lexical-facts> <standard-manifest>
-  <bounded-language-report> <external-summary> <fortfront-test-log> <output>
-  [--lexer-test-count N --runtime-test-log FILE --runtime-test-count N]
+  First run the E0158 and E0154 commands recorded in findings.md. Build the
+  source-backed contract with build-contract.py and validate it with
+  validate-contract.py. Run the fortfront runtime CLI over the contract,
+  retain the positive/negative TSV, and validate it with
+  validate-runtime-behavior.py. The historical analyse.py command remains the
+  replay command for R000348/R000349; it is not the current full-contract
+  adjudicator.
 
 replays:
   - run: R000348
@@ -107,3 +122,24 @@ replays:
   - run: R000349
     kind: generic-parser-runtime-slice-replay
     report: .cache/runs/E0164/R000349/report.tsv
+  - run: R000363
+    kind: selected-source-backed-grammar-v0-contract
+    contract: .cache/runs/E0164/R000363-standardir-grammar-v0-selected.sx
+  - run: R000364
+    kind: current-source-authoritative-pdf-fidelity
+    report: .cache/runs/E0164/R000364-pdf-fidelity.tsv
+  - run: R000365
+    kind: post-fidelity-four-format-selected-regeneration-and-oracles
+    directory: .cache/runs/E0164/R000365-four-format-regeneration
+  - run: R000367
+    kind: selected-generated-runtime-load-and-behavior
+    behavior: .cache/runs/E0164/R000367-runtime-behavior.tsv
+  - run: R000368
+    kind: selected-bison-conflict-inventory
+    directory: .cache/runs/E0164/R000368-bison-conflict-inventory
+  - run: R000369
+    kind: independent-contract-lineage-and-closure-validation
+    report: .cache/runs/E0164/R000369-contract-validation.tsv
+  - run: R000370
+    kind: independent-runtime-positive-negative-validation
+    report: .cache/runs/E0164/R000370-runtime-behavior-check.tsv

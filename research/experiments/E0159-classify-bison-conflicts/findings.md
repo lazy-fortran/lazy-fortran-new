@@ -82,3 +82,25 @@ other grammar structure 61/77, and role/name family 148/1,623. This remains an
 inventory only. Generic factoring, precedence or ambiguity handling requires a
 separate source-lineage and language-preservation gate; no conflict is fixed
 by a rule-number-specific exception.
+
+## R000368: current selected-contract replay
+
+R000368 reruns the inventory after E0158/R000364 and the fresh
+E0154/R000365 four-format regeneration. It uses the current selected Bison
+grammar and the retained all-root report, then regenerates the selected-program
+and pinned LFortran reports with the committed `analyse.py` command. It
+reproduces:
+
+| profile | shift/reduce | reduce/reduce |
+|---|---:|---:|
+| all roots | 758 | 3,885 |
+| selected `program` | 427 | 2,266 |
+| LFortran | 238 | 180 |
+
+LFortran's observed totals still equal its declared `%expect` and `%expect-rr`
+policy. The current structural category table is retained in
+`.cache/runs/E0164/R000368-bison-conflict-inventory/summary.tsv`; it remains
+an inventory, not a resolution policy. E0165/R000360 is the negative control
+against global common-prefix factoring: that candidate increased the all-root
+totals and caused a selected Bison assertion. No generic factoring,
+precedence or ambiguity transformation is promoted by R000368.
