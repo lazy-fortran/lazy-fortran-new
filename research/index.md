@@ -299,6 +299,7 @@ Runs recorded: 383
 | [D0101](decisions/D0101-finite-chart-runtime-evaluator.md) | accepted |  | Use a finite chart evaluator for the generated grammar runtime |
 | [D0102](decisions/D0102-grammar-evidence-and-target-lowering-witnesses.md) | accepted |  | Separate grammar evidence levels and witness every target lowering |
 | [D0103](decisions/D0103-explicit-profile-entry-and-eof-contracts.md) | accepted |  | Make grammar profile entry and EOF policies explicit |
+| [D0104](decisions/D0104-tree-sitter-nullable-target-lowering.md) | accepted |  | Eliminate nullable non-start rules in the tree-sitter target |
 
 ### Proposed decisions
 
