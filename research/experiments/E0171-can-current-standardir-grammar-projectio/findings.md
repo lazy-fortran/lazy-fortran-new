@@ -251,3 +251,26 @@ entry, associativity, precedence or Bison `%expect` is justified by this run.
 R000405 contained the same artifact but an invalid manually typed lab commit
 pin. It is retained as an immutable failed record; R000406 supersedes it with
 the committed normalizer pin and changes no evidence or classification.
+
+## R000407: the normative source confirms the missing lexer contract
+
+The source-anchor replay uses:
+
+```text
+for p in $(seq 1 688); do
+  pdftotext -f "$p" -l "$p" -layout .cache/j3-24-007.pdf -
+done
+```
+
+with the checked-in rows in `statement-boundary-anchors.tsv`. The source
+anchors are clause 4.1.4, page 45 (statement classes are delimited by
+end-of-line or semicolon), clause 5.5.2, page 65 (statement keywords are not
+reserved and same-spelling names are allowed), and clause 6.3.2.5, page 72
+(an uncontinued free-form statement is terminated by comment or end of line).
+The PDF hash in every row is the pinned J3/24-007 hash.
+
+This confirms that the `SAVE`/`LETTER` witness cannot be resolved from the
+current five-row lexical contract. The missing information is normative source
+behavior, not a Tree-sitter-specific exception. The production slice must
+therefore add a versioned target lexer contract and independent boundary/name
+behavior witnesses while leaving StandardIR syntax unchanged.
