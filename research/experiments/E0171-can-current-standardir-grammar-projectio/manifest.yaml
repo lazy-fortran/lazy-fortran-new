@@ -254,12 +254,20 @@ replays:
     mode: independent-source-statement-boundary-behavior
     report: .cache/runs/E0171/R000426-statement-boundary-behavior/behavior.tsv
     result: three-compiler-source-oracle-pass-target-runtime-open
+  - run: R000427
+    supersedes: R000426
+    standard-new: "d2835f4475faf98b141e36a5e10c83cd37545544"
+    mode: standard-new-statement-boundary-plan-production-gate
+    report: standard-new:test/test_standardir_statement_boundary
+    result: typed-plan-pass-target-insertion-open
 
 result: >
-  R000388 passes source-backed and generator structural gates and reproduces
-  the same inventory under two explicitly named replay roles. It establishes
-  structural evidence only. It does not establish language equivalence,
-  parse-tree equivalence, complete lexer behavior, or semantic coverage.
+  The source and production boundary-plan subgates pass through R000427. The
+  experiment remains running: the typed plan validates and preserves source
+  lineage, but target expression mapping, token insertion, generated runtime
+  behavior and parser-oracle classification remain open. Structural evidence
+  is not language equivalence, parse-tree equivalence, complete lexer behavior
+  or semantic coverage.
 
 latest_replay: >
   R000423 is the latest production projection gate. The `standard-new`
@@ -272,10 +280,13 @@ latest_replay: >
   including compound and adjacent sequence items, with zero unsupported shapes
   and full per-row source document/clause/page/byte/hash lineage. R000426 is
   the latest independent source-level behavior oracle: all nine generated
-  cases agree across GNU Fortran, Flang and LFortran. It does not yet prove
-  that a generated lexer/runtime consumes the witness. D0112 makes the next
-  production artifact a typed, validated boundary-lowering plan; no target
-  exporter may insert separators directly from the raw witness. R000411 is
+  cases agree across GNU Fortran, Flang and LFortran. R000427 is the latest
+  production boundary-plan gate: the typed plan validates all witness kinds,
+  lineage and negative controls at `standard-new` `d2835f4`, while explicitly
+  reporting that insertion is not supported yet. It does not yet prove that a
+  generated lexer/runtime consumes the witness. D0112 governs the plan and
+  forbids target exporters from inserting separators directly from the raw
+  witness. R000411 is
   the latest source-evidence and v2 projection replay: it extracts ten facts,
   including the source-backed statement-class selector, and projects them
   through `standard-new` at the pinned commit. E0157/R000371 and E0158/R000372
