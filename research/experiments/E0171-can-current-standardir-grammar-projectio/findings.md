@@ -402,6 +402,20 @@ before the next statement-bearing expression. A required non-statement payload
 therefore cannot create a false boundary. The full source result remains 95
 rows with zero unsupported shapes.
 
+## R000421: production topology projection is fixture-green
+
+`standard-new` `2b13568` now contains the typed production projection of the
+same D0111 analysis. Its focused test covers direct and adjacent boundaries,
+compound repeats, nested action-statement exclusion, deterministic derivation
+ordering, malformed RHS rejection, source-form scope, and retained rejected
+rows with source provenance and status. The full `fo` pipeline passes 44 tests
+with zero warnings.
+
+This is deliberately not recorded as full-corpus parity. The production API
+has not yet been driven over the 522-source-record input and compared row for
+row with R000420. That is the next deterministic gate before any grammar
+generator consumes the witness.
+
 The bounded behavior cases are now pinned as
 `research/corpora/statement-boundary-behavior-v0.toml`. They are not a grammar
 source: the future gate generates their payloads in the ignored run cache and
