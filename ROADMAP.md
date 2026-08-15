@@ -21,12 +21,13 @@ semantic extraction or backend work resumes while the remaining deterministic
 grammar path is open. The boundary implementation derives candidates from
 StandardIR graph topology plus the v2 source facts; it does not append EOS to
 every `-stmt`, because nested `action-stmt` references are not complete source
-statements. The source-level behavior oracle R000426 now passes, and R000427
-closes the typed, validated boundary-plan subgate at `standard-new` `d2835f4`.
-The plan deliberately does not insert target separators yet. The next gate is
-mapping those sites through source and target expression trees, followed by
-generated token/runtime behavior, regeneration of all four grammar targets and
-parser-oracle checks. This is D0111 and D0112 layered onto the two-tier
+statements. The source-level behavior oracle R000426 now passes, and R000428
+closes the typed, validated boundary-plan and truthful-identity subgates at
+`standard-new` `107d7a3`. The plan deliberately does not insert target
+separators yet. The next gate is mapping those sites through source and target
+expression trees, followed by generated token/runtime behavior, regeneration of
+all four grammar targets and parser-oracle checks. This is D0111 through D0113
+layered onto the two-tier
 evidence protocol in D0105; R000400 remains the profile negative control and
 R000404 the current clean replay. No target export may insert separators
 directly from a raw witness or conflict report.
