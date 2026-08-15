@@ -217,7 +217,7 @@ LFortran advantages (lexer/runtime contract, typed values, actions, precedence,
 factoring and explicit conflict budget). It is not a language-equivalence
 claim. The comparison also found a real target projection defect: EBNF still
 prints U+2013/U+2019 in grammar bodies at the lexical anchors listed in
-`research/experiments/E0154-can-exact-source-expression-identity-and/reviews/R000315-luna.md`,
+`research/experiments/E0154-can-exact-source-expression-identity-and/reviews/R000316-luna.md`,
 despite D0090/D0091 requiring canonical ASCII target spellings. E0156 is now
 the next deterministic gate; no parser-quality, semantic or model work resumes
 until every format passes its lexical witness checks. Only after that gate do
@@ -360,7 +360,7 @@ changes a denominator.
 - [x] E0155: complete the pinned bidirectional LFortran Bison comparison and
       independent Luna review. Record every difference as a StandardIR
       advantage, reference advantage, scope difference or inconclusive result;
-      do not copy reference productions. R000315 and Luna R000315 are recorded;
+      do not copy reference productions. R000315 and Luna R000316 are recorded;
       E0156 tracks the newly exposed canonical-lexical-spelling defect.
 - [ ] E0156: prove that EBNF, ANTLR4, Bison and tree-sitter preserve the
       original Unicode glyph only in provenance while emitting canonical ASCII

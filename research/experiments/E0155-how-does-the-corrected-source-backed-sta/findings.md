@@ -99,7 +99,7 @@ against the generated file and the E0154 source-expression gate.
 ## Independent Luna review
 
 The minimal D0085 review is retained at
-`../E0154-can-exact-source-expression-identity-and/reviews/R000315-luna.md`.
+`../E0154-can-exact-source-expression-identity-and/reviews/R000316-luna.md`.
 It agrees with the source/provenance advantages and with the open parser-quality
 boundary. It also found a lexical-spelling problem that the source-expression
 identity checker cannot see: the EBNF projection still prints the PDF's U+2013
