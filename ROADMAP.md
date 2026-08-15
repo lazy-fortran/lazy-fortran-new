@@ -26,7 +26,7 @@ closes the typed, validated boundary-plan and truthful-identity subgates at
 `standard-new` `107d7a3`. The plan deliberately does not insert target
 separators yet. The next gate is mapping those sites through source and target
 expression trees, followed by generated token/runtime behavior, regeneration of
-all four grammar targets and parser-oracle checks. This is D0111 through D0113
+all four grammar targets and parser-oracle checks. This is D0111 through D0114
 layered onto the two-tier
 evidence protocol in D0105; R000400 remains the profile negative control and
 R000404 the current clean replay. No target export may insert separators
@@ -34,7 +34,7 @@ directly from a raw witness or conflict report.
 
 The immediate sequence is:
 
-1. Map every accepted site in the R000427 plan from its canonical source
+1. Map every accepted site in the R000428 plan from its canonical source
    expression path into the raw grammar and through target normalization. The
    mapper must emit explicit `mapped`, `ambiguous`, `unsupported` or
    `suppressed` dispositions with source lineage; it must not match by rule
