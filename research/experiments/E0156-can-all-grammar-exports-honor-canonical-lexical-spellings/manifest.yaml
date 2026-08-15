@@ -9,8 +9,14 @@ opened: "2026-08-15"
 closed: ""
 
 repos:
-  lazy-fortran-new: "65c7b69"
+  lazy-fortran-new: "5350ae7"
   standard-new: "83f055d"
+
+replays:
+  - run: R000317
+    lazy-fortran-new: "5350ae7"
+    standard-new: "83f055d"
+    mode: four-format-lexical-witness-current-output
 
 inputs:
   source_run: E0154/R000314
@@ -23,7 +29,7 @@ variables:
 
 model_selection: >
   No model calls. This is a deterministic target-contract and source-witness
-  experiment; Luna's R000315 review is diagnostic evidence only.
+  experiment; Luna's R000316 review is diagnostic evidence only.
 
 metrics:
   - source_glyph_retained_in_provenance

@@ -224,6 +224,13 @@ until every format passes its lexical witness checks. Only after that gate do
 we reduce and witness ambiguity and parser behavior without copying reference
 productions.
 
+E0156/R000317 now makes the lexical defect independently reproducible at lab
+`5350ae7` and `standard-new` `83f055d`: the checker reports 11 raw U+2013/U+2019
+occurrences in EBNF executable bodies, while ANTLR4, Bison and tree-sitter each
+report zero and pass their canonical target checks. The negative mutation
+passes. This is the current production repair slice; no downstream parser or
+LLM work is allowed to bypass it.
+
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
 It uses the selected E0147/R000022 export directly; the analysis script no

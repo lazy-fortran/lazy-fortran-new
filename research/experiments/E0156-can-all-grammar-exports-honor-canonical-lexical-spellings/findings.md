@@ -16,7 +16,7 @@ negative mutation that must fail. It does not invoke a grammar generator.
 
 ## R000317: current production fails the lexical target gate
 
-The current run uses lab `fec5aa0` metadata and production
+The current run uses lab `5350ae7` metadata and production
 `standard-new` `83f055d`. The source-expression identity gate remains green,
 but EBNF target bodies still contain U+2013 and U+2019 after comments are
 removed. The ANTLR4, Bison and tree-sitter target lexical declarations already
