@@ -24,6 +24,10 @@ replays:
     lazy-fortran-new: "232a3a8"
     standard-new: "c8ebb22"
     mode: selected-root-target-oracles
+  - run: R000311
+    lazy-fortran-new: "c534d4b"
+    standard-new: "cdec3fa"
+    mode: selected-root-source-expression-identity-and-target-oracles
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

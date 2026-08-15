@@ -62,3 +62,28 @@ generic nullable-reference normalization removes source optionality from
 R1404/R1416. That transformation may be language-preserving, but this replay
 does not prove it. It must either be retained for the exact-source gate or
 receive a generic target-body/language-preservation witness.
+
+## R000311: the first repair still hashes after lexical normalization
+
+The replay used `standard-new` `cdec3fa` and the updated independent checker.
+All four exports were present; ANTLR4, Bison and tree-sitter accepted them; the
+negative mutation was rejected. The exact source gate nevertheless failed:
+
+* 1,068 source alternatives were the denominator and 1,053 were covered in
+  each format;
+* eight Unicode-bearing alternatives still had wrong source hashes in the
+  emitted target annotations because the closure pipeline had already applied
+  lexical canonicalization before the typed adapter computed its hash;
+* six source alternatives were absent from the target lineage, including
+  R401--R403 generated-helper cases and three additional transformed cases;
+* target-expression hashes were now emitted separately and the merged-lineage
+  buffers were no longer truncated;
+* Bison still reported 427 shift/reduce and 2,266 reduce/reduce conflicts.
+
+This is a more precise failure than R000308. The standalone UTF-8 path and
+capacity tests pass, but they do not cover the actual pre-adapter lexical
+rewrite. D0096 therefore makes the next production boundary explicit: capture
+the raw source witness before any target normalization, preserve every source
+alternative through merged/factored targets, and emit a typed source-
+preservation witness for alternatives without a one-to-one target body. The
+parser-generator PASS results remain subordinate and do not close E0154.

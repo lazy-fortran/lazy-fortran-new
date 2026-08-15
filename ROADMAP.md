@@ -185,6 +185,17 @@ projection gap: nullable-reference simplification removes source optionality
 from R1404/R1416 without a target-body witness. This is recorded as M048 and
 must be preserved or proven generically before the gate closes.
 
+The typed-identity repair is now pushed as `standard-new` `cdec3fa` and its
+fresh replay is E0154/R000311. It fixes standalone UTF-8 hashing, long merged
+lineage capacity, nullable normalization witnesses and separate target hashes,
+but the real closure path still hashes after lexical canonicalization and six
+source alternatives disappear into generated helpers. D0096 is the accepted
+next boundary: capture the raw RHS identity before any target normalization,
+carry every source alternative through merged/factored output, and emit a
+separate typed source-preservation witness when no one-to-one target body
+exists. Parser-generator acceptance remains subordinate; no model experiment
+resumes until this deterministic gate passes.
+
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
 It uses the selected E0147/R000022 export directly; the analysis script no
