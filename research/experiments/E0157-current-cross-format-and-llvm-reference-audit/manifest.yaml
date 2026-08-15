@@ -10,7 +10,7 @@ opened: "2026-08-15"
 closed: "2026-08-15"
 
 repos:
-  lazy-fortran-new: "c8a7294"
+  lazy-fortran-new: "207a3a4"
   standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
   oracle-standard: "962ee30acd806ada940beb1bf8baa95fcb7e814c"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
@@ -32,9 +32,9 @@ reference_sha256:
   flang_parser_comments: abb4126d6c0c4e516628ba9836c428f83f0ccf883439e67cbfdd061aa42d83b9
 
 model_selection: >
-  No model calls. This is a deterministic inventory and manual adjudication;
-  StandardIR remains normative and reference sources remain comparison
-  evidence only.
+  The inventory is deterministic; one minimal GPT-5.6 Luna read-only review is
+  an adjudication layer after the deterministic report. StandardIR remains
+  normative and reference sources remain comparison evidence only.
 
 metrics:
   - generated_rule_heads_and_lineage
@@ -74,3 +74,10 @@ analysis: >
   <lexical-report> [report-dir] writes inventories.tsv, feature-matrix.tsv,
   hashes.tsv and summary.json. The lexical report must contain
   format_gate_status PASS before this analysis reads generated outputs.
+
+replays:
+  - run: R000322
+    lazy-fortran-new: "207a3a4"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    mode: corrected-selected-program-audit
+    luna_review: reviews/R000322-luna.md

@@ -2281,8 +2281,9 @@ Only after E0157's deterministic report may the required Luna read-only review
 run; model and semantic experiments remain blocked until the grammar-quality
 successor gates are explicit and green.
 
-E0157 is now reported as `R000319`. The four current outputs share exactly
-1,111 source-lineage values and the audit records both sides of the comparison:
+E0157 is now reported as corrected `R000322` (the initial inventory remains
+retained as R000319). The four current outputs share exactly 1,111
+source-lineage values and the audit records both sides of the comparison:
 StandardIR is stronger in normative provenance, exact source-alternative
 identity and four-format derivation; the references are stronger in executable
 lexer/runtime integration, factoring, actions, precedence and conflict policy.
@@ -2292,6 +2293,15 @@ profile gap, not permission to call the source incomplete. The next deterministi
 gate is a broader/all-root profile replay, followed by explicit conflict,
 lexer-contract, factoring and behavioral witnesses. No LLM or semantic run is
 valid evidence until that broader grammar gate is accepted.
+
+The authoritative PDF-fidelity gate E0158 is accepted as `R000321`. It checks
+all 522 source byte spans and canonical rule-definition occurrences, all 20
+duplicate rule families, and representative continuation/token-ref witnesses
+R741, R843, R1103, R1307 and R1315. The PDF hash and negative mutation pass.
+The pre-gate all-root output R000320 is retained but is not trusted as the
+fresh broader replay. Only now is a new all-root four-format regeneration
+authorized; after it passes, the next work is Bison conflict classification,
+not semantic or LLM extraction.
 
 ## Ordering constraints
 

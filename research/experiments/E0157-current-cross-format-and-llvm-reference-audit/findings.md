@@ -70,3 +70,26 @@ precedence and declared conflict policy. LFortran's pinned Bison file also
 regenerates with its declared 238 shift/reduce and 180 reduce/reduce conflict
 budget, whereas the current generated Bison output reports 427 and 2,266.
 No reference production was copied and no equivalence claim is made.
+
+## R000322: corrected audit and Luna adjudication
+
+R000319 is retained as the first inventory result, but its report directory was
+superseded after the audit checker itself was reviewed. R000322 is the
+immutable corrected replay at lab `207a3a4` and `standard-new`
+`bedd9abc7210fc7fc16607d275ea4fa7b24144f8`.
+
+The corrected detector normalizes target quoting and token wrappers before
+testing fixed feature witnesses. FAIL IMAGE, NOTIFY WAIT, SELECT RANK and FORM
+TEAM are present in all four generated bodies; no false selected-profile gap
+remains. The summary separately reports 1,068/1,068 identity coverage and
+1,061/1,068 emitted bodies with seven explicit selected-root omissions. The
+feature matrix remains a lexical presence inventory: `both` means present in
+at least one generated and at least one reference body, not universal support.
+
+Luna's minimal independent review is
+`reviews/R000322-luna.md`. Its adjudication is accepted: E0157 is strong
+source/provenance evidence for the selected profile, but it is not a semantic,
+behavioral or language-equivalence proof. It also identified a remaining audit
+boundary: source-projection and lexical status are consumed as upstream gate
+reports, not independently re-derived by E0157. Those checks remain explicit
+earlier gates; E0157 does not promote them into a second authority.

@@ -4,12 +4,12 @@ question: >
   Does the current StandardIR preserve the authoritative PDF byte spans,
   continuation/page-break structure, token/ref classification and duplicate
   rule occurrences for representative records known to expose extractor risk?
-status: running       # draft | running | reported | abandoned
+status: reported      # draft | running | reported | abandoned
 opened: "2026-08-15"
-closed: ""
+closed: "2026-08-15"
 
 repos:
-  lazy-fortran-new: "207a3a4"
+  lazy-fortran-new: "2273c49"
   standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
 
 inputs:
@@ -58,3 +58,10 @@ gate: >
 analysis: >
   check.sh <standardir.sx> <canonical.txt> <pdf> <report.tsv> writes the
   deterministic fidelity report and no generated grammar.
+
+replays:
+  - run: R000321
+    lazy-fortran-new: "2273c49"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    mode: all-records-five-witnesses
+    report: .cache/runs/E0158/R000320-pdf-fidelity.tsv

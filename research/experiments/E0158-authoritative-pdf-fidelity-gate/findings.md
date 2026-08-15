@@ -21,3 +21,18 @@ research/experiments/E0158-authoritative-pdf-fidelity-gate/check.sh \
 No target grammar, parser generator, LLM or semantic extractor is involved in
 this gate. A passing report authorizes a fresh four-format regeneration; the
 existing R000320 all-root replay remains historical pre-gate evidence.
+
+## R000321: fidelity gate passes
+
+The report passes with 522 source records, 522 unique byte spans and 522
+canonical grammar-definition occurrences. All 20 duplicate rule families retain
+40 distinct source occurrences. R741, R843, R1103, R1307 and R1315 each pass
+both normalized RHS comparison and independent token/ref leaf classification.
+R1307 crosses a PDF page break and removes two layout-header lines without
+losing grammar content. The pinned PDF hash and the negative mutation both
+pass.
+
+The source extractor therefore needs no rule-specific repair for this pinned
+document and witness set. The gate now authorizes a fresh all-root regeneration
+using the already generic four-format pipeline. That regeneration must remain
+separate from the pre-gate R000320 output.
