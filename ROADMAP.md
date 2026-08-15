@@ -21,24 +21,24 @@ semantic extraction or backend work resumes while the remaining deterministic
 grammar path is open. The boundary implementation derives candidates from
 StandardIR graph topology plus the v2 source facts; it does not append EOS to
 every `-stmt`, because nested `action-stmt` references are not complete source
-statements. The source-level behavior oracle R000426 now passes; the next gate
-is a typed, validated lowering plan, followed by generated lexer/runtime
-behavior consuming that oracle, regeneration of all four grammar targets and
-parser-oracle checks.
-This is D0111 and D0112 layered onto the two-tier evidence protocol in D0105;
-R000400 remains the profile negative control and R000404 the current clean
-replay. The next production artifact is a typed, validated boundary-lowering
-plan carrying every accepted and rejected site with source lineage. No target
-export may insert separators directly from a raw witness or conflict report.
+statements. The source-level behavior oracle R000426 now passes, and R000427
+closes the typed, validated boundary-plan subgate at `standard-new` `d2835f4`.
+The plan deliberately does not insert target separators yet. The next gate is
+mapping those sites through source and target expression trees, followed by
+generated token/runtime behavior, regeneration of all four grammar targets and
+parser-oracle checks. This is D0111 and D0112 layered onto the two-tier
+evidence protocol in D0105; R000400 remains the profile negative control and
+R000404 the current clean replay. No target export may insert separators
+directly from a raw witness or conflict report.
 
 The immediate sequence is:
 
-1. Build and validate the typed boundary-lowering plan from the R000423
-   witness. The plan must preserve source rule/LHS, canonical expression path,
-   candidate kind, derivation, source lineage and rejected dispositions. It
-   must reject malformed paths, duplicates, missing lineage and unsupported
-   shapes before any target exporter inserts a separator. This is the
-   D0112 gate; it is not a new normative StandardIR production.
+1. Map every accepted site in the R000427 plan from its canonical source
+   expression path into the raw grammar and through target normalization. The
+   mapper must emit explicit `mapped`, `ambiguous`, `unsupported` or
+   `suppressed` dispositions with source lineage; it must not match by rule
+   number, LHS suffix or target spelling. Target insertion remains blocked
+   until all selected sites have a non-guessing disposition.
 2. Make the generated lexer/runtime consume the now-passing source behavior
    oracle R000426 for separators, comments, continuation and keyword/name
    reuse. The target gate must prove nested `IF (...) action-stmt` and
@@ -47,31 +47,17 @@ The immediate sequence is:
    runtime still consumes caller-supplied tokens rather than raw Fortran source,
    so the first target gate must make the boundary-token stream explicit and
    testable; it must not be described as a completed source lexer.
-3. Consume the central `contracts/lexical-layout-v2.sxs` revision from
-   `standard-new`, extending the target lexer contract with statement-boundary,
-   continuation and keyword/name behavior. R000408 is retained as a v0
-   projection experiment is historical; D0108 corrected its prose provenance,
-   and D0109 adds the source-backed statement-class selector that v1 lacked.
-   The v2 migration is green in E0171/R000411 at `standard-new` commit
-   `4479a23fd680bdcc9af19bb7e3a606b22f1fd787`; generated parser targets still
-   need to consume the contract, and independent positive/negative behavior
-   target behavior remains open. D0106 through D0110 keep this out of normative
-   StandardIR; `scripts/check-contracts.sh` is the pre-launch contract gate.
-4. Derive and audit statement-sequence candidates by fixed-point graph
-   analysis. R000420 is green: 95 candidates, compound and adjacent sequence
-   items included, zero unsupported shapes, and complete per-row source
-   lineage. R000423 proves exact parity with the production CLI at
-   `standard-new` `4c2d8c2`; the comparator command is
-   `python3 research/experiments/E0171-can-current-standardir-grammar-projectio/compare-statement-sequence-witness.py`.
-   Retain the containing class, expression path, item derivation and source
-   facts; reject ambiguous or unsupported contexts instead of guessing.
-5. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
+3. Regenerate all four targets only after the mapping and token/runtime gates
+   pass. Require exact source identity, per-format transformation witnesses,
+   selected-profile validation and parser-generator smoke before any conflict
+   classification. The central v2 contract is already green in R000411 and
+   the source witness is already green in R000420/R000423; those are inputs,
+   not reasons to skip the target gates.
+4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
    the witnessed boundary behavior. A conflict count, `%expect` value,
    precedence setting or matching reference diagnostic is not a gate.
-6. Only then regenerate all four targets and rerun parser smoke, lexer/runtime
-   and positive/negative behavior gates. Only after that deterministic closure
-   may broader grammar quality work resume; model and semantic campaigns remain
-   paused.
+5. Only after those deterministic gates close may broader grammar quality work
+   resume; model and semantic campaigns remain paused.
 
 A checked box means the thing exists and was observed working, not that someone
 intended it. A phase ends when its gate is demonstrated by a named artifact.
