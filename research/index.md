@@ -273,6 +273,7 @@ Runs recorded: 307
 | [D0092](decisions/D0092-generated-parser-role-specialization.md) | accepted |  | Generate parser-target role specialization from StandardIR |
 | [D0093](decisions/D0093-explicit-parser-export-boundaries.md) | accepted |  | Make parser export boundaries and lexer contracts explicit |
 | [D0094](decisions/D0094-reference-parser-adjudication.md) | accepted |  | Adjudicate reference-parser differences against the normative source |
+| [D0095](decisions/D0095-typed-source-and-target-expression-identity.md) | accepted | Amends D0088 | Keep normative source-expression and generated-target identity distinct |
 
 ### Proposed decisions
 
