@@ -462,6 +462,35 @@ changes a denominator.
       Bison assertion. R000360 rejects it; `standard-new` is reverted to the
       baseline projection at `8d5ee41`. No precedence rewrite is justified.
 
+- [x] E0167: correct and replay the cross-format/reference audit after the
+      deterministic source gate. Tree-sitter counts only `r_*` grammar heads
+      (664 in the current output); generated feature presence is the
+      intersection of StandardIR rule IDs and emitted source lineage; Flang is
+      separately compared through the same IDs and its 195 retained `R####`
+      comments. R000371 and Luna's `reviews/R000371-luna.md` pass the bounded
+      structural audit. The report is
+      `.cache/runs/E0167-audit-replay-v2`; it does not claim language
+      equivalence.
+- [x] E0168: replay the authoritative PDF-fidelity gate against the exact
+      current source used for the four-format output. R000372 passes all 522
+      source spans, 20 duplicate families/40 occurrences, all token/ref leaves,
+      page continuation handling, R741/R843/R1103/R1307/R1315, PDF lineage and
+      the negative mutation. No extractor repair or rule-number exception is
+      justified.
+- [x] E0169: compare the current Bison target controls with LFortran. The
+      generated file is GLR and source-lineage-bearing but has no precedence
+      declarations or actions; LFortran has 11 precedence directives, typed
+      actions and a declared/observed 238/180 policy. The current StandardIR
+      selected inventory is 427/2,266 and is retained as unresolved parser
+      quality evidence.
+- [ ] E0170: close parser quality without weakening source fidelity. First
+      implement the executable lexer/runtime and broader positive/negative
+      corpus gates. Then test only source-derived production transformations:
+      the selected-only role-family projection remains opt-in after E0163;
+      precedence/actions require a production-level witness and independent
+      all-root plus selected language preservation. Do not add `%expect`, copy
+      LFortran controls, or promote a lower conflict count without behavior.
+
 D0084's source-validity priority now extends through the E0164 selected
 deterministic checkpoint and its broad-behavior successor. No semantic
 extraction, model comparison, backend work or plotting is valid evidence until

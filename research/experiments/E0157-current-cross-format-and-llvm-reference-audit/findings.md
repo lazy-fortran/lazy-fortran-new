@@ -137,3 +137,37 @@ Luna's minimal independent review is recorded in
 `reviews/R000354-luna.md`. It accepts this as a bounded structural audit and
 keeps full Fortran 2023 representation, language equivalence, and Flang
 feature absence open.
+
+## R000371: current post-fidelity replay and corrected Flang witness
+
+The current replay uses the fresh E0154/R000365 four-format output and the
+corrected `analyse.sh`. The tree-sitter inventory is 664 `r_*` grammar heads;
+uppercase lexer declarations are excluded. EBNF and ANTLR4 each have 659
+heads, and Bison has 1,337 including target helpers. All generated formats
+cover 1,061/1,068 source alternatives with seven explicit unreachable skips and
+zero missing alternatives. Their emitted source-lineage sets are equal, and
+the four parser-generator/source-projection validators pass.
+
+The generated feature matrix is source-derived: each feature's StandardIR
+rule IDs are intersected with emitted lineage IDs. The Flang column is labelled
+`flang_source_rule_comment_present` and intersects the same source rule IDs
+with Flang's 195 retained `R####` comments. Two of 11 feature rows intersect.
+That is a rule-comment witness, not a claim that the other features are absent
+from Flang's implementation. Reference grammar columns remain structural head
+witnesses because those files do not carry StandardIR lineage.
+
+Luna's independent review is `reviews/R000371-luna.md`. It adjudicates the
+corrected audit as a structural PASS and leaves parser behavior, semantics,
+diagnostics, runtime behavior and language equivalence OPEN. The exact replay
+command is:
+
+```text
+research/experiments/E0157-current-cross-format-and-llvm-reference-audit/analyse.sh \
+  .cache/runs/E0164/R000365-four-format-regeneration \
+  .cache/runs/E0152/R000001/references/house-antlr4 \
+  .cache/runs/E0152/R000001/references/kaby76-antlr4 \
+  .cache/runs/E0152/R000001/references/lfortran-bison \
+  /home/ert/code/llvm-project/flang/lib/Parser/Fortran-parsers.cpp \
+  .cache/runs/E0164/R000365-four-format-regeneration/lexical-witnesses.tsv \
+  .cache/runs/E0167-audit-replay-v2
+```

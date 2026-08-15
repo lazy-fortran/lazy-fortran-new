@@ -291,6 +291,7 @@ Runs recorded: 360
 | [D0097](decisions/D0097-separate-grammar-smoke-and-runtime-gates.md) | accepted |  | Separate grammar smoke checks from executable runtime gates |
 | [D0098](decisions/D0098-reject-global-common-prefix-factoring.md) | accepted |  | Reject global common-prefix factoring without a behavior gate |
 | [D0099](decisions/D0099-normalize-identical-generated-runtime-occurrences.md) | accepted |  | Normalize identical generated runtime occurrences without losing provenance |
+| [D0100](decisions/D0100-defer-unjustified-precedence-rewrites.md) | accepted |  | Keep GLR and defer unjustified precedence rewrites |
 
 ### Proposed decisions
 

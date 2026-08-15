@@ -104,3 +104,37 @@ an inventory, not a resolution policy. E0165/R000360 is the negative control
 against global common-prefix factoring: that candidate increased the all-root
 totals and caused a selected Bison assertion. No generic factoring,
 precedence or ambiguity transformation is promoted by R000368.
+
+## Current target-control comparison
+
+The current post-fidelity output was compared with the pinned LFortran parser
+using E0155's deterministic inventory command. The generated file has 1,332
+target rule heads, one aggregate `%token` declaration line, GLR enabled, zero
+precedence directives and zero action braces. LFortran has 237 heads, 254 token
+declaration lines, GLR enabled, 11 precedence directives and 1,902 action
+braces. The generated file retains 1,068 source alternatives with positive
+identity and 2,437 provenance comments. These are target-shape differences,
+not claims that the normative grammar should copy the implementation grammar.
+
+The current selected conflict categories are:
+
+| category | states | shift/reduce | reduce/reduce |
+|---|---:|---:|---:|
+| expression-or-precedence | 75 | 206 | 563 |
+| lexical-or-literal | 13 | 12 | 3 |
+| other-grammar-structure | 54 | 61 | 77 |
+| role-or-name-family | 127 | 148 | 1,623 |
+
+The role/name family is the dominant selected reduce/reduce source. E0163's
+generic `data-ref` role-family projection reduces that selected inventory to
+425/2,135 and passes 359 positive and 636 negative bounded cases, but the
+all-roots result worsens to 760/3,894. It remains opt-in selected-profile
+lowering, not a default source grammar rewrite.
+
+The source-shaped expression ladder does not by itself justify Bison
+precedence declarations: a probe adding the corresponding target precedence
+names without production annotations leaves the conflict totals at 427/2,266
+and emits useless-precedence warnings. `%expect` would only hide the remaining
+ambiguity. D0100 therefore keeps GLR as the default and defers precedence or
+action generation until a source-derived production transformation has an
+independent language gate.

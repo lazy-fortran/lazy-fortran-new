@@ -182,7 +182,11 @@ for name, (path, parser) in references.items():
     inventory_rows.append((name, "reference", str(len(heads)), "", "", sha(path)))
 
 flang_text = text(flang)
-inventory_rows.append(("flang-rule-comments", "reference", str(len(set(re.findall(r"\bR\d+\b", flang_text)))), "", "", sha(flang)))
+# Flang's parser source is not a grammar-head inventory.  Its retained
+# R#### comments are nevertheless a useful source-rule witness, so keep that
+# evidence distinct from generated/reference production heads.
+flang_rule_ids = set(re.findall(r"\bR\d+\b", flang_text))
+inventory_rows.append(("flang-rule-comments", "reference", str(len(flang_rule_ids)), "", "", sha(flang)))
 (report / "inventories.tsv").write_text(
     "name\tclass\thead_count\tlineage_count\temitted_lineage_count\tsha256\n"
     + "".join("\t".join(row) + "\n" for row in inventory_rows),
@@ -224,8 +228,7 @@ reference_bodies = {
     name: strip_comments(path.name, text(path))
     for name, (path, _) in references.items()
 }
-reference_bodies["flang"] = strip_comments(flang.name, flang_text)
-format_names = list(generated_bodies) + list(reference_bodies)
+format_names = list(generated_bodies) + list(reference_bodies) + ["flang"]
 generated_emitted_lineages = {
     name: emitted_source_lineages(text(path))
     for name, (path, _) in generated.items()
@@ -253,7 +256,11 @@ reference_heads = {
     name: parser(strip_comments(path.name, text(path)))
     for name, (path, parser) in references.items()
 }
-reference_heads["flang"] = set()
+format_columns = [
+    *(f"{name}_body_present" for name in generated_bodies),
+    *(f"{name}_body_present" for name in reference_bodies),
+    "flang_source_rule_comment_present",
+]
 
 feature_rows: list[tuple[str, ...]] = []
 for feature in feature_lhses:
@@ -265,11 +272,12 @@ for feature in feature_lhses:
     reference_presence = [
         bool(reference_head_aliases[feature] & reference_heads[name])
         for name in references
-    ] + [False]
-    format_presence = generated_presence + reference_presence
+    ]
+    flang_presence = bool(expected_rules & flang_rule_ids)
+    format_presence = generated_presence + reference_presence + [flang_presence]
     source_present = bool(expected_rules)
     generated_present = any(generated_presence)
-    reference_present = any(reference_presence)
+    reference_present = any(reference_presence) or flang_presence
     if source_present and generated_present and reference_present:
         classification = "both"
     elif source_present and generated_present:
@@ -289,7 +297,7 @@ for feature in feature_lhses:
     ))
 (report / "feature-matrix.tsv").write_text(
     "feature\tnormative_source_rule_ids\tnormative_source_present\t"
-    + "\t".join(f"{name}_body_present" for name in format_names)
+    + "\t".join(format_columns)
     + "\tclassification\n"
     + "".join("\t".join(row) + "\n" for row in feature_rows),
     encoding="utf-8",
@@ -340,6 +348,8 @@ summary = {
     "lexical_gate_report": str(lexical_report),
     "lexical_gate_status": "PASS",
     "source_feature_rule_ids": source_feature_rules,
+    "flang_rule_comment_count": len(flang_rule_ids),
+    "flang_feature_presence_source": "StandardIR source rule IDs intersected with Flang R#### comments",
     "generated_lineage_sets_equal": all(
         lineages == next(iter(lineage_sets))
         for lineages in lineage_sets[1:]

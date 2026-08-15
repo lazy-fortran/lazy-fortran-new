@@ -88,3 +88,20 @@ source hash and token/ref leaf, the PDF/canonical/page-index lineage checks,
 and R741, R843, R1103, R1307 and R1315. The negative mutation fails as
 required. This is the current gate used by R000365; no extractor repair or
 rule-number-specific exception was made.
+
+## R000372: current four-format source replay
+
+The exact current source input used by the E0154/R000365 four-format output
+was replayed before any new parser-quality work. The checker passes all 522
+source records and unique byte spans, all 20 duplicate rule families and 40
+duplicate occurrences, every source hash and token/ref leaf sequence, the
+canonical-text/PDF/page-index lineage, and the five representative witnesses
+R741, R843, R1103, R1307 and R1315. R1307 removes two page-layout headers while
+preserving its complete page-spanning production. The negative mutation fails.
+
+The source extractor therefore has no evidence-based repair to make at this
+gate. Continuation handling, page breaks, token/ref classification and
+duplicate occurrences remain generic; no rule-number-specific branch is used.
+The report is `.cache/runs/E0168-pdf-fidelity-current-source.tsv` and its
+`gate_status` is PASS. This gate authorizes downstream regeneration, but does
+not prove parser behavior or language equivalence.
