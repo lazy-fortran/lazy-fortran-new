@@ -98,7 +98,7 @@ PDF glyphs. This is still not the final selected-parser gate because E0149
 found target factoring, selected-root, lexer-contract, duplicate-lineage and
 normalization-witness work remaining. The independent manual comparison is
 E0149/R000001 (baseline), E0149/R000002 (post-repair replay), and Luna review
-R000280. Regenerate the source replay with
+R000281. Regenerate the source replay with
 `research/experiments/E0147-can-source-backed-standardir-validity-close/run-source-backed-closure.sh`.
 
 E0142 is abandoned under D0084. The externally managed Qwen 3.8 27B service
@@ -1007,7 +1007,7 @@ factoring (D0092), and normalization needs language-preservation witnesses
 (D0093). E0149 inventories every production head and alternative count in
 `production-coverage.tsv`, but its LFortran comparison is not a one-to-one
 language-equivalence or conformance oracle. Luna's review is
-`research/experiments/E0149-manually-compare-source-backed-standardi/reviews/R000280-luna.md`.
+`research/experiments/E0149-manually-compare-source-backed-standardi/reviews/R000281-luna.md`.
 No model or semantic experiment is unlocked by this audit. Its status is
 `verification_failure` until the generic selected-target fixes and witnesses
 replay cleanly.
