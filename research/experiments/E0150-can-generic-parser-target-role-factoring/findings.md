@@ -98,3 +98,19 @@ The repaired slice must address these generically, run the full `fo` workflow,
 and receive a new independent review before merge. The failed implementation
 is retained as evidence; no conflict reduction from it is accepted as a
 result.
+
+The repaired commit `6d28c71b86e2bfced7d673209f4be21a8d2328ac` fixes the
+alternative-order, chain, cycle, mutation, all-format and module-size issues,
+and its full `fo` workflow passes. Luna's R000303 review still rejects it:
+
+* witness validation compares LHS and provenance but not the target
+  expression or all source/target identity fields (`id`, source occurrence,
+  alternative, origin and resolution);
+* the tests inspect emitted text but have no independent bounded
+  accepted/rejected language-preservation oracle for the transformation.
+
+The next repair is limited to these two gates. It must keep the mechanism
+generic, add mutation controls for every omitted identity/expression field,
+and add a small test-local finite language oracle for the fixture before and
+after factoring, with all four export validators still exercised. The commit
+remains unmerged and no conflict reduction is accepted from it.
