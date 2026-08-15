@@ -159,3 +159,19 @@ generators are invoked again. Source preflight, identity and lexical checks
 remain the gates that precede production of the four artifacts. The validator uses bounded line-oriented
 inspection rather than whole-file backtracking; its own runtime is part of the
 reproducibility boundary.
+
+## R000401: explicit profile replay reaches a tree-sitter target defect
+
+The selected profile emitted by `standard-new` `ca210a8` passes all four
+profile rows and the normalized five-row lexer contract. Source preflight,
+identity and lexical witnesses also pass. ANTLR4 4.13.2 and Bison 3.8.2 accept
+their outputs; Bison reports the same 427 shift/reduce and 2,266 reduce/reduce
+diagnostics as the prior inventory.
+
+Tree-sitter 0.26.9 rejects the generated target because non-start `r_block`
+matches the empty string. The source reason is a generic nullable production,
+not a defect unique to `block`; the source rule is retained only as a failure
+witness. Tree-sitter's documented restriction means the projection needs a
+generic nullable-rule elimination/lowering pass, with provenance for every
+propagated or omitted alternative. No parser conflict or language result is
+promoted from this failure.

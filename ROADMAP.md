@@ -2491,6 +2491,14 @@ has no full-input wrapper. `standard-new` must emit the generic selected-root
 wrapper and profile metadata for every target, followed by this independent
 validator. The next green replay will then run the parser-generator oracles.
 
+E0171/R000401 provides that next replay's diagnosis. The explicit profile
+contract is green; ANTLR4 and Bison accept their targets, but tree-sitter 0.26.9
+rejects a nullable non-start rule (`r_block`). The target must therefore gain a
+generic nullable-rule elimination pass with transformation witnesses before
+the four-format/parser-oracle gate is green. The named rule is evidence of the
+generic case, not a patch target. See D0102, D0103 and the Tree-sitter
+nullable-rule policy in the next production slice.
+
 E0170 is the active runtime gate. R000377 exposed a real nontermination defect
 in the old global-rescanning evaluator, and R000378/R000379 are retained
 rejected repairs. D0101 now fixes the implementation boundary: the next

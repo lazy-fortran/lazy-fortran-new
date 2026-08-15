@@ -144,6 +144,11 @@ replays:
     mode: profile-entry-eof-negative-control
     report: .cache/runs/E0171/R000400-profile-contract-negative-2/target-profile.tsv
     result: expected-failure-on-pre-fix-R000385
+  - run: R000401
+    standard-new: "ca210a8"
+    mode: selected-profile-and-parser-oracle-replay
+    report: .cache/runs/E0171/R000401-profile-contract-fixed
+    result: tree-sitter-nullable-rule-failure
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -152,13 +157,15 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000399 closes the deterministic transformation-witness gate: the
-  producer-emitted selected target and JSONL witness have equal 1,068-lineage
-  sets, with zero missing or extra lineages. Bounded language behavior,
-  parse-tree equivalence and lexer completeness remain open.
+  R000401 passes source, lexical and explicit profile gates and reaches the
+  parser-generator oracles. ANTLR4 and Bison pass; tree-sitter rejects the
+  generic selected projection because a non-start rule is nullable. The
+  transformation-witness gate remains closed from R000399, while generic
+  tree-sitter nullable lowering, bounded language behavior, parse-tree
+  equivalence and lexer completeness remain open.
 
 remaining_gates:
-  - producer-selected profile must pass explicit entry/EOF contract before generators
+  - generic tree-sitter nullable-rule lowering must pass without source loss
   - independent bounded language behavior for each declared profile
   - Bison counterexample classification and ambiguity policy
   - reference-only extension inventory with corpus witnesses
