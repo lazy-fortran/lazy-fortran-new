@@ -36,7 +36,10 @@ The immediate sequence is:
    projection experiment but is superseded by D0108 because its prose
    provenance used synthetic rule labels. The v1 migration, source-backed
    producer and independent positive/negative behavior witnesses are now the
-   open work. D0106, D0107 and D0108 keep this out of normative StandardIR;
+   open work. The source-discovery and v1 projection gate is now green in
+   E0171/R000410 at `standard-new` commit
+   `a08760554bddaff9bb82db76ffcfe1d8733117b0`; the generated parser targets
+   still need to consume the contract. D0106, D0107 and D0108 keep this out of normative StandardIR;
    `scripts/check-contracts.sh` is the pre-launch contract gate.
 4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts as
    source ambiguity, target limitation, lexer/profile interaction, target

@@ -25,6 +25,7 @@ inputs:
   source_audit: .cache/runs/E0157/R000354
   statement_boundary_anchors: research/experiments/E0171-can-current-standardir-grammar-projectio/statement-boundary-anchors.tsv
   lexical_layout_contract: contracts/lexical-layout-v1.sxs
+  lexical_layout_patterns: research/experiments/E0171-can-current-standardir-grammar-projectio/layout-fact-patterns.tsv
   house_antlr: ../standard/grammars/src/Fortran2023Parser.g4
   kaby76_antlr: ../kaby76-fortran/comp/Fortran2023Parser.g4
   lfortran_bison: .cache/runs/E0162/reference/parser.yy
@@ -189,6 +190,16 @@ replays:
     mode: lexical-layout-v0-production-gate
     report: contracts/lexical-layout-v0.sxs
     result: historical-superseded-by-D0108
+  - run: R000409
+    standard-new: "a08760554bddaff9bb82db76ffcfe1d8733117b0"
+    mode: source-backed-lexical-layout-v1-replay
+    report: .cache/runs/E0171/R000409-layout-fact-source-replay-v3
+    result: superseded-by-R000410-metadata-pin-correction
+  - run: R000410
+    standard-new: "a08760554bddaff9bb82db76ffcfe1d8733117b0"
+    mode: corrected-source-backed-lexical-layout-v1-replay
+    report: .cache/runs/E0171/R000409-layout-fact-source-replay-v3
+    result: corrected-metadata-pins-nine-facts-and-v1-projection-pass
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -197,10 +208,11 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000407 remains the latest source-evidence replay. R000408 is retained as a
-  historical v0 projection gate but is superseded by D0108 because its source
-  provenance shape forced synthetic rule labels. The next production replay
-  must consume `lexical-layout-v1` before validating one
+  R000410 is the latest source-evidence and v1 projection replay. It corrects
+  the file hashes in R000409 without changing its generated artifacts or
+  observed result. R000408 is retained as a historical v0 projection gate but
+  is superseded by D0108 because its source provenance shape forced synthetic
+  rule labels. The next replay must validate one
   producer-emitted transformation witness for each generated format: all four
   cover 1,068 source lineages. Source, lexical, explicit profile and witness
   gates pass; ANTLR4 and Bison pass; tree-sitter still reports the unresolved

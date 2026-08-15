@@ -309,3 +309,22 @@ an immutable record of that v0 behavior, but it is not evidence of faithful
 provenance. D0108 supersedes it with `lexical-layout-v1`, using `locator` for
 the mechanically located paragraph or phrase and `all` for form-independent
 facts. The source-backed producer and the next production replay must use v1.
+
+## R000409/R000410: source phrases produce v1 layout facts
+
+The table-driven extractor `extract-lexical-layout.py` verifies the pinned PDF
+hash, strips only printed page-number columns, normalizes whitespace across
+PDF line breaks, and checks each phrase on its declared page. The pattern table
+contains the source-specific phrase witnesses; the extractor contains no
+grammar rule-number branches. It emitted nine facts from pages 45, 65 and 72,
+both as an anchor TSV and as v1-compatible SX. Re-running against the same
+output paths is rejected, preserving append-only run directories.
+
+`standard-new` commit `a08760554bddaff9bb82db76ffcfe1d8733117b0` consumed the
+generated SX. Its v1 header, locator provenance, form-independent keyword fact,
+and all nine records passed the independent projection test and full `fo`
+pipeline. R000409 contained manually mistyped hashes for the committed pattern
+and extractor files; R000410 corrects those metadata pins without changing the
+artifacts or result. This closes source discovery and projection only. The
+generated parser targets still do not consume the layout contract, and no
+positive or negative source behavior has yet adjudicated `SAVE` / `LETTER`.
