@@ -457,9 +457,12 @@ changes a denominator.
       1/1, and full `fo` passes 25/25 with zero warnings. The full grammar
       remains open because this bounded runtime does not yet consume all
       1,068 selected source alternatives.
-- [ ] E0165: if E0164 is green, test expression/precedence factoring with its
-      own independent language-preservation gate; otherwise retain the
-      normative precedence ladder and do not tune conflicts by warning count.
+- [x] E0165: test a rule-independent parser-quality candidate only after the
+      trusted source/PDF gates. The global common-prefix candidate passes source
+      identity and generator smoke but worsens all-root Bison conflicts from
+      758/3,885 to 948/4,572, creates useless selected rules and triggers a
+      Bison assertion. R000360 rejects it; `standard-new` is reverted to the
+      baseline projection at `8d5ee41`. No precedence rewrite is justified.
 
 D0084's source-validity priority now extends through E0165. No semantic
 extraction, model comparison, backend work or plotting is valid evidence until
@@ -2398,6 +2401,15 @@ mutation pass; 46 surface-only optional-plus-ellipsis differences are reported
 explicitly. No generic extractor repair is indicated and the next four-format
 regeneration is authorized. E0164's full generated-parser runtime remains
 open; no semantic or model work resumes until that deterministic gate closes.
+
+E0165 tested the next generic parser-quality candidate only after those trusted
+gates. The candidate preserved source identity and generated all four formats,
+but increased all-root Bison conflicts to 948/4,572, produced useless selected
+rules and triggered a Bison internal assertion. R000360 records the rejection;
+`standard-new` was reverted to `8d5ee41`. No precedence rewrite or global
+factoring is justified. The accepted parser policy remains D0089 GLR plus the
+validated opt-in role-family specialization from D0092/E0163. Lexer/runtime
+and full corpus behavior are still open.
 
 ## Ordering constraints
 

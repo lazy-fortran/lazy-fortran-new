@@ -48,6 +48,10 @@ replays:
     lazy-fortran-new: "7d3e394b817d37e6be89a519f1a66354080e8296"
     standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
     mode: authoritative-all-roots-post-pdf-fidelity-source-preflight-identity-lexical-gate-and-target-oracles
+  - run: R000357
+    lazy-fortran-new: "dfedfc5"
+    standard-new: "aa86da784920d3a7c9869deb9bba5665cda7d9bb"
+    mode: rejected-generic-common-prefix-factor-candidate
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

@@ -1,0 +1,75 @@
+id: "E0165"
+title: "Test generic parser-quality transformations after the trusted grammar gate"
+question: >
+  Can a rule-independent common-prefix factoring and ambiguity-policy
+  projection improve generated Bison quality without weakening source lineage,
+  parser-generator validity or the accepted language?
+status: reported
+opened: "2026-08-15"
+closed: "2026-08-15"
+
+repos:
+  lazy-fortran-new: "dfedfc5"
+  standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+
+inputs:
+  standard_new_baseline_commit: "7d011f49e0e74e95b88a90c5894ea3358fc5ee82"
+  standard_new_candidate_commit: "aa86da784920d3a7c9869deb9bba5665cda7d9bb"
+  standard_new_reverted_commit: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
+  baseline_generation: E0154/R000353
+  baseline_conflict_inventory: E0159/R000356
+  candidate_generation: E0154/R000357
+  candidate_conflict_attempt: E0159/R000358-R000359
+
+variables:
+  transformation: generic-common-prefix-factoring
+  ambiguity_policy: [preserve-standardir, glr, ielr]
+  profile: [all-roots, selected-program]
+
+model_selection: "No model calls; production projection and independent parser tools decide."
+
+metrics:
+  - source_alternative_coverage
+  - source_lineage_coverage
+  - four_format_generator_status
+  - bison_shift_reduce_conflicts
+  - bison_reduce_reduce_conflicts
+  - useless_symbols
+  - selected_profile_parser_exit
+  - language_preservation
+  - promotion_decision
+
+denominator: >
+  Every source alternative and emitted target witness in the candidate four
+  formats, the all-root and selected-program Bison profiles, and the existing
+  bounded positive/negative language corpus.
+
+independent_oracle: >
+  E0154 source-expression and lexical gates, E0157 source-lineage inventory,
+  E0159's independent Bison state-header classifier and LFortran policy
+  check, and the parser-generator exit status. A lower warning count alone is
+  not an oracle.
+
+falsifiable_by: >
+  Any source or lineage loss, target generator failure, useless-rule growth,
+  Bison internal failure, language mismatch, or all-root conflict increase
+  rejects the candidate.
+
+gate: >
+  A candidate must pass the deterministic source/lineage and four-format gates,
+  produce usable all-root and selected-program parser reports, and preserve
+  the independent language witnesses. Otherwise it is retained as failed and
+  the baseline policy remains in force.
+
+analysis: >
+  E0154/run-selected.sh generates the four candidate formats. E0159/analyse.py
+  consumes the Bison state report and pinned LFortran grammar. The candidate
+  selected report must also complete without a Bison internal assertion.
+
+replays:
+  - run: R000360
+    kind: rejected-global-common-prefix-factor-candidate
+    baseline: E0154/R000353
+    candidate: E0154/R000357
+    conflict_attempt: E0159/R000358-R000359
