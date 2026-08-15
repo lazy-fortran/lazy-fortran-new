@@ -61,7 +61,7 @@ replays:
     standard-new: "fb6590c4885a38b0106f63112f6e024c20b927b5"
     mode: selected-root-post-ebnf-literal-escaping-four-format-regeneration-and-parser-oracles
   - run: R000385
-    lazy-fortran-new: "b88b054"
+    lazy-fortran-new: "f2e07931cdcdad95a9f4874a519d91c2d03a4e3a"
     standard-new: "fb6590c4885a38b0106f63112f6e024c20b927b5"
     mode: selected-root-post-ebnf-literal-escaping-lexer-contract-four-format-regeneration-and-parser-oracles
 
