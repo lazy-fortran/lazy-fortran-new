@@ -1,0 +1,69 @@
+id: "E0159"
+title: "Classify generated Bison conflicts without changing StandardIR"
+question: >
+  Which structural conflict families account for the generated all-root and
+  selected-program Bison diagnostics, and how do they compare with the pinned
+  LFortran conflict policy?
+status: running       # draft | running | reported | abandoned
+opened: "2026-08-15"
+
+repos:
+  lazy-fortran-new: "7dc2e2b"
+  standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+
+inputs:
+  generated_run: E0154/R000323
+  lfortran_parser: /tmp/lfortran-pinned-parser.yy
+  lfortran_parser_sha256: 112ef0ce5078ccec630a893bc51b92232348c37742b1451c833928a422907936
+
+variables:
+  profile: [all-roots, selected-program, lfortran]
+  evidence: [bison-state-report, bison-counterexamples, source-lineage]
+
+model_selection: >
+  No model calls. Conflict classification is a deterministic parser-state
+  inventory. Luna is not used to choose conflict resolutions.
+
+metrics:
+  - shift_reduce_conflicts
+  - reduce_reduce_conflicts
+  - conflict_states
+  - structural_category_totals
+  - lfortran_declared_expectations
+  - lfortran_observed_state_totals
+  - profile_delta
+
+denominator: >
+  Every conflict-bearing Bison state in the all-root and selected-program
+  generated reports, plus every conflict-bearing state in the pinned LFortran
+  report. A state is the unit of structural classification; individual Bison
+  actions and counterexamples remain retained evidence.
+
+independent_oracle: >
+  A separate Python parser reads Bison's state reports and recomputes conflict
+  totals from state headers. It independently parses LFortran's %expect and
+  %expect-rr declarations and checks them against the observed LFortran state
+  totals. The generated grammar's source identity and PDF-fidelity gates are
+  upstream prerequisites, not replaced by this inventory.
+
+falsifiable_by: >
+  State-header totals do not equal the recorded Bison diagnostics, LFortran's
+  observed totals do not equal its declared policy, a state is classified
+  without retained evidence symbols, or profile subtraction is presented as a
+  language-equivalence or conflict-resolution proof.
+
+gate: >
+  All three profiles have reproducible state inventories, exact totals, and a
+  policy comparison. The result is an inventory only. No production factoring,
+  precedence declaration, conflict budget or source-rule exception is allowed
+  until a successor experiment has an independent language-preservation gate.
+
+analysis: >
+  analyse.py --generated-grammar <file> --all-root-report <file>
+  --lfortran-parser <file> --output <dir> writes conflict-states.tsv,
+  summary.tsv and policy.tsv. It generates fresh Bison state reports for
+  selected-program and LFortran and uses the retained all-root report with
+  counterexamples as evidence.
+
+replays: []

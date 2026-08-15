@@ -160,6 +160,7 @@ Runs recorded: 321
 | E0156 | reported | 1 | Do all four generated grammar formats preserve the source glyph in |
 | E0157 | reported | 2 | After the deterministic lexical gate closes, do the four current |
 | E0158 | reported | 1 | Does the current StandardIR preserve the authoritative PDF byte spans, |
+| E0159 | running | 0 | Which structural conflict families account for the generated all-root and |
 
 ## Run status
 
