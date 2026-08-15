@@ -161,6 +161,7 @@ Runs recorded: 322
 | E0157 | reported | 2 | After the deterministic lexical gate closes, do the four current |
 | E0158 | reported | 1 | Does the current StandardIR preserve the authoritative PDF byte spans, |
 | E0159 | reported | 1 | Which structural conflict families account for the generated all-root and |
+| E0160 | running | 0 | Can an opt-in role-family target projection reduce parser ambiguity while |
 
 ## Run status
 

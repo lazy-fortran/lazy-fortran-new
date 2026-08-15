@@ -1,0 +1,74 @@
+id: "E0160"
+title: "Generic role-family specialization with language preservation"
+question: >
+  Can an opt-in role-family target projection reduce parser ambiguity while
+  preserving every source role, provenance witness, and the bounded accepted
+  language of the generated grammar?
+status: running       # draft | running | reported | abandoned
+opened: "2026-08-15"
+
+repos:
+  lazy-fortran-new: "a8bfcb2"
+  standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+
+inputs:
+  standard: j3-24-007
+  source_run: E0154/R000323
+  conflict_inventory: E0159/R000329
+  profile: complete-core-all-roots-and-selected-program
+  representative_selection: mechanically-discovered-source-role-family
+
+variables:
+  mode: [baseline, opt_in_role_family]
+  profile: [selected-program, all-roots]
+  format: [ebnf, antlr4, bison, tree-sitter]
+
+model_selection: >
+  No model calls. The representative and transformation are selected from
+  typed StandardIR/target records; LFortran remains comparison evidence only.
+
+metrics:
+  - source_expression_identity
+  - source_role_lineage_coverage
+  - role_family_witness_status
+  - positive_identity_mutation
+  - negative_identity_mutation
+  - bounded_language_before_after
+  - four_format_generator_status
+  - bison_shift_reduce_conflicts
+  - bison_reduce_reduce_conflicts
+  - useless_symbols
+  - target_size
+
+denominator: >
+  Every source-backed alternative in the selected profile, every factored alias
+  and representative witness, and an independently enumerated bounded corpus
+  derived from the transformed grammar fixture. No candidate is credited for
+  a lower conflict count alone.
+
+independent_oracle: >
+  E0154 source-expression and E0156 lexical witnesses, the production witness
+  validator with mutation controls, ANTLR4/Bison/tree-sitter generation gates,
+  and an independent bounded before/after language enumerator. The Bison
+  conflict inventory is a diagnostic, not the language oracle.
+
+falsifiable_by: >
+  Any source role or provenance row is lost, a witness mutation is accepted,
+  a transformed target differs on the bounded language, a target generator
+  fails, or a conflict reduction requires a rule-specific exception.
+
+gate: >
+  The opt-in path must pass the complete source/lexical identity gates and all
+  four target validators, preserve role/provenance witnesses, and match the
+  bounded language before and after transformation. Only then may a full
+  profile conflict result be considered for production; default export must
+  remain unchanged throughout.
+
+analysis: >
+  The experiment runner will use sxgrammar's explicit role-family option,
+  run-selected.sh's preflight and four-format gates, the E0159 conflict
+  inventory, and the production witness/language tests. Plots and model runs
+  are out of scope.
+
+replays: []
