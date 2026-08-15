@@ -104,6 +104,11 @@ tree_errors=$(count_matches 'Error:|ReferenceError:|SyntaxError:' "$work/tree-si
 antlr_warnings=$(count_matches '^warning\(' "$work/antlr.log")
 bison_warnings=$(count_matches 'warning:' "$work/bison.log")
 tree_warnings=$(count_matches 'Warning:' "$work/tree-sitter.log")
+bison_shift_reduce_conflicts=$(grep -Eo '[0-9]+ shift/reduce conflicts' "$work/bison.log" | awk 'NR == 1 { print $1 }' || true)
+bison_reduce_reduce_conflicts=$(grep -Eo '[0-9]+ reduce/reduce conflicts' "$work/bison.log" | awk 'NR == 1 { print $1 }' || true)
+bison_shift_reduce_conflicts=${bison_shift_reduce_conflicts:-0}
+bison_reduce_reduce_conflicts=${bison_reduce_reduce_conflicts:-0}
+bison_useless_rule_warnings=$(count_matches 'rule useless in parser due to conflicts' "$work/bison.log")
 undefined_symbols=$((
     $(count_matches 'undefined rule|undefined symbol|used, but is not defined' "$work/antlr.log") +
     $(count_matches 'undefined rule|undefined symbol|used, but is not defined' "$work/bison.log") +
@@ -144,6 +149,9 @@ mkdir -p "$(dirname "$report")"
     printf 'tree_sitter_errors\t%s\t\t\t\n' "$tree_errors"
     printf 'antlr_warnings\t%s\t\t\t\n' "$antlr_warnings"
     printf 'bison_warnings\t%s\t\t\t\n' "$bison_warnings"
+    printf 'bison_shift_reduce_conflicts\t%s\t\t\t\n' "$bison_shift_reduce_conflicts"
+    printf 'bison_reduce_reduce_conflicts\t%s\t\t\t\n' "$bison_reduce_reduce_conflicts"
+    printf 'bison_useless_rule_warnings\t%s\t\t\t\n' "$bison_useless_rule_warnings"
     printf 'tree_sitter_warnings\t%s\t\t\t\n' "$tree_warnings"
     printf 'undefined_symbol_diagnostics\t%s\t\t\t\n' "$undefined_symbols"
     printf 'negative_control\t%s\t\t\t\n' "$negative_control"
