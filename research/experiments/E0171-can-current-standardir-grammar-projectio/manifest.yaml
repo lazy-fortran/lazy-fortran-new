@@ -4,9 +4,8 @@ question: >
   What evidence does the current source-backed StandardIR projection provide
   at source-fidelity, target-well-formedness, transformation, and reference-
   comparison levels, and which language-quality claims remain unproved?
-status: reported          # draft | running | reported | abandoned
+status: running           # draft | running | reported | abandoned
 opened: "2026-08-15"
-closed: "2026-08-15"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -22,6 +21,7 @@ inputs:
   standard: j3-24-007
   profile: selected-program
   generated_run: .cache/runs/E0164/R000385-four-format-regeneration
+  profile_policy: research/experiments/E0171-can-current-standardir-grammar-projectio/profile-policy.tsv
   source_audit: .cache/runs/E0157/R000354
   house_antlr: ../standard/grammars/src/Fortran2023Parser.g4
   kaby76_antlr: ../kaby76-fortran/comp/Fortran2023Parser.g4
@@ -116,6 +116,10 @@ analysis: >
   Validate a producer-emitted transformation witness with
   validate-transformation-witness.py <target> <witness> <summary>; its lineage
   set must equal the target's source-lineage set before this gate is green.
+  Validate the selected profile before invoking any grammar generator:
+  python3 validate-profile-contract.py <run> profile-policy.tsv <output>.
+  The validator must reject implicit or wrong entry rules; only then may the
+  four generators and behavioral oracles run.
 
 replays:
   - run: R000387
@@ -134,6 +138,10 @@ replays:
     standard-new: "2c2cc7f55640304769c431c0bfdc13961aad2daf"
     mode: producer-emitted-transformation-witness-closure
     report: .cache/runs/E0171/R000399-transformation-witness-fixed
+  - run: R000400
+    mode: profile-entry-eof-negative-control
+    report: .cache/runs/E0171/R000400-profile-contract-negative-2/target-profile.tsv
+    result: expected-failure-on-pre-fix-R000385
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -148,7 +156,7 @@ latest_replay: >
   parse-tree equivalence and lexer completeness remain open.
 
 remaining_gates:
+  - producer-selected profile must pass explicit entry/EOF contract before generators
   - independent bounded language behavior for each declared profile
-  - explicit root/EOF and normalized lexer-contract gate
   - Bison counterexample classification and ambiguity policy
   - reference-only extension inventory with corpus witnesses

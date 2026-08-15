@@ -10,6 +10,15 @@ order, the steps in each phase, and the gate that ends it, so that facts are
 not copied into several places and left to rot. Any count appearing here names
 the command that regenerates it.
 
+**Active critical path.** The next gate is producer-generated profile
+correctness, not another model run or parser conflict reduction. The selected
+profile must explicitly name its entry rule and target-specific EOF policy in
+EBNF, ANTLR4, Bison and tree-sitter. The independent validator is
+`research/experiments/E0171-can-current-standardir-grammar-projectio/validate-profile-contract.py`;
+its negative control is E0171/R000400. It must pass before any grammar
+generator, corpus comparison, semantic extraction, LLM work or backend work
+is resumed. This ordering follows D0102 and D0103.
+
 A checked box means the thing exists and was observed working, not that someone
 intended it. A phase ends when its gate is demonstrated by a named artifact.
 
@@ -2473,6 +2482,14 @@ replay command is recorded in the E0171 manifest. The next open gates are the
 declared root/EOF and lexer contract, bounded language behavior, and then
 conflict classification; no conflict resolution is inferred from this
 provenance result.
+
+The first replay of the explicit profile contract is intentionally red:
+E0171/R000400 rejects the pre-fix R000385 outputs. The Bison wrapper alone is
+not enough; ANTLR4 and tree-sitter currently rely on target defaults, and EBNF
+has no full-input wrapper. `standard-new` must emit the generic selected-root
+wrapper and profile metadata for every target, followed by this independent
+validator. The next green replay will then regenerate the four targets and
+rerun the parser-generator oracles.
 
 E0170 is the active runtime gate. R000377 exposed a real nontermination defect
 in the old global-rescanning evaluator, and R000378/R000379 are retained

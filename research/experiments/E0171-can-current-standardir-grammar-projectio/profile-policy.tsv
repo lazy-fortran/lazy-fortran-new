@@ -1,0 +1,5 @@
+format	source-root	target-root	entry-rule	eof-policy	artifact
+ebnf	program	program	standardir_start	explicit-wrapper	grammar.ebnf
+antlr4	program	r_program	standardir_start	explicit-entry-and-EOF	Fortran2023.g4
+bison	program	r_program	standardir_start	parser-accepts-EOF-after-start	fortran2023.y
+tree-sitter	program	r_program	standardir_start	implicit-full-input	grammar.js

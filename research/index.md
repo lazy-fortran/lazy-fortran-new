@@ -169,7 +169,7 @@ Runs recorded: 381
 | E0165 | reported | 1 | Can a rule-independent common-prefix factoring and ambiguity-policy |
 | E0169 | reported | 1 | Which parser-quality differences between the current source-backed Bison |
 | E0170 | reported | 11 | Can the selected generated lexer and grammar runtime pass a broad independent |
-| E0171 | reported | 3 | What evidence does the current source-backed StandardIR projection provide |
+| E0171 | running | 3 | What evidence does the current source-backed StandardIR projection provide |
 
 ## Run status
 
@@ -298,6 +298,7 @@ Runs recorded: 381
 | [D0100](decisions/D0100-defer-unjustified-precedence-rewrites.md) | accepted |  | Keep GLR and defer unjustified precedence rewrites |
 | [D0101](decisions/D0101-finite-chart-runtime-evaluator.md) | accepted |  | Use a finite chart evaluator for the generated grammar runtime |
 | [D0102](decisions/D0102-grammar-evidence-and-target-lowering-witnesses.md) | accepted |  | Separate grammar evidence levels and witness every target lowering |
+| [D0103](decisions/D0103-explicit-profile-entry-and-eof-contracts.md) | accepted |  | Make grammar profile entry and EOF policies explicit |
 
 ### Proposed decisions
 

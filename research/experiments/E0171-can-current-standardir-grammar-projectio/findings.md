@@ -135,3 +135,26 @@ production commit is `standard-new` `2c2cc7f55640304769c431c0bfdc13961aad2daf`,
 and full `fo` passes with zero warnings. This closes the deterministic
 transformation-provenance gate only; it does not establish language or
 parse-tree equivalence.
+
+## R000400: profile-contract negative control
+
+The independent profile validator was run before any parser generator on the
+pre-fix R000385 selected output. It correctly rejects the output because the
+four artifacts do not share a checked entry/EOF contract: EBNF has no explicit
+wrapper, ANTLR4 has no `standardir_start : r_program EOF` entry, and
+tree-sitter's first grammar rule is `r_letter`. Bison's existing
+`standardir_start` wrapper is recognized, but that one passing target does not
+make the profile green. The normalized five-row lexer contract remains green.
+
+The policy and validator are:
+
+```text
+research/experiments/E0171-can-current-standardir-grammar-projectio/profile-policy.tsv
+research/experiments/E0171-can-current-standardir-grammar-projectio/validate-profile-contract.py
+```
+
+This is a retained negative control, not a claim against PDF extraction. The
+producer fix must make the selected profile pass this gate before the four
+generators are invoked again. The validator uses bounded line-oriented
+inspection rather than whole-file backtracking; its own runtime is part of the
+reproducibility boundary.
