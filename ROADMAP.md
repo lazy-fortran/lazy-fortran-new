@@ -88,22 +88,17 @@ query at `fortback-new` `a149015`. All four passed full `fo` with zero warnings;
 their task branches and worktrees are removed. These slices remain independent
 of semantic promotion.
 
-E0147 remains open. Luna's review of the earlier replay found a generic
-normalization defect that collapsed alternatives in families including R502,
-R503, R1408, R514, R515 and R509, although the external parser generators
-accepted the resulting under-approximation. That immutable failure is
-recorded as `R000270`, superseding the earlier acceptance `R000269`.
-`standard-new` commit `e6a03b6` fixes the observed equality and indirect
-left-recursion defects; its exact replay is `R000009` in the ignored run
-cache, with all four outputs and the three external validators passing.
-E0147 still needs a deterministic source-to-projection equivalence witness
-and a fresh Luna review of that pinned replay before the grammar gate closes.
-That fresh review is `R000271`: it confirms the alternative collapse is fixed,
-but finds two omitted declared roots, wrong provenance on an indirect helper,
-untyped output hashes, missing `MECHANICAL` origin labels, and lexical facts
-that are emitted but not connected to grammar productions. D0088 makes those
-completeness requirements part of the gate.
-Regenerate the replay with
+E0147 remains open. The earlier normalization failure and the qualified
+reviews remain immutable historical evidence (`R000270`, `R000271`, `R000275`,
+and `R000277`). The current production replay is `E0147/R000018` at
+`standard-new` `424853273a9c424d0483303478a794090756aa80`: its source-bound
+projections, ANTLR4, Bison, tree-sitter and negative-control gates pass, and
+the generic lexical repair emits canonical `-` and `'` while retaining the
+PDF glyphs. This is still not the final selected-parser gate because E0149
+found target factoring, selected-root, lexer-contract, duplicate-lineage and
+normalization-witness work remaining. The independent manual comparison is
+E0149/R000001 (baseline), E0149/R000002 (post-repair replay), and Luna review
+R000280. Regenerate the source replay with
 `research/experiments/E0147-can-source-backed-standardir-validity-close/run-source-backed-closure.sh`.
 
 E0142 is abandoned under D0084. The externally managed Qwen 3.8 27B service
@@ -142,14 +137,18 @@ them only when the corresponding gate is accepted and recorded in the ledger.
 
 **Current goal-mode handoff.** E0147's source-validity subgate remains
 accepted as `R000267`; the corrected body-bound replay is `R000276` and Luna's
-required review is `R000277`. `standard-new` `1cdd949` now binds provenance to
-the emitted expressions in EBNF, ANTLR4, Bison and tree-sitter. The replay
-contains 522 syntax records, 1,068 source alternatives, 1,066 retained
-alternatives and two explicit semantic-only skips; regenerate those numbers
-with `research/experiments/E0147-can-source-backed-standardir-validity-close/run-source-backed-closure.sh`.
+qualified review is `R000277`. The fresh lexical replay is `R000018` at
+`standard-new` `424853273a9c424d0483303478a794090756aa80`; it contains 522
+syntax records, 1,068 source alternatives, 1,066 retained alternatives and
+two explicit semantic-only skips. Regenerate those numbers with
+`research/experiments/E0147-can-source-backed-standardir-validity-close/run-source-backed-closure.sh`.
 All four body-bound witnesses and the three parser-generator oracles pass, and
-the source-removal mutation fails. No semantic or model work resumes until the
-remaining qualified target issue is explicitly accepted or corrected.
+the source-removal mutation fails. E0149's complete production inventory is
+regenerated with
+`research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`;
+its baseline/replay distinction and Luna review are recorded in that
+experiment. No semantic or model work resumes until the remaining selected
+target issues are corrected and witnessed.
 
 The Bison export now emits `%glr-parser` under D0089. This removes useless-rule
 warnings, but Bison still reports 758 shift/reduce and 5,033 reduce/reduce
@@ -198,9 +197,12 @@ re-evaluated.
    immutable run record for every correction or review outcome.
 7. Add compact source-backed errata only for documented inconsistencies; never
    hand-edit generated grammars or repair a named Fortran rule.
-8. Resume Qwen 3.8 27B only after E0147 closes, on a new source-valid residue
+8. Generate parser-target role factoring, selected-root reachability and lexer
+   contracts from generic metadata, with witnesses for duplicate-lineage merge
+   and normalization preservation (D0092, D0093).
+9. Resume Qwen 3.8 27B only after E0147 closes, on a new source-valid residue
    manifest with deterministic replay and an independent source-span witness.
-9. Promote the closed syntax/reference layer into semantic extraction, then
+10. Promote the closed syntax/reference layer into semantic extraction, then
    connect the generated frontend to the production backend contracts.
 
 **Frozen replication checklist — E0142 / Qwen 3.8 27B.** This checklist is
@@ -240,9 +242,9 @@ changes a denominator.
 - [ ] E0147: close the source-backed StandardIR validity audit, reference
       closure, and ANTLR4/Bison/tree-sitter validator gates. `R000276` passes
       the source/projection subgate and `R000277` is Luna's qualified review;
-      the remaining qualification is documented Bison ambiguity plus the
-      projection-only EBNF status. No model work is unlocked by the qualified
-      subgate alone.
+      the fresh lexical replay `R000018` passes the same deterministic gates.
+      E0149/R000280 records the remaining selected-target issues. No model
+      work is unlocked by the projection subgate alone.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
 
@@ -934,7 +936,10 @@ the same automatic procedure; a target-specific rewrite or a hand-maintained
 conflict list is not a gate. Target warnings remain reported as evidence under
 D0030, and any warning that indicates lost source structure or unresolved
 symbols blocks this milestone. The direct parser has no dispatch collisions,
-and its generated source compiles.
+and its generated source compiles. A production parser export additionally
+has a selected root, deterministic reachability dispositions, a companion
+lexer contract, generated role factoring and normalization witnesses; the
+all-root closure grammar alone cannot close M2.
 
 ### M1/M2 recovery sequence: source validity before model use
 
@@ -975,34 +980,37 @@ repair is one generic pipeline with these boundaries:
    stream. A deterministic closure pass supplies only source-backed implicit
    records. Generic target projection may simplify nullable wrappers, remove
    duplicate alternatives and eliminate left recursion, but may not contain a
-   rule-specific repair. Each export must retain source provenance, pass its
-   own validator, and report warnings and unsupported constructs separately.
+   rule-specific repair. Identical target bodies are emitted once only when
+   their complete source lineage is merged. Role aliases may be factored only
+   when generated metadata preserves the role set. Each export must retain
+   source provenance, pass its own validator, and report warnings and
+   unsupported constructs separately.
 8. Close M1 and M2 separately. M1 closes when source spans, notation and
    occurrence identity pass the independent audit. M2 closes only when the
    selected reference profile is classified and every selected export passes
    its target gate. Historical structural exports remain available for
    comparison but cannot close either gate.
 
-E0148 is the required independent comparison before this gate can close. Its
+E0149 is the required independent comparison before this gate can close. Its
 replay command is
-`research/experiments/E0148-compare-source-backed-standardir-grammar/analyse.sh`.
-The replay found two current lexical defects: U+2013 is emitted as an
-`EN_DASH` target terminal rather than canonical source `-`, and U+2019 is
-emitted as `RIGHT_SINGLE_QUOTE` rather than canonical source `'`.
-D0090 requires one generic provenance-preserving alias table for both forms.
-It also records four projection/gate gaps: repeated source occurrences need
-merged target lineage, the all-roots Bison export is a closure validator rather
-than a parser entry point, and selected-root output needs explicit reachability
-or suppression records. E0147's body-bound witness and validator acceptance do
-not yet establish language equivalence after normalization; that witness class
-is still required. E0148 also records that its LFortran adjudication is a
-bounded manual comparison, not a full automatic cross-grammar body comparator;
-that scope must be resolved before claiming exhaustive differential grammar
-coverage. The complete adjudication is
-`research/experiments/E0148-compare-source-backed-standardir-grammar/findings.md`.
-No model or semantic experiment is unlocked by E0148. Its status is
-`verification_failure` until the production fixes and generic normalization
-witnesses replay cleanly.
+`research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
+The immutable E0149 baseline confirmed two target defects: U+2013 was emitted
+as an `EN_DASH` target terminal rather than canonical source `-`, and U+2019
+was emitted as `RIGHT_SINGLE_QUOTE` rather than canonical source `'`. D0090
+and D0091 are implemented in `standard-new` `424853273`; E0147/R000018 proves
+the generic repair across the four projections. The remaining E0149 findings
+are target/projection gaps: duplicate source bodies need merged lineage, the
+all-roots Bison export is a closure validator rather than a parser entry point,
+selected-root output needs explicit reachability dispositions, a lexer
+contract must be declared separately, role aliases need deterministic target
+factoring (D0092), and normalization needs language-preservation witnesses
+(D0093). E0149 inventories every production head and alternative count in
+`production-coverage.tsv`, but its LFortran comparison is not a one-to-one
+language-equivalence or conformance oracle. Luna's review is
+`research/experiments/E0149-manually-compare-source-backed-standardi/reviews/R000280-luna.md`.
+No model or semantic experiment is unlocked by this audit. Its status is
+`verification_failure` until the generic selected-target fixes and witnesses
+replay cleanly.
 
 The Qwen 3.8 27B path starts after step 8. It receives only the bounded
 source-backed residue produced by this pipeline. It may propose a typed local

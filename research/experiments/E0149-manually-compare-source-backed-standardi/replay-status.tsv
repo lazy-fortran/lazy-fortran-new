@@ -1,0 +1,3 @@
+id	baseline_classification	current_status	current_evidence
+M005	target_defect	repaired	E0147/R000018/fortran2023.y and grammar-oracles.tsv
+M006	target_defect	repaired	E0147/R000018/fortran2023.y and grammar-oracles.tsv
