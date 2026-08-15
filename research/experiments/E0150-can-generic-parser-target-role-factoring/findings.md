@@ -133,3 +133,15 @@ full `fo` pass. Luna's R000305 review leaves only two new size violations:
 both below their existing caps without changing behavior. The repository-wide
 text-policy finding at `standardir_grammar_closure.f90:526` remains
 pre-existing and out of scope.
+
+The final extraction is `standard-new` commit
+`9cd164d45a29ef325ea0751496ddd2c2d5b41fc4`, now merged and pushed to main.
+It places the support module at 872 lines and `standardir_grammar_export_batch`
+at 92 lines, preserves the behavioral gates, and passes Luna's R000306 final
+review. E0150 is therefore reported: the opt-in generic role-family
+transformation is accepted with source-record witnesses, mutation controls,
+all four target exports and a bounded language-preservation oracle.
+
+This does not enable factoring for the complete selected Fortran export and
+does not close M2. The next gate is a full-profile invocation with a real
+positive/negative corpus and a source-expression identity witness.
