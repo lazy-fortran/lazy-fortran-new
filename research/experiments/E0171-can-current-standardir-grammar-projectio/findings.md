@@ -154,7 +154,8 @@ research/experiments/E0171-can-current-standardir-grammar-projectio/validate-pro
 ```
 
 This is a retained negative control, not a claim against PDF extraction. The
-producer fix must make the selected profile pass this gate before the four
-generators are invoked again. The validator uses bounded line-oriented
+producer fix must make the selected profile pass this gate before parser
+generators are invoked again. Source preflight, identity and lexical checks
+remain the gates that precede production of the four artifacts. The validator uses bounded line-oriented
 inspection rather than whole-file backtracking; its own runtime is part of the
 reproducibility boundary.

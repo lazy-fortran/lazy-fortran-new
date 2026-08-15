@@ -95,6 +95,11 @@ not sources from which grammar productions may be copied.
   <https://www.gnu.org/software/bison/manual/html_node/Counterexamples.html>.
   Counterexamples are evidence for understanding and classifying conflicts;
   conflict totals and `%expect` declarations are not correctness proofs.
+- ✓ **GNU Bison Manual, “Output Files.”**
+  <https://www.gnu.org/software/bison/manual/html_node/Output-Files.html>.
+  The generated parser's start symbol and target-specific output conventions
+  are part of the parser interface; our profile must record them instead of
+  inferring an entry point from file order.
 - ✓ **ANTLR 4 documentation.** <https://www.antlr.org/>. Generated parser
   acceptance and ambiguity reports are target-tool evidence, not proof that a
   grammar is faithful to its source specification.
@@ -103,7 +108,10 @@ not sources from which grammar productions may be copied.
   and
   <https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html>.
   Lexical precedence, parse precedence and intentional runtime conflicts are
-  distinct contracts; exports must record them separately.
+  distinct contracts; exports must record them separately. The first grammar
+  rule is also a target-level entry choice, so a generated grammar must place
+  an explicit profile wrapper there rather than allowing a lexical rule to
+  become the implicit start rule.
 
 ## 2. Formalizing prose standards
 

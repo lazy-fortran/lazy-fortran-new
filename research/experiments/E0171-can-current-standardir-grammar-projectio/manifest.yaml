@@ -116,10 +116,12 @@ analysis: >
   Validate a producer-emitted transformation witness with
   validate-transformation-witness.py <target> <witness> <summary>; its lineage
   set must equal the target's source-lineage set before this gate is green.
-  Validate the selected profile before invoking any grammar generator:
+  Source preflight, identity and lexical gates run before grammar generation.
+  After the producer emits the four artifacts, validate the selected profile
+  before invoking any parser generator or behavioral oracle:
   python3 validate-profile-contract.py <run> profile-policy.tsv <output>.
   The validator must reject implicit or wrong entry rules; only then may the
-  four generators and behavioral oracles run.
+  parser generators and behavioral oracles run.
 
 replays:
   - run: R000387

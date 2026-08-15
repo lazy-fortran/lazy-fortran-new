@@ -39,7 +39,7 @@ def profile_header(text: str, row: dict[str, str]) -> bool:
     pattern = (r"profile\s+format=" + re.escape(row["format"]) +
                r"\s+entry=" + re.escape(row["entry-rule"]) +
                r"\s+source-root=" + re.escape(row["source-root"]) +
-               r"\s+eof=" + re.escape(row["eof-policy"]) + r"(?:\s|\*/|\*)")
+               r"\s+eof=" + re.escape(row["eof-policy"]) + r"(?:\s|;|\*/|\*)")
     return re.search(pattern, text) is not None
 
 

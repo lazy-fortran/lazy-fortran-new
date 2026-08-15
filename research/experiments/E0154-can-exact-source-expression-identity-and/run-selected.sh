@@ -107,6 +107,18 @@ if (( lexical_status != 0 )); then
     exit "$lexical_status"
 fi
 
+profile_status=0
+python3 "$lab_root/research/experiments/E0171-can-current-standardir-grammar-projectio/validate-profile-contract.py" \
+    "$run_dir" \
+    "$lab_root/research/experiments/E0171-can-current-standardir-grammar-projectio/profile-policy.tsv" \
+    "$run_dir/profile-contract.tsv" >"$run_dir/profile-contract.log" 2>&1 || profile_status=$?
+cat "$run_dir/profile-contract.log"
+printf 'profile_contract_status\t%s\n' "$profile_status" >>"$run_dir/metadata.tsv"
+if (( profile_status != 0 )); then
+    printf 'selected profile contract failed; parser oracles were not invoked\n' >&2
+    exit "$profile_status"
+fi
+
 if [[ -n "$role_family" ]]; then
     role_family_status=0
     python3 "$lab_root/research/experiments/E0160-can-generic-role-family-specialization-preserve-language/check_role_family.py" \
