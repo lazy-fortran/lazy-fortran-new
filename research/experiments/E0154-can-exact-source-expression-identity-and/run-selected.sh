@@ -54,5 +54,17 @@ done
     printf 'source-alternatives\t%s\n' "$(grep -c '^(syntax ' "$run_dir/input/standardir.sx")"
 } >"$run_dir/metadata.tsv"
 
-"$script_dir/analyse.sh" "$run_dir" "$run_dir/input/standardir.sx" >"$run_dir/identity.log" 2>&1
+identity_status=0
+"$script_dir/analyse.sh" "$run_dir" "$run_dir/input/standardir.sx" >"$run_dir/identity.log" 2>&1 || identity_status=$?
 cat "$run_dir/identity.log"
+
+validator_status=0
+"$lab_root/research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh" \
+    "$run_dir" "$run_dir/grammar-oracles.tsv" >"$run_dir/target-oracles.log" 2>&1 || validator_status=$?
+cat "$run_dir/target-oracles.log"
+
+printf 'identity_status\t%s\n' "$identity_status" >>"$run_dir/metadata.tsv"
+printf 'target_validator_status\t%s\n' "$validator_status" >>"$run_dir/metadata.tsv"
+if (( identity_status != 0 || validator_status != 0 )); then
+    exit 1
+fi
