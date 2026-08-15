@@ -64,6 +64,8 @@ LFortran’s `%expect` values remain diagnostics rather than correctness goals.
 The next gate is therefore not “reduce the count to LFortran’s count”. It is a
 machine-readable transformation map plus independent positive/negative
 behavioral witnesses for the selected root and lexer profile.
+R000399 closes the transformation-map part; the behavioral witness remains
+open.
 
 ## R000393: corrected Bison audit
 
@@ -109,5 +111,27 @@ They are retained in the generated target as `omitted-before-target-lowering`
 source-preservation records. This is a producer defect, not a source or PDF
 defect. The witness implementation must serialize that existing pruned
 provenance generically; the four rule IDs are a failure witness, not an
-exception list. The next production replay must make this validator pass
-before the transformation gate can close.
+exception list. R000399 below makes the validator pass and closes the
+transformation gate.
+
+## R000399: transformation witness closure
+
+The production fix reuses the existing source-disposition collector and emits
+the pre-lowering omissions in the same JSONL witness stream. The independent
+validator now passes on the exact producer-emitted selected `program` target:
+
+| evidence | result |
+|---|---:|
+| target source lineages | 1,068 |
+| witness source lineages | 1,068 |
+| missing/extra lineages | 0 / 0 |
+| witness rows | 1,198 |
+| target transformations | 666 normalized, 471 identity, 40 merged-provenance, 10 generated-helper |
+| omitted transformations | 7 pre-lowering, 4 reachability |
+| target/witness hashes | valid |
+
+The target grammar is byte-identical to the trusted R000385 Bison output. The
+production commit is `standard-new` `2c2cc7f55640304769c431c0bfdc13961aad2daf`,
+and full `fo` passes with zero warnings. This closes the deterministic
+transformation-provenance gate only; it does not establish language or
+parse-tree equivalence.

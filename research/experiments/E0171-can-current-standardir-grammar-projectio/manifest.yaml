@@ -129,6 +129,11 @@ replays:
   - run: R000393
     mode: selected-bison-counterexample-inventory
     report: .cache/runs/E0171/R000393-bison-evidence-audit
+  - run: R000399
+    lazy-fortran-new: "f89756b"
+    standard-new: "2c2cc7f55640304769c431c0bfdc13961aad2daf"
+    mode: producer-emitted-transformation-witness-closure
+    report: .cache/runs/E0171/R000399-transformation-witness-fixed
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -136,9 +141,14 @@ result: >
   structural evidence only. It does not establish language equivalence,
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
+latest_replay: >
+  R000399 closes the deterministic transformation-witness gate: the
+  producer-emitted selected target and JSONL witness have equal 1,068-lineage
+  sets, with zero missing or extra lineages. Bounded language behavior,
+  parse-tree equivalence and lexer completeness remain open.
+
 remaining_gates:
-  - target transformation witness map for generated helpers and pre-lowering omissions
-  - explicit root/EOF and normalized lexer-contract gate
   - independent bounded language behavior for each declared profile
+  - explicit root/EOF and normalized lexer-contract gate
   - Bison counterexample classification and ambiguity policy
   - reference-only extension inventory with corpus witnesses

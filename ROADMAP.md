@@ -2464,6 +2464,16 @@ sequence is complete may semantic extraction, LLM/model comparisons, plots or
 backend work resume. A structural inventory never substitutes for a behavioral
 gate.
 
+The transformation-witness subgate is now closed by E0171/R000399. The
+producer-emitted selected Bison target and its JSONL witness have equal 1,068
+source-lineage sets, including pre-lowering and reachability omissions; the
+independent validator reports zero missing or extra lineages. The production
+commit is `standard-new` `2c2cc7f55640304769c431c0bfdc13961aad2daf`, and the
+replay command is recorded in the E0171 manifest. The next open gates are the
+declared root/EOF and lexer contract, bounded language behavior, and then
+conflict classification; no conflict resolution is inferred from this
+provenance result.
+
 E0170 is the active runtime gate. R000377 exposed a real nontermination defect
 in the old global-rescanning evaluator, and R000378/R000379 are retained
 rejected repairs. D0101 now fixes the implementation boundary: the next
