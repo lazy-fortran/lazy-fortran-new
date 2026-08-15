@@ -1,6 +1,6 @@
 # Roadmap
 
-Snapshot: 2026-08-15. Live repository state is reported by
+Snapshot: 2026-08-16. Live repository state is reported by
 `scripts/status.sh`. Experiment manifests pin the exact commits used by each
 result. The lab and `standard-new` checkouts are clean and their current
 default-branch CI state is reported separately from those immutable pins.
@@ -10,18 +10,20 @@ order, the steps in each phase, and the gate that ends it, so that facts are
 not copied into several places and left to rot. Any count appearing here names
 the command that regenerates it.
 
-**Active critical path.** The profile contract is green in E0171/R000404. The
-current blocker is the generated Tree-sitter target's unresolved `SAVE` /
-`LETTER` conflict after generic nullable lowering. No model run, semantic
+**Active critical path.** The profile, source, lexical and transformation
+witness gates are green in E0171/R000404 and the v2 lexical-layout projection
+is green in R000411 at `standard-new` `4479a23`. The blocker is now the
+source-derived statement-sequence boundary and its independent behavior gate,
+not a Tree-sitter-specific conflict declaration. No model run, semantic
 extraction or backend work resumes while this deterministic grammar path is
-open. The next replay must first use the producer-emitted transformation
-witness for every format, then pass source identity, lexical, witness and
-profile gates before invoking parser generators. Only that green artifact may
-enter the forensic conflict replay. Classify each conflict against retained
-Bison counterexamples, source lineages, transformation dispositions and the
-lexer/profile contract before considering any generated precedence or
-conflict policy. This is the two-tier protocol in D0105; R000400 remains the
-profile negative control and R000404 the current clean replay.
+open. The next implementation must derive boundary candidates from StandardIR
+graph topology plus the v2 source facts. It must not append EOS to every
+`-stmt`: nested `action-stmt` references are not complete source statements.
+Only after the candidate witness and positive/negative lexer behavior gate are
+green may the four grammar targets be regenerated and their conflicts
+classified. This is D0110 layered onto the two-tier evidence protocol in
+D0105; R000400 remains the profile negative control and R000404 the current
+clean replay.
 
 The immediate sequence is:
 
@@ -38,17 +40,21 @@ The immediate sequence is:
    The v2 migration is green in E0171/R000411 at `standard-new` commit
    `4479a23fd680bdcc9af19bb7e3a606b22f1fd787`; generated parser targets still
    need to consume the contract, and independent positive/negative behavior
-   witnesses remain open. D0106 through D0109 keep this out of normative StandardIR;
-   `scripts/check-contracts.sh` is the pre-launch contract gate.
-4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts as
-   source ambiguity, target limitation, lexer/profile interaction, target
-   artifact or unresolved.
-5. Apply only a generic, source-derived target policy that has an independent
-   bounded behavior or forest witness. A conflict count or matching `%expect`
-   value is not a gate.
-6. Regenerate all four targets and rerun parser smoke, lexer/runtime and
-   positive/negative behavior gates. Only then resume broader grammar quality
-   work; model and semantic campaigns remain paused.
+   witnesses remain open. D0106 through D0110 keep this out of normative
+   StandardIR; `scripts/check-contracts.sh` is the pre-launch contract gate.
+4. Derive and audit statement-sequence candidates by fixed-point graph
+   analysis. Retain the containing class, expression path, item derivation and
+   source facts; reject ambiguous or unsupported contexts instead of guessing.
+5. Run independent bounded positive/negative lexer behavior for separators,
+   comments, continuation and keyword/name reuse. The gate must prove nested
+   `IF (...) action-stmt` and ordinary statement sequences separately.
+6. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
+   the witnessed boundary behavior. A conflict count, `%expect` value,
+   precedence setting or matching reference diagnostic is not a gate.
+7. Only then regenerate all four targets and rerun parser smoke, lexer/runtime
+   and positive/negative behavior gates. Only after that deterministic closure
+   may broader grammar quality work resume; model and semantic campaigns remain
+   paused.
 
 A checked box means the thing exists and was observed working, not that someone
 intended it. A phase ends when its gate is demonstrated by a named artifact.

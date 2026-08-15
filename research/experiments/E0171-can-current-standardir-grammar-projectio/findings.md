@@ -339,3 +339,19 @@ result with a version-2 header. This prevents a later target generator from
 silently hard-coding the suffix relation. Generated parser targets still do
 not consume the contract, and the `SAVE` / `LETTER` behavior gate remains
 open.
+
+## D0110: boundary lowering must follow source-derived sequence topology
+
+The useful comparison with LFortran is architectural rather than textual. Its
+lexer produces newline/comment separator tokens and its generic statement rule
+consumes a separator around a complete statement. That is materially different
+from adding an EOS token to every StandardIR class whose name ends in
+`-stmt`. The latter would put a boundary inside nested `IF (...) action-stmt`
+and would encode a source-form exception as a target rule.
+
+The next artifact is therefore a deterministic statement-sequence witness. It
+will compute statement-bearing repeated contexts and first-item-plus-repeated
+contexts from the StandardIR expression graph, retain the expression path and
+source facts, and reject unsupported/ambiguous contexts. It is not a conflict
+declaration. The four target generators and parser behavior gates remain behind
+that witness and an independent separator/continuation/keyword behavior gate.

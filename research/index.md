@@ -305,6 +305,7 @@ Runs recorded: 393
 | [D0107](decisions/D0107-companion-lexer-layout-contract.md) | superseded by D0108 |  | Use a companion source-backed lexer-layout contract |
 | [D0108](decisions/D0108-lexical-layout-prose-locators.md) | superseded by D0109 | Supersedes D0107 | Use prose locators in the lexical-layout contract |
 | [D0109](decisions/D0109-lexical-layout-statement-class-selector.md) | accepted | Supersedes D0108 | Carry the source statement-class selector |
+| [D0110](decisions/D0110-source-derived-statement-sequences.md) | accepted |  | Derive statement separators at sequence boundaries |
 
 ### Proposed decisions
 

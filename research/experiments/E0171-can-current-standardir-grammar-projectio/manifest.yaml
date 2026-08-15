@@ -227,10 +227,13 @@ latest_replay: >
   remain open.
 
 remaining_gates:
-  - generated parser/lexer targets must consume the pinned lexical-layout-v2 contract
+  - a deterministic statement-sequence witness must be derived from the pinned
+    lexical-layout-v2 facts and StandardIR graph topology
+  - generated parser/lexer targets must consume the pinned lexical-layout-v2
+    contract and the audited statement-sequence witness
   - generic tree-sitter conflict policy must pass without source loss
   - lexer/runtime statement-termination and keyword/name behavior must be
-    represented before adjudicating the SAVE/LETTER witness
+    independently witnessed before adjudicating the SAVE/LETTER witness
   - independent bounded language behavior for each declared profile
   - Bison counterexample classification and ambiguity policy
   - reference-only extension inventory with corpus witnesses
