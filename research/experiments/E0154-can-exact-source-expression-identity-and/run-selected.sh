@@ -74,6 +74,16 @@ if (( identity_status != 0 )); then
     exit "$identity_status"
 fi
 
+lexical_status=0
+"$lab_root/research/experiments/E0156-can-all-grammar-exports-honor-canonical-lexical-spellings/check.sh" \
+    "$run_dir" "$run_dir/lexical-witnesses.tsv" >"$run_dir/lexical-witnesses.log" 2>&1 || lexical_status=$?
+cat "$run_dir/lexical-witnesses.log"
+printf 'lexical_witness_status\t%s\n' "$lexical_status" >>"$run_dir/metadata.tsv"
+if (( lexical_status != 0 )); then
+    printf 'independent lexical witness gate failed; parser oracles were not invoked\n' >&2
+    exit "$lexical_status"
+fi
+
 validator_status=0
 "$lab_root/research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh" \
     "$run_dir" "$run_dir/grammar-oracles.tsv" >"$run_dir/target-oracles.log" 2>&1 || validator_status=$?

@@ -1,0 +1,76 @@
+id: "E0157"
+title: "Current cross-format and LLVM/Flang reference audit"
+question: >
+  After the deterministic lexical gate closes, do the four current
+  StandardIR grammar projections retain their common source lineage and at
+  least the relevant structural coverage of the pinned ANTLR, Bison and Flang
+  parser references?
+status: draft         # draft | running | reported | abandoned
+opened: "2026-08-15"
+closed: ""
+
+repos:
+  lazy-fortran-new: "c3aae18"
+  standard-new: "83f055d"
+  oracle-standard: "962ee30acd806ada940beb1bf8baa95fcb7e814c"
+  oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+  oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
+
+inputs:
+  source_run: E0154/current-post-E0156-replay
+  references:
+    - standard/grammars/src/Fortran2023Parser.g4
+    - kaby76-fortran/comp/Fortran2023Parser.g4
+    - lfortran/src/lfortran/parser/parser.yy
+    - llvm-project/flang/lib/Parser/Fortran-parsers.cpp
+
+reference_sha256:
+  house_antlr4: d8bb1b600e30be245a2d8c87e32660a3b4ad83aa94728cf50cebf37c1e8b67ce
+  kaby76_antlr4: 8f1f55ee4f61f82d732d41bd9452917bc1ce293f64e19615649a5170fb2705a8
+  lfortran_bison: 112ef0ce5078ccec630a893bc51b92232348c37742b1451c833928a422907936
+  flang_parser_comments: abb4126d6c0c4e516628ba9836c428f83f0ccf883439e67cbfdd061aa42d83b9
+
+model_selection: >
+  No model calls. This is a deterministic inventory and manual adjudication;
+  StandardIR remains normative and reference sources remain comparison
+  evidence only.
+
+metrics:
+  - generated_rule_heads_and_lineage
+  - exact_source_identity_and_validator_status
+  - reference_rule_heads
+  - feature_presence_matrix
+  - source_and_reference_sha256
+  - standardir_advantages
+  - reference_advantages
+
+denominator: >
+  Every generated format inventory, every source-backed lineage set, every
+  discoverable reference rule head, and the fixed feature matrix. Structural
+  counts are not language-equivalence scores; every difference is classified
+  as standardir_advantage, reference_advantage, expected_difference,
+  projection_gap, target_specialization_gap or method_gap.
+
+independent_oracle: >
+  E0154 source-expression identity and grammar-generator report, E0156 lexical
+  witness report, SHA-256-pinned reference files, and an independent Python
+  inventory parser. No reference production is imported into StandardIR.
+
+falsifiable_by: >
+  The generated formats disagree on source lineage, a reference hash differs,
+  a claimed feature is absent from its cited file, or the analysis reports a
+  structural difference without a classification and next gate.
+
+gate: >
+  Run only after E0156 passes. Require identity and all four target validators
+  to pass, equal generated lineage sets, verified reference hashes, a complete
+  feature matrix, and explicit two-sided advantage findings. This gate does
+  not claim full language equivalence or replace positive/negative corpus
+  behavior.
+
+analysis: >
+  analyse.sh <run-dir> <house.g4> <kaby.g4> <lfortran.yy> <flang.cpp>
+  <lexical-report> [report-dir] writes inventories.tsv, feature-matrix.tsv,
+  hashes.tsv and summary.json. The lexical report must contain
+  format_gate_status PASS before this analysis reads generated outputs.
