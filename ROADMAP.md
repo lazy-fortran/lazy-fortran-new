@@ -2499,6 +2499,14 @@ the four-format/parser-oracle gate is green. The named rule is evidence of the
 generic case, not a patch target. See D0102, D0103 and the Tree-sitter
 nullable-rule policy in the next production slice.
 
+E0171/R000402 closes that nullable-rule subgate: the generic lowering passes
+the source, identity, lexer and transformation-witness checks, but the full
+tree-sitter generator reports an unresolved `SAVE`/`LETTER` conflict. This is
+now a target conflict-policy gate, not a PDF or nullable-source failure. The
+next action is to classify the conflict against retained Bison counterexamples
+and the lexer/profile contract; no precedence declaration or conflict list is
+accepted without a generic transformation and an independent behavior witness.
+
 E0170 is the active runtime gate. R000377 exposed a real nontermination defect
 in the old global-rescanning evaluator, and R000378/R000379 are retained
 rejected repairs. D0101 now fixes the implementation boundary: the next

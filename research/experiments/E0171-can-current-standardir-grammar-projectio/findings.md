@@ -175,3 +175,22 @@ witness. Tree-sitter's documented restriction means the projection needs a
 generic nullable-rule elimination/lowering pass, with provenance for every
 propagated or omitted alternative. No parser conflict or language result is
 promoted from this failure.
+
+## R000402: nullable lowering passes, target conflict remains
+
+The generic nullable lowering from `standard-new` `4ffa985` removes the
+previous tree-sitter empty-non-start rejection. Source preflight, identity,
+lexical, profile, ANTLR4 and Bison gates remain green, and the Bison inventory
+remains 427 shift/reduce plus 2,266 reduce/reduce diagnostics. The lowering
+also passes the production transformation-witness tests and the selected
+target retains all 1,068 source alternatives in the independent identity
+witness.
+
+The full tree-sitter generator now stops at an unresolved conflict for `SAVE`
+followed by `LETTER`, between `r_save_stmt` and `r_saved_entity_list`. This is
+the expected next evidence level: nullable target lowering is no longer the
+blocker, but tree-sitter conflict policy and language preservation are still
+open. The witness is not converted into a precedence declaration or a
+target-specific exception. The next slice must classify these conflicts
+against Bison counterexamples and the declared lexer/profile contract, then
+apply only a generic, witnessed target policy.
