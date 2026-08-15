@@ -1,6 +1,6 @@
 name      = "kaby76-fortran2023-parser"
 title     = "kaby76 Fortran 2023 ANTLR parser comparison source"
-url       = "https://github.com/kaby76/fortran/blob/ba846bbdea9df98428d094137d2adbe156f86207/comp/Fortran2023Parser.g4"
+url       = "https://raw.githubusercontent.com/kaby76/fortran/ba846bbdea9df98428d094137d2adbe156f86207/comp/Fortran2023Parser.g4"
 sha256    = "8f1f55ee4f61f82d732d41bd9452917bc1ce293f64e19615649a5170fb2705a8"
 bytes     = 57726
 licence   = "MIT"

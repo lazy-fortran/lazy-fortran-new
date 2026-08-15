@@ -70,3 +70,31 @@ parser-useless nonterminals and seven parser-useless rules. The next slice is
 therefore a generic source-role-to-target-role factoring pass with a retained
 mapping, parser reachability witness and independent corpus checks. Until that
 slice is complete, M2 is open and semantic/model work remains frozen.
+
+## Current production-slice review
+
+The first implementation of the generic role-family factoring slice is
+`standard-new` commit `5c27fac0a5c294065ee587ad9db07df7add78b5b` in
+`/home/ert/code/.wt/standard-new-role-specialization`. It passes its local
+tests and the build workflow, but Luna's independent review records it as a
+verification failure and it is not merged.
+
+The review found five concrete blockers:
+
+1. A multi-alternative production can receive alias lineage from its first
+   alternative even when that alternative is not the accepted unit alias.
+   Reordering alternatives can therefore change the witness to the wrong
+   source record.
+2. Witness validation checks allocation and nonempty fields but does not
+   compare source roles, representative identity and complete provenance with
+   the actual source and target records.
+3. The export path factors and emits without invoking the witness validator.
+4. Tests do not independently cover alternative order, alias chains, cycles,
+   witness mutation or all four target formats; no language-preservation
+   witness exists yet.
+5. The target-normalization module grows beyond the local 1,000-line cap.
+
+The repaired slice must address these generically, run the full `fo` workflow,
+and receive a new independent review before merge. The failed implementation
+is retained as evidence; no conflict reduction from it is accepted as a
+result.

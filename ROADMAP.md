@@ -295,6 +295,51 @@ E0142 is abandoned; E0123's deterministic post-run gate is
 reported as `R000254`, and the production slices do not close semantic
 promotion.
 
+E0152 is now reported as the corrected cross-format inventory gate. Its
+reproducible command is
+`research/experiments/E0152-can-cross-format-grammar-inventories-and/analyse.sh
+.cache/runs/E0152/R000001`. The four exact generated exports share 650
+comparable source-derived heads, 1,191 provenance headers and 1,031 unique
+lineage identifiers; the inherited source projection reports 1,061/1,068
+alternatives covered, seven explicitly skipped, zero missing and zero header
+gaps. The corrected structural counters are EBNF 1,188, ANTLR4 1,197, Bison
+2,286 and tree-sitter 1,231 alternatives. These are not language scores. The
+analysis now verifies generated/reference/source evidence hashes and exact
+lineage sets. Its Luna review is `E0152/R000296`.
+
+E0152 also exposed two gates that must not be hidden by a validator PASS. The
+current source-projection check is body-bound rather than an expression
+identity witness, so D0087/D0088 remain open; and the StandardIR input uses
+`source-sha256` for canonical extracted text while the artifact manifest pins
+the PDF hash. The hashes are different evidence objects and must be typed
+distinctly at the production serialization boundary. Flang's pinned LLVM
+parser source is derived from the Fortran 2018 draft, so its 199 `Rxxx`
+comment occurrences are comparison evidence, not a Fortran 2023 denominator.
+
+E0153 is the current manual LFortran adjudication, rerun against the E0151
+candidate rather than the stale E0149 output. Its command is
+`research/experiments/E0153-can-a-current-standardir-selected-export/analyse.sh
+.cache/runs/E0153/R000001`, and its 26-row inherited matrix plus current rows
+records all seven source anchors, the selected-root boundary, source lineage,
+lexer/runtime, precedence, actions, role factoring, extensions and language-
+equivalence limits. It records a genuine StandardIR advantage—typed
+normative lineage and one source feeding four exports—and genuine LFortran
+advantages—executable lexer/actions, typed values, precedence, factoring and
+conflict policy. It does not claim a winner or close M2; Luna review is the
+required next record. The expanded R000002 audit now records thirteen feature
+surfaces with exact source/reference locations, copies and hashes its source
+evidence, and confirms the comparison is bidirectional. It does not claim a
+winner or close M2; the current remaining gaps are target/runtime and witness
+gaps, not the stale R741/R843/R1307/R1315/R1416--R1418 defects.
+
+The first generic role-family factoring implementation in E0150,
+`standard-new` `5c27fac0a5c294065ee587ad9db07df7add78b5b`, is not merged.
+Luna's R000299 review found wrong-alternative lineage, incomplete witness
+identity validation, no export self-validation, no preservation tests and a
+module-size violation. A repaired slice must pass those gates and a new Luna
+review before it can change the selected export. No conflict reduction from
+the rejected slice is accepted as evidence.
+
 The reusable local runner now sends llama.cpp's per-request
 `chat_template_kwargs.enable_thinking` control for both reasoning modes and
 derives the strict response schema from the prompt manifest. The first retry

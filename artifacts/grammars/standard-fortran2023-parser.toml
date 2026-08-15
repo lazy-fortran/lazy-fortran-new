@@ -1,6 +1,6 @@
 name      = "standard-fortran2023-parser"
 title     = "House Fortran 2023 ANTLR parser comparison source"
-url       = "https://github.com/lazy-fortran/standard/blob/160032ae38d8bd239fbb943142fdee95bda49ae2/grammars/src/Fortran2023Parser.g4"
+url       = "https://raw.githubusercontent.com/lazy-fortran/standard/160032ae38d8bd239fbb943142fdee95bda49ae2/grammars/src/Fortran2023Parser.g4"
 sha256    = "d8bb1b600e30be245a2d8c87e32660a3b4ad83aa94728cf50cebf37c1e8b67ce"
 bytes     = 39107
 licence   = "MIT"

@@ -1,6 +1,6 @@
 name      = "lfortran-parser-yy"
 title     = "LFortran Bison parser comparison source"
-url       = "https://github.com/lfortran/lfortran/blob/caf87b660f803148f000046392a5da803f9fc630/src/lfortran/parser/parser.yy"
+url       = "https://raw.githubusercontent.com/lfortran/lfortran/caf87b660f803148f000046392a5da803f9fc630/src/lfortran/parser/parser.yy"
 sha256    = "112ef0ce5078ccec630a893bc51b92232348c37742b1451c833928a422907936"
 bytes     = 95538
 licence   = "BSD-3-Clause"

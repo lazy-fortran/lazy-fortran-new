@@ -1,6 +1,6 @@
 name      = "flang-fortran-parsers"
 title     = "LLVM Flang Fortran parser rule-comment comparison source"
-url       = "https://github.com/llvm/llvm-project/blob/cff4ca2e51f89c992d8a1b6ce1067846ba680e2e/flang/lib/Parser/Fortran-parsers.cpp"
+url       = "https://raw.githubusercontent.com/llvm/llvm-project/cff4ca2e51f89c992d8a1b6ce1067846ba680e2e/flang/lib/Parser/Fortran-parsers.cpp"
 sha256    = "abb4126d6c0c4e516628ba9836c428f83f0ccf883439e67cbfdd061aa42d83b9"
 bytes     = 74379
 licence   = "Apache-2.0 WITH LLVM-exception"
