@@ -178,7 +178,8 @@ R401/R402/R403 assumed-expansion records are incorrectly labelled as if they
 had normative source RHS expressions. E0154/R000309 records that ANTLR4,
 Bison and tree-sitter still accept these files; that subordinate validator
 pass does not close identity. No model work resumes while this deterministic
-repair is open.
+repair is open. D0095 fixes the typed contract: source RHS identity, generated
+target identity and explicit source absence are separate values.
 
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
@@ -248,10 +249,12 @@ re-evaluated.
    `standard-new` `c955c23bd57a078c8fceb30de1df101280b25e2c`), wire the
    source-backed lexer-contract companion into the replay, and generate
    parser-target role factoring and selected-root reachability from generic
-   metadata. Selected-root reachability is reported by E0151 and the opt-in
-   role-family mechanism is accepted by E0150/R000306; applying it to the full
+metadata. Selected-root reachability is reported by E0151 and the opt-in
+role-family mechanism is accepted by E0150/R000306; applying it to the full
    selected export remains gated. Each transformation needs a retained mapping
-   and an independent language/corpus witness (D0092, D0093, D0094). E0154 is
+   and an independent language/corpus witness (D0092, D0093, D0094). D0095
+   additionally requires source and generated expression identities to remain
+   typed and aligned. E0154 is
    the current source-expression identity slice; it must close before a real
    selected-parser corpus or parser-runtime result is accepted.
 9. Resume Qwen 3.8 27B only after E0147 closes, on a new source-valid residue
