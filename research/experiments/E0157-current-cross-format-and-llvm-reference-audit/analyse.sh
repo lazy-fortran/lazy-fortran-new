@@ -20,7 +20,8 @@ mkdir -p "$report_dir"
 
 for file in "$run_dir/grammar.ebnf" "$run_dir/Fortran2023.g4" \
     "$run_dir/fortran2023.y" "$run_dir/grammar.js" \
-    "$run_dir/source-expression-identity.tsv" "$run_dir/grammar-oracles.tsv" \
+    "$run_dir/source-expression-identity.tsv" "$run_dir/source-projection.tsv" \
+    "$run_dir/grammar-oracles.tsv" \
     "$run_dir/input/standardir.sx" "$house" "$kaby" "$lfortran" "$flang"; do
     [[ -f "$file" ]] || { printf 'missing input: %s\n' "$file" >&2; exit 2; }
 done
@@ -143,7 +144,12 @@ features = {
 }
 
 def feature_present(value: str, feature: str, pattern: str) -> bool:
-    if re.search(pattern, value, re.I):
+    # Target exporters quote terminals differently (`"FAIL"`, `'FAIL'` or
+    # bare source tokens). Feature presence is about the terminal sequence,
+    # not the target language's quoting convention.
+    search_value = re.sub(r"\(?token\s+", "", value, flags=re.I)
+    search_value = re.sub(r"['\"(),]", " ", search_value)
+    if re.search(pattern, search_value, re.I):
         return True
     parts = feature.split()
     if len(parts) < 2:
@@ -203,6 +209,16 @@ for line in text(run / "source-expression-identity.tsv").splitlines():
         fields = line.split("\t")
         key, value = fields[0], fields[1]
         identity[key] = value
+projection: dict[str, dict[str, str]] = {}
+projection_header: list[str] = []
+for line in text(run / "source-projection.tsv").splitlines():
+    fields = line.split("\t")
+    if not fields or fields[0] in {"format", "negative-control"}:
+        if fields and fields[0] == "format":
+            projection_header = fields
+        continue
+    if projection_header and len(fields) == len(projection_header):
+        projection[fields[0]] = dict(zip(projection_header, fields))
 oracles: dict[str, str] = {}
 for line in text(run / "grammar-oracles.tsv").splitlines():
     if "\t" in line:
@@ -215,6 +231,19 @@ summary = {
     "source_identity": identity.get("positive_identity", ""),
     "source_alternatives": identity.get("source_alternatives", ""),
     "covered_source_alternatives": identity.get("covered_source_alternatives", ""),
+    "identity_coverage": {
+        "expected": identity.get("source_alternatives", ""),
+        "covered": identity.get("covered_source_alternatives", ""),
+    },
+    "emitted_body_coverage": {
+        name: {
+            "expected": values.get("expected", ""),
+            "covered": values.get("covered", ""),
+            "skipped": values.get("skipped", ""),
+            "missing": values.get("missing", ""),
+        }
+        for name, values in projection.items()
+    },
     "validator_status": {name: oracles.get(name, "") for name in ("antlr4", "bison", "tree-sitter", "source-projection")},
     "lexical_gate_report": str(lexical_report),
     "lexical_gate_status": "PASS",
