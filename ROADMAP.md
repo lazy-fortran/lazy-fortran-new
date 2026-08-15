@@ -90,7 +90,7 @@ of semantic promotion.
 
 E0147 remains open. The earlier normalization failure and the qualified
 reviews remain immutable historical evidence (`R000270`, `R000271`, `R000275`,
-and `R000277`). The current production replay is `E0147/R000018` at
+and `R000277`). The historical production replay `E0147/R000018` at
 `standard-new` `424853273a9c424d0483303478a794090756aa80`: its source-bound
 projections, ANTLR4, Bison, tree-sitter and negative-control gates pass, and
 the generic lexical repair emits canonical `-` and `'` while retaining the
@@ -137,13 +137,13 @@ them only when the corresponding gate is accepted and recorded in the ledger.
 
 **Current goal-mode handoff.** E0147's source-validity subgate remains
 accepted as `R000267`; the corrected body-bound replay is `R000276` and Luna's
-qualified review is `R000277`. The current production replay is
-`E0147/R000020` at `standard-new`
-`c955c23bd57a078c8fceb30de1df101280b25e2c`; all four projections and their
-source-removal negative controls pass. The selected replay is
+qualified review is `R000277`. The source-backed input replay is
 `E0147/R000022`, generated with `--selected-root program`; its four exports,
-source-projection witness and negative controls also pass after the generic
-selected-disposition audit fix. Regenerate these runs with
+source-projection witness and negative controls pass after the generic
+selected-disposition audit fix. The current production candidate is
+`E0151/R000002-candidate` at `standard-new`
+`dc75e7f4905e58d9b89d04c77f4f09223b57a579`, with the reachability fix merged
+and pushed. Regenerate these runs with
 `research/experiments/E0147-can-source-backed-standardir-validity-close/run-source-backed-closure.sh`
 and
 `research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh <run-directory>`.
@@ -151,27 +151,31 @@ and
 The selected replay contains 1,068 source alternatives, 1,061 emitted bodies
 and six explicitly omitted declared roots accounting for seven omitted
 alternatives. Bison reports 427
-shift/reduce and 2,266 reduce/reduce conflicts, four useless nonterminals and
-seven useless rules. The all-root replay reports 758 shift/reduce and 3,885
-reduce/reduce conflicts. These are target diagnostics, not language-
-equivalence claims. R000288 corrected the validator's useless-symbol metric;
-R000289 corrected the explicit omitted-root report; R000285 is Luna's current
-review. The source-backed grammar gate passes; the
-selected parser milestone remains open because parser reachability, role
-specialization and behavioral corpus coverage are not yet witnessed.
+shift/reduce and 2,266 reduce/reduce conflicts. The all-root replay reports
+758 shift/reduce and 3,885 reduce/reduce conflicts. These are target
+diagnostics, not language-equivalence claims. R000288 corrected the
+validator's useless-symbol metric;
+R000289 corrected the explicit omitted-root report; R000285 is Luna's review
+of the previous production pin. E0151/R000293 at `standard-new`
+`dc75e7f4905e58d9b89d04c77f4f09223b57a579` now removes the four normalized
+unreachable targets and seven useless rules generically; the independent graph
+and Bison both report zero remaining useless targets. E0151 is reported, with
+Luna review R000294. The selected parser milestone remains open because
+conflict policy, language preservation and behavioral corpus coverage are not
+yet witnessed.
 
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
 It uses the selected E0147/R000022 export directly; the analysis script no
 longer manufactures a second start condition. M022--M024 record that the
 previously alleged R741, R843, R1103, R1307, R1315 and R1416/R1417 defects are
-not present in the current source-backed output. M025 is the remaining
-concrete target gap: generic left-recursion normalization leaves four
-unreachable normalized symbols and seven Bison-useless rules in the selected
-export, even though their source lineages are retained. M026 records a real
+not present in the current source-backed output. M025 is closed by E0151's
+generic reachability slice. M026 records a real
 LFortran advantage in runtime lexer/actions/precedence/conflict policy, while
 M008 and M021 record genuine StandardIR provenance and source-boundary
-advantages. E0150/R000007--R000015 are the current deterministic role-family probes,
+advantages. E0151/R000293 and R000294 explicitly preserve this bidirectional
+comparison. E0150/R000007--R000015 are the current deterministic role-family
+probes,
 regenerated with
 `research/experiments/E0150-can-generic-parser-target-role-factoring/analyse.sh`.
 They show that indiscriminate alias factoring is worse, while one mechanically
@@ -220,8 +224,9 @@ re-evaluated.
    `standard-new` `c955c23bd57a078c8fceb30de1df101280b25e2c`), wire the
    source-backed lexer-contract companion into the replay, and generate
    parser-target role factoring and selected-root reachability from generic
-   metadata. Each transformation needs a retained mapping and an independent
-   language/corpus witness (D0092, D0093, D0094).
+   metadata. Selected-root reachability is now implemented and reported by
+   E0151; role factoring remains gated. Each transformation needs a retained
+   mapping and an independent language/corpus witness (D0092, D0093, D0094).
 9. Resume Qwen 3.8 27B only after E0147 closes, on a new source-valid residue
    manifest with deterministic replay and an independent source-span witness.
 10. Promote the closed syntax/reference layer into semantic extraction, then
@@ -266,9 +271,10 @@ changes a denominator.
       the source/projection subgate and `R000277` is Luna's qualified review;
       the current all-root `R000020` and selected-root `R000022` replays pass
       the four-format gates after selected-root disposition handling was fixed.
-      E0149/R000005 and E0150/R000007--R000015 record the remaining
-      selected-target issues. No model work is unlocked by the projection
-      subgate alone.
+      E0149/R000005 and E0150/R000007--R000015 record the comparison and role
+      work; E0151/R000293--R000294 closes generic target reachability. Conflict,
+      language-preservation and corpus gates remain open. No model work is
+      unlocked by the projection subgate alone.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
 
@@ -279,12 +285,12 @@ historical rows remain visible and new Qwen 3.8 rows are added automatically,
 but no new model row is scheduled now.
 
 The current pushed production pins are therefore `standard-new`
-`c955c23bd57a078c8fceb30de1df101280b25e2c`, `fortfront-new` `db5eaec`, `ffc-new` `3253849`, and `fortback-new`
-`a149015`. `standard-new` now has the generic selected-root export boundary;
-its selected replay is `.cache/runs/E0147/R000022` and still reports four
-useless nonterminals and seven useless rules under Bison, so this is progress
-but not M2 closure. Luna's current review is `R000285`; `R000283` remains the
-review of the preceding selected-root slice.
+`dc75e7f4905e58d9b89d04c77f4f09223b57a579`, `fortfront-new` `db5eaec`, `ffc-new`
+`3253849`, and `fortback-new` `a149015`. `standard-new` now has the generic
+selected-root export and post-normalization reachability boundaries; the
+candidate replay reports zero useless nonterminals and rules under Bison.
+M2 is still open for conflict policy, language preservation and corpus
+behavior. Luna's current review is E0151 `R000294`.
 E0142 is abandoned; E0123's deterministic post-run gate is
 reported as `R000254`, and the production slices do not close semantic
 promotion.

@@ -2,14 +2,14 @@ id: "E0151"
 title: "Generic post-normalization reachability for selected parser targets"
 question: >
   Can generic post-normalization reachability prune selected parser targets while preserving source lineage
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-15"
-closed: ""
+closed: "2026-08-15"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: "5645a04"
-  standard-new: "c955c23bd57a078c8fceb30de1df101280b25e2c"
+  standard-new: "dc75e7f4905e58d9b89d04c77f4f09223b57a579"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -86,4 +86,6 @@ analysis: >
   <run-directory>`. It writes only to the ignored run directory and produces
   reachability.tsv, summary.json and mutation.log. The production candidate
   is replayed after its commit is available; no model or reference production
-  body is used.
+  body is used. The four-format validator is run with
+  `research/experiments/E0147-can-source-backed-standardir-validity-close/validate-grammar-exports.sh
+  <run-directory>`.
