@@ -122,7 +122,10 @@ analysis: >
   before invoking any parser generator or behavioral oracle:
   python3 validate-profile-contract.py <run> profile-policy.tsv <output>.
   The validator must reject implicit or wrong entry rules; only then may the
-  parser generators and behavioral oracles run.
+  parser generators and behavioral oracles run. Normalize the resulting
+  Bison counterexample TSV and Tree-sitter diagnostic with
+  normalise-conflict-witness.py; this produces an unclassified evidence table,
+  not a conflict policy.
 
 replays:
   - run: R000387
@@ -165,6 +168,11 @@ replays:
     mode: clean-committed-selected-profile-and-four-format-witness-replay
     report: .cache/runs/E0171/R000404-clean-witness-replay
     result: all-witnesses-pass-tree-sitter-unresolved-conflict
+  - run: R000405
+    standard-new: "4ffa9859a6af551a9ceb1d45bc5744a1522e135e"
+    mode: normalized-selected-conflict-witness-inventory
+    report: .cache/runs/E0171/R000404-clean-witness-replay/conflict-witnesses.tsv
+    result: superseded-by-R000406-invalid-lab-pin
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -183,6 +191,8 @@ latest_replay: >
 
 remaining_gates:
   - generic tree-sitter conflict policy must pass without source loss
+  - lexer/runtime statement-termination and keyword/name behavior must be
+    represented before adjudicating the SAVE/LETTER witness
   - independent bounded language behavior for each declared profile
   - Bison counterexample classification and ambiguity policy
   - reference-only extension inventory with corpus witnesses
