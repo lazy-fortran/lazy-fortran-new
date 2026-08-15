@@ -1,7 +1,7 @@
 # D0110. Derive statement separators at sequence boundaries
 
 Date: 2026-08-16
-Status: accepted
+Status: superseded by D0111
 
 ## Context
 

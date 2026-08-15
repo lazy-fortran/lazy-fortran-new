@@ -175,6 +175,24 @@ def compound_sequence(node: object, statement_classes: set[str], reachable: set[
     return direct, bool(direct)
 
 
+def sequence_internal_statements(node: object, statement_classes: set[str], reachable: set[str], nullable: set[str]) -> list[tuple[int, str]]:
+    items = seq_items(node)
+    if not items:
+        return []
+    result: list[tuple[int, str]] = []
+    for index, child in enumerate(items):
+        statement = direct_statement_ref(child, statement_classes)
+        if statement is None or index == len(items) - 1:
+            continue
+        suffix = items[index + 1:]
+        suffix_nullable = all(expression_nullable(item, nullable) for item in suffix)
+        suffix_statement_bearing = any(
+            ref in reachable for item in suffix for ref in direct_refs(item))
+        if suffix_nullable or suffix_statement_bearing:
+            result.append((index + 1, statement))
+    return result
+
+
 @dataclass(frozen=True)
 class Rule:
     rule_id: str
@@ -224,6 +242,7 @@ def read_records(path: Path) -> list[Rule]:
 
 def read_suffix(path: Path) -> str:
     suffixes: set[str] = set()
+    source_forms: set[str] = set()
     for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
         if not line.strip():
             continue
@@ -234,7 +253,11 @@ def read_suffix(path: Path) -> str:
         if len(suffix_nodes) != 1 or len(suffix_nodes[0]) != 2:
             raise ParseError(f"{path}:{line_number}: malformed statement-class-suffix")
         suffixes.add(str(suffix_nodes[0][1]))
-    if len(suffixes) != 1:
+        form_nodes = children(record, "source-form")
+        if len(form_nodes) != 1 or len(form_nodes[0]) != 2:
+            raise ParseError(f"{path}:{line_number}: statement-class-suffix lacks source-form")
+        source_forms.add(str(form_nodes[0][1]))
+    if len(suffixes) != 1 or source_forms != {"all"}:
         raise ParseError(f"{path}: expected exactly one statement-class suffix")
     return next(iter(suffixes))
 
@@ -264,6 +287,22 @@ def derive_candidates(rules: list[Rule], suffix: str) -> tuple[list[dict[str, st
     candidates: list[dict[str, str]] = []
     for rule in rules:
         for path, node in path_nodes(rule.rhs):
+            for position, statement in sequence_internal_statements(
+                    node, statement_classes, reachable, nullable):
+                candidates.append({
+                    "rule": rule.rule_id,
+                    "container": rule.lhs,
+                    "source_document": rule.document,
+                    "source_clause": rule.clause,
+                    "page": rule.page,
+                    "byte_start": rule.byte_start,
+                    "source_sha256": rule.source_hash,
+                    "kind": "sequence-internal",
+                    "path": f"{path}/{position}",
+                    "item": statement,
+                    "derivation": statement,
+                    "status": "candidate",
+                })
             item = repeated_ref(node)
             if is_repeat(node) and item is None:
                 repeat_item = node[1] if len(node) > 1 else []
@@ -285,22 +324,6 @@ def derive_candidates(rules: list[Rule], suffix: str) -> tuple[list[dict[str, st
                         "derivation": ",".join(nested),
                         "status": "candidate",
                     })
-                    for position, statement in direct:
-                        if position < len(seq_items(repeat_item) or []):
-                            candidates.append({
-                                "rule": rule.rule_id,
-                                "container": rule.lhs,
-                                "source_document": rule.document,
-                                "source_clause": rule.clause,
-                                "page": rule.page,
-                                "byte_start": rule.byte_start,
-                                "source_sha256": rule.source_hash,
-                                "kind": "compound-internal",
-                                "path": f"{path}/1/{position}",
-                                "item": statement,
-                                "derivation": statement,
-                                "status": "candidate",
-                            })
                     continue
                 if nested:
                     candidates.append({
