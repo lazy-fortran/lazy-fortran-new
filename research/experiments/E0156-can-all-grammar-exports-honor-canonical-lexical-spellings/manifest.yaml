@@ -4,7 +4,7 @@ question: >
   Do all four generated grammar formats preserve the source glyph in
   provenance while emitting the declared canonical Fortran spelling in target
   bodies and lexical contracts?
-status: draft          # draft | running | reported | abandoned
+status: running        # draft | running | reported | abandoned
 opened: "2026-08-15"
 closed: ""
 
@@ -56,6 +56,5 @@ gate: >
   evidence.
 
 analysis: >
-  A deterministic checker to be added before the next standard-new replay;
-  its command and output report will be recorded here before the experiment is
-  run.
+  check.sh <E0154-run> <report.tsv> performs the four-format lexical witness
+  check and its negative mutation control.
