@@ -1,6 +1,7 @@
 document	clause	page	source_sha256	kind	source_form	field	value	locator	phrase
 J3-24-007	4.1.4	45	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	statement-boundary	free-form	terminator	end-of-line	paragraph-1-sentence-1	delimited by end-of-line or semicolon
 J3-24-007	4.1.4	45	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	statement-boundary	free-form	terminator	semicolon	paragraph-1-sentence-1	delimited by end-of-line or semicolon
+J3-24-007	4.1.4	45	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	statement-class-suffix	all	suffix	-stmt	paragraph-1-sentence-1	Any syntactic class name ending in “-stmt” follows the source form statement rules
 J3-24-007	5.5.2	65	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	keyword-name-policy	all	policy	not-reserved	paragraph-1-sentence-1	A statement keyword is not a reserved word
 J3-24-007	6.3.2.4	72	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	continuation	free-form	signal	trailing-ampersand	paragraph-1-sentence-1	The character “&” is used to indicate that the statement is continued
 J3-24-007	6.3.2.4	72	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	continuation	free-form	signal	leading-ampersand	paragraph-2-sentence-3	If the first nonblank character on that line is an “&”

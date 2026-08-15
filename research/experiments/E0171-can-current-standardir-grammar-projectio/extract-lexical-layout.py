@@ -34,6 +34,7 @@ FIELDS = (
 )
 KINDS = {
     "statement-boundary": {"field": "terminator", "values": {"end-of-line", "semicolon", "comment"}},
+    "statement-class-suffix": {"field": "suffix", "values": {"-stmt"}},
     "continuation": {"field": "signal", "values": {"trailing-ampersand", "leading-ampersand", "fixed-form-marker"}},
     "keyword-name-policy": {"field": "policy", "values": {"not-reserved"}},
 }
@@ -118,6 +119,8 @@ def sx(row: dict[str, str]) -> str:
     )
     if row["kind"] == "statement-boundary":
         fact = f"(statement-boundary (source-form {row['source_form']}) (terminator {row['value']})"
+    elif row["kind"] == "statement-class-suffix":
+        fact = f"(statement-class-suffix (source-form {row['source_form']}) (suffix {row['value']})"
     elif row["kind"] == "continuation":
         fact = f"(continuation (source-form {row['source_form']}) (signal {row['value']})"
     else:

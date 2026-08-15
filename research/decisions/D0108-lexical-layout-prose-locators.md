@@ -1,7 +1,7 @@
 # D0108. Use prose locators in the lexical-layout contract
 
 Date: 2026-08-15
-Status: accepted
+Status: superseded by D0109
 Supersedes: D0107
 
 ## Context

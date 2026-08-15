@@ -1,0 +1,34 @@
+(schema lexical-layout-v2
+  (primitive name)
+  (primitive int)
+  (enum origin mechanical search smt llm llm-repair human imported differential)
+  (enum source-form all free-form fixed-form)
+  (enum terminator end-of-line semicolon comment)
+  (enum continuation-signal trailing-ampersand leading-ampersand fixed-form-marker)
+  (enum keyword-policy not-reserved)
+  (record source-ref
+    (document name)
+    (clause name)
+    (locator name)
+    (page int)
+    (source-hash name))
+  (record statement-boundary
+    (source-form source-form)
+    (terminator terminator)
+    (source source-ref)
+    (origin origin))
+  (record statement-class-suffix
+    (source-form source-form)
+    (suffix name)
+    (source source-ref)
+    (origin origin))
+  (record continuation
+    (source-form source-form)
+    (signal continuation-signal)
+    (source source-ref)
+    (origin origin))
+  (record keyword-name-policy
+    (source-form source-form)
+    (policy keyword-policy)
+    (source source-ref)
+    (origin origin)))

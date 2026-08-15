@@ -18,7 +18,7 @@ schema:
 |---|---|---|---|
 | `standardir-v0` | `standard-new` | `fortfront-new`, `ffc-new` | source-backed language facts and syntax |
 | `standardir-grammar-v0` | `standard-new` | `fortfront-new` | source-backed normalized grammar expression trees |
-| `lexical-layout-v1` | `standard-new` | generated parser/lexer targets | source-backed statement layout and keyword/name behavior |
+| `lexical-layout-v2` | `standard-new` | generated parser/lexer targets | source-backed statement layout, applicability and keyword/name behavior |
 | `frontend-v0` | `fortfront-new` | `ffc-new`, tools | typed frontend results and diagnostics |
 | `mir-v0` | `ffc-new` | `fortback-new` | target-independent compiler operations |
 | `targetir-v0` | `fortback-new` | backend generators | target facts, encodings and semantics |
@@ -43,5 +43,5 @@ central decision and a migration slice. Validate the contract set with:
 scripts/check-contracts.sh
 ```
 
-`lexical-layout-v0` is retained only because E0171/R000408 records its first
-projection; D0108 makes `lexical-layout-v1` the authoritative revision.
+`lexical-layout-v0` and `lexical-layout-v1` are retained because E0171 records
+their projections; D0109 makes `lexical-layout-v2` the authoritative revision.
