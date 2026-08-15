@@ -77,6 +77,9 @@ finite-state correctness invariant while reducing work generically. It must
 first reproduce the `program` root with a bounded diagnostic (state counts by
 rule/dot/uncertainty, queue growth and completion counts), then optimize using
 exact grammar reachability/productivity and packed or indexed chart operations
-where they preserve the existing outcome contract. It may not add a root,
-rule-number or input-specific exception, and it must rerun the focused suite
-before the unchanged 995-case corpus.
+where they preserve the existing outcome contract. The first literature-backed
+special case to investigate is the practical-Earley treatment of empty and
+nullable productions (Aycock and Horspool, 2002), because it changes the
+finite chart automaton rather than adding a source-language exception. It may
+not add a root, rule-number or input-specific exception, and it must rerun the
+focused suite before the unchanged 995-case corpus.

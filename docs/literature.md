@@ -75,6 +75,13 @@ not sources from which grammar productions may be copied.
   Operational reference for retaining unresolved alternatives and merging
   equivalent parser states; it is an oracle-policy comparison, not an input
   grammar source.
+- ✓ **Aycock, J. and Horspool, R. N. “Practical Earley Parsing.”**
+  *The Computer Journal* 45(6), 620–630, 2002.
+  <https://doi.org/10.1093/comjnl/45.6.620>. A practical Earley variant that
+  treats empty right-hand sides with a dedicated finite automaton. This is the
+  next performance hypothesis for E0170 because the generated Fortran grammar
+  contains extensive nullable structure; it does not justify changing the
+  source grammar or hiding ambiguity.
 
 ## 2. Formalizing prose standards
 
