@@ -24,6 +24,7 @@ inputs:
     - kaby76-fortran/comp/Fortran2023Parser.g4
     - lfortran/src/lfortran/parser/parser.yy
     - llvm-project/flang/lib/Parser/Fortran-parsers.cpp
+  reference_feature_anchors: reference-feature-anchors.tsv
 
 reference_sha256:
   house_antlr4: d8bb1b600e30be245a2d8c87e32660a3b4ad83aa94728cf50cebf37c1e8b67ce
@@ -42,6 +43,7 @@ metrics:
   - exact_source_identity_and_validator_status
   - reference_rule_heads
   - source_derived_feature_rule_ids_and_presence
+  - explicit_reference_feature_anchor_matches
   - source_and_reference_sha256
   - standardir_advantages
   - reference_advantages
@@ -56,8 +58,9 @@ denominator: >
 independent_oracle: >
   E0154 source-expression identity and grammar-generator report, E0156 lexical
   witness report, SHA-256-pinned reference files, parsed StandardIR SX records,
-  emitted source-lineage metadata and an independent Python inventory parser.
-  No reference production is imported into StandardIR.
+  emitted source-lineage metadata, the hashed reference-feature-anchor input and
+  an independent Python inventory parser. No reference production is imported
+  into StandardIR.
 
 falsifiable_by: >
   The generated formats disagree on source lineage, a reference hash differs,
@@ -75,11 +78,15 @@ gate: >
 analysis: >
   analyse.sh <run-dir> <house.g4> <kaby.g4> <lfortran.yy> <flang.cpp>
   <lexical-report> [report-dir] writes inventories.tsv, feature-matrix.tsv,
-  hashes.tsv and summary.json. Tree-sitter counts only r_* declarations;
+  reference-feature-anchors.tsv, hashes.tsv and summary.json. Tree-sitter counts only r_* declarations;
   uppercase lexer definitions are excluded from rule heads and the report
   keeps emitted lineage separate from omission metadata. Feature presence in
   generated formats is derived from parsed StandardIR lhs/rule IDs intersected
   with emitted source-lineage metadata, never from terminal text search. The
+  reference-name adjudications are read from reference-feature-anchors.tsv and
+  are emitted with per-anchor MATCH/NO_ANCHOR_DECLARED status; they are not
+  hidden in the checker. A matching anchor means at least one observed
+  structural head, not universal support or language equivalence. The
   Flang comparison is a separate intersection of those source rule IDs with
   retained R#### comments; it is not a grammar-head or implementation-absence
   claim. The lexical report must contain format_gate_status PASS before this

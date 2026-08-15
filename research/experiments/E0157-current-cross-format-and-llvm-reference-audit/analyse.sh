@@ -9,6 +9,7 @@ lfortran=${4:?usage: analyse.sh <run-dir> <house.g4> <kaby.g4> <lfortran.yy> <fl
 flang=${5:?usage: analyse.sh <run-dir> <house.g4> <kaby.g4> <lfortran.yy> <flang.cpp> <lexical-report> [report-dir]}
 lexical_report=${6:?usage: analyse.sh <run-dir> <house.g4> <kaby.g4> <lfortran.yy> <flang.cpp> <lexical-report> [report-dir]}
 report_dir=${7:-"$run_dir"}
+feature_anchors="$script_dir/reference-feature-anchors.tsv"
 
 run_dir=$(cd -- "$run_dir" && pwd)
 house=$(cd -- "$(dirname -- "$house")" && pwd)/$(basename -- "$house")
@@ -26,19 +27,21 @@ for file in "$run_dir/grammar.ebnf" "$run_dir/Fortran2023.g4" \
     [[ -f "$file" ]] || { printf 'missing input: %s\n' "$file" >&2; exit 2; }
 done
 [[ -f "$lexical_report" ]] || { printf 'missing lexical gate report: %s\n' "$lexical_report" >&2; exit 2; }
+[[ -f "$feature_anchors" ]] || { printf 'missing reference feature anchors: %s\n' "$feature_anchors" >&2; exit 2; }
 grep -q $'^format_gate_status\tPASS$' "$lexical_report" \
     || { printf 'lexical gate is not green: %s\n' "$lexical_report" >&2; exit 1; }
 
-python3 - "$run_dir" "$house" "$kaby" "$lfortran" "$flang" "$lexical_report" "$report_dir" <<'PY'
+python3 - "$run_dir" "$house" "$kaby" "$lfortran" "$flang" "$lexical_report" "$report_dir" "$feature_anchors" <<'PY'
 from __future__ import annotations
 
 import hashlib
 import json
 import re
 import sys
+import csv
 from pathlib import Path
 
-run, house, kaby, lfortran, flang, lexical_report, report = map(Path, sys.argv[1:])
+run, house, kaby, lfortran, flang, lexical_report, report, feature_anchor_path = map(Path, sys.argv[1:])
 report.mkdir(parents=True, exist_ok=True)
 
 def text(path: Path) -> str:
@@ -207,6 +210,48 @@ feature_lhses = {
     "DO CONCURRENT": {"concurrent-header", "concurrent-control"},
 }
 
+
+def read_feature_anchors(
+    path: Path, features: set[str], reference_names: set[str]
+) -> dict[str, dict[str, set[str]]]:
+    """Load explicit reference-name adjudications from experiment data.
+
+    Reference grammars use different naming and factoring conventions. The
+    mapping is comparison evidence, not normative input or a parser-quality
+    oracle. Keeping it in TSV makes each alias reviewable, hashable and
+    replaceable without changing this audit algorithm.
+    """
+
+    required = {"feature", "reference", "anchor", "anchor_kind", "interpretation"}
+    result: dict[str, dict[str, set[str]]] = {}
+    with path.open(newline="", encoding="utf-8") as stream:
+        rows = csv.DictReader(stream, delimiter="\t")
+        if set(rows.fieldnames or ()) != required:
+            raise ValueError(f"{path}: expected columns {sorted(required)}")
+        for row in rows:
+            feature = row["feature"]
+            reference = row["reference"]
+            anchor = row["anchor"]
+            if feature not in features:
+                raise ValueError(f"{path}: unknown feature {feature!r}")
+            if reference not in reference_names:
+                raise ValueError(f"{path}: unknown reference {reference!r}")
+            if not anchor or row["anchor_kind"] != "grammar-head":
+                raise ValueError(f"{path}: invalid grammar-head anchor for {feature}/{reference}")
+            if not row["interpretation"]:
+                raise ValueError(f"{path}: missing interpretation for {feature}/{reference}/{anchor}")
+            result.setdefault(feature, {}).setdefault(reference, set()).add(anchor)
+    if not result:
+        raise ValueError(f"{path}: no feature anchors")
+    return result
+
+
+feature_anchor_map = read_feature_anchors(
+    feature_anchor_path,
+    set(feature_lhses),
+    set(references),
+)
+
 source_text = text(run / "input/standardir.sx")
 source_records = source_syntax_records(source_text)
 source_rules_by_lhs: dict[str, set[str]] = {}
@@ -238,20 +283,9 @@ def source_rule_ids(lineages: set[str]) -> set[str]:
     return {lineage.split(":", 1)[0] for lineage in lineages}
 
 # Reference files do not carry StandardIR lineage. Their feature result is a
-# structural rule-head witness only, not a normative-source claim.
-reference_head_aliases = {
-    "LOCK": {"lock-stmt", "lock_stmt", "lockStmt", "lock_stmt_f2023"},
-    "UNLOCK": {"unlock-stmt", "unlock_stmt", "unlockStmt"},
-    "FAIL IMAGE": {"fail-image-stmt", "fail_image_stmt", "failImageStmt"},
-    "NOTIFY WAIT": {"notify-wait-stmt", "notify_wait_stmt", "notifyWaitStmt", "notify_wait_stmt_f2023"},
-    "SELECT RANK": {"select-rank-construct", "select_rank_construct", "selectRankConstruct"},
-    "SELECT TEAM": {"change-team-construct", "change_team_construct", "changeTeamConstruct"},
-    "FORM TEAM": {"form-team-stmt", "form_team_stmt", "formTeamStmt"},
-    "EVENT": {"event-post-stmt", "event_post_stmt", "eventPostStmt", "event-wait-stmt", "event_wait_stmt", "eventWaitStmt"},
-    "ENUM": {"enum-def-stmt", "enum_def_stmt", "enumDefStmt", "enumeration-type-def", "enumeration_type_def", "enumerationTypeDef"},
-    "SUBMODULE": {"submodule", "submodule-stmt", "submodule_stmt", "submoduleStmt"},
-    "DO CONCURRENT": {"concurrent-header", "concurrent_header", "concurrentHeader"},
-}
+# structural rule-head witness only, not a normative-source claim. The
+# reference-name adjudications are loaded from the pinned TSV above rather
+# than being hidden in this script.
 reference_heads = {
     name: parser(strip_comments(path.name, text(path)))
     for name, (path, parser) in references.items()
@@ -270,7 +304,7 @@ for feature in feature_lhses:
         for name in generated_bodies
     ]
     reference_presence = [
-        bool(reference_head_aliases[feature] & reference_heads[name])
+        bool(feature_anchor_map.get(feature, {}).get(name, set()) & reference_heads[name])
         for name in references
     ]
     flang_presence = bool(expected_rules & flang_rule_ids)
@@ -279,15 +313,15 @@ for feature in feature_lhses:
     generated_present = any(generated_presence)
     reference_present = any(reference_presence) or flang_presence
     if source_present and generated_present and reference_present:
-        classification = "both"
+        classification = "source-and-reference-anchor"
     elif source_present and generated_present:
-        classification = "standardir_only"
+        classification = "source-and-no-reference-anchor"
     elif source_present and not generated_present:
-        classification = "selected_profile_gap"
+        classification = "source-selected-profile-gap"
     elif reference_present:
-        classification = "reference_only"
+        classification = "reference-anchor-only"
     else:
-        classification = "neither"
+        classification = "no-source-or-reference-anchor"
     feature_rows.append((
         feature,
         ",".join(source_feature_rules[feature]),
@@ -301,6 +335,22 @@ for feature in feature_lhses:
     + "\tclassification\n"
     + "".join("\t".join(row) + "\n" for row in feature_rows),
     encoding="utf-8",
+)
+
+anchor_rows = ["feature\treference\tdeclared_anchors\tmatched_anchors\tstatus\n"]
+for feature in feature_lhses:
+    for reference in references:
+        declared = sorted(feature_anchor_map.get(feature, {}).get(reference, set()))
+        matched = sorted(set(declared) & reference_heads[reference])
+        status = "MATCH" if matched else (
+            "DECLARED_BUT_NOT_FOUND" if declared else "NO_ANCHOR_DECLARED"
+        )
+        anchor_rows.append(
+            "\t".join((feature, reference, ",".join(declared), ",".join(matched), status))
+            + "\n"
+        )
+(report / "reference-feature-anchors.tsv").write_text(
+    "".join(anchor_rows), encoding="utf-8"
 )
 
 identity: dict[str, str] = {}
@@ -356,6 +406,11 @@ summary = {
     ) if (lineage_sets := [source_lineages(text(path)) for path, _ in generated.values()]) else False,
     "reference_hashes": {name: sha(path) for name, (path, _) in references.items()},
     "flang_hash": sha(flang),
+    "feature_anchor_file": str(feature_anchor_path),
+    "feature_anchor_sha256": sha(feature_anchor_path),
+    "feature_anchor_rows": sum(
+        len(values) for feature in feature_anchor_map.values() for values in feature.values()
+    ),
     "inventory_rows": len(inventory_rows),
     "feature_rows": len(feature_rows),
     "equivalence_claim": False,
@@ -364,7 +419,8 @@ summary = {
 (report / "hashes.tsv").write_text(
     "name\tpath\tsha256\n"
     + "".join(f"{name}\t{path}\t{sha(path)}\n" for name, (path, _) in {**generated, **references}.items())
-    + f"flang-rule-comments\t{flang}\t{sha(flang)}\n",
+    + f"flang-rule-comments\t{flang}\t{sha(flang)}\n"
+    + f"feature-anchors\t{feature_anchor_path}\t{sha(feature_anchor_path)}\n",
     encoding="utf-8",
 )
 print(json.dumps(summary, indent=2))

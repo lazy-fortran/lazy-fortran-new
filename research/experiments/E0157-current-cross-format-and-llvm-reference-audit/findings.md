@@ -122,6 +122,41 @@ The authoritative append-only run record for this replay is R000350. R000324
 is retained as the preliminary record from before the run-ID correction; the
 report and adjudication are unchanged.
 
+## R000396: explicit reference-anchor replay
+
+The audit no longer stores reference-name aliases in the Python checker. They
+are now the reviewed experiment input
+`reference-feature-anchors.tsv`, and its SHA-256 is recorded in the replay
+summary and `hashes.tsv`. The input contains only observed grammar-head names
+from the pinned reference files; it does not add productions to StandardIR.
+
+The replay writes `reference-feature-anchors.tsv` in its report directory with
+one row for every feature/reference pair. `MATCH` means that a declared
+structural anchor was found. `NO_ANCHOR_DECLARED` means that this comparison
+file has no mapped anchor; it does not mean that the reference lacks the
+feature. The Flang column remains a separate source-rule-comment intersection.
+The former `both` classification is now `source-and-reference-anchor`, which
+states the actual evidence level.
+
+The deterministic gates remain green: source identity 1,068/1,068, emitted
+body coverage 1,061/1,068 with seven explicit profile omissions, equal
+generated lineage sets, and ANTLR4, Bison, tree-sitter and source-projection
+validators passing. This replay repairs audit transparency only; it does not
+change the generated grammar or establish language equivalence.
+
+Reproduce it with:
+
+```text
+research/experiments/E0157-current-cross-format-and-llvm-reference-audit/analyse.sh \
+  .cache/runs/E0164/R000385-four-format-regeneration \
+  ../standard/grammars/src/Fortran2023Parser.g4 \
+  ../kaby76-fortran/comp/Fortran2023Parser.g4 \
+  .cache/runs/E0162/reference/parser.yy \
+  ../llvm-project/flang/lib/Parser/Fortran-parsers.cpp \
+  .cache/runs/E0164/R000385-four-format-regeneration/lexical-witnesses.tsv \
+  .cache/runs/E0157/R000396-anchor-input-replay
+```
+
 ## R000354: fresh regenerated-output replay
 
 R000354 repeats the corrected inventory against the fresh post-fidelity

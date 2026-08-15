@@ -2422,6 +2422,16 @@ references remain stronger in executable lexer/runtime integration, factoring,
 actions, precedence and conflict policy. This is structural evidence, not
 language equivalence.
 
+The audit's reference-name adjudication is now explicit input rather than
+hidden Python state. E0157/R000396 reads and hashes
+`research/experiments/E0157-current-cross-format-and-llvm-reference-audit/reference-feature-anchors.tsv`
+and emits a per-feature/per-reference MATCH table. Its
+`source-and-reference-anchor` label means that at least one named reference
+grammar exposes the mapped structural head; it does not mean universal
+support. `NO_ANCHOR_DECLARED` is an unmade mapping, not a negative language
+result. The replay command is the `analyse.sh` command in the E0157 findings;
+the output directory is `.cache/runs/E0157/R000396-anchor-input-replay`.
+
 The authoritative PDF-fidelity gate E0158 is revalidated as `R000364` against
 the exact current E0154/R000353 source, with R000352 retained as the earlier
 authoritative record. It checks all 522 source byte spans and canonical

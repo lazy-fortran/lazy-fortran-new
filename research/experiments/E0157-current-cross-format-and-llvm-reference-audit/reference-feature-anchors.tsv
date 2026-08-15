@@ -1,0 +1,24 @@
+feature	reference	anchor	anchor_kind	interpretation
+NOTIFY WAIT	house-antlr4	notify_wait_stmt_f2023	grammar-head	observed structural reference anchor
+ENUM	house-antlr4	enum_def_stmt_f2023	grammar-head	observed structural reference anchor
+LOCK	kaby76-antlr4	lock_stmt	grammar-head	observed structural reference anchor
+UNLOCK	kaby76-antlr4	unlock_stmt	grammar-head	observed structural reference anchor
+FAIL IMAGE	kaby76-antlr4	fail_image_stmt	grammar-head	observed structural reference anchor
+NOTIFY WAIT	kaby76-antlr4	notify_wait_stmt	grammar-head	observed structural reference anchor
+SELECT RANK	kaby76-antlr4	select_rank_construct	grammar-head	observed structural reference anchor
+SELECT TEAM	kaby76-antlr4	change_team_construct	grammar-head	observed structural reference anchor
+FORM TEAM	kaby76-antlr4	form_team_stmt	grammar-head	observed structural reference anchor
+EVENT	kaby76-antlr4	event_post_stmt	grammar-head	observed structural reference anchor
+EVENT	kaby76-antlr4	event_wait_stmt	grammar-head	observed structural reference anchor
+ENUM	kaby76-antlr4	enum_def_stmt	grammar-head	observed structural reference anchor
+ENUM	kaby76-antlr4	enumeration_type_def	grammar-head	observed structural reference anchor
+SUBMODULE	kaby76-antlr4	submodule_stmt	grammar-head	observed structural reference anchor
+DO CONCURRENT	kaby76-antlr4	concurrent_header	grammar-head	observed structural reference anchor
+SELECT RANK	lfortran-bison	select_rank	grammar-head	observed structural reference anchor
+SELECT TEAM	lfortran-bison	change_team	grammar-head	observed structural reference anchor
+FORM TEAM	lfortran-bison	form_team	grammar-head	observed structural reference anchor
+EVENT	lfortran-bison	event_post_statement	grammar-head	observed structural reference anchor
+EVENT	lfortran-bison	event_wait_statement	grammar-head	observed structural reference anchor
+ENUM	lfortran-bison	enum_decl	grammar-head	observed structural reference anchor
+SUBMODULE	lfortran-bison	submodule	grammar-head	observed structural reference anchor
+DO CONCURRENT	lfortran-bison	concurrent_control	grammar-head	observed structural reference anchor
