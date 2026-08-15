@@ -180,8 +180,11 @@ class Rule:
     rule_id: str
     lhs: str
     rhs: object
+    document: str
+    clause: str
     page: str
     byte_start: str
+    source_hash: str
 
 
 def read_records(path: Path) -> list[Rule]:
@@ -208,8 +211,11 @@ def read_records(path: Path) -> list[Rule]:
             rule_id,
             lhs,
             rhs_nodes[0][1],
+            one_atom(source, "document", ""),
+            one_atom(source, "clause", ""),
             one_atom(source, "page", ""),
             one_atom(source, "byte-start", ""),
+            one_atom(source, "source-sha256", ""),
         ))
     if not rules:
         raise ParseError(f"{path}: no syntax records")
@@ -268,8 +274,11 @@ def derive_candidates(rules: list[Rule], suffix: str) -> tuple[list[dict[str, st
                     candidates.append({
                         "rule": rule.rule_id,
                         "container": rule.lhs,
+                        "source_document": rule.document,
+                        "source_clause": rule.clause,
                         "page": rule.page,
                         "byte_start": rule.byte_start,
+                        "source_sha256": rule.source_hash,
                         "kind": "compound-repeat-item",
                         "path": path,
                         "item": "sequence",
@@ -281,8 +290,11 @@ def derive_candidates(rules: list[Rule], suffix: str) -> tuple[list[dict[str, st
                             candidates.append({
                                 "rule": rule.rule_id,
                                 "container": rule.lhs,
+                                "source_document": rule.document,
+                                "source_clause": rule.clause,
                                 "page": rule.page,
                                 "byte_start": rule.byte_start,
+                                "source_sha256": rule.source_hash,
                                 "kind": "compound-internal",
                                 "path": f"{path}/1/{position}",
                                 "item": statement,
@@ -294,8 +306,11 @@ def derive_candidates(rules: list[Rule], suffix: str) -> tuple[list[dict[str, st
                     candidates.append({
                         "rule": rule.rule_id,
                         "container": rule.lhs,
+                        "source_document": rule.document,
+                        "source_clause": rule.clause,
                         "page": rule.page,
                         "byte_start": rule.byte_start,
+                        "source_sha256": rule.source_hash,
                         "kind": "unsupported-repeat-item",
                         "path": path,
                         "item": "expression",
@@ -307,8 +322,11 @@ def derive_candidates(rules: list[Rule], suffix: str) -> tuple[list[dict[str, st
                 candidates.append({
                     "rule": rule.rule_id,
                     "container": rule.lhs,
+                    "source_document": rule.document,
+                    "source_clause": rule.clause,
                     "page": rule.page,
                     "byte_start": rule.byte_start,
+                    "source_sha256": rule.source_hash,
                     "kind": "repeat-item",
                     "path": path,
                     "item": item,
@@ -332,8 +350,11 @@ def derive_candidates(rules: list[Rule], suffix: str) -> tuple[list[dict[str, st
                 candidates.append({
                     "rule": rule.rule_id,
                     "container": rule.lhs,
+                    "source_document": rule.document,
+                    "source_clause": rule.clause,
                     "page": rule.page,
                     "byte_start": rule.byte_start,
+                    "source_sha256": rule.source_hash,
                     "kind": "first-plus-repeat",
                     "path": f"{path}/{index + 1}",
                     "item": item_name,
@@ -348,7 +369,7 @@ def write_tsv(path: Path, candidates: list[dict[str, str]], source: Path, layout
     if path.exists():
         raise SystemExit(f"refusing to overwrite {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
-    fields = ["rule", "container", "page", "byte_start", "kind", "path", "item", "derivation", "status"]
+    fields = ["rule", "container", "source_document", "source_clause", "page", "byte_start", "source_sha256", "kind", "path", "item", "derivation", "status"]
     with path.open("x", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, delimiter="\t", lineterminator="\n")
         writer.writeheader()
