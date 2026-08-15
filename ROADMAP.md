@@ -444,6 +444,11 @@ changes a denominator.
       the pinned `standardir-grammar-v0` contract and rerun positive/negative
       behavior, modern-feature, source-coverage and mutation gates. This is a
       production `fortfront-new` slice, not a lab-side parser or a model task.
+      R000349 now records the first generic contract-to-frontier bridge at
+      `fortfront-new` `d6de5f47`; its focused lexer/runtime tests pass 2/2 and
+      1/1, and full `fo` passes 25/25 with zero warnings. The full grammar
+      remains open because this bounded runtime does not yet consume all
+      1,068 selected source alternatives.
 - [ ] E0165: if E0164 is green, test expression/precedence factoring with its
       own independent language-preservation gate; otherwise retain the
       normative precedence ladder and do not tune conflicts by warning count.
@@ -465,7 +470,7 @@ source/generator/runtime separation explicit. No semantic, LLM, backend or
 plotting work is unlocked.
 
 The current pushed production pins are therefore `standard-new` `7d011f4`,
-`fortfront-new` `db5eaec`, `ffc-new`
+`fortfront-new` `d6de5f4`, `ffc-new`
 `3253849`, and `fortback-new` `a149015`. `standard-new` now has the generic
 selected-root export, post-normalization reachability and source-expression
 identity witness boundaries; the

@@ -26,13 +26,24 @@ diagnostic files retained.
 Luna's independent review confirms that these are narrow, useful gates, not a
 complete Fortran 2023 grammar/lexer/runtime result. In particular, the bounded
 language and ten-fixture external corpus are differential evidence, not a
-normative oracle; the 24 tests are a production lexer-suite summary; and the
-generated parser runtime is absent.
+normative oracle; the 24-test run is a production lexer-suite summary; and the
+generated parser runtime was absent in R000348.
 
-Therefore E0164 is reported with status `OPEN-GENERATED-PARSER-RUNTIME`, not
-presented as a complete frontend behavior result. The next production slice is
-a generic generated parser-runtime integration using the already-pinned grammar
-contract; no language-specific rule wiring or model repair is permitted.
+The generic runtime slice was then implemented in `fortfront-new` at
+`d6de5f47afa8870c7e1dbec5dff06ec0ba79f7a3` and replayed as R000349. Its
+contract-to-frontier bridge passes the focused lexer tests (2/2), focused
+generic parser-runtime test (1/1), and full `fo` (25/25, lint and formatting,
+zero warnings). The initial named-test invocation after cleaning the
+disposable build directory failed because it did not rebuild the executable;
+that retained harness log is not counted as a production failure. This slice
+is generic and intentionally bounded; it does not yet execute all 1,068
+selected source alternatives or establish full parser behavior.
+
+Therefore E0164 remains reported with status `OPEN-GENERATED-PARSER-RUNTIME`,
+not presented as a complete frontend behavior result. The next production slice
+must lift the generic runtime over the complete selected grammar without
+language-specific rule wiring or model repair, then run execution-level
+positive/negative corpus gates.
 
 Reproduce the adjudication with:
 
@@ -46,4 +57,8 @@ research/experiments/E0164-can-source-backed-lexer-contracts-and-ge/analyse.py \
   .cache/runs/E0041/R000001/summary.tsv \
   .cache/runs/E0164/R000348/fortfront-fo-test.log \
   .cache/runs/E0164/R000348/report.tsv
+
+The runtime-slice replay uses the same command with the R000349 directories,
+`lexer-test.log`, `--lexer-test-count 2`, `--runtime-test-log runtime-test.log`
+and `--runtime-test-count 1`.
 ```

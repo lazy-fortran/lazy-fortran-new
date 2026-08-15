@@ -139,6 +139,9 @@ def main() -> None:
     parser.add_argument("external_summary", type=Path)
     parser.add_argument("fortfront_test_log", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--lexer-test-count", type=int, default=24)
+    parser.add_argument("--runtime-test-log", type=Path)
+    parser.add_argument("--runtime-test-count", type=int, default=0)
     args = parser.parse_args()
 
     baseline_header, baseline_tokens = contract(args.baseline / "lexer-contract.jsonl")
@@ -188,9 +191,19 @@ def main() -> None:
                 f"external corpus {key}={external.get(key)!r}, expected {expected!r}")
 
     test_log = args.fortfront_test_log.read_text(encoding="utf-8")
-    match = re.search(r"Tests:\s+(\d+) passed", test_log)
-    require(match is not None and int(match.group(1)) == 24,
-            "fortfront-new did not report 24 passing tests")
+    match = re.search(r"(?:Tests|Summary):\s+(\d+) passed", test_log)
+    require(match is not None and int(match.group(1)) == args.lexer_test_count,
+            "fortfront-new lexer test count differs")
+    runtime_tests = None
+    if args.runtime_test_log is not None:
+        runtime_log = args.runtime_test_log.read_text(encoding="utf-8")
+        runtime_match = re.search(r"(?:Tests|Summary):\s+(\d+) passed", runtime_log)
+        require(runtime_match is not None and int(runtime_match.group(1)) ==
+                args.runtime_test_count,
+                "fortfront-new parser-runtime test count differs")
+        runtime_tests = f"{args.runtime_test_count}/{args.runtime_test_count}"
+    runtime_line = (f"fortfront_generated_runtime_tests\t{runtime_tests}\n"
+                    if runtime_tests is not None else "")
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
@@ -211,8 +224,9 @@ def main() -> None:
         "candidate_lexical_mutation\tPASS\n"
         f"baseline_bison_conflicts\t{baseline['shift_reduce']}/{baseline['reduce_reduce']}\n"
         f"candidate_bison_conflicts\t{candidate['shift_reduce']}/{candidate['reduce_reduce']}\n"
-        "fortfront_lexer_runtime_tests\t24/24\n"
-        "bounded_language_behavior\tPASS\n"
+        f"fortfront_lexer_runtime_tests\t{args.lexer_test_count}/{args.lexer_test_count}\n"
+        + runtime_line
+        + "bounded_language_behavior\tPASS\n"
         "bounded_positive_cases\t359\n"
         "bounded_negative_cases\t636\n"
         "external_reference_behavior\t10/10-agree\n"

@@ -12,7 +12,7 @@ reported_run: R000348
 repos:
   lazy-fortran-new: "5abdc784d4fbac652a4c6c3f8b660cb3f1a877cf"
   standard-new: "7d011f49e0e74e95b88a90c5894ea3358fc5ee82"
-  fortfront-new: "db5eaecd118f08851e4dd26f6aaa186fbc9fbef9"
+  fortfront-new: "d6de5f47afa8870c7e1dbec5dff06ec0ba79f7a3"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
   oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
   oracle-gcc: "395e3d8131c189cd58e8c8061cdc77d1c44e3822"
@@ -98,8 +98,12 @@ analysis: >
   research/experiments/E0164-can-source-backed-lexer-contracts-and-ge/analyse.py
   <baseline-dir> <candidate-dir> <lexical-facts> <standard-manifest>
   <bounded-language-report> <external-summary> <fortfront-test-log> <output>
+  [--lexer-test-count N --runtime-test-log FILE --runtime-test-count N]
 
 replays:
   - run: R000348
     kind: lexer-contract-generator-and-behavior-gate
     report: .cache/runs/E0164/R000348/report.tsv
+  - run: R000349
+    kind: generic-parser-runtime-slice-replay
+    report: .cache/runs/E0164/R000349/report.tsv
