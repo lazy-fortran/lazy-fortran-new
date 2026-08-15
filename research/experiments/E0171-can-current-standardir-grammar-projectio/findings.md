@@ -376,3 +376,8 @@ open. Reproduce it with:
 python3 research/experiments/E0171-can-current-standardir-grammar-projectio/test-derive-statement-sequences.py
 python3 research/experiments/E0171-can-current-standardir-grammar-projectio/derive-statement-sequences.py <standardir.sx> <layout-facts.sx> <output.tsv>
 ```
+
+R000416 supersedes R000415 after an audit noticed that the first output kept
+page and byte offsets but not the complete source document, clause and source
+hash on every row. The successor retains all of those fields and has the same
+58-row, zero-unsupported result.
