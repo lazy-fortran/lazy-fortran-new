@@ -219,7 +219,12 @@ replays:
     supersedes: R000416
     mode: source-derived-statement-sequence-v2-witness
     report: .cache/runs/E0171/R000419-statement-sequence-candidates/candidates.tsv
-    result: 95-candidates-zero-unsupported-shapes-adjacent-boundaries-included-behavior-gate-open
+    result: superseded-by-R000420-suffix-guard
+  - run: R000420
+    supersedes: R000419
+    mode: source-derived-statement-sequence-v2-witness
+    report: .cache/runs/E0171/R000420-statement-sequence-candidates/candidates.tsv
+    result: 95-candidates-zero-unsupported-shapes-adjacent-boundaries-suffix-guarded-behavior-gate-open
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -228,7 +233,7 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000419 is the latest source-evidence replay. It derives 95 statement-sequence
+  R000420 is the latest source-evidence replay. It derives 95 statement-sequence
   candidates from the StandardIR expression graph and the v2 suffix fact,
   including compound and adjacent sequence items, with zero unsupported shapes
   and full per-row source document/clause/page/byte/hash lineage. R000411 is

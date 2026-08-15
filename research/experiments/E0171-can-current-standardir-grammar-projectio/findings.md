@@ -396,6 +396,12 @@ lineage on every row. R000416 is retained as the earlier repeat-only evidence
 and is superseded by this successor. This is still a structural witness; the
 independent source behavior gate and production/full-corpus parity remain open.
 
+R000420 supersedes R000419 after a review tightened the adjacent-boundary
+predicate: the suffix is scanned left-to-right, allowing only nullable material
+before the next statement-bearing expression. A required non-statement payload
+therefore cannot create a false boundary. The full source result remains 95
+rows with zero unsupported shapes.
+
 The bounded behavior cases are now pinned as
 `research/corpora/statement-boundary-behavior-v0.toml`. They are not a grammar
 source: the future gate generates their payloads in the ignored run cache and
