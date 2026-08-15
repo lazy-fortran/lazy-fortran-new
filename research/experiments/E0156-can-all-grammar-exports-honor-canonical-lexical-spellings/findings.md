@@ -26,3 +26,12 @@ This is a target-lowering defect, not a PDF or StandardIR source-fact defect.
 The repair must make the EBNF emitter consume the same typed lexical facts as
 the other projections. It may not replace the source glyph in StandardIR or
 add R-number-specific substitutions.
+
+## R000318: corrected replay passes
+
+The repaired EBNF path consumes the existing typed lexical facts. The replay
+has zero U+2013/U+2019 occurrences in executable bodies in all four formats,
+retains both source glyphs in provenance, emits the declared canonical ASCII
+spellings, and rejects the negative mutation. This closes E0156. The
+source-expression and parser-generator results are recorded together in
+E0154/R000318; no model or semantic work is resumed by this result.

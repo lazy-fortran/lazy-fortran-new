@@ -2250,6 +2250,37 @@ neglected, so they are listed.
 
 ---
 
+## Current deterministic grammar checkpoint
+
+E0156 is reported and accepted by `R000318`. The generic EBNF lexical repair
+is pushed at `standard-new` `bedd9abc7210fc7fc16607d275ea4fa7b24144f8`, and
+the lab gate-order change is pushed at `9618213`. The replay command is:
+
+```text
+research/experiments/E0154-can-exact-source-expression-identity-and/run-selected.sh \
+  .cache/runs/E0154/R000318 program .cache/runs/E0154/R000314
+```
+
+Its order is now fixed: source-only preflight, `fo`, four projections, exact
+source-expression identity, canonical lexical witness gate, then ANTLR4/Bison/
+tree-sitter parser oracles. A failed gate stops the later stages. R000318
+reports 1,068/1,068 source alternatives in each format, zero raw U+2013/U+2019
+in executable bodies, passing positive and negative controls, and passing
+ANTLR4, Bison and tree-sitter validation. Bison still reports 427
+shift/reduce and 2,266 reduce/reduce conflicts; this is the next open parser
+quality problem, not a source-extraction or lexical-lowering failure.
+
+The next slice is E0157, whose deterministic audit compares the current four
+outputs with pinned house ANTLR4, kaby76 ANTLR4, LFortran Bison and Flang parser
+evidence. It must classify differences in both directions: StandardIR wins
+where it has normative source lineage, exact cross-format identity, or source
+coverage; references win where they have executable lexer/runtime integration,
+precedence, actions, factoring, or conflict policy. No reference production is
+copied into StandardIR, and no equivalence claim follows from head counts.
+Only after E0157's deterministic report may the required Luna read-only review
+run; model and semantic experiments remain blocked until the grammar-quality
+successor gates are explicit and green.
+
 ## Ordering constraints
 
 - Phase 1.0 runs before 1.4 and can invalidate the phase. Nothing downstream of

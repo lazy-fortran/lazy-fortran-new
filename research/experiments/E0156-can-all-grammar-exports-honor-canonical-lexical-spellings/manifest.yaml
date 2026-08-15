@@ -4,9 +4,9 @@ question: >
   Do all four generated grammar formats preserve the source glyph in
   provenance while emitting the declared canonical Fortran spelling in target
   bodies and lexical contracts?
-status: running        # draft | running | reported | abandoned
+status: reported       # draft | running | reported | abandoned
 opened: "2026-08-15"
-closed: ""
+closed: "2026-08-15"
 
 repos:
   lazy-fortran-new: "5350ae7"
@@ -17,6 +17,10 @@ replays:
     lazy-fortran-new: "5350ae7"
     standard-new: "83f055d"
     mode: four-format-lexical-witness-current-output
+  - run: R000318
+    lazy-fortran-new: "9618213"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    mode: four-format-lexical-witness-corrected-replay
 
 inputs:
   source_run: E0154/R000314

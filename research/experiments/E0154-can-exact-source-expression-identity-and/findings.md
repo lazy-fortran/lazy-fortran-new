@@ -129,3 +129,24 @@ parser-quality gate, not a source-identity failure.
 No LLM or semantic experiment is resumed by this result. The next comparison is
 E0155, which records the corrected bidirectional LFortran Bison comparison and
 keeps executable-parser, conflict-policy and language-equivalence work open.
+
+## R000318: raw-witness and canonical-lexical gates close
+
+The replay uses `standard-new` `bedd9abc7210fc7fc16607d275ea4fa7b24144f8` and
+lab `9618213`. Source preflight passed before `fo` or any grammar generator.
+After the four projections were generated, exact source-expression identity
+and the E0156 lexical-witness checker passed before ANTLR4, Bison and
+tree-sitter were invoked.
+
+The selected profile has 1,068 source alternatives and all four formats cover
+1,068 with zero missing or wrong rows. Both positive identity and negative
+mutation controls pass. The EBNF body contains zero U+2013/U+2019 occurrences;
+all four formats retain source glyphs in provenance and emit their canonical
+ASCII spellings. ANTLR4, Bison and tree-sitter accept the outputs. Bison still
+reports 427 shift/reduce and 2,266 reduce/reduce conflicts; those are the next
+parser-quality gate, not a source-identity failure.
+
+This is a deterministic subgate only. It does not establish language
+equivalence, executable lexer/runtime behavior, precedence/actions, conflict
+policy, or quality relative to LFortran, Flang, GNU or the comparison ANTLR
+grammars.
