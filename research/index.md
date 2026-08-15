@@ -309,6 +309,7 @@ Runs recorded: 404
 | [D0111](decisions/D0111-adjacent-statement-boundaries.md) | accepted | Supersedes D0110 | Include adjacent sequence boundaries in the witness |
 | [D0112](decisions/D0112-validated-statement-boundary-lowering-plan.md) | accepted |  | Validate statement-boundary lowering before target insertion |
 | [D0113](decisions/D0113-truthful-generated-profile-identity.md) | accepted |  | Keep generated profile identity truthful |
+| [D0114](decisions/D0114-source-path-mapping-before-target-normalization.md) | accepted |  | Map boundary paths before target normalization |
 
 ### Proposed decisions
 
