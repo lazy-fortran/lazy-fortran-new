@@ -109,3 +109,14 @@ with the separate report path documented above.
 
 This audit records both directions. It does not claim that either grammar is a
 complete Fortran 2023 conformance parser, and it does not close M2.
+
+E0154/R000308 and R000309 extend the comparison after the c8ebb22 production
+replay. The independent source-expression witness rejects the current export
+even though all three parser generators accept it. The rejected cases expose
+generic StandardIR export defects—Unicode canonical-byte hashing, truncation
+of long merged provenance lists, and an untyped source-versus-generated hash
+for assumed-expansion facts—not a weakness of LFortran's executable parser.
+They are now M043--M047 in the matrix and remain open production work. This
+does not erase the genuine StandardIR advantages above: the fact that the
+reference lacks an equivalent witness is precisely why the witness is useful,
+not a reason to lower its gate.
