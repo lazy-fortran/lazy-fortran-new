@@ -10,15 +10,35 @@ order, the steps in each phase, and the gate that ends it, so that facts are
 not copied into several places and left to rot. Any count appearing here names
 the command that regenerates it.
 
-**Active critical path.** The next gate is producer-generated profile
-correctness, not another model run or parser conflict reduction. The selected
-profile must explicitly name its entry rule and target-specific EOF policy in
-EBNF, ANTLR4, Bison and tree-sitter. The independent validator is
-`research/experiments/E0171-can-current-standardir-grammar-projectio/validate-profile-contract.py`;
-its negative control is E0171/R000400. It must pass before any grammar
-parser-generator oracle, corpus comparison, semantic extraction, LLM work or
-backend work is resumed; source preflight, identity and lexical gates still
-precede grammar generation itself. This ordering follows D0102 and D0103.
+**Active critical path.** The profile contract is green in E0171/R000402. The
+current blocker is the generated Tree-sitter target's unresolved `SAVE` /
+`LETTER` conflict after generic nullable lowering. No model run, semantic
+extraction or backend work resumes while this deterministic grammar path is
+open. The next replay must first use the producer-emitted transformation
+witness for every format, then pass source identity, lexical, witness and
+profile gates before invoking parser generators. Only that green artifact may
+enter the forensic conflict replay. Classify each conflict against retained
+Bison counterexamples, source lineages, transformation dispositions and the
+lexer/profile contract before considering any generated precedence or
+conflict policy. This is the two-tier protocol in D0105; R000400 remains the
+profile negative control and R000402 the current nullable-lowering failure.
+
+The immediate sequence is:
+
+1. Replay the selected profile with four producer-emitted transformation
+   witnesses and validate all four before parser generators.
+2. Normalize the Tree-sitter and Bison conflict evidence into per-conflict
+   records, retaining prefixes, competing symbols, source lineages and tool
+   versions.
+3. Classify the `SAVE` / `LETTER` witness and its Bison counterparts as source
+   ambiguity, target limitation, lexer/profile interaction, target artifact or
+   unresolved.
+4. Apply only a generic, source-derived target policy that has an independent
+   bounded behavior or forest witness. A conflict count or matching `%expect`
+   value is not a gate.
+5. Regenerate all four targets and rerun parser smoke, lexer/runtime and
+   positive/negative behavior gates. Only then resume broader grammar quality
+   work; model and semantic campaigns remain paused.
 
 A checked box means the thing exists and was observed working, not that someone
 intended it. A phase ends when its gate is demonstrated by a named artifact.
@@ -2374,10 +2394,12 @@ authoritative semantics, translation validation impractical.
 These run alongside everything and have no completion box, but they can be
 neglected, so they are listed.
 
-- [ ] `docs/literature.md`: verify the ~30 citations recorded from memory.
-      Three are checked. **Read Lämmel & Verhoef before E1's related work**,
-      E1 automates the loop that paper describes semi-automatically, and the
-      framing of the first result depends on getting that relationship right
+- [ ] `docs/literature.md`: verify the remaining citations recorded from
+      memory. Entries marked ✓ are checked; the grammar-recovery and parser
+      evidence used by the current gate is now checked. **Read Lämmel & Verhoef
+      before E1's related work**, E1 automates the loop that paper describes
+      semi-automatically, and the framing of the first result depends on
+      getting that relationship right
 - [ ] Prose passes: `LESSONS.md`, `DESIGN.md`, `README.md`, `AGENTS.md` and the
       two new design notes have not had an adversarial pass. Only
       `WHITEPAPER.md` has
@@ -2499,13 +2521,19 @@ the four-format/parser-oracle gate is green. The named rule is evidence of the
 generic case, not a patch target. See D0102, D0103 and the Tree-sitter
 nullable-rule policy in the next production slice.
 
-E0171/R000402 closes that nullable-rule subgate: the generic lowering passes
-the source, identity, lexer and transformation-witness checks, but the full
-tree-sitter generator reports an unresolved `SAVE`/`LETTER` conflict. This is
-now a target conflict-policy gate, not a PDF or nullable-source failure. The
-next action is to classify the conflict against retained Bison counterexamples
-and the lexer/profile contract; no precedence declaration or conflict list is
-accepted without a generic transformation and an independent behavior witness.
+E0171/R000402 closes that nullable-rule subgate in the production unit tests:
+the generic lowering removes the empty non-start failure, but the replay
+harness did not yet request and validate a transformation witness for each of
+the four generated files. Its full tree-sitter generator therefore reports an
+unresolved `SAVE`/`LETTER` conflict, while source, identity, lexical, profile,
+ANTLR4 and Bison checks pass. R000402 remains valid evidence of the target
+failure, but its source-preservation statement is not the new replay gate.
+R000403 is the required harness correction and replay: every producer output
+must carry its own witness before any parser generator is invoked. The next
+conflict step is then the D0105 forensic classification against retained Bison
+counterexamples and the lexer/profile contract; no precedence declaration or
+conflict list is accepted without a generic transformation and an independent
+behavior witness.
 
 E0170 is the active runtime gate. R000377 exposed a real nontermination defect
 in the old global-rescanning evaluator, and R000378/R000379 are retained

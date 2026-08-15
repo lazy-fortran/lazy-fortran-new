@@ -53,12 +53,14 @@ for format in ebnf antlr bison treesitter; do
         bison) output="$run_dir/fortran2023.y" ;;
         treesitter) output="$run_dir/grammar.js" ;;
     esac
+    witness="$run_dir/${format}-transformation-witness.jsonl"
     generator=(fo exec --no-build sxgrammar \
         "$run_dir/input/standardir.sx" \
         "$run_dir/input/classifications.sx" \
         "$run_dir/input/roots.sx" \
         "$run_dir/input/lexical-facts-v0.sx" \
-        "$format" "$output")
+        "$format" "$output" \
+        --transformation-witness "$witness")
     if "$selected_mode"; then
         generator+=(--selected-root "$selected_root")
     fi
@@ -107,8 +109,31 @@ if (( lexical_status != 0 )); then
     exit "$lexical_status"
 fi
 
+transformation_status=0
+for format in ebnf antlr bison treesitter; do
+    case "$format" in
+        ebnf) output="$run_dir/grammar.ebnf" ;;
+        antlr) output="$run_dir/Fortran2023.g4" ;;
+        bison) output="$run_dir/fortran2023.y" ;;
+        treesitter) output="$run_dir/grammar.js" ;;
+    esac
+    witness="$run_dir/${format}-transformation-witness.jsonl"
+    summary="$run_dir/${format}-transformation-witness.json"
+    if ! timeout 30s python3 "$lab_root/research/experiments/E0171-can-current-standardir-grammar-projectio/validate-transformation-witness.py" \
+        "$output" "$witness" "$summary" \
+        >"$run_dir/${format}-transformation-witness.log" 2>&1; then
+        transformation_status=1
+    fi
+    cat "$run_dir/${format}-transformation-witness.log"
+done
+printf 'transformation_witness_status\t%s\n' "$transformation_status" >>"$run_dir/metadata.tsv"
+if (( transformation_status != 0 )); then
+    printf 'independent transformation-witness gate failed; parser oracles were not invoked\n' >&2
+    exit "$transformation_status"
+fi
+
 profile_status=0
-python3 "$lab_root/research/experiments/E0171-can-current-standardir-grammar-projectio/validate-profile-contract.py" \
+timeout 30s python3 "$lab_root/research/experiments/E0171-can-current-standardir-grammar-projectio/validate-profile-contract.py" \
     "$run_dir" \
     "$lab_root/research/experiments/E0171-can-current-standardir-grammar-projectio/profile-policy.tsv" \
     "$run_dir/profile-contract.tsv" >"$run_dir/profile-contract.log" 2>&1 || profile_status=$?

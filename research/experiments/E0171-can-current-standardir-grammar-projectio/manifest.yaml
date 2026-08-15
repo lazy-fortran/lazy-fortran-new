@@ -57,6 +57,7 @@ metrics:
   - bison_shift_reduce_conflicts
   - bison_reduce_reduce_conflicts
   - useless_rules_and_nonterminals
+  - transformation_witness_lineage_coverage_per_format
   - classified_discrepancies
   - evidence_level_claims
 
@@ -154,6 +155,11 @@ replays:
     mode: selected-profile-and-nullable-treesitter-replay
     report: .cache/runs/E0171/R000402-nullable-lowering-fixed
     result: tree-sitter-unresolved-conflict
+  - run: R000403
+    standard-new: "4ffa9859a6af551a9ceb1d45bc5744a1522e135e"
+    mode: selected-profile-and-four-format-witness-replay
+    report: .cache/runs/E0171/R000403-witness-gated-replay
+    result: all-witnesses-pass-tree-sitter-unresolved-conflict
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -162,14 +168,16 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000402 passes source, lexical, explicit profile and nullable lowering gates
-  and reaches the parser-generator oracles. ANTLR4 and Bison pass; tree-sitter
-  now gets past the nullable-rule restriction but reports an unresolved
-  conflict. The transformation-witness gate remains closed from R000399,
-  while generic tree-sitter conflict policy, bounded language behavior,
-  parse-tree equivalence and lexer completeness remain open.
+  R000403 proves the corrected harness requests and validates one
+  producer-emitted transformation witness for each generated format: all four
+  cover 1,068 source lineages. Source, lexical, explicit profile and witness
+  gates pass; ANTLR4 and Bison pass; tree-sitter still reports the unresolved
+  SAVE/LETTER conflict after nullable lowering. Generic conflict policy,
+  bounded language behavior, parse-tree equivalence and lexer completeness
+  remain open.
 
 remaining_gates:
+  - clean committed replay of the four-format witness gate
   - generic tree-sitter conflict policy must pass without source loss
   - independent bounded language behavior for each declared profile
   - Bison counterexample classification and ambiguity policy

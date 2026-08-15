@@ -94,7 +94,10 @@ not sources from which grammar productions may be copied.
 - ✓ **GNU Bison Manual, “Generation of Counterexamples.”**
   <https://www.gnu.org/software/bison/manual/html_node/Counterexamples.html>.
   Counterexamples are evidence for understanding and classifying conflicts;
-  conflict totals and `%expect` declarations are not correctness proofs.
+  conflict totals and `%expect` declarations are not correctness proofs. The
+  manual also distinguishes genuine ambiguity from a grammar that needs more
+  lookahead, and recommends counterexample generation during development
+  rather than as an unconditional CI cost.
 - ✓ **GNU Bison Manual, “Output Files.”**
   <https://www.gnu.org/software/bison/manual/html_node/Output-Files.html>.
   The generated parser's start symbol and target-specific output conventions
@@ -108,10 +111,11 @@ not sources from which grammar productions may be copied.
   and
   <https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html>.
   Lexical precedence, parse precedence and intentional runtime conflicts are
-  distinct contracts; exports must record them separately. The first grammar
-  rule is also a target-level entry choice, so a generated grammar must place
-  an explicit profile wrapper there rather than allowing a lexical rule to
-  become the implicit start rule.
+  distinct contracts; exports must record them separately. A `conflicts` entry
+  is an intentional GLR ambiguity contract, not a warning suppressor. The
+  first grammar rule is also a target-level entry choice, so a generated
+  grammar must place an explicit profile wrapper there rather than allowing a
+  lexical rule to become the implicit start rule.
 
 ## 2. Formalizing prose standards
 

@@ -11,9 +11,12 @@ research/experiments/E0154-can-exact-source-expression-identity-and/run-selected
 ```
 
 `run-selected.sh` first runs the source-only preflight, then regenerates all
-four projections, then invokes the independent checker, and invokes parser
-oracles only after that checker passes. `analyse.sh` remains the checker-only
-entry point for an existing run directory.
+four projections together with one producer-emitted transformation witness per
+format. The independent identity, lexical, transformation-witness and profile
+contract gates run before parser generators. `analyse.sh` remains the
+checker-only entry point for an existing run directory. Bison counterexamples
+are collected by the separate forensic conflict replay, not by the fast
+artifact gate.
 
 ## R000308: the first real identity replay failed for useful reasons
 
