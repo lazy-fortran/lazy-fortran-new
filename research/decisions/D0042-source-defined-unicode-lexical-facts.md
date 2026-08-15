@@ -1,7 +1,7 @@
 # D0042. Source-defined Unicode lexical facts
 
 Date: 2026-08-13
-Status: accepted
+Status: amended by D0091
 Amends: D0027
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 

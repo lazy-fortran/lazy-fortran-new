@@ -83,7 +83,9 @@ gate: >
   non-ASCII syntax token and duplicate occurrence, records selected-root
   reachability and conflict evidence, and classifies every observed
   disagreement as defect, projection gap, expected difference or stale prior
-  finding. This experiment reports the defects; it does not close M1 or M2.
+  finding. The inventory is exhaustive for those declared dimensions, but the
+  manual LFortran adjudication is not a full automatic cross-grammar body
+  comparator. This experiment reports the defects; it does not close M1 or M2.
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: >

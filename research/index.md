@@ -214,7 +214,7 @@ Runs recorded: 275
 | [D0039](decisions/D0039-disposable-local-artifact-browser.md) | superseded by D0082 |  | A disposable local browser for generated run artifacts |
 | [D0040](decisions/D0040-defer-paper-for-broader-result.md) | accepted | Supersedes D0038 | Defer the paper until the broader generated-infrastructure result |
 | [D0041](decisions/D0041-fortran-first-adapter-and-mechanical-syntax-closure.md) | accepted |  | Fortran-first adapter and mechanical syntax closure |
-| [D0042](decisions/D0042-source-defined-unicode-lexical-facts.md) | accepted | Amends D0027 | Source-defined Unicode lexical facts |
+| [D0042](decisions/D0042-source-defined-unicode-lexical-facts.md) | amended by D0091 | Amends D0027 | Source-defined Unicode lexical facts |
 | [D0043](decisions/D0043-central-roadmap-and-delegated-production-slices.md) | superseded by D0045 |  | Central roadmap and delegated production slices |
 | [D0044](decisions/D0044-parallel-lanes-and-contract-lifecycle.md) | accepted |  | Parallel lanes, versioned contracts and branch lifecycle |
 | [D0045](decisions/D0045-native-codex-subagents-for-parallel-slices.md) | amended by D0047 | Supersedes D0043 | Native Codex subagents for parallel slices |
@@ -263,6 +263,7 @@ Runs recorded: 275
 | [D0088](decisions/D0088-complete-provenance-and-root-export-gate.md) | accepted | Amends D0087 | Require complete roots and typed provenance in grammar exports |
 | [D0089](decisions/D0089-bison-glr-for-ambiguous-standard-grammar.md) | accepted | Amends D0030 | Emit Bison grammars in generic GLR mode |
 | [D0090](decisions/D0090-canonicalize-typographic-grammar-glyphs.md) | accepted |  | Canonicalize typographic grammar glyphs at the syntax boundary |
+| [D0091](decisions/D0091-reconcile-unicode-export-policy.md) | accepted | Amends D0042 | Reconcile Unicode source facts with canonical target spellings |
 
 ### Proposed decisions
 

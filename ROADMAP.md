@@ -995,7 +995,10 @@ merged target lineage, the all-roots Bison export is a closure validator rather
 than a parser entry point, and selected-root output needs explicit reachability
 or suppression records. E0147's body-bound witness and validator acceptance do
 not yet establish language equivalence after normalization; that witness class
-is still required. The complete adjudication is
+is still required. E0148 also records that its LFortran adjudication is a
+bounded manual comparison, not a full automatic cross-grammar body comparator;
+that scope must be resolved before claiming exhaustive differential grammar
+coverage. The complete adjudication is
 `research/experiments/E0148-compare-source-backed-standardir-grammar/findings.md`.
 No model or semantic experiment is unlocked by E0148. Its status is
 `verification_failure` until the production fixes and generic normalization

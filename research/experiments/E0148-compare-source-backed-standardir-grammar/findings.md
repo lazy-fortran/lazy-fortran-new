@@ -16,9 +16,11 @@ comparison implementation. Its productions are not copied into StandardIR.
 The deterministic inventory is exhaustive over every syntax record and token
 atom in the selected StandardIR input, every identical duplicate-body group,
 the pinned LFortran terminal declarations, and both the all-roots and selected
-`r_program` Bison replays. It is not a claim that two independently designed
-Fortran parsers have pairwise-equivalent rule names: LFortran intentionally
-accepts partial sources and extensions and factors the language differently.
+`r_program` Bison replays. The adjudication is a bounded manual comparison,
+not a generic pairwise body comparator; LFortran intentionally accepts partial
+sources and extensions and factors the language differently. That limitation
+is itself recorded as F009 and blocks calling this a complete differential
+grammar-equivalence study.
 
 For a direct PDF witness, regenerate the relevant pages with:
 
@@ -51,26 +53,29 @@ and uses `-` in its precedence and expression rules.
 
 This is a real target-lexical defect, not a disagreement about the normative
 production. The PDF glyph must remain in source provenance, but the canonical
-syntax projection needs a deterministic alias to `-`. The alias must be
-represented in typed lexical metadata so a future source audit can distinguish
-the PDF glyph from the source spelling.
+syntax projection needs a deterministic alias to the canonical source spelling
+`-`; in R868 that spelling is a range separator rather than an arithmetic
+operator. The alias must be represented in typed lexical metadata so a future
+source audit can distinguish the PDF glyph from the source spelling.
 
 The inventory reports the exact occurrence count and source locations in
 `glyphs.tsv`; regenerate it with the command above.
 
-### F002: typographic right quote has no canonical character-literal alias
+### F002: typographic quote delimiter has no canonical source alias
 
 The current StandardIR contains U+2019 RIGHT SINGLE QUOTATION MARK as the
 delimiter in R724, R773, R774 and R775. The generated projections therefore
-accept the typographic code point rather than the ASCII apostrophe used in
-Fortran character and BOZ constants. LFortran represents character literals
-through its `TK_STRING` tokenizer token and does not use U+2019 as a source
-delimiter.
+preserve and emit the typographic code point rather than the ASCII apostrophe
+used in Fortran character and BOZ constants. LFortran represents character
+literals through its `TK_STRING` tokenizer token and does not use U+2019 as a
+source delimiter.
 
 This is a real target-lexical defect. Preserve the PDF glyph in provenance,
 but project it to the canonical ASCII apostrophe delimiter (or an explicitly
 named canonical delimiter whose lexer spelling is ASCII apostrophe). The
-mapping must be generic and source-position independent.
+mapping must be generic and source-position independent. This is a
+typographic quote-delimiter normalization for both character and BOZ
+constants, not only a character-literal repair.
 
 The inventory reports all occurrences in `glyphs.tsv`; regenerate it with the
 command above.
@@ -94,9 +99,11 @@ provenance. It must not deduplicate conflicting bodies.
 
 ### F004: the default Bison start symbol is a closure validator
 
-The E0147 export starts at `standardir_start` and lists every profile root so
-that all source-backed records are reachable for validator and provenance
-checks. LFortran starts at one full-program entry, `units`. A separate replay
+The E0147 export starts at `standardir_start` and lists the emitted profile
+roots so that source-backed records are reachable for validator and provenance
+checks. The input declares 502 roots, of which 500 are emitted; the two omitted
+roots are the explicitly classified semantic-only `xyz-list` and `scalar-xyz`
+records. LFortran starts at one full-program entry, `units`. A separate replay
 with `r_program` demonstrates the behavior of a selected production root.
 
 The all-roots grammar must remain available as a validation artifact, but it
@@ -104,15 +111,15 @@ must not be presented as the production parser export. The generator needs an
 explicit selected-root mode, with root completeness and reachability reported
 separately. The selected root is a configuration choice, not an LLM decision.
 
-### F005: unreachable normalized helpers remain in a selected-root export
+### F005: selected-root reachability and pruning are not yet clean
 
 When the generated grammar is replayed with `r_program` as its start symbol,
-Bison reports unreachable normalized helpers and their retained source
-productions. Some are intermediate records introduced for generic left
-recursion normalization. They are not necessarily source defects, but the
-output is not clean: a selected-root export should either emit only its
-reachable closure or emit explicit deterministic suppression records for
-unreachable normalized records.
+Bison reports 10 useless nonterminals and 514 useless rules, including the
+wrapper, source nonterminals and generated helpers. Some are intermediate
+records introduced for generic left-recursion normalization. They are not
+necessarily source defects, but the output is not clean: a selected-root
+export should either emit only its reachable closure or emit explicit
+deterministic suppression records for unreachable normalized records.
 
 The exact Bison warning and conflict inventory is in
 `standardir-program-root.stderr`; regenerate it with the command above.
@@ -131,6 +138,17 @@ The next production gate therefore needs generic witness cases for each
 normalization class: a source expression, its target expression, and a bounded
 accept/reject corpus or equivalent derivation witness. No Fortran rule number
 may be hard-coded into that gate.
+
+### F009: the comparison harness is not a full structural comparator
+
+The analyzer deterministically derives the glyph inventory, duplicate-body
+inventory and Bison replay metrics. Its LFortran comparison anchors and the
+adjudication rows are explicit bounded evidence, not a complete automatic
+pairwise comparison of all source bodies against LFortran. Such a comparator
+would require a declared cross-grammar correspondence and would otherwise
+mistake LFortran's extensions and implementation factoring for normative
+defects. This limitation must be resolved or explicitly scoped before claiming
+an exhaustive differential grammar study.
 
 ## Expected differences, not defects
 
@@ -167,7 +185,8 @@ R721, R760, R808, R870, R1044, R1048, R1123, R1179, R1222, R1302 and R1315
 are also corrected there. The old critique must remain historical evidence,
 but those items are not current defects.
 
-The current blockers are therefore the two lexical alias defects and the
-three generic projection/gate gaps above. The Bison conflict counts are
+The current blockers are therefore the two lexical alias defects, the four
+generic projection/gate gaps F003--F006, and the comparison-scope limitation
+F009. The Bison conflict counts are
 diagnostics, not a reason to alter normative StandardIR or to hand-tune
 Fortran-specific conflict resolutions.
