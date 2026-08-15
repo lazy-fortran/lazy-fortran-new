@@ -355,3 +355,24 @@ contexts from the StandardIR expression graph, retain the expression path and
 source facts, and reject unsupported/ambiguous contexts. It is not a conflict
 declaration. The four target generators and parser behavior gates remain behind
 that witness and an independent separator/continuation/keyword behavior gate.
+
+## R000415: statement-sequence witness closes the shape inventory
+
+`derive-statement-sequences.py` reads the source StandardIR records and the
+v2 layout facts. It computes statement reachability and nullable symbols by
+fixed point, then records repeated direct items, first-item-plus-repeat
+boundaries, and compound repeated items such as `(case-stmt block)`. The
+source input has 189 statement-reachable classes and 58 candidate boundary
+rows. The five compound shapes that the first pass reported as unsupported are
+now represented generically; the replay reports zero unsupported rows.
+
+The fixture tests cover a nested `IF (...) action-stmt` shape and a compound
+`(case-stmt block)` repeat. The result is still only a structural witness. It
+does not prove that a target lexer emits or consumes the right separator at
+each boundary, so the independent positive/negative behavior gate remains
+open. Reproduce it with:
+
+```
+python3 research/experiments/E0171-can-current-standardir-grammar-projectio/test-derive-statement-sequences.py
+python3 research/experiments/E0171-can-current-standardir-grammar-projectio/derive-statement-sequences.py <standardir.sx> <layout-facts.sx> <output.tsv>
+```
