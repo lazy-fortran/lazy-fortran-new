@@ -447,3 +447,28 @@ python3 research/experiments/E0171-can-current-standardir-grammar-projectio/run-
 This closes only the independent source-language oracle. It does not close the
 generated lexer/runtime gate, which must consume the R000423 statement witness
 and reproduce these outcomes before grammar conflicts are adjudicated.
+
+## R000427: the typed boundary plan is green, insertion remains open
+
+`standard-new` `d2835f4` adds a typed statement-boundary plan. Its validator
+preserves source rule/LHS, canonical expression path, candidate kind,
+derivation, complete source lineage and the stable boundary marker. It rejects
+malformed paths, missing lineage, unsupported statuses and exact duplicate or
+ambiguous source sites. Distinct source occurrences with the same rule and
+path remain distinct when their source byte positions differ. The focused test
+and the complete `fo` pipeline pass with 46 tests, lint/format clean and zero
+warnings. Reproduce the production gate with:
+
+```text
+(cd ../standard-new && fo test test_standardir_statement_boundary && fo)
+```
+
+The plan intentionally reports `insertion_supported=false`. It is not a lexer,
+parser or target grammar result. Mapping source paths through target
+normalization is the next production boundary.
+
+The required Luna review then identified two truthful-status repairs for the
+next slice: generic exporters must not label arbitrary partial input as
+`Fortran2023`, and serialized byte offsets must be ordered numerically. It also
+confirmed that the plan's deliberate non-insertion boundary is appropriate.
+D0113 records those repairs; no downstream grammar or model run was started.
