@@ -274,3 +274,14 @@ current five-row lexical contract. The missing information is normative source
 behavior, not a Tree-sitter-specific exception. The production slice must
 therefore add a versioned target lexer contract and independent boundary/name
 behavior witnesses while leaving StandardIR syntax unchanged.
+
+## Contract boundary after R000407
+
+D0107 now defines the central `contracts/lexical-layout-v0.sxs` companion
+contract. It has three source-backed record families: statement boundaries,
+continuation signals and keyword/name policy. `scripts/check-contracts.sh`
+validates the schema, fixture, registry entry and negative control at lab
+commit `3bed17d`. This is an interface gate, not a grammar result: the
+production consumer, its positive and negative behavior witnesses, and the
+replayed parser targets remain open. No conflict declaration is justified by
+the contract's existence alone.
