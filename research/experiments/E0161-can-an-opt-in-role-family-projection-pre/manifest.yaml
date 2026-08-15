@@ -1,0 +1,66 @@
+id: "E0161"
+title: "Selected-profile role-family language and corpus gate"
+question: >
+  Can an opt-in role-family projection preserve the selected grammar's parser
+  language and corpus behavior?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-15"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "e7d0afdcb9501ba14f0197ef1ec84ce04e801aa1"
+  standard-new: "7d011f49e0e74e95b88a90c5894ea3358fc5ee82"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  source_run: E0154/R000323
+  role_family_run: E0160/R000337
+  profile: selected-program
+
+variables:
+  mode: [baseline, opt_in_role_family]
+  format: [ebnf, antlr4, bison, tree-sitter]
+
+model_selection: >
+  No model calls. Both candidates are generated from the same pinned
+  StandardIR source; the only changed input is the typed opt-in projection.
+
+metrics:
+  - source_expression_identity
+  - role_family_lineage
+  - positive_corpus_acceptance
+  - negative_corpus_rejection
+  - before_after_language_difference
+  - lexer_runtime_status
+  - bison_conflict_inventory
+
+denominator: >
+  The complete independently enumerated bounded corpus for the selected
+  profile, with every positive and negative case evaluated in both baseline
+  and opt-in modes. No candidate is credited for a conflict reduction without
+  identical corpus behavior.
+
+independent_oracle: >
+  A corpus enumerator independent of the role-family transformer, followed by
+  generated-parser acceptance/rejection checks and the existing source,
+  lexical and lineage mutation witnesses. Bison diagnostics remain secondary.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  Any source identity or lineage loss, a changed bounded language, an accepted
+  negative case, a rejected positive case, or a lexer/runtime failure.
+
+gate: >
+  Baseline and opt-in selected exports must agree on every bounded positive and
+  negative case, retain all source/provenance witnesses, and pass the existing
+  four-format gates. Only then may a generic lexer/runtime or precedence
+  follow-up be evaluated; this experiment does not authorize a default policy.
+
+analysis: "Not started; no run is authorized until the corpus enumerator is pinned."

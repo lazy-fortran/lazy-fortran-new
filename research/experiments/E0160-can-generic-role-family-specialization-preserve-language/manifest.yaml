@@ -4,12 +4,13 @@ question: >
   Can an opt-in role-family target projection reduce parser ambiguity while
   preserving every source role, provenance witness, and the bounded accepted
   language of the generated grammar?
-status: running       # draft | running | reported | abandoned
+status: reported     # draft | running | reported | abandoned
 opened: "2026-08-15"
+closed: "2026-08-15"
 
 repos:
-  lazy-fortran-new: "a8bfcb2"
-  standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+  lazy-fortran-new: "e7d0afdcb9501ba14f0197ef1ec84ce04e801aa1"
+  standard-new: "7d011f49e0e74e95b88a90c5894ea3358fc5ee82"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
 
 inputs:
@@ -17,7 +18,7 @@ inputs:
   source_run: E0154/R000323
   conflict_inventory: E0159/R000329
   profile: complete-core-all-roots-and-selected-program
-  representative_selection: mechanically-discovered-source-role-family
+  representative_selection: data-ref
 
 variables:
   mode: [baseline, opt_in_role_family]
@@ -71,4 +72,15 @@ analysis: >
   inventory, and the production witness/language tests. Plots and model runs
   are out of scope.
 
-replays: []
+replays:
+  - R000336  # all-roots, role-family witness and four-format/parser gates
+  - R000337  # selected program, role-family witness and four-format/parser gates
+
+result: >
+  The typed opt-in role-family mechanism and its witness gate pass on both
+  profiles. The selected-program projection reduces the current diagnostic
+  Bison inventory from 427/2266 to 425/2135 and removes the prior useless
+  output reported by the exploratory factor probe. The all-roots projection
+  is not an improvement (760/3894 versus 758/3885). Full-profile language
+  preservation and positive/negative parser-corpus behavior were not run;
+  they are the E0161 successor gate. The default export is unchanged.
