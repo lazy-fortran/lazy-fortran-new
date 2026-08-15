@@ -33,14 +33,14 @@ expected = "accepted"
 property = "free-form trailing and leading ampersands continue one statement"
 
 [[cases]]
-name = "nested-if-action-save"
+name = "nested-if-action-continue"
 expected = "accepted"
-property = "IF (...) action-stmt contains SAVE without an inserted inner boundary"
+property = "IF (...) action-stmt contains CONTINUE without an inserted inner boundary"
 
 [[cases]]
-name = "nested-if-action-save-semicolon"
+name = "nested-if-action-continue-semicolon"
 expected = "accepted"
-property = "a semicolon after a nested action statement starts the next statement"
+property = "a semicolon after a nested CONTINUE action statement starts the next statement"
 
 [[cases]]
 name = "missing-separator-after-save"
