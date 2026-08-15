@@ -123,3 +123,13 @@ factoring procedure over the local 100-line cap, and an oracle that supports
 only token/reference/sequence nodes and treats depth overflow as success.
 The final repair must split the guard, extract generic helpers, and make the
 oracle cover optional/repeat/choice nodes with overflow as a hard test failure.
+
+Commit `a856182ad50bb23b2f5fd1c9cd77f19bb80e118e` satisfies those behavioral
+requirements: full witness identity and mutation validation, the complete
+bounded expression oracle with hard overflow failure, all four exports and
+full `fo` pass. Luna's R000305 review leaves only two new size violations:
+`standardir_grammar_target_support.f90` is 1,037 lines and
+`standardir_grammar_export_batch` is 131 lines. The final extraction must put
+both below their existing caps without changing behavior. The repository-wide
+text-policy finding at `standardir_grammar_closure.f90:526` remains
+pre-existing and out of scope.
