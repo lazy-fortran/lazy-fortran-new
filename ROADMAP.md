@@ -2454,6 +2454,14 @@ experiment's timeout is only a safety guard. The exact algorithm decision is
 in `research/decisions/D0101-finite-chart-runtime-evaluator.md`, and its
 primary parsing references are listed in `docs/literature.md`.
 
+R000380 is the first replay of that evaluator on the complete 995-case corpus.
+It fixes the exact `allocate-object` witness and completes nine root batches
+with zero observed mismatches, but the `program` root exceeds the 60-second
+safety guard after 90 outcomes; `variable` is not started. The gate therefore
+remains open for a generic chart scalability repair. The next slice must
+instrument and reduce state explosion without changing the finite-state
+correctness invariant, then rerun the focused suite and the unchanged corpus.
+
 ## Ordering constraints
 
 - Phase 1.0 runs before 1.4 and can invalidate the phase. Nothing downstream of

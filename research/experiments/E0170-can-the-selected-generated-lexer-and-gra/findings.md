@@ -57,3 +57,26 @@ exact timeout witness, epsilon, direct and indirect left recursion, ambiguity,
 unknown references and malformed inputs. Only then may the unchanged broad
 995-case corpus be rerun. The script named in `manifest.yaml` regenerates the
 counts and reports every case; no case is removed.
+
+## R000380: exact witness fixed, broad scalability still open
+
+The accepted Luna commit `41908855` replaces the old global rescanning with a
+finite chart/worklist evaluator. Independent `fo` passes with zero warnings,
+the focused frontier suite passes, and the former `allocate-object` timeout
+witness completes. The complete corpus still fails the gate: 9 of 11 root
+batches completed with zero mismatches, but the `program` root exceeded the
+60-second per-root safety guard after 90 outcomes. Its timing file is empty and
+the retained runtime log ends in `command-timeout`; the `variable` root was not
+started. Peak RSS of completed roots was 1,556,480 KB and their summed elapsed
+time was 327.5 seconds. These values are regenerated from the R000380 timing
+files by the E0170 runner; they are not a success-rate denominator.
+
+This is now classified as generic chart-state explosion or insufficient
+indexing, not as a missing Fortran rule. The next slice must preserve the
+finite-state correctness invariant while reducing work generically. It must
+first reproduce the `program` root with a bounded diagnostic (state counts by
+rule/dot/uncertainty, queue growth and completion counts), then optimize using
+exact grammar reachability/productivity and packed or indexed chart operations
+where they preserve the existing outcome contract. It may not add a root,
+rule-number or input-specific exception, and it must rerun the focused suite
+before the unchanged 995-case corpus.
