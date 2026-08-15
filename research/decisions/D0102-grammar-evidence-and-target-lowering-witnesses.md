@@ -94,6 +94,9 @@ separate decision.
 
 * E0171/R000387: current structural inventory; explicitly not language
   equivalence.
+* E0157/R000396: explicit hashed reference-feature-anchor input and
+  per-anchor MATCH/NO_ANCHOR_DECLARED report; comparison labels remain
+  structural evidence only.
 * E0159/R000368: state-header conflict inventory and pinned LFortran policy;
   resolution not attempted.
 * E0161/R000340: bounded positive/negative language gate for an opt-in target
