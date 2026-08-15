@@ -381,3 +381,11 @@ R000416 supersedes R000415 after an audit noticed that the first output kept
 page and byte offsets but not the complete source document, clause and source
 hash on every row. The successor retains all of those fields and has the same
 58-row, zero-unsupported result.
+
+The bounded behavior cases are now pinned as
+`research/corpora/statement-boundary-behavior-v0.toml`. They are not a grammar
+source: the future gate generates their payloads in the ignored run cache and
+compares the generated target with independent parser behavior. The cases keep
+newline, comment, semicolon, continuation, same-line `SAVE name`, nested
+`IF (...) action-stmt`, and missing-separator rejection separate so a passing
+aggregate cannot hide a wrong boundary class.

@@ -26,6 +26,7 @@ inputs:
   statement_boundary_anchors: research/experiments/E0171-can-current-standardir-grammar-projectio/statement-boundary-anchors.tsv
   lexical_layout_contract: contracts/lexical-layout-v2.sxs
   lexical_layout_patterns: research/experiments/E0171-can-current-standardir-grammar-projectio/layout-fact-patterns.tsv
+  statement_boundary_behavior: research/corpora/statement-boundary-behavior-v0.toml
   house_antlr: ../standard/grammars/src/Fortran2023Parser.g4
   kaby76_antlr: ../kaby76-fortran/comp/Fortran2023Parser.g4
   lfortran_bison: .cache/runs/E0162/reference/parser.yy
