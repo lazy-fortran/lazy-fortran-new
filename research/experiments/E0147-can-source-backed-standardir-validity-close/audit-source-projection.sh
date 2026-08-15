@@ -93,15 +93,14 @@ for line in open(skipped_name, encoding="utf-8"):
 
 def has_body(index):
     line = lines[index]
-    if format_name == "ebnf":
-        if "*)" not in line:
-            return False
+    if format_name == "ebnf" and "*)" in line:
         body = line.split("*)", 1)[1].strip()
-        return bool(body.rstrip(";").strip())
-    if format_name == "bison":
-        if "*/" not in line:
-            return False
-        return bool(line.split("*/", 1)[1].strip())
+        if body.rstrip(";").strip():
+            return True
+    if format_name == "bison" and "*/" in line:
+        body = line.split("*/", 1)[1].strip()
+        if body:
+            return True
     for next_index in range(index + 1, len(lines)):
         body = lines[next_index].strip()
         if not body:

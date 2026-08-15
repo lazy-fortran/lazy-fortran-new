@@ -63,8 +63,7 @@ run_tree_sitter=0
 (cd "$work/tree-sitter" && tree-sitter generate) \
     >"$work/tree-sitter.log" 2>&1 || run_tree_sitter=$?
 
-first_reference=$(sed -n -E 's/^[[:space:]]*:[^;]*\b(r_[A-Za-z0-9_]+).*/\1/p' \
-    "$run_dir/Fortran2023.g4" | head -n 1)
+first_reference=$(grep -oE 'r_[A-Za-z0-9_]+' "$run_dir/Fortran2023.g4" | head -n 1 || true)
 if [[ -z "$first_reference" ]]; then
     printf 'could not find a grammar reference for the negative control\n' >&2
     exit 2
