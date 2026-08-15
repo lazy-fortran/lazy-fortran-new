@@ -261,6 +261,12 @@ replays:
     mode: standard-new-statement-boundary-plan-production-gate
     report: standard-new:test/test_standardir_statement_boundary
     result: typed-plan-pass-target-insertion-open
+  - run: R000428
+    supersedes: R000427
+    standard-new: "107d7a3d6b4fe2b35840e2c5a7c08af1111c6a1f"
+    mode: standard-new-statement-boundary-plan-review-fixes
+    report: standard-new:test/test_standardir_statement_boundary
+    result: truthful-identity-and-boundary-validation-pass-target-mapping-open
 
 result: >
   The source and production boundary-plan subgates pass through R000427. The
@@ -281,12 +287,14 @@ latest_replay: >
   including compound and adjacent sequence items, with zero unsupported shapes
   and full per-row source document/clause/page/byte/hash lineage. R000426 is
   the latest independent source-level behavior oracle: all nine generated
-  cases agree across GNU Fortran, Flang and LFortran. R000427 is the latest
+  cases agree across GNU Fortran, Flang and LFortran. R000428 is the latest
   production boundary-plan gate: the typed plan validates all witness kinds,
-  lineage and negative controls at `standard-new` `d2835f4`, while explicitly
-  reporting that insertion is not supported yet. It does not yet prove that a
-  generated lexer/runtime consumes the witness. D0112 governs the plan and
-  forbids target exporters from inserting separators directly from the raw
+  lineage, strict hash shape and negative controls at `standard-new` `107d7a3`,
+  and generic exporters use neutral identities rather than claiming a complete
+  Fortran profile. It explicitly reports that insertion is not supported yet.
+  It does not yet prove that a generated lexer/runtime consumes the witness.
+  D0112 governs the plan and D0113 governs truthful identity and numeric source
+  ordering; target exporters may not insert separators directly from the raw
   witness. R000411 is
   the latest source-evidence and v2 projection replay: it extracts ten facts,
   including the source-backed statement-class selector, and projects them

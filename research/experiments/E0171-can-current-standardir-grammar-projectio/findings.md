@@ -472,3 +472,19 @@ next slice: generic exporters must not label arbitrary partial input as
 `Fortran2023`, and serialized byte offsets must be ordered numerically. It also
 confirmed that the plan's deliberate non-insertion boundary is appropriate.
 D0113 records those repairs; no downstream grammar or model run was started.
+
+## R000428: review repairs pass
+
+The successor production replay at `standard-new` `107d7a3` closes those
+review findings. Boundary plans now require a 64-hex source hash and sort
+validated byte offsets numerically. The generic ANTLR and tree-sitter exporters
+use `StandardIR`/`standardir` identities, and the README states that the
+complete normative corpus is not committed in the production repository and
+that semantic storage is not semantic coverage. The focused and full `fo`
+gates pass with 46 tests, lint/format clean and zero warnings. A coordinator
+CLI smoke over the 522-record source emits 502 ANTLR and 502 tree-sitter
+productions with the neutral tree-sitter identity.
+
+This closes truthful labeling and plan validation only. It does not authenticate
+the source document inside production, map paths through target normalization,
+insert separators, or establish lexer/parser behavior.
