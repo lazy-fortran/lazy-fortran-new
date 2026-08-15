@@ -433,8 +433,17 @@ changes a denominator.
       no expression-precedence rewrite is inferred from this result.
 - [ ] E0164: close lexer/runtime and full positive/negative parser behavior
       gates for the selected generated grammar, including modern feature
-      witnesses and the retained target scaffolding. Only then consider a
-      separate generic expression/precedence experiment.
+      witnesses and the retained target scaffolding. R000348 closes only the
+      narrow subgates: source-verified five-row lexer contract, generator
+      smoke checks, selected lexical mutations, fortfront lexer tests (24/24),
+      E0161 bounded behavior (359/636), and E0041 external behavior (10/10).
+      It explicitly leaves the executable generated parser runtime open;
+      Luna's review is recorded beside the run. Reproduce the adjudication with
+      `research/experiments/E0164-can-source-backed-lexer-contracts-and-ge/analyse.py`.
+- [ ] E0164 parser-runtime closure: integrate a generic executable parser over
+      the pinned `standardir-grammar-v0` contract and rerun positive/negative
+      behavior, modern-feature, source-coverage and mutation gates. This is a
+      production `fortfront-new` slice, not a lab-side parser or a model task.
 - [ ] E0165: if E0164 is green, test expression/precedence factoring with its
       own independent language-preservation gate; otherwise retain the
       normative precedence ladder and do not tune conflicts by warning count.
@@ -444,6 +453,16 @@ extraction, model comparison, backend work or plotting is valid evidence until
 the deterministic grammar gates close. D0081 remains the plotting boundary
 for a later campaign; historical rows remain visible, but no new model row is
 scheduled now.
+
+E0164/R000348 is intentionally reported as open rather than green. The five
+source-backed lexical rows match the pinned J3 artifact hash, both selected
+grammar projections pass the three generator smoke checks and their negative
+controls, and `fortfront-new`'s generic lexer suite passes 24/24. The selected
+projection still exposes 1,068 source alternatives, 1,061 emitted bodies and
+seven omitted bodies across six declared roots; Bison remains at 427/2,266 for
+the baseline and 425/2,135 for the opt-in candidate. D0097 makes the
+source/generator/runtime separation explicit. No semantic, LLM, backend or
+plotting work is unlocked.
 
 The current pushed production pins are therefore `standard-new` `7d011f4`,
 `fortfront-new` `db5eaec`, `ffc-new`

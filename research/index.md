@@ -165,6 +165,7 @@ Runs recorded: 336
 | E0161 | reported | 3 | Can an opt-in role-family projection preserve the selected grammar's parser |
 | E0162 | reported | 6 | Can all four StandardIR grammar projections match pinned reference structure without copying productions |
 | E0163 | reported | 1 | Does generic role-family factoring improve selected parser quality without changing accepted language |
+| E0164 | reported | 0 | Can source-backed lexer contracts and generated grammar behavior pass |
 
 ## Run status
 
@@ -285,6 +286,7 @@ Runs recorded: 336
 | [D0094](decisions/D0094-reference-parser-adjudication.md) | accepted |  | Adjudicate reference-parser differences against the normative source |
 | [D0095](decisions/D0095-typed-source-and-target-expression-identity.md) | accepted | Amends D0088 | Keep normative source-expression and generated-target identity distinct |
 | [D0096](decisions/D0096-raw-source-witness-before-target-normalization.md) | accepted |  | Capture raw source witnesses before target normalization |
+| [D0097](decisions/D0097-separate-grammar-smoke-and-runtime-gates.md) | accepted |  | Separate grammar smoke checks from executable runtime gates |
 
 ### Proposed decisions
 
