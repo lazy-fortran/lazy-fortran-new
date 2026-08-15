@@ -162,7 +162,11 @@ unreachable targets and seven useless rules generically; the independent graph
 and Bison both report zero remaining useless targets. E0151 is reported, with
 Luna review R000294. The selected parser milestone remains open because
 conflict policy, language preservation and behavioral corpus coverage are not
-yet witnessed.
+yet witnessed. A fresh all-root replay at `standard-new`
+`9cd164d45a29ef325ea0751496ddd2c2d5b41fc4` (`E0147/R000023`) passes the
+four target validators and the body-bound source projection, but reports the
+closure diagnostics of 758 shift/reduce and 3,885 reduce/reduce conflicts. It
+does not substitute for the selected parser gate.
 
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
@@ -214,7 +218,9 @@ re-evaluated.
    superseded acceptance and the correction failure.
 2. Verify that every source-backed alternative is represented by the generated
    projection or explained by a generic provenance-preserving transformation;
-   fail closed on dropped or misattributed alternatives.
+   fail closed on dropped or misattributed alternatives. The next concrete
+   gate is E0154's exact source-expression identity witness; rule/page/byte
+   comments alone are insufficient.
 3. Verify every declared root and lexical fact has an emitted or explicit
    deterministic disposition, and require typed hash and origin labels in all
    projections.
@@ -233,7 +239,9 @@ re-evaluated.
    metadata. Selected-root reachability is reported by E0151 and the opt-in
    role-family mechanism is accepted by E0150/R000306; applying it to the full
    selected export remains gated. Each transformation needs a retained mapping
-   and an independent language/corpus witness (D0092, D0093, D0094).
+   and an independent language/corpus witness (D0092, D0093, D0094). E0154 is
+   the current source-expression identity slice; it must close before a real
+   selected-parser corpus or parser-runtime result is accepted.
 9. Resume Qwen 3.8 27B only after E0147 closes, on a new source-valid residue
    manifest with deterministic replay and an independent source-span witness.
 10. Promote the closed syntax/reference layer into semantic extraction, then
@@ -283,6 +291,11 @@ changes a denominator.
       reachability. Full-profile conflict, language-preservation and corpus
       gates remain open. No model work is
       unlocked by the projection subgate alone.
+- [ ] E0154: close exact source-expression identity for every selected target
+      alternative and helper across EBNF, ANTLR4, Bison and tree-sitter, with
+      independent positive/negative mutations. This is the next gate; it does
+      not yet claim lexer/runtime, precedence/actions, conflict-policy or
+      real-source acceptance equivalence.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
 

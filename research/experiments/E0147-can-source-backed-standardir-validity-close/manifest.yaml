@@ -30,6 +30,9 @@ replays:
     standard-new: "c955c23bd57a078c8fceb30de1df101280b25e2c"
     mode: selected-root
     root: program
+  - run: R000023
+    standard-new: "9cd164d45a29ef325ea0751496ddd2c2d5b41fc4"
+    mode: closure
 
 variables:
   source_boundary: [same_page, page_break, page_header_footer]
