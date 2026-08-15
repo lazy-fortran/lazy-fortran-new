@@ -22,19 +22,29 @@ grammar path is open. The boundary implementation derives candidates from
 StandardIR graph topology plus the v2 source facts; it does not append EOS to
 every `-stmt`, because nested `action-stmt` references are not complete source
 statements. The source-level behavior oracle R000426 now passes; the next gate
-is generated lexer/runtime behavior consuming that oracle, followed by
-regeneration of all four grammar targets and parser-oracle checks.
-This is D0111 layered onto the two-tier evidence protocol in D0105; R000400
-remains the profile negative control and R000404 the current clean replay.
+is a typed, validated lowering plan, followed by generated lexer/runtime
+behavior consuming that oracle, regeneration of all four grammar targets and
+parser-oracle checks.
+This is D0111 and D0112 layered onto the two-tier evidence protocol in D0105;
+R000400 remains the profile negative control and R000404 the current clean
+replay. The next production artifact is a typed, validated boundary-lowering
+plan carrying every accepted and rejected site with source lineage. No target
+export may insert separators directly from a raw witness or conflict report.
 
 The immediate sequence is:
 
-1. Make the generated lexer/runtime consume the now-passing source behavior
+1. Build and validate the typed boundary-lowering plan from the R000423
+   witness. The plan must preserve source rule/LHS, canonical expression path,
+   candidate kind, derivation, source lineage and rejected dispositions. It
+   must reject malformed paths, duplicates, missing lineage and unsupported
+   shapes before any target exporter inserts a separator. This is the
+   D0112 gate; it is not a new normative StandardIR production.
+2. Make the generated lexer/runtime consume the now-passing source behavior
    oracle R000426 for separators, comments, continuation and keyword/name
    reuse. The target gate must prove nested `IF (...) action-stmt` and
    ordinary statement sequences separately; source/compiler agreement alone is
    not a generated-parser result.
-2. Consume the central `contracts/lexical-layout-v2.sxs` revision from
+3. Consume the central `contracts/lexical-layout-v2.sxs` revision from
    `standard-new`, extending the target lexer contract with statement-boundary,
    continuation and keyword/name behavior. R000408 is retained as a v0
    projection experiment is historical; D0108 corrected its prose provenance,
@@ -44,7 +54,7 @@ The immediate sequence is:
    need to consume the contract, and independent positive/negative behavior
    target behavior remains open. D0106 through D0110 keep this out of normative
    StandardIR; `scripts/check-contracts.sh` is the pre-launch contract gate.
-3. Derive and audit statement-sequence candidates by fixed-point graph
+4. Derive and audit statement-sequence candidates by fixed-point graph
    analysis. R000420 is green: 95 candidates, compound and adjacent sequence
    items included, zero unsupported shapes, and complete per-row source
    lineage. R000423 proves exact parity with the production CLI at
@@ -52,10 +62,10 @@ The immediate sequence is:
    `python3 research/experiments/E0171-can-current-standardir-grammar-projectio/compare-statement-sequence-witness.py`.
    Retain the containing class, expression path, item derivation and source
    facts; reject ambiguous or unsupported contexts instead of guessing.
-4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
+5. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
    the witnessed boundary behavior. A conflict count, `%expect` value,
    precedence setting or matching reference diagnostic is not a gate.
-5. Only then regenerate all four targets and rerun parser smoke, lexer/runtime
+6. Only then regenerate all four targets and rerun parser smoke, lexer/runtime
    and positive/negative behavior gates. Only after that deterministic closure
    may broader grammar quality work resume; model and semantic campaigns remain
    paused.

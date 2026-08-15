@@ -307,6 +307,7 @@ Runs recorded: 402
 | [D0109](decisions/D0109-lexical-layout-statement-class-selector.md) | accepted | Supersedes D0108 | Carry the source statement-class selector |
 | [D0110](decisions/D0110-source-derived-statement-sequences.md) | superseded by D0111 |  | Derive statement separators at sequence boundaries |
 | [D0111](decisions/D0111-adjacent-statement-boundaries.md) | accepted | Supersedes D0110 | Include adjacent sequence boundaries in the witness |
+| [D0112](decisions/D0112-validated-statement-boundary-lowering-plan.md) | accepted |  | Validate statement-boundary lowering before target insertion |
 
 ### Proposed decisions
 
