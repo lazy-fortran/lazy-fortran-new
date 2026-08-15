@@ -55,3 +55,10 @@ checks all four generated formats, and requires a mutation to fail. It is an
 independent identity witness, not yet a language-equivalence or parser-runtime
 witness. The baseline is expected to report missing expression fields until
 the corresponding generic production slice is merged.
+
+The required Luna review is `reviews/R000310-luna.md`. It independently
+confirmed the three identity defects and found a fourth projection gap: the
+generic nullable-reference normalization removes source optionality from
+R1404/R1416. That transformation may be language-preserving, but this replay
+does not prove it. It must either be retained for the exact-source gate or
+receive a generic target-body/language-preservation witness.

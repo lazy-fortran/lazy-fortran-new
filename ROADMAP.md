@@ -180,6 +180,10 @@ Bison and tree-sitter still accept these files; that subordinate validator
 pass does not close identity. No model work resumes while this deterministic
 repair is open. D0095 fixes the typed contract: source RHS identity, generated
 target identity and explicit source absence are separate values.
+Luna's required review R000310 additionally found a generic normalization
+projection gap: nullable-reference simplification removes source optionality
+from R1404/R1416 without a target-body witness. This is recorded as M048 and
+must be preserved or proven generically before the gate closes.
 
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
