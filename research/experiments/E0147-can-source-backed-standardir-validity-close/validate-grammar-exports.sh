@@ -12,6 +12,28 @@ if [[ -z "$run_dir" ]]; then
 fi
 report=${2:-"$run_dir/grammar-oracles.tsv"}
 
+lexer_contract_status=NOT_RECORDED
+if [[ -f "$run_dir/lexer-contract.jsonl" ]]; then
+    if python3 - "$run_dir/lexer-contract.jsonl" <<'PY'
+import json
+import sys
+
+rows = [json.loads(line) for line in open(sys.argv[1], encoding="utf-8") if line.strip()]
+if not rows or rows[0].get("kind") != "lexer-contract-header":
+    raise SystemExit(1)
+if rows[0].get("origin") != "MECHANICAL":
+    raise SystemExit(1)
+if any(row.get("kind") != "lexer-token" or row.get("origin") != "MECHANICAL"
+       for row in rows[1:]):
+    raise SystemExit(1)
+PY
+    then
+        lexer_contract_status=PASS
+    else
+        lexer_contract_status=FAIL
+    fi
+fi
+
 for file in \
     "$run_dir/Fortran2023.g4" \
     "$run_dir/fortran2023.y" \
@@ -63,7 +85,33 @@ run_tree_sitter=0
 (cd "$work/tree-sitter" && tree-sitter generate) \
     >"$work/tree-sitter.log" 2>&1 || run_tree_sitter=$?
 
-first_reference=$(grep -oE 'r_[A-Za-z0-9_]+' "$run_dir/Fortran2023.g4" | head -n 1 || true)
+first_reference=$(python3 - "$run_dir/Fortran2023.g4" <<'PY'
+import re
+import sys
+
+lines = open(sys.argv[1], encoding="utf-8").read().splitlines()
+production = re.compile(r"^\s*r_[A-Za-z0-9_]+\s*:")
+split_head = re.compile(r"^\s*r_[A-Za-z0-9_]+\s*$")
+symbol = re.compile(r"\br_[A-Za-z0-9_]+\b")
+for index, line in enumerate(lines):
+    if production.match(line):
+        body_start = index + 1
+    elif split_head.match(line) and index + 1 < len(lines) and lines[index + 1].lstrip().startswith(":"):
+        body_start = index + 2
+    else:
+        continue
+    for body in lines[body_start:]:
+        if body.lstrip().startswith("//"):
+            continue
+        if body.strip().endswith(";"):
+            break
+        match = symbol.search(body)
+        if match:
+            print(match.group(0))
+            raise SystemExit(0)
+raise SystemExit(1)
+PY
+)
 if [[ -z "$first_reference" ]]; then
     printf 'could not find a grammar reference for the negative control\n' >&2
     exit 2
@@ -108,7 +156,12 @@ bison_shift_reduce_conflicts=$(grep -Eo '[0-9]+ shift/reduce conflicts' "$work/b
 bison_reduce_reduce_conflicts=$(grep -Eo '[0-9]+ reduce/reduce conflicts' "$work/bison.log" | awk 'NR == 1 { print $1 }' || true)
 bison_shift_reduce_conflicts=${bison_shift_reduce_conflicts:-0}
 bison_reduce_reduce_conflicts=${bison_reduce_reduce_conflicts:-0}
-bison_useless_rule_warnings=$(count_matches 'rule useless in parser due to conflicts' "$work/bison.log")
+bison_useless_nonterminal_warnings=$(grep -Eo 'warning: [0-9]+ nonterminals useless in grammar' "$work/bison.log" |
+    awk 'NR == 1 { print $2 }' || true)
+bison_useless_rule_warnings=$(grep -Eo 'warning: [0-9]+ rules useless in grammar' "$work/bison.log" |
+    awk 'NR == 1 { print $2 }' || true)
+bison_useless_nonterminal_warnings=${bison_useless_nonterminal_warnings:-0}
+bison_useless_rule_warnings=${bison_useless_rule_warnings:-0}
 undefined_symbols=$((
     $(count_matches 'undefined rule|undefined symbol|used, but is not defined' "$work/antlr.log") +
     $(count_matches 'undefined rule|undefined symbol|used, but is not defined' "$work/bison.log") +
@@ -118,10 +171,19 @@ undefined_symbols=$((
 source_projection_status=0
 bash "$(dirname "$0")/audit-source-projection.sh" "$run_dir" \
     >"$run_dir/source-projection.log" 2>&1 || source_projection_status=$?
+omitted_declared_roots=$(grep -hE '^root-disposition omitted-declared-root ' "$run_dir"/generate-*.log \
+    | sed -E 's/^root-disposition omitted-declared-root ([^ ]+).*/\1/' \
+    | sort -u | paste -sd, - || true)
+omitted_declared_root_count=0
+if [[ -n "$omitted_declared_roots" ]]; then
+    omitted_declared_root_count=$(tr ',' '\n' <<<"$omitted_declared_roots" | wc -l)
+fi
 
 mkdir -p "$(dirname "$report")"
 {
     printf 'oracle\tstatus\texit\tversion\tlog\n'
+    printf 'lexer-contract\t%s\t0\tsource-backed JSONL companion\t%s\n' \
+        "$lexer_contract_status" "$run_dir/lexer-contract.jsonl"
     printf 'antlr4\t%s\t%s\t%s\t%s\n' \
         "$([[ $run_antlr -eq 0 ]] && printf PASS || printf FAIL)" \
         "$run_antlr" "$antlr_version" "$run_dir/antlr4.log"
@@ -139,7 +201,8 @@ mkdir -p "$(dirname "$report")"
     printf 'overall\t%s\t%s\tsource-backed projection and generated exports\t%s\n' \
         "$([[ $run_antlr -eq 0 && $run_bison -eq 0 && $run_tree_sitter -eq 0 && \
             $undefined_symbols -eq 0 && \
-            "$negative_control" == observed_failure && $source_projection_status -eq 0 ]] && \
+            "$negative_control" == observed_failure && $source_projection_status -eq 0 && \
+            "$lexer_contract_status" != FAIL ]] && \
             printf PASS || printf ORACLE_FAILURE)" \
         "$((run_antlr + run_bison + run_tree_sitter))" \
         "$run_dir"
@@ -151,12 +214,16 @@ mkdir -p "$(dirname "$report")"
     printf 'bison_warnings\t%s\t\t\t\n' "$bison_warnings"
     printf 'bison_shift_reduce_conflicts\t%s\t\t\t\n' "$bison_shift_reduce_conflicts"
     printf 'bison_reduce_reduce_conflicts\t%s\t\t\t\n' "$bison_reduce_reduce_conflicts"
+    printf 'bison_useless_nonterminals\t%s\t\t\t\n' "$bison_useless_nonterminal_warnings"
+    printf 'bison_useless_rules\t%s\t\t\t\n' "$bison_useless_rule_warnings"
     printf 'bison_useless_rule_warnings\t%s\t\t\t\n' "$bison_useless_rule_warnings"
     printf 'tree_sitter_warnings\t%s\t\t\t\n' "$tree_warnings"
     printf 'undefined_symbol_diagnostics\t%s\t\t\t\n' "$undefined_symbols"
     printf 'negative_control\t%s\t\t\t\n' "$negative_control"
     printf 'negative_control_mentions\t%s\t\t\t\n' "$negative_mentions"
     printf 'source_projection_status\t%s\t\t\t\n' "$source_projection_status"
+    printf 'omitted_declared_root_count\t%s\t\t\t\n' "$omitted_declared_root_count"
+    printf 'omitted_declared_roots\t%s\t\t\t\n' "$omitted_declared_roots"
 } >"$report"
 
 cp "$work/antlr.log" "$run_dir/antlr4.log"
@@ -170,6 +237,7 @@ cat "$report"
 
 if [[ $run_antlr -ne 0 || $run_bison -ne 0 || $run_tree_sitter -ne 0 ||
     $undefined_symbols -ne 0 ||
-    "$negative_control" != observed_failure || $source_projection_status -ne 0 ]]; then
+    "$negative_control" != observed_failure || $source_projection_status -ne 0 || \
+    "$lexer_contract_status" == FAIL ]]; then
     exit 1
 fi

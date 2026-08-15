@@ -15,8 +15,9 @@ fi
 
 expected=$(mktemp /tmp/e0147-source-projection.XXXXXX)
 skipped=$(mktemp /tmp/e0147-source-skipped.XXXXXX)
+omitted=$(mktemp /tmp/e0147-source-omitted.XXXXXX)
 cleanup() {
-    rm -f -- "$expected" "$skipped"
+    rm -f -- "$expected" "$skipped" "$omitted"
 }
 trap cleanup EXIT
 
@@ -42,13 +43,15 @@ function alternative_count(line, p, alt, i, c, depth, count) {
 /^[\(]syntax / {
     match($0, /^[\(]syntax [^ ]+/)
     rule = substr($0, RSTART + 8, RLENGTH - 8)
+    match($0, /\(lhs [^)]*/)
+    lhs = substr($0, RSTART + 5, RLENGTH - 5)
     match($0, /byte-start [0-9]+/)
     start = substr($0, RSTART + 11, RLENGTH - 11)
     match($0, /byte-length [0-9]+/)
     length_value = substr($0, RSTART + 12, RLENGTH - 12)
     count = alternative_count($0)
     for (i = 1; i <= count; i++)
-        print rule ":" i "@" start "+" length_value "\t" rule "\t" i
+        print rule ":" i "@" start "+" length_value "\t" rule "\t" lhs "\t" i
 }
 ' "$input" >"$expected"
 
@@ -56,6 +59,10 @@ for log in "$run_dir"/generate-*.log; do
     [[ -f "$log" ]] || continue
     grep -oE 'byte-start=[0-9]+ byte-length=[0-9]+' "$log" || true
 done | sort -u >"$skipped"
+
+grep -hE '^root-disposition omitted-declared-root ' "$run_dir"/generate-*.log \
+    | sed -E 's/^root-disposition omitted-declared-root ([^ ]+).*/\1/' \
+    | sort -u >"$omitted" || true
 
 report="$run_dir/source-projection.tsv"
 printf 'format\tstatus\texpected\tcovered\tskipped\tmissing\theader_gaps\tstructure\n' >"$report"
@@ -75,21 +82,22 @@ for pair in \
         continue
     fi
 
-    result=$(python3 - "$format" "$output" "$expected" "$skipped" <<'PY'
+    result=$(python3 - "$format" "$output" "$expected" "$skipped" "$omitted" <<'PY'
 import re
 import sys
 
-format_name, output_name, expected_name, skipped_name = sys.argv[1:]
+format_name, output_name, expected_name, skipped_name, omitted_name = sys.argv[1:]
 lines = open(output_name, encoding="utf-8").read().splitlines()
 expected = []
 for line in open(expected_name, encoding="utf-8"):
-    token, lhs, occurrence = line.rstrip("\n").split("\t")
-    expected.append((token, lhs, occurrence))
+    token, rule, lhs, occurrence = line.rstrip("\n").split("\t")
+    expected.append((token, rule, lhs, occurrence))
 skipped = set()
 for line in open(skipped_name, encoding="utf-8"):
     match = re.fullmatch(r"byte-start=(\d+) byte-length=(\d+)", line.strip())
     if match:
         skipped.add(f"{match.group(1)}+{match.group(2)}")
+omitted = {line.strip() for line in open(omitted_name, encoding="utf-8") if line.strip()}
 
 def has_body(index):
     line = lines[index]
@@ -118,7 +126,10 @@ for index, line in enumerate(lines):
 covered = 0
 skipped_count = 0
 missing = 0
-for token, lhs, occurrence in expected:
+for token, rule, lhs, occurrence in expected:
+    if lhs in omitted:
+        skipped_count += 1
+        continue
     if any(token in line and body for _, line, body in headers):
         covered += 1
     else:

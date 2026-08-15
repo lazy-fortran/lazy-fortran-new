@@ -20,6 +20,17 @@ inputs:
   raw_standardir: E0013-R000002-j3-24-007-complete-core-standardir
   historical_structural_audit: E0033
 
+# Later replays are observations against successor production commits; the
+# original source-validity pin above remains the historical baseline.
+replays:
+  - run: R000020
+    standard-new: "c955c23bd57a078c8fceb30de1df101280b25e2c"
+    mode: closure
+  - run: R000022
+    standard-new: "c955c23bd57a078c8fceb30de1df101280b25e2c"
+    mode: selected-root
+    root: program
+
 variables:
   source_boundary: [same_page, page_break, page_header_footer]
   notation: [identifier, punctuation, unicode_operator, delimiter, ellipsis, list_form]

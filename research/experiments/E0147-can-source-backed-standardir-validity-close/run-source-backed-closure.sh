@@ -55,6 +55,11 @@ grep -o '(root [^)]*)' "$base_run/roots.sx" >"$run_dir/input/roots.sx"
 cp "$standard_root/specs/lexical-facts-v0.sx" "$run_dir/input/lexical-facts-v0.sx"
 
 (cd "$standard_root" && fo)
+(
+    cd "$standard_root"
+    /usr/bin/time -f 'elapsed_seconds=%e' fo exec --no-build sxlexercontract \
+        "$run_dir/input/lexical-facts-v0.sx" "$run_dir/lexer-contract.jsonl"
+) >"$run_dir/generate-lexer-contract.log" 2>&1
 for format in ebnf antlr bison treesitter; do
     case "$format" in
         ebnf) output="$run_dir/grammar.ebnf" ;;

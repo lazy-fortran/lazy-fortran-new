@@ -62,13 +62,38 @@ source spellings.
 The baseline matrix keeps M005 and M006 as historical `target_defect` rows.
 Their current status is `repaired`, not an outstanding StandardIR defect.
 
+## Current replay after generic lineage merging
+
+The current replay is E0149/R000003, regenerated with:
+
+```text
+research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh \
+  .cache/runs/E0149/R000003 E0147/R000020
+```
+
+It uses `standard-new` `c955c23bd57a078c8fceb30de1df101280b25e2c`, including
+the generic duplicate-body lineage merge and the companion lexer-contract
+projection. The all-root Bison export remains valid and reports 758
+shift/reduce and 3,885 reduce/reduce conflicts. The selected `program` replay
+reports 427 shift/reduce and 2,266 reduce/reduce conflicts before selected
+reachability pruning. These are target diagnostics, not language-equivalence
+claims. The source-backed selected replay E0147/R000022 is the authoritative
+four-format validation of the selected export.
+
+The lineage merge is a genuine target improvement: repeated identical target
+bodies are emitted once while all source occurrences remain in the lineage.
+The corresponding source-projection audit now treats explicitly omitted
+selected roots as dispositions, so omission is not confused with source loss.
+
 ## Remaining defects and gaps
 
 The comparison also records these generic follow-up gaps:
 
-* Bison output needs an explicit lexer-contract companion or a declared
-  boundary. A parser `.y` file can declare terminals, but it does not itself
-  define how `LETTER`, `DIGIT`, `REP_CHAR` and source spellings reach `yylex`.
+* The separate source-backed lexer-contract companion now exists in
+  `standard-new` `c955c23bd57a078c8fceb30de1df101280b25e2c`; the selected replay
+  still needs to invoke it and pin its output beside each parser export. A
+  parser `.y` file can declare terminals, but it does not itself define how
+  `LETTER`, `DIGIT`, `REP_CHAR` and source spellings reach `yylex`.
 * Identical target bodies from repeated PDF occurrences should be emitted once
   with all source lineage, not as repeated alternatives.
 * The all-root grammar is a closure validator. A production parser export needs
