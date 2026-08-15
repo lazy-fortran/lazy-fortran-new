@@ -86,3 +86,28 @@ which is expected: the audit procedure changed, not the grammar. The retained
 counterexamples are diagnostic evidence for the next conflict-classification
 slice; they are not a correctness denominator and do not justify copying
 LFortran’s `%expect`, precedence declarations or actions.
+
+## Transformation-witness negative control
+
+The independent lab validator is
+`validate-transformation-witness.py`. It compares the producer-emitted JSONL
+witness with the `source-lineage` set in the exact generated target and checks
+JSON shape, target hashes, source-hash policy and profile consistency.
+
+It correctly rejects the first production witness replay: the target contains
+1,068 source lineages, while the witness contains 1,064. The four missing
+lineages are:
+
+```text
+R1028:1@492928+28
+R1221:1@748220+82
+R1221:2@748220+82
+R1323:1@849508+55
+```
+
+They are retained in the generated target as `omitted-before-target-lowering`
+source-preservation records. This is a producer defect, not a source or PDF
+defect. The witness implementation must serialize that existing pruned
+provenance generically; the four rule IDs are a failure witness, not an
+exception list. The next production replay must make this validator pass
+before the transformation gate can close.

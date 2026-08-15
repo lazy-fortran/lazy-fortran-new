@@ -113,6 +113,9 @@ analysis: >
   candidate comparison. Run Bison independently using the producer-emitted
   selected profile and preserve state, solved-conflict and counterexample
   reports. Do not manufacture a different root by editing the generated file.
+  Validate a producer-emitted transformation witness with
+  validate-transformation-witness.py <target> <witness> <summary>; its lineage
+  set must equal the target's source-lineage set before this gate is green.
 
 replays:
   - run: R000387
@@ -134,7 +137,7 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 remaining_gates:
-  - target transformation witness map for generated helpers
+  - target transformation witness map for generated helpers and pre-lowering omissions
   - explicit root/EOF and normalized lexer-contract gate
   - independent bounded language behavior for each declared profile
   - Bison counterexample classification and ambiguity policy

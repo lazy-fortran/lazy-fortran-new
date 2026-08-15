@@ -34,19 +34,25 @@ metrics:
   - lfortran_declared_expectations
   - lfortran_observed_state_totals
   - profile_delta
+  - counterexample_groups
+  - complete_counterexample_witnesses
 
 denominator: >
   Every conflict-bearing Bison state in the all-root and selected-program
   generated reports, plus every conflict-bearing state in the pinned LFortran
-  report. A state is the unit of structural classification; individual Bison
-  actions and counterexamples remain retained evidence.
+  report. A state is the unit of structural inventory, while individual Bison
+  conflict actions and counterexample groups are separate denominators. One
+  counterexample group is not assumed to represent one conflict action.
 
 independent_oracle: >
   A separate Python parser reads Bison's state reports and recomputes conflict
   totals from state headers. It independently parses LFortran's %expect and
   %expect-rr declarations and checks them against the observed LFortran state
-  totals. The generated grammar's source identity and PDF-fidelity gates are
-  upstream prerequisites, not replaced by this inventory.
+  totals. It also parses each retained counterexample group into its state,
+  conflict kind, lookahead, competing rule numbers, visible StandardIR rule
+  IDs and stable example hashes. The generated grammar's source identity and
+  PDF-fidelity gates are upstream prerequisites, not replaced by this
+  inventory.
 
 falsifiable_by: >
   State-header totals do not equal the recorded Bison diagnostics, LFortran's
@@ -63,7 +69,7 @@ gate: >
 analysis: >
   analyse.py --generated-grammar <file> --all-root-report <file>
   --lfortran-parser <file> --output <dir> writes conflict-states.tsv,
-  summary.tsv and policy.tsv. The generated grammar must already be the
+  counterexamples.tsv, summary.tsv and policy.tsv. The generated grammar must already be the
   producer-emitted selected-program profile; the analyzer never rewrites its
   start symbol. It generates fresh Bison state reports with
   --warnings=all,counterexamples and --report=state,solved,counterexamples for

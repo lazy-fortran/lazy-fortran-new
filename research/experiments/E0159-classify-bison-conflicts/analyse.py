@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -71,6 +72,58 @@ def parse_state_blocks(text: str) -> list[dict[str, object]]:
             "symbols": symbols,
             "nullable": nullable,
         })
+    return rows
+
+
+def parse_counterexample_groups(text: str) -> list[dict[str, object]]:
+    """Extract Bison's per-conflict witness headers from a state report.
+
+    This deliberately records evidence, rather than deciding whether a
+    conflict is benign. Bison's state report is the authority for the
+    competing actions; the example strings are retained by hash because the
+    complete report remains the lossless evidence artifact.
+    """
+
+    starts = list(re.finditer(r"^State (\d+)\n", text, re.MULTILINE))
+    rows: list[dict[str, object]] = []
+    conflict_header = re.compile(
+        r"^\s+(shift/reduce|reduce/reduce) conflict on token (.+):\s*$",
+        re.MULTILINE,
+    )
+    for index, state_match in enumerate(starts):
+        end = starts[index + 1].start() if index + 1 < len(starts) else len(text)
+        block = text[state_match.end():end]
+        conflicts = list(conflict_header.finditer(block))
+        for conflict_index, header in enumerate(conflicts):
+            conflict_end = (
+                conflicts[conflict_index + 1].start()
+                if conflict_index + 1 < len(conflicts)
+                else len(block)
+            )
+            witness = block[header.end():conflict_end]
+            first = re.search(r"^\s*First example:\s*(.*)$", witness, re.MULTILINE)
+            second = re.search(r"^\s*Second example:\s*(.*)$", witness, re.MULTILINE)
+            rule_lines = re.findall(r"^\s*(\d+)\s+([^:\n]+):", witness, re.MULTILINE)
+            examples = [match.group(1).strip() for match in (first, second) if match]
+            example_blob = "\n".join(examples)
+            source_ids = sorted(set(re.findall(r"(?:^|_)R(\d+)(?:_|$)", witness)))
+            rows.append({
+                "state": int(state_match.group(1)),
+                "conflict_index": conflict_index + 1,
+                "kind": header.group(1),
+                "lookahead": header.group(2).strip(),
+                "rule_numbers": [int(number) for number, _ in rule_lines],
+                "rule_symbols": [symbol.strip() for _, symbol in rule_lines],
+                "source_rule_ids": [f"R{number}" for number in source_ids],
+                "first_example_sha256": hashlib.sha256(
+                    examples[0].encode("utf-8")
+                ).hexdigest() if first else "",
+                "second_example_sha256": hashlib.sha256(
+                    examples[1].encode("utf-8")
+                ).hexdigest() if second else "",
+                "example_bytes": len(example_blob.encode("utf-8")),
+                "witness_status": "complete" if first and second else "incomplete",
+            })
     return rows
 
 
@@ -166,17 +219,46 @@ def main() -> int:
     ]
 
     all_rows: list[dict[str, object]] = []
+    all_counterexamples: list[dict[str, object]] = []
     profile_totals: dict[str, tuple[int, int]] = {}
+    counterexample_totals: dict[str, dict[str, int]] = {}
     for profile, report in profiles:
+        report_text = report.read_text(encoding="utf-8", errors="replace")
         rows, totals = inventory(report, profile)
         all_rows.extend(rows)
         profile_totals[profile] = totals
+        counterexamples = parse_counterexample_groups(report_text)
+        for row in counterexamples:
+            row["profile"] = profile
+        all_counterexamples.extend(counterexamples)
+        counterexample_totals[profile] = {
+            "groups": len(counterexamples),
+            "complete": sum(row["witness_status"] == "complete" for row in counterexamples),
+            "incomplete": sum(row["witness_status"] != "complete" for row in counterexamples),
+        }
         observed = (
             sum(int(row["shift_reduce"]) for row in rows),
             sum(int(row["reduce_reduce"]) for row in rows),
         )
         if observed != totals:
             raise SystemExit(f"state/header total mismatch for {profile}: {observed} != {totals}")
+
+    with (output / "counterexamples.tsv").open("w", encoding="utf-8") as handle:
+        handle.write(
+            "profile\tstate\tconflict_index\tkind\tlookahead\trule_numbers\t"
+            "rule_symbols\tsource_rule_ids\tfirst_example_sha256\t"
+            "second_example_sha256\texample_bytes\twitness_status\n"
+        )
+        for row in all_counterexamples:
+            handle.write("\t".join([
+                str(row["profile"]), str(row["state"]), str(row["conflict_index"]),
+                str(row["kind"]), str(row["lookahead"]),
+                ",".join(str(value) for value in row["rule_numbers"]),
+                ",".join(str(value) for value in row["rule_symbols"]),
+                ",".join(str(value) for value in row["source_rule_ids"]),
+                str(row["first_example_sha256"]), str(row["second_example_sha256"]),
+                str(row["example_bytes"]), str(row["witness_status"]),
+            ]) + "\n")
 
     expected = expected_policy(lfortran)
     if profile_totals["lfortran"] != expected:
@@ -221,6 +303,7 @@ def main() -> int:
           f'  "selected_program": {{"shift_reduce": {selected_total[0]}, "reduce_reduce": {selected_total[1]}}},\n' +
           f'  "lfortran_declared": {{"shift_reduce": {expected[0]}, "reduce_reduce": {expected[1]}}},\n' +
           f'  "lfortran_observed": {{"shift_reduce": {profile_totals["lfortran"][0]}, "reduce_reduce": {profile_totals["lfortran"][1]}}},\n' +
+          f'  "counterexample_groups": {json.dumps(counterexample_totals)},\n' +
           '  "status": "PASS",\n'
           '  "resolution": "INVENTORY_ONLY"\n}\n')
     return 0
