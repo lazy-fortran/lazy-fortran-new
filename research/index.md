@@ -149,6 +149,7 @@ Runs recorded: 275
 | E0145 | reported | 1 | Can the target-independent MIR boundary report exact canonical SX body size? |
 | E0146 | reported | 1 | Can TargetIR provide a generic source-origin query over normalized records? |
 | E0147 | running | 11 | Can the complete selected StandardIR syntax profile be reconstructed from |
+| E0148 | running | 0 | Can an independently pinned Bison grammar expose source-to-target lexical or |
 
 ## Run status
 
@@ -261,6 +262,7 @@ Runs recorded: 275
 | [D0087](decisions/D0087-source-to-projection-equivalence-gate.md) | amended by D0088 | Amends D0086 | Require source-to-projection equivalence before the grammar gate |
 | [D0088](decisions/D0088-complete-provenance-and-root-export-gate.md) | accepted | Amends D0087 | Require complete roots and typed provenance in grammar exports |
 | [D0089](decisions/D0089-bison-glr-for-ambiguous-standard-grammar.md) | accepted | Amends D0030 | Emit Bison grammars in generic GLR mode |
+| [D0090](decisions/D0090-canonicalize-typographic-grammar-glyphs.md) | accepted |  | Canonicalize typographic grammar glyphs at the syntax boundary |
 
 ### Proposed decisions
 

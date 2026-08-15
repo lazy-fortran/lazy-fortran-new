@@ -983,6 +983,24 @@ repair is one generic pipeline with these boundaries:
    its target gate. Historical structural exports remain available for
    comparison but cannot close either gate.
 
+E0148 is the required independent comparison before this gate can close. Its
+replay command is
+`research/experiments/E0148-compare-source-backed-standardir-grammar/analyse.sh`.
+The replay found two current lexical defects: U+2013 is emitted as an
+`EN_DASH` target terminal rather than canonical source `-`, and U+2019 is
+emitted as `RIGHT_SINGLE_QUOTE` rather than canonical source `'`.
+D0090 requires one generic provenance-preserving alias table for both forms.
+It also records four projection/gate gaps: repeated source occurrences need
+merged target lineage, the all-roots Bison export is a closure validator rather
+than a parser entry point, and selected-root output needs explicit reachability
+or suppression records. E0147's body-bound witness and validator acceptance do
+not yet establish language equivalence after normalization; that witness class
+is still required. The complete adjudication is
+`research/experiments/E0148-compare-source-backed-standardir-grammar/findings.md`.
+No model or semantic experiment is unlocked by E0148. Its status is
+`verification_failure` until the production fixes and generic normalization
+witnesses replay cleanly.
+
 The Qwen 3.8 27B path starts after step 8. It receives only the bounded
 source-backed residue produced by this pipeline. It may propose a typed local
 interpretation or unresolved state. Deterministic source checks, provenance,
@@ -1736,7 +1754,13 @@ contaminated by an incomplete integration layer.
 - [ ] E0142: abandoned under D0084 after E0115 was stopped at 65 of 127 rows;
       do not restart its matrix
 - [ ] E0147: close the source-backed StandardIR validity gate before any new
-      semantic model cell
+      semantic model cell; E0148 is the current comparison and defect
+      inventory, regenerated with
+      `research/experiments/E0148-compare-source-backed-standardir-grammar/analyse.sh`
+- [ ] E0148: replay the pinned LFortran Bison comparison, classify every
+      disagreement, and keep the two lexical defects, four projection/gate
+      gaps, expected differences and stale historical findings separately
+      (`research/experiments/E0148-compare-source-backed-standardir-grammar/analyse.sh`)
 - [x] `unresolved` and `disputed` states exercised on real clauses, not just
       supported in principle (E0085 and E0086)
 - [x] Composite adjudication gate preserves the three states and excludes

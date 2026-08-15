@@ -62,6 +62,7 @@ while authoring something here. Recording an entry costs nothing. Omitting one c
 | 2026-08-13 | `x86-psABIs/x86-64-ABI` | No explicit licence declaration found | Pinned System V x86-64 psABI archive | x86-64 ABI source manifest |
 | 2026-08-13 | Intel SDM | Intel proprietary documentation | Combined Intel 64 and IA-32 SDM, version 092, retrieved from Intel | x86-64 vendor specification manifest |
 | 2026-08-14 | `ggml-org/llama.cpp` | MIT | Official function-calling and server API documentation, including named `tool_choice`, bounded `max_tokens`, `chat_template_kwargs`, and timing fields | E0116 local Qwen semantic runner protocol |
+| 2026-08-15 | `lfortran/lfortran` | BSD-3-Clause | `src/lfortran/parser/parser.yy` at commit `caf87b660f803148f000046392a5da803f9fc630`, including terminal declarations and comparison production bodies | E0148 body-level comparison only; no productions imported |
 
 ---
 
