@@ -26,6 +26,11 @@ corpus. No StandardIR or grammar source has been changed.
   (`letter digit % letter`) consumed a CPU core without producing an outcome
   for the bounded timeout. The child was terminated after its timing record
   was retained. This is the current blocking defect.
+- R000378 is a rejected Luna production attempt. A generic reachability,
+  duplicate-rule and dependency-worklist patch was tested against the exact
+  witness but did not meet the bounded termination requirement. It remains
+  uncommitted and is preserved as a patch artifact; no production change was
+  merged.
 
 The complete corpus parameters are depth 8, four terminal tokens, 256 words,
 64 negative mutations and repeat limit 1. The exact command and the resulting
