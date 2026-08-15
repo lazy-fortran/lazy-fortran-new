@@ -153,6 +153,7 @@ def source_expressions(path: Path) -> dict[SourceKey, str]:
 
 LINEAGE = re.compile(r"source-lineage=([^\s*/]+)")
 EXPRESSION = re.compile(r"source-expression-sha256=([^\s*/]+)")
+TARGET_EXPRESSION = re.compile(r"target-expression-sha256=([^\s*/]+)")
 LINEAGE_ITEM = re.compile(r"([A-Za-z0-9_-]+):(\d+)(?:@(\d+)\+(\d+))?")
 
 
@@ -163,9 +164,22 @@ def identity_rows(path: Path, expected: dict[SourceKey, str]) -> tuple[list[str]
         lineage_match = LINEAGE.search(line)
         if not lineage_match:
             continue
-        items = [match.groups() for match in LINEAGE_ITEM.finditer(lineage_match.group(1))]
+        lineage_text = lineage_match.group(1)
+        if lineage_text == "none":
+            items = []
+        else:
+            items = [match.groups() for match in LINEAGE_ITEM.finditer(lineage_text)]
         if not items:
-            errors.append(f"{path.name}:{line_number}: malformed source lineage")
+            if lineage_text != "none":
+                errors.append(f"{path.name}:{line_number}: malformed source lineage")
+            source_expression = EXPRESSION.search(line)
+            if source_expression and source_expression.group(1) != "none":
+                errors.append(f"{path.name}:{line_number}: source-less lineage has a source hash")
+            target_expression = TARGET_EXPRESSION.search(line)
+            if not target_expression:
+                errors.append(f"{path.name}:{line_number}: missing target-expression-sha256")
+            elif not re.fullmatch(r"[0-9a-f]{64}", target_expression.group(1)):
+                errors.append(f"{path.name}:{line_number}: malformed target expression hash")
             continue
         expression_match = EXPRESSION.search(line)
         if not expression_match:
@@ -175,7 +189,14 @@ def identity_rows(path: Path, expected: dict[SourceKey, str]) -> tuple[list[str]
         if len(hashes) != len(items):
             errors.append(f"{path.name}:{line_number}: lineage/hash cardinality differs")
             continue
+        target_expression = TARGET_EXPRESSION.search(line)
+        if not target_expression:
+            errors.append(f"{path.name}:{line_number}: missing target-expression-sha256")
+        elif not re.fullmatch(r"[0-9a-f]{64}", target_expression.group(1)):
+            errors.append(f"{path.name}:{line_number}: malformed target expression hash")
         for (rule, alternative, start, length), digest in zip(items, hashes, strict=True):
+            if digest == "none":
+                continue
             candidates = [
                 (key, value) for key, value in expected.items()
                 if key[0] == rule and key[1] == int(alternative)
@@ -226,7 +247,7 @@ def mutation_control(run_dir: Path, expected: dict[SourceKey, str]) -> str:
     with tempfile.TemporaryDirectory(prefix="e0154-identity-") as temporary:
         mutated = Path(temporary) / source.name
         text = source.read_text(encoding="utf-8")
-        match = EXPRESSION.search(text)
+        match = re.search(r"source-expression-sha256=([0-9a-f]{64})", text)
         if not match:
             return "PASS" if validate(run_dir, expected)[0] else "FAIL"
         replacement = "0" * 64
