@@ -21,7 +21,7 @@ mkdir -p "$report_dir"
 for file in "$run_dir/grammar.ebnf" "$run_dir/Fortran2023.g4" \
     "$run_dir/fortran2023.y" "$run_dir/grammar.js" \
     "$run_dir/source-expression-identity.tsv" "$run_dir/grammar-oracles.tsv" \
-    "$house" "$kaby" "$lfortran" "$flang"; do
+    "$run_dir/input/standardir.sx" "$house" "$kaby" "$lfortran" "$flang"; do
     [[ -f "$file" ]] || { printf 'missing input: %s\n' "$file" >&2; exit 2; }
 done
 [[ -f "$lexical_report" ]] || { printf 'missing lexical gate report: %s\n' "$lexical_report" >&2; exit 2; }
@@ -57,6 +57,9 @@ def strip_comments(name: str, value: str) -> str:
     if name.endswith(".js"):
         value = re.sub(r"/\*.*?\*/", "", value, flags=re.S)
         return re.sub(r"//[^\n]*", "", value)
+    if name.endswith(".cpp"):
+        value = re.sub(r"/\*.*?\*/", "", value, flags=re.S)
+        return re.sub(r"//[^\n]*", "", value)
     return value
 
 def ebnf_heads(value: str) -> set[str]:
@@ -84,7 +87,7 @@ def antlr_heads(value: str) -> set[str]:
     return heads
 
 def treesitter_heads(value: str) -> set[str]:
-    return set(re.findall(r"^\s{4}([A-Za-z_][A-Za-z0-9_]*)\s*:\s*\$\s*=>", value, re.M))
+    return set(re.findall(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*:\s*\$\s*=>", value, re.M))
 
 def source_lineages(value: str) -> set[str]:
     return set(re.findall(r"source-lineage=([^\s*]+)", value))
@@ -133,41 +136,79 @@ features = {
     "EVENT": r"\bEVENT\b",
     "ENUM": r"\bENUM\b",
     "SUBMODULE": r"\bSUBMODULE\b",
-    "DO CONCURRENT": r"DO\s+CONCURRENT",
+    # DO and CONCURRENT are separate grammar productions in the normative
+    # source, so this row is a terminal-witness check rather than a phrase
+    # search.
+    "DO CONCURRENT": r"\bCONCURRENT\b",
 }
 
-feature_inputs = {name: text(path) for name, (path, _) in generated.items()}
-feature_inputs.update({name: text(path) for name, (path, _) in references.items()})
-feature_inputs["flang"] = flang_text
-feature_rows: list[tuple[str, str, str, str]] = []
+def feature_present(value: str, feature: str, pattern: str) -> bool:
+    if re.search(pattern, value, re.I):
+        return True
+    parts = feature.split()
+    if len(parts) < 2:
+        return False
+    separator = r"(?:\s+|\)\s+\(token\s+)"
+    source_pattern = r"\b" + separator.join(re.escape(part) for part in parts) + r"\b"
+    return re.search(source_pattern, value, re.I) is not None
+
+source_text = text(run / "input/standardir.sx")
+generated_bodies = {
+    name: strip_comments(path.name, text(path))
+    for name, (path, _) in generated.items()
+}
+reference_bodies = {
+    name: strip_comments(path.name, text(path))
+    for name, (path, _) in references.items()
+}
+reference_bodies["flang"] = strip_comments(flang.name, flang_text)
+format_bodies = {**generated_bodies, **reference_bodies}
+format_names = list(format_bodies)
+feature_rows: list[tuple[str, ...]] = []
 for feature, pattern in features.items():
-    generated_present = any(re.search(pattern, value, re.I) for name, value in feature_inputs.items() if name in generated)
-    reference_present = any(re.search(pattern, value, re.I) for name, value in feature_inputs.items() if name not in generated)
-    if generated_present and reference_present:
+    source_present = feature_present(source_text, feature, pattern)
+    format_presence = [
+        feature_present(format_bodies[name], feature, pattern)
+        for name in format_names
+    ]
+    generated_present = any(format_presence[:len(generated_bodies)])
+    reference_present = any(format_presence[len(generated_bodies):])
+    if source_present and generated_present and reference_present:
         classification = "both"
-    elif generated_present:
+    elif source_present and generated_present:
         classification = "standardir_only"
+    elif source_present and not generated_present:
+        classification = "selected_profile_gap"
     elif reference_present:
         classification = "reference_only"
     else:
         classification = "neither"
-    feature_rows.append((feature, "yes" if generated_present else "no", "yes" if reference_present else "no", classification))
+    feature_rows.append((
+        feature,
+        "yes" if source_present else "no",
+        *("yes" if present else "no" for present in format_presence),
+        classification,
+    ))
 (report / "feature-matrix.tsv").write_text(
-    "feature\tgenerated_present\treference_present\tclassification\n"
+    "feature\tnormative_source_present\t"
+    + "\t".join(f"{name}_body_present" for name in format_names)
+    + "\tclassification\n"
     + "".join("\t".join(row) + "\n" for row in feature_rows),
     encoding="utf-8",
 )
 
-identity = dict(
-    line.split("\t", 1)
-    for line in text(run / "source-expression-identity.tsv").splitlines()
-    if "\t" in line
-)
-oracles = dict(
-    line.split("\t", 1)
-    for line in text(run / "grammar-oracles.tsv").splitlines()
-    if "\t" in line
-)
+identity: dict[str, str] = {}
+for line in text(run / "source-expression-identity.tsv").splitlines():
+    if "\t" in line:
+        fields = line.split("\t")
+        key, value = fields[0], fields[1]
+        identity[key] = value
+oracles: dict[str, str] = {}
+for line in text(run / "grammar-oracles.tsv").splitlines():
+    if "\t" in line:
+        fields = line.split("\t")
+        key, value = fields[0], fields[1]
+        oracles[key] = value
 summary = {
     "generated_formats": list(generated),
     "reference_formats": list(references) + ["flang-rule-comments"],
