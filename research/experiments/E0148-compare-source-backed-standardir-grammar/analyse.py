@@ -145,11 +145,20 @@ def main() -> int:
     token_re = re.compile(r"\(token\s+([^\s()]+|\"[^\"]*\")\)")
     glyph_rows = []
     unicode_token_counts = defaultdict(int)
+    unicode_mapping = {
+        "–": ("EN_DASH", "-"),
+        "’": ("RIGHT_SINGLE_QUOTE", "'"),
+    }
     for record in records:
         for token in token_re.findall(record["rhs"]):
             value = token.strip('"')
             if any(ord(char) > 127 for char in value):
+                if value not in unicode_mapping:
+                    raise SystemExit(
+                        f"unknown Unicode syntax token {value!r}; refusing to classify it"
+                    )
                 unicode_token_counts[value] += 1
+                target_terminal, canonical_spelling = unicode_mapping[value]
                 glyph_rows.append({
                     "kind": "unicode-token",
                     "rule": record["rule"],
@@ -158,8 +167,8 @@ def main() -> int:
                     "byte_start": record["byte_start"],
                     "token": value,
                     "codepoints": "+".join(f"U+{ord(char):04X}" for char in value),
-                    "target_terminal": "EN_DASH" if value == "–" else "RIGHT_SINGLE_QUOTE",
-                    "canonical_source_spelling": "-" if value == "–" else "'",
+                    "target_terminal": target_terminal,
+                    "canonical_source_spelling": canonical_spelling,
                     "classification": "definite lexical normalization defect",
                 })
     write(run_dir / "glyphs.tsv", "kind\trule\tlhs\tpage\tbyte_start\ttoken\tcodepoints\ttarget_terminal\tcanonical_source_spelling\tclassification\n" +
