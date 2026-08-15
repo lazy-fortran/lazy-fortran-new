@@ -35,6 +35,19 @@ def test_duplicate_rows_are_counted() -> None:
         assert sum((MODULE.read_rows(left) - MODULE.read_rows(right)).values()) == 1
 
 
+def test_distinct_source_occurrences_are_not_collapsed() -> None:
+    first = {field: field for field in MODULE.FIELDS}
+    second = dict(first)
+    second["byte_start"] = "a-different-source-occurrence"
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "witness.tsv"
+        write(path, [first, second])
+        rows = MODULE.read_rows(path)
+        assert sum(rows.values()) == 2
+        assert len(rows) == 2
+
+
 if __name__ == "__main__":
     test_duplicate_rows_are_counted()
+    test_distinct_source_occurrences_are_not_collapsed()
     print("statement-sequence comparison tests passed")
