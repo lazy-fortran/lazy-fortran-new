@@ -168,6 +168,18 @@ four target validators and the body-bound source projection, but reports the
 closure diagnostics of 758 shift/reduce and 3,885 reduce/reduce conflicts. It
 does not substitute for the selected parser gate.
 
+The first exact selected-root identity replay is E0154/R000308 at
+`standard-new` `c8ebb22`. It deliberately fails: the independent witness
+covers 1,052 of 1,068 source alternatives in each format, while the negative
+mutation is rejected. The failure is now actionable and generic: the
+non-ASCII canonical SX hash path disagrees with the UTF-8 oracle, one merged
+provenance annotation buffer truncates a long hash list, and synthetic
+R401/R402/R403 assumed-expansion records are incorrectly labelled as if they
+had normative source RHS expressions. E0154/R000309 records that ANTLR4,
+Bison and tree-sitter still accept these files; that subordinate validator
+pass does not close identity. No model work resumes while this deterministic
+repair is open.
+
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
 It uses the selected E0147/R000022 export directly; the analysis script no
@@ -293,8 +305,11 @@ changes a denominator.
       unlocked by the projection subgate alone.
 - [ ] E0154: close exact source-expression identity for every selected target
       alternative and helper across EBNF, ANTLR4, Bison and tree-sitter, with
-      independent positive/negative mutations. This is the next gate; it does
-      not yet claim lexer/runtime, precedence/actions, conflict-policy or
+      independent positive/negative mutations. R000308 is the retained failed
+      replay and R000309 is its subordinate target-validator result. Repair
+      Unicode identity, capacity-safe merged witnesses and the typed
+      source-versus-generated distinction before rerunning. This gate does not
+      yet claim lexer/runtime, precedence/actions, conflict-policy or
       real-source acceptance equivalence.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
@@ -305,10 +320,11 @@ closes its gate. D0081 remains the plotting boundary for a later campaign:
 historical rows remain visible and new Qwen 3.8 rows are added automatically,
 but no new model row is scheduled now.
 
-The current pushed production pins are therefore `standard-new`
-`dc75e7f4905e58d9b89d04c77f4f09223b57a579`, `fortfront-new` `db5eaec`, `ffc-new`
+The current pushed production pins are therefore `standard-new` `c8ebb22`,
+`fortfront-new` `db5eaec`, `ffc-new`
 `3253849`, and `fortback-new` `a149015`. `standard-new` now has the generic
-selected-root export and post-normalization reachability boundaries; the
+selected-root export, post-normalization reachability and source-expression
+identity witness boundaries; the
 candidate replay reports zero useless nonterminals and rules under Bison.
 M2 is still open for conflict policy, language preservation and corpus
 behavior. Luna's current review is E0151 `R000294`.
