@@ -285,3 +285,17 @@ commit `3bed17d`. This is an interface gate, not a grammar result: the
 production consumer, its positive and negative behavior witnesses, and the
 replayed parser targets remain open. No conflict declaration is justified by
 the contract's existence alone.
+
+## R000408: production consumes the layout contract
+
+`standard-new` commit `0a293b6ce8c970d042bb1bcc9e1f88454ba337da` adds the
+target-neutral `standardir_lexical_layout` projection and `sxlexicallayout`
+producer for the exact `lexical-layout-v0` interface. Its independent test
+covers all three record families, source provenance, invalid enum/field
+rejection, duplicate facts, distinct facts sharing one source anchor and
+JSONL emission. The full `fo` pipeline is green with zero warnings. The task
+worktree and branch were removed after the main-branch replay.
+
+This closes only the interface/projection gate. It does not yet extract the
+facts from the PDF, feed them into the generated parser, establish positive
+and negative source behavior, or classify the `SAVE` / `LETTER` conflict.

@@ -184,6 +184,11 @@ replays:
     mode: normative-statement-boundary-anchor-replay
     report: research/experiments/E0171-can-current-standardir-grammar-projectio/statement-boundary-anchors.tsv
     result: source-anchors-confirm-lexer-contract-requirement
+  - run: R000408
+    standard-new: "0a293b6ce8c970d042bb1bcc9e1f88454ba337da"
+    mode: lexical-layout-contract-production-gate
+    report: contracts/lexical-layout-v0.sxs
+    result: projection-and-behavioral-witnesses-pass
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -192,7 +197,10 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000404 is the clean committed replay proving the corrected harness requests and validates one
+  R000408 is the latest production-boundary replay. The central
+  `lexical-layout-v0` contract is consumed by `standard-new` at the pinned
+  commit, and its behavioral witnesses pass. R000404 remains the clean
+  grammar replay proving the corrected harness requests and validates one
   producer-emitted transformation witness for each generated format: all four
   cover 1,068 source lineages. Source, lexical, explicit profile and witness
   gates pass; ANTLR4 and Bison pass; tree-sitter still reports the unresolved

@@ -32,8 +32,11 @@ The immediate sequence is:
    versions.
 3. Consume the central `contracts/lexical-layout-v0.sxs` revision from
    `standard-new`, extending the target lexer contract with statement-boundary,
-   continuation and keyword/name behavior. Add independent positive and
-   negative witnesses. D0106 and D0107 keep this out of normative StandardIR;
+   continuation and keyword/name behavior. The projection gate is now green
+   in E0171/R000408 at `standard-new` commit
+   `0a293b6ce8c970d042bb1bcc9e1f88454ba337da`; the remaining work is the
+   source-backed producer and independent positive/negative behavior
+   witnesses. D0106 and D0107 keep this out of normative StandardIR;
    `scripts/check-contracts.sh` is the pre-launch contract gate.
 4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts as
    source ambiguity, target limitation, lexer/profile interaction, target
