@@ -114,3 +114,12 @@ generic, add mutation controls for every omitted identity/expression field,
 and add a small test-local finite language oracle for the fixture before and
 after factoring, with all four export validators still exercised. The commit
 remains unmerged and no conflict reduction is accepted from it.
+
+The next commit `4cfce25a8096ebd1a99143a919163ae7adf2cd86` closes the
+record-identity mutations and adds an independent bounded language oracle;
+the full `fo` workflow passes. Luna's R000304 review still rejects it for
+three bounded quality issues: a new short-circuit-reliance lint finding, a
+factoring procedure over the local 100-line cap, and an oracle that supports
+only token/reference/sequence nodes and treats depth overflow as success.
+The final repair must split the guard, extract generic helpers, and make the
+oracle cover optional/repeat/choice nodes with overflow as a hard test failure.
