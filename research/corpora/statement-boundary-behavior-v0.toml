@@ -11,43 +11,52 @@ generator = "The E0171 behavior-gate script named in the run record"
 name = "newline-terminates-save"
 expected = "accepted"
 property = "SAVE followed by a new statement on the next free-form line"
+recipe = "save-newline"
 
 [[cases]]
 name = "comment-terminates-save"
 expected = "accepted"
 property = "an end-of-line comment terminates the uncontinued statement"
+recipe = "save-comment"
 
 [[cases]]
 name = "semicolon-separates-save-and-name"
 expected = "accepted"
 property = "semicolon separates two statements on one free-form line"
+recipe = "save-semicolon"
 
 [[cases]]
 name = "save-name-is-one-statement"
 expected = "accepted"
 property = "SAVE followed by a saved entity remains one statement"
+recipe = "save-name"
 
 [[cases]]
 name = "continued-save-name-is-one-statement"
 expected = "accepted"
 property = "free-form trailing and leading ampersands continue one statement"
+recipe = "save-continuation"
 
 [[cases]]
 name = "nested-if-action-continue"
 expected = "accepted"
 property = "IF (...) action-stmt contains CONTINUE without an inserted inner boundary"
+recipe = "if-action-continue"
 
 [[cases]]
 name = "nested-if-action-continue-semicolon"
 expected = "accepted"
 property = "a semicolon after a nested CONTINUE action statement starts the next statement"
+recipe = "if-action-continue-semicolon"
 
 [[cases]]
 name = "missing-separator-after-save"
 expected = "rejected"
 property = "a name/assignment concatenated after SAVE without a source separator"
+recipe = "save-missing-separator"
 
 [[cases]]
 name = "missing-separator-after-compound-header"
 expected = "rejected"
 property = "a compound statement header cannot be concatenated with its body"
+recipe = "if-action-missing-separator"
