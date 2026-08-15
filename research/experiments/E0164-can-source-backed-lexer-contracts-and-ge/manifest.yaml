@@ -10,7 +10,7 @@ reported_run: R000348
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "e7ab869466eb934719f2408a4126736508fe9ff2"
+  lazy-fortran-new: "5abdc784d4fbac652a4c6c3f8b660cb3f1a877cf"
   standard-new: "7d011f49e0e74e95b88a90c5894ea3358fc5ee82"
   fortfront-new: "db5eaecd118f08851e4dd26f6aaa186fbc9fbef9"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
