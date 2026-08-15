@@ -1,0 +1,4 @@
+document	clause	page	source_sha256	fact
+J3-24-007	4.1.4	45	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	stmt-classes-are-delimited-by-end-of-line-or-semicolon
+J3-24-007	5.5.2	65	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	statement-keywords-are-not-reserved-and-same-spelling-names-are-allowed
+J3-24-007	6.3.2.5	72	7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2	uncontinued-free-form-statements-are-terminated-by-comment-or-end-of-line

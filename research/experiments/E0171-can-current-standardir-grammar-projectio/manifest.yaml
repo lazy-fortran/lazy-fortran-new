@@ -23,6 +23,7 @@ inputs:
   generated_run: .cache/runs/E0164/R000385-four-format-regeneration
   profile_policy: research/experiments/E0171-can-current-standardir-grammar-projectio/profile-policy.tsv
   source_audit: .cache/runs/E0157/R000354
+  statement_boundary_anchors: research/experiments/E0171-can-current-standardir-grammar-projectio/statement-boundary-anchors.tsv
   house_antlr: ../standard/grammars/src/Fortran2023Parser.g4
   kaby76_antlr: ../kaby76-fortran/comp/Fortran2023Parser.g4
   lfortran_bison: .cache/runs/E0162/reference/parser.yy
@@ -178,6 +179,10 @@ replays:
     mode: corrected-normalized-selected-conflict-witness-inventory
     report: .cache/runs/E0171/R000404-clean-witness-replay/conflict-witnesses.tsv
     result: unclassified-lexer-profile-interaction-candidate
+  - run: R000407
+    mode: normative-statement-boundary-anchor-replay
+    report: research/experiments/E0171-can-current-standardir-grammar-projectio/statement-boundary-anchors.tsv
+    result: source-anchors-confirm-lexer-contract-requirement
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
