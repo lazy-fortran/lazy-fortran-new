@@ -31,6 +31,10 @@ corpus. No StandardIR or grammar source has been changed.
   witness but did not meet the bounded termination requirement. It remains
   uncommitted and is preserved as a patch artifact; no production change was
   merged.
+- R000379 is a second rejected Luna production attempt. A chart/worklist
+  implementation was started from the clean runtime base, but it was not
+  completed or independently verified and was restored without a commit.
+  No production change was merged.
 
 The complete corpus parameters are depth 8, four terminal tokens, 256 words,
 64 negative mutations and repeat limit 1. The exact command and the resulting
