@@ -170,3 +170,19 @@ This closes the post-fidelity source/projection replay, not parser quality.
 The conflict diagnostics remain the next deterministic slice. Lexer/runtime,
 precedence/actions, language preservation and positive/negative corpus
 behavior remain open and are not inferred from parser-generator acceptance.
+
+## R000353: fresh post-fidelity regeneration
+
+R000353 repeats the all-root four-format generation after the authoritative
+E0158/R000352 gate, using the current lab commit and standard-new
+`bedd9abc7210fc7fc16607d275ea4fa7b24144f8`. Source preflight passes before
+`fo`, and all four generators then complete. The independent identity and
+lexical gates pass with their negative mutations; ANTLR4 4.13.2, Bison 3.8.2
+and tree-sitter 0.26.9 accept the generated outputs.
+
+The fresh output covers all 1,068 source alternatives in EBNF, ANTLR4, Bison
+and tree-sitter, with zero missing/wrong identity rows and zero raw U+2013 or
+U+2019 in executable grammar bodies. The fresh Bison diagnostics are 758
+shift/reduce and 3,885 reduce/reduce conflicts; they are inventory evidence
+for E0159, not a source-fidelity failure. Lexer/runtime behavior, conflict
+resolution, language preservation and semantic/model work remain closed.

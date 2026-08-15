@@ -73,3 +73,8 @@ replays:
     standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
     oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
     mode: all-root-selected-program-pinned-lfortran-state-inventory
+  - run: R000356
+    lazy-fortran-new: "7d3e394b817d37e6be89a519f1a66354080e8296"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+    mode: fresh-post-fidelity-all-root-selected-program-pinned-lfortran-state-inventory

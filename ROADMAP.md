@@ -235,10 +235,10 @@ E0158/R000352 is the current authoritative PDF-fidelity gate: all 522 source
 records, duplicate occurrences, source hashes and token/ref leaves agree with
 the pinned canonical extraction; the PDF-to-canonical manifest lineage and
 R741, R843, R1103, R1307 and R1315 continuation/page-break witnesses pass.
-E0157/R000350 is the corrected selected-profile inventory and minimal Luna
+E0157/R000354 is the corrected fresh all-root inventory and minimal Luna
 adjudication; its feature rows are source-lineage structural evidence, not
 behavior or language equivalence. The first trusted all-root regeneration after
-that gate is E0154/R000323 at
+that gate is E0154/R000353 at
 `standard-new` `bedd9abc7210fc7fc16607d275ea4fa7b24144f8`: all 1,068 source
 alternatives are covered in EBNF, ANTLR4, Bison and tree-sitter, all identity
 and lexical mutations fail, and all three parser generators accept their
@@ -400,8 +400,9 @@ changes a denominator.
       minimal independent adjudication. R000350 records the authoritative
       tree-sitter `r_*` rule count, StandardIR/source-lineage feature
       derivation and the explicit structural-only limitation; R000322 remains
-      historical evidence from the previous checker and R000324 is the
-      preliminary append-only replay.
+      historical evidence from the previous checker, R000324 is the
+      preliminary selected-profile replay, and R000354 is the fresh all-root
+      replay with Luna adjudication.
 - [x] E0158: pass the authoritative PDF-fidelity gate before fresh generation.
       R000321 checks the original post-fidelity input; R000351 records a
       preliminary strict recheck failure; and R000352 rechecks the exact
@@ -412,8 +413,9 @@ changes a denominator.
 - [x] E0159: classify the all-root Bison conflict inventory (758 shift/reduce,
       3,885 reduce/reduce) and compare the result with the pinned LFortran
       conflict policy (238/180 declared conflicts). Add only generic
-      inventory categories; R000329 confirms the exact state totals and
-      LFortran policy. This is inventory-only and does not claim a resolution.
+      inventory categories; R000329 and fresh R000356 confirm the exact state
+      totals and LFortran policy. This is inventory-only and does not claim a
+      resolution.
 - [x] E0160: evaluate the generic typed role-family projection. R000336 and
       R000337 pass source/lexical/lineage mutation gates and all four parser
       generators; the selected profile's diagnostic inventory is 425/2,135,
@@ -2372,11 +2374,13 @@ factoring/actions/precedence/conflict policy, and target-only scaffolding. No
 reference production was copied and no equivalence claim follows from head
 counts.
 
-E0157 is now reported from the authoritative replay `R000350` (the initial
-inventories and R000322 remain retained). The four generated outputs share
-exactly 1,111 source-lineage values. Tree-sitter reports 664 `r_*` grammar
-heads; its five uppercase lexer definitions are reported separately rather
-than counted as grammar rules. Feature presence is derived from parsed
+E0157 is now reported from the authoritative fresh replay `R000354` (the
+initial inventories, R000322 and selected-profile R000350 remain retained).
+The fresh all-root four generated outputs share exactly 1,111 source-lineage
+values. EBNF and ANTLR4 report 665 heads, Bison 1,346 including helpers, and
+tree-sitter reports 670 `r_*` grammar heads; its five uppercase lexer
+definitions are reported separately rather than counted as grammar rules.
+Feature presence is derived from parsed
 StandardIR `lhs`/rule IDs intersected with emitted source-lineage metadata,
 not from terminal text search. StandardIR remains stronger in normative
 provenance, exact source-alternative identity and four-format derivation; the

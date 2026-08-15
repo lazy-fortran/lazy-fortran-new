@@ -99,3 +99,8 @@ replays:
     standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
     mode: authoritative-source-lineage-feature-and-tree-sitter-replay
     luna_review: reviews/R000324-luna.md
+  - run: R000354
+    lazy-fortran-new: "7d3e394b817d37e6be89a519f1a66354080e8296"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    mode: authoritative-fresh-all-root-source-lineage-feature-and-tree-sitter-replay
+    luna_review: reviews/R000354-luna.md

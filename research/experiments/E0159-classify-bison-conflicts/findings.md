@@ -66,3 +66,19 @@ Development attempts R000325--R000328 exposed only harness defects (wrong
 report path, an interrupted quadratic state-summary lookup, and a tuple-unpack
 bug); they were not accepted as scientific results. The final committed
 analysis is R000329.
+
+## R000356: fresh post-fidelity conflict inventory
+
+R000356 reruns the same independent state-header classifier against the fresh
+E0154/R000353 Bison output. The all-root report is retained under
+`.cache/runs/E0159/R000355/`; the analyzer regenerates the selected-program and
+pinned LFortran reports. The totals are unchanged: all roots 758/3,885,
+selected `program` 427/2,266, and LFortran observed and declared 238/180.
+The state totals recompute exactly, and LFortran's `%expect` policy matches.
+
+The fresh category table is also unchanged within the classifier: the
+selected profile has expression/precedence 206/563, lexical/literal 12/3,
+other grammar structure 61/77, and role/name family 148/1,623. This remains an
+inventory only. Generic factoring, precedence or ambiguity handling requires a
+separate source-lineage and language-preservation gate; no conflict is fixed
+by a rule-number-specific exception.

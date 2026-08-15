@@ -121,3 +121,19 @@ correction, not as parser behavior or language-equivalence evidence.
 The authoritative append-only run record for this replay is R000350. R000324
 is retained as the preliminary record from before the run-ID correction; the
 report and adjudication are unchanged.
+
+## R000354: fresh regenerated-output replay
+
+R000354 repeats the corrected inventory against the fresh post-fidelity
+E0154/R000353 output. It again reports 1,068/1,068 source alternatives and
+equal generated lineage sets; the all-root EBNF and ANTLR4 projections have
+665 canonical heads, Bison has 1,346 including generated helpers, and
+tree-sitter has 670 `r_*` grammar heads with five uppercase lexer definitions
+excluded. All four validators, the lexical gate, source projection and pinned
+reference hashes pass. The feature matrix is still derived from StandardIR
+rule IDs intersected with emitted source lineage.
+
+Luna's minimal independent review is recorded in
+`reviews/R000354-luna.md`. It accepts this as a bounded structural audit and
+keeps full Fortran 2023 representation, language equivalence, and Flang
+feature absence open.
