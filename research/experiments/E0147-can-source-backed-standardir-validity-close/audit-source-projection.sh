@@ -58,9 +58,7 @@ for log in "$run_dir"/generate-*.log; do
 done | sort -u >"$skipped"
 
 report="$run_dir/source-projection.tsv"
-{
-    printf 'format\tstatus\texpected\tcovered\tskipped\tmissing\theader_gaps\n'
-} >"$report"
+printf 'format\tstatus\texpected\tcovered\tskipped\tmissing\theader_gaps\tstructure\n' >"$report"
 
 overall=0
 for pair in \
@@ -71,35 +69,126 @@ for pair in \
     format=${pair%%:*}
     file=${pair#*:}
     output="$run_dir/$file"
-    expected_count=$(wc -l <"$expected")
-    covered=0
-    skipped_count=0
-    missing=0
-    while IFS=$'\t' read -r token lhs occurrence; do
-        if grep -Fq "$token" "$output"; then
-            covered=$((covered + 1))
-        else
-            span=${token##*@}
-            span_start=${span%%+*}
-            span_length=${span#*+}
-            if grep -Fq "byte-start=$span_start byte-length=$span_length" "$skipped"; then
-                skipped_count=$((skipped_count + 1))
-            else
-                missing=$((missing + 1))
-            fi
-        fi
-    done <"$expected"
-    header_gaps=$(grep -E '^\(\* rule=|^// rule=|^/\* rule=' "$output" | \
-        grep -vc 'source-lineage=[^[:space:]]' || true)
-    if [[ $missing -ne 0 || $header_gaps -ne 0 || $((covered + skipped_count)) -ne $expected_count ]]; then
+    if [[ ! -f "$output" ]]; then
+        printf '%s\tFAIL\t0\t0\t0\t0\t1\tmissing-output\n' "$format" >>"$report"
+        overall=1
+        continue
+    fi
+
+    result=$(python3 - "$format" "$output" "$expected" "$skipped" <<'PY'
+import re
+import sys
+
+format_name, output_name, expected_name, skipped_name = sys.argv[1:]
+lines = open(output_name, encoding="utf-8").read().splitlines()
+expected = []
+for line in open(expected_name, encoding="utf-8"):
+    token, lhs, occurrence = line.rstrip("\n").split("\t")
+    expected.append((token, lhs, occurrence))
+skipped = set()
+for line in open(skipped_name, encoding="utf-8"):
+    match = re.fullmatch(r"byte-start=(\d+) byte-length=(\d+)", line.strip())
+    if match:
+        skipped.add(f"{match.group(1)}+{match.group(2)}")
+
+def has_body(index):
+    line = lines[index]
+    if format_name == "ebnf":
+        if "*)" not in line:
+            return False
+        body = line.split("*)", 1)[1].strip()
+        return bool(body.rstrip(";").strip())
+    if format_name == "bison":
+        if "*/" not in line:
+            return False
+        return bool(line.split("*/", 1)[1].strip())
+    for next_index in range(index + 1, len(lines)):
+        body = lines[next_index].strip()
+        if not body:
+            continue
+        if body.startswith("//") or body.startswith("/*") or body.startswith("(*"):
+            continue
+        return body not in {";", ",", ")"}
+    return False
+
+headers = []
+for index, line in enumerate(lines):
+    if "rule=" in line and "source-lineage=" in line:
+        headers.append((index, line, has_body(index)))
+
+covered = 0
+skipped_count = 0
+missing = 0
+for token, lhs, occurrence in expected:
+    if any(token in line and body for _, line, body in headers):
+        covered += 1
+    else:
+        span = token.rsplit("@", 1)[1]
+        if span in skipped:
+            skipped_count += 1
+        else:
+            missing += 1
+
+header_gaps = sum(not body for _, _, body in headers)
+structure = "body-bound" if not header_gaps else "annotation-only"
+status = missing == 0 and covered + skipped_count == len(expected) and header_gaps == 0
+print(f"{len(expected)}\t{covered}\t{skipped_count}\t{missing}\t{header_gaps}\t{structure}")
+sys.exit(0 if status else 1)
+PY
+    ) || {
         status=FAIL
         overall=1
-    else
-        status=PASS
-    fi
-    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$format" "$status" \
-        "$expected_count" "$covered" "$skipped_count" "$missing" "$header_gaps" >>"$report"
+    }
+    if [[ -z "${status-}" ]]; then status=PASS; fi
+    printf '%s\t%s\t%s\n' "$format" "$status" "$result" >>"$report"
+    unset status
 done
+
+# A source-projection witness must reject a real loss of a generated alternative,
+# not merely report that its comment disappeared.  Remove one complete EBNF
+# alternative and require the same audit to fail.
+negative_control=SKIPPED
+if [[ "${E0147_SKIP_NEGATIVE:-0}" != 1 ]]; then
+    negative_dir=$(mktemp -d /tmp/e0147-source-projection-negative.XXXXXX)
+    cleanup_negative() { rm -rf -- "$negative_dir"; }
+    trap 'cleanup_negative; cleanup' EXIT
+    mkdir -p "$negative_dir/input"
+    cp "$input" "$negative_dir/input/standardir.sx"
+    cp "$run_dir/grammar.ebnf" "$negative_dir/grammar.ebnf"
+    cp "$run_dir/Fortran2023.g4" "$negative_dir/Fortran2023.g4"
+    cp "$run_dir/fortran2023.y" "$negative_dir/fortran2023.y"
+    cp "$run_dir/grammar.js" "$negative_dir/grammar.js"
+    for log in "$run_dir"/generate-*.log; do
+        [[ -f "$log" ]] && cp "$log" "$negative_dir/"
+    done
+    python3 - "$negative_dir/grammar.ebnf" <<'PY'
+import re
+import sys
+
+path = sys.argv[1]
+lines = open(path, encoding="utf-8").read().splitlines(True)
+token = None
+for line in lines:
+    if "rule=" in line and "source-lineage=" in line:
+        lineage = re.search(r"source-lineage=(\S+)", line)
+        if lineage:
+            token = lineage.group(1).split(",", 1)[0]
+            break
+if token is None:
+    raise SystemExit("no body-bound provenance alternative available for negative control")
+reduced = [line for line in lines if token not in line]
+if len(reduced) == len(lines):
+    raise SystemExit("negative control did not remove an alternative")
+open(path, "w", encoding="utf-8").writelines(reduced)
+PY
+    if E0147_SKIP_NEGATIVE=1 bash "$0" "$negative_dir" >/dev/null 2>&1; then
+        negative_control=FAILED
+        overall=1
+    else
+        negative_control=PASS
+    fi
+    printf 'negative-control\t%s\tremoved-body-alternative\n' "$negative_control" >>"$report"
+fi
 
 cat "$report"
 exit "$overall"
