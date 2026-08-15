@@ -485,13 +485,21 @@ changes a denominator.
       quality evidence. The exact report is
       `.cache/runs/E0169-lfortran-comparison.tsv`; D0100 records why no
       precedence or `%expect` rewrite is promoted.
-- [ ] E0170: close parser quality without weakening source fidelity. First
+- [ ] E0170: close target correctness without weakening source fidelity. First
       implement the executable lexer/runtime and broader positive/negative
       corpus gates. Then test only source-derived production transformations:
       the selected-only role-family projection remains opt-in after E0163;
       precedence/actions require a production-level witness and independent
       all-root plus selected language preservation. Do not add `%expect`, copy
       LFortran controls, or promote a lower conflict count without behavior.
+- [x] E0171: replace the misleading structural “match reference parser
+      quality” claim with explicit evidence levels. R000388 is the corrected
+      identity-replay inventory; R000393 is the producer-emitted selected
+      Bison counterexample inventory. They pass source/generator structural
+      gates and retain reference hashes, but prove neither language
+      equivalence nor parser quality. D0102 now requires explicit root/EOF,
+      lexer-contract, transformation, bounded behavior and conflict-
+      classification witnesses before those claims can be made.
 
 D0084's source-validity priority now extends through the E0164 selected
 deterministic checkpoint and its broad-behavior successor. No semantic

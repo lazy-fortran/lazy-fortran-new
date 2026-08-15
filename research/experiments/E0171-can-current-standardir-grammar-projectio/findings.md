@@ -64,3 +64,25 @@ LFortran’s `%expect` values remain diagnostics rather than correctness goals.
 The next gate is therefore not “reduce the count to LFortran’s count”. It is a
 machine-readable transformation map plus independent positive/negative
 behavioral witnesses for the selected root and lexer profile.
+
+## R000393: corrected Bison audit
+
+The Bison analyzer now consumes the producer-emitted selected `program` file
+directly. It refuses an all-root or otherwise unlabelled file rather than
+editing `%start` to manufacture a profile. It runs Bison with state, solved-
+conflict and counterexample reports and retains the generated stderr/output.
+
+The result is:
+
+| profile | shift/reduce | reduce/reduce | result |
+|---|---:|---:|---|
+| selected `program` | 427 | 2,266 | inventory |
+| all roots | 758 | 3,885 | inventory |
+| pinned LFortran | 238 | 180 | declared policy matches observed |
+
+The report is under
+`.cache/runs/E0171/R000393-bison-evidence-audit/`. The totals are unchanged,
+which is expected: the audit procedure changed, not the grammar. The retained
+counterexamples are diagnostic evidence for the next conflict-classification
+slice; they are not a correctness denominator and do not justify copying
+LFortran’s `%expect`, precedence declarations or actions.

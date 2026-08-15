@@ -10,7 +10,7 @@ closed: "2026-08-15"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "a55fd42"
+  lazy-fortran-new: "361468f"
   standard-new: "fb6590c4885a38b0106f63112f6e024c20b927b5"
   oracle-standard: "962ee30acd806ada940beb1bf8baa95fcb7e814c"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
@@ -123,6 +123,9 @@ replays:
     left_label: identity-replay-a
     right_label: identity-replay-b
     report: .cache/runs/E0171/R000388-evidence-level-inventory
+  - run: R000393
+    mode: selected-bison-counterexample-inventory
+    report: .cache/runs/E0171/R000393-bison-evidence-audit
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
