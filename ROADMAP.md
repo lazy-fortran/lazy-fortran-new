@@ -419,20 +419,26 @@ changes a denominator.
       role-family contexts: 359 complete bounded positives and 636 negative
       mutations, with no mismatch or truncation. The command is
       `research/experiments/E0161-can-an-opt-in-role-family-projection-pre/run-language-gate.sh`.
-- [ ] E0162: compare all four generated formats and their parser behavior with
-      the pinned permissive reference grammars, then classify and reduce the
-      remaining Bison conflicts only through generic transformations with the
-      same language corpus gate.
-- [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
-      a new manifest and a source-span witness gate.
+- [x] E0162: adjudicate all four generated formats against the pinned
+      references after the corrected E0157 audit. R000346 confirms identical
+      canonical EBNF/ANTLR4 heads, classifies 672 Bison `h_*` helpers plus six
+      target wrappers and seven tree-sitter lexical wrappers, and preserves
+      source identity in both variants. Reference head counts remain
+      structural evidence, not language equivalence.
+- [ ] E0163: classify the selected Bison conflict states against pinned
+      LFortran policy, then test one generic factoring/precedence transformation
+      with the E0161 positive/negative language gate before any production
+      target change.
+- [ ] E0164: close lexer/runtime and positive/negative parser behavior gates;
+      only then consider semantic extraction or the Qwen 3.8 27B residual.
 
-D0084 fixes source validity as the immediate priority. No model ladder,
-semantic replication, comparison plot or promotion is started before E0147
-closes its gate. D0081 remains the plotting boundary for a later campaign:
-historical rows remain visible and new Qwen 3.8 rows are added automatically,
-but no new model row is scheduled now.
+D0084's source-validity priority now extends through E0164. No semantic
+extraction, model comparison, backend work or plotting is valid evidence until
+the deterministic grammar gates close. D0081 remains the plotting boundary
+for a later campaign; historical rows remain visible, but no new model row is
+scheduled now.
 
-The current pushed production pins are therefore `standard-new` `83f055d`,
+The current pushed production pins are therefore `standard-new` `7d011f4`,
 `fortfront-new` `db5eaec`, `ffc-new`
 `3253849`, and `fortback-new` `a149015`. `standard-new` now has the generic
 selected-root export, post-normalization reachability and source-expression
@@ -2320,16 +2326,14 @@ ANTLR4, Bison and tree-sitter validation. Bison still reports 427
 shift/reduce and 2,266 reduce/reduce conflicts; this is the next open parser
 quality problem, not a source-extraction or lexical-lowering failure.
 
-The next slice is E0157, whose deterministic audit compares the current four
-outputs with pinned house ANTLR4, kaby76 ANTLR4, LFortran Bison and Flang parser
-evidence. It must classify differences in both directions: StandardIR wins
-where it has normative source lineage, exact cross-format identity, or source
-coverage; references win where they have executable lexer/runtime integration,
-precedence, actions, factoring, or conflict policy. No reference production is
-copied into StandardIR, and no equivalence claim follows from head counts.
-Only after E0157's deterministic report may the required Luna read-only review
-run; model and semantic experiments remain blocked until the grammar-quality
-successor gates are explicit and green.
+E0157's deterministic audit and Luna review are complete. E0162 reran that
+audit against the exact pinned LFortran file and independently compared the
+four generated formats with the house ANTLR4, kaby76 ANTLR4, pinned LFortran
+Bison and Flang parser evidence. It classifies StandardIR advantages in
+normative lineage and exact source identity, reference advantages in parser
+factoring/actions/precedence/conflict policy, and target-only scaffolding. No
+reference production was copied and no equivalence claim follows from head
+counts.
 
 E0157 is now reported as corrected `R000322` (the initial inventory remains
 retained as R000319). The four current outputs share exactly 1,111
@@ -2349,9 +2353,10 @@ all 522 source byte spans and canonical rule-definition occurrences, all 20
 duplicate rule families, and representative continuation/token-ref witnesses
 R741, R843, R1103, R1307 and R1315. The PDF hash and negative mutation pass.
 The pre-gate all-root output R000320 is retained but is not trusted as the
-fresh broader replay. Only now is a new all-root four-format regeneration
-authorized; after it passes, the next work is Bison conflict classification,
-not semantic or LLM extraction.
+fresh broader replay. The next work is E0163 conflict classification and
+generic target lowering, followed by E0164 lexer/runtime and behavior gates;
+semantic or LLM extraction remains blocked until those deterministic gates
+pass.
 
 ## Ordering constraints
 
