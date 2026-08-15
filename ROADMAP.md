@@ -425,14 +425,21 @@ changes a denominator.
       target wrappers and seven tree-sitter lexical wrappers, and preserves
       source identity in both variants. Reference head counts remain
       structural evidence, not language equivalence.
-- [ ] E0163: classify the selected Bison conflict states against pinned
-      LFortran policy, then test one generic factoring/precedence transformation
-      with the E0161 positive/negative language gate before any production
-      target change.
-- [ ] E0164: close lexer/runtime and positive/negative parser behavior gates;
-      only then consider semantic extraction or the Qwen 3.8 27B residual.
+- [x] E0163: classify the selected Bison conflict states against pinned
+      LFortran policy and adjudicate generic role-family factoring. R000347
+      confirms the selected candidate improves 427/2,266 to 425/2,135 while
+      E0161 preserves 359 positive and 636 negative cases. The all-roots
+      candidate is 760/3,894 versus 758/3,885 and is therefore not promoted;
+      no expression-precedence rewrite is inferred from this result.
+- [ ] E0164: close lexer/runtime and full positive/negative parser behavior
+      gates for the selected generated grammar, including modern feature
+      witnesses and the retained target scaffolding. Only then consider a
+      separate generic expression/precedence experiment.
+- [ ] E0165: if E0164 is green, test expression/precedence factoring with its
+      own independent language-preservation gate; otherwise retain the
+      normative precedence ladder and do not tune conflicts by warning count.
 
-D0084's source-validity priority now extends through E0164. No semantic
+D0084's source-validity priority now extends through E0165. No semantic
 extraction, model comparison, backend work or plotting is valid evidence until
 the deterministic grammar gates close. D0081 remains the plotting boundary
 for a later campaign; historical rows remain visible, but no new model row is
