@@ -9,8 +9,8 @@ opened: "2026-08-15"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "361468f"
-  standard-new: "fb6590c4885a38b0106f63112f6e024c20b927b5"
+  lazy-fortran-new: "4a1f076"
+  standard-new: "4c2d8c27027e3ba3a2c1f876d19535547db2b739"
   oracle-standard: "962ee30acd806ada940beb1bf8baa95fcb7e814c"
   oracle-kaby76: "ba846bbdea9df98428d094137d2adbe156f86207"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
@@ -36,6 +36,11 @@ inputs:
     kaby76_antlr: 8f1f55ee4f61f82d732d41bd9452917bc1ce293f64e19615649a5170fb2705a8
     lfortran_bison: 112ef0ce5078ccec630a893bc51b92232348c37742b1451c833928a422907936
     flang_parser: abb4126d6c0c4e516628ba9836c428f83f0ccf883439e67cbfdd061aa42d83b9
+
+decision_records:
+  - D0105-two-tier-conflict-evidence
+  - D0111-adjacent-statement-boundaries
+  - D0112-validated-statement-boundary-lowering-plan
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
@@ -268,7 +273,9 @@ latest_replay: >
   and full per-row source document/clause/page/byte/hash lineage. R000426 is
   the latest independent source-level behavior oracle: all nine generated
   cases agree across GNU Fortran, Flang and LFortran. It does not yet prove
-  that a generated lexer/runtime consumes the witness. R000411 is
+  that a generated lexer/runtime consumes the witness. D0112 makes the next
+  production artifact a typed, validated boundary-lowering plan; no target
+  exporter may insert separators directly from the raw witness. R000411 is
   the latest source-evidence and v2 projection replay: it extracts ten facts,
   including the source-backed statement-class selector, and projects them
   through `standard-new` at the pinned commit. E0157/R000371 and E0158/R000372
