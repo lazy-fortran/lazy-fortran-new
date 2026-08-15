@@ -4,11 +4,12 @@ question: >
   Which structural conflict families account for the generated all-root and
   selected-program Bison diagnostics, and how do they compare with the pinned
   LFortran conflict policy?
-status: running       # draft | running | reported | abandoned
+status: reported      # draft | running | reported | abandoned
 opened: "2026-08-15"
+closed: "2026-08-15"
 
 repos:
-  lazy-fortran-new: "7dc2e2b"
+  lazy-fortran-new: "c1856b8"
   standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
 
@@ -66,4 +67,9 @@ analysis: >
   selected-program and LFortran and uses the retained all-root report with
   counterexamples as evidence.
 
-replays: []
+replays:
+  - run: R000329
+    lazy-fortran-new: "c1856b8"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+    mode: all-root-selected-program-pinned-lfortran-state-inventory

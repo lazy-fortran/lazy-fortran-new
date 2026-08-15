@@ -398,12 +398,16 @@ changes a denominator.
       R000321 checks all source spans and duplicate occurrences plus R741,
       R843, R1103, R1307 and R1315; R000323 is the authorized post-gate
       all-root regeneration and parser-generator replay.
-- [ ] E0159: classify the all-root Bison conflict inventory (758 shift/reduce,
+- [x] E0159: classify the all-root Bison conflict inventory (758 shift/reduce,
       3,885 reduce/reduce) and compare the result with the pinned LFortran
       conflict policy (238/180 declared conflicts). Add only generic
-      factoring, precedence or ambiguity handling justified by the inventory;
-      retain an independent language-preservation witness. Do not copy
-      reference productions.
+      inventory categories; R000329 confirms the exact state totals and
+      LFortran policy. This is inventory-only and does not claim a resolution.
+- [ ] E0160: evaluate generic role-family specialization plus any justified
+      precedence/factoring projection against independent language-preservation
+      witnesses. Do not copy reference productions, add conflict-specific or
+      rule-number-specific exceptions, or accept a lower raw conflict count
+      without a behavior gate.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
 
