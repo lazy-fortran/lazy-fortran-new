@@ -88,10 +88,69 @@ def antlr_heads(value: str) -> set[str]:
     return heads
 
 def treesitter_heads(value: str) -> set[str]:
-    return set(re.findall(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*:\s*\$\s*=>", value, re.M))
+    # Only r_* declarations are grammar rules. Uppercase declarations such
+    # as LETTER and DIGIT are lexer token definitions.
+    return set(re.findall(r"^\s*(r_[A-Za-z_][A-Za-z0-9_-]*)\s*:\s*\$\s*=>", value, re.M))
 
 def source_lineages(value: str) -> set[str]:
     return set(re.findall(r"source-lineage=([^\s*]+)", value))
+
+def emitted_source_lineages(value: str) -> set[str]:
+    result: set[str] = set()
+    for line in value.splitlines():
+        if "source-lineage=" not in line:
+            continue
+        if "target-disposition=omitted-" in line or "target-rule=omitted-" in line:
+            continue
+        result.update(re.findall(r"source-lineage=([^\s*]+)", line))
+    return result
+
+def parse_sx(value: str):
+    tokens = re.findall(r"\(|\)|[^\s()]+", value)
+    index = 0
+
+    def read():
+        nonlocal index
+        if index >= len(tokens):
+            raise ValueError("unexpected end of SX")
+        token = tokens[index]
+        index += 1
+        if token == "(":
+            result = []
+            while index < len(tokens) and tokens[index] != ")":
+                result.append(read())
+            if index >= len(tokens):
+                raise ValueError("unterminated SX list")
+            index += 1
+            return result
+        if token == ")":
+            raise ValueError("unexpected SX close")
+        return token
+
+    result = []
+    while index < len(tokens):
+        result.append(read())
+    return result
+
+def sx_field(node, name: str):
+    for child in node[1:]:
+        if isinstance(child, list) and child and child[0] == name:
+            return child[1:]
+    return []
+
+def source_syntax_records(value: str) -> list[tuple[str, str]]:
+    records: list[tuple[str, str]] = []
+    for node in parse_sx(value):
+        if not isinstance(node, list) or not node or node[0] != "syntax":
+            continue
+        rule = node[1]
+        lhs = sx_field(node, "lhs")
+        if len(lhs) != 1:
+            raise ValueError(f"syntax {rule} has no unique lhs")
+        records.append((rule, lhs[0]))
+    if not records:
+        raise ValueError("StandardIR contains no syntax records")
+    return records
 
 generated = {
     "ebnf": (run / "grammar.ebnf", ebnf_heads),
@@ -105,60 +164,58 @@ references = {
     "lfortran-bison": (lfortran, bison_heads),
 }
 
-inventory_rows: list[tuple[str, str, str, str, str]] = []
+inventory_rows: list[tuple[str, str, str, str, str, str]] = []
 for name, (path, parser) in generated.items():
     value = text(path)
     body = strip_comments(path.name, value)
     heads = parser(body)
     lineages = source_lineages(value)
-    inventory_rows.append((name, "generated", str(len(heads)), str(len(lineages)), sha(path)))
+    emitted = emitted_source_lineages(value)
+    inventory_rows.append((
+        name, "generated", str(len(heads)), str(len(lineages)),
+        str(len(emitted)), sha(path),
+    ))
 for name, (path, parser) in references.items():
     value = text(path)
     body = strip_comments(path.name, value)
     heads = parser(body)
-    inventory_rows.append((name, "reference", str(len(heads)), "", sha(path)))
+    inventory_rows.append((name, "reference", str(len(heads)), "", "", sha(path)))
 
 flang_text = text(flang)
-inventory_rows.append(("flang-rule-comments", "reference", str(len(set(re.findall(r"\bR\d+\b", flang_text)))), "", sha(flang)))
+inventory_rows.append(("flang-rule-comments", "reference", str(len(set(re.findall(r"\bR\d+\b", flang_text)))), "", "", sha(flang)))
 (report / "inventories.tsv").write_text(
-    "name\tclass\thead_count\tlineage_count\tsha256\n"
+    "name\tclass\thead_count\tlineage_count\temitted_lineage_count\tsha256\n"
     + "".join("\t".join(row) + "\n" for row in inventory_rows),
     encoding="utf-8",
 )
 
-features = {
-    "LOCK": r"\bLOCK\b",
-    "UNLOCK": r"\bUNLOCK\b",
-    "FAIL IMAGE": r"FAIL\s+IMAGE",
-    "NOTIFY WAIT": r"NOTIFY\s+WAIT",
-    "SELECT RANK": r"SELECT\s+RANK",
-    "SELECT TEAM": r"SELECT\s+TEAM",
-    "FORM TEAM": r"FORM\s+TEAM",
-    "EVENT": r"\bEVENT\b",
-    "ENUM": r"\bENUM\b",
-    "SUBMODULE": r"\bSUBMODULE\b",
-    # DO and CONCURRENT are separate grammar productions in the normative
-    # source, so this row is a terminal-witness check rather than a phrase
-    # search.
-    "DO CONCURRENT": r"\bCONCURRENT\b",
+feature_lhses = {
+    "LOCK": {"lock-stmt"},
+    "UNLOCK": {"unlock-stmt"},
+    "FAIL IMAGE": {"fail-image-stmt"},
+    "NOTIFY WAIT": {"notify-wait-stmt"},
+    "SELECT RANK": {"select-rank-construct", "select-rank-stmt"},
+    "SELECT TEAM": {"change-team-construct", "change-team-stmt"},
+    "FORM TEAM": {"form-team-stmt"},
+    "EVENT": {"event-post-stmt", "event-wait-stmt", "event-variable"},
+    "ENUM": {"enum-def-stmt", "enum-def", "enumeration-type-def", "enumeration-type-stmt"},
+    "SUBMODULE": {"submodule", "submodule-stmt"},
+    "DO CONCURRENT": {"concurrent-header", "concurrent-control"},
 }
 
-def feature_present(value: str, feature: str, pattern: str) -> bool:
-    # Target exporters quote terminals differently (`"FAIL"`, `'FAIL'` or
-    # bare source tokens). Feature presence is about the terminal sequence,
-    # not the target language's quoting convention.
-    search_value = re.sub(r"\(?token\s+", "", value, flags=re.I)
-    search_value = re.sub(r"['\"(),]", " ", search_value)
-    if re.search(pattern, search_value, re.I):
-        return True
-    parts = feature.split()
-    if len(parts) < 2:
-        return False
-    separator = r"(?:\s+|\)\s+\(token\s+)"
-    source_pattern = r"\b" + separator.join(re.escape(part) for part in parts) + r"\b"
-    return re.search(source_pattern, value, re.I) is not None
-
 source_text = text(run / "input/standardir.sx")
+source_records = source_syntax_records(source_text)
+source_rules_by_lhs: dict[str, set[str]] = {}
+for rule, lhs in source_records:
+    source_rules_by_lhs.setdefault(lhs, set()).add(rule)
+source_feature_rules = {
+    feature: sorted(
+        rule
+        for lhs in lhses
+        for rule in source_rules_by_lhs.get(lhs, set())
+    )
+    for feature, lhses in feature_lhses.items()
+}
 generated_bodies = {
     name: strip_comments(path.name, text(path))
     for name, (path, _) in generated.items()
@@ -168,17 +225,51 @@ reference_bodies = {
     for name, (path, _) in references.items()
 }
 reference_bodies["flang"] = strip_comments(flang.name, flang_text)
-format_bodies = {**generated_bodies, **reference_bodies}
-format_names = list(format_bodies)
+format_names = list(generated_bodies) + list(reference_bodies)
+generated_emitted_lineages = {
+    name: emitted_source_lineages(text(path))
+    for name, (path, _) in generated.items()
+}
+
+def source_rule_ids(lineages: set[str]) -> set[str]:
+    return {lineage.split(":", 1)[0] for lineage in lineages}
+
+# Reference files do not carry StandardIR lineage. Their feature result is a
+# structural rule-head witness only, not a normative-source claim.
+reference_head_aliases = {
+    "LOCK": {"lock-stmt", "lock_stmt", "lockStmt", "lock_stmt_f2023"},
+    "UNLOCK": {"unlock-stmt", "unlock_stmt", "unlockStmt"},
+    "FAIL IMAGE": {"fail-image-stmt", "fail_image_stmt", "failImageStmt"},
+    "NOTIFY WAIT": {"notify-wait-stmt", "notify_wait_stmt", "notifyWaitStmt", "notify_wait_stmt_f2023"},
+    "SELECT RANK": {"select-rank-construct", "select_rank_construct", "selectRankConstruct"},
+    "SELECT TEAM": {"change-team-construct", "change_team_construct", "changeTeamConstruct"},
+    "FORM TEAM": {"form-team-stmt", "form_team_stmt", "formTeamStmt"},
+    "EVENT": {"event-post-stmt", "event_post_stmt", "eventPostStmt", "event-wait-stmt", "event_wait_stmt", "eventWaitStmt"},
+    "ENUM": {"enum-def-stmt", "enum_def_stmt", "enumDefStmt", "enumeration-type-def", "enumeration_type_def", "enumerationTypeDef"},
+    "SUBMODULE": {"submodule", "submodule-stmt", "submodule_stmt", "submoduleStmt"},
+    "DO CONCURRENT": {"concurrent-header", "concurrent_header", "concurrentHeader"},
+}
+reference_heads = {
+    name: parser(strip_comments(path.name, text(path)))
+    for name, (path, parser) in references.items()
+}
+reference_heads["flang"] = set()
+
 feature_rows: list[tuple[str, ...]] = []
-for feature, pattern in features.items():
-    source_present = feature_present(source_text, feature, pattern)
-    format_presence = [
-        feature_present(format_bodies[name], feature, pattern)
-        for name in format_names
+for feature in feature_lhses:
+    expected_rules = set(source_feature_rules[feature])
+    generated_presence = [
+        bool(expected_rules & source_rule_ids(generated_emitted_lineages[name]))
+        for name in generated_bodies
     ]
-    generated_present = any(format_presence[:len(generated_bodies)])
-    reference_present = any(format_presence[len(generated_bodies):])
+    reference_presence = [
+        bool(reference_head_aliases[feature] & reference_heads[name])
+        for name in references
+    ] + [False]
+    format_presence = generated_presence + reference_presence
+    source_present = bool(expected_rules)
+    generated_present = any(generated_presence)
+    reference_present = any(reference_presence)
     if source_present and generated_present and reference_present:
         classification = "both"
     elif source_present and generated_present:
@@ -191,12 +282,13 @@ for feature, pattern in features.items():
         classification = "neither"
     feature_rows.append((
         feature,
+        ",".join(source_feature_rules[feature]),
         "yes" if source_present else "no",
         *("yes" if present else "no" for present in format_presence),
         classification,
     ))
 (report / "feature-matrix.tsv").write_text(
-    "feature\tnormative_source_present\t"
+    "feature\tnormative_source_rule_ids\tnormative_source_present\t"
     + "\t".join(f"{name}_body_present" for name in format_names)
     + "\tclassification\n"
     + "".join("\t".join(row) + "\n" for row in feature_rows),
@@ -247,6 +339,7 @@ summary = {
     "validator_status": {name: oracles.get(name, "") for name in ("antlr4", "bison", "tree-sitter", "source-projection")},
     "lexical_gate_report": str(lexical_report),
     "lexical_gate_status": "PASS",
+    "source_feature_rule_ids": source_feature_rules,
     "generated_lineage_sets_equal": all(
         lineages == next(iter(lineage_sets))
         for lineages in lineage_sets[1:]
