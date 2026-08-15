@@ -1,7 +1,7 @@
 # D0107. Use a companion source-backed lexer-layout contract
 
 Date: 2026-08-15
-Status: accepted
+Status: superseded by D0108
 
 ## Context
 

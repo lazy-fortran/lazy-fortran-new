@@ -24,7 +24,7 @@ inputs:
   profile_policy: research/experiments/E0171-can-current-standardir-grammar-projectio/profile-policy.tsv
   source_audit: .cache/runs/E0157/R000354
   statement_boundary_anchors: research/experiments/E0171-can-current-standardir-grammar-projectio/statement-boundary-anchors.tsv
-  lexical_layout_contract: contracts/lexical-layout-v0.sxs
+  lexical_layout_contract: contracts/lexical-layout-v1.sxs
   house_antlr: ../standard/grammars/src/Fortran2023Parser.g4
   kaby76_antlr: ../kaby76-fortran/comp/Fortran2023Parser.g4
   lfortran_bison: .cache/runs/E0162/reference/parser.yy
@@ -186,9 +186,9 @@ replays:
     result: source-anchors-confirm-lexer-contract-requirement
   - run: R000408
     standard-new: "0a293b6ce8c970d042bb1bcc9e1f88454ba337da"
-    mode: lexical-layout-contract-production-gate
+    mode: lexical-layout-v0-production-gate
     report: contracts/lexical-layout-v0.sxs
-    result: projection-and-behavioral-witnesses-pass
+    result: historical-superseded-by-D0108
 
 result: >
   R000388 passes source-backed and generator structural gates and reproduces
@@ -197,10 +197,10 @@ result: >
   parse-tree equivalence, complete lexer behavior, or semantic coverage.
 
 latest_replay: >
-  R000408 is the latest production-boundary replay. The central
-  `lexical-layout-v0` contract is consumed by `standard-new` at the pinned
-  commit, and its behavioral witnesses pass. R000404 remains the clean
-  grammar replay proving the corrected harness requests and validates one
+  R000407 remains the latest source-evidence replay. R000408 is retained as a
+  historical v0 projection gate but is superseded by D0108 because its source
+  provenance shape forced synthetic rule labels. The next production replay
+  must consume `lexical-layout-v1` before validating one
   producer-emitted transformation witness for each generated format: all four
   cover 1,068 source lineages. Source, lexical, explicit profile and witness
   gates pass; ANTLR4 and Bison pass; tree-sitter still reports the unresolved
@@ -209,7 +209,7 @@ latest_replay: >
   remain open.
 
 remaining_gates:
-  - standard-new must consume the pinned lexical-layout-v0 contract
+  - standard-new must consume the pinned lexical-layout-v1 contract
   - generic tree-sitter conflict policy must pass without source loss
   - lexer/runtime statement-termination and keyword/name behavior must be
     represented before adjudicating the SAVE/LETTER witness

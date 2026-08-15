@@ -277,7 +277,7 @@ behavior witnesses while leaving StandardIR syntax unchanged.
 
 ## Contract boundary after R000407
 
-D0107 now defines the central `contracts/lexical-layout-v0.sxs` companion
+D0107 defined the central `contracts/lexical-layout-v0.sxs` companion
 contract. It has three source-backed record families: statement boundaries,
 continuation signals and keyword/name policy. `scripts/check-contracts.sh`
 validates the schema, fixture, registry entry and negative control at lab
@@ -299,3 +299,13 @@ worktree and branch were removed after the main-branch replay.
 This closes only the interface/projection gate. It does not yet extract the
 facts from the PDF, feed them into the generated parser, establish positive
 and negative source behavior, or classify the `SAVE` / `LETTER` conflict.
+
+## D0108 correction before source extraction
+
+Review of the v0 projection found a provenance defect: its `source-ref`
+required `rule`, although all three layout anchors are prose clauses. The
+production test consequently supplied synthetic rule labels. R000408 remains
+an immutable record of that v0 behavior, but it is not evidence of faithful
+provenance. D0108 supersedes it with `lexical-layout-v1`, using `locator` for
+the mechanically located paragraph or phrase and `all` for form-independent
+facts. The source-backed producer and the next production replay must use v1.

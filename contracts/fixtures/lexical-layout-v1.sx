@@ -1,0 +1,7 @@
+(contract-witness
+  (contract lexical-layout)
+  (version 1)
+  (source-form all)
+  (statement-boundary end-of-line)
+  (continuation trailing-ampersand)
+  (keyword-name-policy not-reserved))
