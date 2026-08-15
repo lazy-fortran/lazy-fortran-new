@@ -1,0 +1,60 @@
+id: "E0158"
+title: "Authoritative PDF fidelity for representative StandardIR grammar records"
+question: >
+  Does the current StandardIR preserve the authoritative PDF byte spans,
+  continuation/page-break structure, token/ref classification and duplicate
+  rule occurrences for representative records known to expose extractor risk?
+status: running       # draft | running | reported | abandoned
+opened: "2026-08-15"
+closed: ""
+
+repos:
+  lazy-fortran-new: "207a3a4"
+  standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+
+inputs:
+  source_standardir: .cache/runs/E0154/R000314/input/standardir.sx
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  pdf: .cache/j3-24-007.pdf
+  pdf_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+  focus_rules: [R741, R843, R1103, R1307, R1315]
+
+model_selection: >
+  No model calls. The gate is deterministic and precedes every grammar
+  regeneration or parser oracle. Luna reviews only the corrected E0157 output,
+  not this gate's source evidence.
+
+metrics:
+  - source_byte_span_identity
+  - canonical_definition_occurrence_identity
+  - continuation_header_handling
+  - token_ref_classification
+  - duplicate_rule_occurrence_identity
+  - negative_mutation
+
+denominator: >
+  All 522 source syntax records and all canonical grammar-definition
+  occurrences, plus the five fixed representative witness rules. The witness
+  list selects observations; the checker has no rule-number-specific parsing
+  branches.
+
+independent_oracle: >
+  A separate Python SX reader compares every StandardIR byte-start/byte-length
+  slice against the pinned canonical extraction, counts every canonical R-rule
+  definition, lexes the five witness RHS strings into token/ref leaves and
+  exercises a negative mutation. The PDF SHA-256 is checked against the
+  artifact manifest.
+
+falsifiable_by: >
+  Any source span points at the wrong rule, any definition count differs,
+  continuation headers corrupt a witness, token/ref leaves differ, duplicate
+  occurrences collapse, the PDF hash differs, or the negative mutation passes.
+
+gate: >
+  All source spans and duplicate occurrences agree, all five witnesses pass
+  RHS and token/ref checks, the pinned PDF is identified and the negative
+  mutation fails. Only this gate permits a fresh four-format regeneration.
+
+analysis: >
+  check.sh <standardir.sx> <canonical.txt> <pdf> <report.tsv> writes the
+  deterministic fidelity report and no generated grammar.
