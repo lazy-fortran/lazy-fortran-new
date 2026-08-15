@@ -24,6 +24,7 @@ inputs:
   profile_policy: research/experiments/E0171-can-current-standardir-grammar-projectio/profile-policy.tsv
   source_audit: .cache/runs/E0157/R000354
   statement_boundary_anchors: research/experiments/E0171-can-current-standardir-grammar-projectio/statement-boundary-anchors.tsv
+  lexical_layout_contract: contracts/lexical-layout-v0.sxs
   house_antlr: ../standard/grammars/src/Fortran2023Parser.g4
   kaby76_antlr: ../kaby76-fortran/comp/Fortran2023Parser.g4
   lfortran_bison: .cache/runs/E0162/reference/parser.yy
@@ -200,6 +201,7 @@ latest_replay: >
   remain open.
 
 remaining_gates:
+  - standard-new must consume the pinned lexical-layout-v0 contract
   - generic tree-sitter conflict policy must pass without source loss
   - lexer/runtime statement-termination and keyword/name behavior must be
     represented before adjudicating the SAVE/LETTER witness

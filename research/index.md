@@ -302,6 +302,7 @@ Runs recorded: 389
 | [D0104](decisions/D0104-tree-sitter-nullable-target-lowering.md) | accepted |  | Eliminate nullable non-start rules in the tree-sitter target |
 | [D0105](decisions/D0105-two-tier-conflict-evidence.md) | accepted |  | Separate parser smoke gates from forensic conflict evidence |
 | [D0106](decisions/D0106-explicit-statement-boundary-lexer-contract.md) | accepted |  | Make statement boundaries an explicit target lexer contract |
+| [D0107](decisions/D0107-companion-lexer-layout-contract.md) | accepted |  | Use a companion source-backed lexer-layout contract |
 
 ### Proposed decisions
 

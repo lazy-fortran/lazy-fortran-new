@@ -3,6 +3,7 @@
   (compatibility additive)
   (contract standardir 0 standard-new fortfront-new ffc-new)
   (contract standardir-grammar 0 standard-new fortfront-new)
+  (contract lexical-layout 0 standard-new parser-targets)
   (contract frontend 0 fortfront-new ffc-new tools)
   (contract frontend-ast 0 fortfront-new ffc-new)
   (contract mir 0 ffc-new fortback-new)

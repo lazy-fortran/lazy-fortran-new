@@ -30,9 +30,11 @@ The immediate sequence is:
 2. Normalize the Tree-sitter and Bison conflict evidence into per-conflict
    records, retaining prefixes, competing symbols, source lineages and tool
    versions.
-3. Extend the versioned target lexer contract with statement-boundary,
-   continuation and keyword/name behavior, with independent positive and
-   negative witnesses. D0106 keeps this out of normative StandardIR.
+3. Consume the central `contracts/lexical-layout-v0.sxs` revision from
+   `standard-new`, extending the target lexer contract with statement-boundary,
+   continuation and keyword/name behavior. Add independent positive and
+   negative witnesses. D0106 and D0107 keep this out of normative StandardIR;
+   `scripts/check-contracts.sh` is the pre-launch contract gate.
 4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts as
    source ambiguity, target limitation, lexer/profile interaction, target
    artifact or unresolved.

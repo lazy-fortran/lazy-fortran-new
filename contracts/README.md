@@ -18,6 +18,7 @@ schema:
 |---|---|---|---|
 | `standardir-v0` | `standard-new` | `fortfront-new`, `ffc-new` | source-backed language facts and syntax |
 | `standardir-grammar-v0` | `standard-new` | `fortfront-new` | source-backed normalized grammar expression trees |
+| `lexical-layout-v0` | `standard-new` | generated parser/lexer targets | source-backed statement layout and keyword/name behavior |
 | `frontend-v0` | `fortfront-new` | `ffc-new`, tools | typed frontend results and diagnostics |
 | `mir-v0` | `ffc-new` | `fortback-new` | target-independent compiler operations |
 | `targetir-v0` | `fortback-new` | backend generators | target facts, encodings and semantics |
