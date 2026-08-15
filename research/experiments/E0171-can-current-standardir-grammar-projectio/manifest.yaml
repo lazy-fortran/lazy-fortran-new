@@ -254,20 +254,19 @@ latest_replay: >
   and full per-row source document/clause/page/byte/hash lineage. R000411 is
   the latest source-evidence and v2 projection replay: it extracts ten facts,
   including the source-backed statement-class selector, and projects them
-  through `standard-new` at the pinned commit. R000410 remains a v1 historical
-  replay, while R000408 is retained as a v0 projection gate; D0108 and D0109
-  record why both are not authoritative. The next replay must
-  validate one
-  producer-emitted transformation witness for each generated format: all four
-  cover 1,068 source lineages. Source, lexical, explicit profile and witness
-  gates pass; ANTLR4 and Bison pass; tree-sitter still reports the unresolved
-  SAVE/LETTER conflict after nullable lowering. Generic conflict policy,
-  bounded language behavior, parse-tree equivalence and lexer completeness
-  remain open.
+  through `standard-new` at the pinned commit. E0157/R000371 and E0158/R000372
+  already close the corrected cross-format audit and authoritative PDF-fidelity
+  prerequisites for the same current source hash. R000410 remains a v1
+  historical replay, while R000408 is retained as a v0 projection gate; D0108
+  and D0109 record why both are not authoritative. The remaining gates are
+  independent lexer/runtime behavior, source-backed boundary consumption,
+  conflict classification, parse-tree equivalence and complete bounded
+  language behavior. No model or semantic campaign is permitted before those
+  deterministic gates close.
 
 remaining_gates:
-  - a deterministic statement-sequence witness must be derived from the pinned
-    lexical-layout-v2 facts and StandardIR graph topology
+  - independent positive/negative lexer/runtime behavior for separators,
+    continuation, comments and keyword/name reuse
   - generated parser/lexer targets must consume the pinned lexical-layout-v2
     contract and the audited statement-sequence witness
   - generic tree-sitter conflict policy must pass without source loss

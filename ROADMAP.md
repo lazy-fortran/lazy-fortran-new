@@ -10,29 +10,28 @@ order, the steps in each phase, and the gate that ends it, so that facts are
 not copied into several places and left to rot. Any count appearing here names
 the command that regenerates it.
 
-**Active critical path.** The profile, source, lexical and transformation
-witness gates are green in E0171/R000404, the v2 lexical-layout projection is
-green in R000411, and the source-derived statement-sequence witness is green
-in R000420. Its production projection is now also green in R000423 at
-`standard-new` `4c2d8c2`: the CLI agrees byte-for-byte with the 95-row lab
-witness, and `fo clean && fo` passes. No model run, semantic extraction or
-backend work resumes while the remaining deterministic grammar path is open.
-The boundary implementation derives candidates from StandardIR graph topology
-plus the v2 source facts; it does not append EOS to every `-stmt`, because
-nested `action-stmt` references are not complete source statements. The next
-gate is independent positive/negative lexer behavior, followed by regeneration
-of all four grammar targets and parser-oracle checks. This is D0111 layered
-onto the two-tier evidence protocol in D0105; R000400 remains the profile
-negative control and R000404 the current clean replay.
+**Active critical path.** The corrected E0157 audit and Luna review are green
+in R000371, and the authoritative PDF-fidelity gate is green in E0158/R000372
+for the same current StandardIR source hash used by R000404. The v2
+lexical-layout projection is green in R000411, the source-derived
+statement-sequence witness is green in R000420, and its production projection
+is green in R000423 at `standard-new` `4c2d8c2`: the CLI agrees byte-for-byte
+with the 95-row lab witness, and `fo clean && fo` passes. No model run,
+semantic extraction or backend work resumes while the remaining deterministic
+grammar path is open. The boundary implementation derives candidates from
+StandardIR graph topology plus the v2 source facts; it does not append EOS to
+every `-stmt`, because nested `action-stmt` references are not complete source
+statements. The next gate is independent positive/negative lexer behavior,
+followed by regeneration of all four grammar targets and parser-oracle checks.
+This is D0111 layered onto the two-tier evidence protocol in D0105; R000400
+remains the profile negative control and R000404 the current clean replay.
 
 The immediate sequence is:
 
-1. Replay the selected profile with four producer-emitted transformation
-   witnesses and validate all four before parser generators.
-2. Normalize the Tree-sitter and Bison conflict evidence into per-conflict
-   records, retaining prefixes, competing symbols, source lineages and tool
-   versions.
-3. Consume the central `contracts/lexical-layout-v2.sxs` revision from
+1. Run independent bounded positive/negative lexer behavior for separators,
+   comments, continuation and keyword/name reuse. The gate must prove nested
+   `IF (...) action-stmt` and ordinary statement sequences separately.
+2. Consume the central `contracts/lexical-layout-v2.sxs` revision from
    `standard-new`, extending the target lexer contract with statement-boundary,
    continuation and keyword/name behavior. R000408 is retained as a v0
    projection experiment is historical; D0108 corrected its prose provenance,
@@ -42,7 +41,7 @@ The immediate sequence is:
    need to consume the contract, and independent positive/negative behavior
    witnesses remain open. D0106 through D0110 keep this out of normative
    StandardIR; `scripts/check-contracts.sh` is the pre-launch contract gate.
-4. Derive and audit statement-sequence candidates by fixed-point graph
+3. Derive and audit statement-sequence candidates by fixed-point graph
    analysis. R000420 is green: 95 candidates, compound and adjacent sequence
    items included, zero unsupported shapes, and complete per-row source
    lineage. R000423 proves exact parity with the production CLI at
@@ -50,13 +49,10 @@ The immediate sequence is:
    `python3 research/experiments/E0171-can-current-standardir-grammar-projectio/compare-statement-sequence-witness.py`.
    Retain the containing class, expression path, item derivation and source
    facts; reject ambiguous or unsupported contexts instead of guessing.
-5. Run independent bounded positive/negative lexer behavior for separators,
-   comments, continuation and keyword/name reuse. The gate must prove nested
-   `IF (...) action-stmt` and ordinary statement sequences separately.
-6. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
+4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
    the witnessed boundary behavior. A conflict count, `%expect` value,
    precedence setting or matching reference diagnostic is not a gate.
-7. Only then regenerate all four targets and rerun parser smoke, lexer/runtime
+5. Only then regenerate all four targets and rerun parser smoke, lexer/runtime
    and positive/negative behavior gates. Only after that deterministic closure
    may broader grammar quality work resume; model and semantic campaigns remain
    paused.
