@@ -9,7 +9,7 @@ opened: "2026-08-14"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "844436849243262caa3aba44503d42f4238ec3c0"
+  lazy-fortran-new: "4cb9b42bda2a1421e195b47a84d579d09f1fc205"
   standard-new: "1cdd9490375199d93c755fb3c36bc9dcf2c285e6"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
