@@ -43,7 +43,7 @@ alone is not a promotion criterion.
 
 * E0159/R000368: current conflict-state inventory and LFortran `%expect`
   comparison.
-* The current E0155 target-control replay: generated versus LFortran
+* E0169/R000373: generated versus LFortran
   inventory, including 0 versus 11 precedence directives and 0 versus 1,902
   action braces. The exact current report is
   `.cache/runs/E0169-lfortran-comparison.tsv`.

@@ -482,7 +482,9 @@ changes a denominator.
       declarations or actions; LFortran has 11 precedence directives, typed
       actions and a declared/observed 238/180 policy. The current StandardIR
       selected inventory is 427/2,266 and is retained as unresolved parser
-      quality evidence.
+      quality evidence. The exact report is
+      `.cache/runs/E0169-lfortran-comparison.tsv`; D0100 records why no
+      precedence or `%expect` rewrite is promoted.
 - [ ] E0170: close parser quality without weakening source fidelity. First
       implement the executable lexer/runtime and broader positive/negative
       corpus gates. Then test only source-derived production transformations:

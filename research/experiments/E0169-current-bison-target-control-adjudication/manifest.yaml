@@ -1,0 +1,50 @@
+id: "E0169"
+title: "Current Bison target-control and conflict adjudication"
+question: >
+  Which parser-quality differences between the current source-backed Bison
+  projection and the pinned LFortran parser are target controls, and which
+  generic transformations are justified by independent evidence?
+status: reported
+opened: "2026-08-15"
+closed: "2026-08-15"
+
+repos:
+  lazy-fortran-new: "d1da3cd"
+  standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
+  oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+
+inputs:
+  generated_run: .cache/runs/E0164/R000365-four-format-regeneration
+  lfortran_parser: /tmp/lfortran-pinned-parser.yy
+  lfortran_parser_sha256: 112ef0ce5078ccec630a893bc51b92232348c37742b1451c833928a422907936
+
+model_selection: "No model calls. Luna reviewed E0157 separately."
+
+metrics:
+  - target_rule_heads
+  - token_declarations
+  - precedence_directives
+  - action_braces
+  - glr_policy
+  - selected_conflict_totals
+  - lfortran_declared_and_observed_conflicts
+  - transformation_language_gate
+
+denominator: >
+  The current selected Bison output, the retained all-root and selected
+  conflict reports, the pinned LFortran parser controls, and E0163's bounded
+  role-family candidate gate.
+
+independent_oracle: >
+  E0155's deterministic target-control inventory, E0159's state-header
+  conflict recomputation, and E0161's independent 359-positive/636-negative
+  language corpus. No LFortran production is copied.
+
+gate: >
+  Record target-control differences, exact conflict categories and the
+  promotion/rejection of generic transformations. This is not a language-
+  equivalence claim.
+
+analysis: >
+  research/experiments/E0155-how-does-the-corrected-source-backed-sta/analyse.sh
+  <generated-run> /tmp/lfortran-pinned-parser.yy <report.tsv>

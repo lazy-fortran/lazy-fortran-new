@@ -83,7 +83,7 @@ replays:
     mode: current-source-five-witness-and-all-record-lineage-replay
     report: .cache/runs/E0164/R000364-pdf-fidelity.tsv
   - run: R000372
-    lazy-fortran-new: "pending-final-lab-commit"
+    lazy-fortran-new: "d1da3cd"
     standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
     mode: current-four-format-source-five-witness-and-all-record-lineage-replay
     report: .cache/runs/E0168-pdf-fidelity-current-source.tsv

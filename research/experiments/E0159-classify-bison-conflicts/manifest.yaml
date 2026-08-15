@@ -83,3 +83,9 @@ replays:
     standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
     oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
     mode: selected-contract-post-runtime-four-format-conflict-inventory
+  - run: R000373
+    lazy-fortran-new: "d1da3cd"
+    standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
+    oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+    mode: current-target-control-and-conflict-adjudication
+    report: .cache/runs/E0169-lfortran-comparison.tsv
