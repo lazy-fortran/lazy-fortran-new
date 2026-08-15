@@ -41,6 +41,11 @@ if (( preflight_status != 0 )); then
 fi
 
 (cd "$standard_root" && fo)
+(
+    cd "$standard_root"
+    /usr/bin/time -f 'elapsed_seconds=%e' fo exec --no-build sxlexercontract \
+        "$run_dir/input/lexical-facts-v0.sx" "$run_dir/lexer-contract.jsonl"
+) >"$run_dir/generate-lexer-contract.log" 2>&1
 for format in ebnf antlr bison treesitter; do
     case "$format" in
         ebnf) output="$run_dir/grammar.ebnf" ;;
@@ -68,7 +73,7 @@ done
 
 {
     printf 'field\tvalue\n'
-    printf 'experiment\tE0154\n'
+    printf 'experiment\t%s\n' "$(basename "$(dirname "$run_dir")")"
     printf 'standard-new-commit\t%s\n' "$(git -C "$standard_root" rev-parse HEAD)"
     printf 'lazy-fortran-new-commit\t%s\n' "$(git -C "$lab_root" rev-parse HEAD)"
     printf 'source-run\t%s\n' "$source_run"

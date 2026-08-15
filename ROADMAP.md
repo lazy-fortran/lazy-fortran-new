@@ -2458,9 +2458,22 @@ R000380 is the first replay of that evaluator on the complete 995-case corpus.
 It fixes the exact `allocate-object` witness and completes nine root batches
 with zero observed mismatches, but the `program` root exceeds the 60-second
 safety guard after 90 outcomes; `variable` is not started. The gate therefore
-remains open for a generic chart scalability repair. The next slice must
-instrument and reduce state explosion without changing the finite-state
-correctness invariant, then rerun the focused suite and the unchanged corpus.
+remains open. R000381 then showed that a longer isolated `program` replay can
+finish, but 52 cases were compared in different lexical token domains
+(`letter` versus generated target token `LETTER`). R000382 removed those false
+mismatches with a generic pinned lexical-facts adapter and exposed two separate
+issues: GLR `ambiguous` outcomes were incorrectly counted as binary failures,
+and the EBNF exporter emitted unescaped quote literals that caused genuine
+`malformed` outcomes. The runner now compares boolean acceptance as
+`accepted | ambiguous` versus `rejected`, retains an explicit ambiguity count,
+and keeps malformed/unresolved/capacity outcomes failing. The generic EBNF
+escaping correction is merged in `standard-new` at
+`fb6590c4885a38b0106f63112f6e024c20b927b5`. R000385 regenerated E0164 with
+the corrected metadata and lexer-contract oracle; R000386 then passed the
+complete 1,003-case replay with zero mismatches, zero abnormal outcomes and
+zero warnings. The deterministic selected lexer/runtime gate is closed. The
+56 preserved ambiguous outcomes remain a parser-quality metric; they do not
+close language equivalence or semantic validation.
 
 ## Ordering constraints
 

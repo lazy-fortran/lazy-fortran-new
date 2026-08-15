@@ -11,7 +11,7 @@ reported_run: R000370
 # Every commit the result depends on. Exact, not "main".
 repos:
   lazy-fortran-new: "b1805d8a0e005406d083e2be8db1866c6464abe5"
-  standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
+  standard-new: "fb6590c4885a38b0106f63112f6e024c20b927b5"
   fortfront-new: "7ab3df0d2ca7e33d4836d502728b35c904b2bb3a"
   oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
   oracle-flang: "cff4ca2e51f89c992d8a1b6ce1067846ba680e2e"
@@ -25,7 +25,7 @@ inputs:
   contract: .cache/runs/E0164/R000363-standardir-grammar-v0-selected.sx
   contract_validation: .cache/runs/E0164/R000369-contract-validation.tsv
   fidelity_gate: E0164/R000364
-  generated_formats: .cache/runs/E0164/R000365-four-format-regeneration
+  generated_formats: .cache/runs/E0164/R000385-four-format-regeneration
   runtime_behavior: .cache/runs/E0164/R000367-runtime-behavior.tsv
   lexical_facts: ../standard-new/specs/lexical-facts-v0.sx
   standard_manifest: artifacts/standards/j3-24-007.toml

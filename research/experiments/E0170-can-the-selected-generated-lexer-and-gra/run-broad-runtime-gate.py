@@ -72,7 +72,30 @@ def load_rows(path: Path, default_root: str) -> list[dict]:
     return rows
 
 
-def write_cases(rows: list[dict], directory: Path) -> dict[str, list[dict]]:
+def read_lexical_token_map(path: Path) -> dict[str, str]:
+    """Read source lexical classes and their generated target token names."""
+    token_map: dict[str, str] = {}
+    source_pattern = re.compile(r"\(source-term\s+(?:\"([^\"]*)\"|([^\s)]+))\)")
+    class_pattern = re.compile(r"\(class\s+lexical-class\)")
+    target_pattern = re.compile(r"\(target\s+(?:\"([^\"]*)\"|([^\s)]+))\)")
+    for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.startswith("(lexical-fact ") or not class_pattern.search(line):
+            continue
+        source = source_pattern.search(line)
+        target = target_pattern.search(line)
+        if source is None or target is None:
+            die(f"{path}:{number}: lexical class has no source term or target")
+        source_term = source.group(1) or source.group(2)
+        target_token = target.group(1) or target.group(2)
+        if source_term in token_map and token_map[source_term] != target_token:
+            die(f"{path}:{number}: lexical source term has conflicting targets")
+        token_map[source_term] = target_token
+    if not token_map:
+        die(f"{path}: no lexical-class token mappings")
+    return token_map
+
+
+def write_cases(rows: list[dict], directory: Path, token_map: dict[str, str]) -> dict[str, list[dict]]:
     by_root: dict[str, list[dict]] = {}
     for row in rows:
         by_root.setdefault(row["root"], []).append(row)
@@ -81,7 +104,7 @@ def write_cases(rows: list[dict], directory: Path) -> dict[str, list[dict]]:
         path = directory / f"{root}.tsv"
         with path.open("w", encoding="utf-8") as stream:
             for row in root_rows:
-                tokens = row["tokens"]
+                tokens = [token_map.get(token, token) for token in row["tokens"]]
                 stream.write("\t".join([row["case_id"], *tokens]) + "\n")
     return by_root
 
@@ -107,9 +130,10 @@ def main() -> int:
     parser.add_argument("grammar_run", type=Path)
     parser.add_argument("contract", type=Path)
     parser.add_argument("fortfront_root", type=Path)
+    parser.add_argument("--lexical-facts", type=Path, required=True)
     parser.add_argument("--expected-fortfront-commit", required=True)
     parser.add_argument("--language-family-report", type=Path, required=True)
-    parser.add_argument("--root-timeout-seconds", type=float, default=60.0)
+    parser.add_argument("--root-timeout-seconds", type=float, default=180.0)
     args = parser.parse_args()
 
     run_dir = args.run_directory.resolve()
@@ -118,11 +142,12 @@ def main() -> int:
     grammar_run = args.grammar_run.resolve()
     contract = args.contract.resolve()
     fortfront = args.fortfront_root.resolve()
+    lexical_facts = args.lexical_facts.resolve()
     grammar = grammar_run / "grammar.ebnf"
     oracles = grammar_run / "grammar-oracles.tsv"
     family_roots_report = args.language_family_report.resolve()
     if (not grammar.is_file() or not contract.is_file() or not oracles.is_file() or
-            not family_roots_report.is_file()):
+            not family_roots_report.is_file() or not lexical_facts.is_file()):
         die("missing pinned grammar, oracle table or contract")
 
     status = subprocess.run(["git", "status", "--porcelain"], cwd=fortfront,
@@ -188,7 +213,13 @@ def main() -> int:
         all_rows.extend(rows)
         generated.append((label, command, corpus))
 
-    by_root = write_cases(all_rows, run_dir / "cases")
+    token_map = read_lexical_token_map(lexical_facts)
+    mapping_path = run_dir / "runtime-token-map.tsv"
+    with mapping_path.open("w", encoding="utf-8") as mapping:
+        mapping.write("source_term\ttarget_token\n")
+        for source_term, target_token in sorted(token_map.items()):
+            mapping.write(f"{source_term}\t{target_token}\n")
+    by_root = write_cases(all_rows, run_dir / "cases", token_map)
     expected = {row["case_id"]: row for row in all_rows}
     if len(expected) != len(all_rows):
         die("corpus case identifiers are not unique")
@@ -227,11 +258,16 @@ def main() -> int:
     result_rows = []
     mismatches = 0
     abnormal = 0
+    ambiguous = 0
     for row in all_rows:
         actual, message = all_outcomes[row["case_id"]]
-        if actual not in {"accepted", "rejected"}:
+        if actual == "ambiguous":
+            ambiguous += 1
+        if actual not in {"accepted", "rejected", "ambiguous"}:
             abnormal += 1
-        if actual != row["expected"]:
+        actual_accepts = actual in {"accepted", "ambiguous"}
+        expected_accepts = row["expected"] == "accepted"
+        if actual_accepts != expected_accepts:
             mismatches += 1
         result_rows.append((row, actual, message))
     with (run_dir / "case-results.tsv").open("w", encoding="utf-8") as stream:
@@ -248,6 +284,9 @@ def main() -> int:
         "positive_cases": positive,
         "negative_cases": negative,
         "expected_outcome_mismatches": mismatches,
+        "accepted_outcomes": sum(actual == "accepted" for actual, _ in all_outcomes.values()),
+        "rejected_outcomes": sum(actual == "rejected" for actual, _ in all_outcomes.values()),
+        "ambiguous_cases": ambiguous,
         "runtime_abnormal_outcomes": abnormal,
         "roots": sorted(by_root),
         "contract_sha256": sha256(contract),

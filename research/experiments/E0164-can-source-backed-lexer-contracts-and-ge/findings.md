@@ -15,7 +15,7 @@ The authoritative prerequisites are:
   and R741, R843, R1103, R1307 and R1315. R1307 removes two page-layout header
   lines while preserving the production. The 46 surface differences are the
   standard's optional-plus-ellipsis shorthand; leaf content passes.
-- E0154/R000365: source preflight, fresh EBNF/ANTLR4/Bison/tree-sitter
+- E0154/R000385: source preflight, fresh EBNF/ANTLR4/Bison/tree-sitter
   regeneration, identity and lexical mutation gates, and all three parser
   generator oracles. The selected profile covers 1,068/1,068 source
   alternatives. The selected Bison report has 427 shift/reduce and 2,266
@@ -32,7 +32,7 @@ research/experiments/E0158-authoritative-pdf-fidelity-gate/check.sh \
   .cache/runs/E0001/R000003/j3-24-007.pages.index
 
 research/experiments/E0154-can-exact-source-expression-identity-and/run-selected.sh \
-  .cache/runs/E0164/R000365-four-format-regeneration program \
+  .cache/runs/E0164/R000385-four-format-regeneration program \
   .cache/runs/E0154/R000353
 ```
 
@@ -95,4 +95,6 @@ open and block semantic, LLM, plot, model-comparison and backend work:
 - complete Fortran behavior or semantic validation.
 
 Historical E0164/R000348 and R000349 remain immutable narrow evidence. They are
-not overwritten by this corrected closure replay.
+not overwritten by this corrected closure replay. The corrected R000385
+projection and E0170/R000386 runtime replay supersede R000365 as the current
+deterministic evidence without rewriting either historical run.

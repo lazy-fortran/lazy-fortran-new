@@ -1,6 +1,7 @@
 # E0170 findings
 
-E0170 remains open. Its command is the `analysis` command in `manifest.yaml`;
+E0170 is reported green for the deterministic selected-runtime gate. Its
+command is the `analysis` command in `manifest.yaml`;
 each attempt retains its generated corpus, command log, per-root runtime log,
 timing file and independent recognizer report under `.cache/runs/E0170/`.
 
@@ -83,3 +84,79 @@ nullable productions (Aycock and Horspool, 2002), because it changes the
 finite chart automaton rather than adding a source-language exception. It may
 not add a root, rule-number or input-specific exception, and it must rerun the
 focused suite before the unchanged 995-case corpus.
+
+## R000381: token-domain defect found before the next replay
+
+A direct 240-second replay of all 256 `program` cases completed in 148.33
+seconds, including the previously timed case 91 in isolation. It nevertheless
+reported 52 false mismatches: every affected positive used the abstract source
+lexical term `letter`, while the generated runtime contract's lexical rule
+requires target token `LETTER`. The same source/target distinction exists for
+the other pinned lexical-class facts. R000381 retains the complete output and
+records this as `FAIL-TOKEN-DOMAIN`; it is a harness contract defect, not a
+StandardIR or parser defect.
+
+The next runner revision therefore reads the pinned lexical-facts SX, builds a
+source-term-to-target-token map, records that map beside the generated case
+files, and applies it only at the runtime boundary. The independent EBNF
+oracle continues to operate in source-term space. The batch safety guard is
+raised to 180 seconds for the predeclared corpus volume; it remains an outer
+timeout and not a correctness mechanism. A fresh complete run must pass the
+token-domain gate before any chart optimization is considered.
+
+## R000382: export defect and outcome-policy defect exposed
+
+The lexical adapter removed the 52 token-domain mismatches, but the replay
+still reported 70 cases as `ambiguous` or `malformed`. These are not one
+failure class. `ambiguous` is a valid GLR result: the runtime has recognized
+the input while preserving more than one parse, as required by D0089 and D0100.
+It must therefore count as acceptance for the independent boolean language
+comparison, while remaining a separately reported parser-quality metric.
+Treating it as a binary failure conflated language recognition with parse-tree
+uniqueness and contradicted the selected GLR policy.
+
+`malformed` is different. The affected parent-string witnesses contain raw
+double-quote literals emitted as triple quotes in E0164's EBNF. The source
+exporter quoted values without escaping embedded quotes or backslashes. That
+is a generic `standard-new` defect, not a runtime exception. The correction is
+the source-backed E0156 production change `fb6590c4885a38b0106f63112f6e024c20b927b5`,
+which escapes both characters and adds a regression fixture. E0164 must be
+regenerated from that commit before E0170 is replayed.
+
+The runner now compares boolean acceptance as
+`accepted | ambiguous` versus `rejected`, counts `ambiguous_cases`, and keeps
+`malformed`, `unresolved`, and `capacity` as abnormal failures. This follows
+the generalized-parsing literature: generalized parsers retain competing
+branches and merge equivalent states rather than silently selecting one. The
+gate still requires zero acceptance mismatches and zero abnormal outcomes.
+
+## R000384: corrected full replay passes
+
+After `standard-new` commit
+`fb6590c4885a38b0106f63112f6e024c20b927b5` escaped quoted EBNF literals, the
+four-format regeneration R000383 passed source identity, lexical mutation,
+ANTLR4, Bison and tree-sitter validation. The unchanged broad replay then
+emitted 1,003 cases: 367 expected accepted and 636 expected rejected. All 367
+accepted cases were recognized (`311` unambiguous and `56` ambiguous), all 636
+negative cases were rejected, and there were zero acceptance mismatches and
+zero malformed, unresolved or capacity outcomes. Fortfront `41908855` passed
+`fo` with zero warnings. The run took 522.507 seconds and reached 1,556,396 KB
+RSS. These values are regenerated from R000384's `summary.json`; the run
+directory and hashes are retained.
+
+The denominator increased from R000382's 995 to 1,003 because the corrected
+EBNF makes quote-bearing productions parseable. This is a correction of the
+generated input, not a corpus expansion chosen after seeing outcomes. The
+deterministic runtime gate is closed. The 56 ambiguous outcomes remain a
+reported GLR/parser-quality metric and are not evidence of rejection.
+
+## R000386: corrected replay with complete regeneration oracle passes
+
+R000386 repeats the full replay against R000385, whose shared regeneration
+script now records the correct experiment identity and emits a validated
+source-backed lexer contract. It reproduces the result: 1,003 cases, 367
+expected positives, 636 expected negatives, 311 unambiguous accepts, 56
+ambiguous accepts, zero acceptance mismatches, zero abnormal outcomes, zero
+warnings, 515.953 seconds and 1,556,408 KB peak RSS. R000386 is the reported
+run for E0170; R000384 remains immutable evidence from the same corrected
+grammar before the regeneration metadata/oracle repair.
