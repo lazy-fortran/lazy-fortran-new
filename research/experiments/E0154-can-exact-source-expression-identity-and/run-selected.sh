@@ -51,7 +51,7 @@ done
     printf 'lazy-fortran-new-commit\t%s\n' "$(git -C "$lab_root" rev-parse HEAD)"
     printf 'source-run\t%s\n' "$source_run"
     printf 'selected-root\t%s\n' "$selected_root"
-    printf 'source-alternatives\t%s\n' "$(grep -c '^(syntax ' "$run_dir/input/standardir.sx")"
+    printf 'source-syntax-records\t%s\n' "$(grep -c '^(syntax ' "$run_dir/input/standardir.sx")"
 } >"$run_dir/metadata.tsv"
 
 identity_status=0

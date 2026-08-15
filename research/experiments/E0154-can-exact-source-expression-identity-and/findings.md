@@ -88,3 +88,12 @@ the raw source witness before any target normalization, preserve every source
 alternative through merged/factored targets, and emit a typed source-
 preservation witness for alternatives without a one-to-one target body. The
 parser-generator PASS results remain subordinate and do not close E0154.
+
+The required Luna review is `reviews/R000312-luna.md`. It confirms the raw
+source/target diagnosis and the bidirectional comparison: provenance and
+four-format projection are genuine StandardIR advantages, while executable
+lexer/runtime behavior, typed values, precedence/actions, factoring and
+conflict policy remain genuine reference advantages. It also caught a lab
+bookkeeping label in `run-selected.sh`; the 522 count is now named
+`source-syntax-records`, while the independent denominator remains 1,068
+source alternatives.
