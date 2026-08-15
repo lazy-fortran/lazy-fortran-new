@@ -2393,11 +2393,12 @@ quality problem, not a source-extraction or lexical-lowering failure.
 E0157's deterministic audit and Luna review are complete. E0162 reran that
 audit against the exact pinned LFortran file and independently compared the
 four generated formats with the house ANTLR4, kaby76 ANTLR4, pinned LFortran
-Bison and Flang parser evidence. It classifies StandardIR advantages in
+Bison and Flang parser evidence. E0171/R000388 corrected the interpretation:
+this is a structural inventory only. It classifies StandardIR advantages in
 normative lineage and exact source identity, reference advantages in parser
 factoring/actions/precedence/conflict policy, and target-only scaffolding. No
-reference production was copied and no equivalence claim follows from head
-counts.
+reference production was copied, and no language-equivalence or parser-quality
+claim follows from head counts, generator acceptance or conflict totals.
 
 E0157 is now reported from the authoritative fresh replay `R000354` (the
 initial inventories, R000322 and selected-profile R000350 remain retained).
@@ -2437,10 +2438,13 @@ contract, while only exact duplicate generated bodies may be coalesced and all
 generated names are bounded deterministically.
 
 The current deterministic sequence is therefore: PDF fidelity; source-backed
-contract closure; four-format regeneration and parser-generator oracles; Bison
-conflict inventory; generated-runtime positive/negative witnesses; then the
-broad runtime corpus and lexer expansion. Only after that sequence is complete
-may semantic extraction, LLM/model comparisons, plots or backend work resume.
+contract closure; four-format regeneration and parser-generator oracles;
+explicit target-root/token/transformation witnesses; Bison conflict
+counterexamples and classification; generated-runtime positive/negative
+witnesses; then the broad runtime corpus and lexer expansion. Only after that
+sequence is complete may semantic extraction, LLM/model comparisons, plots or
+backend work resume. A structural inventory never substitutes for a behavioral
+gate.
 
 E0170 is the active runtime gate. R000377 exposed a real nontermination defect
 in the old global-rescanning evaluator, and R000378/R000379 are retained

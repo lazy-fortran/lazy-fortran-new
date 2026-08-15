@@ -83,6 +83,28 @@ not sources from which grammar productions may be copied.
   contains extensive nullable structure; it does not justify changing the
   source grammar or hiding ambiguity.
 
+### Grammar comparison and projection validation
+
+- ✓ **Lämmel, R. and Zaytsev, V. “An Introduction to Grammar Convergence.”**
+  IFM 2009, <https://doi.org/10.1007/978-3-642-00255-7_17>. Compare grammars
+  through explicit normalization and transformations, and state which form of
+  equivalence the transformations establish. This is the rule for interpreting
+  E0171's head inventories: they are structural evidence until a separate
+  language witness exists.
+- ✓ **GNU Bison Manual, “Generation of Counterexamples.”**
+  <https://www.gnu.org/software/bison/manual/html_node/Counterexamples.html>.
+  Counterexamples are evidence for understanding and classifying conflicts;
+  conflict totals and `%expect` declarations are not correctness proofs.
+- ✓ **ANTLR 4 documentation.** <https://www.antlr.org/>. Generated parser
+  acceptance and ambiguity reports are target-tool evidence, not proof that a
+  grammar is faithful to its source specification.
+- ✓ **Tree-sitter, “The Grammar DSL” and “Writing the Grammar.”**
+  <https://tree-sitter.github.io/tree-sitter/creating-parsers/2-the-grammar-dsl.html>
+  and
+  <https://tree-sitter.github.io/tree-sitter/creating-parsers/3-writing-the-grammar.html>.
+  Lexical precedence, parse precedence and intentional runtime conflicts are
+  distinct contracts; exports must record them separately.
+
 ## 2. Formalizing prose standards
 
 The general problem of turning a natural-language standard into something

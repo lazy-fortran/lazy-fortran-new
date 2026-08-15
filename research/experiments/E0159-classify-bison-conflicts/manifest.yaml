@@ -63,9 +63,12 @@ gate: >
 analysis: >
   analyse.py --generated-grammar <file> --all-root-report <file>
   --lfortran-parser <file> --output <dir> writes conflict-states.tsv,
-  summary.tsv and policy.tsv. It generates fresh Bison state reports for
-  selected-program and LFortran and uses the retained all-root report with
-  counterexamples as evidence.
+  summary.tsv and policy.tsv. The generated grammar must already be the
+  producer-emitted selected-program profile; the analyzer never rewrites its
+  start symbol. It generates fresh Bison state reports with
+  --warnings=all,counterexamples and --report=state,solved,counterexamples for
+  the selected profile and LFortran, and uses the retained all-root report
+  with counterexamples as evidence.
 
 replays:
   - run: R000329

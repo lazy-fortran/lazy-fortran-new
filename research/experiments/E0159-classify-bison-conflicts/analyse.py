@@ -104,7 +104,8 @@ def run_bison(source: Path, output_dir: Path, name: str) -> tuple[Path, str]:
     report = output_dir / f"{name}.output"
     generated = output_dir / f"{name}.c"
     result = run([
-        "bison", "--warnings=all", "--report=state,solved",
+        "bison", "--warnings=all,counterexamples",
+        "--report=state,solved,counterexamples",
         f"--report-file={report}", "-o", generated, source,
     ])
     write(output_dir / f"{name}.stderr", result.stderr)
@@ -147,12 +148,16 @@ def main() -> int:
         raise SystemExit(f"LFortran hash mismatch: {lfortran_hash}")
     write(output / "lfortran-parser.yy.sha256", f"{lfortran_hash}  {lfortran}\n")
 
-    selected_source = output / "standardir-program.y"
     selected_text = source.read_text(encoding="utf-8")
-    selected_text = selected_text.replace("%start standardir_start", "%start r_program", 1)
-    write(selected_source, selected_text)
-
-    selected_report, _ = run_bison(selected_source, output, "standardir-program")
+    if not any(
+        "target=selected-root root=program" in line
+        for line in selected_text.splitlines()[:4]
+    ):
+        raise SystemExit(
+            "--generated-grammar must be the producer-emitted selected program "
+            "profile; the analyzer will not rewrite %start"
+        )
+    selected_report, _ = run_bison(source, output, "standardir-program")
     lfortran_report, _ = run_bison(lfortran, output, "lfortran")
     profiles = [
         ("all-roots", all_report),

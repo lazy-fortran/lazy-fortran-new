@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Audit generated StandardIR heads against each other and pinned references.
+"""Inventory generated StandardIR heads against each other and references.
 
-This is a structural inventory, not a language-equivalence checker.  The
-source-expression and target-validator gates are consumed from the corrected
-E0157 reports before this script compares names.
+This is a structural inventory, not a language-equivalence or parser-quality
+checker. The source-expression and target-validator gates are consumed from
+the corrected E0157 reports before this script compares names. Behavioral
+claims require a separate independent recognizer/corpus gate.
 """
 
 from __future__ import annotations
@@ -162,7 +163,12 @@ def main() -> None:
     parser.add_argument("lfortran_bison", type=Path)
     parser.add_argument("flang_cpp", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--left-label", default="left")
+    parser.add_argument("--right-label", default="right")
     args = parser.parse_args()
+
+    if args.left_label == args.right_label:
+        raise SystemExit("left and right labels must identify distinct replay roles")
 
     for run in (args.baseline_run, args.candidate_run):
         for filename in list(GENERATED) + ["input/standardir.sx"]:
@@ -182,7 +188,7 @@ def main() -> None:
     candidate_audit = require_corrected_audit(args.candidate_audit)
     args.output.mkdir(parents=True, exist_ok=True)
 
-    runs = {"baseline": args.baseline_run, "role-family-candidate": args.candidate_run}
+    runs = {args.left_label: args.baseline_run, args.right_label: args.candidate_run}
     raw_heads: dict[str, dict[str, set[str]]] = {}
     canonical_heads: dict[str, dict[str, set[str]]] = {}
     inventory_rows: list[list[object]] = []
@@ -310,7 +316,10 @@ def main() -> None:
     )
 
     source_lineages = {}
-    for variant, audit in (("baseline", baseline_audit), ("role-family-candidate", candidate_audit)):
+    for variant, audit in (
+        (args.left_label, baseline_audit),
+        (args.right_label, candidate_audit),
+    ):
         source_lineages[variant] = {
             "source_alternatives": audit["source_alternatives"],
             "covered_source_alternatives": audit["covered_source_alternatives"],
@@ -318,7 +327,7 @@ def main() -> None:
             "validator_status": audit["validator_status"],
         }
     summary = {
-        "claim": "structural inventory only; no language-equivalence claim",
+        "claim": "structural inventory only; no language-equivalence or parser-quality claim",
         "variants": list(runs),
         "generated_formats": list(GENERATED),
         "source_lineages": source_lineages,
@@ -338,12 +347,12 @@ def main() -> None:
             "EBNF and ANTLR4 have identical canonical head sets in both variants. "
             "Bison adds deterministic h_* lowering helpers and target wrappers "
             "after those are separated, and tree-sitter adds only lexical wrapper "
-            "heads. The "
-            "role-family candidate removes four canonical source heads in every "
-            "format while retaining source lineage; this is a target projection "
-            "choice, not evidence of a source defect. Reference head counts are "
-            "not one-to-one comparisons because the references factor, inherit, "
-            "extend and attach parser actions differently."
+            "heads. The two named runs are compared only at structural head and lineage "
+            "level. Any difference is a target projection or reference-structure "
+            "observation until a separate transformation and language witness "
+            "proves more. Reference head counts are not one-to-one comparisons "
+            "because the references factor, inherit, extend and attach parser "
+            "actions differently."
         ),
     }
     (args.output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
