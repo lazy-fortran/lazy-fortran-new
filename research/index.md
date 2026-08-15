@@ -295,6 +295,7 @@ Runs recorded: 369
 | [D0098](decisions/D0098-reject-global-common-prefix-factoring.md) | accepted |  | Reject global common-prefix factoring without a behavior gate |
 | [D0099](decisions/D0099-normalize-identical-generated-runtime-occurrences.md) | accepted |  | Normalize identical generated runtime occurrences without losing provenance |
 | [D0100](decisions/D0100-defer-unjustified-precedence-rewrites.md) | accepted |  | Keep GLR and defer unjustified precedence rewrites |
+| [D0101](decisions/D0101-finite-chart-runtime-evaluator.md) | accepted |  | Use a finite chart evaluator for the generated grammar runtime |
 
 ### Proposed decisions
 

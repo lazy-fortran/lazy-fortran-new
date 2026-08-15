@@ -10,7 +10,7 @@ reported_run: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "c76b2bb"
+  lazy-fortran-new: "16053c1"
   standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
   fortfront-new: "fa0062b43f547d301c4ebc1fc5b0fda755214f09"
 

@@ -54,6 +54,28 @@ contribution has to be stated relative to it.
   extraction. Recent and adjacent; check what it measures before claiming
   novelty for the model-assisted parts of E1.
 
+### Generated-runtime parsing algorithms
+
+These are the implementation references for the deterministic runtime gate,
+not sources from which grammar productions may be copied.
+
+- ✓ **Earley, J. “An Efficient Context-Free Parsing Algorithm.”**
+  *Communications of the ACM* 13(2), 94–102, 1970.
+  <https://doi.org/10.1145/362007.362035>. Predictor, scanner and completer
+  chart operations over a finite set of items; the reference general parser
+  for the E0170 recognizer fix.
+- ✓ **Scott, E. and Johnstone, A. “GLL parse-tree generation.”**
+  *Science of Computer Programming* 78(10), 1828–1844, 2013.
+  <https://doi.org/10.1016/j.scico.2012.03.005>. Generalized LL descriptors,
+  graph-structured stacks and shared packed forests for ambiguity and left
+  recursion. The worklist and deduplication guidance applies even though E0170
+  initially requires outcomes rather than forests.
+- ✓ **GNU Bison Manual, “GLR Parsers.”**
+  <https://www.gnu.org/software/bison/manual/html_node/GLR-Parsers.html>.
+  Operational reference for retaining unresolved alternatives and merging
+  equivalent parser states; it is an oracle-policy comparison, not an input
+  grammar source.
+
 ## 2. Formalizing prose standards
 
 The general problem of turning a natural-language standard into something

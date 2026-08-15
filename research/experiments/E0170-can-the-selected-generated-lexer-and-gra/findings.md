@@ -42,3 +42,18 @@ case counts are emitted by `run-broad-runtime-gate.sh`; no case is removed
 because it is inconvenient. The next accepted run requires a generic runtime
 termination fix, an independent regression test, a clean production commit,
 and a complete replay over the same generated corpus.
+
+## Algorithm boundary from the literature
+
+The accepted runtime decision is D0101. The replacement must be a finite
+chart/worklist evaluator with explicit predictor, scanner and completer
+transitions and deduplicated state identity. This is the standard shape of
+Earley-style chart parsing, with GLL as the reference for descriptor/worklist
+handling under ambiguity and left recursion. The outer timeout remains only a
+safety bound for a failing run; it is not an implementation termination rule.
+
+The production agent must first pass a focused independent suite covering the
+exact timeout witness, epsilon, direct and indirect left recursion, ambiguity,
+unknown references and malformed inputs. Only then may the unchanged broad
+995-case corpus be rerun. The script named in `manifest.yaml` regenerates the
+counts and reports every case; no case is removed.

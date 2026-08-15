@@ -2442,6 +2442,18 @@ conflict inventory; generated-runtime positive/negative witnesses; then the
 broad runtime corpus and lexer expansion. Only after that sequence is complete
 may semantic extraction, LLM/model comparisons, plots or backend work resume.
 
+E0170 is the active runtime gate. R000377 exposed a real nontermination defect
+in the old global-rescanning evaluator, and R000378/R000379 are retained
+rejected repairs. D0101 now fixes the implementation boundary: the next
+production slice must use a finite deduplicated chart/worklist evaluator with
+predictor, scanner and completer transitions, indexed waiting/completed states,
+and explicit preservation of epsilon, recursion, ambiguity and unresolved
+outcomes. No iteration, depth or state cap may be used as a correctness fix.
+The focused independent suite comes before the unchanged 995-case replay; the
+experiment's timeout is only a safety guard. The exact algorithm decision is
+in `research/decisions/D0101-finite-chart-runtime-evaluator.md`, and its
+primary parsing references are listed in `docs/literature.md`.
+
 ## Ordering constraints
 
 - Phase 1.0 runs before 1.4 and can invalidate the phase. Nothing downstream of
