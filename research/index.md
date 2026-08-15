@@ -308,6 +308,7 @@ Runs recorded: 403
 | [D0110](decisions/D0110-source-derived-statement-sequences.md) | superseded by D0111 |  | Derive statement separators at sequence boundaries |
 | [D0111](decisions/D0111-adjacent-statement-boundaries.md) | accepted | Supersedes D0110 | Include adjacent sequence boundaries in the witness |
 | [D0112](decisions/D0112-validated-statement-boundary-lowering-plan.md) | accepted |  | Validate statement-boundary lowering before target insertion |
+| [D0113](decisions/D0113-truthful-generated-profile-identity.md) | accepted |  | Keep generated profile identity truthful |
 
 ### Proposed decisions
 
