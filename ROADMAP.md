@@ -255,8 +255,13 @@ historical rows remain visible and new Qwen 3.8 rows are added automatically,
 but no new model row is scheduled now.
 
 The current pushed production pins are therefore `standard-new`
-`e6a03b6b4ddf704c882dba93847062a8a635ba4c`, `fortfront-new` `db5eaec`, `ffc-new` `3253849`, and `fortback-new`
-`a149015`. E0142 is abandoned; E0123's deterministic post-run gate is
+`32158f8`, `fortfront-new` `db5eaec`, `ffc-new` `3253849`, and `fortback-new`
+`a149015`. `standard-new` now has the generic selected-root export boundary;
+its first full replay is `.cache/runs/E0147/R000019` and still reports four
+useless nonterminals and seven useless rules under Bison, so this is progress
+but not M2 closure. Luna's independent review is `R000283`; it additionally
+requires the specialization/lineage witness and companion lexer contract.
+E0142 is abandoned; E0123's deterministic post-run gate is
 reported as `R000254`, and the production slices do not close semantic
 promotion.
 
