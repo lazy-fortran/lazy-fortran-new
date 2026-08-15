@@ -79,9 +79,23 @@ def test_adjacent_statement_sequence_is_witnessed() -> None:
     )
 
 
+def test_required_nonstatement_payload_does_not_create_a_boundary() -> None:
+    rules = [
+        MODULE.Rule("R0", "save-stmt", ["seq", ["token", "SAVE"]], "J3", "5", "1", "0", "a" * 64),
+        MODULE.Rule("R1", "expression", ["seq", ["token", "EXPR"]], "J3", "5", "1", "1", "a" * 64),
+        MODULE.Rule("R2", "end-stmt", ["seq", ["token", "END"]], "J3", "5", "1", "2", "a" * 64),
+        MODULE.Rule("R3", "bad-sequence", [
+            "seq", ["ref", "save-stmt"], ["ref", "expression"], ["ref", "end-stmt"],
+        ], "J3", "5", "1", "3", "a" * 64),
+    ]
+    candidates, _ = MODULE.derive_candidates(rules, "-stmt")
+    assert not any(row["container"] == "bad-sequence" for row in candidates)
+
+
 if __name__ == "__main__":
     test_nested_statement_is_not_itself_a_sequence_boundary()
     test_reader_requires_source_suffix_fact()
     test_compound_repeat_is_witnessed_without_an_exception()
     test_adjacent_statement_sequence_is_witnessed()
+    test_required_nonstatement_payload_does_not_create_a_boundary()
     print("statement-sequence witness tests passed")

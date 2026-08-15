@@ -185,12 +185,18 @@ def sequence_internal_statements(node: object, statement_classes: set[str], reac
         if statement is None or index == len(items) - 1:
             continue
         suffix = items[index + 1:]
-        suffix_nullable = all(expression_nullable(item, nullable) for item in suffix)
-        suffix_statement_bearing = any(
-            ref in reachable for item in suffix for ref in direct_refs(item))
-        if suffix_nullable or suffix_statement_bearing:
+        if suffix_reaches_statement_boundary(suffix, reachable, nullable):
             result.append((index + 1, statement))
     return result
+
+
+def suffix_reaches_statement_boundary(items: list[object], reachable: set[str], nullable: set[str]) -> bool:
+    for item in items:
+        if any(ref in reachable for ref in direct_refs(item)):
+            return True
+        if not expression_nullable(item, nullable):
+            return False
+    return True
 
 
 @dataclass(frozen=True)
