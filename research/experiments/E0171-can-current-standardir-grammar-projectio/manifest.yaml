@@ -42,6 +42,7 @@ decision_records:
   - D0111-adjacent-statement-boundaries
   - D0112-validated-statement-boundary-lowering-plan
   - D0113-truthful-generated-profile-identity
+  - D0114-source-path-mapping-before-target-normalization
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
