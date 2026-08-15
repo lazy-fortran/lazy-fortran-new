@@ -3,9 +3,9 @@ title: "Selected-profile role-family language and corpus gate"
 question: >
   Can an opt-in role-family projection preserve the selected grammar's parser
   language and corpus behavior?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-15"
-closed: ""
+closed: "2026-08-15"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -63,4 +63,22 @@ gate: >
   four-format gates. Only then may a generic lexer/runtime or precedence
   follow-up be evaluated; this experiment does not authorize a default policy.
 
-analysis: "Not started; no run is authorized until the corpus enumerator is pinned."
+analysis: >
+  Reproduce the bounded corpus and report with
+  research/experiments/E0161-can-an-opt-in-role-family-projection-pre/run-language-gate.sh
+  <run-directory> <baseline-run> <candidate-run>.
+
+replays:
+  - R000338
+  - R000339
+  - R000340
+
+result: >
+  The independent EBNF oracle passes on the selected root, the typed
+  representative, and every automatically discovered common context that
+  references the role family. It enumerates a complete bounded corpus under
+  the recorded depth/token/repetition limits: 359 positive and 636 negative
+  cases, with no acceptance mismatch. R000339 is a retained timeout from an
+  over-large bound and is not credited. This closes selected-profile bounded
+  language preservation, not complete Fortran language equivalence or runtime
+  behavior.

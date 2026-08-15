@@ -413,10 +413,16 @@ changes a denominator.
       generators; the selected profile's diagnostic inventory is 425/2,135,
       while the all-roots projection is worse at 760/3,894. The independent
       full-profile language corpus was deliberately not claimed.
-- [ ] E0161: compare baseline and opt-in selected exports on an independently
-      enumerated positive/negative parser corpus. Only after this language
-      gate passes may lexer/runtime behavior, generic precedence/factoring or
-      a production role-family policy be evaluated.
+- [x] E0161: compare baseline and opt-in selected exports on an independently
+      enumerated positive/negative parser corpus. R000340 covers the selected
+      root, the typed representative and all automatically discovered common
+      role-family contexts: 359 complete bounded positives and 636 negative
+      mutations, with no mismatch or truncation. The command is
+      `research/experiments/E0161-can-an-opt-in-role-family-projection-pre/run-language-gate.sh`.
+- [ ] E0162: compare all four generated formats and their parser behavior with
+      the pinned permissive reference grammars, then classify and reduce the
+      remaining Bison conflicts only through generic transformations with the
+      same language corpus gate.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
 
