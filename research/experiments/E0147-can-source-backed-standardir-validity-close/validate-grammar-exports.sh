@@ -111,6 +111,10 @@ undefined_symbols=$((
     $(count_matches 'Undefined symbol|undefined rule' "$work/tree-sitter.log")
 ))
 
+source_projection_status=0
+bash "$(dirname "$0")/audit-source-projection.sh" "$run_dir" \
+    >"$run_dir/source-projection.log" 2>&1 || source_projection_status=$?
+
 mkdir -p "$(dirname "$report")"
 {
     printf 'oracle\tstatus\texit\tversion\tlog\n'
@@ -125,10 +129,13 @@ mkdir -p "$(dirname "$report")"
         "$run_tree_sitter" "$tree_sitter_version" "$run_dir/tree-sitter.log"
     printf 'ebnf\tNOT_APPLICABLE\t0\tprojection-only\t%s\n' \
         "$run_dir/grammar.ebnf"
-    printf 'overall\t%s\t%s\tgenerated exports only\t%s\n' \
+    printf 'source-projection\t%s\t%s\tdeterministic provenance witness\t%s\n' \
+        "$([[ $source_projection_status -eq 0 ]] && printf PASS || printf FAIL)" \
+        "$source_projection_status" "$run_dir/source-projection.log"
+    printf 'overall\t%s\t%s\tsource-backed projection and generated exports\t%s\n' \
         "$([[ $run_antlr -eq 0 && $run_bison -eq 0 && $run_tree_sitter -eq 0 && \
             $undefined_symbols -eq 0 && \
-            "$negative_control" == observed_failure ]] && \
+            "$negative_control" == observed_failure && $source_projection_status -eq 0 ]] && \
             printf PASS || printf ORACLE_FAILURE)" \
         "$((run_antlr + run_bison + run_tree_sitter))" \
         "$run_dir"
@@ -142,6 +149,7 @@ mkdir -p "$(dirname "$report")"
     printf 'undefined_symbol_diagnostics\t%s\t\t\t\n' "$undefined_symbols"
     printf 'negative_control\t%s\t\t\t\n' "$negative_control"
     printf 'negative_control_mentions\t%s\t\t\t\n' "$negative_mentions"
+    printf 'source_projection_status\t%s\t\t\t\n' "$source_projection_status"
 } >"$report"
 
 cp "$work/antlr.log" "$run_dir/antlr4.log"
@@ -155,6 +163,6 @@ cat "$report"
 
 if [[ $run_antlr -ne 0 || $run_bison -ne 0 || $run_tree_sitter -ne 0 ||
     $undefined_symbols -ne 0 ||
-    "$negative_control" != observed_failure ]]; then
+    "$negative_control" != observed_failure || $source_projection_status -ne 0 ]]; then
     exit 1
 fi
