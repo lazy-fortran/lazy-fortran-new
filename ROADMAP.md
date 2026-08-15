@@ -30,13 +30,16 @@ The immediate sequence is:
 2. Normalize the Tree-sitter and Bison conflict evidence into per-conflict
    records, retaining prefixes, competing symbols, source lineages and tool
    versions.
-3. Classify the `SAVE` / `LETTER` witness and its Bison counterparts as source
-   ambiguity, target limitation, lexer/profile interaction, target artifact or
-   unresolved.
-4. Apply only a generic, source-derived target policy that has an independent
+3. Extend the versioned target lexer contract with statement-boundary,
+   continuation and keyword/name behavior, with independent positive and
+   negative witnesses. D0106 keeps this out of normative StandardIR.
+4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts as
+   source ambiguity, target limitation, lexer/profile interaction, target
+   artifact or unresolved.
+5. Apply only a generic, source-derived target policy that has an independent
    bounded behavior or forest witness. A conflict count or matching `%expect`
    value is not a gate.
-5. Regenerate all four targets and rerun parser smoke, lexer/runtime and
+6. Regenerate all four targets and rerun parser smoke, lexer/runtime and
    positive/negative behavior gates. Only then resume broader grammar quality
    work; model and semantic campaigns remain paused.
 
