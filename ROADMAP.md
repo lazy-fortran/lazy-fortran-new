@@ -10,7 +10,7 @@ order, the steps in each phase, and the gate that ends it, so that facts are
 not copied into several places and left to rot. Any count appearing here names
 the command that regenerates it.
 
-**Active critical path.** The profile contract is green in E0171/R000402. The
+**Active critical path.** The profile contract is green in E0171/R000404. The
 current blocker is the generated Tree-sitter target's unresolved `SAVE` /
 `LETTER` conflict after generic nullable lowering. No model run, semantic
 extraction or backend work resumes while this deterministic grammar path is
@@ -21,7 +21,7 @@ enter the forensic conflict replay. Classify each conflict against retained
 Bison counterexamples, source lineages, transformation dispositions and the
 lexer/profile contract before considering any generated precedence or
 conflict policy. This is the two-tier protocol in D0105; R000400 remains the
-profile negative control and R000402 the current nullable-lowering failure.
+profile negative control and R000404 the current clean replay.
 
 The immediate sequence is:
 
@@ -2528,12 +2528,12 @@ the four generated files. Its full tree-sitter generator therefore reports an
 unresolved `SAVE`/`LETTER` conflict, while source, identity, lexical, profile,
 ANTLR4 and Bison checks pass. R000402 remains valid evidence of the target
 failure, but its source-preservation statement is not the new replay gate.
-R000403 is the required harness correction and replay: every producer output
-must carry its own witness before any parser generator is invoked. The next
-conflict step is then the D0105 forensic classification against retained Bison
-counterexamples and the lexer/profile contract; no precedence declaration or
-conflict list is accepted without a generic transformation and an independent
-behavior witness.
+R000403 first demonstrated the required harness correction and replay; R000404
+repeats it from committed lab state. Every producer output now carries its own
+witness before any parser generator is invoked. The next conflict step is the
+D0105 forensic classification against retained Bison counterexamples and the
+lexer/profile contract; no precedence declaration or conflict list is accepted
+without a generic transformation and an independent behavior witness.
 
 E0170 is the active runtime gate. R000377 exposed a real nontermination defect
 in the old global-rescanning evaluator, and R000378/R000379 are retained

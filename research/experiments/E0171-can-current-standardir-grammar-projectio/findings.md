@@ -209,5 +209,17 @@ The source, lexical, profile and witness gates pass. ANTLR4 and Bison pass;
 tree-sitter still fails on the unresolved `SAVE`/`LETTER` conflict. This is a
 useful failure, not a source-fidelity failure: the previous replay had allowed
 the transformation-witness assertion to come from a separate run. R000403 was
-generated before the timeout hardening and is retained; R000404 repeats the
-same command from the committed harness.
+generated before the timeout hardening and is retained. R000404 repeats the
+same command from the committed harness and is the authoritative replay.
+
+## R000404: clean committed replay confirms the harness boundary
+
+R000404 uses lab commit `2b6add8` and the unchanged producer commit
+`4ffa9859a6af551a9ceb1d45bc5744a1522e135e`. The four producer-emitted
+transformation witnesses again cover 1,068/1,068 source lineages, and the
+source, lexical, profile and witness gates pass before parser generators run.
+ANTLR4 and Bison pass; Bison reports 427 shift/reduce and 2,266 reduce/reduce
+diagnostics. Tree-sitter 0.26.9 still fails only on the unresolved `SAVE` /
+`LETTER` conflict. The exact artifacts and hashes are in the append-only
+R000404 run record. The next work is conflict classification under D0105, not
+another source-extraction or model run.
