@@ -150,3 +150,23 @@ This is a deterministic subgate only. It does not establish language
 equivalence, executable lexer/runtime behavior, precedence/actions, conflict
 policy, or quality relative to LFortran, Flang, GNU or the comparison ANTLR
 grammars.
+
+## R000323: first trusted all-root replay after PDF fidelity
+
+The all-root replay uses `standard-new` `bedd9abc7210fc7fc16607d275ea4fa7b24144f8`
+and lab `47a38c0`, with E0158/R000321 already accepted. Source preflight ran
+before `fo` or any grammar generator. The four generated formats then passed
+the independent source-expression identity gate and E0156's canonical lexical
+witness gate before ANTLR4, Bison and tree-sitter were invoked.
+
+The complete source denominator is 1,068 alternatives. EBNF, ANTLR4, Bison and
+tree-sitter each cover all 1,068 with zero missing or wrong rows; positive
+identity and negative mutation controls pass. The generated parsers are
+accepted by ANTLR4 4.13.2, Bison 3.8.2 and tree-sitter 0.26.9. The all-root
+Bison diagnostics are 758 shift/reduce and 3,885 reduce/reduce conflicts,
+with no useless nonterminals, useless rules or undefined-symbol diagnostics.
+
+This closes the post-fidelity source/projection replay, not parser quality.
+The conflict diagnostics remain the next deterministic slice. Lexer/runtime,
+precedence/actions, language preservation and positive/negative corpus
+behavior remain open and are not inferred from parser-generator acceptance.

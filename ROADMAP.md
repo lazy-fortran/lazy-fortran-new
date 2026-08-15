@@ -231,6 +231,23 @@ report zero and pass their canonical target checks. The negative mutation
 passes. This is the current production repair slice; no downstream parser or
 LLM work is allowed to bypass it.
 
+E0158/R000321 then passed the authoritative PDF-fidelity gate: all 522 source
+records and duplicate occurrences agree with the pinned PDF extraction, and
+R741, R843, R1103, R1307 and R1315 pass continuation, page-break, token/ref
+and source-span checks. E0157/R000322 is the corrected selected-profile
+inventory and minimal Luna adjudication; its feature rows are explicitly
+lexical-presence evidence, not behavior or language equivalence. The first
+trusted all-root regeneration after that gate is E0154/R000323 at
+`standard-new` `bedd9abc7210fc7fc16607d275ea4fa7b24144f8`: all 1,068 source
+alternatives are covered in EBNF, ANTLR4, Bison and tree-sitter, all identity
+and lexical mutations fail, and all three parser generators accept their
+outputs. It reports 758 shift/reduce and 3,885 reduce/reduce Bison conflicts,
+with no useless symbols or undefined references. These diagnostics are the
+next parser-quality slice; lexer/runtime, precedence/actions, language
+preservation and corpus behavior remain closed gates. No semantic extraction,
+LLM experiment, plot, backend or model comparison resumes before those
+deterministic gates are addressed.
+
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
 It uses the selected E0147/R000022 export directly; the analysis script no
@@ -369,10 +386,24 @@ changes a denominator.
       advantage, reference advantage, scope difference or inconclusive result;
       do not copy reference productions. R000315 and Luna R000316 are recorded;
       E0156 tracks the newly exposed canonical-lexical-spelling defect.
-- [ ] E0156: prove that EBNF, ANTLR4, Bison and tree-sitter preserve the
+- [x] E0156: prove that EBNF, ANTLR4, Bison and tree-sitter preserve the
       original Unicode glyph only in provenance while emitting canonical ASCII
-      target spellings. The independent checker and its mutation controls must
-      pass before parser-quality or model work resumes.
+      target spellings. R000318 and the broader post-fidelity R000323 replay
+      pass the independent checker and its mutation controls.
+- [x] E0157: correct the cross-format/reference inventory and obtain Luna's
+      minimal independent adjudication. R000322 records the corrected
+      tree-sitter count, StandardIR/source-lineage feature derivation and the
+      explicit lexical-only limitation.
+- [x] E0158: pass the authoritative PDF-fidelity gate before fresh generation.
+      R000321 checks all source spans and duplicate occurrences plus R741,
+      R843, R1103, R1307 and R1315; R000323 is the authorized post-gate
+      all-root regeneration and parser-generator replay.
+- [ ] E0159: classify the all-root Bison conflict inventory (758 shift/reduce,
+      3,885 reduce/reduce) and compare the result with the pinned LFortran
+      conflict policy (238/180 declared conflicts). Add only generic
+      factoring, precedence or ambiguity handling justified by the inventory;
+      retain an independent language-preservation witness. Do not copy
+      reference productions.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
 

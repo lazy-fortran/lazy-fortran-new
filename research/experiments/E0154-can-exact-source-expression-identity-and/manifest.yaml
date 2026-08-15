@@ -40,6 +40,10 @@ replays:
     lazy-fortran-new: "9618213"
     standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
     mode: selected-root-source-preflight-identity-lexical-gate-and-target-oracles
+  - run: R000323
+    lazy-fortran-new: "47a38c0"
+    standard-new: "bedd9abc7210fc7fc16607d275ea4fa7b24144f8"
+    mode: all-roots-post-pdf-fidelity-source-preflight-identity-lexical-gate-and-target-oracles
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
