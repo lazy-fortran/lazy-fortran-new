@@ -139,7 +139,9 @@ def source_expressions(path: Path) -> dict[SourceKey, str]:
         byte_start = int(atom(field(source, "byte-start")))
         byte_length = int(atom(field(source, "byte-length")))
         for alternative, expression in enumerate(alternatives, 1):
-            digest = hashlib.sha256(canonical(expression).encode("utf-8")).hexdigest()
+            # fortsx's canonical writer terminates each serialized SX object
+            # with one newline; include that byte in the independent oracle.
+            digest = hashlib.sha256((canonical(expression) + "\n").encode("utf-8")).hexdigest()
             key = (rule, alternative, byte_start, byte_length)
             if key in result:
                 raise ValueError(f"duplicate source alternative {rule}:{alternative}@{byte_start}+{byte_length}")
