@@ -243,7 +243,7 @@ changes a denominator.
       closure, and ANTLR4/Bison/tree-sitter validator gates. `R000276` passes
       the source/projection subgate and `R000277` is Luna's qualified review;
       the fresh lexical replay `R000018` passes the same deterministic gates.
-      E0149/R000280 records the remaining selected-target issues. No model
+      E0149/R000281 records the remaining selected-target issues. No model
       work is unlocked by the projection subgate alone.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
@@ -1765,13 +1765,14 @@ contaminated by an incomplete integration layer.
 - [ ] E0142: abandoned under D0084 after E0115 was stopped at 65 of 127 rows;
       do not restart its matrix
 - [ ] E0147: close the source-backed StandardIR validity gate before any new
-      semantic model cell; E0148 is the current comparison and defect
+      semantic model cell; E0149 is the current comparison and defect
       inventory, regenerated with
-      `research/experiments/E0148-compare-source-backed-standardir-grammar/analyse.sh`
-- [ ] E0148: replay the pinned LFortran Bison comparison, classify every
-      disagreement, and keep the two lexical defects, four projection/gate
-      gaps, expected differences and stale historical findings separately
-      (`research/experiments/E0148-compare-source-backed-standardir-grammar/analyse.sh`)
+      `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`
+- [x] E0149: compare the source-backed Bison projection against the pinned
+      LFortran parser architecture, inventory every production head, classify
+      all observed divergences, retain the repaired lexical baseline, and
+      record genuine StandardIR advantages. The remaining target issues are
+      carried by D0092/D0093 and R000281.
 - [x] `unresolved` and `disputed` states exercised on real clauses, not just
       supported in principle (E0085 and E0086)
 - [x] Composite adjudication gate preserves the three states and excludes

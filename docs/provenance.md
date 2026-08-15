@@ -63,6 +63,8 @@ while authoring something here. Recording an entry costs nothing. Omitting one c
 | 2026-08-13 | Intel SDM | Intel proprietary documentation | Combined Intel 64 and IA-32 SDM, version 092, retrieved from Intel | x86-64 vendor specification manifest |
 | 2026-08-14 | `ggml-org/llama.cpp` | MIT | Official function-calling and server API documentation, including named `tool_choice`, bounded `max_tokens`, `chat_template_kwargs`, and timing fields | E0116 local Qwen semantic runner protocol |
 | 2026-08-15 | `lfortran/lfortran` | BSD-3-Clause | `src/lfortran/parser/parser.yy` at commit `caf87b660f803148f000046392a5da803f9fc630`, including terminal declarations and comparison production bodies | E0148 body-level comparison only; no productions imported |
+| 2026-08-15 | `lfortran/lfortran` | BSD-3-Clause | Re-read the pinned `src/lfortran/parser/parser.yy` at commit `caf87b660f803148f000046392a5da803f9fc630`, including Bison start rules, role factoring, precedence and conflict budget | E0149 parser-architecture comparison; no productions or actions imported |
+| 2026-08-15 | `llvm/llvm-project` | Apache-2.0 WITH LLVM-exception | `flang/lib/Parser/Fortran-parsers.cpp` at commit `cff4ca2e51f89c992d8a1b6ce1067846ba680e2e`, including source rule comments and recursive-descent factoring | E0149 cross-reference only; no implementation imported |
 
 ---
 
