@@ -1,0 +1,61 @@
+id: "E0156"
+title: "Canonical lexical spellings in every grammar export"
+question: >
+  Do all four generated grammar formats preserve the source glyph in
+  provenance while emitting the declared canonical Fortran spelling in target
+  bodies and lexical contracts?
+status: draft          # draft | running | reported | abandoned
+opened: "2026-08-15"
+closed: ""
+
+repos:
+  lazy-fortran-new: "65c7b69"
+  standard-new: "83f055d"
+
+inputs:
+  source_run: E0154/R000314
+  source_document: j3-24-007
+  lexical_decisions: [D0025, D0090, D0091]
+
+variables:
+  format: [ebnf, antlr4, bison, tree-sitter]
+  scalar: [U+2013-to-minus, U+2019-to-apostrophe]
+
+model_selection: >
+  No model calls. This is a deterministic target-contract and source-witness
+  experiment; Luna's R000315 review is diagnostic evidence only.
+
+metrics:
+  - source_glyph_retained_in_provenance
+  - canonical_minus_in_target_body
+  - canonical_apostrophe_in_target_body
+  - unaccepted_unicode_glyphs_in_target_body
+  - format_gate_status
+
+denominator: >
+  Every occurrence of the two accepted typographic lexical facts in the
+  selected E0154/R000314 export, plus positive target witnesses for ASCII `-`
+  and `'` and negative witnesses for U+2013 and U+2019 in target bodies.
+
+independent_oracle: >
+  A separately implemented checker reads each generated format, distinguishes
+  comments/provenance from grammar bodies and lexical declarations, and checks
+  the declared D0090/D0091 mapping. It must fail on a mutation that replaces a
+  canonical target spelling with the source glyph or drops the source witness.
+
+falsifiable_by: >
+  Any format loses the original scalar in provenance, emits U+2013 or U+2019 as
+  an executable target spelling, fails to emit ASCII `-` or `'` where its
+  target contract requires it, or cannot be checked without a format-specific
+  manual exception.
+
+gate: >
+  All four formats pass the positive and negative lexical-witness checks. A
+  failure blocks parser-quality and model work and produces a successor
+  standard-new repair slice; it does not change the authoritative source
+  evidence.
+
+analysis: >
+  A deterministic checker to be added before the next standard-new replay;
+  its command and output report will be recorded here before the experiment is
+  run.

@@ -2,9 +2,9 @@ id: "E0154"
 title: "Exact source-expression identity for parser-target lowering"
 question: >
   Can exact source-expression identity and corpus witnesses close the selected parser export gate
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-15"
-closed: ""
+closed: "2026-08-15"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -32,6 +32,10 @@ replays:
     lazy-fortran-new: "c8686d9"
     standard-new: "83f055d"
     mode: selected-root-source-preflight-identity-and-target-oracles
+  - run: R000314
+    lazy-fortran-new: "65c7b69"
+    standard-new: "83f055d"
+    mode: selected-root-source-preflight-identity-and-target-oracles-clean-replay
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

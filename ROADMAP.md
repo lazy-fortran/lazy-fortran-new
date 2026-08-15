@@ -196,6 +196,34 @@ separate typed source-preservation witness when no one-to-one target body
 exists. Parser-generator acceptance remains subordinate; no model experiment
 resumes until this deterministic gate passes.
 
+That raw-witness boundary is now implemented and pushed as `standard-new`
+`83f055d`. E0154/R000314 is the clean replay at lab `65c7b69`: its source
+preflight runs before `fo` and all grammar generators; the independent identity
+gate then covers 1,068/1,068 source alternatives in EBNF, ANTLR4, Bison and
+tree-sitter, with positive and negative controls passing. ANTLR4, Bison and
+tree-sitter validators pass after identity succeeds, and the omitted-root audit
+explicitly accepts seven annotation-only witnesses for six declared roots.
+The exact source-expression gate is closed. The generated Bison grammar still
+reports 427 shift/reduce and 2,266 reduce/reduce conflicts; conflict policy,
+language preservation and real-corpus behavior remain successor gates. No LLM
+or semantic experiment is unlocked by the identity result.
+
+E0155 is the current bidirectional LFortran comparison at pinned commit
+`caf87b660f803148f000046392a5da803f9fc630`, using
+`research/experiments/E0155-how-does-the-corrected-source-backed-sta/analyse.sh`.
+It records genuine StandardIR advantages (normative rule/page/byte/hash
+lineage, exact source identity and four-format derivation) and genuine
+LFortran advantages (lexer/runtime contract, typed values, actions, precedence,
+factoring and explicit conflict budget). It is not a language-equivalence
+claim. The comparison also found a real target projection defect: EBNF still
+prints U+2013/U+2019 in grammar bodies at the lexical anchors listed in
+`research/experiments/E0154-can-exact-source-expression-identity-and/reviews/R000315-luna.md`,
+despite D0090/D0091 requiring canonical ASCII target spellings. E0156 is now
+the next deterministic gate; no parser-quality, semantic or model work resumes
+until every format passes its lexical witness checks. Only after that gate do
+we reduce and witness ambiguity and parser behavior without copying reference
+productions.
+
 E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
 It uses the selected E0147/R000022 export directly; the analysis script no
@@ -269,9 +297,9 @@ role-family mechanism is accepted by E0150/R000306; applying it to the full
    selected export remains gated. Each transformation needs a retained mapping
    and an independent language/corpus witness (D0092, D0093, D0094). D0095
    additionally requires source and generated expression identities to remain
-   typed and aligned. E0154 is
-   the current source-expression identity slice; it must close before a real
-   selected-parser corpus or parser-runtime result is accepted.
+   typed and aligned. E0154/R000314 now closes the exact identity slice; a real
+   selected-parser corpus or parser-runtime result still requires successor
+   conflict, language-preservation and behavior gates.
 9. Resume Qwen 3.8 27B only after E0147 closes, on a new source-valid residue
    manifest with deterministic replay and an independent source-span witness.
 10. Promote the closed syntax/reference layer into semantic extraction, then
@@ -321,14 +349,23 @@ changes a denominator.
       reachability. Full-profile conflict, language-preservation and corpus
       gates remain open. No model work is
       unlocked by the projection subgate alone.
-- [ ] E0154: close exact source-expression identity for every selected target
+- [x] E0154: close exact source-expression identity for every selected target
       alternative and helper across EBNF, ANTLR4, Bison and tree-sitter, with
-      independent positive/negative mutations. R000308 is the retained failed
-      replay and R000309 is its subordinate target-validator result. Repair
-      Unicode identity, capacity-safe merged witnesses and the typed
-      source-versus-generated distinction before rerunning. This gate does not
-      yet claim lexer/runtime, precedence/actions, conflict-policy or
-      real-source acceptance equivalence.
+      independent positive/negative mutations. R000308 and R000311 remain the
+      retained failed replays; R000313 is the focused repair gate and R000314
+      is the clean final replay. This closes source identity and target
+      generator acceptance only; it does not claim lexer/runtime,
+      precedence/actions, conflict-policy or real-source acceptance
+      equivalence.
+- [x] E0155: complete the pinned bidirectional LFortran Bison comparison and
+      independent Luna review. Record every difference as a StandardIR
+      advantage, reference advantage, scope difference or inconclusive result;
+      do not copy reference productions. R000315 and Luna R000315 are recorded;
+      E0156 tracks the newly exposed canonical-lexical-spelling defect.
+- [ ] E0156: prove that EBNF, ANTLR4, Bison and tree-sitter preserve the
+      original Unicode glyph only in provenance while emitting canonical ASCII
+      target spellings. The independent checker and its mutation controls must
+      pass before parser-quality or model work resumes.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
       a new manifest and a source-span witness gate.
 
@@ -338,7 +375,7 @@ closes its gate. D0081 remains the plotting boundary for a later campaign:
 historical rows remain visible and new Qwen 3.8 rows are added automatically,
 but no new model row is scheduled now.
 
-The current pushed production pins are therefore `standard-new` `c8ebb22`,
+The current pushed production pins are therefore `standard-new` `83f055d`,
 `fortfront-new` `db5eaec`, `ffc-new`
 `3253849`, and `fortback-new` `a149015`. `standard-new` now has the generic
 selected-root export, post-normalization reachability and source-expression

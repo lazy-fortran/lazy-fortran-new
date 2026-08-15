@@ -7,12 +7,13 @@ run with:
 
 ```text
 research/experiments/E0154-can-exact-source-expression-identity-and/run-selected.sh \
-  .cache/runs/E0154/R000002 program
+  .cache/runs/E0154/R000314 program
 ```
 
-`run-selected.sh` regenerates all four projections from the pinned
-source-backed input and invokes the independent checker. `analyse.sh` remains
-the checker-only entry point for an existing run directory.
+`run-selected.sh` first runs the source-only preflight, then regenerates all
+four projections, then invokes the independent checker, and invokes parser
+oracles only after that checker passes. `analyse.sh` remains the checker-only
+entry point for an existing run directory.
 
 ## R000308: the first real identity replay failed for useful reasons
 
@@ -97,3 +98,34 @@ conflict policy remain genuine reference advantages. It also caught a lab
 bookkeeping label in `run-selected.sh`; the 522 count is now named
 `source-syntax-records`, while the independent denominator remains 1,068
 source alternatives.
+
+## R000313: raw witnesses close the source identity gate
+
+The generic repair is `standard-new` `83f055d`. It captures the raw RHS
+fingerprint before lexical target normalization, seeds a typed source witness at
+the raw-to-target boundary, carries those witnesses through deduplication,
+reference substitution and generated left-recursion helpers, and emits an
+explicit witness for omitted selected-root declarations. The focused
+independent check reports 1,068/1,068 source alternatives in each of the four
+formats, zero missing/wrong rows, and a passing negative mutation control.
+
+R000313 initially exposed a validator defect: EBNF's seven annotation-only
+witnesses for six intentionally omitted declared roots were counted as
+body-loss. The parser generators themselves all accepted the output. The audit
+was corrected generically to distinguish `omitted-before-target-lowering`
+witnesses from missing bodies.
+
+## R000314: clean replay after the gate-order and audit fixes
+
+The clean replay pins lab `65c7b69` and `standard-new` `83f055d`. The source
+preflight passes before `fo` or any grammar generator is invoked. The independent
+identity report then passes in all four formats: 1,068 expected, 1,068 covered,
+zero missing/wrong rows, positive identity PASS and negative mutation PASS.
+ANTLR4 4.13.2, Bison 3.8.2 and tree-sitter 0.26.9 all accept their generated
+formats; the source-projection audit and its negative control pass. Bison still
+reports 427 shift/reduce and 2,266 reduce/reduce conflicts. That is an open
+parser-quality gate, not a source-identity failure.
+
+No LLM or semantic experiment is resumed by this result. The next comparison is
+E0155, which records the corrected bidirectional LFortran Bison comparison and
+keeps executable-parser, conflict-policy and language-equivalence work open.
