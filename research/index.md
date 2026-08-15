@@ -152,6 +152,7 @@ Runs recorded: 288
 | E0148 | reported | 2 | Can an independently pinned Bison grammar expose source-to-target lexical or |
 | E0149 | reported | 4 | Does a lane-based structural audit of the source-backed StandardIR Bison |
 | E0150 | running | 1 | Can generic parser-target role factoring reduce StandardIR ambiguity while preserving source roles and provenance? |
+| E0151 | running | 0 | Can generic post-normalization reachability prune selected parser targets while preserving source lineage |
 
 ## Run status
 
