@@ -289,10 +289,11 @@ latest_replay: >
   deterministic target gates close.
 
 remaining_gates:
-  - generated parser/lexer targets must consume the pinned lexical-layout-v2
-    contract and the audited statement-sequence witness
-  - generated lexer/runtime positive/negative behavior must agree with the
-    source oracle R000426
+  - the target token stream and later source lexer must consume the pinned
+    lexical-layout-v2 contract and the audited statement-sequence witness
+  - target runtime positive/negative behavior must agree with the source
+    oracle R000426; the current fortfront-new runtime is token-supplied and is
+    not yet evidence of raw-source lexer behavior
   - generic tree-sitter conflict policy must pass without source loss
   - lexer/runtime statement-termination and keyword/name behavior must be
     independently witnessed before adjudicating the SAVE/LETTER witness

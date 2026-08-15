@@ -43,7 +43,10 @@ The immediate sequence is:
    oracle R000426 for separators, comments, continuation and keyword/name
    reuse. The target gate must prove nested `IF (...) action-stmt` and
    ordinary statement sequences separately; source/compiler agreement alone is
-   not a generated-parser result.
+   not a generated-parser result. At `fortfront-new` `4190885`, the generic
+   runtime still consumes caller-supplied tokens rather than raw Fortran source,
+   so the first target gate must make the boundary-token stream explicit and
+   testable; it must not be described as a completed source lexer.
 3. Consume the central `contracts/lexical-layout-v2.sxs` revision from
    `standard-new`, extending the target lexer contract with statement-boundary,
    continuation and keyword/name behavior. R000408 is retained as a v0
