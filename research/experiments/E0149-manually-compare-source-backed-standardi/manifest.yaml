@@ -33,6 +33,10 @@ replays:
   - run: R000002
     standardir_run: E0147/R000018
     standard-new: "424853273a9c424d0483303478a794090756aa80"
+  - run: R000005
+    standardir_run: E0147/R000022
+    standard-new: "c955c23bd57a078c8fceb30de1df101280b25e2c"
+    scope: selected-program
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
@@ -72,6 +76,7 @@ metrics:
   - audited_anchor_rows
   - findings_by_class
   - standardir_advantages_recorded
+  - reference_advantages_recorded
 
 # State the complete eligible set and exclusions before the first run. A rate
 # over the successful subset is reported alongside the strict rate.
@@ -118,7 +123,9 @@ gate: >
 analysis: >
   Run
   research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh
-  <run-directory> [E0147/R000018]. It writes only to the ignored run directory
+  <run-directory> [E0147/R000018]. Use `--scope selected` for a run produced
+  with `sxgrammar --selected-root`; auto-detection recognizes the generated
+  selected-root header. It writes only to the ignored run directory
   and produces summary.json, inventory.tsv, production-coverage.tsv,
   anchors.tsv, findings.tsv and Bison replay logs. The checked-in
   comparison-matrix.tsv is the manual classification ledger; the first run is

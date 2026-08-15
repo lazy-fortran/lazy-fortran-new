@@ -160,9 +160,18 @@ review. The source-backed grammar gate passes; the
 selected parser milestone remains open because parser reachability, role
 specialization and behavioral corpus coverage are not yet witnessed.
 
-E0149/R000003 is the current pinned LFortran comparison, regenerated with
+E0149/R000005 is the current pinned LFortran comparison, regenerated with
 `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`.
-E0150/R000007--R000015 are the current deterministic role-family probes,
+It uses the selected E0147/R000022 export directly; the analysis script no
+longer manufactures a second start condition. M022--M024 record that the
+previously alleged R741, R843, R1103, R1307, R1315 and R1416/R1417 defects are
+not present in the current source-backed output. M025 is the remaining
+concrete target gap: generic left-recursion normalization leaves four
+unreachable normalized symbols and seven Bison-useless rules in the selected
+export, even though their source lineages are retained. M026 records a real
+LFortran advantage in runtime lexer/actions/precedence/conflict policy, while
+M008 and M021 record genuine StandardIR provenance and source-boundary
+advantages. E0150/R000007--R000015 are the current deterministic role-family probes,
 regenerated with
 `research/experiments/E0150-can-generic-parser-target-role-factoring/analyse.sh`.
 They show that indiscriminate alias factoring is worse, while one mechanically
@@ -257,7 +266,7 @@ changes a denominator.
       the source/projection subgate and `R000277` is Luna's qualified review;
       the current all-root `R000020` and selected-root `R000022` replays pass
       the four-format gates after selected-root disposition handling was fixed.
-      E0149/R000003 and E0150/R000007--R000015 record the remaining
+      E0149/R000005 and E0150/R000007--R000015 record the remaining
       selected-target issues. No model work is unlocked by the projection
       subgate alone.
 - [ ] Resume Qwen 3.8 27B only on the bounded residual produced by E0147, with
@@ -1785,7 +1794,7 @@ contaminated by an incomplete integration layer.
 - [ ] E0142: abandoned under D0084 after E0115 was stopped at 65 of 127 rows;
       do not restart its matrix
 - [ ] E0147: close the source-backed StandardIR validity gate before any new
-      semantic model cell; E0149/R000003 is the current comparison and defect
+      semantic model cell; E0149/R000005 is the current comparison and defect
       inventory, regenerated with
       `research/experiments/E0149-manually-compare-source-backed-standardi/analyse.sh`
 - [ ] E0150: finish generic parser-target role factoring with lineage,
@@ -1795,8 +1804,9 @@ contaminated by an incomplete integration layer.
 - [x] E0149: compare the source-backed Bison projection against the pinned
       LFortran parser architecture, inventory every production head, classify
       all observed divergences, retain the repaired lexical baseline, and
-      record genuine StandardIR advantages. The remaining target issues are
-      carried by D0092/D0093/D0094, E0150 and the current Luna review.
+      record both genuine StandardIR advantages and genuine reference
+      advantages. The remaining target issues are carried by D0092/D0093/D0094,
+      E0150 and the current Luna review.
 - [x] `unresolved` and `disputed` states exercised on real clauses, not just
       supported in principle (E0085 and E0086)
 - [x] Composite adjudication gate preserves the three states and excludes

@@ -212,7 +212,8 @@ def read_matrix() -> list[dict[str, str]]:
         raise SystemExit("E0149 comparison matrix misses lanes: " + ", ".join(sorted(missing)))
     allowed = {
         "no_defect_found", "target_defect", "projection_gap", "target_specialization_gap",
-        "expected_difference", "standardir_advantage", "lfortran_advantage", "method_gap",
+        "expected_difference", "standardir_advantage", "reference_advantage",
+        "lfortran_advantage", "method_gap",
     }
     bad = sorted({row["classification"] for row in rows} - allowed)
     if bad:
@@ -227,6 +228,8 @@ def main() -> int:
     parser.add_argument("--standard-run", default=STANDARD_RUN,
                         help="cached StandardIR run, for example E0147/R000018")
     parser.add_argument("--standard-commit", default=None)
+    parser.add_argument("--scope", choices=("auto", "closure", "selected"), default="auto",
+                        help="interpret the supplied StandardIR export as a closure or selected parser")
     args = parser.parse_args()
     lab_root = args.lab_root.resolve()
     run_dir = args.run_dir.resolve()
@@ -270,10 +273,16 @@ def main() -> int:
     coverage = write_coverage(run_dir / "production-coverage.tsv",
                               standard_productions, lfortran_productions)
     write(run_dir / "lfortran-parser.yy", lfortran_text)
-    standard_metrics = run_bison(standard_path, run_dir, "standardir-all-roots")
-    selected_path = run_dir / "standardir-program-root.y"
-    write(selected_path, standard_text.replace("%start standardir_start", "%start r_program", 1))
-    selected_metrics = run_bison(selected_path, run_dir, "standardir-program-root")
+    selected_mode = args.scope == "selected" or (
+        args.scope == "auto" and "target=selected-root" in standard_text[:2048])
+    if selected_mode:
+        standard_metrics = run_bison(standard_path, run_dir, "standardir-selected-program")
+        selected_metrics = standard_metrics
+    else:
+        standard_metrics = run_bison(standard_path, run_dir, "standardir-all-roots")
+        selected_path = run_dir / "standardir-program-root.y"
+        write(selected_path, standard_text.replace("%start standardir_start", "%start r_program", 1))
+        selected_metrics = run_bison(selected_path, run_dir, "standardir-program-root")
     lfortran_metrics = run_bison(run_dir / "lfortran-parser.yy", run_dir, "lfortran")
 
     inventory = [
@@ -311,6 +320,7 @@ def main() -> int:
         "lfortran_path": LF_PATH,
         "lfortran_sha256": lfortran_sha,
         "standardir_run": args.standard_run,
+        "standardir_scope": "selected-program" if selected_mode else "closure-all-roots",
         "standardir": {
             "production_heads": len(standard_productions),
             "alternatives": sum(int(row["alternatives"]) for row in standard_productions),
