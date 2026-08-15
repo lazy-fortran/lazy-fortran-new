@@ -138,3 +138,30 @@ and emits useless-precedence warnings. `%expect` would only hide the remaining
 ambiguity. D0100 therefore keeps GLR as the default and defers precedence or
 action generation until a source-derived production transformation has an
 independent language gate.
+
+## R000398: counterexample-witness inventory
+
+The corrected analyzer now parses the retained Bison state reports into a
+separate `counterexamples.tsv`. Each row records the profile, state, conflict
+kind, lookahead token, competing rule numbers and symbols, visible StandardIR
+rule IDs, stable hashes of both example derivations, and whether both example
+derivations were present. It does not decide that a conflict is harmless.
+
+The replay reports:
+
+| profile | conflict actions | counterexample groups | complete groups |
+|---|---:|---:|---:|
+| all roots | 758 shift/reduce, 3,885 reduce/reduce | 4,512 | 4,512 |
+| selected `program` | 427 shift/reduce, 2,266 reduce/reduce | 766 | 766 |
+| LFortran | 238 shift/reduce, 180 reduce/reduce | 443 | 443 |
+
+The group count is not expected to equal the action count: Bison may emit one
+counterexample group for a state/token conflict while a state contains several
+conflicting actions. The old structural category inventory remains available,
+but the new witness rows are the evidence used for any later source-lineage or
+ambiguity analysis.
+
+The accepted replay is under
+`.cache/runs/E0159/R000398-counterexample-witness/`. Reproduce it with the
+`analyse.py` command in the manifest. This remains `INVENTORY_ONLY`; no
+precedence, action, `%expect` or role-family policy is promoted by this run.

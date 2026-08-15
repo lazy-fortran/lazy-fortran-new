@@ -98,3 +98,9 @@ replays:
     oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
     mode: current-target-control-and-conflict-adjudication
     report: .cache/runs/E0169-lfortran-comparison.tsv
+  - run: R000398
+    lazy-fortran-new: "d0a323b"
+    standard-new: "fb6590c4885a38b0106f63112f6e024c20b927b5"
+    oracle-lfortran: "caf87b660f803148f000046392a5da803f9fc630"
+    mode: selected-all-root-pinned-lfortran-counterexample-witness-inventory
+    report: .cache/runs/E0159/R000398-counterexample-witness
