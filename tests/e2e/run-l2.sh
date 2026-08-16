@@ -4,6 +4,8 @@
 
 set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/../../scripts/lib.sh"
+export LC_ALL=C
+export LANG=C
 need python3
 need sha256sum
 need git

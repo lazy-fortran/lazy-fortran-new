@@ -95,14 +95,16 @@ Evidence paths: `tests/e2e/run-l2.sh`, `tests/e2e/oracle_l2.py`,
 `artifacts/traces/l2-first-executable-v0.json`.
 
 ```text
-source
-→ frontend
-→ StandardIR
-→ MIR/TargetIR
-→ backend
+frontend-v0 SX witness
+→ ffc-new MIR-v0
+→ fortback-new TargetIR/emission
 → executable
 → expected runtime output
 ```
+
+This first execution slice deliberately begins with an already-produced
+`frontend-v0` witness. It verifies the downstream handoff and executable
+behavior; it does not claim a new source-to-frontend or StandardIR conversion.
 
 ### Definition of done
 
