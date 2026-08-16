@@ -10,7 +10,50 @@ order, the steps in each phase, and the gate that ends it, so that facts are
 not copied into several places and left to rot. Any count appearing here names
 the command that regenerates it.
 
-**Active critical path.** R000433 closes the source-provenance and
+**Active delivery path.** D0120 changes the optimization target from an
+unbounded research-frontier loop to one centrally controlled, independently
+verified vertical slice. `lazy-fortran-new` is the sole Goal Mode control
+plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
+implementation repositories and do not own cross-repository milestones or
+project-management loops.
+
+The active central milestone is L0, defined in `MILESTONES.md` and tracked in
+`STATUS.md`:
+
+```text
+normative source fact
+  → pinned standard-new StandardIR artifact
+  → declared contract path
+  → deterministic observable
+  → independent oracle
+```
+
+The first implementation task is to choose the smallest existing fixture and
+wire the central runner. The runner must record component commits, contract
+revisions, source and output hashes, spans, diagnostics and the oracle result.
+It must fail closed while the fixture, expected observable or oracle is unset.
+The active commands are:
+
+```text
+scripts/check_pins.sh
+scripts/run_e2e.sh
+scripts/verify_active_milestone.sh
+```
+
+Component-local `fo` gates remain necessary. They are not central milestone
+evidence. No new provenance, correspondence, schema, semantic, model or
+backend work is allowed unless the L0 acceptance test consumes it. Existing
+correspondence work remains preserved historical evidence; it is paused rather
+than deleted and can resume only when it is the next measured blocker for a
+delivery slice.
+
+After L0, L1 adds the first frontend contract path and L2 adds the first
+compiled execution path. The full source-validity and grammar gates described
+under M1/M2 remain required for the broader compiler claim, but they are not a
+reason to extend the current audit loop before an end-to-end delivery path
+exists.
+
+**Historical deterministic audit path (paused).** R000433 closes the source-provenance and
 authoritative PDF-fidelity gate for the pinned numbered-syntax corpus at
 `standard-new` `30c973f`: the replay command extracts all pages with
 `fo exec pdfproductions`, converts them with `fo exec pdfstandardir`, and runs

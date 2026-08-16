@@ -25,6 +25,8 @@ arbitrary paths, or become a production service.
 - `LESSONS.md`: what the existing toolchain's history demonstrates, with
   commit-level evidence and counter-evidence.
 - `ROADMAP.md`: phases, current position, what blocks what.
+- `STATUS.md`: mutable central delivery state.
+- `MILESTONES.md`: central cross-repository definitions of done.
 - `RESEARCH.md`: how experiments, runs and decisions are recorded.
 - `repos.toml`: production repositories and oracle repositories.
 - `scripts/`: clone, status, update, fetch, experiment and index helpers, plus
@@ -33,13 +35,16 @@ arbitrary paths, or become a production service.
 - `research/runs/`: append-only JSONL, one file per month.
 - `research/decisions/`: one file per decision, `D<NNNN>-<slug>.md`.
 - `research/corpora/`: corpus manifests, never corpus contents.
-- `artifacts/`: manifests only. See the provenance gate below.
+- `artifacts/`: small manifests, trace indexes and reviewed reports only;
+  payloads remain in the ignored cache. See the provenance gate below.
 - `papers/`: one directory per paper, each pinning the runs it reports.
 - `docs/self-hosting.md`: the two IRs, their serialization, and the bootstrap.
 - `docs/text-representation.md`: how text is held, and why not as strings.
 - `docs/literature.md`: prior art, with what each reference is used for.
 - `docs/provenance.md`: licence classes, the consultation log, artifact pins.
 - `docs/glossary.md`: terms as this project uses them.
+- `docs/goal-mode.md`, `docs/cross-repo-protocol.md` and
+  `docs/oracle-policy.md`: central delivery-control rules.
 
 `docs/` deliberately does not restate the architecture. `DESIGN.md` is the
 overview and the production repositories own their own detailed specifications.
@@ -89,9 +94,12 @@ one of them is wrong even if everything else about it is right.
 **Nothing external is vendored.** Not standards documents, not grammars, not
 ISA specifications, not corpora, not compiler sources. Each external artifact
 gets a manifest under `artifacts/` recording its URL, SHA-256, byte size,
-licence, retrieval date, and what it is used for. `scripts/fetch.sh` downloads
-into a gitignored cache and verifies the hash. A hash mismatch is a hard
-failure, never a warning. `git status` must be clean after any fetch.
+licence, retrieval date, and what it is used for. Small central integration
+trace manifests and reviewed reports may also be committed under
+`artifacts/manifests/`, `artifacts/traces/` and `artifacts/reports/`; large
+payloads remain in the gitignored cache. `scripts/fetch.sh` downloads into a
+gitignored cache and verifies the hash. A hash mismatch is a hard failure,
+never a warning. `git status` must be clean after any fetch.
 
 **Every generated artifact carries an origin label**, one of `MECHANICAL`,
 `SEARCH`, `SMT`, `LLM`, `LLM_REPAIR`, `HUMAN`, `IMPORTED`, `DIFFERENTIAL`.
@@ -305,3 +313,27 @@ refusals, in the style of `fortad/ROADMAP.md`, are the target.
    every central contract schema and witness, including its negative control.
 4. Prose has been through the `deslop` skill and `fo` is green wherever Fortran
    exists.
+
+## Cross-repository control-plane rule
+
+This repository is the sole coordination and Goal Mode control plane for the
+Lazy Fortran generated compiler program.
+
+All cross-repository state belongs here: the active milestone, component pins,
+contracts, end-to-end fixtures, oracles, reproducibility commands, integration
+traces and accepted or rejected decisions. `standard-new`, `fortfront-new`,
+`ffc-new` and `fortback-new` are implementation repositories. Do not create
+independent project-management loops, milestone ledgers or research ledgers in
+them.
+
+For cross-repository work:
+
+1. Read `repos.toml`, `STATUS.md`, `MILESTONES.md` and the active contracts.
+2. Pin every consumed component revision and relevant artifact hash.
+3. Make code changes in the correct component repository and commit them there.
+4. Update the central pin and integration evidence here.
+5. Run the central end-to-end verification command from this repository.
+6. Commit central evidence only after the complete slice passes.
+
+A component-local build or test is necessary but never sufficient for a
+cross-repository milestone.

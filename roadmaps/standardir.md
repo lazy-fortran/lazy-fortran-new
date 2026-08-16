@@ -5,17 +5,29 @@ and `contracts/standardir-grammar-v0.sxs` for normalized grammar structure.
 Primary source and artifact provenance remain in the laboratory. Production code consumes
 source paths supplied by the laboratory fetch contract and emits StandardIR.
 
-## Current gate
+## Current delivery gate
 
-M1's source-validity subgate is accepted as E0147/R000267 at
-`standard-new` `17525dbef6ec7a44ee701bc400841e8a907708df`. M2 is not complete.
-The current E0147 output is a source-valid baseline only: its first independent
-ANTLR4, Bison and tree-sitter validator run rejected unresolved references.
-Those validators are all mandatory; tree-sitter is not a non-gating exception.
-The automatic closure and target-normalization procedure is maintained in
-`research/experiments/E0147-can-source-backed-standardir-validity-close/` and
-must finish before semantic or model work resumes. Historical E0098 remains
-comparison evidence, not the current gate.
+The central control plane is `lazy-fortran-new`. The active component input is
+the smallest existing normative lexical/specification slice that can be
+consumed by the central L0 fixture. `standard-new` does not maintain a local
+status file, milestone ledger or Goal Mode loop.
+
+S0 is the component acceptance condition inside L0:
+
+- the pinned lexical source and schema regenerate the StandardIR artifact;
+- a central manifest relates each retained fact to its source locator and
+  generated identity;
+- positive, negative and mutation-controlled behavior is checked; and
+- regeneration is deterministic from a clean checkout.
+
+The first task is to implement the central runner and select the fixture and
+oracle. Until that runner consumes the source-to-target evidence, additional
+provenance or correspondence fields are not an accepted StandardIR slice.
+
+The earlier E0147/M1/M2 source-validity and grammar audits remain required for
+the broader complete-standard claim. Their unresolved references, target
+validators and correspondence findings are historical evidence and are
+paused, not deleted, while L0 establishes the delivery path.
 
 ## Independent slices
 

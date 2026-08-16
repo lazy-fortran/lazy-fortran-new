@@ -6,6 +6,12 @@ pins, experiment/run records and cleanup.
 
 ## Wave protocol
 
+The laboratory is the sole control plane. A wave advances one central
+delivery checkbox, not one component's independent roadmap. The assigned
+slice must name its final observable and independent oracle before any code is
+changed. Provenance or contract work is in scope only when the central fixture
+consumes it.
+
 1. inspect the target checkout and worktree. Require a clean exact base.
 2. assign one vertical slice with explicit paths, contract revisions and gates.
 3. run independent slices concurrently only when repositories and file scopes
@@ -16,6 +22,9 @@ pins, experiment/run records and cleanup.
 6. merge verified slices promptly into the target main integration line.
 7. append the run record, update the lane and central roadmap, then remove the
    local worktree/branch and any published remote task branch.
+
+Do not launch separate Goal Mode loops in production repositories. A component
+commit is integrated only after the central fixture, trace and oracle pass.
 
 The coordinator never calls an unverified commit integrated. A failed or
 abandoned slice remains in the run ledger with its last commit and failure

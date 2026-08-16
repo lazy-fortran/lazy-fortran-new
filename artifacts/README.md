@@ -1,11 +1,13 @@
 # artifacts
 
-**Manifests only. No payloads.**
+**Small manifests and reviewed reports only. No payloads.**
 
 Nothing external is committed to this repository, not standards documents, not
-grammars, not ISA specifications, not corpora, not model traces. Each artifact
-gets a small TOML manifest here recording where it came from and what it hashes
-to, and `scripts/fetch.sh` turns a manifest into bytes in the gitignored
+grammars, not ISA specifications, not corpora, not model traces. Each external
+artifact gets a small TOML manifest here recording where it came from and what
+it hashes to, and `scripts/fetch.sh` turns a manifest into bytes in the
+gitignored `.cache/`. Small central integration trace manifests and reviewed
+reports are allowed in their named subdirectories; their payloads remain in
 `.cache/`.
 
 ```sh
@@ -27,6 +29,9 @@ downstream of it.
 | `grammars/` | Third-party grammar corpora used as comparisons |
 | `benchmark/` | Corpora and benchmark result archives |
 | `model/` | Prompt and response payloads referenced by run records |
+| `manifests/` | Central component and integration manifest indexes |
+| `traces/` | Small trace manifests, never trace payloads |
+| `reports/` | Reviewed reports derived from immutable runs |
 
 ## Manifest fields
 

@@ -27,9 +27,13 @@ code.
   demonstrates, at commit level, including where it contradicts the argument.
 - **`DESIGN.md`**: repository hierarchy, StandardIR, ImplIR, contracts.
 - **`ROADMAP.md`**: phases, current position, what blocks what.
+- **`STATUS.md`** and **`MILESTONES.md`**: the active central delivery state
+  and the cross-repository definitions of done.
 - **`RESEARCH.md`**: how experiments, runs and decisions are recorded.
 - **`AGENTS.md`**: how to work in this repository. `CLAUDE.md` is a symlink to
   it.
+- **`docs/goal-mode.md`** and **`docs/cross-repo-protocol.md`**: how one
+  verified vertical slice is selected, executed and integrated.
 
 ## Repositories
 
