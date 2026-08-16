@@ -35,7 +35,7 @@ contribution has to be stated relative to it.
 - ✓ **Lämmel, R. and Verhoef, C. "Cracking the 500-Language Problem."** *IEEE
   Software*, Nov/Dec 2001. <https://www.cs.vu.nl/grammarware/500/500.pdf>
   The economic argument for grammar recovery at scale.
-- **Lämmel, R. and Zaytsev, V. "An Introduction to Grammar Convergence."** IFM
+- ✓ **Lämmel, R. and Zaytsev, V. "An Introduction to Grammar Convergence."** IFM
   2009. <https://doi.org/10.1007/978-3-642-00255-7_17> Establishing that
   independently produced grammars for one language agree, by transformation to a
   common form. **Directly applicable to the four-corpus comparison** between our
