@@ -20,8 +20,9 @@ without untracked generated files or a developer-local cache.
 ## Central commands
 
 The commands below are the delivery interface. `verify_active_milestone.sh`
-must fail closed until the L0 runner is implemented; a placeholder success is
-not useful evidence.
+dispatches the active L0 or L1 runner and fails closed for an active milestone
+without an implemented runner; a placeholder success is not useful evidence.
+`run_e2e.sh` independently fails closed if the L0 runner is absent.
 
 ```sh
 scripts/check_pins.sh

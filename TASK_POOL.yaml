@@ -37,26 +37,30 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L0-replay-current
+active_task: T-L0-contract-boundary
 
 milestones:
   - id: L0
     title: Normative lexical slice
     status: OPEN
-    verification: NEEDS REPLAY
+    verification: NEEDS FIX
     historical_status: PASS
     prerequisites: []
     verifier_command: scripts/run_e2e.sh
     evidence_paths:
       - artifacts/manifests/l0-lexical-slice-v0.toml
       - artifacts/traces/l0-lexical-slice-v0.json
+      - artifacts/reports/L0/current-replay-luna-scope.md
+      - artifacts/reports/L0/current-replay-luna-contract.md
+      - artifacts/reports/L0/current-replay-luna-oracle.md
+      - artifacts/reports/L0/current-replay-luna-reproducibility.md
       - research/runs/2026-08.jsonl#R000437
   - id: L1
     title: Frontend slice
     status: BLOCKED
     verification: NEEDS REPLAY
     historical_status: PASS
-    prerequisites: [T-L0-replay-current]
+    prerequisites: [T-L0-contract-boundary]
     verifier_command: tests/e2e/run-l1.sh
     evidence_paths:
       - artifacts/manifests/l1-frontend-slice-v0.toml
@@ -101,7 +105,7 @@ tasks:
   - id: T-L0-replay-current
     milestone: L0
     title: Replay L0 from the current clean central checkout
-    status: OPEN
+    status: FAIL
     prerequisites:
       - all component pins in repos.toml resolve to clean main checkouts
     verifier_command: scripts/run_e2e.sh
@@ -109,13 +113,26 @@ tasks:
       - tests/e2e/run-l0.sh
       - artifacts/manifests/l0-lexical-slice-v0.toml
       - artifacts/traces/l0-lexical-slice-v0.json
-    retry_count: 0
+    retry_count: 1
     integration_cycle_trigger: milestone_pass
+  - id: T-L0-contract-boundary
+    milestone: L0
+    title: Declare and verify the standard-new lexical-facts contract boundary
+    status: OPEN
+    prerequisites: [T-L0-replay-current]
+    verifier_command: scripts/run_e2e.sh
+    evidence_paths:
+      - docs/component-contracts.md
+      - artifacts/reports/L0/current-replay-luna-contract.md
+      - tests/e2e/run-l0.sh
+      - artifacts/traces/l0-lexical-slice-v0.json
+    retry_count: 0
+    integration_cycle_trigger: interface_change
   - id: T-L1-replay-current
     milestone: L1
     title: Replay L1 from the current clean central checkout
     status: BLOCKED
-    prerequisites: [T-L0-replay-current]
+    prerequisites: [T-L0-contract-boundary]
     verifier_command: tests/e2e/run-l1.sh
     evidence_paths:
       - tests/e2e/run-l1.sh

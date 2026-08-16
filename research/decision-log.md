@@ -40,3 +40,15 @@ verifiers.
 - A trace without an independent consumer is evidence of execution, not
   correctness.
 - A generated artifact must be regenerated and checked, never hand-edited.
+
+## 2026-08-16 — L0 replay contract boundary failure
+
+The current L0 replay passed its local deterministic, negative, mutation and
+independent-oracle checks. The four independent Luna reviews then found three
+PASS results and one contract/interface FAIL: the runner consumes
+`standard-new`'s lexical-facts source and local schema without checking a
+mapping to the central `contracts/standardir-v0.sxs` contract. The schemas
+differ materially while sharing the same identity. The replay and reviews are
+retained; L0 is not promoted, L1 remains blocked, and the next task is the
+smallest executable boundary repair. No GPT-Sol consultation is triggered by
+this single failure.

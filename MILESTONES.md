@@ -7,9 +7,9 @@ milestone ledger.
 ## Current verification state
 
 The historical evidence below is preserved. Current promotion status is
-separate: L0 and L1 are both `NEEDS REPLAY` because the existing runners do
-not assert a clean central checkout before execution, and no replay was run
-for this audit. L2 is `NOT STARTED`.
+separate: the L0 local replay is green but its integration cycle is `NEEDS
+FIX` because the consumed `standard-new` lexical-facts boundary is not tied to
+the central contract. L1 is `NEEDS REPLAY`. L2 is `NOT STARTED`.
 
 ## L0 — Normative lexical slice
 
@@ -36,13 +36,17 @@ standard-new
 - [x] An independent oracle passes.
 - [x] The central clean-checkout command passes.
 - [x] The result enters the regression corpus.
+- [ ] The actual consumed `standard-new` boundary is declared against a
+      central contract and checked by the central verifier.
 
 Evidence: `R000437`,
 `artifacts/manifests/l0-lexical-slice-v0.toml` and
 `artifacts/traces/l0-lexical-slice-v0.json`. Regenerate with
 `scripts/run_e2e.sh`.
 
-Current status: `NEEDS REPLAY` from the current central checkout.
+Current status: `NEEDS FIX` after the current replay's contract/interface
+review. The local verifier passed; promotion is blocked by the missing
+boundary check.
 
 ## L1 — Frontend slice
 
