@@ -276,7 +276,15 @@ def digest(path):
 
 
 def command(repository, argv):
-    return {"repository": repository, "resolver": "repos.toml", "argv": argv}
+    return {
+        "cwd_repository": repository,
+        "cwd_resolver": "repos.toml",
+        "argv_template": argv,
+    }
+
+
+def lab_ref(path):
+    return "${LAB}/" + Path(path).relative_to(root).as_posix()
 
 
 (
@@ -311,21 +319,36 @@ trace = {
         "host_architecture": host_architecture,
         "locale": {"LC_ALL": lc_all, "LANG": lang},
         "worktree_state": worktree_state,
+        "path_aliases": {
+            "LAB": {"repository": "lazy-fortran-new", "resolver": "repos.toml"}
+        },
         "commands": [
-            {"repository": "lazy-fortran-new", "resolver": "current-checkout", "argv": ["scripts/verify_active_milestone.sh"]},
+            {
+                "cwd_repository": "lazy-fortran-new",
+                "cwd_resolver": "current-checkout",
+                "argv_template": ["scripts/verify_active_milestone.sh"],
+            },
             command("standard-new", ["fo", "clean"]),
             command("fortfront-new", ["fo", "clean"]),
             command("ffc-new", ["fo", "clean"]),
             command("fortback-new", ["fo", "clean"]),
-            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", manifest["source"], evidence_mir_path]),
-            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", manifest["source"], ".cache/l2-run/l2.two.mir.sx"]),
-            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", manifest["negative"], ".cache/l2-run/negative.mir.sx"]),
-            command("fortback-new", ["fo", "exec", "fortback-mir-v0", manifest["negative_mir_malformed"], ".cache/l2-run/malformed.elf"]),
-            command("fortback-new", ["fo", "exec", "fortback-mir-v0", manifest["negative_mir_out_of_scope"], ".cache/l2-run/out-of-scope.elf"]),
-            command("fortback-new", ["fo", "exec", "fortback-mir-v0", evidence_mir_path, evidence_artifact_path]),
-            command("fortback-new", ["fo", "exec", "fortback-mir-v0", evidence_mir_path, ".cache/l2-run/l2.two.elf"]),
-            {"repository": "lazy-fortran-new", "resolver": "current-checkout", "argv": ["readelf", "-h", evidence_artifact_path]},
-            {"repository": "lazy-fortran-new", "resolver": "current-checkout", "argv": [runtime_oracle, evidence_artifact_path]},
+            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", lab_ref(source), lab_ref(mir)]),
+            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", lab_ref(source), lab_ref(mir_two)]),
+            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", lab_ref(negative), lab_ref(negative_output)]),
+            command("fortback-new", ["fo", "exec", "fortback-mir-v0", lab_ref(malformed_mir), lab_ref(malformed_output)]),
+            command("fortback-new", ["fo", "exec", "fortback-mir-v0", lab_ref(out_of_scope_mir), lab_ref(out_of_scope_output)]),
+            command("fortback-new", ["fo", "exec", "fortback-mir-v0", lab_ref(mir), lab_ref(artifact)]),
+            command("fortback-new", ["fo", "exec", "fortback-mir-v0", lab_ref(mir), lab_ref(artifact_two)]),
+            {
+                "cwd_repository": "lazy-fortran-new",
+                "cwd_resolver": "current-checkout",
+                "argv_template": ["readelf", "-h", lab_ref(artifact)],
+            },
+            {
+                "cwd_repository": "lazy-fortran-new",
+                "cwd_resolver": "current-checkout",
+                "argv_template": [runtime_oracle, lab_ref(artifact)],
+            },
         ],
     },
     "stages": [
