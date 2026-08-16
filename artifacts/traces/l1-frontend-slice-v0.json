@@ -1,10 +1,21 @@
 {
   "milestone": "L1",
   "fixture": "L1-frontend-slice-v0",
+  "boundary": "central-standardir-grammar-v0",
+  "central_contract": "standardir-grammar-v0",
+  "central_schema": {
+    "path": "contracts/standardir-grammar-v0.sxs",
+    "sha256": "bf458264bd6186d66df7993604af2a182c416b7f0caf12f49a6b928cbf9d29c9"
+  },
+  "toolchain": {
+    "fo_version": "0.3.2",
+    "fo_sha256": "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68"
+  },
   "stages": [
     {
       "component": "standard-new",
       "commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235",
+      "contract": "standardir-grammar-v0",
       "input": {
         "path": "tests/fixtures/l1-standardir-grammar-v0.sx",
         "sha256": "59b818ca91185145fe64426c5bb4378e4d2932b23efc3e27a6374cfde9369ab9"
@@ -18,18 +29,19 @@
     {
       "component": "fortfront-new",
       "commit": "fc828b237c7c7d3962ccdcff6faf629266aaf8de",
+      "contract": "standardir-grammar-v0",
       "input": {
         "path": "cache/standardir.roundtrip.sx",
         "sha256": "59b818ca91185145fe64426c5bb4378e4d2932b23efc3e27a6374cfde9369ab9"
       },
       "outputs": {
         "PROGRAM": {
-          "result": "accepted",
-          "sha256": "12d3fca17bbd1b136ec98fa91d43792efaa166df9f1e3badaaebdfce7468627a"
+          "sha256": "12d3fca17bbd1b136ec98fa91d43792efaa166df9f1e3badaaebdfce7468627a",
+          "result": "accepted"
         },
         "BAD": {
-          "result": "rejected",
-          "sha256": "2b055f6afb5c6dbaa9bf817b0754b1e6f434753d6db81505f0701611d39e22b7"
+          "sha256": "2b055f6afb5c6dbaa9bf817b0754b1e6f434753d6db81505f0701611d39e22b7",
+          "result": "rejected"
         }
       },
       "observable": "grammar frontier acceptance/rejection"

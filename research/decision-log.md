@@ -63,3 +63,16 @@ local verifier passed and all four independent Luna lanes passed against the
 reconciled candidate. The v2 reports remain immutable historical evidence;
 the v3 reports are the active evidence. L0 is promoted and L1 is the next
 replay gate. No L2 work has started.
+
+## 2026-08-16 — L1 promoted after oracle and attribution repair
+
+The first L1 review found two concrete evidence defects: the independent
+oracle did not inspect the malformed neighbor, and the runner trusted
+component revisions from the fixture manifest without comparing them with the
+actual checkout `HEAD`s. The runner now hashes and structurally checks the
+malformed fixture in the independent oracle, verifies both actual checkout
+revisions before tracing, cleans ignored component build trees, pins `fo`, and
+requires byte-identical committed trace output. The corrected replay and all
+four independent Luna lanes passed. The v1 reports remain immutable failure
+evidence; the v2 reports are active. L1 is promoted and L2 is now the open
+active task.

@@ -37,7 +37,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L1-replay-current
+active_task: T-L2-vertical-slice
 
 milestones:
   - id: L0
@@ -57,18 +57,26 @@ milestones:
       - research/runs/2026-08.jsonl#R000437
   - id: L1
     title: Frontend slice
-    status: OPEN
-    verification: NEEDS REPLAY
+    status: PASS
+    verification: PASS
     historical_status: PASS
     prerequisites: [T-L0-contract-boundary]
     verifier_command: tests/e2e/run-l1.sh
     evidence_paths:
       - artifacts/manifests/l1-frontend-slice-v0.toml
       - artifacts/traces/l1-frontend-slice-v0.json
+      - artifacts/reports/L1/replay-v1-luna-scope.md
+      - artifacts/reports/L1/replay-v1-luna-contract.md
+      - artifacts/reports/L1/replay-v1-luna-oracle.md
+      - artifacts/reports/L1/replay-v1-luna-reproducibility.md
+      - artifacts/reports/L1/replay-v2-luna-scope.md
+      - artifacts/reports/L1/replay-v2-luna-contract.md
+      - artifacts/reports/L1/replay-v2-luna-oracle.md
+      - artifacts/reports/L1/replay-v2-luna-reproducibility.md
       - research/runs/2026-08.jsonl#R000438
   - id: L2
     title: First compiled execution slice
-    status: BLOCKED
+    status: OPEN
     verification: NOT STARTED
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
@@ -134,19 +142,27 @@ tasks:
   - id: T-L1-replay-current
     milestone: L1
     title: Replay L1 from the current clean central checkout
-    status: OPEN
+    status: PASS
     prerequisites: [T-L0-contract-boundary]
     verifier_command: tests/e2e/run-l1.sh
     evidence_paths:
       - tests/e2e/run-l1.sh
       - artifacts/manifests/l1-frontend-slice-v0.toml
       - artifacts/traces/l1-frontend-slice-v0.json
-    retry_count: 0
+      - artifacts/reports/L1/replay-v1-luna-scope.md
+      - artifacts/reports/L1/replay-v1-luna-contract.md
+      - artifacts/reports/L1/replay-v2-luna-scope.md
+      - artifacts/reports/L1/replay-v2-luna-contract.md
+      - artifacts/reports/L1/replay-v2-luna-oracle.md
+      - artifacts/reports/L1/replay-v2-luna-reproducibility.md
+      - artifacts/reports/L1/replay-v1-luna-oracle.md
+      - artifacts/reports/L1/replay-v1-luna-reproducibility.md
+    retry_count: 1
     integration_cycle_trigger: milestone_pass
   - id: T-L2-vertical-slice
     milestone: L2
     title: Define and deliver the first frontend-to-executable path
-    status: BLOCKED
+    status: OPEN
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:

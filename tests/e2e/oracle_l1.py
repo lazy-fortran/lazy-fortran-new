@@ -24,12 +24,27 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    if len(sys.argv) != 8:
-        fail("usage: oracle_l1.py manifest source roundtrip golden accept reject cases")
-    manifest_path, source_path, roundtrip_path, golden_path, accept_path, reject_path, cases_path = map(
-        Path, sys.argv[1:]
-    )
+    if len(sys.argv) != 9:
+        fail("usage: oracle_l1.py manifest source roundtrip golden accept reject cases negative")
+    (
+        manifest_path,
+        source_path,
+        roundtrip_path,
+        golden_path,
+        accept_path,
+        reject_path,
+        cases_path,
+        negative_path,
+    ) = map(Path, sys.argv[1:])
     manifest = tomllib.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("boundary") != "central-standardir-grammar-v0":
+        fail("fixture does not declare the central StandardIR grammar boundary")
+    if manifest.get("central_contract") != "standardir-grammar-v0":
+        fail("fixture does not declare the standardir-grammar-v0 contract")
+    repository_root = Path(__file__).resolve().parents[2]
+    central_schema = repository_root / manifest["central_schema"]
+    if digest(central_schema) != manifest["central_schema_sha256"]:
+        fail("central StandardIR grammar schema differs from the reviewed schema")
 
     expected = {
         source_path: manifest["source_hash"],
@@ -42,6 +57,15 @@ def main() -> int:
             fail(f"{path} hash differs from the reviewed manifest")
     if digest(cases_path) != manifest["cases_sha256"]:
         fail("frontend case manifest hash differs from the reviewed manifest")
+    if digest(negative_path) != manifest["negative_sha256"]:
+        fail("negative fixture differs from the reviewed malformed fixture")
+    negative = negative_path.read_text(encoding="utf-8")
+    if negative.count("(") != negative.count(")") + 1:
+        fail("negative fixture no longer has the reviewed single missing close")
+    if not negative.startswith("(syntax-rule ") or not negative.rstrip().endswith(
+        "(resolution resolved)"
+    ):
+        fail("negative fixture no longer has the reviewed malformed syntax-rule shape")
 
     cases = {
         case_id: token

@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-L1 — frontend slice (current replay gate)
+L2 — first compiled execution slice
 
 ## Central goal
 
@@ -20,7 +20,7 @@ normative source fact
 
 The result must have an independent oracle. This is an open delivery target,
 not a claim that the complete standard or compiler is implemented. L2 is not
-started until L1 is replayed and promoted.
+complete until its own end-to-end execution gate passes.
 
 ## Component pins
 
@@ -57,48 +57,50 @@ not current promotion evidence.
   oracle, clean-build/toolchain checks, deterministic outputs, committed trace
   comparison, and all four independent Luna reviews pass. The v2 reports are
   retained historical evidence; the v3 reports are the active review evidence.
-- L1: `NEEDS REPLAY` and is now the active task. `R000438` is retained
-  historical evidence only.
-- L2: `NOT STARTED` and blocked by the L0/L1 replay gate.
+- L1: `PASS`. The corrected replay and all four independent Luna reviews pass;
+  v1 reports retain the two repaired review failures and v2 reports are the
+  active evidence.
+- L2: `OPEN` and not yet implemented. It is the active dependency-ready task.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
 explicitly classified as a component-local generator boundary, not as a
 consumer of central `contracts/standardir-v0.sxs`; the accepted D0022
 decision says that local schema is not the complete StandardIR contract. The
-recorded L1 run also predates the commit containing its final central inputs.
-No current L1 promotion is claimed.
+recorded L1 run predates the commit containing its final central inputs; the
+current replay supersedes it for promotion purposes. No L2 execution claim is
+made yet.
 
 ## Active fixture
 
-ID: T-L1-replay-current — replay the current frontend slice from the central
-checkout.
+ID: T-L2-vertical-slice — deliver the first frontend-to-executable path.
 
-Candidate family: `tests/fixtures/l1-frontend-slice.toml`.
+Candidate family: to be created under `tests/fixtures/` after the component
+interfaces are fixed.
 
-Expected observable: the existing L1 deterministic frontend artifact,
-independent oracle, clean-build/toolchain checks and committed trace equality.
+Expected observable: a runnable artifact and independently verified runtime
+result, with the complete source-to-frontend-to-MIR-to-backend trace.
 
-Oracle: `tests/e2e/oracle_l1.py` and the existing L1 negative/acceptance gates.
+Oracle: an independent runtime/result oracle plus the component and contract
+oracles required by `docs/oracle-policy.md`.
 
 ## Current blocker
 
-L1 has historical evidence but has not been replayed from the current central
-checkout. L2 remains blocked until L1 is replayed and passes its independent
-review gate.
+No L2 central runner or executable fixture exists yet. This is an open
+implementation task, not a blocker in the terminal mission.
 
 ## Next executable task
 
-Run `tests/e2e/run-l1.sh`, repair only defects exposed by that replay, then
-obtain the four independent Luna lanes. Do not implement L2 until L1 is
-replayed and promoted.
+Define the smallest runnable target and implement its cross-repository runner;
+do not add a second source feature family while this first execution slice is
+incomplete.
 
 ## Last verified central command
 
 ```text
 Current L0 replay and four-lane review: PASS.
-Current L1 replay: `NEEDS REPLAY`; historical `R000438` is not promotion
-evidence.
+Current L1 replay and four-lane review: PASS.
+Current L2: `OPEN`; no execution runner has passed.
 ```
 
 ## Blacklisted pseudo-progress

@@ -6,6 +6,7 @@ set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/../../scripts/lib.sh"
 need python3
 need sha256sum
+need git
 
 "$ROOT/scripts/check_pins.sh" >/dev/null
 
@@ -16,7 +17,8 @@ run_dir=$(mktemp -d "$ROOT/.cache/l1-run.XXXXXX")
 
 IFS=$'\t' read -r source golden accept_golden reject_golden cases negative oracle start_lhs \
     source_hash roundtrip_hash accept_hash reject_hash negative_diagnostic \
-    standard_commit frontend_commit <<EOF
+    standard_commit frontend_commit boundary central_contract central_schema \
+    central_schema_sha256 committed_trace fo_version fo_sha256 negative_sha256 <<EOF
 $(python3 - "$manifest" "$ROOT" <<'PY'
 import sys
 import tomllib
@@ -40,10 +42,31 @@ print("\t".join(map(str, (
     manifest["negative_diagnostic"],
     manifest["standard_component_commit"],
     manifest["frontend_component_commit"],
+    manifest["boundary"],
+    manifest["central_contract"],
+    manifest["central_schema"],
+    manifest["central_schema_sha256"],
+    manifest["trace"],
+    manifest["fo_version"],
+    manifest["fo_sha256"],
+    manifest["negative_sha256"],
 ))))
 PY
 )
 EOF
+
+[ "$(fo version | awk '{print $2}')" = "$fo_version" ]
+[ "$(sha256sum "$(command -v fo)" | awk '{print $1}')" = "$fo_sha256" ]
+[ "$boundary" = "central-standardir-grammar-v0" ]
+[ "$central_contract" = "standardir-grammar-v0" ]
+[ "$(sha256sum "$ROOT/$central_schema" | awk '{print $1}')" = "$central_schema_sha256" ]
+
+(cd "$standard" && fo clean) >"$run_dir/standard-clean.log" 2>&1
+(cd "$frontend" && fo clean) >"$run_dir/frontend-clean.log" 2>&1
+actual_standard_commit=$(git -C "$standard" rev-parse HEAD)
+actual_frontend_commit=$(git -C "$frontend" rev-parse HEAD)
+[ "$actual_standard_commit" = "$standard_commit" ]
+[ "$actual_frontend_commit" = "$frontend_commit" ]
 
 roundtrip="$run_dir/standardir.roundtrip.sx"
 roundtrip_two="$run_dir/standardir.roundtrip.two.sx"
@@ -90,7 +113,7 @@ cmp "$reject" "$reject_golden"
 [ "$(sha256sum "$accept" | awk '{print $1}')" = "$accept_hash" ]
 [ "$(sha256sum "$reject" | awk '{print $1}')" = "$reject_hash" ]
 
-python3 "$oracle" "$manifest" "$source" "$roundtrip" "$golden" "$accept" "$reject" "$cases" \
+python3 "$oracle" "$manifest" "$source" "$roundtrip" "$golden" "$accept" "$reject" "$cases" "$negative" \
     >"$run_dir/oracle.log"
 
 if (cd "$standard" && fo exec sxroundtrip "$negative" "$run_dir/negative.sx") \
@@ -105,7 +128,8 @@ grep -Fq "$negative_diagnostic" "$run_dir/negative.log" || {
 
 python3 - "$run_dir/trace.json" "$manifest" "$source" "$roundtrip" "$accept" "$reject" \
     "$run_dir/oracle.log" "$standard" "$frontend" \
-    "$standard_commit" "$frontend_commit" <<'PY'
+    "$actual_standard_commit" "$actual_frontend_commit" "$boundary" "$central_contract" \
+    "$central_schema" "$central_schema_sha256" "$fo_version" "$fo_sha256" <<'PY'
 import hashlib
 import json
 import sys
@@ -129,15 +153,26 @@ def digest(path):
     frontend,
     standard_commit,
     frontend_commit,
+    boundary,
+    central_contract,
+    central_schema,
+    central_schema_sha256,
+    fo_version,
+    fo_sha256,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 trace = {
     "milestone": "L1",
     "fixture": manifest["id"],
+    "boundary": boundary,
+    "central_contract": central_contract,
+    "central_schema": {"path": central_schema, "sha256": central_schema_sha256},
+    "toolchain": {"fo_version": fo_version, "fo_sha256": fo_sha256},
     "stages": [
         {
             "component": "standard-new",
             "commit": standard_commit,
+            "contract": central_contract,
             "input": {"path": manifest["source"], "sha256": digest(source)},
             "output": {"path": "cache/standardir.roundtrip.sx", "sha256": digest(roundtrip)},
             "observable": "canonical StandardIR SX",
@@ -145,6 +180,7 @@ trace = {
         {
             "component": "fortfront-new",
             "commit": frontend_commit,
+            "contract": central_contract,
             "input": {"path": "cache/standardir.roundtrip.sx", "sha256": digest(roundtrip)},
             "outputs": {
                 "PROGRAM": {"sha256": digest(accept), "result": "accepted"},
@@ -167,5 +203,7 @@ trace = {
 Path(trace_path).write_text(json.dumps(trace, indent=2) + "\n", encoding="utf-8")
 print(json.dumps(trace, sort_keys=True))
 PY
+
+cmp "$run_dir/trace.json" "$ROOT/$committed_trace"
 
 printf 'L1 PASS\ntrace %s\n' "$run_dir/trace.json"

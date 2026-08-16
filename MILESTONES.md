@@ -6,8 +6,8 @@ milestone ledger.
 
 ## Current verification state
 
-The historical evidence below is preserved. L0's corrected replay and final
-four-lane review now pass. L1 is `NEEDS REPLAY`. L2 is `NOT STARTED`.
+The historical evidence below is preserved. L0 and L1 corrected replays and
+their final four-lane reviews pass. L2 is the active open milestone.
 
 ## L0 — Normative lexical slice
 
@@ -71,17 +71,19 @@ source fixture
 - [x] An independent oracle and complete stage trace pass from a clean checkout.
 
 Evidence: `R000438`,
-`artifacts/manifests/l1-frontend-slice-v0.toml` and
-`artifacts/traces/l1-frontend-slice-v0.json`. Regenerate with
-`scripts/verify_active_milestone.sh`.
+`artifacts/manifests/l1-frontend-slice-v0.toml`,
+`artifacts/traces/l1-frontend-slice-v0.json`, the v1 failed-review reports,
+and the v2 active four-lane reports under `artifacts/reports/L1/`. Regenerate
+the deterministic evidence with `tests/e2e/run-l1.sh`.
 
-Current status: `NEEDS REPLAY` from the current central checkout.
+Current status: `PASS` after the corrected replay and four independent Luna
+reviews. The v1 reports are retained failure evidence; v2 is active.
 
 ## L2 — First compiled execution slice
 
-Blocked by: L1
+Next after: L1
 
-Current status: `NOT STARTED`.
+Current status: `OPEN`.
 
 ```text
 source
@@ -103,3 +105,7 @@ source
 - [ ] A complete stage trace and clean-checkout command pass.
 
 Do not define L3 until L2 passes.
+
+The first L2 fixture and runner must be defined before any execution result is
+claimed. The existing `scripts/verify_active_milestone.sh` is fail-closed for
+L2 until an L2 runner exists.
