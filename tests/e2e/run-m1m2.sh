@@ -16,6 +16,7 @@ need fo
 
 manifest="$ROOT/tests/fixtures/m1m2-source-backed-v0.toml"
 standard="$(resolve_repo standard-new)"
+central_commit="$(git -C "$ROOT" rev-parse HEAD)"
 run_dir="$(mktemp -d "${TMPDIR:-/tmp}/lazy-fortran-m1m2.XXXXXX")"
 cleanup() {
     local status=$?
@@ -62,6 +63,7 @@ fo_sha256="$(sha256sum "$fo_path" | awk '{print $1}')"
 
 "$ROOT/scripts/fetch.sh" j3-24-007 >/dev/null
 [ -f "$source_cache" ]
+[ -z "$(git -C "$ROOT" status --porcelain --untracked-files=normal)" ]
 [ "$(git -C "$standard" rev-parse HEAD)" = "$standard_commit" ]
 [ -z "$(git -C "$standard" status --porcelain --untracked-files=normal)" ]
 (cd "$standard" && fo clean) >"$run_dir/standard-fo-clean.log" 2>&1
@@ -170,7 +172,7 @@ python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" "$manifest" \
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
     "$regression_corpus" "$standard" "$standard/specs/lexical-facts-v0.sx" "$source_hash" \
     "$run_dir/contract-standardir.sx" "$run_dir/contract-grammar.sx" \
-    "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" <<'PY'
+    "$central_commit" "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" <<'PY'
 import hashlib
 import json
 import platform
@@ -192,6 +194,7 @@ from pathlib import Path
     source_hash,
     contract_standardir,
     contract_grammar,
+    central_commit,
     standard_commit,
     fo_version,
     fo_sha256,
@@ -301,6 +304,11 @@ trace = {
         "bytes": Path(source_cache).stat().st_size,
     },
     "regression": regression,
+    "central": {
+        "repository": "lazy-fortran-new",
+        "commit": central_commit,
+        "worktree_state": "clean",
+    },
     "component": {
         "repository": "standard-new",
         "commit": standard_commit,
