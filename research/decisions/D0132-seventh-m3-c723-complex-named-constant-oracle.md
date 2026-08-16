@@ -1,4 +1,4 @@
-# D0132. Seventh M3 slice uses C723 complex named-constant legality
+# D0132. Eighth M3 slice uses C723 complex named-constant legality
 
 Date: 2026-08-17
 Status: accepted

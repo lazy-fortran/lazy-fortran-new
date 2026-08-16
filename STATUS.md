@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-M3 — seven bounded semantic-oracle slices promoted; C723 candidate pending focused review; full Core 0 remains pending
+M3 — eight bounded semantic-oracle slices promoted; full Core 0 remains pending
 
 ## Central goal
 
@@ -22,8 +22,9 @@ The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. M3 is now open through the promoted C1106, C702, C601, C603, C721,
-C725 and C718 contracts. The C723 candidate replay passes and awaits focused
-review. The full Core 0 semantic milestone remains unpromoted.
+C725 and C718 contracts. The C723 replay and focused reviews pass, promoting
+only that bounded slice. The full Core 0 semantic milestone remains
+unpromoted.
 
 ## Component pins
 
@@ -115,7 +116,8 @@ not current promotion evidence.
   next bounded contract, not a restart of the abandoned E0172 model lane.
   Its exact replay is `tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000002`;
   R000034 and focused review R000036 pass. D0132 selects C723 as the next
-  bounded contract; it does not restart E0172 or close full M3.
+  bounded contract; it does not restart E0172 or close full M3. C723 replay
+  R000037 and focused review R000038 now pass.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -132,8 +134,8 @@ emission contract interchange.
 ## Active fixture
 
 ID: `T-M3-c723-semantic-oracle` — bounded source-backed C723 complex
-named-constant semantic oracle; replay `R000001` passes and focused review is
-pending. C718 remains promoted; full M3 remains open.
+named-constant semantic oracle; replay `R000001` and focused review pass.
+C718 and C723 are promoted bounded slices; full M3 remains open.
 
 Boundary decision: `research/decisions/D0132-seventh-m3-c723-complex-named-constant-oracle.md`.
 
@@ -152,8 +154,8 @@ cannot promote a fact.
 ## Active task
 
 ID: `T-M3-c723-semantic-oracle` — E0183 C723 source-backed semantic-oracle
-vertical slice; central replay `R000037` passes and focused review is pending.
-Full M3 remains open.
+vertical slice; central replay `R000037` and focused review `R000038` pass.
+The bounded slice is promoted; full M3 remains open.
 
 Verifier: `tests/e2e/run-m3-c723.sh .cache/runs/E0183/R000001` from clean
 central and component checkouts. It includes the standard-new semantic-items
@@ -176,9 +178,9 @@ focused review R000031 pass. The remaining blocker is the full M3/Core 0
 closure, which remains blocked by the E0181 audit counts: 4 hard failures, 2
 unresolved rows, 94 disputed rows and 69 unwitnessed rows across the retained
 287-row ledger. The corrected C718 replay and focused reviews are green. The
-C723 replay is green but focused review is pending; neither bounded slice can
-close the complete ledger gate. A green bounded slice alone does not close
-full M3. Regenerate the E0181 counts with:
+C723 replay and focused review are green; neither bounded slice can close the
+complete ledger gate. A green bounded slice alone does not close full M3.
+Regenerate the E0181 counts with:
 
 ```text
 E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
@@ -186,9 +188,9 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run two focused independent reviews of the C723 candidate against R000037. If
-both pass, promote only this bounded slice; then reassess the full M3/Core 0
-boundary before defining another contract. Do not resume E0172, start broad
+Reassess the full M3/Core 0 boundary using the E0181 audit and the eight
+promoted bounded slices. If another gap remains, define exactly one next
+executable contract before implementation. Do not resume E0172, start broad
 parsing/semantic work, or promote a model fact.
 
 ## Last verified central command
@@ -207,12 +209,12 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   review `R000027` are `PASS`; the C721 central replay `R000001` and focused
   review `R000029` are `PASS`. The C725 central replay
   `tests/e2e/run-m3-c725.sh .cache/runs/E0180/R000001` is `PASS`; focused
-  review `R000031` is `PASS`. The bounded C1106, C702, C601, C603, C721 and
-  C725 slices are promoted. C718 replay `tests/e2e/run-m3-c718.sh
+  review `R000031` is `PASS`. The bounded C1106, C702, C601, C603, C721,
+  C725 and C718 slices are promoted. C718 replay `tests/e2e/run-m3-c718.sh
   .cache/runs/E0182/R000002` is `PASS` in R000034; focused review R000036 is
   `PASS`. C723 replay `tests/e2e/run-m3-c723.sh
-  .cache/runs/E0183/R000001` is `PASS` in R000037 and awaits focused review;
-  full M3 remains open.
+  .cache/runs/E0183/R000001` is `PASS` in R000037; focused review R000038 is
+  `PASS`. Eight bounded slices are promoted; full M3 remains open.
 ```
 
 ## Blacklisted pseudo-progress
