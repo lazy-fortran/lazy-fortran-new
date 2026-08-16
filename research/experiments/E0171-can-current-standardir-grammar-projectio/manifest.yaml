@@ -281,29 +281,42 @@ replays:
     mode: luna-independent-review-of-raw-source-boundary-mapping
     report: research/experiments/E0171-can-current-standardir-grammar-projectio/findings.md
     result: candidate-closure-confirmed-scope-and-order-limitations-recorded
+  - run: R000431
+    standard-new: "2fef265fe08543828f5574026babbcdd2d0a91df"
+    mode: selected-profile-source-target-correspondence-witness
+    report: .cache/runs/E0171/R000431-correspondence-witness
+    result: 95-source-boundaries-join-one-to-one-86-mapped-9-suppressed
+  - run: R000432
+    mode: independent-luna-review-source-target-correspondence-witness
+    report: .cache/runs/E0171/R000431-correspondence-witness
+    result: bounded-correspondence-claim-confirmed-nine-suppressions-open
 
 result: >
-  The source boundary-plan and raw source-path subgates pass through R000430.
-  The selected 95-row witness maps 95 of 95 sites with explicit source
-  occurrence lineage and no ambiguous or unsupported mapping. The experiment
-  remains running: target expression mapping, token insertion, generated
-  runtime behavior and parser-oracle classification remain open. Structural
-  evidence is not language equivalence, parse-tree equivalence, complete lexer
-  behavior or semantic coverage.
+  The source boundary-plan, raw source-path and bounded source-target
+  correspondence subgates pass through R000432. The selected 95-row witness
+  joins one-to-one to the generic target trace: 86 rows are mapped and nine
+  are explicit rule-deduplicate suppressions. The experiment remains running:
+  those nine retained-target relations, token insertion, generated runtime
+  behavior and parser-oracle classification remain open. Structural evidence
+  is not language equivalence, parse-tree equivalence, complete lexer behavior
+  or semantic coverage.
 
 latest_replay: >
-  R000429 is the latest production raw-source mapping gate, and R000430 is its
-  independent Luna review. The `standard-new` `sxstatementboundarymap` CLI at
-  commit `54700a2` maps all 95 rows from R000420 against the raw StandardIR SX
-  tree, including the R1505 `rhs/1/1` and `rhs/2/1` alternative paths. Its
-  disposition counts are 95 mapped, 0 ambiguous, 0 unsupported and 0
-  suppressed; the output is canonical, with 19 fields and no trailing
-  whitespace. The clean `fo clean && fo` pipeline passes 48 tests with zero
-  warnings. Luna confirms that this is a selected-witness closure claim only:
-  it does not mean 95 of the Fortran 2023 grammar is mapped. The mapper emits
-  plan order, so duplicated source occurrences are compared as a set; this is
-  deterministic but not an order-preserving replay. Source byte locations are
-  locators, not authenticity proof; PDF fidelity remains the laboratory gate.
+  R000431 is the latest production source-target correspondence replay, and
+  R000432 is its independent Luna review. At `standard-new` commit
+  `2fef265fe08543828f5574026babbcdd2d0a91df`, the opt-in correspondence
+  witness has 4,853 deterministic JSONL rows and the exact 26-field contract.
+  All 95 selected raw source boundaries join exactly once. The selected trace
+  has 86 mapped rows and nine explicit rule-deduplicate suppressions; no
+  selected row is ambiguous or unsupported. The complete trace has 4,053
+  mapped, 715 suppressed, 85 unsupported and zero ambiguous rows. The clean
+  `fo clean && fo` pipeline passes 49 tests with zero warnings. The witness
+  proves only a bounded source-lineage-preserving correspondence relation.
+  The nine suppressions have no target path because they describe a retained
+  target occurrence; the next gate must make that relation explicit before
+  target separator insertion. Source byte locations remain locators, not PDF
+  authenticity proof. The mapper output is a set comparison, not an
+  order-preserving replay.
   R000423 is the latest production projection gate before boundary mapping. The
   `standard-new`
   statement-sequence CLI at commit `4c2d8c2` agrees byte-for-byte with the
@@ -337,6 +350,8 @@ latest_replay: >
   deterministic target gates close.
 
 remaining_gates:
+  - the nine selected rule-deduplicate suppressions must point explicitly to
+    their retained target occurrence before any target separator insertion
   - the target token stream and later source lexer must consume the pinned
     lexical-layout-v2 contract and the audited statement-sequence witness
   - target runtime positive/negative behavior must agree with the source

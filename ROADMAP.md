@@ -19,7 +19,10 @@ is green in R000423 at `standard-new` `4c2d8c2`: the CLI agrees byte-for-byte
 with the 95-row lab witness, and `fo clean && fo` passes. The typed boundary
 plan and raw-source mapping infrastructure are green through R000430 at
 `standard-new` `54700a2`; all 95 selected sites map with explicit lineage and
-Luna has confirmed the bounded claim. D0116/D0117 now fix the next interface:
+Luna has confirmed the bounded claim. R000431/R000432 now close the bounded
+source-target correspondence join at `standard-new` `2fef265`, with 86 mapped
+rows and nine explicit deduplication suppressions. D0116/D0117 now fix the
+next interface:
 target normalization must emit a typed source-to-target correspondence trace
 relation,
 not a post-hoc name or hash match. No model run,
@@ -31,8 +34,8 @@ statements. The source-level behavior oracle R000426 now passes, and R000428
 closes the typed, validated boundary-plan and truthful-identity subgates at
 `standard-new` `107d7a3`. The plan deliberately does not insert target
 separators yet. The source mapper uses raw SX before alternative flattening
-(D0115/D0116); the next gate is mapping those 95 source sites through target
-expression trees, followed by generated token/runtime
+(D0115/D0116); the next gate is linking the nine suppressed source occurrences
+to retained target occurrences, followed by generated token/runtime
 behavior, regeneration of all four grammar targets and parser-oracle checks.
 This is D0111 through D0117 layered onto the two-tier
 evidence protocol in D0105; R000400 remains the profile negative control and
@@ -41,15 +44,16 @@ directly from a raw witness or conflict report.
 
 The immediate sequence is:
 
-1. Add and validate the D0116/D0117 source-to-target correspondence trace
-   during target normalization. Map the R000429/R000430 source results through
-   each target expression tree without changing raw-source identity. Treat the
-   trace as a relation: zero, one or several target slots may be justified, but
-   every source occurrence needs an explicit mapped, ambiguous, unsupported or
-   suppressed disposition. Fail closed on any target path that cannot be
-   justified structurally, including normalizer paths that reject unsupported
-   recursion. Preserve explicit source-expression and target-expression hashes
-   separately from transformation input/output hashes. No rule-number, LHS suffix, alternative-number
+1. Finish the D0116/D0117 source-to-target correspondence gate during target
+   normalization. The R000429/R000430 source results already join one-to-one
+   to the R000431 trace, but nine selected `rule-deduplicate` suppressions have
+   no retained-target pointer. Add that relation generically, preserving raw
+   source identity and distinguishing alternative-level hashes from
+   transformation-node hashes. Every source occurrence must end as an explicit
+   mapped, ambiguous, unsupported or suppressed disposition with a retained
+   target relation where suppression is justified. Fail closed on any target
+   path that cannot be justified structurally, including normalizer paths that
+   reject unsupported recursion. No rule-number, LHS suffix, alternative-number
    heuristic or target spelling may repair a mismatch; target insertion remains
    blocked until this gate is green.
 2. Make the generated lexer/runtime consume the now-passing source behavior

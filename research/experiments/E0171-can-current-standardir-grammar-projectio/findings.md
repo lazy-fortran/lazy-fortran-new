@@ -538,3 +538,66 @@ boundary sites mapped” and rejects any broader claim that the Fortran 2023
 grammar is 95/95 mapped or that the result proves language equivalence,
 parser behavior, target insertion, lexer completeness, or StandardIR PDF
 fidelity. The remaining target and authenticity gates stay open.
+
+## R000431: selected source boundaries join the generic target trace
+
+`standard-new` `2fef265fe08543828f5574026babbcdd2d0a91df` adds an opt-in
+correspondence witness. It retains source occurrence lineage, normalized
+target paths, transformation names, source and target expression hashes, and
+explicit `mapped`, `suppressed`, `ambiguous` or `unsupported` dispositions.
+The producer fails closed for unsupported recursion and serializes a stable
+JSONL contract rather than asking a later audit to infer correspondence from
+rule names or hashes.
+
+The replay uses the 522-record StandardIR SX input and the 95-row raw source
+boundary witness. The audit command is:
+
+```text
+python research/experiments/E0171-can-current-standardir-grammar-projectio/audit-correspondence-witness.py \
+  .cache/runs/E0171/R000429-source-boundary-mapping/mapping-final.tsv \
+  .cache/runs/E0171/R000431-correspondence-witness/correspondence.jsonl \
+  .cache/runs/E0171/R000431-correspondence-witness/joined.tsv \
+  .cache/runs/E0171/R000431-correspondence-witness/summary.json
+```
+
+The audit produces exactly one target-trace row for each of the 95 selected
+boundary rows: zero missing and zero multiple joins. The selected rows are:
+
+```text
+mapped        86
+suppressed     9
+ambiguous      0
+unsupported    0
+```
+
+The nine suppressions are explicit generic `rule-deduplicate` transformations
+with empty target paths and slot zero. They are not silently treated as
+mapped. The complete trace has 4,053 mapped, 715 suppressed, 85 unsupported
+and zero ambiguous rows. The replay generated 4,853 valid 26-field JSONL rows
+in deterministic order and took approximately 94 seconds after a clean
+production build. No parser generator or format oracle was run in this gate.
+
+This closes only the bounded source-lineage join. It does not yet establish
+that a suppressed source occurrence points to its retained target occurrence,
+nor does it prove target insertion, lexer behavior, parser behavior or PDF
+fidelity.
+
+## R000432: independent Luna review of the correspondence witness
+
+The read-only GPT-5.6 Luna review checked all 4,853 rows, the 26-field
+contract, nonempty 64-hex hashes, deterministic ordering and the full join.
+It confirmed 95 one-to-one joins with no zero or many matches, 86 selected
+mapped rows, nine explicit suppressions, and no selected ambiguous or
+unsupported rows.
+
+The review also fixed the evidence vocabulary. `source_hash` is the canonical
+StandardIR source-text hash, not a PDF hash. `source_expression_sha256` and
+`target_expression_sha256` are alternative-level hashes; `input_expression`
+and `output_expression` hashes identify transformation-node inputs and
+outputs. The fields are useful only with those scopes stated.
+
+The accepted bounded claim is: the selected 95-row witness has a deterministic
+source-lineage-preserving correspondence relation through the current generic
+normalizer, with explicit suppression rather than fabricated target paths.
+The next gate is to connect the nine suppressions to retained target
+occurrences. Parser generators remain downstream and were not run.
