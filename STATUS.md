@@ -80,12 +80,13 @@ not current promotion evidence.
 - E0174: the source-node-aware correspondence replay passes in cold run
   `R000467`; fast reuse control `R000468` completes in 7.84 seconds with
   exact cache, log, environment and output-hash checks. These runs do not
-  claim target insertion or semantic promotion.
+  claim target insertion or semantic promotion. The focused independent
+  reviews pass at central revision `06748cc`.
 - M3 remains `BLOCKED`. E0172 was abandoned before its model cell: R000456
   found that the endpoint exposed Qwen 3.8 27B while the experiment declared
-  Qwen 3.6 35B-A3B. No model output was accepted. Under D0084 and D0119, the
-  next task is the deterministic E0174 correspondence replay; semantic model
-  work remains closed.
+  Qwen 3.6 35B-A3B. No model output was accepted. E0174's deterministic
+  correspondence replay is closed; semantic/model work remains closed while
+  M3 is blocked.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -127,16 +128,15 @@ target insertion and semantic promotion remain out of scope.
 
 The L2 boundary and M1-M2 source-backed fixture are promoted. The D0119
 correspondence replay verifier passes in E0174/R000467, with fast iteration
-control R000468 and its focused independent review being reconciled. D0084
-forbids semantic/model work until that review closes the deterministic
-source-backed relation. E0172's runtime identity failure is retained as
-R000456.
+control R000468 and both focused independent reviews passing. D0084 keeps
+semantic/model work closed while M3 remains blocked. E0172's runtime identity
+failure is retained as R000456.
 
 ## Next executable task
 
-Complete the E0174 control-plane reconciliation after its focused independent
-review, then select a dependency-ready task if one exists. Do not resume E0172
-or promote a semantic fact.
+No dependency-ready task is currently open: M3 remains blocked by the retained
+E0172 service-identity failure. Do not resume E0172 or promote a semantic fact
+until a new task and verifier are activated.
 
 ## Last verified central command
 

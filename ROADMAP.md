@@ -54,7 +54,8 @@ normative backend or source-validity gates in the historical phase checklist.
 M1-M2 is promoted as the bounded central fixture. The immediate deterministic
 task `T-M2-correspondence-replay` now has a passing cold replay in
 E0174/R000467 and a 7.84-second exact-cache control in R000468 at the pushed
-`standard-new` commit `f94c4c51b51fce22b533b7eeda08741970320913`.
+`standard-new` commit `f94c4c51b51fce22b533b7eeda08741970320913`; the
+focused independent reviews pass and the task is closed.
 Its iteration wrapper reuses only exactly pinned component, input and output
 manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
