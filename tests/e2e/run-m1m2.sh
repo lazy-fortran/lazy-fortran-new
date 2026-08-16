@@ -258,6 +258,7 @@ environment = {
     },
     "worktree": {
         "central_root": str(repository_root),
+        "central_commit": central_commit,
         "central_state": "clean",
         "component_root": str(Path(standard).resolve()),
         "component_state": "clean",
@@ -304,11 +305,6 @@ trace = {
         "bytes": Path(source_cache).stat().st_size,
     },
     "regression": regression,
-    "central": {
-        "repository": "lazy-fortran-new",
-        "commit": central_commit,
-        "worktree_state": "clean",
-    },
     "component": {
         "repository": "standard-new",
         "commit": standard_commit,
