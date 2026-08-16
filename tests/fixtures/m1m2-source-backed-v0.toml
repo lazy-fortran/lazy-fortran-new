@@ -15,6 +15,7 @@ expected_syntax_records = 522
 expected_classifications = 160
 expected_roots = 502
 expected_target_definitions = 670
+expected_lexical_witnesses = 5
 trace = "artifacts/traces/m1m2-source-backed-v0.json"
 oracle = "tests/e2e/oracle_m1m2.py"
 golden = "tests/golden/m1m2-source-backed-v0.oracle.toml"

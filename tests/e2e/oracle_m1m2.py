@@ -34,10 +34,10 @@ def main() -> None:
     if len(sys.argv) < 8:
         raise SystemExit(
             "usage: oracle_m1m2.py FIXTURE PDF ALL.JSONL SELECTED.JSONL "
-            "STANDARDIR CLASSIFICATIONS ROOTS [GRAMMAR ...]"
+            "STANDARDIR CLASSIFICATIONS ROOTS LEXICAL [GRAMMAR ...]"
         )
-    fixture, pdf, all_jsonl, selected_jsonl, standardir, classifications, roots = map(
-        Path, sys.argv[1:8]
+    fixture, pdf, all_jsonl, selected_jsonl, standardir, classifications, roots, lexical = map(
+        Path, sys.argv[1:9]
     )
     doc = tomllib.loads(fixture.read_text(encoding="utf-8"))
     golden = tomllib.loads((fixture.parent.parent / "golden" / "m1m2-source-backed-v0.oracle.toml").read_text())
@@ -103,7 +103,45 @@ def main() -> None:
     if any(golden["source_sha256"] not in line for line in class_lines if "family lexical" not in line):
         fail("closure sidecar source hash coverage is incomplete")
 
-    extra = sys.argv[8:]
+    def sx_value(value: str) -> str:
+        if len(value) >= 2 and value[0] == '"' and value[-1] == '"':
+            return value[1:-1]
+        return value
+
+    lexical_rows = {}
+    for line in lexical.read_text(encoding="utf-8").splitlines():
+        term = re.search(r"\(source-term ([^) ]+)\)", line)
+        target = re.search(r"\(target ([^) ]+)\)", line)
+        rule = re.search(r"\(rule ([^) ]+)\)", line)
+        page = re.search(r"\(page ([^) ]+)\)", line)
+        codepoint = re.search(r"\(codepoint ([^)]+)\)", line)
+        canonical = re.search(r"\(canonical-spelling ([^)]+)\)", line)
+        source_hash = re.search(r"\(source-sha256 ([0-9a-f]{64})\)", line)
+        if term and target and rule and page and codepoint and source_hash:
+            lexical_rows[sx_value(term.group(1))] = {
+                "target": target.group(1),
+                "rule": rule.group(1),
+                "page": page.group(1),
+                "codepoint": codepoint.group(1),
+                "canonical_spelling": sx_value(canonical.group(1)) if canonical else "",
+                "source_sha256": source_hash.group(1),
+            }
+    witnesses = golden.get("lexical_witnesses", [])
+    if len(witnesses) != doc["expected_lexical_witnesses"]:
+        fail("lexical witness count differs")
+    for witness in witnesses:
+        actual = lexical_rows.get(witness["source_term"])
+        if actual is None:
+            fail(f"missing lexical witness {witness['source_term']}")
+        for key in ("target", "rule", "page", "codepoint"):
+            if actual[key] != witness[key]:
+                fail(f"lexical witness {witness['source_term']} {key} differs")
+        if actual["canonical_spelling"] != witness.get("canonical_spelling", ""):
+            fail(f"lexical witness {witness['source_term']} canonical spelling differs")
+        if actual["source_sha256"] != golden["source_sha256"]:
+            fail(f"lexical witness {witness['source_term']} source hash differs")
+
+    extra = sys.argv[9:]
     negative = None
     if "--negative" in extra:
         marker = extra.index("--negative")
@@ -131,11 +169,21 @@ def main() -> None:
             "tree-sitter": re.compile(r"^\s*(r_[A-Za-z0-9_]+):\s*\$\s*=>", re.M),
         }
         for path, expected_name in zip(map(Path, extra), patterns):
-            definitions = patterns[expected_name].findall(path.read_text())
+            text = path.read_text(encoding="utf-8")
+            definitions = patterns[expected_name].findall(text)
             if len(definitions) != doc["expected_target_definitions"]:
                 fail(f"{expected_name} target definition count differs")
             if len(set(definitions)) != len(definitions):
                 fail(f"{expected_name} has duplicate target definitions")
+            for witness in witnesses:
+                if f"source-term={witness['source_term']}" not in text:
+                    fail(f"{expected_name} lexical source spelling is missing")
+                if witness["target"] not in text:
+                    fail(f"{expected_name} lexical target is missing")
+                if witness.get("canonical_spelling") and (
+                    f"canonical-spelling={witness['canonical_spelling']}" not in text
+                ):
+                    fail(f"{expected_name} lexical canonical spelling is missing")
 
     print("M1-M2 source oracle: PASS")
 

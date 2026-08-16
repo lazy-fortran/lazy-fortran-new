@@ -10,6 +10,11 @@
     "repository": "standard-new",
     "commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235"
   },
+  "lexical": {
+    "path": "standard-new/specs/lexical-facts-v0.sx",
+    "sha256": "4074c170112f2ec6001a18f7fa6f8d72270cf788b552488c0120f7eb3d22177d",
+    "witness_count": 5
+  },
   "inputs": {
     "all_productions": {
       "sha256": "8b3e21d822abcc1edd8b9a88293cf821ed06d1466f31714b61f9b2d970f1d6eb"
@@ -54,7 +59,7 @@
     "negative": "tests/negative/m1m2-source-backed-v0-unclosed.sx",
     "negative_result": "PASS",
     "negative_parser": "standard-new sxroundtrip",
-    "negative_parser_log_sha256": "979e8166650acccec59713e7ed727b6a95423657c835657f08b9bb193a599d7d",
+    "negative_diagnostic_sha256": "6d0925b0b82f5842e0d85304954a2e44c03394534c654285d2e1e14b59397233",
     "source_result": "PASS",
     "grammar_result": "PASS",
     "mutation_control": "observed_failure"

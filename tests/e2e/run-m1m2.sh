@@ -78,7 +78,8 @@ python3 "$ROOT/tests/e2e/generate_m1m2_sidecars.py" "$run_dir/standardir.sx" \
 # This source oracle is deliberately before any grammar generator runs.
 python3 "$oracle" "$manifest" "$source_cache" "$run_dir/all.jsonl" \
     "$run_dir/selected.jsonl" "$run_dir/standardir.sx" "$run_dir/classifications.sx" \
-    "$run_dir/roots.sx" >"$run_dir/source-oracle.log"
+    "$run_dir/roots.sx" "$standard/specs/lexical-facts-v0.sx" \
+    >"$run_dir/source-oracle.log"
 
 set +e
 (cd "$standard" && fo exec --no-build sxroundtrip "$negative_fixture" \
@@ -98,6 +99,8 @@ if expected.get("diagnostic") != "unclosed-sx-list":
 if "unclosed SX list" not in log:
     raise SystemExit("negative parser diagnostic did not match golden class")
 PY
+awk '/error: unclosed SX list/ { print; found = 1 } END { exit(found ? 0 : 1) }' \
+    "$run_dir/negative-parser.log" >"$run_dir/negative-diagnostic.txt"
 
 generate() {
     local suffix format output
@@ -128,14 +131,16 @@ cmp "$run_dir/grammar.js" "$run_dir/grammar.two.js"
 
 python3 "$oracle" "$manifest" "$source_cache" "$run_dir/all.jsonl" \
     "$run_dir/selected.jsonl" "$run_dir/standardir.sx" "$run_dir/classifications.sx" \
-    "$run_dir/roots.sx" "$run_dir/Fortran2023.g4" "$run_dir/fortran2023.y" \
+    "$run_dir/roots.sx" "$standard/specs/lexical-facts-v0.sx" \
+    "$run_dir/Fortran2023.g4" "$run_dir/fortran2023.y" \
     "$run_dir/grammar.js" --negative "$negative_fixture" "$negative_golden" \
     >"$run_dir/final-oracle.log"
 python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" \
     >"$run_dir/validators.log"
 
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
-    "$standard" "$source_hash" "$standard_commit" <<'PY'
+    "$standard" "$standard/specs/lexical-facts-v0.sx" "$source_hash" \
+    "$standard_commit" <<'PY'
 import hashlib
 import json
 import subprocess
@@ -144,7 +149,7 @@ import tomllib
 from pathlib import Path
 
 
-trace_path, manifest_path, run_directory, source_cache, standard, source_hash, standard_commit = sys.argv[1:]
+trace_path, manifest_path, run_directory, source_cache, standard, lexical_path, source_hash, standard_commit = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 run_dir = Path(run_directory)
 
@@ -167,6 +172,11 @@ trace = {
         "bytes": Path(source_cache).stat().st_size,
     },
     "component": {"repository": "standard-new", "commit": standard_commit},
+    "lexical": {
+        "path": "standard-new/specs/lexical-facts-v0.sx",
+        "sha256": digest(Path(lexical_path)),
+        "witness_count": manifest["expected_lexical_witnesses"],
+    },
     "inputs": {
         name: {"sha256": digest(run_dir / filename)}
         for name, filename in {
@@ -194,7 +204,7 @@ trace = {
         "negative": manifest["negative_fixture"],
         "negative_result": "PASS",
         "negative_parser": "standard-new sxroundtrip",
-        "negative_parser_log_sha256": digest(run_dir / "negative-parser.log"),
+        "negative_diagnostic_sha256": digest(run_dir / "negative-diagnostic.txt"),
         "source_result": "PASS",
         "grammar_result": "PASS",
         "mutation_control": "observed_failure",
