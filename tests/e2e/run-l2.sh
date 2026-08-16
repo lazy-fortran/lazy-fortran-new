@@ -395,7 +395,7 @@ trace = {
             "observable": "fortback rejects out-of-scope MIR without artifact",
         },
     ],
-    "runtime": {"oracle": "qemu-riscv64", "exit_status": int(qemu_status)},
+    "runtime": {"oracle": runtime_oracle, "exit_status": int(qemu_status)},
     "origin": "MECHANICAL",
 }
 Path(trace_path).write_text(json.dumps(trace, indent=2) + "\n", encoding="utf-8")
