@@ -2,9 +2,13 @@ id: "E0180"
 title: "Deterministic C725 int-literal kind oracle"
 question: >
   Can a deterministic oracle enforce C725 int-literal kind legality
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
+candidate_run: R000001
+candidate_runs: [R000001]
+reported_run: R000001
+reported_runs: [R000001, R000030]
 
 # Every commit the result depends on. Exact, not "main".
 repos:

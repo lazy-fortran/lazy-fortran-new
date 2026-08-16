@@ -8,8 +8,9 @@ milestone ledger.
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
 replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603 and
-C721 slices are promoted by their central verifiers and focused reviews. Full
-M3 remains open.
+C721 slices are promoted by their central verifiers and focused reviews. C725
+has a passing central replay and is pending focused review. Full M3 remains
+open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -115,6 +116,32 @@ Evidence: `research/decisions/D0129-fifth-m3-c721-exponent-letter-oracle.md`,
 `research/runs/2026-08.jsonl#R000028` and `#R000029`, plus focused review
 reports under `artifacts/reports/M3/`. This promotes only the bounded C721
 slice; no model output can promote a semantic fact.
+
+## M3 — bounded C725 semantic-oracle slice
+
+Bounded-slice status: `PENDING REVIEW`; central replay `R000001` passes.
+Full Core 0 semantics remain open and are not claimed.
+
+The slice binds J3/24-007 C725, canonical-text line 3452, to the already
+represented StandardIR rows R723 and R708. Its typed candidate carries the
+`kind_param` state for an integer-literal use. An absent kind parameter is
+`ACCEPTED`, a present kind parameter is `REJECTED`, and an unknown state is
+`UNRESOLVED`. The deterministic oracle does not parse integer literals,
+evaluate values, inspect processor representations or consume model output.
+Five source/provenance mutation controls must fail closed; regenerate the
+complete inventory with:
+
+```text
+tests/e2e/run-m3-c725.sh .cache/runs/E0180/R000001
+```
+
+Evidence: `research/decisions/D0130-sixth-m3-c725-int-literal-kind-oracle.md`,
+`research/experiments/E0180-can-a-deterministic-oracle-enforce-c725-/`,
+`contracts/m3-c725-int-literal-kind-oracle-v0.sxs`,
+`tests/e2e/validate_m3_c725.py`,
+`artifacts/traces/m3-c725-source-backed-v0.json`, and
+`research/runs/2026-08.jsonl#R000030`. This is a candidate bounded slice;
+focused review is required before promotion and full M3 remains open.
 
 ## M3 — bounded C601 semantic-oracle successor
 
