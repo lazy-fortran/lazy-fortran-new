@@ -124,6 +124,8 @@ def main() -> int:
     if digest(out_of_scope_mir_path) != evidence["negative_mir_out_of_scope_sha256"]:
         fail("out-of-scope MIR hash differs from the committed evidence manifest")
     oracle = tomllib.loads(mir_oracle_path.read_text(encoding="utf-8"))
+    if qemu_status != oracle["runtime_exit_status"]:
+        fail("runtime exit status differs from the independent golden oracle")
     if mir_oracle_path.relative_to(root).as_posix() != evidence["mir_oracle"]:
         fail("MIR oracle path differs from the evidence manifest")
     for name in ("frontend-v0", "mir-v0"):

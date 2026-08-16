@@ -10,6 +10,8 @@ need python3
 need sha256sum
 need git
 need readelf
+actual_python_version="$(python3 --version)"
+actual_python_sha256="$(sha256sum "$(command -v python3)" | awk '{print $1}')"
 
 "$ROOT/scripts/check_pins.sh" >/dev/null
 
@@ -25,7 +27,7 @@ mkdir -p "$run_dir"
 trap 'rm -rf "$run_dir"' EXIT
 
 IFS=$'\t' read -r source golden mir_oracle negative malformed_mir out_of_scope_mir \
-    oracle trace evidence_manifest fo_version fo_sha256 \
+    oracle trace evidence_manifest fo_version fo_sha256 python_version python_sha256 \
     standard_commit frontend_commit compiler_commit backend_commit \
     central_contracts fixture_runtime_oracle fixture_lab_commit runtime_oracle qemu_version \
     readelf_version lab_commit \
@@ -57,6 +59,8 @@ print("\t".join(map(str, (
     root / manifest["evidence_manifest"],
     evidence["fo_version"],
     evidence["fo_sha256"],
+    evidence["python_version"],
+    evidence["python_sha256"],
     manifest["standard_component_commit"],
     manifest["frontend_component_commit"],
     manifest["compiler_component_commit"],
@@ -84,6 +88,8 @@ EOF
 need "$runtime_oracle"
 [ "$fixture_runtime_oracle" = "$runtime_oracle" ]
 [ "$fixture_lab_commit" = "$lab_commit" ]
+[ "$actual_python_version" = "$python_version" ]
+[ "$actual_python_sha256" = "$python_sha256" ]
 [ "$(uname -s)" = "$host_os" ]
 [ "$(uname -m)" = "$host_architecture" ]
 [ "${LC_ALL:-}" = "$lc_all" ]
@@ -256,6 +262,7 @@ python3 - "$run_dir/trace.json" "$manifest" "$source" "$mir" "$artifact" \
     "$actual_standard_commit" "$actual_frontend_commit" \
     "$actual_compiler_commit" "$actual_backend_commit" "$qemu_status" \
     "$fo_version" "$fo_sha256" "$central_contracts" "$runtime_oracle" \
+    "$python_version" "$python_sha256" \
     "$qemu_version" "$readelf_version" "$runtime_exit_status" \
     "$host_os" "$host_architecture" "$lc_all" "$lang" "$worktree_state" \
     "$lab_commit" "$standard" "$frontend" "$compiler" "$backend" \
@@ -292,7 +299,8 @@ def lab_ref(path):
     out_of_scope_mir,
     standard_commit, frontend_commit, compiler_commit, backend_commit,
     qemu_status, fo_version, fo_sha256, central_contracts, runtime_oracle,
-    qemu_version, readelf_version, runtime_exit_status, host_os,
+    python_version, python_sha256, qemu_version, readelf_version,
+    runtime_exit_status, host_os,
     host_architecture, lc_all, lang, worktree_state, lab_commit, standard,
     frontend, compiler, backend, source, mir, mir_two, golden, negative,
     negative_output, malformed_mir, malformed_output, out_of_scope_mir,
@@ -311,6 +319,8 @@ trace = {
         "fo_version": fo_version,
         "fo_sha256": fo_sha256,
         "runtime_oracle": runtime_oracle,
+        "python_version": python_version,
+        "python_sha256": python_sha256,
         "qemu_riscv64": qemu_version,
         "readelf": readelf_version,
     },
@@ -348,6 +358,35 @@ trace = {
                 "cwd_repository": "lazy-fortran-new",
                 "cwd_resolver": "current-checkout",
                 "argv_template": [runtime_oracle, lab_ref(artifact)],
+            },
+            {
+                "cwd_repository": "lazy-fortran-new",
+                "cwd_resolver": "current-checkout",
+                "argv_template": [
+                    "python3",
+                    lab_ref(root / manifest["oracle"]),
+                    lab_ref(manifest_path),
+                    lab_ref(source),
+                    lab_ref(mir),
+                    lab_ref(root / manifest["golden_mir"]),
+                    lab_ref(root / manifest["mir_oracle"]),
+                    lab_ref(artifact),
+                    lab_ref(negative),
+                    lab_ref(malformed_mir),
+                    lab_ref(out_of_scope_mir),
+                    str(qemu_status),
+                    fo_version,
+                    fo_sha256,
+                    runtime_oracle,
+                    qemu_version,
+                    readelf_version,
+                    host_os,
+                    host_architecture,
+                    lc_all,
+                    lang,
+                    worktree_state,
+                    lab_commit,
+                ],
             },
         ],
     },
