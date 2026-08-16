@@ -12,7 +12,7 @@ central verifier; focused review is pending. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
-Current status: `OPEN`; central verifier `R000471` is `PASS`, focused review
+Current status: `OPEN`; central verifier `R000473` is `PASS`, focused review
 and final promotion reconciliation are pending. Full Core 0 semantics are not
 claimed.
 
@@ -23,7 +23,7 @@ The replay produces six case outcomes and three mutation failures; regenerate
 those observations with:
 
 ```text
-tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000471
+tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000473
 ```
 
 Evidence: `research/decisions/D0124-first-m3-associate-name-oracle.md`,
@@ -31,7 +31,8 @@ Evidence: `research/decisions/D0124-first-m3-associate-name-oracle.md`,
 `contracts/m3-c1106-semantic-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c1106.py`,
 `artifacts/traces/m3-c1106-source-backed-v0.json`, and
-`research/runs/2026-08.jsonl#R000471`.
+`research/runs/2026-08.jsonl#R000471` and
+`research/runs/2026-08.jsonl#R000473`.
 
 ## L0 — Normative lexical slice
 
