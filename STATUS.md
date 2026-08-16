@@ -104,7 +104,8 @@ findings were corrected in the candidate tested by `R000441`. The v2 review
 found one oracle-authority defect, and v3 found three further control-plane
 and reproducibility defects. Their reports are retained. The current
 candidate is the current clean checkout, with the laboratory source revision
-pinned as `ad2a8b2`; L2 remains open until a fresh independent review passes.
+pinned in the L2 evidence manifest; L2 remains open until a fresh independent
+review passes.
 
 ## Next executable task
 
