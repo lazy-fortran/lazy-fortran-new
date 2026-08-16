@@ -27,6 +27,13 @@ RETAINED_SOURCE_FIELDS = (
     "retained_target_path",
     "retained_target_sequence_slot",
 )
+MAPPING_EVIDENCE_FIELDS = (
+    "evidence_count",
+    "evidence_kinds",
+    "evidence_items",
+    "evidence_derivations",
+    "evidence_statuses",
+)
 REQUIRED = {
     "kind",
     "source_document",
@@ -226,13 +233,49 @@ def read_trace(path: Path) -> list[dict[str, object]]:
     return values
 
 
+def validate_mapping_evidence(
+    mapping: list[dict[str, str]], path: Path, require: bool
+) -> str:
+    fields = set(mapping[0])
+    present = fields.intersection(MAPPING_EVIDENCE_FIELDS)
+    if not present:
+        if require:
+            fail(f"{path}: mapping has no candidate-evidence contract")
+        return "LEGACY_NOT_PRESENT"
+    if present != set(MAPPING_EVIDENCE_FIELDS):
+        fail(f"{path}: candidate-evidence fields are incomplete")
+    for line_number, row in enumerate(mapping, 2):
+        try:
+            count = int(row["evidence_count"])
+        except ValueError as exc:
+            fail(f"{path}:{line_number}: invalid evidence_count: {exc}")
+        if count < 1:
+            fail(f"{path}:{line_number}: evidence_count is not positive")
+        for field in MAPPING_EVIDENCE_FIELDS[1:]:
+            values = row[field].split(";")
+            if len(values) != count or any(not value for value in values):
+                fail(f"{path}:{line_number}: {field} does not match evidence_count")
+    return "PASS"
+
+
 def main() -> int:
-    if len(sys.argv) != 5:
-        fail("usage: audit-correspondence-witness.py mapping.tsv witness.jsonl joined.tsv summary.json")
-    mapping_path, trace_path, joined_path, summary_path = map(Path, sys.argv[1:])
+    arguments = sys.argv[1:]
+    require_mapping_evidence = False
+    if arguments and arguments[0] == "--require-evidence":
+        require_mapping_evidence = True
+        arguments = arguments[1:]
+    if len(arguments) != 4:
+        fail(
+            "usage: audit-correspondence-witness.py [--require-evidence] "
+            "mapping.tsv witness.jsonl joined.tsv summary.json"
+        )
+    mapping_path, trace_path, joined_path, summary_path = map(Path, arguments)
     mapping = list(csv.DictReader(mapping_path.open(newline=""), delimiter="\t"))
     if not mapping:
         fail(f"{mapping_path}: empty mapping")
+    mapping_evidence_contract = validate_mapping_evidence(
+        mapping, mapping_path, require_mapping_evidence
+    )
     trace = read_trace(trace_path)
     mapping_keys = [source_key(row) for row in mapping]
     mapping_key_counts = Counter(mapping_keys)
@@ -261,6 +304,7 @@ def main() -> int:
         "target_path",
         "target_sequence_slot",
         *RETAINED_SOURCE_FIELDS,
+        *MAPPING_EVIDENCE_FIELDS,
         "source_expression_sha256",
         "target_expression_sha256",
     ]
@@ -301,6 +345,7 @@ def main() -> int:
                 "target_path": match.get("target_path", ""),
                 "target_sequence_slot": match.get("target_sequence_slot", ""),
                 **{field: match.get(field, "") for field in RETAINED_SOURCE_FIELDS},
+                **{field: row.get(field, "") for field in MAPPING_EVIDENCE_FIELDS},
                 "source_expression_sha256": match.get("source_expression_sha256", ""),
                 "target_expression_sha256": match.get("target_expression_sha256", ""),
             }
@@ -313,6 +358,7 @@ def main() -> int:
 
     summary = {
         "mapping_rows": len(mapping),
+        "mapping_evidence_contract": mapping_evidence_contract,
         "mapping_distinct_source_keys": len(mapping_key_counts),
         "mapping_duplicate_source_key_groups": len(duplicate_mapping_keys),
         "mapping_duplicate_source_rows": sum(duplicate_mapping_keys.values()),
