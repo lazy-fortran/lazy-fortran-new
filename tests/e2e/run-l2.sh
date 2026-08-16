@@ -19,6 +19,7 @@ standard="$(resolve_repo standard-new)"
 frontend="$(resolve_repo fortfront-new)"
 compiler="$(resolve_repo ffc-new)"
 backend="$(resolve_repo fortback-new)"
+mkdir -p "$ROOT/.cache"
 run_dir=$(mktemp -d "$ROOT/.cache/l2-run.XXXXXX")
 trap 'rm -rf "$run_dir"' EXIT
 

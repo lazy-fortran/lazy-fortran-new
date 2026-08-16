@@ -17,8 +17,12 @@ plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
 project-management loops.
 
-The active central milestone is L0, defined in `MILESTONES.md` and tracked in
-`STATUS.md`:
+The initial delivery setup completed L0 and L1. The active central milestone
+is the one named by `STATUS.md` and `MILESTONES.md`; at commit `0b6470b` it is
+L2, with corrected central replay `R000441` and a fresh independent review
+wave pending. Those control-plane files govern the current delivery loop;
+the phase checklist below remains the long-horizon architecture and research
+ordering:
 
 ```text
 normative source fact
@@ -28,8 +32,8 @@ normative source fact
   → independent oracle
 ```
 
-The first implementation task is to choose the smallest existing fixture and
-wire the central runner. The runner must record component commits, contract
+The first delivery tasks chose the smallest existing fixtures and wired the
+central runners. Each runner must record component commits, contract
 revisions, source and output hashes, spans, diagnostics and the oracle result.
 It must fail closed while the fixture, expected observable or oracle is unset.
 The active commands are:
@@ -42,10 +46,12 @@ scripts/verify_active_milestone.sh
 
 Component-local `fo` gates remain necessary. They are not central milestone
 evidence. No new provenance, correspondence, schema, semantic, model or
-backend work is allowed unless the L0 acceptance test consumes it. Existing
-correspondence work remains preserved historical evidence; it is paused rather
-than deleted and can resume only when it is the next measured blocker for a
-delivery slice.
+backend work is allowed unless the active central acceptance test consumes it.
+The bounded D0122 L2 backend slice is the current delivery task; it does not
+claim the broad normative backend or source-validity gates in the historical
+phase checklist. Existing correspondence work remains preserved historical
+evidence; it is paused rather than deleted and can resume only when it is the
+next measured blocker for a delivery slice.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
@@ -82,9 +88,11 @@ rows contain 24 duplicate structural-key groups, leaving 71 distinct
 structural keys; the audit therefore fails closed. The full trace also has 85
 unsupported and 717 suppressed rows, which must not be hidden by reporting
 only the selected subset. D0119 defines the required separation between
-candidate-evidence identity and structural-boundary identity. No model run,
-semantic extraction or backend work resumes while this deterministic relation
-gate is open. The boundary implementation derives candidates from StandardIR
+candidate-evidence identity and structural-boundary identity. No model run or
+semantic extraction resumes while this deterministic relation gate is open.
+This prohibition applies to the broad source-validity campaign, not to the
+separately bounded D0122 delivery slice already recorded in the central
+control plane. The boundary implementation derives candidates from StandardIR
 graph topology plus the v2 source facts; it does not append EOS to every
 `-stmt`, because nested `action-stmt` references are not complete source
 statements. The source-level behavior oracle R000426 passes, and R000428 closes
@@ -2607,14 +2615,16 @@ D0099 records the generic runtime policy: source occurrences remain in the
 contract, while only exact duplicate generated bodies may be coalesced and all
 generated names are bounded deterministically.
 
-The current deterministic sequence is therefore: PDF fidelity; source-backed
-contract closure; four-format regeneration and parser-generator oracles;
-explicit target-root/token/transformation witnesses; Bison conflict
+The historical deterministic sequence is therefore: PDF fidelity;
+source-backed contract closure; four-format regeneration and parser-generator
+oracles; explicit target-root/token/transformation witnesses; Bison conflict
 counterexamples and classification; generated-runtime positive/negative
 witnesses; then the broad runtime corpus and lexer expansion. Only after that
-sequence is complete may semantic extraction, LLM/model comparisons, plots or
-backend work resume. A structural inventory never substitutes for a behavioral
-gate.
+sequence is complete may the broad semantic extraction, LLM/model comparison
+and plot campaign resume. A structural inventory never substitutes for a
+behavioral gate. The central delivery loop may advance its explicitly bounded
+vertical slices in parallel when their own independent gates and decisions
+permit them.
 
 The transformation-witness subgate is now closed by E0171/R000399. The
 producer-emitted selected Bison target and its JSONL witness have equal 1,068
