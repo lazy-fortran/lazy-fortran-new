@@ -47,7 +47,9 @@ The immediate sequence is:
    trace as a relation: zero, one or several target slots may be justified, but
    every source occurrence needs an explicit mapped, ambiguous, unsupported or
    suppressed disposition. Fail closed on any target path that cannot be
-   justified structurally. No rule-number, LHS suffix, alternative-number
+   justified structurally, including normalizer paths that reject unsupported
+   recursion. Preserve explicit source-expression and target-expression hashes
+   separately from transformation input/output hashes. No rule-number, LHS suffix, alternative-number
    heuristic or target spelling may repair a mismatch; target insertion remains
    blocked until this gate is green.
 2. Make the generated lexer/runtime consume the now-passing source behavior
