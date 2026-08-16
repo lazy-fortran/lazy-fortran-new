@@ -1,5 +1,6 @@
 # End-to-end fixtures
 
-The central runner for the active milestone will be added here. It must cross
-the pinned component boundaries and finish at the observable named in
-`STATUS.md`; a component-local test is not an end-to-end test.
+The active central runner is selected by `scripts/verify_active_milestone.sh`.
+The M1-M2 runner crosses the pinned `standard-new` boundary and finishes at
+the source-backed grammar observable named in `STATUS.md`; a component-local
+test is not an end-to-end test.
