@@ -10,4 +10,5 @@
   (contract frontend-ast 0 fortfront-new ffc-new)
   (contract mir 0 ffc-new fortback-new)
   (contract targetir 0 fortback-new backend-generators)
-  (contract emission 0 fortback-new ffc-new driver))
+  (contract emission 0 fortback-new ffc-new driver)
+  (contract m3-c1106-semantic-oracle 0 lazy-fortran-new))

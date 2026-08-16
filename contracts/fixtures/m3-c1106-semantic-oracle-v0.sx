@@ -1,0 +1,8 @@
+(contract-witness
+  (contract m3-c1106-semantic-oracle)
+  (version 0)
+  (origin human)
+  (resolution disputed)
+  (property associate-construct-name-consistency)
+  (source (source-ref (document J3-24-007) (clause 11) (rule C1106) (page 190) (source-hash 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)))
+  (outcomes accepted rejected unresolved))

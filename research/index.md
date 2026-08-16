@@ -173,6 +173,7 @@ Runs recorded: 444
 | E0172 | abandoned | 1 | Can generic typed-predicate shape examples reduce residual proposal failures without reducing source and witness validity? |
 | E0173 | running | 1 | Can generic candidate-evidence coalescing produce one structural boundary |
 | E0174 | reported | 11 | Can the current standard-new correspondence producer consume coalesced boundary sites without duplicate relations? |
+| E0175 | running | 0 | Can a deterministic oracle enforce associate construct name consistency |
 
 ## Run status
 
@@ -322,6 +323,7 @@ Runs recorded: 444
 | [D0121](decisions/D0121-first-executable-rv64-slice.md) | superseded by D0122 | Supersedes D####; Amends D####; Retracts D#### | First executable vertical slice uses frontend-v0 to MIR-v0 to RV64 Linux |
 | [D0122](decisions/D0122-narrow-l2-boundary.md) | accepted | Supersedes D0121 | Narrow L2 to the observed frontend-witness handoff |
 | [D0123](decisions/D0123-m1m2-central-source-gate.md) | accepted |  | Start M1-M2 with a central source-backed grammar gate |
+| [D0124](decisions/D0124-first-m3-associate-name-oracle.md) | accepted | Supersedes D####; Amends D####; Retracts D#### | First M3 slice uses associate construct-name consistency |
 
 ### Proposed decisions
 

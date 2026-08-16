@@ -4,7 +4,8 @@ MAX_PARALLEL_WORKERS: 4
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier: []
+ready_frontier:
+  - T-M3-c1106-semantic-oracle
 
 controller_ownership:
   owner: controller
@@ -63,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M2-correspondence-replay
+active_task: T-M3-c1106-semantic-oracle
 
 milestones:
   - id: L0
@@ -162,12 +163,20 @@ milestones:
       - research/runs/2026-08.jsonl#R000455
   - id: M3
     title: Source-backed Core 0 semantics
-    status: BLOCKED
+    status: OPEN
     verification: NOT STARTED
     prerequisites: [M1-M2]
-    verifier_command: define before activation
+    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000469
     evidence_paths:
       - ROADMAP.md
+      - research/decisions/D0124-first-m3-associate-name-oracle.md
+      - research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/
+      - contracts/m3-c1106-semantic-oracle-v0.sxs
+      - tests/e2e/run-m3-c1106.sh
+      - artifacts/traces/m3-c1106-source-backed-v0.json
+    notes: >-
+      The bounded C1106 slice is the first active M3 contract. Full Core 0
+      semantics remain unpromoted and require later contracts.
   - id: M4-M6
     title: Generated frontend, practical compiler and self-hosting
     status: BLOCKED
@@ -423,6 +432,94 @@ tasks:
       - research/experiments/E0172-can-generic-typed-predicate-shape-exampl/analyse.sh
       - research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/manifest.yaml
       - research/runs/2026-08.jsonl#R000254
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+
+  - id: T-M3-c1106-semantic-oracle
+    milestone: M3
+    title: Verify the bounded C1106 associate-name semantic oracle
+    status: OPEN
+    verification: NOT STARTED
+    review_state: OPEN
+    priority: 100
+    depends_on:
+      - T-M1M2-source-backed-fixture
+    inputs:
+      - path: research/decisions/D0124-first-m3-associate-name-oracle.md
+      - path: research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/manifest.yaml
+      - path: contracts/m3-c1106-semantic-oracle-v0.sxs
+      - path: contracts/fixtures/m3-c1106-semantic-oracle-v0.sx
+      - path: tests/fixtures/m3-c1106-source-backed-v0.json
+      - path: tests/fixtures/m3-c1106-semantic-items.sx
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - component: standard-new
+        commit: f94c4c51b51fce22b533b7eeda08741970320913
+    writes:
+      - contracts/m3-c1106-semantic-oracle-v0.sxs
+      - contracts/fixtures/m3-c1106-semantic-oracle-v0.sx
+      - contracts/registry.sx
+      - tests/fixtures/m3-c1106-*
+      - tests/golden/m3-c1106-*
+      - tests/e2e/run-m3-c1106.sh
+      - tests/e2e/validate_m3_c1106.py
+      - artifacts/traces/m3-c1106-source-backed-v0.json
+      - artifacts/reports/M3/**
+      - research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/**
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      run the exact central command from a clean central checkout and the
+      pinned clean standard-new checkout; require source/provenance binding,
+      standard-new semantic canonicalization, five independent outcomes,
+      three observed mutation failures, exact trace reuse and zero model calls
+      or semantic promotions
+    output: artifact
+    final_observable: >-
+      a replayable source-backed C1106 oracle with ACCEPTED, REJECTED and
+      UNRESOLVED outcomes over its typed candidate fixture; this promotes only
+      the bounded slice and not the full M3 Core 0 semantic milestone
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/m3-c1106-semantic-oracle-v0.sxs
+        - contracts/fixtures/m3-c1106-semantic-oracle-v0.sx
+        - contracts/registry.sx
+        - tests/fixtures/m3-c1106-*
+        - tests/golden/m3-c1106-*
+        - tests/e2e/run-m3-c1106.sh
+        - tests/e2e/validate_m3_c1106.py
+        - artifacts/traces/m3-c1106-source-backed-v0.json
+        - artifacts/reports/M3/**
+        - research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/**
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M1M2-source-backed-fixture]
+    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000469
+    evidence_paths:
+      - research/decisions/D0124-first-m3-associate-name-oracle.md
+      - contracts/m3-c1106-semantic-oracle-v0.sxs
+      - contracts/fixtures/m3-c1106-semantic-oracle-v0.sx
+      - tests/fixtures/m3-c1106-source-backed-v0.json
+      - tests/fixtures/m3-c1106-semantic-items.sx
+      - tests/golden/m3-c1106-semantic-items.sx
+      - tests/e2e/run-m3-c1106.sh
+      - tests/e2e/validate_m3_c1106.py
+      - artifacts/traces/m3-c1106-source-backed-v0.json
+      - research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/README.md
+      - research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/manifest.yaml
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

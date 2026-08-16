@@ -1,0 +1,95 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-equal-name",
+      "kind": "positive"
+    },
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-both-absent",
+      "kind": "positive"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "negative-name-mismatch",
+      "kind": "negative"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "negative-one-sided-name",
+      "kind": "negative"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-end",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c1106-semantic-oracle-v0.sx",
+    "fixture_sha256": "65826009969e16c7ec958eb2b13af7af4cbe092167aebd153c6e468b9977d911",
+    "schema": "contracts/m3-c1106-semantic-oracle-v0.sxs",
+    "schema_sha256": "d5aa25c4ae603a9b0294780f998f516f750a12b668b0c93ef11ad697d79f28b2",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c1106-source-backed-v0.json",
+  "fixture_sha256": "f4a64f6eb5a2c10fb934f81c1194e2981861f2308942050261c6334f5453e70d",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-source-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c1106.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 2,
+    "UNRESOLVED": 1
+  },
+  "property": "associate-construct-name-consistency",
+  "schema_version": "m3-c1106-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "459becdffb83e0bde43c42771413e4225eefb100096ea623b944ae98c923c898",
+    "input": "tests/fixtures/m3-c1106-semantic-items.sx",
+    "input_sha256": "459becdffb83e0bde43c42771413e4225eefb100096ea623b944ae98c923c898"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      8731,
+      8732,
+      8733,
+      8734
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "11",
+    "document": "J3-24-007",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 190,
+    "rule": "C1106",
+    "standardir_rules": [
+      "R1102",
+      "R1103",
+      "R1106"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

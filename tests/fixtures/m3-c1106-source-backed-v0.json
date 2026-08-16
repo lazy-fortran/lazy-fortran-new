@@ -1,0 +1,110 @@
+{
+  "schema_version": "m3-c1106-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "associate-construct-name-consistency",
+  "contract": {
+    "schema": "contracts/m3-c1106-semantic-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c1106-semantic-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "11",
+    "rule": "C1106",
+    "printed_page": 190,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 8731, "text": "C1106 (R1106) If the associate-stmt of an associate-construct specifies an associate-construct-name, the corres-"},
+      {"line": 8732, "text": "ponding end-associate-stmt shall specify the same associate-construct-name. If the associate-stmt of an"},
+      {"line": 8733, "text": "associate-construct does not specify an associate-construct-name, the corresponding end-associate-stmt"},
+      {"line": 8734, "text": "shall not specify an associate-construct-name."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R1102", "lhs": "associate-construct", "page": 204, "byte_start": 553683, "byte_length": 74, "occurrence": 315},
+        {"rule": "R1103", "lhs": "associate-stmt", "page": 204, "byte_start": 553758, "byte_length": 88, "occurrence": 316},
+        {"rule": "R1106", "lhs": "end-associate-stmt", "page": 204, "byte_start": 554532, "byte_length": 73, "occurrence": 319}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c1106-semantic-items.sx",
+    "sha256": "459becdffb83e0bde43c42771413e4225eefb100096ea623b944ae98c923c898",
+    "id": "S-C1106",
+    "subject": "associate-construct-name-consistency",
+    "document": "J3-24-007",
+    "clause": "11",
+    "rule": "C1106",
+    "page": 190,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-equal-name",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "type": "associate-construct-name-pair",
+        "source_rule": "C1106",
+        "start": {"known": true, "present": true, "value": "named_assoc"},
+        "end": {"known": true, "present": true, "value": "named_assoc"}
+      }
+    },
+    {
+      "id": "positive-both-absent",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "type": "associate-construct-name-pair",
+        "source_rule": "C1106",
+        "start": {"known": true, "present": false, "value": null},
+        "end": {"known": true, "present": false, "value": null}
+      }
+    },
+    {
+      "id": "negative-name-mismatch",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "type": "associate-construct-name-pair",
+        "source_rule": "C1106",
+        "start": {"known": true, "present": true, "value": "named_assoc"},
+        "end": {"known": true, "present": true, "value": "other_assoc"}
+      }
+    },
+    {
+      "id": "negative-one-sided-name",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "type": "associate-construct-name-pair",
+        "source_rule": "C1106",
+        "start": {"known": true, "present": true, "value": "named_assoc"},
+        "end": {"known": true, "present": false, "value": null}
+      }
+    },
+    {
+      "id": "unresolved-unknown-end",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "type": "associate-construct-name-pair",
+        "source_rule": "C1106",
+        "start": {"known": true, "present": true, "value": "named_assoc"},
+        "end": {"known": false, "present": false, "value": null}
+      }
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "standardir-source-hash", "path": ["source", "standardir", "sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C1105"}
+  ]
+}

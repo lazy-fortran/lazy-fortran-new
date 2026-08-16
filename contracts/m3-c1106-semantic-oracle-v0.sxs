@@ -1,0 +1,24 @@
+(schema m3-c1106-semantic-oracle-v0
+  (primitive name)
+  (primitive bool)
+  (enum outcome accepted rejected unresolved)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record name-side
+    (known bool)
+    (present bool)
+    (value name))
+  (record associate-construct-name-pair
+    (start name-side)
+    (end name-side))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact associate-construct-name-pair)
+    (expected outcome))
+  (list candidates semantic-candidate))
