@@ -172,7 +172,8 @@ python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" "$manifest" \
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
     "$regression_corpus" "$standard" "$standard/specs/lexical-facts-v0.sx" "$source_hash" \
     "$run_dir/contract-standardir.sx" "$run_dir/contract-grammar.sx" \
-    "$central_commit" "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" <<'PY'
+    "$central_commit" "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" \
+    "$negative_fixture" <<'PY'
 import hashlib
 import json
 import platform
@@ -199,6 +200,7 @@ from pathlib import Path
     fo_version,
     fo_sha256,
     fo_path,
+    negative_fixture,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 run_dir = Path(run_directory)
@@ -365,7 +367,14 @@ trace = {
         "commands": ["scripts/verify_active_milestone.sh", "tests/e2e/run-m1m2.sh"],
         "fo_clean_command": "(cd standard-new && fo clean)",
         "component_build_tree_before": "absent",
-        "negative_command": "(cd standard-new && fo exec --no-build sxroundtrip tests/negative/m1m2-source-backed-v0-unclosed.sx <run-dir>/negative.roundtrip.sx)",
+        "negative_command": {
+            "argv": [
+                "fo", "exec", "--no-build", "sxroundtrip",
+                str(Path(negative_fixture).resolve()),
+                str((run_dir / "negative.roundtrip.sx").resolve()),
+            ],
+            "cwd": str(Path(standard).resolve()),
+        },
     },
     "origin": "MECHANICAL",
 }
