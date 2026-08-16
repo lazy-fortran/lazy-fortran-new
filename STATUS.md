@@ -31,9 +31,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `03719c6ebea7dcfc3e88d2a0997ea8935209d235` | normative source → StandardIR | clean main; full `fo` recorded in lane evidence |
-| fortfront-new | lazy-fortran/fortfront-new | `fc828b237c7c7d3962ccdcff6faf629266aaf8de` | frontend | clean main; L1 consumer verified |
-| ffc-new | lazy-fortran/ffc-new | `5a82330dc2eff870792c0de8cd7cea8d13e7a8fb` | compiler driver and middle end | clean main; MIR-v0 CLI bridge |
-| fortback-new | lazy-fortran/fortback-new | `181715ac2fa04b0682db24564126dee882cac345` | backend | clean main; bounded RV64 Linux executable bridge and CLI boundary test |
+| fortfront-new | lazy-fortran/fortfront-new | `73cf2af7a1ee7c13bae302868dc1595aa4ed0a79` | frontend | clean main; registered L2 frontend trace |
+| ffc-new | lazy-fortran/ffc-new | `bcaadcb58c24af613204aa398541c0d2e35abf91` | compiler driver and middle end | clean main; registered L2 MIR trace |
+| fortback-new | lazy-fortran/fortback-new | `c578904a8d18e9d5410934f5489a21d5dadfad05` | backend | clean main; registered L2 executable trace |
 
 ## Historical milestone evidence
 

@@ -1,0 +1,84 @@
+source_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+source_bytes = 9970124
+document = "J3-24-007"
+
+[[witnesses]]
+rule = "R401"
+lhs = "xyz-list"
+page = 45
+byte_start = 113367
+byte_length = 37
+start_text = "xyz [ , xyz ] ..."
+continuations = []
+
+[[witnesses]]
+rule = "R402"
+lhs = "xyz-name"
+page = 45
+byte_start = 113405
+byte_length = 24
+start_text = "name"
+continuations = []
+
+[[witnesses]]
+rule = "R403"
+lhs = "scalar-xyz"
+page = 45
+byte_start = 113430
+byte_length = 25
+start_text = "xyz"
+continuations = []
+
+[[witnesses]]
+rule = "R501"
+lhs = "program"
+page = 53
+byte_start = 138571
+byte_length = 30
+start_text = "program-unit"
+continuations = ["[ program-unit ] ..."]
+
+[[witnesses]]
+rule = "R741"
+lhs = "proc-component-def-stmt"
+page = 94
+byte_start = 242577
+byte_length = 68
+start_text = "PROCEDURE ( [ proc-interface ] ) ,"
+continuations = ["proc-component-attr-spec-list :: proc-decl-list"]
+
+[[witnesses]]
+rule = "R843"
+lhs = "data-implied-do"
+page = 136
+byte_start = 360754
+byte_length = 98
+start_text = "( data-i-do-object-list , [ integer-type-spec :: ] data-i-do-variable ="
+continuations = ["scalar-int-constant-expr ,", "scalar-int-constant-expr", "[ , scalar-int-constant-expr ] )"]
+
+[[witnesses]]
+rule = "R1103"
+lhs = "associate-stmt"
+page = 204
+byte_start = 553758
+byte_length = 66
+start_text = "[ associate-construct-name : ] ASSOCIATE"
+continuations = ["(association-list )"]
+
+[[witnesses]]
+rule = "R1307"
+lhs = "data-edit-desc"
+page = 290
+byte_start = 814446
+byte_length = 38
+start_text = "I w [ . m ]"
+continuations = ["B w [ . m ]", "O w [ . m ]", "Z w [. m]", "F w . d", "Ew . d [Ee ]", "EN w . d [ E e ]", "ES w . d [ E e ]", "EX w . d [ E e ]", "Gw [. d [Ee ]]", "L w", "A[ w ]", "AT", "Dw . d", "DT [ char-literal-constant ] [ ( v-list ) ]"]
+
+[[witnesses]]
+rule = "R1315"
+lhs = "position-edit-desc"
+page = 291
+byte_start = 815911
+byte_length = 33
+start_text = "Tn"
+continuations = ["TL n", "TR n", "n X"]

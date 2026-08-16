@@ -334,7 +334,7 @@ tasks:
   - id: T-L2-fortfront-frontend-trace
     milestone: L2
     title: Trace the pinned fortfront frontend-v0 handoff
-    status: OPEN
+    status: PASS
     priority: 80
     depends_on:
       - T-L2-vertical-slice
@@ -361,6 +361,7 @@ tasks:
         commit: 181715ac2fa04b0682db24564126dee882cac345
     writes:
       - fortfront-new/test/test_dispatch_l2_frontend_trace.f90
+      - fortfront-new/fpm.toml
     mode: worktree
     verifier: cd <assigned-worktree> && fo
     output: patch
@@ -377,11 +378,12 @@ tasks:
       owner: worker
       allowed_paths:
         - test/test_dispatch_l2_frontend_trace.f90
+        - fpm.toml
 
   - id: T-L2-ffc-mir-trace
     milestone: L2
     title: Trace the pinned ffc frontend-v0 to MIR-v0 handoff
-    status: OPEN
+    status: PASS
     priority: 80
     depends_on:
       - T-L2-vertical-slice
@@ -412,6 +414,7 @@ tasks:
         commit: 181715ac2fa04b0682db24564126dee882cac345
     writes:
       - ffc-new/test/test_dispatch_l2_mir_trace.f90
+      - ffc-new/fpm.toml
     mode: worktree
     verifier: cd <assigned-worktree> && fo
     output: patch
@@ -427,11 +430,12 @@ tasks:
       owner: worker
       allowed_paths:
         - test/test_dispatch_l2_mir_trace.f90
+        - fpm.toml
 
   - id: T-L2-fortback-observable-trace
     milestone: L2
     title: Trace the pinned fortback MIR-v0 to RV64 observable
-    status: OPEN
+    status: PASS
     priority: 80
     depends_on:
       - T-L2-vertical-slice
@@ -464,6 +468,7 @@ tasks:
         commit: 181715ac2fa04b0682db24564126dee882cac345
     writes:
       - fortback-new/test/test_dispatch_l2_observable_trace.f90
+      - fortback-new/fpm.toml
     mode: worktree
     verifier: >-
       cd <assigned-worktree> && fo && scripts/check_text_policy.sh --self-test
@@ -482,6 +487,7 @@ tasks:
       owner: worker
       allowed_paths:
         - test/test_dispatch_l2_observable_trace.f90
+        - fpm.toml
 
 integration_cycle:
   triggers:

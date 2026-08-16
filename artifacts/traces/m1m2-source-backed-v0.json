@@ -1,0 +1,69 @@
+{
+  "milestone": "M1-M2",
+  "fixture": "M1-M2-source-backed-v0",
+  "source": {
+    "manifest": "artifacts/standards/j3-24-007.toml",
+    "sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "bytes": 9970124
+  },
+  "component": {
+    "repository": "standard-new",
+    "commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235"
+  },
+  "inputs": {
+    "all_productions": {
+      "sha256": "8b3e21d822abcc1edd8b9a88293cf821ed06d1466f31714b61f9b2d970f1d6eb"
+    },
+    "selected_productions": {
+      "sha256": "8b3e21d822abcc1edd8b9a88293cf821ed06d1466f31714b61f9b2d970f1d6eb"
+    },
+    "standardir": {
+      "sha256": "d42042e696411dfe815c49955988270123d28c3320108cd9173d2f2a6677230b"
+    },
+    "classifications": {
+      "sha256": "078737016b7c460b6b43721c41a22ca938537d785bfddb85b6a055a71191f27f"
+    },
+    "roots": {
+      "sha256": "9942ec86185a2b8f2b225184f9ed5e35166db8782c3e2ac00412dccaee35bc3c"
+    }
+  },
+  "outputs": {
+    "grammar.ebnf": {
+      "sha256": "f9d2ab1b073e0373a099624cd6f708ca637e0fd7d6d7198118651899b50fb2cc"
+    },
+    "Fortran2023.g4": {
+      "sha256": "a5fb5c38815ab924387b3a179de35ececfef663dea06647195974a620f977919"
+    },
+    "fortran2023.y": {
+      "sha256": "f9d5523a1c0d9dba4448bcbb08b6396a26cbb20f28ff1c0de31c9f393c31e741"
+    },
+    "grammar.js": {
+      "sha256": "e1e0920a110649ccbf75a58bc1fd246f2becf47029c71528f149a0f16eadf917"
+    }
+  },
+  "toolchain": {
+    "fo": "fo 0.3.2",
+    "antlr4": "ANTLR Parser Generator  Version 4.13.2",
+    "bison": "bison (GNU Bison) 3.8.2",
+    "tree_sitter": "tree-sitter 0.26.9",
+    "standard_new_path": "/home/ert/code/standard-new"
+  },
+  "oracles": {
+    "source": "tests/e2e/oracle_m1m2.py",
+    "grammar": "tests/e2e/validate_m1m2_grammars.py",
+    "source_result": "PASS",
+    "grammar_result": "PASS",
+    "mutation_control": "observed_failure"
+  },
+  "reproducibility": {
+    "locale": {
+      "LC_ALL": "C",
+      "LANG": "C"
+    },
+    "commands": [
+      "scripts/verify_active_milestone.sh",
+      "tests/e2e/run-m1m2.sh"
+    ]
+  },
+  "origin": "MECHANICAL"
+}
