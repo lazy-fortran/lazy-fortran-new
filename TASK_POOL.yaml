@@ -164,7 +164,7 @@ milestones:
     title: Source-backed Core 0 semantics
     status: OPEN
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     prerequisites: [M1-M2]
     verifier_command: tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000002
     evidence_paths:
@@ -293,9 +293,15 @@ milestones:
       - tests/e2e/validate_m3_c718.py
       - artifacts/traces/m3-c718-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000034
+      - research/runs/2026-08.jsonl#R000035
+      - research/runs/2026-08.jsonl#R000036
+      - artifacts/reports/M3/c718-semantic-review-v1.md
+      - artifacts/reports/M3/c718-reproducibility-review-v1.md
+      - artifacts/reports/M3/c718-semantic-review-v2.md
+      - artifacts/reports/M3/c718-reproducibility-review-v2.md
     notes: >-
-      The bounded C1106, C702, C601, C603, C721 and C725 slices are promoted.
-      C718 replay R000034 passes and focused review is pending. The E0181
+      The bounded C1106, C702, C601, C603, C721, C725 and C718 slices are promoted.
+      C718 replay R000034 and focused review R000036 pass. The E0181
       audit retains 4 hard failures, 2 unresolved, 94 disputed and 69
       unwitnessed rows; full Core 0 semantics remain unpromoted.
   - id: M4-M6
@@ -1169,9 +1175,9 @@ tasks:
   - id: T-M3-c718-semantic-oracle
     milestone: M3
     title: Verify the bounded C718 scalar-int-constant semantic oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c725-semantic-oracle
@@ -1255,6 +1261,12 @@ tasks:
       - tests/e2e/validate_m3_c718.py
       - artifacts/traces/m3-c718-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000034
+      - research/runs/2026-08.jsonl#R000035
+      - research/runs/2026-08.jsonl#R000036
+      - artifacts/reports/M3/c718-semantic-review-v1.md
+      - artifacts/reports/M3/c718-reproducibility-review-v1.md
+      - artifacts/reports/M3/c718-semantic-review-v2.md
+      - artifacts/reports/M3/c718-reproducibility-review-v2.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

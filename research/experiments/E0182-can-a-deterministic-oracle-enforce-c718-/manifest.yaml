@@ -2,11 +2,13 @@ id: "E0182"
 title: "Deterministic C718 scalar-int-constant oracle"
 question: >
   Can a deterministic oracle enforce C718 scalar-int-constant legality
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 candidate_run: R000002
 candidate_runs: [R000001, R000002]
+reported_run: R000002
+reported_runs: [R000002, R000034, R000036]
 
 # Every commit the result depends on. Exact, not "main".
 repos:

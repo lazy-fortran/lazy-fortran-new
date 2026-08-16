@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-M3 — six bounded semantic-oracle slices promoted; C718 candidate pending focused review; full Core 0 remains pending
+M3 — seven bounded semantic-oracle slices promoted; full Core 0 remains pending
 
 ## Central goal
 
@@ -21,9 +21,9 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 is now open through the promoted C1106, C702, C601, C603, C721 and
-C725 contracts. The C718 candidate replay passes and awaits focused review.
-The full Core 0 semantic milestone remains unpromoted.
+review. M3 is now open through the promoted C1106, C702, C601, C603, C721,
+C725 and C718 contracts. The full Core 0 semantic milestone remains
+unpromoted.
 
 ## Component pins
 
@@ -111,10 +111,11 @@ not current promotion evidence.
   full Core 0 remains open.
   D0131 records the E0181 Core 0 closure audit: the retained 287-row ledger
   still has 4 hard failures, 2 unresolved rows, 94 disputed rows and 69
-  unwitnessed rows, with zero semantic promotions. The C718 candidate is the
+  unwitnessed rows, with zero semantic promotions. D0131 selected C718 as the
   next bounded contract, not a restart of the abandoned E0172 model lane.
   Its exact replay is `tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000002`;
-  R000034 passes the central gate and focused review is pending.
+  R000034 and focused review R000036 pass. This promotes C718 only; it does
+  not close full M3.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -131,8 +132,8 @@ emission contract interchange.
 ## Active fixture
 
 ID: `T-M3-c718-semantic-oracle` — bounded source-backed C718
-scalar-int-constant semantic oracle; central replay `R000001` passes and
-focused review is pending. C725 remains promoted; full M3 remains open.
+scalar-int-constant semantic oracle; corrected replay `R000002` and focused
+review `R000036` pass. C725 remains promoted; full M3 remains open.
 
 Boundary decision: `research/decisions/D0131-m3-core0-closure-after-six-bounded-slices.md`.
 
@@ -151,14 +152,14 @@ labels. Model output cannot promote a fact.
 ## Active task
 
 ID: `T-M3-c718-semantic-oracle` — E0182 C718 source-backed semantic-oracle
-vertical slice; the central candidate replay passes and focused review is
-pending. Full M3 remains open.
+vertical slice; corrected central replay `R000034` and focused review
+`R000036` pass. The bounded slice is promoted; full M3 remains open.
 
 Verifier: `tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000002` from clean
 central and component checkouts. It includes the standard-new semantic-items
 canonicalization, C718/R709 source/provenance checks, the independent oracle,
 five mutation controls, exact trace comparison and zero model/promotion
-counters. Replay `R000034` passes; focused review is pending.
+counters. Replay `R000034` and focused review `R000036` pass.
 
 ## Current blocker
 
@@ -171,19 +172,23 @@ central C1106 replay R000474 and focused review R000476 pass. C702 replay
 R000012 and focused review R000015 pass. C601 replay R000003 and focused
 review R000022 pass. C603 replay R000001 and focused review R000027 pass. C721
 replay R000001 and focused review R000029 pass. C725 replay R000001 and
-focused review R000031 pass. The remaining blocker is now the full M3/Core 0
-closure remains blocked by the E0181 audit counts: 4 hard failures, 2
+focused review R000031 pass. The remaining blocker is the full M3/Core 0
+closure, which remains blocked by the E0181 audit counts: 4 hard failures, 2
 unresolved rows, 94 disputed rows and 69 unwitnessed rows across the retained
-287-row ledger. The C718 replay is green but cannot close that ledger gate;
-focused review is the only remaining gate for this bounded candidate. A green
-bounded slice alone does not close full M3.
+287-row ledger. The corrected C718 replay and focused reviews are green, but
+that bounded slice cannot close the complete ledger gate. A green bounded
+slice alone does not close full M3. Regenerate the E0181 counts with:
+
+```text
+E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
+```
 
 ## Next executable task
 
-Run two focused independent reviews of the C718 candidate against R000034. If
-both pass, promote only this bounded slice and update the central evidence;
-otherwise record the precise review blocker. Do not resume E0172, start broad
-parsing/semantic work, or promote a model fact.
+Reassess the full M3/Core 0 acceptance boundary using the E0181 audit and the
+seven promoted bounded slices. If another gap remains, define exactly one
+next executable contract before implementation. Do not resume E0172, start
+broad parsing/semantic work, or promote a model fact.
 
 ## Last verified central command
 
@@ -203,8 +208,8 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   `tests/e2e/run-m3-c725.sh .cache/runs/E0180/R000001` is `PASS`; focused
   review `R000031` is `PASS`. The bounded C1106, C702, C601, C603, C721 and
   C725 slices are promoted. C718 replay `tests/e2e/run-m3-c718.sh
-  .cache/runs/E0182/R000002` is `PASS` in R000034 and awaits focused review;
-  full M3 remains open.
+  .cache/runs/E0182/R000002` is `PASS` in R000034; focused review R000036 is
+  `PASS`. The seven bounded slices are promoted, while full M3 remains open.
 ```
 
 ## Blacklisted pseudo-progress
