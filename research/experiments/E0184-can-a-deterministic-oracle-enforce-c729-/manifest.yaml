@@ -6,7 +6,7 @@ status: running        # draft | running | reported | abandoned
 opened: "2026-08-17"
 closed: ""
 candidate_run: R000001
-candidate_runs: [R000001]
+candidate_runs: [R000001, R000002]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -64,7 +64,7 @@ falsifiable_by: >
   is observed.
 
 gate: >
-  tests/e2e/run-m3-c729.sh .cache/runs/E0184/R000001 must pass from clean
+  tests/e2e/run-m3-c729.sh --fresh must pass from clean
   central and standard-new checkouts, including standard-new sxsemantic
   canonicalization, normative PDF/canonical-text/StandardIR hash and witness
   checks, four independently computed outcomes, five observed mutation
@@ -72,4 +72,4 @@ gate: >
   promotions.
 
 analysis: tests/e2e/validate_m3_c729.py
-run: tests/e2e/run-m3-c729.sh .cache/runs/E0184/R000001
+run: tests/e2e/run-m3-c729.sh --fresh

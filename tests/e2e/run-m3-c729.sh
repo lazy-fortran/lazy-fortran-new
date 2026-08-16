@@ -10,13 +10,24 @@ need sha256sum
 need git
 need fo
 
-[ "$#" -eq 1 ] || die "usage: $0 .cache/runs/E0184/R<fresh-run>"
-run_arg="$1"
-case "$run_arg" in
-    .cache/runs/E0184/*) ;;
-    *) die "run directory must be below .cache/runs/E0184" ;;
-esac
-run_dir="$ROOT/$run_arg"
+if [ "$#" -eq 1 ] && [ "$1" = "--fresh" ]; then
+    run_number=1
+    while :; do
+        run_arg=".cache/runs/E0184/R$(printf '%06d' "$run_number")"
+        run_dir="$ROOT/$run_arg"
+        [ ! -e "$run_dir" ] && break
+        run_number=$((run_number + 1))
+    done
+elif [ "$#" -eq 1 ]; then
+    run_arg="$1"
+    case "$run_arg" in
+        .cache/runs/E0184/*) ;;
+        *) die "run directory must be below .cache/runs/E0184" ;;
+    esac
+    run_dir="$ROOT/$run_arg"
+else
+    die "usage: $0 .cache/runs/E0184/R<fresh-run>|--fresh"
+fi
 [ ! -e "$run_dir" ] || die "run directory already exists: $run_dir"
 mkdir -p -- "$run_dir"
 
