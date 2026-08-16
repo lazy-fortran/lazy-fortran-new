@@ -173,7 +173,7 @@ Runs recorded: 444
 | E0172 | abandoned | 1 | Can generic typed-predicate shape examples reduce residual proposal failures without reducing source and witness validity? |
 | E0173 | running | 1 | Can generic candidate-evidence coalescing produce one structural boundary |
 | E0174 | reported | 11 | Can the current standard-new correspondence producer consume coalesced boundary sites without duplicate relations? |
-| E0175 | draft | 0 | Can a deterministic oracle enforce associate construct name consistency |
+| E0175 | running | 0 | Can a deterministic oracle enforce associate construct name consistency |
 
 ## Run status
 
