@@ -31,7 +31,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `03719c6ebea7dcfc3e88d2a0997ea8935209d235` | normative source → StandardIR | clean main; full `fo` recorded in lane evidence |
+| standard-new | lazy-fortran/standard-new | `f94c4c51b51fce22b533b7eeda08741970320913` | normative source → StandardIR | clean main; full `fo` recorded in E0174/R000008 |
 | fortfront-new | lazy-fortran/fortfront-new | `73cf2af7a1ee7c13bae302868dc1595aa4ed0a79` | frontend | clean main; registered L2 frontend trace |
 | ffc-new | lazy-fortran/ffc-new | `bcaadcb58c24af613204aa398541c0d2e35abf91` | compiler driver and middle end | clean main; registered L2 MIR trace |
 | fortback-new | lazy-fortran/fortback-new | `c578904a8d18e9d5410934f5489a21d5dadfad05` | backend | clean main; registered L2 executable trace |
@@ -77,10 +77,11 @@ not current promotion evidence.
   history are retained under `artifacts/` and `research/runs/2026-08.jsonl`.
   Focused integration review `R000455` passes; no source, grammar or oracle
   defect remains open.
-- M3 remains `BLOCKED`; its next controller-owned research task is
-  `T-M3-semantic-shape-successor`, which runs E0172 against the exact E0123
-  residual under D0074. It may measure prompt-interface improvement but cannot
-  promote a semantic fact or activate M3 by itself.
+- M3 remains `BLOCKED`. E0172 was abandoned before its model cell: R000456
+  found that the endpoint exposed Qwen 3.8 27B while the experiment declared
+  Qwen 3.6 35B-A3B. No model output was accepted. Under D0084 and D0119, the
+  next task is the deterministic E0174 correspondence replay; semantic model
+  work remains closed.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -110,23 +111,27 @@ the source-to-target witness required by `docs/oracle-policy.md`.
 
 ## Active task
 
-ID: `T-M3-semantic-shape-successor` — E0172 generic typed-predicate shape
-examples on the E0123 53-row residual.
+ID: `T-M2-correspondence-replay` — E0174 current producer correspondence
+replay after generic candidate-evidence coalescing.
 
-Verifier: `research/experiments/E0172-can-generic-typed-predicate-shape-exampl/analyse.sh`
-after the declared preflight and model cell. The E0123 merge, source/schema,
-witness and mutation gates remain authoritative.
+Verifier: `research/experiments/E0174-can-the-current-standard-new-corresponde/analyse.sh`
+after its cold deterministic cell and focused independent review. The fast
+reuse mode is an iteration control, not a substitute for the cold replay;
+target insertion and semantic promotion remain out of scope.
 
 ## Current blocker
 
-The L2 boundary and M1-M2 source-backed fixture are promoted. M3 remains
-blocked until its scope, central verifier and independent oracle are activated;
-E0172 is the current bounded preparation task.
+The L2 boundary and M1-M2 source-backed fixture are promoted. The D0119
+correspondence replay verifier passes in E0174/R000461, with its focused
+independent review still in progress. D0084 forbids semantic/model work until
+that review closes the deterministic source-backed relation. E0172's runtime
+identity failure is retained as R000456.
 
 ## Next executable task
 
-Run E0172's preflight, 53-row model cell and deterministic analysis. Do not
-promote a semantic fact or activate M3 from model output alone.
+Complete the E0174 focused independent review and then promote or repair the
+current source-target correspondence replay. Do not resume E0172 or promote a
+semantic fact.
 
 ## Last verified central command
 

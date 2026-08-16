@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-M3-semantic-shape-successor
+  - T-M2-correspondence-replay
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-semantic-shape-successor
+active_task: T-M2-correspondence-replay
 
 milestones:
   - id: L0
@@ -376,8 +376,8 @@ tasks:
   - id: T-M3-semantic-shape-successor
     milestone: M3
     title: Measure generic typed-predicate shape examples on the E0123 residual
-    status: OPEN
-    verification: NOT STARTED
+    status: BLOCKED
+    verification: FAIL
     priority: 100
     depends_on:
       - T-M1M2-source-backed-fixture
@@ -426,6 +426,123 @@ tasks:
       - research/runs/2026-08.jsonl#R000254
     retry_count: 0
     integration_cycle_trigger: milestone_pass
+
+  - id: T-M2-candidate-evidence-coalescing
+    milestone: M1-M2
+    title: Coalesce candidate evidence into generic structural boundary sites
+    status: PASS
+    verification: PASS
+    priority: 100
+    depends_on:
+      - T-M1M2-source-backed-fixture
+    inputs:
+      - path: research/decisions/D0119-boundary-candidate-identity.md
+      - path: research/experiments/E0173-can-generic-candidate-evidence-coalescin/manifest.yaml
+      - path: .cache/runs/E0171/R000435-correspondence-replay/candidates.tsv
+        sha256: 6f9c0f416b76c502bec18cc27362587e0ce03ff0b40c0c1e1a38afd0410236e5
+      - path: .cache/runs/E0171/R000435-correspondence-replay/correspondence.jsonl
+      - component: standard-new
+        commit: 03719c6ebea7dcfc3e88d2a0997ea8935209d235
+    writes:
+      - research/experiments/E0173-can-generic-candidate-evidence-coalescin/**
+      - research/runs/2026-08.jsonl
+    mode: exclusive
+    verifier: >-
+      run E0173/run.sh once on the pinned candidate witness and then run
+      E0173/analyse.sh; the independent fixture, evidence-accounting and
+      one-trace-row-per-coalesced-site checks must pass
+    output: artifact
+    final_observable: >-
+      one deterministic structural site per equal source identity, a complete
+      candidate-evidence sidecar, and an explicit boundary-to-trace relation;
+      no target insertion or semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/experiments/E0173-can-generic-candidate-evidence-coalescin/**
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M1M2-source-backed-fixture]
+    verifier_command: research/experiments/E0173-can-generic-candidate-evidence-coalescin/analyse.sh
+    evidence_paths:
+      - research/decisions/D0119-boundary-candidate-identity.md
+      - research/experiments/E0173-can-generic-candidate-evidence-coalescin/manifest.yaml
+      - research/experiments/E0173-can-generic-candidate-evidence-coalescin/run.sh
+      - research/experiments/E0173-can-generic-candidate-evidence-coalescin/analyse.sh
+      - research/experiments/E0173-can-generic-candidate-evidence-coalescin/validate.py
+      - research/runs/2026-08.jsonl#R000457
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
+  - id: T-M2-correspondence-replay
+    milestone: M1-M2
+    title: Replay current correspondence with source-node-aware boundary identity
+    status: OPEN
+    verification: NOT STARTED
+    priority: 100
+    depends_on:
+      - T-M2-candidate-evidence-coalescing
+    inputs:
+      - path: research/decisions/D0119-boundary-candidate-identity.md
+      - path: research/experiments/E0174-can-the-current-standard-new-corresponde/manifest.yaml
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - path: .cache/runs/E0171/R000435-correspondence-replay/candidates.tsv
+        sha256: 6f9c0f416b76c502bec18cc27362587e0ce03ff0b40c0c1e1a38afd0410236e5
+      - component: standard-new
+        commit: f94c4c51b51fce22b533b7eeda08741970320913
+      - path: research/runs/2026-08.jsonl#R000457
+    writes:
+      - research/experiments/E0174-can-the-current-standard-new-corresponde/**
+      - research/runs/2026-08.jsonl
+      - repos.toml
+      - STATUS.md
+      - TASK_POOL.yaml
+      - ROADMAP.md
+    mode: exclusive
+    verifier: >-
+      run the cold E0174 replay and analysis at the pinned component revision;
+      verify source-node-aware producer identity, complete retained evidence,
+      exact source and candidate hashes, and one relation per structural site;
+      then obtain the required focused independent review. The reuse mode is
+      an iteration control and cannot replace the cold replay.
+    output: artifact
+    final_observable: >-
+      one deterministic mapping row per source occurrence, raw path, source
+      node kind and boundary role, with every contributing candidate evidence
+      row retained and an explicit correspondence relation; no target
+      insertion or semantic promotion
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/experiments/E0174-can-the-current-standard-new-corresponde/**
+        - research/runs/2026-08.jsonl
+        - repos.toml
+        - STATUS.md
+        - TASK_POOL.yaml
+        - ROADMAP.md
+    prerequisites: [T-M2-candidate-evidence-coalescing]
+    verifier_command: research/experiments/E0174-can-the-current-standard-new-corresponde/analyse.sh
+    evidence_paths:
+      - research/decisions/D0119-boundary-candidate-identity.md
+      - research/experiments/E0174-can-the-current-standard-new-corresponde/manifest.yaml
+      - research/experiments/E0174-can-the-current-standard-new-corresponde/run.sh
+      - research/experiments/E0174-can-the-current-standard-new-corresponde/analyse.sh
+      - research/experiments/E0174-can-the-current-standard-new-corresponde/validate.py
+      - research/experiments/E0174-can-the-current-standard-new-corresponde/README.md
+      - research/runs/2026-08.jsonl#R000461
+      - research/runs/2026-08.jsonl#R000464
+    retry_count: 0
+    integration_cycle_trigger: interface_change
 
   - id: T-L2-fortfront-frontend-trace
     milestone: L2

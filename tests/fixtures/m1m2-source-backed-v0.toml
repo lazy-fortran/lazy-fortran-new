@@ -1,6 +1,6 @@
 id = "M1-M2-source-backed-v0"
 milestone = "M1-M2"
-standard_component_commit = "03719c6ebea7dcfc3e88d2a0997ea8935209d235"
+standard_component_commit = "f94c4c51b51fce22b533b7eeda08741970320913"
 source_manifest = "artifacts/standards/j3-24-007.toml"
 source_cache = ".cache/j3-24-007.pdf"
 fo_version = "0.3.2"

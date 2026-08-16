@@ -21,7 +21,7 @@ role = "Research, wiring, evidence, papers. This repository."
 url  = "https://github.com/lazy-fortran/standard-new"
 path = "standard-new"
 role = "Normative document to StandardIR and derived artifacts."
-commit = "03719c6ebea7dcfc3e88d2a0997ea8935209d235"
+commit = "f94c4c51b51fce22b533b7eeda08741970320913"
 
 [repos.frontend]
 url  = "https://github.com/lazy-fortran/fortfront-new"

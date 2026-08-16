@@ -51,13 +51,15 @@ evidence. No new provenance, correspondence, schema, semantic, model or
 backend work is allowed unless the active central acceptance test consumes it.
 The bounded D0122 L2 backend slice is complete and does not claim the broad
 normative backend or source-validity gates in the historical phase checklist.
-M1-M2 is promoted. The immediate delivery task is
-`T-M3-semantic-shape-successor`: run E0172's D0074 prompt-shape comparison on
-the exact E0123 residual. M3 remains blocked until its central verifier and
-independent oracle are accepted.
-Existing correspondence work remains preserved historical evidence; it is
-paused rather than deleted and can resume only when it is the next measured
-blocker for a delivery slice.
+M1-M2 is promoted as the bounded central fixture. The immediate deterministic
+task is `T-M2-correspondence-replay`: complete the focused review of E0174/R000008
+at the pushed `standard-new` commit `f94c4c51b51fce22b533b7eeda08741970320913`.
+Its iteration wrapper reuses only exactly pinned component, input and output
+manifests after the cold replay; the source-boundary mapper and evidence
+coalescer still rerun. E0172 was abandoned before model inference because its
+declared historical model did not match the externally managed Qwen 3.8
+endpoint; its failure is retained as R000456. M3 remains blocked, and no
+semantic/model work resumes while the source-backed relation gate is open.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

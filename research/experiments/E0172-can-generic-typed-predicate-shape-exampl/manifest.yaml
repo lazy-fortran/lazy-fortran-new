@@ -2,9 +2,15 @@ id: "E0172"
 title: "Generic typed-predicate shape examples on the E0123 residual"
 question: >
   Can generic typed-predicate shape examples reduce residual proposal failures without reducing source and witness validity?
-status: running          # draft | running | reported | abandoned
+status: abandoned        # draft | running | reported | abandoned
 opened: "2026-08-16"
-closed: ""
+closed: "2026-08-16"
+aborted_run: R000456
+disposition: >
+  The declared Qwen 3.6 35B-A3B cell did not start. The externally managed
+  endpoint reported Qwen 3.8 27B instead, so no model output is accepted and
+  the cell is not substituted with another model. D0084 keeps this semantic
+  lane closed until the deterministic source-backed relation gate is complete.
 
 # Every commit the result depends on. Exact, not "main".
 repos:
