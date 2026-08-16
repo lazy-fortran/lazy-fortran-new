@@ -1,0 +1,77 @@
+{
+  "schema_version": "m3-c721-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "exponent-letter-legality",
+  "contract": {
+    "schema": "contracts/m3-c721-exponent-letter-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c721-exponent-letter-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C721",
+    "printed_page": 81,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3355, "text": "C721 (R714) If both kind-param and exponent-letter appear, exponent-letter shall be E."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R714", "lhs": "real-literal-constant", "page": 82, "byte_start": 211120, "byte_length": 151, "occurrence": 64},
+        {"rule": "R716", "lhs": "exponent-letter", "page": 82, "byte_start": 211348, "byte_length": 36, "occurrence": 66}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c721-semantic-items.sx",
+    "sha256": "674b1de5f8d99fab944a70f86e7c37085b8e06f5f32f6c2080dd82e9cda7c76f",
+    "id": "S-C721",
+    "subject": "exponent-letter-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C721",
+    "page": 81,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-kind-and-E",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "exponent-letter-use", "source_rule": "C721", "kind_param": "present", "exponent_letter": "E"}
+    },
+    {
+      "id": "positive-vacuous-no-kind-and-D",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "exponent-letter-use", "source_rule": "C721", "kind_param": "absent", "exponent_letter": "D"}
+    },
+    {
+      "id": "negative-kind-and-D",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"type": "exponent-letter-use", "source_rule": "C721", "kind_param": "present", "exponent_letter": "D"}
+    },
+    {
+      "id": "unresolved-unknown-exponent-letter",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"type": "exponent-letter-use", "source_rule": "C721", "kind_param": "present", "exponent_letter": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3297},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R715"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C721 (R714) If both kind-param and exponent-letter appear, exponent-letter shall be D."},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C722"}
+  ]
+}

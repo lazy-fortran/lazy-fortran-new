@@ -1,0 +1,101 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "exponent_letter": "E",
+      "id": "positive-kind-and-E",
+      "kind": "positive",
+      "kind_param": "present"
+    },
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "exponent_letter": "D",
+      "id": "positive-vacuous-no-kind-and-D",
+      "kind": "positive",
+      "kind_param": "absent"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "exponent_letter": "D",
+      "id": "negative-kind-and-D",
+      "kind": "negative",
+      "kind_param": "present"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "exponent_letter": "unknown",
+      "id": "unresolved-unknown-exponent-letter",
+      "kind": "unresolved",
+      "kind_param": "present"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c721-exponent-letter-oracle-v0.sx",
+    "fixture_sha256": "3c949006b21fdf6d533941c22142e9332e2808b66c13fde4e5bb16c6cb04f43f",
+    "schema": "contracts/m3-c721-exponent-letter-oracle-v0.sxs",
+    "schema_sha256": "a4061a824614067976730ebb682dc02eecbb5441138f329c5a8f7b383f6eb9dc",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c721-source-backed-v0.json",
+  "fixture_sha256": "9020e97b64c05e7eb20897b08cb22e775484547c167117457e62690a6b0b2e49",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c721.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 1,
+    "UNRESOLVED": 1
+  },
+  "property": "exponent-letter-legality",
+  "schema_version": "m3-c721-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "674b1de5f8d99fab944a70f86e7c37085b8e06f5f32f6c2080dd82e9cda7c76f",
+    "input": "tests/fixtures/m3-c721-semantic-items.sx",
+    "input_sha256": "674b1de5f8d99fab944a70f86e7c37085b8e06f5f32f6c2080dd82e9cda7c76f"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3355
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 81,
+    "rule": "C721",
+    "standardir_rules": [
+      "R714",
+      "R716"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

@@ -1,0 +1,21 @@
+(schema m3-c721-exponent-letter-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum kind-param-state present absent unknown)
+  (enum exponent-letter-state none E D unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record exponent-letter-use
+    (kind-param kind-param-state)
+    (exponent-letter exponent-letter-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact exponent-letter-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

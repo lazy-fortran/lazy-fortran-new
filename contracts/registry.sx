@@ -14,4 +14,5 @@
   (contract m3-c1106-semantic-oracle 0 lazy-fortran-new)
   (contract m3-c702-semantic-oracle 0 lazy-fortran-new)
   (contract m3-c601-name-length-oracle 0 lazy-fortran-new)
-  (contract m3-c603-label-digit-oracle 0 lazy-fortran-new))
+  (contract m3-c603-label-digit-oracle 0 lazy-fortran-new)
+  (contract m3-c721-exponent-letter-oracle 0 lazy-fortran-new))
