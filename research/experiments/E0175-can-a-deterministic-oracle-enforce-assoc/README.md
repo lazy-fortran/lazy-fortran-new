@@ -15,7 +15,7 @@ semantic rejection. Model output is not an input and cannot promote a fact.
 Run the complete gate with:
 
 ```text
-tests/e2e/run-m3-c1106.sh
+tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000474
 ```
 
 The command builds and canonicalizes the pinned semantic-items SX through
