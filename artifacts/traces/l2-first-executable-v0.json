@@ -1,7 +1,7 @@
 {
   "milestone": "L2",
   "fixture": "L2-first-executable-v0",
-  "lab_commit": "605f1da",
+  "lab_commit": "18e0306",
   "boundary": "frontend-v0-to-mir-v0-to-riscv64-linux-v0",
   "contracts": [
     "frontend-v0",
@@ -11,6 +11,8 @@
     "fo_version": "0.3.2",
     "fo_sha256": "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68",
     "runtime_oracle": "qemu-riscv64",
+    "python_version": "Python 3.14.6",
+    "python_sha256": "227bddbb955c0996f2aa7114eb8f1a50e2d804ab7935013c0fad2056b7eac43f",
     "qemu_riscv64": "qemu-riscv64 version 11.0.3",
     "readelf": "GNU readelf (GNU Binutils) 2.47"
   },
@@ -160,6 +162,35 @@
         "argv_template": [
           "qemu-riscv64",
           "${LAB}/.cache/l2-run/l2.elf"
+        ]
+      },
+      {
+        "cwd_repository": "lazy-fortran-new",
+        "cwd_resolver": "current-checkout",
+        "argv_template": [
+          "python3",
+          "${LAB}/tests/e2e/oracle_l2.py",
+          "${LAB}/tests/fixtures/l2-first-executable-v0.toml",
+          "${LAB}/tests/fixtures/l2-first-executable-v0.sx",
+          "${LAB}/.cache/l2-run/l2.mir.sx",
+          "${LAB}/tests/golden/l2-first-executable-v0.mir.sx",
+          "${LAB}/tests/golden/l2-first-executable-v0.oracle.toml",
+          "${LAB}/.cache/l2-run/l2.elf",
+          "${LAB}/tests/negative/l2-first-executable-v0-rejected.sx",
+          "${LAB}/tests/negative/l2-mir-v0-malformed.sx",
+          "${LAB}/tests/negative/l2-mir-v0-out-of-scope.sx",
+          "0",
+          "0.3.2",
+          "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68",
+          "qemu-riscv64",
+          "qemu-riscv64 version 11.0.3",
+          "GNU readelf (GNU Binutils) 2.47",
+          "Linux",
+          "x86_64",
+          "C",
+          "C",
+          "clean",
+          "18e0306"
         ]
       }
     ]
