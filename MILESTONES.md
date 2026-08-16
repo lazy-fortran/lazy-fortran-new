@@ -123,8 +123,9 @@ TargetIR and ELF emission structures remain internal to this bounded slice.
 Do not define L3 until L2 passes.
 
 The initial execution gate was superseded by corrected run `R000441`. The
-first fresh review is retained as `R000442`; three lanes passed and its oracle
-lane found a manifest-authority defect in the runner. The correction is now in
-the candidate working tree and requires another four-lane review before
-promotion. The active boundary is recorded in
+first fresh review is retained as `R000442`; its oracle lane found a
+manifest-authority defect in the runner. The next review is retained as
+`R000443`; it found stale state wording, an unvalidated runtime identity, and
+an incomplete reproducibility trace. Those corrections require another
+four-lane review before promotion. The active boundary is recorded in
 `research/decisions/D0122-narrow-l2-boundary.md`.

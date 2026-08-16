@@ -9,8 +9,25 @@
   "toolchain": {
     "fo_version": "0.3.2",
     "fo_sha256": "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68",
+    "runtime_oracle": "qemu-riscv64",
     "qemu_riscv64": "qemu-riscv64 version 11.0.3",
     "readelf": "GNU readelf (GNU Binutils) 2.47"
+  },
+  "reproducibility": {
+    "host_os": "Linux",
+    "host_architecture": "x86_64",
+    "locale": {
+      "LC_ALL": "C",
+      "LANG": "C"
+    },
+    "worktree_state": "clean",
+    "commands": [
+      "scripts/verify_active_milestone.sh",
+      "fo clean (standard-new, fortfront-new, ffc-new, fortback-new)",
+      "fo exec ffc-lower-frontend-v0 <source> <cache/l2.mir.sx>",
+      "fo exec fortback-mir-v0 <cache/l2.mir.sx> <cache/l2.elf>",
+      "qemu-riscv64 <cache/l2.elf>"
+    ]
   },
   "stages": [
     {

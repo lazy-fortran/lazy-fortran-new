@@ -9,7 +9,6 @@ export LANG=C
 need python3
 need sha256sum
 need git
-need qemu-riscv64
 need readelf
 
 "$ROOT/scripts/check_pins.sh" >/dev/null
@@ -26,7 +25,8 @@ trap 'rm -rf "$run_dir"' EXIT
 IFS=$'\t' read -r source golden mir_oracle negative malformed_mir out_of_scope_mir \
     oracle trace evidence_manifest fo_version fo_sha256 \
     standard_commit frontend_commit compiler_commit backend_commit \
-    central_contracts qemu_version readelf_version runtime_exit_status <<EOF
+    central_contracts runtime_oracle qemu_version readelf_version \
+    runtime_exit_status host_os host_architecture lc_all lang worktree_state <<EOF
 $(python3 - "$manifest" "$ROOT" <<'PY'
 import sys
 import tomllib
@@ -52,17 +52,28 @@ print("\t".join(map(str, (
     manifest["compiler_component_commit"],
     manifest["backend_component_commit"],
     ",".join(manifest["central_contracts"]),
+    evidence["runtime_oracle"],
     evidence["qemu_version"],
     evidence["readelf_version"],
     evidence["runtime_exit_status"],
+    evidence["host_os"],
+    evidence["host_architecture"],
+    evidence["lc_all"],
+    evidence["lang"],
+    evidence["worktree_state"],
 ))))
 PY
 )
 EOF
 
+need "$runtime_oracle"
+[ "$(uname -s)" = "$host_os" ]
+[ "$(uname -m)" = "$host_architecture" ]
+[ "${LC_ALL:-}" = "$lc_all" ]
+[ "${LANG:-}" = "$lang" ]
 [ "$(fo version | awk '{print $2}')" = "$fo_version" ]
 [ "$(sha256sum "$(command -v fo)" | awk '{print $1}')" = "$fo_sha256" ]
-[ "$(qemu-riscv64 --version | head -n1)" = "$qemu_version" ]
+[ "$($runtime_oracle --version | head -n1)" = "$qemu_version" ]
 [ "$(readelf --version | head -n1)" = "$readelf_version" ]
 
 python3 - "$evidence_manifest" "$source" "$negative" "$malformed_mir" "$out_of_scope_mir" <<'PY'
@@ -86,6 +97,9 @@ PY
 
 for repo in "$standard" "$frontend" "$compiler" "$backend"; do
     (cd "$repo" && fo clean) >"$run_dir/$(basename "$repo")-clean.log" 2>&1
+done
+for repo in "$ROOT" "$standard" "$frontend" "$compiler" "$backend"; do
+    [ -z "$(git -C "$repo" status --porcelain --untracked-files=normal)" ]
 done
 actual_standard_commit=$(git -C "$standard" rev-parse HEAD)
 actual_frontend_commit=$(git -C "$frontend" rev-parse HEAD)
@@ -152,7 +166,7 @@ grep -Fq 'mir-v0: function is out of scope' "$run_dir/fortback-out-of-scope.log"
 cmp "$artifact" "$artifact_two"
 [ -x "$artifact" ]
 readelf -h "$artifact" >"$run_dir/readelf.log"
-if qemu-riscv64 "$artifact" >"$run_dir/qemu.log" 2>&1; then
+if "$runtime_oracle" "$artifact" >"$run_dir/qemu.log" 2>&1; then
     qemu_status=0
 else
     qemu_status=$?
@@ -161,15 +175,19 @@ fi
 
 python3 "$oracle" "$manifest" "$source" "$mir" "$golden" "$mir_oracle" "$artifact" \
     "$negative" "$malformed_mir" "$out_of_scope_mir" \
-    "$qemu_status" "$fo_version" "$fo_sha256" "$qemu_version" "$readelf_version" \
+    "$qemu_status" "$fo_version" "$fo_sha256" "$runtime_oracle" \
+    "$qemu_version" "$readelf_version" "$host_os" "$host_architecture" \
+    "$lc_all" "$lang" "$worktree_state" \
     >"$run_dir/oracle.log"
 
 python3 - "$run_dir/trace.json" "$manifest" "$source" "$mir" "$artifact" \
     "$negative" "$malformed_mir" "$out_of_scope_mir" \
     "$actual_standard_commit" "$actual_frontend_commit" \
     "$actual_compiler_commit" "$actual_backend_commit" "$qemu_status" \
-    "$fo_version" "$fo_sha256" "$central_contracts" "$qemu_version" \
-    "$readelf_version" "$runtime_exit_status" <<'PY'
+    "$fo_version" "$fo_sha256" "$central_contracts" "$runtime_oracle" \
+    "$qemu_version" "$readelf_version" "$runtime_exit_status" \
+    "$host_os" "$host_architecture" "$lc_all" "$lang" "$worktree_state" \
+    <<'PY'
 import hashlib
 import json
 import sys
@@ -185,8 +203,9 @@ def digest(path):
     trace_path, manifest_path, source, mir, artifact, negative, malformed_mir,
     out_of_scope_mir,
     standard_commit, frontend_commit, compiler_commit, backend_commit,
-    qemu_status, fo_version, fo_sha256, central_contracts, qemu_version,
-    readelf_version, runtime_exit_status,
+    qemu_status, fo_version, fo_sha256, central_contracts, runtime_oracle,
+    qemu_version, readelf_version, runtime_exit_status, host_os,
+    host_architecture, lc_all, lang, worktree_state,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 trace = {
@@ -197,8 +216,22 @@ trace = {
     "toolchain": {
         "fo_version": fo_version,
         "fo_sha256": fo_sha256,
+        "runtime_oracle": runtime_oracle,
         "qemu_riscv64": qemu_version,
         "readelf": readelf_version,
+    },
+    "reproducibility": {
+        "host_os": host_os,
+        "host_architecture": host_architecture,
+        "locale": {"LC_ALL": lc_all, "LANG": lang},
+        "worktree_state": worktree_state,
+        "commands": [
+            "scripts/verify_active_milestone.sh",
+            "fo clean (standard-new, fortfront-new, ffc-new, fortback-new)",
+            "fo exec ffc-lower-frontend-v0 <source> <cache/l2.mir.sx>",
+            "fo exec fortback-mir-v0 <cache/l2.mir.sx> <cache/l2.elf>",
+            runtime_oracle + " <cache/l2.elf>",
+        ],
     },
     "stages": [
         {

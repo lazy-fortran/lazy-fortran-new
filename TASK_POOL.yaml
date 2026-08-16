@@ -99,6 +99,10 @@ milestones:
       - artifacts/reports/L2/replay-v2-luna-contract.md
       - artifacts/reports/L2/replay-v2-luna-oracle.md
       - artifacts/reports/L2/replay-v2-luna-reproducibility.md
+      - artifacts/reports/L2/replay-v3-luna-scope.md
+      - artifacts/reports/L2/replay-v3-luna-contract.md
+      - artifacts/reports/L2/replay-v3-luna-oracle.md
+      - artifacts/reports/L2/replay-v3-luna-reproducibility.md
       - artifacts/reports/L2-initial-cli-failure.md
       - research/runs/2026-08.jsonl#R000441
   - id: M1-M2
@@ -188,7 +192,7 @@ tasks:
       - tests/e2e/oracle_l2.py
       - contracts/mir-v0.sxs
       - research/decisions/D0122-narrow-l2-boundary.md
-    retry_count: 1
+    retry_count: 3
     integration_cycle_trigger: interface_change
 
 integration_cycle:

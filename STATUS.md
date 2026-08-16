@@ -65,7 +65,9 @@ not current promotion evidence.
   `R000441`. The first fresh review wave is retained as `R000442`; three lanes
   passed and the oracle lane found that recorded tool/runtime pins were not
   consumed as the evidence authority. The runner and oracle now consume those
-  pins and the runtime expectation; promotion remains pending a fresh review.
+  pins and the runtime expectation. The next review wave, `R000443`, found
+  stale state wording, an unvalidated runtime-oracle identity, and an
+  incomplete reproducibility trace; these are the current correction scope.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -97,12 +99,13 @@ oracles required by `docs/oracle-policy.md`.
 
 The first central runner is implemented as `tests/e2e/run-l2.sh`. The v1 review
 findings were corrected in the candidate tested by `R000441`. The v2 review
-found one oracle-authority defect, now corrected in the working tree; L2
-remains open until a fresh independent review of this candidate passes.
+found one oracle-authority defect, and v3 found three further control-plane
+and reproducibility defects. Their reports are retained; L2 remains open
+until the current correction candidate passes a fresh independent review.
 
 ## Next executable task
 
-Commit the manifest-authority correction, rerun the four-lane independent
+Finish the v3 correction scope, commit it, rerun the four-lane independent
 review against that candidate, and promote L2 only if all lanes pass; do not
 add a second source feature family while this execution slice is incomplete.
 

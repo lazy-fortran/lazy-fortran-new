@@ -26,11 +26,12 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    if len(sys.argv) != 15:
+    if len(sys.argv) != 21:
         fail(
             "usage: oracle_l2.py manifest source mir golden mir-oracle artifact "
             "negative malformed-mir out-of-scope-mir qemu-status fo-version "
-            "fo-sha256 qemu-version readelf-version"
+            "fo-sha256 runtime-oracle qemu-version readelf-version host-os "
+            "host-architecture lc-all lang worktree-state"
         )
     (
         manifest_path,
@@ -45,8 +46,14 @@ def main() -> int:
         qemu_status,
         fo_version,
         fo_sha256,
+        runtime_oracle,
         qemu_version,
         readelf_version,
+        host_os,
+        host_architecture,
+        lc_all,
+        lang,
+        worktree_state,
     ) = sys.argv[1:]
     manifest_path, source_path, mir_path, golden_path, mir_oracle_path, artifact_path, \
         negative_path, malformed_mir_path, out_of_scope_mir_path = map(
@@ -67,8 +74,14 @@ def main() -> int:
     for field, actual in (
         ("fo_version", fo_version),
         ("fo_sha256", fo_sha256),
+        ("runtime_oracle", runtime_oracle),
         ("qemu_version", qemu_version),
         ("readelf_version", readelf_version),
+        ("host_os", host_os),
+        ("host_architecture", host_architecture),
+        ("lc_all", lc_all),
+        ("lang", lang),
+        ("worktree_state", worktree_state),
     ):
         if evidence[field] != actual:
             fail(f"{field} differs from the committed evidence manifest")
