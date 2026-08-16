@@ -31,7 +31,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `f94c4c51b51fce22b533b7eeda08741970320913` | normative source → StandardIR | clean main; full `fo` recorded in E0174/R000008 |
+| standard-new | lazy-fortran/standard-new | `f94c4c51b51fce22b533b7eeda08741970320913` | normative source → StandardIR | clean main; full `fo` recorded in E0174/R000010 |
 | fortfront-new | lazy-fortran/fortfront-new | `73cf2af7a1ee7c13bae302868dc1595aa4ed0a79` | frontend | clean main; registered L2 frontend trace |
 | ffc-new | lazy-fortran/ffc-new | `bcaadcb58c24af613204aa398541c0d2e35abf91` | compiler driver and middle end | clean main; registered L2 MIR trace |
 | fortback-new | lazy-fortran/fortback-new | `c578904a8d18e9d5410934f5489a21d5dadfad05` | backend | clean main; registered L2 executable trace |
@@ -77,6 +77,10 @@ not current promotion evidence.
   history are retained under `artifacts/` and `research/runs/2026-08.jsonl`.
   Focused integration review `R000455` passes; no source, grammar or oracle
   defect remains open.
+- E0174: the source-node-aware correspondence replay passes in cold run
+  `R000467`; fast reuse control `R000468` completes in 7.84 seconds with
+  exact cache, log, environment and output-hash checks. These runs do not
+  claim target insertion or semantic promotion.
 - M3 remains `BLOCKED`. E0172 was abandoned before its model cell: R000456
   found that the endpoint exposed Qwen 3.8 27B while the experiment declared
   Qwen 3.6 35B-A3B. No model output was accepted. Under D0084 and D0119, the
@@ -122,16 +126,17 @@ target insertion and semantic promotion remain out of scope.
 ## Current blocker
 
 The L2 boundary and M1-M2 source-backed fixture are promoted. The D0119
-correspondence replay verifier passes in E0174/R000461, with its focused
-independent review still in progress. D0084 forbids semantic/model work until
-that review closes the deterministic source-backed relation. E0172's runtime
-identity failure is retained as R000456.
+correspondence replay verifier passes in E0174/R000467, with fast iteration
+control R000468 and its focused independent review being reconciled. D0084
+forbids semantic/model work until that review closes the deterministic
+source-backed relation. E0172's runtime identity failure is retained as
+R000456.
 
 ## Next executable task
 
-Complete the E0174 focused independent review and then promote or repair the
-current source-target correspondence replay. Do not resume E0172 or promote a
-semantic fact.
+Complete the E0174 control-plane reconciliation after its focused independent
+review, then select a dependency-ready task if one exists. Do not resume E0172
+or promote a semantic fact.
 
 ## Last verified central command
 
@@ -140,8 +145,9 @@ Current L0 replay and four-lane review: PASS.
 Current L1 replay and four-lane review: PASS.
 Current L2: corrected central execution gate `R000441` `PASS`; focused
 promotion review `R000444` `PASS`; L2 is promoted. M1-M2 corrected replay
-`R000454` and focused integration review `R000455` are `PASS`; M1-M2 is
-promoted and M3 remains blocked.
+`R000454` and focused integration review `R000455` are `PASS`; the
+current active replay `scripts/verify_active_milestone.sh` also passes at
+central commit `bdb8717`. M3 remains blocked.
 ```
 
 ## Blacklisted pseudo-progress

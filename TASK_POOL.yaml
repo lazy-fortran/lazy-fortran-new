@@ -4,8 +4,7 @@ MAX_PARALLEL_WORKERS: 4
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier:
-  - T-M2-correspondence-replay
+ready_frontier: []
 
 controller_ownership:
   owner: controller
@@ -481,8 +480,8 @@ tasks:
   - id: T-M2-correspondence-replay
     milestone: M1-M2
     title: Replay current correspondence with source-node-aware boundary identity
-    status: OPEN
-    verification: NOT STARTED
+    status: PASS
+    verification: PASS
     priority: 100
     depends_on:
       - T-M2-candidate-evidence-coalescing
@@ -539,8 +538,8 @@ tasks:
       - research/experiments/E0174-can-the-current-standard-new-corresponde/analyse.sh
       - research/experiments/E0174-can-the-current-standard-new-corresponde/validate.py
       - research/experiments/E0174-can-the-current-standard-new-corresponde/README.md
-      - research/runs/2026-08.jsonl#R000461
-      - research/runs/2026-08.jsonl#R000464
+      - research/runs/2026-08.jsonl#R000467
+      - research/runs/2026-08.jsonl#R000468
     retry_count: 0
     integration_cycle_trigger: interface_change
 

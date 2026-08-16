@@ -52,8 +52,9 @@ backend work is allowed unless the active central acceptance test consumes it.
 The bounded D0122 L2 backend slice is complete and does not claim the broad
 normative backend or source-validity gates in the historical phase checklist.
 M1-M2 is promoted as the bounded central fixture. The immediate deterministic
-task is `T-M2-correspondence-replay`: complete the focused review of E0174/R000008
-at the pushed `standard-new` commit `f94c4c51b51fce22b533b7eeda08741970320913`.
+task `T-M2-correspondence-replay` now has a passing cold replay in
+E0174/R000467 and a 7.84-second exact-cache control in R000468 at the pushed
+`standard-new` commit `f94c4c51b51fce22b533b7eeda08741970320913`.
 Its iteration wrapper reuses only exactly pinned component, input and output
 manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
