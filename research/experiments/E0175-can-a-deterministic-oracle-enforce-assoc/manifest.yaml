@@ -5,12 +5,12 @@ question: >
 status: running          # draft | running | reported | abandoned
 opened: "2026-08-16"
 closed: ""
-candidate_run: R000471
-candidate_runs: [R000469, R000470, R000471]
+candidate_run: R000473
+candidate_runs: [R000469, R000470, R000471, R000473]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "c0406ac"
+  lazy-fortran-new: "0122348598987c82480cd08eb163facc940e0cee"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
