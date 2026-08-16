@@ -78,7 +78,7 @@ milestones:
     title: First compiled execution slice
     status: OPEN
     verification: PASS
-    review_state: NEEDS_FIX
+    review_state: PENDING_FRESH_REVIEW
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
