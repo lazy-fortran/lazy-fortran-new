@@ -1,0 +1,1 @@
+(syntax-rule (id R501) (alternative 1) (lhs program) (root 1) (nodes (grammar-nodes (grammar-node sequence - 1 false 2 1) (grammar-node reference program-unit 1 false 0 0))) (source (source-ref (document J3-24-007) (clause 5) (rule R501) (page 45) (source-hash fixture))) (origin mechanical) (resolution resolved)

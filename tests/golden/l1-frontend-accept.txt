@@ -1,0 +1,4 @@
+rules=2
+lines=2
+outcome=accepted
+message=grammar-session-finalization-grammar-frontier-input-is-accepted

@@ -1,0 +1,48 @@
+{
+  "milestone": "L1",
+  "fixture": "L1-frontend-slice-v0",
+  "stages": [
+    {
+      "component": "standard-new",
+      "commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235",
+      "input": {
+        "path": "tests/fixtures/l1-standardir-grammar-v0.sx",
+        "sha256": "59b818ca91185145fe64426c5bb4378e4d2932b23efc3e27a6374cfde9369ab9"
+      },
+      "output": {
+        "path": "cache/standardir.roundtrip.sx",
+        "sha256": "59b818ca91185145fe64426c5bb4378e4d2932b23efc3e27a6374cfde9369ab9"
+      },
+      "observable": "canonical StandardIR SX"
+    },
+    {
+      "component": "fortfront-new",
+      "commit": "fc828b237c7c7d3962ccdcff6faf629266aaf8de",
+      "input": {
+        "path": "cache/standardir.roundtrip.sx",
+        "sha256": "59b818ca91185145fe64426c5bb4378e4d2932b23efc3e27a6374cfde9369ab9"
+      },
+      "outputs": {
+        "PROGRAM": {
+          "result": "accepted",
+          "sha256": "12d3fca17bbd1b136ec98fa91d43792efaa166df9f1e3badaaebdfce7468627a"
+        },
+        "BAD": {
+          "result": "rejected",
+          "sha256": "2b055f6afb5c6dbaa9bf817b0754b1e6f434753d6db81505f0701611d39e22b7"
+        }
+      },
+      "observable": "grammar frontier acceptance/rejection"
+    }
+  ],
+  "oracle": {
+    "path": "tests/e2e/oracle_l1.py",
+    "result": "oracle: PASS canonical StandardIR, provenance, acceptance and rejection"
+  },
+  "negative": {
+    "path": "tests/negative/l1-standardir-grammar-unbalanced.sx",
+    "diagnostic": "unclosed SX list",
+    "result": "rejected"
+  },
+  "origin": "MECHANICAL"
+}

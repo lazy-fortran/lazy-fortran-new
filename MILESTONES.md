@@ -49,11 +49,16 @@ source fixture
 
 ### Definition of done
 
-- [ ] A source fixture and its content hash are recorded centrally.
-- [ ] The pinned StandardIR artifact is consumed by `fortfront-new`.
-- [ ] A valid fixture reaches a deterministic frontend observable.
-- [ ] An invalid near-neighbor reaches the expected diagnostic class.
-- [ ] An independent oracle and complete stage trace pass from a clean checkout.
+- [x] A source fixture and its content hash are recorded centrally.
+- [x] The pinned StandardIR artifact is consumed by `fortfront-new`.
+- [x] A valid fixture reaches a deterministic frontend observable.
+- [x] An invalid near-neighbor reaches the expected diagnostic class.
+- [x] An independent oracle and complete stage trace pass from a clean checkout.
+
+Evidence: `R000438`,
+`artifacts/manifests/l1-frontend-slice-v0.toml` and
+`artifacts/traces/l1-frontend-slice-v0.json`. Regenerate with
+`scripts/verify_active_milestone.sh`.
 
 ## L2 — First compiled execution slice
 
@@ -68,5 +73,14 @@ source
 → executable
 → expected runtime output
 ```
+
+### Definition of done
+
+- [ ] A source fixture and content hash are recorded centrally.
+- [ ] The verified frontend output is consumed by the pinned driver path.
+- [ ] The pinned backend path emits a runnable artifact.
+- [ ] A valid fixture produces an independently verified runtime result.
+- [ ] An invalid near-neighbor reaches the expected diagnostic class.
+- [ ] A complete stage trace and clean-checkout command pass.
 
 Do not define L3 until L2 passes.
