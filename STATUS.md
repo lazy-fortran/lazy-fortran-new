@@ -165,7 +165,7 @@ promotion review `R000444` `PASS`; L2 is promoted. M1-M2 corrected replay
 `R000454` and focused integration review `R000455` are `PASS`; the
 current active replay `scripts/verify_active_milestone.sh` also passes at
 central commit `bdb8717`. The M3 C1106 central replay `R000474` and focused
-review `R000476` are `PASS`; the C702 central replay `R000003` is `PASS` and
+review `R000476` are `PASS`; the C702 central replay `R000009` is `PASS` and
 focused review is pending. The bounded C1106 slice is promoted, while full M3
 remains open.
 ```
