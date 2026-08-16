@@ -6,8 +6,8 @@ milestone ledger.
 
 ## Current verification state
 
-The historical evidence below is preserved. L0 and L1 corrected replays and
-their final four-lane reviews pass. L2 is the active open milestone.
+The historical evidence below is preserved. L0, L1 and L2 corrected replays
+pass. M1-M2 is the active open milestone.
 
 ## L0 — Normative lexical slice
 
@@ -83,7 +83,7 @@ reviews. The v1 reports are retained failure evidence; v2 is active.
 
 Next after: L1
 
-Current status: `OPEN`.
+Current status: `PASS`.
 
 Active fixture: `tests/fixtures/l2-first-executable-v0.sx`.
 
@@ -112,21 +112,49 @@ TargetIR and ELF emission structures remain internal to this bounded slice.
 
 ### Definition of done
 
-- [ ] A pinned `frontend-v0` witness fixture and content hash are recorded centrally.
-- [ ] The witness is consumed by the pinned FFC driver path.
-- [ ] The pinned backend path emits a runnable artifact.
-- [ ] A valid fixture produces an independently verified runtime result.
-- [ ] The invalid frontend neighbor reaches the expected diagnostic class.
-- [ ] Malformed and out-of-scope MIR inputs are rejected without artifacts.
-- [ ] A complete stage trace and clean-checkout command pass.
+- [x] A pinned `frontend-v0` witness fixture and content hash are recorded centrally.
+- [x] The witness is consumed by the pinned FFC driver path.
+- [x] The pinned backend path emits a runnable artifact.
+- [x] A valid fixture produces an independently verified runtime result.
+- [x] The invalid frontend neighbor reaches the expected diagnostic class.
+- [x] Malformed and out-of-scope MIR inputs are rejected without artifacts.
+- [x] A complete stage trace and clean-checkout command pass.
 
 Do not define L3 until L2 passes.
 
 The initial execution gate was superseded by corrected run `R000441`. The
-first fresh review is retained as `R000442`; its oracle lane found a
-manifest-authority defect in the runner. The next review is retained as
-`R000443`; it found stale state wording, an unvalidated runtime identity, and
-an incomplete reproducibility trace. Those corrections are committed in the
-current clean checkout; its central gate passes and requires another
-four-lane review before promotion. The active boundary is recorded in
-`research/decisions/D0122-narrow-l2-boundary.md`.
+failed reviews `R000442` and `R000443` remain retained evidence. The corrected
+runner and oracle are pinned by the current clean checkout; focused review
+`R000444` passes three valid scopes at the exact snapshot. The active boundary
+is recorded in `research/decisions/D0122-narrow-l2-boundary.md`.
+
+## M1-M2 — Source-valid StandardIR and sane generated grammars
+
+Next after: L2
+
+Current status: `OPEN`.
+
+Active task: `T-M1M2-source-backed-fixture`.
+
+Boundary decision: `research/decisions/D0123-m1m2-central-source-gate.md`.
+
+The first central M1-M2 gate will pin and retrieve external source material,
+consume a source-backed StandardIR grammar input, preserve source identity and
+lexical spellings, emit EBNF, ANTLR4, Bison and tree-sitter projections, run
+their independent validators, and retain positive, negative and mutation
+controls. Cached historical replays do not satisfy this milestone until the
+central clean-checkout and provenance contract consumes them.
+
+### Definition of done
+
+- [ ] Source material has an external manifest, hash and retrieval command.
+- [ ] A central fixture consumes the pinned source-backed StandardIR input.
+- [ ] Source identity and lexical target witnesses pass before generators run.
+- [ ] All four grammar projections regenerate deterministically.
+- [ ] ANTLR4, Bison and tree-sitter validators pass with the declared conflict
+      policy and no undefined symbols.
+- [ ] Positive, negative and mutation controls pass independently.
+- [ ] A complete trace, clean-checkout command and regression entry pass.
+
+Do not begin parser-conflict reduction or semantic/model work before this
+gate has an executable central verifier.

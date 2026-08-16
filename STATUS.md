@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-L2 — first compiled execution slice
+M1-M2 — source-valid StandardIR and sane generated grammars
 
 ## Central goal
 
@@ -19,9 +19,8 @@ normative source fact
 ```
 
 The result must have an independent oracle. This is an open delivery target,
-not a claim that the complete standard or compiler is implemented. L2's
-central execution gate has passed; promotion remains open until independent
-review and the promotion evidence pass.
+not a claim that the complete standard or compiler is implemented. L2 is now
+promoted; M1-M2 is the next open delivery target.
 
 ## Component pins
 
@@ -61,15 +60,18 @@ not current promotion evidence.
 - L1: `PASS`. The corrected replay and all four independent Luna reviews pass;
   v1 reports retain the two repaired review failures and v2 reports are the
   active evidence.
-- L2: `OPEN`; the corrected bounded central execution gate is `PASS` in
+- L2: `PASS`; the corrected bounded central execution gate is `PASS` in
   `R000441`. The first fresh review wave is retained as `R000442`; three lanes
   passed and the oracle lane found that recorded tool/runtime pins were not
   consumed as the evidence authority. The runner and oracle now consume those
   pins and the runtime expectation. The next review wave, `R000443`, found
   stale state wording, an unvalidated runtime-oracle identity, and an
   incomplete reproducibility trace. Those corrections are committed in
-  the current clean checkout; its central gate passes and a fresh review is
-  pending.
+  the current clean checkout; its central gate passes and three valid focused
+  Luna scopes pass in `R000444`. The promotion reports are retained under
+  `artifacts/reports/L2/replay-v4-luna-*.md`.
+- M1-M2: `OPEN`; no promotion evidence exists yet. The next task is the
+  central source-backed grammar gate selected by `D0123`.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -85,41 +87,39 @@ emission contract interchange.
 
 ## Active fixture
 
-ID: T-L2-vertical-slice — deliver the first frontend-witness-to-executable path.
+ID: T-M1M2-source-backed-fixture — define the first central source-backed
+StandardIR grammar gate.
 
-Candidate family: `tests/fixtures/l2-first-executable-v0.sx`.
+Boundary decision: `research/decisions/D0123-m1m2-central-source-gate.md`.
 
-Boundary decision: `research/decisions/D0122-narrow-l2-boundary.md`.
+Expected observable: a pinned, retrieved source artifact and a deterministic
+StandardIR grammar projection with source identity, lexical, four-format and
+parser-generator checks plus positive, negative and mutation controls.
 
-Expected observable: a deterministic RV64 Linux artifact, independently
-verified MIR and code words, QEMU exit status, and complete bounded-path trace.
-
-Oracle: an independent runtime/result oracle plus the component and contract
-oracles required by `docs/oracle-policy.md`.
+Oracle: the normative source artifact, independent projection validators and
+the source-to-target witness required by `docs/oracle-policy.md`.
 
 ## Current blocker
 
-The first central runner is implemented as `tests/e2e/run-l2.sh`. The v1 review
-findings were corrected in the candidate tested by `R000441`. The v2 review
-found one oracle-authority defect, and v3 found three further control-plane
-and reproducibility defects. Their reports are retained. The current
-candidate is the current clean checkout, with the laboratory source revision
-pinned in the L2 evidence manifest; L2 remains open until a fresh independent
-review passes.
+The L2 boundary is promoted. M1-M2 has no central source-backed fixture,
+retrieval manifest or executable verifier yet; historical cached replays are
+not current clean-checkout evidence. The next task is to establish that gate
+without vendoring external source material.
 
 ## Next executable task
 
-Run the four-lane independent review against the current clean checkout and
-promote L2 only if all lanes pass; do not add a second source feature family
-while this execution slice is incomplete.
+Implement the central source-backed M1-M2 gate as
+`T-M1M2-source-backed-fixture`; do not begin parser-conflict reduction or
+semantic/model work before its source, projection and clean-checkout verifier
+are defined.
 
 ## Last verified central command
 
 ```text
 Current L0 replay and four-lane review: PASS.
 Current L1 replay and four-lane review: PASS.
-Current L2: corrected central execution gate `R000441` `PASS`; milestone
-promotion is pending a fresh independent review.
+Current L2: corrected central execution gate `R000441` `PASS`; focused
+promotion review `R000444` `PASS`; L2 is promoted and M1-M2 is now open.
 ```
 
 ## Blacklisted pseudo-progress

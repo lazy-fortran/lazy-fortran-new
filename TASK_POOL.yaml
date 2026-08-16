@@ -41,7 +41,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L2-vertical-slice
+active_task: T-M1M2-source-backed-fixture
 
 milestones:
   - id: L0
@@ -80,9 +80,9 @@ milestones:
       - research/runs/2026-08.jsonl#R000438
   - id: L2
     title: First compiled execution slice
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING_FRESH_REVIEW
+    review_state: PASS
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
@@ -107,11 +107,15 @@ milestones:
       - artifacts/reports/L2/replay-v3-luna-contract.md
       - artifacts/reports/L2/replay-v3-luna-oracle.md
       - artifacts/reports/L2/replay-v3-luna-reproducibility.md
+      - artifacts/reports/L2/replay-v4-luna-scope.md
+      - artifacts/reports/L2/replay-v4-luna-contract.md
+      - artifacts/reports/L2/replay-v4-luna-reproducibility.md
       - artifacts/reports/L2-initial-cli-failure.md
       - research/runs/2026-08.jsonl#R000441
+      - research/runs/2026-08.jsonl#R000444
   - id: M1-M2
     title: Source-valid StandardIR and sane generated grammars
-    status: BLOCKED
+    status: OPEN
     verification: NOT STARTED
     prerequisites: [L2]
     verifier_command: define before activation
@@ -188,7 +192,7 @@ tasks:
   - id: T-L2-vertical-slice
     milestone: L2
     title: Deliver the first frontend-witness-to-executable path
-    status: OPEN
+    status: PASS
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
@@ -196,7 +200,24 @@ tasks:
       - tests/e2e/oracle_l2.py
       - contracts/mir-v0.sxs
       - research/decisions/D0122-narrow-l2-boundary.md
+      - artifacts/reports/L2/replay-v4-luna-scope.md
+      - artifacts/reports/L2/replay-v4-luna-contract.md
+      - artifacts/reports/L2/replay-v4-luna-reproducibility.md
+      - research/runs/2026-08.jsonl#R000444
     retry_count: 3
+    integration_cycle_trigger: interface_change
+  - id: T-M1M2-source-backed-fixture
+    milestone: M1-M2
+    title: Define and implement the central source-backed StandardIR grammar gate
+    status: OPEN
+    prerequisites: [T-L2-vertical-slice]
+    verifier_command: define before activation
+    evidence_paths:
+      - ROADMAP.md
+      - roadmaps/standardir.md
+      - research/decisions/D0123-m1m2-central-source-gate.md
+      - artifacts/standards/
+    retry_count: 0
     integration_cycle_trigger: interface_change
 
 integration_cycle:

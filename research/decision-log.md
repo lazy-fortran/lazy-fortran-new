@@ -87,3 +87,12 @@ actually crossed. The active slice is the smallest real path from a pinned
 emission and a QEMU runtime oracle. It deliberately does not claim source
 parsing, StandardIR conversion, serialized TargetIR/emission interchange,
 general instruction selection, a complete ABI, or full Fortran compilation.
+
+## 2026-08-16 — L2 promotion and M1-M2 handoff
+
+`R000444` records three valid focused Luna scopes against the exact current
+central commit after the corrected L2 verifier passed. L2 is promoted. Under
+[D0123](decisions/D0123-m1m2-central-source-gate.md), the next active task is
+the first central source-backed StandardIR grammar gate; cached historical
+replays, parser-conflict reduction and semantic/model work do not substitute
+for that gate.

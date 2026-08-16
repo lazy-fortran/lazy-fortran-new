@@ -17,12 +17,12 @@ plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
 project-management loops.
 
-The initial delivery setup completed L0 and L1. The active central milestone
-is the one named by `STATUS.md` and `MILESTONES.md`; the current control plane
-has L2 open with its corrected central replay passing and fresh independent
-review pending. Those control-plane files govern the current delivery loop;
-the phase checklist below remains the long-horizon architecture and research
-ordering:
+The initial delivery setup completed L0 and L1. L2 is now promoted by the
+corrected central replay and focused review `R000444`. The active central
+milestone is the one named by `STATUS.md` and `MILESTONES.md`; M1-M2 is now open
+with its first source-backed central gate defined by `D0123`. Those
+control-plane files govern the current delivery loop; the phase checklist
+below remains the long-horizon architecture and research ordering:
 
 ```text
 normative source fact
@@ -47,11 +47,12 @@ scripts/verify_active_milestone.sh
 Component-local `fo` gates remain necessary. They are not central milestone
 evidence. No new provenance, correspondence, schema, semantic, model or
 backend work is allowed unless the active central acceptance test consumes it.
-The bounded D0122 L2 backend slice is the current delivery task; it does not
-claim the broad normative backend or source-validity gates in the historical
-phase checklist. Existing correspondence work remains preserved historical
-evidence; it is paused rather than deleted and can resume only when it is the
-next measured blocker for a delivery slice.
+The bounded D0122 L2 backend slice is complete and does not claim the broad
+normative backend or source-validity gates in the historical phase checklist.
+The next delivery task is the central source-backed M1-M2 gate under D0123.
+Existing correspondence work remains preserved historical evidence; it is
+paused rather than deleted and can resume only when it is the next measured
+blocker for a delivery slice.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
