@@ -32,7 +32,7 @@ qemu_version = "qemu-riscv64 version 11.0.3"
 readelf_version = "GNU readelf (GNU Binutils) 2.47"
 # The source/runner revision under test; the later evidence commit may contain
 # only the manifest, trace, and review record for this run.
-lab_commit = "42badb3"
+lab_commit = "605f1da"
 host_os = "Linux"
 host_architecture = "x86_64"
 lc_all = "C"
