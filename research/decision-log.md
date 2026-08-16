@@ -11,6 +11,15 @@ Accepted by [D0120](decisions/D0120-delivery-contracts-before-frontier.md).
 is one centrally verified L0 slice, not another unconsumed provenance or
 correspondence layer.
 
+## 2026-08-16 — L0 delivered
+
+`R000437` passed from a clean checkout. The central runner now consumes the
+pinned `standard-new` lexical specification and schema, checks deterministic
+roundtrip and generated-schema hashes, verifies a reviewed golden with an
+independent Python oracle, rejects an unbalanced negative fixture with its
+expected diagnostic, and rejects a source-hash mutation. L1 is now the active
+milestone; its frontend runner is not yet implemented.
+
 ## Recurring failure modes
 
 - An audit can be internally consistent and still not prove compiler behavior.

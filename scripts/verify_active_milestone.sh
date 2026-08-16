@@ -7,7 +7,14 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
 [ -f "$ROOT/STATUS.md" ] || die 'missing STATUS.md'
 [ -f "$ROOT/MILESTONES.md" ] || die 'missing MILESTONES.md'
-grep -q '^L0 ' "$ROOT/STATUS.md" || die 'STATUS.md has no active L0 milestone'
+active=$(awk '
+    /^## Active milestone$/ {wanted = 1; next}
+    wanted && NF {print; exit}
+' "$ROOT/STATUS.md")
+[ -n "$active" ] || die 'STATUS.md has no active milestone'
 "$ROOT/scripts/check_pins.sh"
 "$ROOT/scripts/check-contracts.sh"
-"$ROOT/scripts/run_e2e.sh" "$@"
+case "$active" in
+    L0\ *) "$ROOT/scripts/run_e2e.sh" "$@" ;;
+    *) die "no central runner is implemented for active milestone: $active" ;;
+esac

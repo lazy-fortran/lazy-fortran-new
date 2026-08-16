@@ -9,5 +9,5 @@ schema_sha256 = "12381f2bdf5b194f00bafe303d32110a7ae052dc602e6e49ac0479134dd9937
 roundtrip_sha256 = "1f3f588ab4d73a98dfec592ed7f0ce72310b1e4e957fd73edf1988bf74dbf75f"
 generated_schema_sha256 = "e0c67d3ddf00621c166b853e1e691bb65ecf64fcefa6d2a5421a98c6c6fca3e3"
 oracle = "tests/e2e/oracle_l0.py"
-verification_command = "scripts/verify_active_milestone.sh"
+verification_command = "scripts/run_e2e.sh"
 origin = "MECHANICAL"
