@@ -8,7 +8,8 @@ milestone ledger.
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
 replays and focused reviews pass. The bounded M3 C1106 slice is promoted by
-its central verifier and focused review. Full M3 remains open.
+its central verifier and focused review. The C702 successor replay passes and
+is awaiting focused review. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -36,6 +37,31 @@ Evidence: `research/decisions/D0124-first-m3-associate-name-oracle.md`,
 `research/runs/2026-08.jsonl#R000475`, plus focused review
 `research/runs/2026-08.jsonl#R000476` and reports under
 `artifacts/reports/M3/`.
+
+## M3 — bounded C702 semantic-oracle successor
+
+Bounded-slice status: `OPEN`; central replay `R000003` passes and corrected
+ledger candidate `R000005` is awaiting focused review. Full Core 0 semantics
+remain open and are not claimed.
+
+The slice binds J3/24-007 C702, canonical-text lines 3095--3096, to the
+already represented StandardIR rows R701, R832 and R856. Its typed candidate
+contains a colon type-parameter value and an attribute-context enum. Pointer
+and allocatable contexts are `ACCEPTED`, neither is `REJECTED`, and unknown is
+`UNRESOLVED`. Three source/rule mutation controls must fail closed; regenerate
+the complete inventory with:
+
+```text
+tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000003
+```
+
+Evidence: `research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md`,
+`research/experiments/E0176-can-a-deterministic-oracle-enforce-c702/`,
+`contracts/m3-c702-semantic-oracle-v0.sxs`,
+`tests/e2e/validate_m3_c702.py`,
+`artifacts/traces/m3-c702-source-backed-v0.json`, and
+`research/runs/2026-08.jsonl#R000001` through `#R000006`. No model output can
+promote a semantic fact.
 
 ## L0 — Normative lexical slice
 
