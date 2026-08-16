@@ -1,7 +1,7 @@
 (schema targetir-v0
   (primitive name)
   (primitive int)
-  (enum origin authoritative-machine-readable authoritative-prose derived comparison differential)
+  (enum origin authoritative-machine-readable authoritative-prose derived imported comparison differential)
   (enum operand-kind register immediate memory label)
   (record source-ref
     (artifact name)

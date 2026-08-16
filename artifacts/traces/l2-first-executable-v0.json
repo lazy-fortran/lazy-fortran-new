@@ -4,9 +4,7 @@
   "boundary": "frontend-v0-to-mir-v0-to-riscv64-linux-v0",
   "contracts": [
     "frontend-v0",
-    "mir-v0",
-    "targetir-v0",
-    "emission-v0"
+    "mir-v0"
   ],
   "toolchain": {
     "fo_version": "0.3.2",
@@ -32,7 +30,7 @@
     {
       "component": "fortback-new",
       "commit": "181715ac2fa04b0682db24564126dee882cac345",
-      "contract": "mir-v0 -> targetir-v0 -> emission-v0",
+      "contract": "mir-v0 -> bounded RV64 Linux emission",
       "input": {
         "path": "cache/l2.mir.sx",
         "sha256": "20baf8ef28d83c884b70c67c224027a416e5d9e0fb21d8533a26024b654ebcb6"
@@ -50,11 +48,26 @@
     "ffc-new": "5a82330dc2eff870792c0de8cd7cea8d13e7a8fb",
     "fortback-new": "181715ac2fa04b0682db24564126dee882cac345"
   },
-  "negative": {
-    "path": "tests/negative/l2-first-executable-v0-rejected.sx",
-    "sha256": "2b3bf4f220ceaa15f6d5e23f189a378870bfe832ffeb9c55b12f570e4dc9c6b7",
-    "observable": "FFC rejects input without creating output"
-  },
+  "negative": [
+    {
+      "path": "tests/negative/l2-first-executable-v0-rejected.sx",
+      "sha256": "2b3bf4f220ceaa15f6d5e23f189a378870bfe832ffeb9c55b12f570e4dc9c6b7",
+      "diagnostic": "ffc-lower-frontend-v0: invalid frontend-v0 input",
+      "observable": "FFC rejects input without creating output"
+    },
+    {
+      "path": "tests/negative/l2-mir-v0-malformed.sx",
+      "sha256": "afb45c30d4333ab47e3208e57264348c0df045b5ffab6dd9dc49fd8b70199656",
+      "diagnostic": "mir-v0: unexpected end of SX input",
+      "observable": "fortback rejects malformed MIR without artifact"
+    },
+    {
+      "path": "tests/negative/l2-mir-v0-out-of-scope.sx",
+      "sha256": "6f9cf852bb3e587790640abffba02620d05b5b3e070feb3ccb1df1e539b3c553",
+      "diagnostic": "mir-v0: function is out of scope",
+      "observable": "fortback rejects out-of-scope MIR without artifact"
+    }
+  ],
   "runtime": {
     "oracle": "qemu-riscv64",
     "exit_status": 0

@@ -1,0 +1,17 @@
+# Independent semantic expectation for the bounded L2 witness.
+# The MIR fields are derived from the frontend-v0 witness contract, and the
+# machine words are the reviewed RV64 encodings for the exit-zero sequence.
+function_name = "main"
+instruction_count = 2
+opcodes = ["add", "return"]
+result_id = 1
+result_kind = "integer"
+result_type = "i32"
+source_rule = "frontend-v0/program"
+elf_class = 2
+elf_data = 1
+elf_type = 2
+elf_machine = 243
+entry = 0x100b0
+code_words = [0x00000513, 0x05d00893, 0x00000073]
+runtime_exit_status = 0

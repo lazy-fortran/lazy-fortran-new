@@ -19,8 +19,9 @@ normative source fact
 ```
 
 The result must have an independent oracle. This is an open delivery target,
-not a claim that the complete standard or compiler is implemented. L2 is not
-complete until its own end-to-end execution gate passes.
+not a claim that the complete standard or compiler is implemented. L2's
+central execution gate has passed; promotion remains open until independent
+review and the promotion evidence pass.
 
 ## Component pins
 
@@ -60,7 +61,8 @@ not current promotion evidence.
 - L1: `PASS`. The corrected replay and all four independent Luna reviews pass;
   v1 reports retain the two repaired review failures and v2 reports are the
   active evidence.
-- L2: `OPEN` and not yet implemented. It is the active dependency-ready task.
+- L2: `OPEN`; the bounded central execution gate is `PASS` in `R000439`, and
+  promotion remains pending after the independent review findings.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -68,19 +70,22 @@ explicitly classified as a component-local generator boundary, not as a
 consumer of central `contracts/standardir-v0.sxs`; the accepted D0022
 decision says that local schema is not the complete StandardIR contract. The
 recorded L1 run predates the commit containing its final central inputs; the
-current replay supersedes it for promotion purposes. No L2 execution claim is
-made yet.
+current replay supersedes it for promotion purposes. L2's active claim is
+limited to the pinned `frontend-v0` witness → canonical `mir-v0` SX → bounded
+RV64 Linux ELF → QEMU exit status and independent code-word checks. It does
+not claim source parsing, StandardIR conversion, or serialized TargetIR and
+emission contract interchange.
 
 ## Active fixture
 
-ID: T-L2-vertical-slice — deliver the first frontend-to-executable path.
+ID: T-L2-vertical-slice — deliver the first frontend-witness-to-executable path.
 
 Candidate family: `tests/fixtures/l2-first-executable-v0.sx`.
 
-Boundary decision: `research/decisions/D0121-first-executable-rv64-slice.md`.
+Boundary decision: `research/decisions/D0122-narrow-l2-boundary.md`.
 
-Expected observable: a runnable artifact and independently verified runtime
-result, with the complete source-to-frontend-to-MIR-to-backend trace.
+Expected observable: a deterministic RV64 Linux artifact, independently
+verified MIR and code words, QEMU exit status, and complete bounded-path trace.
 
 Oracle: an independent runtime/result oracle plus the component and contract
 oracles required by `docs/oracle-policy.md`.
@@ -88,14 +93,15 @@ oracles required by `docs/oracle-policy.md`.
 ## Current blocker
 
 The first central runner is implemented as `tests/e2e/run-l2.sh` and passed
-the corrected component revisions. L2 remains open until the independent
-review lanes pass and the promotion evidence is committed.
+the corrected component revisions. Review found evidence defects in oracle
+independence and boundary claims. The next task closes those findings and
+replays the gate; L2 remains open until all review lanes pass.
 
 ## Next executable task
 
-Define the smallest runnable target and implement its cross-repository runner;
-do not add a second source feature family while this first execution slice is
-incomplete.
+Close the independent-oracle, contract-boundary, and negative-MIR review
+findings, then replay `scripts/verify_active_milestone.sh`; do not add a second
+source feature family while this execution slice is incomplete.
 
 ## Last verified central command
 

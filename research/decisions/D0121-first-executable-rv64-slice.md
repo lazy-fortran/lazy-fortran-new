@@ -1,7 +1,7 @@
 # D0121. First executable vertical slice uses frontend-v0 to MIR-v0 to RV64 Linux
 
 Date: 2026-08-16
-Status: accepted
+Status: superseded by D0122
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 <!-- Optional headers, one per line, when they apply:

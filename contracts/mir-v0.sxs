@@ -12,7 +12,9 @@
     (opcode opcode)
     (result value)
     (source-rule name))
-  (record function
+  (list instructions instruction)
+  (record mir-function
     (name name)
     (entry-block int)
-    (instruction-count int)))
+    (instruction-count int)
+    (instructions instructions)))

@@ -77,15 +77,25 @@ milestones:
   - id: L2
     title: First compiled execution slice
     status: OPEN
-    verification: NOT STARTED
+    verification: PASS
+    review_state: NEEDS FIX
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
       - tests/e2e/run-l2.sh
       - tests/e2e/oracle_l2.py
       - tests/fixtures/l2-first-executable-v0.toml
+      - tests/golden/l2-first-executable-v0.oracle.toml
+      - tests/negative/l2-mir-v0-malformed.sx
+      - tests/negative/l2-mir-v0-out-of-scope.sx
+      - contracts/mir-v0.sxs
       - artifacts/manifests/l2-first-executable-v0.toml
       - artifacts/traces/l2-first-executable-v0.json
+      - artifacts/reports/L2/replay-v1-luna-scope.md
+      - artifacts/reports/L2/replay-v1-luna-contract.md
+      - artifacts/reports/L2/replay-v1-luna-oracle.md
+      - artifacts/reports/L2/replay-v1-luna-reproducibility.md
+      - artifacts/reports/L2-initial-cli-failure.md
       - research/runs/2026-08.jsonl#R000439
   - id: M1-M2
     title: Source-valid StandardIR and sane generated grammars
@@ -165,16 +175,16 @@ tasks:
     integration_cycle_trigger: milestone_pass
   - id: T-L2-vertical-slice
     milestone: L2
-    title: Define and deliver the first frontend-to-executable path
+    title: Deliver the first frontend-witness-to-executable path
     status: OPEN
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
-      - STATUS.md
-      - MILESTONES.md
-      - docs/vertical-slice.md
-      - research/decisions/D0121-first-executable-rv64-slice.md
-    retry_count: 0
+      - tests/e2e/run-l2.sh
+      - tests/e2e/oracle_l2.py
+      - contracts/mir-v0.sxs
+      - research/decisions/D0122-narrow-l2-boundary.md
+    retry_count: 1
     integration_cycle_trigger: interface_change
 
 integration_cycle:

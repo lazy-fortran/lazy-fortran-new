@@ -79,8 +79,11 @@ active task.
 
 ## 2026-08-16 — first L2 execution boundary
 
-Accepted as [D0121](decisions/D0121-first-executable-rv64-slice.md). The next
-slice is the smallest real cross-repository path from `frontend-v0` SX through
-`ffc-new` to canonical `mir-v0` SX, then through a bounded `fortback-new` RV64
-Linux emitter and QEMU runtime oracle. It deliberately does not claim general
-instruction selection, a complete ABI, or full Fortran compilation.
+The initial boundary was accepted as [D0121](decisions/D0121-first-executable-rv64-slice.md)
+and then narrowed by [D0122](decisions/D0122-narrow-l2-boundary.md) after the
+independent L2 reviews found that serialized TargetIR/emission values were not
+actually crossed. The active slice is the smallest real path from a pinned
+`frontend-v0` witness through canonical `mir-v0` SX to bounded RV64 Linux
+emission and a QEMU runtime oracle. It deliberately does not claim source
+parsing, StandardIR conversion, serialized TargetIR/emission interchange,
+general instruction selection, a complete ABI, or full Fortran compilation.

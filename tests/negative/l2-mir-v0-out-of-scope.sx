@@ -1,0 +1,1 @@
+(mir-function (name test) (entry-block 0) (instruction-count 2) (instructions (instruction (id 0) (opcode add) (source-rule frontend-v0/program) (result (id 1) (kind integer) (type i32))) (instruction (id 1) (opcode return) (source-rule frontend-v0/program) (result (id 1) (kind integer) (type i32)))))

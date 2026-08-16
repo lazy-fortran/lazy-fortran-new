@@ -92,31 +92,37 @@ Verifier: `scripts/verify_active_milestone.sh`.
 Evidence paths: `tests/e2e/run-l2.sh`, `tests/e2e/oracle_l2.py`,
 `tests/fixtures/l2-first-executable-v0.toml`,
 `artifacts/manifests/l2-first-executable-v0.toml`, and
-`artifacts/traces/l2-first-executable-v0.json`.
+`artifacts/traces/l2-first-executable-v0.json`; the independent semantic
+oracle is `tests/golden/l2-first-executable-v0.oracle.toml`, and malformed and
+out-of-scope MIR controls are under `tests/negative/`.
 
 ```text
 frontend-v0 SX witness
 → ffc-new MIR-v0
-→ fortback-new TargetIR/emission
+→ fortback-new bounded RV64 Linux emission
 → executable
-→ expected runtime output
+→ expected runtime exit status
 ```
 
 This first execution slice deliberately begins with an already-produced
 `frontend-v0` witness. It verifies the downstream handoff and executable
 behavior; it does not claim a new source-to-frontend or StandardIR conversion.
+The central contract boundary is `frontend-v0` to `mir-v0`; fortback's
+TargetIR and ELF emission structures remain internal to this bounded slice.
 
 ### Definition of done
 
-- [ ] A source fixture and content hash are recorded centrally.
-- [ ] The verified frontend output is consumed by the pinned driver path.
+- [ ] A pinned `frontend-v0` witness fixture and content hash are recorded centrally.
+- [ ] The witness is consumed by the pinned FFC driver path.
 - [ ] The pinned backend path emits a runnable artifact.
 - [ ] A valid fixture produces an independently verified runtime result.
-- [ ] An invalid near-neighbor reaches the expected diagnostic class.
+- [ ] The invalid frontend neighbor reaches the expected diagnostic class.
+- [ ] Malformed and out-of-scope MIR inputs are rejected without artifacts.
 - [ ] A complete stage trace and clean-checkout command pass.
 
 Do not define L3 until L2 passes.
 
-The first L2 fixture and runner are now defined, but no execution result is
-claimed until the complete gate passes. The selected boundary is recorded in
-`research/decisions/D0121-first-executable-rv64-slice.md`.
+The central execution gate passed as `R000439`, but promotion remains open
+until the independent review findings are corrected and the selected boundary
+is replayed. The active boundary is recorded in
+`research/decisions/D0122-narrow-l2-boundary.md`.
