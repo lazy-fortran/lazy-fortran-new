@@ -51,6 +51,10 @@
   "oracles": {
     "source": "tests/e2e/oracle_m1m2.py",
     "grammar": "tests/e2e/validate_m1m2_grammars.py",
+    "negative": "tests/negative/m1m2-source-backed-v0-unclosed.sx",
+    "negative_result": "PASS",
+    "negative_parser": "standard-new sxroundtrip",
+    "negative_parser_log_sha256": "979e8166650acccec59713e7ed727b6a95423657c835657f08b9bb193a599d7d",
     "source_result": "PASS",
     "grammar_result": "PASS",
     "mutation_control": "observed_failure"
@@ -63,7 +67,8 @@
     "commands": [
       "scripts/verify_active_milestone.sh",
       "tests/e2e/run-m1m2.sh"
-    ]
+    ],
+    "negative_command": "(cd standard-new && fo exec --no-build sxroundtrip tests/negative/m1m2-source-backed-v0-unclosed.sx <run-dir>/negative.roundtrip.sx)"
   },
   "origin": "MECHANICAL"
 }

@@ -103,13 +103,34 @@ def main() -> None:
     if any(golden["source_sha256"] not in line for line in class_lines if "family lexical" not in line):
         fail("closure sidecar source hash coverage is incomplete")
 
-    if len(sys.argv) > 8:
+    extra = sys.argv[8:]
+    negative = None
+    if "--negative" in extra:
+        marker = extra.index("--negative")
+        if len(extra) != marker + 3:
+            fail("negative oracle arguments are incomplete")
+        negative = Path(extra[marker + 1])
+        negative_golden = tomllib.loads(
+            Path(extra[marker + 2]).read_text(encoding="utf-8")
+        )
+        extra = extra[:marker]
+        negative_text = negative.read_text(encoding="utf-8")
+        if negative_text.count("(") <= negative_text.count(")"):
+            fail("negative fixture was not an unclosed SX neighbor")
+        if negative_golden.get("oracle") != "balanced-parentheses":
+            fail("negative fixture oracle is not the declared independent oracle")
+        if negative_golden.get("diagnostic") != "unclosed-sx-list":
+            fail("negative fixture diagnostic golden differs")
+    if negative is not None:
+        print("M1-M2 negative oracle: PASS")
+
+    if extra:
         patterns = {
             "antlr": re.compile(r"^\s*(r_[A-Za-z0-9_]+)\s*:", re.M),
             "bison": re.compile(r"^\s*(r_[A-Za-z0-9_]+)\s*:", re.M),
             "tree-sitter": re.compile(r"^\s*(r_[A-Za-z0-9_]+):\s*\$\s*=>", re.M),
         }
-        for path, expected_name in zip(map(Path, sys.argv[8:]), patterns):
+        for path, expected_name in zip(map(Path, extra), patterns):
             definitions = patterns[expected_name].findall(path.read_text())
             if len(definitions) != doc["expected_target_definitions"]:
                 fail(f"{expected_name} target definition count differs")

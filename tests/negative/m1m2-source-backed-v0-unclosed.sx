@@ -1,0 +1,1 @@
+(syntax R501 (lhs program) (rhs (seq (ref program-unit))) (source (document J3-24-007) (clause 5) (rule R501) (page 53) (source-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)

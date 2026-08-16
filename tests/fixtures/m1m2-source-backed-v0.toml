@@ -18,3 +18,5 @@ expected_target_definitions = 670
 trace = "artifacts/traces/m1m2-source-backed-v0.json"
 oracle = "tests/e2e/oracle_m1m2.py"
 golden = "tests/golden/m1m2-source-backed-v0.oracle.toml"
+negative_fixture = "tests/negative/m1m2-source-backed-v0-unclosed.sx"
+negative_golden = "tests/golden/m1m2-source-backed-v0-negative.oracle.toml"

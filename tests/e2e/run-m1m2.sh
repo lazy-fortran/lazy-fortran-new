@@ -47,6 +47,8 @@ standard_commit="$(mget standard_component_commit)"
 trace="$ROOT/$(mget trace)"
 oracle="$ROOT/$(mget oracle)"
 golden="$ROOT/$(mget golden)"
+negative_fixture="$ROOT/$(mget negative_fixture)"
+negative_golden="$ROOT/$(mget negative_golden)"
 
 "$ROOT/scripts/fetch.sh" --verify j3-24-007 >/dev/null
 [ -f "$source_cache" ]
@@ -78,6 +80,25 @@ python3 "$oracle" "$manifest" "$source_cache" "$run_dir/all.jsonl" \
     "$run_dir/selected.jsonl" "$run_dir/standardir.sx" "$run_dir/classifications.sx" \
     "$run_dir/roots.sx" >"$run_dir/source-oracle.log"
 
+set +e
+(cd "$standard" && fo exec --no-build sxroundtrip "$negative_fixture" \
+    "$run_dir/negative.roundtrip.sx") >"$run_dir/negative-parser.log" 2>&1
+negative_status=$?
+set -e
+[ "$negative_status" -ne 0 ]
+python3 - "$run_dir/negative-parser.log" "$negative_golden" <<'PY'
+import sys
+import tomllib
+from pathlib import Path
+
+log = Path(sys.argv[1]).read_text(encoding="utf-8")
+expected = tomllib.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
+if expected.get("diagnostic") != "unclosed-sx-list":
+    raise SystemExit("negative golden diagnostic is not unclosed-sx-list")
+if "unclosed SX list" not in log:
+    raise SystemExit("negative parser diagnostic did not match golden class")
+PY
+
 generate() {
     local suffix format output
     for format in ebnf antlr bison treesitter; do
@@ -108,7 +129,8 @@ cmp "$run_dir/grammar.js" "$run_dir/grammar.two.js"
 python3 "$oracle" "$manifest" "$source_cache" "$run_dir/all.jsonl" \
     "$run_dir/selected.jsonl" "$run_dir/standardir.sx" "$run_dir/classifications.sx" \
     "$run_dir/roots.sx" "$run_dir/Fortran2023.g4" "$run_dir/fortran2023.y" \
-    "$run_dir/grammar.js" >"$run_dir/final-oracle.log"
+    "$run_dir/grammar.js" --negative "$negative_fixture" "$negative_golden" \
+    >"$run_dir/final-oracle.log"
 python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" \
     >"$run_dir/validators.log"
 
@@ -169,6 +191,10 @@ trace = {
     "oracles": {
         "source": manifest["oracle"],
         "grammar": "tests/e2e/validate_m1m2_grammars.py",
+        "negative": manifest["negative_fixture"],
+        "negative_result": "PASS",
+        "negative_parser": "standard-new sxroundtrip",
+        "negative_parser_log_sha256": digest(run_dir / "negative-parser.log"),
         "source_result": "PASS",
         "grammar_result": "PASS",
         "mutation_control": "observed_failure",
@@ -176,6 +202,7 @@ trace = {
     "reproducibility": {
         "locale": {"LC_ALL": "C", "LANG": "C"},
         "commands": ["scripts/verify_active_milestone.sh", "tests/e2e/run-m1m2.sh"],
+        "negative_command": "(cd standard-new && fo exec --no-build sxroundtrip tests/negative/m1m2-source-backed-v0-unclosed.sx <run-dir>/negative.roundtrip.sx)",
     },
     "origin": "MECHANICAL",
 }
