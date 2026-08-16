@@ -19,6 +19,14 @@ PDF_SHA256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 STANDARDIR_SHA256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
 PROPERTY = "name-length-legality"
 NAME_RE = re.compile(r"[A-Za-z][A-Za-z0-9_]*\Z")
+EXPECTED_CANONICAL_LINES = [
+    {"line": 2809, "text": "C601 (R603) The maximum length of a name is 63 characters."}
+]
+EXPECTED_STANDARDIR_ROWS = [
+    {"rule": "R601", "lhs": "alphanumeric-character", "page": 67, "byte_start": 173300, "byte_length": 68, "occurrence": 29},
+    {"rule": "R602", "lhs": "underscore", "page": 67, "byte_start": 174187, "byte_length": 23, "occurrence": 30},
+    {"rule": "R603", "lhs": "name", "page": 68, "byte_start": 175756, "byte_length": 53, "occurrence": 31},
+]
 
 
 class ContractError(Exception):
@@ -86,6 +94,7 @@ def validate_standardir_rows(source: dict[str, Any], standardir_path: Path) -> N
     standardir_spec = source["standardir"]
     require(standardir_spec["sha256"] == STANDARDIR_SHA256, "fixture StandardIR hash differs")
     require(standardir_spec["source_hash"] == SOURCE_SHA256, "fixture StandardIR source hash differs")
+    require(standardir_spec["rows"] == EXPECTED_STANDARDIR_ROWS, "StandardIR row identity differs")
     for row in standardir_spec["rows"]:
         matches = [line for line in standardir if line.startswith(f"(syntax {row['rule']} ")]
         require(len(matches) == 1, f"expected one StandardIR row for {row['rule']}")
@@ -100,6 +109,7 @@ def validate_standardir_rows(source: dict[str, Any], standardir_path: Path) -> N
 
 def validate_canonical_lines(source: dict[str, Any], canonical_path: Path) -> None:
     require(digest(canonical_path) == SOURCE_SHA256, "canonical source hash differs")
+    require(source["canonical_lines"] == EXPECTED_CANONICAL_LINES, "canonical source identity differs")
     lines = canonical_path.read_text(encoding="utf-8").split("\n")
     for item in source["canonical_lines"]:
         number = item["line"]
@@ -215,7 +225,7 @@ def validate_fixture_shape(doc: dict[str, Any]) -> None:
         results.append(result)
     require({item["kind"] for item in results} == {"positive", "negative", "unresolved"}, "fixture witness kinds are incomplete")
     require(sum(item["kind"] == "positive" for item in results) == 2, "positive witness count differs")
-    require(len(doc["mutations"]) == 3, "mutation control count differs")
+    require(len(doc["mutations"]) == 5, "mutation control count differs")
     for mutation in doc["mutations"]:
         exact_keys(mutation, {"id", "path", "value"}, f"mutation {mutation.get('id', '<missing>')}")
         require(isinstance(mutation["path"], list) and mutation["path"], "mutation path is invalid")

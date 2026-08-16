@@ -37,12 +37,20 @@
     "version": 0
   },
   "fixture": "tests/fixtures/m3-c601-source-backed-v0.json",
-  "fixture_sha256": "768f0cfc72754f2a384f8e786ff9fa37d6546c5f7dbbf55b8c5e094b2e2ab4dc",
+  "fixture_sha256": "50b83d8fa07e0c2877855d572bda1fe914c971d8e6b8909ecb2a6c88a5f310d6",
   "milestone": "M3",
   "model_calls": 0,
   "mutation_controls": [
     {
       "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
       "result": "REJECTED"
     },
     {

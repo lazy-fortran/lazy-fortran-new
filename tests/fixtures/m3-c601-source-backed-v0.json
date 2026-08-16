@@ -70,6 +70,8 @@
   ],
   "mutations": [
     {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 2745},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R604"},
     {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C601 (R603) The maximum length of a name is 64 characters."},
     {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C602"}
   ]

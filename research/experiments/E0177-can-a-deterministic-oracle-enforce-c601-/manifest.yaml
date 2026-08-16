@@ -75,7 +75,7 @@ gate: >
   tests/e2e/run-m3-c601.sh .cache/runs/E0177/R000001 must pass from clean
   central and standard-new checkouts, including standard-new sxsemantic
   canonicalization, normative PDF/canonical-text/StandardIR hash and witness
-  checks, all four independently computed outcomes, three observed mutation
+  checks, all four independently computed outcomes, five observed mutation
   failures, exact committed trace comparison and zero model calls or semantic
   promotions.
 
