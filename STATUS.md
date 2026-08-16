@@ -62,7 +62,10 @@ not current promotion evidence.
   v1 reports retain the two repaired review failures and v2 reports are the
   active evidence.
 - L2: `OPEN`; the corrected bounded central execution gate is `PASS` in
-  `R000441`. Promotion remains pending a fresh independent review wave.
+  `R000441`. The first fresh review wave is retained as `R000442`; three lanes
+  passed and the oracle lane found that recorded tool/runtime pins were not
+  consumed as the evidence authority. The runner and oracle now consume those
+  pins and the runtime expectation; promotion remains pending a fresh review.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -93,15 +96,15 @@ oracles required by `docs/oracle-policy.md`.
 ## Current blocker
 
 The first central runner is implemented as `tests/e2e/run-l2.sh`. The v1 review
-findings were corrected in the current candidate and the replay passed as
-`R000441`. The next task is a fresh independent review wave; L2 remains open
-until all review lanes pass.
+findings were corrected in the candidate tested by `R000441`. The v2 review
+found one oracle-authority defect, now corrected in the working tree; L2
+remains open until a fresh independent review of this candidate passes.
 
 ## Next executable task
 
-Run the fresh four-lane independent review against the corrected candidate and
-promote L2 only if all lanes pass; do not add a second source feature family
-while this execution slice is incomplete.
+Commit the manifest-authority correction, rerun the four-lane independent
+review against that candidate, and promote L2 only if all lanes pass; do not
+add a second source feature family while this execution slice is incomplete.
 
 ## Last verified central command
 

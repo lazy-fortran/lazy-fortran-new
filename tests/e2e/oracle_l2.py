@@ -2,9 +2,10 @@
 """Independent oracle for the first executable cross-repository slice.
 
 This oracle does not import the FFC or fortback implementations.  It checks
-the reviewed fixture/golden bytes, the declared contract lineage, and the
-basic ELF identity of the produced executable.  Runtime behavior is checked
-independently by qemu-riscv64 in the shell runner.
+the reviewed fixture/golden bytes, the declared contract lineage, the
+recorded toolchain/runtime witnesses, and the basic ELF identity of the
+produced executable.  The shell runner supplies the observed runtime/tool
+values; this oracle compares them with the committed evidence manifest.
 """
 
 from __future__ import annotations
@@ -25,10 +26,11 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    if len(sys.argv) != 10:
+    if len(sys.argv) != 15:
         fail(
             "usage: oracle_l2.py manifest source mir golden mir-oracle artifact "
-            "negative malformed-mir out-of-scope-mir"
+            "negative malformed-mir out-of-scope-mir qemu-status fo-version "
+            "fo-sha256 qemu-version readelf-version"
         )
     (
         manifest_path,
@@ -40,7 +42,20 @@ def main() -> int:
         negative_path,
         malformed_mir_path,
         out_of_scope_mir_path,
-    ) = map(Path, sys.argv[1:])
+        qemu_status,
+        fo_version,
+        fo_sha256,
+        qemu_version,
+        readelf_version,
+    ) = sys.argv[1:]
+    manifest_path, source_path, mir_path, golden_path, mir_oracle_path, artifact_path, \
+        negative_path, malformed_mir_path, out_of_scope_mir_path = map(
+            Path,
+            (manifest_path, source_path, mir_path, golden_path, mir_oracle_path,
+             artifact_path,
+             negative_path, malformed_mir_path, out_of_scope_mir_path),
+        )
+    qemu_status = int(qemu_status)
     manifest = tomllib.loads(manifest_path.read_text(encoding="utf-8"))
     if manifest.get("boundary") != "frontend-v0-to-mir-v0-to-riscv64-linux-v0":
         fail("unexpected L2 boundary")
@@ -49,6 +64,16 @@ def main() -> int:
     root = Path(__file__).resolve().parents[2]
     evidence_manifest = root / manifest["evidence_manifest"]
     evidence = tomllib.loads(evidence_manifest.read_text(encoding="utf-8"))
+    for field, actual in (
+        ("fo_version", fo_version),
+        ("fo_sha256", fo_sha256),
+        ("qemu_version", qemu_version),
+        ("readelf_version", readelf_version),
+    ):
+        if evidence[field] != actual:
+            fail(f"{field} differs from the committed evidence manifest")
+    if qemu_status != evidence["runtime_exit_status"]:
+        fail("QEMU exit status differs from the committed evidence manifest")
     if evidence["id"] != manifest["id"]:
         fail("evidence manifest has a different fixture ID")
     if evidence["contracts"] != manifest["central_contracts"]:

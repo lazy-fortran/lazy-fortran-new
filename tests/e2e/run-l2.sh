@@ -26,7 +26,7 @@ trap 'rm -rf "$run_dir"' EXIT
 IFS=$'\t' read -r source golden mir_oracle negative malformed_mir out_of_scope_mir \
     oracle trace evidence_manifest fo_version fo_sha256 \
     standard_commit frontend_commit compiler_commit backend_commit \
-    central_contracts <<EOF
+    central_contracts qemu_version readelf_version runtime_exit_status <<EOF
 $(python3 - "$manifest" "$ROOT" <<'PY'
 import sys
 import tomllib
@@ -34,6 +34,7 @@ from pathlib import Path
 
 manifest = tomllib.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 root = Path(sys.argv[2])
+evidence = tomllib.loads((root / manifest["evidence_manifest"]).read_text(encoding="utf-8"))
 print("\t".join(map(str, (
     root / manifest["source"],
     root / manifest["golden_mir"],
@@ -44,13 +45,16 @@ print("\t".join(map(str, (
     root / manifest["oracle"],
     root / manifest["trace"],
     root / manifest["evidence_manifest"],
-    "0.3.2",
-    "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68",
+    evidence["fo_version"],
+    evidence["fo_sha256"],
     manifest["standard_component_commit"],
     manifest["frontend_component_commit"],
     manifest["compiler_component_commit"],
     manifest["backend_component_commit"],
     ",".join(manifest["central_contracts"]),
+    evidence["qemu_version"],
+    evidence["readelf_version"],
+    evidence["runtime_exit_status"],
 ))))
 PY
 )
@@ -58,8 +62,8 @@ EOF
 
 [ "$(fo version | awk '{print $2}')" = "$fo_version" ]
 [ "$(sha256sum "$(command -v fo)" | awk '{print $1}')" = "$fo_sha256" ]
-[ "$(qemu-riscv64 --version | head -n1)" = "qemu-riscv64 version 11.0.3" ]
-[ "$(readelf --version | head -n1)" = "GNU readelf (GNU Binutils) 2.47" ]
+[ "$(qemu-riscv64 --version | head -n1)" = "$qemu_version" ]
+[ "$(readelf --version | head -n1)" = "$readelf_version" ]
 
 python3 - "$evidence_manifest" "$source" "$negative" "$malformed_mir" "$out_of_scope_mir" <<'PY'
 import hashlib
@@ -153,17 +157,19 @@ if qemu-riscv64 "$artifact" >"$run_dir/qemu.log" 2>&1; then
 else
     qemu_status=$?
 fi
-[ "$qemu_status" -eq 0 ]
+[ "$qemu_status" -eq "$runtime_exit_status" ]
 
 python3 "$oracle" "$manifest" "$source" "$mir" "$golden" "$mir_oracle" "$artifact" \
     "$negative" "$malformed_mir" "$out_of_scope_mir" \
+    "$qemu_status" "$fo_version" "$fo_sha256" "$qemu_version" "$readelf_version" \
     >"$run_dir/oracle.log"
 
 python3 - "$run_dir/trace.json" "$manifest" "$source" "$mir" "$artifact" \
     "$negative" "$malformed_mir" "$out_of_scope_mir" \
     "$actual_standard_commit" "$actual_frontend_commit" \
     "$actual_compiler_commit" "$actual_backend_commit" "$qemu_status" \
-    "$fo_version" "$fo_sha256" "$central_contracts" <<'PY'
+    "$fo_version" "$fo_sha256" "$central_contracts" "$qemu_version" \
+    "$readelf_version" "$runtime_exit_status" <<'PY'
 import hashlib
 import json
 import sys
@@ -179,7 +185,8 @@ def digest(path):
     trace_path, manifest_path, source, mir, artifact, negative, malformed_mir,
     out_of_scope_mir,
     standard_commit, frontend_commit, compiler_commit, backend_commit,
-    qemu_status, fo_version, fo_sha256, central_contracts,
+    qemu_status, fo_version, fo_sha256, central_contracts, qemu_version,
+    readelf_version, runtime_exit_status,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 trace = {
@@ -190,8 +197,8 @@ trace = {
     "toolchain": {
         "fo_version": fo_version,
         "fo_sha256": fo_sha256,
-        "qemu_riscv64": "qemu-riscv64 version 11.0.3",
-        "readelf": "GNU readelf (GNU Binutils) 2.47",
+        "qemu_riscv64": qemu_version,
+        "readelf": readelf_version,
     },
     "stages": [
         {

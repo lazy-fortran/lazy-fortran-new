@@ -78,7 +78,7 @@ milestones:
     title: First compiled execution slice
     status: OPEN
     verification: PASS
-    review_state: PENDING_FRESH_REVIEW
+    review_state: NEEDS_FIX
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
@@ -95,6 +95,10 @@ milestones:
       - artifacts/reports/L2/replay-v1-luna-contract.md
       - artifacts/reports/L2/replay-v1-luna-oracle.md
       - artifacts/reports/L2/replay-v1-luna-reproducibility.md
+      - artifacts/reports/L2/replay-v2-luna-scope.md
+      - artifacts/reports/L2/replay-v2-luna-contract.md
+      - artifacts/reports/L2/replay-v2-luna-oracle.md
+      - artifacts/reports/L2/replay-v2-luna-reproducibility.md
       - artifacts/reports/L2-initial-cli-failure.md
       - research/runs/2026-08.jsonl#R000441
   - id: M1-M2
@@ -135,7 +139,7 @@ tasks:
       - tests/e2e/run-l0.sh
       - artifacts/manifests/l0-lexical-slice-v0.toml
       - artifacts/traces/l0-lexical-slice-v0.json
-    retry_count: 1
+    retry_count: 2
     integration_cycle_trigger: milestone_pass
   - id: T-L0-contract-boundary
     milestone: L0
