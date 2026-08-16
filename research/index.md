@@ -313,6 +313,7 @@ Runs recorded: 408
 | [D0115](decisions/D0115-raw-source-paths-before-alternative-flattening.md) | accepted | Amends D0114 | Resolve source paths against raw StandardIR before flattening |
 | [D0116](decisions/D0116-source-target-boundary-correspondence-trace.md) | amended by D0117 |  | Carry boundary correspondence through target transformations |
 | [D0117](decisions/D0117-source-target-relations-and-parser-evidence.md) | accepted | Amends D0116 | Treat target correspondence as a relation and keep parser evidence layered |
+| [D0118](decisions/D0118-normative-and-occurrence-provenance.md) | accepted |  | Separate normative rule clause from source occurrence provenance |
 
 ### Proposed decisions
 

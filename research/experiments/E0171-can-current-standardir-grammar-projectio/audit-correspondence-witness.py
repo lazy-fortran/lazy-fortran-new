@@ -14,6 +14,19 @@ from pathlib import Path
 
 DISPOSITIONS = {"mapped", "ambiguous", "suppressed", "unsupported"}
 HEX64 = re.compile(r"^[0-9a-fA-F]{64}$")
+RETAINED_SOURCE_FIELDS = (
+    "retained_target_source_document",
+    "retained_target_source_clause",
+    "retained_target_source_rule",
+    "retained_target_source_page",
+    "retained_target_source_end_page",
+    "retained_target_source_byte_start",
+    "retained_target_source_byte_length",
+    "retained_target_source_hash",
+    "retained_target_source_alternative",
+    "retained_target_path",
+    "retained_target_sequence_slot",
+)
 REQUIRED = {
     "kind",
     "source_document",
@@ -34,6 +47,7 @@ REQUIRED = {
     "target_alternative",
     "target_path",
     "target_sequence_slot",
+    *RETAINED_SOURCE_FIELDS,
     "transformation",
     "source_expression_sha256",
     "target_expression_sha256",
@@ -101,6 +115,17 @@ def trace_order(row: dict[str, object]) -> tuple[object, ...]:
         int(row["target_alternative"]),
         str(row["target_path"]),
         int(row["target_sequence_slot"]),
+        str(row["retained_target_source_document"]),
+        str(row["retained_target_source_clause"]),
+        str(row["retained_target_source_rule"]),
+        int(row["retained_target_source_page"]),
+        int(row["retained_target_source_end_page"]),
+        int(row["retained_target_source_byte_start"]),
+        int(row["retained_target_source_byte_length"]),
+        str(row["retained_target_source_hash"]),
+        int(row["retained_target_source_alternative"]),
+        str(row["retained_target_path"]),
+        int(row["retained_target_sequence_slot"]),
         str(row["transformation"]),
         str(row["input_expression_sha256"]),
         str(row["output_expression_sha256"]),
@@ -131,6 +156,12 @@ def read_trace(path: Path) -> list[dict[str, object]]:
             "source_node_kind",
             "target_alternative",
             "target_sequence_slot",
+            "retained_target_source_page",
+            "retained_target_source_end_page",
+            "retained_target_source_byte_start",
+            "retained_target_source_byte_length",
+            "retained_target_source_alternative",
+            "retained_target_sequence_slot",
         ):
             try:
                 row[field] = int(row[field])
@@ -144,6 +175,17 @@ def read_trace(path: Path) -> list[dict[str, object]]:
             fail(f"{path}:{line_number}: invalid alternative")
         if row["target_sequence_slot"] < 0:
             fail(f"{path}:{line_number}: invalid target sequence slot")
+        if row["retained_target_source_page"] < 0 or row["retained_target_source_end_page"] < 0:
+            fail(f"{path}:{line_number}: invalid retained target source page")
+        if row["retained_target_source_end_page"] > 0 and (
+            row["retained_target_source_page"] == 0
+            or row["retained_target_source_end_page"] < row["retained_target_source_page"]
+        ):
+            fail(f"{path}:{line_number}: invalid retained target source page range")
+        if row["retained_target_source_byte_start"] < 0 or row["retained_target_source_byte_length"] < 0:
+            fail(f"{path}:{line_number}: invalid retained target source byte range")
+        if row["retained_target_source_alternative"] < 0 or row["retained_target_sequence_slot"] < 0:
+            fail(f"{path}:{line_number}: invalid retained target relation")
         if not row["raw_source_path"] or not row["source_boundary_role"] or not row["reason"]:
             fail(f"{path}:{line_number}: missing required witness text")
         for field in (
@@ -154,6 +196,26 @@ def read_trace(path: Path) -> list[dict[str, object]]:
         ):
             if not HEX64.fullmatch(str(row[field])):
                 fail(f"{path}:{line_number}: {field} is not a SHA-256")
+        retained_present = any(
+            str(row[field])
+            not in {"", "0"}
+            for field in RETAINED_SOURCE_FIELDS
+        )
+        if retained_present:
+            for field in RETAINED_SOURCE_FIELDS[:3]:
+                if not str(row[field]):
+                    fail(f"{path}:{line_number}: incomplete retained target source")
+            if row["retained_target_source_page"] < 1 or row["retained_target_source_end_page"] < 1:
+                fail(f"{path}:{line_number}: retained target source lacks page provenance")
+            if not HEX64.fullmatch(str(row["retained_target_source_hash"])):
+                fail(f"{path}:{line_number}: retained target source hash is not a SHA-256")
+            if row["retained_target_source_alternative"] < 1 or not row["retained_target_path"]:
+                fail(f"{path}:{line_number}: incomplete retained target relation")
+        if row["disposition"] == "suppressed" and row["transformation"] == "rule-deduplicate":
+            if not retained_present:
+                fail(f"{path}:{line_number}: rule deduplication lacks retained target relation")
+            if row["retained_target_path"] != "rhs" or row["retained_target_sequence_slot"] != 0:
+                fail(f"{path}:{line_number}: rule deduplication retained target is not the rule root")
         values.append(row)
     if not values:
         fail(f"{path}: empty correspondence witness")
@@ -191,6 +253,7 @@ def main() -> int:
         "target_lhs",
         "target_path",
         "target_sequence_slot",
+        *RETAINED_SOURCE_FIELDS,
         "source_expression_sha256",
         "target_expression_sha256",
     ]
@@ -230,6 +293,7 @@ def main() -> int:
                 "target_lhs": match.get("target_lhs", ""),
                 "target_path": match.get("target_path", ""),
                 "target_sequence_slot": match.get("target_sequence_slot", ""),
+                **{field: match.get(field, "") for field in RETAINED_SOURCE_FIELDS},
                 "source_expression_sha256": match.get("source_expression_sha256", ""),
                 "target_expression_sha256": match.get("target_expression_sha256", ""),
             }

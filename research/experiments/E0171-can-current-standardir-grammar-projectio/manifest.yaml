@@ -46,6 +46,7 @@ decision_records:
   - D0115-raw-source-paths-before-alternative-flattening
   - D0116-source-target-boundary-correspondence-trace
   - D0117-source-target-relations-and-parser-evidence
+  - D0118-normative-and-occurrence-provenance
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
@@ -290,6 +291,15 @@ replays:
     mode: independent-luna-review-source-target-correspondence-witness
     report: .cache/runs/E0171/R000431-correspondence-witness
     result: bounded-correspondence-claim-confirmed-nine-suppressions-open
+  - run: R000433
+    standard-new: "30c973f629fbfc68d756ec4824b2696021689222"
+    mode: source-provenance-and-authoritative-pdf-fidelity-replay
+    report: .cache/runs/E0171/R000433-provenance-replay
+    result: 522-source-records-and-522-spans-pass-normative-occurrence-and-pdf-gates
+  - run: R000434
+    mode: independent-luna-review-source-provenance-replay
+    report: research/experiments/E0171-can-current-standardir-grammar-projectio/reviews/R000434-luna.md
+    result: bounded-syntax-provenance-claim-confirmed-complete-standard-open
 
 result: >
   The source boundary-plan, raw source-path and bounded source-target

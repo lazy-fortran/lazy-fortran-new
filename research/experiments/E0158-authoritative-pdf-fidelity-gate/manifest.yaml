@@ -87,3 +87,8 @@ replays:
     standard-new: "8d5ee41c15d8b7a73dd5336729b0a9ed2ee35615"
     mode: current-four-format-source-five-witness-and-all-record-lineage-replay
     report: .cache/runs/E0168-pdf-fidelity-current-source.tsv
+  - run: R000433
+    standard-new: "30c973f629fbfc68d756ec4824b2696021689222"
+    mode: current-source-provenance-and-full-pdf-fidelity-replay
+    report: .cache/runs/E0171/R000433-provenance-replay/pdf-fidelity.tsv
+    result: full-fidelity-pass-with-normative-and-occurrence-provenance
