@@ -51,9 +51,10 @@ evidence. No new provenance, correspondence, schema, semantic, model or
 backend work is allowed unless the active central acceptance test consumes it.
 The bounded D0122 L2 backend slice is complete and does not claim the broad
 normative backend or source-validity gates in the historical phase checklist.
-M1-M2 is promoted. The immediate delivery task is to define and activate the
-bounded M3 verifier; M3 remains blocked until that verifier and its independent
-oracle are accepted.
+M1-M2 is promoted. The immediate delivery task is
+`T-M3-semantic-shape-successor`: run E0172's D0074 prompt-shape comparison on
+the exact E0123 residual. M3 remains blocked until its central verifier and
+independent oracle are accepted.
 Existing correspondence work remains preserved historical evidence; it is
 paused rather than deleted and can resume only when it is the next measured
 blocker for a delivery slice.

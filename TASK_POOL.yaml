@@ -3,12 +3,9 @@ schema: 1
 MAX_PARALLEL_WORKERS: 4
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
-# inputs, verifier, output and ownership are all available. These four tasks
-# have disjoint writes and consume only the pinned baseline below.
+# inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L2-fortfront-frontend-trace
-  - T-L2-ffc-mir-trace
-  - T-L2-fortback-observable-trace
+  - T-M3-semantic-shape-successor
 
 controller_ownership:
   owner: controller
@@ -67,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M1M2-source-backed-fixture
+active_task: T-M3-semantic-shape-successor
 
 milestones:
   - id: L0
@@ -375,6 +372,60 @@ tasks:
       - tests/fixtures/m1m2-source-backed-v0.toml
       - research/runs/2026-08.jsonl#R000450
       - research/runs/2026-08.jsonl#R000454
+
+  - id: T-M3-semantic-shape-successor
+    milestone: M3
+    title: Measure generic typed-predicate shape examples on the E0123 residual
+    status: OPEN
+    verification: NOT STARTED
+    priority: 100
+    depends_on:
+      - T-M1M2-source-backed-fixture
+    inputs:
+      - path: research/decisions/D0074-explicit-predicate-shape-examples.md
+      - path: research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/manifest.yaml
+      - path: research/experiments/E0172-can-generic-typed-predicate-shape-exampl/manifest.yaml
+        sha256: a13534cb41258410f16dbdafc0d68e4b683946938988f644d672c68f73c8eea8
+      - path: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/run-semantic.py
+      - path: .cache/runs/E0123/R000001/analysis/report.json
+        sha256: 95aeb1c96a4b864160535517725384e000975d5472f9248ceb76c320b5e71813
+    writes:
+      - research/experiments/E0172-can-generic-typed-predicate-shape-exampl/**
+      - research/runs/2026-08.jsonl
+      - artifacts/reports/M3/**
+    mode: exclusive
+    verifier: >-
+      run the E0172 preflight and 53-row model cell, then run E0172/analyse.sh;
+      the deterministic E0123 merge, source/schema, witness and mutation gates
+      must pass before the comparison result is recorded
+    output: artifact
+    final_observable: >-
+      a source/schema/witness-valid comparison of generic prompt-shape examples
+      against E0123/R000254 over the exact 53-row residual, with structural
+      error classes, all 287 terminal rows and zero semantic promotions
+    integration: controller-only
+    estimated_cost: large
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/experiments/E0172-can-generic-typed-predicate-shape-exampl/**
+        - research/runs/2026-08.jsonl
+        - artifacts/reports/M3/**
+    prerequisites: [T-M1M2-source-backed-fixture]
+    verifier_command: research/experiments/E0172-can-generic-typed-predicate-shape-exampl/analyse.sh
+    evidence_paths:
+      - research/decisions/D0074-explicit-predicate-shape-examples.md
+      - research/experiments/E0172-can-generic-typed-predicate-shape-exampl/manifest.yaml
+      - research/experiments/E0172-can-generic-typed-predicate-shape-exampl/README.md
+      - research/experiments/E0172-can-generic-typed-predicate-shape-exampl/run.sh
+      - research/experiments/E0172-can-generic-typed-predicate-shape-exampl/analyse.sh
+      - research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/manifest.yaml
+      - research/runs/2026-08.jsonl#R000254
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 
   - id: T-L2-fortfront-frontend-trace
     milestone: L2

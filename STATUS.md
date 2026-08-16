@@ -77,6 +77,10 @@ not current promotion evidence.
   history are retained under `artifacts/` and `research/runs/2026-08.jsonl`.
   Focused integration review `R000455` passes; no source, grammar or oracle
   defect remains open.
+- M3 remains `BLOCKED`; its next controller-owned research task is
+  `T-M3-semantic-shape-successor`, which runs E0172 against the exact E0123
+  residual under D0074. It may measure prompt-interface improvement but cannot
+  promote a semantic fact or activate M3 by itself.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -104,16 +108,25 @@ parser-generator checks plus positive, negative and mutation controls.
 Oracle: the normative source artifact, independent projection validators and
 the source-to-target witness required by `docs/oracle-policy.md`.
 
+## Active task
+
+ID: `T-M3-semantic-shape-successor` — E0172 generic typed-predicate shape
+examples on the E0123 53-row residual.
+
+Verifier: `research/experiments/E0172-can-generic-typed-predicate-shape-exampl/analyse.sh`
+after the declared preflight and model cell. The E0123 merge, source/schema,
+witness and mutation gates remain authoritative.
+
 ## Current blocker
 
 The L2 boundary and M1-M2 source-backed fixture are promoted. M3 remains
-blocked until its scope, verifier and independent oracle are activated.
+blocked until its scope, central verifier and independent oracle are activated;
+E0172 is the current bounded preparation task.
 
 ## Next executable task
 
-Define and activate the bounded M3 verifier. Do not begin parser-conflict
-reduction or semantic/model work before that verifier and its independent
-oracle are accepted.
+Run E0172's preflight, 53-row model cell and deterministic analysis. Do not
+promote a semantic fact or activate M3 from model output alone.
 
 ## Last verified central command
 

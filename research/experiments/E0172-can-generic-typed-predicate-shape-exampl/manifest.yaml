@@ -1,0 +1,131 @@
+id: "E0172"
+title: "Generic typed-predicate shape examples on the E0123 residual"
+question: >
+  Can generic typed-predicate shape examples reduce residual proposal failures without reducing source and witness validity?
+status: running          # draft | running | reported | abandoned
+opened: "2026-08-16"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "641dc457cf6f055f9d1c4cfa00ecaead9f008dd8"
+  standard-new: "03719c6ebea7dcfc3e88d2a0997ea8935209d235"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: "complete-core"
+  predecessor: E0123/R000254
+  predecessor_rows: .cache/runs/E0123/R000001/rows.jsonl
+  predecessor_report: .cache/runs/E0123/R000001/analysis/report.json
+  immutable_base_rows: .cache/runs/E0117/R000003-full/rows.jsonl
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  page_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  semantic_schema: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/semantic-schema.json
+  prompt_decision: D0074
+  prompt_source: research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/run-semantic.py
+  prompt_source_sha256: 0e38323a17b8da824d1b6b6f4059db47c31081867b3723d175ed26a0565622bc
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  model: [qwen36-35b-a3b]
+  reasoning: [off, on-after-failure]
+  selection: [E0123-residual-53-only]
+  prompt_shapes: [D0074-generic-examples]
+  max_turns: [32]
+  max_tokens: [4096]
+  finalization_turns: [3]
+  witness_mode: [required]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: >
+  One local Qwen 3.6 35B-A3B checkpoint through the verified upstream
+  llama.cpp master runtime. This is a controlled successor to E0123, not a
+  model comparison: it changes only the generic prompt examples prescribed by
+  D0074 and retries exactly the same 53 residual row keys.
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - denominator_rows
+  - residual_rows
+  - prior_control_rows
+  - retry_accepted_rows
+  - retry_unresolved_rows
+  - retry_hard_failures
+  - structural_gate_rejections_by_class
+  - model_errors
+  - loop_recoveries
+  - evidence_calls
+  - submission_calls
+  - prompt_tokens
+  - completion_tokens
+  - total_tokens
+  - wall_s_total
+  - schema_source_gate_failures
+  - witness_disputed_rows
+  - witness_unwitnessed_rows
+  - semantic_promotions
+  - mutation_controls
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >
+  The complete denominator remains all 287 E0117 constraint row keys. The
+  candidate cell processes exactly the 53 rows that E0123 retried; the other
+  234 rows remain immutable predecessor controls. No row may be dropped,
+  duplicated or replaced outside that exact residual set.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >
+  The deterministic E0123 merge-retry, E0116 validate.py and witness.py gates
+  own row identity, source evidence, schema validity, prior accepted controls,
+  witness execution, mutation rejection and zero semantic promotions. A
+  reduction in model gate errors is only the experiment result; model output
+  and self-consistency are not semantic oracles.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, llama_cpp, model_sha256, service_profile]
+  llama_cpp: "upstream master 885c5bbe8e04dc78db25beb911a2715312ad7b54 / build 1"
+  model_sha256: "55983c5a75a1ab9698240777b3bb3de4146e82a9234072b48ad4e8f92ad3fe9f1"
+  service_profile: >
+    mailuefterl local Qwen 3.6 35B-A3B Q4_K_XL, 128K context, q8_0 KV,
+    flash attention, no SSH tunnel, latest verified llama.cpp main, reasoning
+    budget 4096.
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >
+  The successor is falsified as a valid comparison by a changed residual row
+  set, a dropped or duplicated row, a source/schema/witness regression, an
+  accepted-control mismatch, a parser projection, a semantic promotion, or a
+  mutation that passes. It is a valid negative result if the examples do not
+  reduce structural gate failures.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >
+  Run the E0116 bounded protocol with --retry-from the immutable E0117 rows,
+  --require-witnesses and --escalate-thinking, using the D0074 prompt examples
+  at the pinned lab commit. Run E0123's exact merge, validation and witness
+  gates in a separate E0172 analysis directory, then compare structural gate
+  error classes and validity metrics with R000254. Emit zero semantic
+  promotions and retain all rows and trajectories.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: >
+  research/experiments/E0172-can-generic-typed-predicate-shape-exampl/analyse.sh;
+  it invokes the E0123 deterministic post-run gates and writes comparison.json
+  under the ignored E0172 run directory.
+
+preflight: >
+  research/experiments/E0172-can-generic-typed-predicate-shape-exampl/preflight.sh;
+  it checks the pinned local llama.cpp health endpoint and version without
+  waiting for service readiness.
+
+selftest: >
+  research/experiments/E0116-can-bounded-qwen-semantic-proposals-clos/test.sh,
+  test-merge-retry.sh, bash -n on the E0172 scripts and the deterministic
+  E0123 analysis wrapper.
