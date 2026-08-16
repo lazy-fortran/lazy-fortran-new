@@ -164,7 +164,7 @@ milestones:
     title: Source-backed Core 0 semantics
     status: OPEN
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     prerequisites: [M1-M2]
     verifier_command: tests/e2e/run-m3-c603.sh .cache/runs/E0178/R000001
     evidence_paths:
@@ -242,15 +242,17 @@ milestones:
       - research/runs/2026-08.jsonl#R000024
       - research/runs/2026-08.jsonl#R000025
       - research/runs/2026-08.jsonl#R000026
+      - research/runs/2026-08.jsonl#R000027
       - artifacts/reports/M3/c603-semantic-review-v1.md
       - artifacts/reports/M3/c603-reproducibility-review-v1.md
       - artifacts/reports/M3/c603-semantic-review-v2.md
       - artifacts/reports/M3/c603-reproducibility-review-v2.md
       - artifacts/reports/M3/c603-semantic-review-v3.md
       - artifacts/reports/M3/c603-reproducibility-review-v3.md
+      - artifacts/reports/M3/c603-semantic-review-v4.md
+      - artifacts/reports/M3/c603-reproducibility-review-v4.md
     notes: >-
-      The bounded C1106, C702 and C601 slices are promoted. The C603 replay
-      passes and awaits its final focused review before promotion. Full Core 0
+      The bounded C1106, C702, C601 and C603 slices are promoted. Full Core 0
       semantics remain unpromoted and require later contracts.
   - id: M4-M6
     title: Generated frontend, practical compiler and self-hosting
@@ -829,9 +831,9 @@ tasks:
   - id: T-M3-c603-semantic-oracle
     milestone: M3
     title: Verify the bounded C603 label-digit semantic oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c601-semantic-oracle
@@ -918,12 +920,15 @@ tasks:
       - research/runs/2026-08.jsonl#R000024
       - research/runs/2026-08.jsonl#R000025
       - research/runs/2026-08.jsonl#R000026
+      - research/runs/2026-08.jsonl#R000027
       - artifacts/reports/M3/c603-semantic-review-v1.md
       - artifacts/reports/M3/c603-reproducibility-review-v1.md
       - artifacts/reports/M3/c603-semantic-review-v2.md
       - artifacts/reports/M3/c603-reproducibility-review-v2.md
       - artifacts/reports/M3/c603-semantic-review-v3.md
       - artifacts/reports/M3/c603-reproducibility-review-v3.md
+      - artifacts/reports/M3/c603-semantic-review-v4.md
+      - artifacts/reports/M3/c603-reproducibility-review-v4.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
