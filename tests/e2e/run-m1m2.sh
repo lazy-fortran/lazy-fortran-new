@@ -51,6 +51,7 @@ oracle="$ROOT/$(mget oracle)"
 golden="$ROOT/$(mget golden)"
 negative_fixture="$ROOT/$(mget negative_fixture)"
 negative_golden="$ROOT/$(mget negative_golden)"
+regression_corpus="$ROOT/$(mget regression_corpus)"
 expected_fo_version="$(mget fo_version)"
 expected_fo_sha256="$(mget fo_sha256)"
 fo_path="$(command -v fo)"
@@ -90,6 +91,8 @@ python3 "$ROOT/tests/e2e/generate_m1m2_sidecars.py" "$run_dir/standardir.sx" \
 python3 "$ROOT/tests/e2e/validate_m1m2_contracts.py" "$manifest" \
     "$run_dir/standardir.sx" "$run_dir/contract-standardir.sx" \
     "$run_dir/contract-grammar.sx" >"$run_dir/contract-oracle.log"
+python3 "$ROOT/tests/e2e/validate_m1m2_regression.py" "$regression_corpus" \
+    "$manifest" "$ROOT" >"$run_dir/regression-oracle.json"
 
 # This source oracle is deliberately before any grammar generator runs.
 python3 "$oracle" "$manifest" "$source_cache" "$run_dir/all.jsonl" \
@@ -119,7 +122,8 @@ awk '/error: unclosed SX list/ { print; found = 1 } END { exit(found ? 0 : 1) }'
     "$run_dir/negative-parser.log" >"$run_dir/negative-diagnostic.txt"
 
 generate() {
-    local suffix format output
+    local suffix="${1:-}" format output status pid
+    local -a pids=()
     for format in ebnf antlr bison treesitter; do
         case "$format" in
             ebnf) output="$run_dir/grammar.ebnf" ;;
@@ -127,15 +131,23 @@ generate() {
             bison) output="$run_dir/fortran2023.y" ;;
             treesitter) output="$run_dir/grammar.js" ;;
         esac
-        suffix="${1:-}"
         if [ -n "$suffix" ]; then
             output="${output%.*}.two.${output##*.}"
         fi
         (cd "$standard" && fo exec --no-build sxgrammar "$run_dir/standardir.sx" \
             "$run_dir/classifications.sx" "$run_dir/roots.sx" \
             specs/lexical-facts-v0.sx "$format" "$output") \
-            >"$run_dir/generate-${format}${suffix}.log" 2>&1
+            >"$run_dir/generate-${format}${suffix}.log" 2>&1 &
+        pids+=("$!")
     done
+
+    status=0
+    for pid in "${pids[@]}"; do
+        if ! wait "$pid"; then
+            status=1
+        fi
+    done
+    return "$status"
 }
 
 generate
@@ -156,12 +168,11 @@ python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" "$manifest" \
     >"$run_dir/validators.log"
 
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
-    "$standard" "$standard/specs/lexical-facts-v0.sx" "$source_hash" \
+    "$regression_corpus" "$standard" "$standard/specs/lexical-facts-v0.sx" "$source_hash" \
     "$run_dir/contract-standardir.sx" "$run_dir/contract-grammar.sx" \
-    "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" <<'PY'
+    "$standard_commit" "$fo_version" "$fo_sha256" <<'PY'
 import hashlib
 import json
-import platform
 import subprocess
 import sys
 import tomllib
@@ -173,6 +184,7 @@ from pathlib import Path
     manifest_path,
     run_directory,
     source_cache,
+    regression_corpus,
     standard,
     lexical_path,
     source_hash,
@@ -181,17 +193,36 @@ from pathlib import Path
     standard_commit,
     fo_version,
     fo_sha256,
-    fo_path,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 run_dir = Path(run_directory)
 repository_root = Path(manifest_path).resolve().parents[2]
 fixture_path = Path(manifest_path).resolve()
 validation = json.loads((run_dir / "validators" / "result.json").read_text(encoding="utf-8"))
+regression = json.loads(
+    (run_dir / "regression-oracle.json").read_text(encoding="utf-8")
+)
 
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+input_hashes = {
+    name: {"sha256": digest(run_dir / filename)}
+    for name, filename in {
+        "all_productions": "all.jsonl",
+        "selected_productions": "selected.jsonl",
+        "standardir": "standardir.sx",
+        "classifications": "classifications.sx",
+        "roots": "roots.sx",
+        "contract_standardir": "contract-standardir.sx",
+        "contract_grammar": "contract-grammar.sx",
+    }.items()
+}
+input_hashes["regression_corpus"] = {
+    "sha256": digest(repository_root / manifest["regression_corpus"])
+}
 
 
 def version(command: list[str]) -> str:
@@ -211,6 +242,7 @@ trace = {
         "sha256": source_hash,
         "bytes": Path(source_cache).stat().st_size,
     },
+    "regression": regression,
     "component": {
         "repository": "standard-new",
         "commit": standard_commit,
@@ -232,18 +264,7 @@ trace = {
         "sha256": digest(Path(lexical_path)),
         "witness_count": manifest["expected_lexical_witnesses"],
     },
-    "inputs": {
-        name: {"sha256": digest(run_dir / filename)}
-        for name, filename in {
-            "all_productions": "all.jsonl",
-            "selected_productions": "selected.jsonl",
-            "standardir": "standardir.sx",
-            "classifications": "classifications.sx",
-            "roots": "roots.sx",
-            "contract_standardir": "contract-standardir.sx",
-            "contract_grammar": "contract-grammar.sx",
-        }.items()
-    },
+    "inputs": input_hashes,
     "outputs": {
         name: {"sha256": digest(run_dir / name)}
         for name in ("grammar.ebnf", "Fortran2023.g4", "fortran2023.y", "grammar.js")
@@ -251,11 +272,9 @@ trace = {
     "toolchain": {
         "fo_version": fo_version,
         "fo_sha256": fo_sha256,
-        "fo_path": fo_path,
         "antlr4": version(["antlr4"]),
         "bison": version(["bison", "--version"]),
         "tree_sitter": version(["tree-sitter", "--version"]),
-        "standard_new_path": standard,
     },
     "oracles": {
         "source": manifest["oracle"],
@@ -277,13 +296,8 @@ trace = {
         "undefined_symbols": validation["bison"]["undefined_symbols"],
     },
     "reproducibility": {
-        "host": {
-            "os": platform.system(),
-            "os_release": platform.release(),
-            "architecture": platform.machine(),
-            "python_version": platform.python_version(),
-            "python_path": sys.executable,
-        },
+        "environment_record": "research/runs/2026-08.jsonl",
+        "environment_compared": False,
         "locale": {"LC_ALL": "C", "LANG": "C"},
         "commands": ["scripts/verify_active_milestone.sh", "tests/e2e/run-m1m2.sh"],
         "fo_clean_command": "(cd standard-new && fo clean)",

@@ -3,12 +3,32 @@
   "fixture": "M1-M2-source-backed-v0",
   "fixture_manifest": {
     "path": "tests/fixtures/m1m2-source-backed-v0.toml",
-    "sha256": "75e891fa4241ba72d8ffefd31a28f59d33e3849dc95d9b23dd1929a9b07c8ca7"
+    "sha256": "a20756ff010973505bd4d8983f7ecb8bb998abf7d48731abf77ac4d03b337efd"
   },
   "source": {
     "manifest": "artifacts/standards/j3-24-007.toml",
     "sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
     "bytes": 9970124
+  },
+  "regression": {
+    "checks": {
+      "corpus_status": true,
+      "fixture_hash": true,
+      "fixture_link": true,
+      "fixture_path": true,
+      "fixture_status": true,
+      "milestone": true,
+      "name": true,
+      "oracle": true,
+      "regenerate": true,
+      "verifier": true
+    },
+    "fixture": "tests/fixtures/m1m2-source-backed-v0.toml",
+    "fixture_sha256": "a20756ff010973505bd4d8983f7ecb8bb998abf7d48731abf77ac4d03b337efd",
+    "manifest": "research/corpora/m1m2-source-backed-v0.toml",
+    "manifest_sha256": "0b15c7a31b041360c26a66148b875b3c93bb48f77ea5f54d5380af0e2682e893",
+    "origin": "MECHANICAL",
+    "status": "PASS"
   },
   "component": {
     "repository": "standard-new",
@@ -54,6 +74,9 @@
     },
     "contract_grammar": {
       "sha256": "8d24750892d41d5086dd95015bd5b464ec7dde0e3dfb4431c0228fcdc5f3c209"
+    },
+    "regression_corpus": {
+      "sha256": "0b15c7a31b041360c26a66148b875b3c93bb48f77ea5f54d5380af0e2682e893"
     }
   },
   "outputs": {
@@ -73,11 +96,9 @@
   "toolchain": {
     "fo_version": "0.3.2",
     "fo_sha256": "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68",
-    "fo_path": "/home/ert/.local/bin/fo",
     "antlr4": "ANTLR Parser Generator  Version 4.13.2",
     "bison": "bison (GNU Bison) 3.8.2",
-    "tree_sitter": "tree-sitter 0.26.9",
-    "standard_new_path": "/home/ert/code/standard-new"
+    "tree_sitter": "tree-sitter 0.26.9"
   },
   "oracles": {
     "source": "tests/e2e/oracle_m1m2.py",
@@ -99,13 +120,8 @@
     "undefined_symbols": 0
   },
   "reproducibility": {
-    "host": {
-      "os": "Linux",
-      "os_release": "7.1.6-1-cachyos",
-      "architecture": "x86_64",
-      "python_version": "3.14.6",
-      "python_path": "/usr/bin/python3"
-    },
+    "environment_record": "research/runs/2026-08.jsonl",
+    "environment_compared": false,
     "locale": {
       "LC_ALL": "C",
       "LANG": "C"
