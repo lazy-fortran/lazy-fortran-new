@@ -34,6 +34,11 @@ def main() -> None:
         "fixture_link": fixture.get("regression_corpus") == corpus_rel,
         "fixture_path": corpus.get("fixture") == fixture_rel,
         "fixture_hash": corpus.get("fixture_sha256") == digest(fixture_path),
+        "environment_record": (
+            isinstance(fixture.get("environment_record"), str)
+            and fixture["environment_record"].startswith("research/runs/")
+            and "#R" in fixture["environment_record"]
+        ),
         "regenerate": corpus.get("regenerate") == "scripts/verify_active_milestone.sh",
         "verifier": corpus.get("verifier") == "tests/e2e/run-m1m2.sh",
         "oracle": corpus.get("oracle") == fixture.get("oracle"),

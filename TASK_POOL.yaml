@@ -256,8 +256,12 @@ tasks:
       - TASK_POOL.yaml
       - tests/fixtures/**
       - tests/golden/**
+      - tests/e2e/**
+      - research/corpora/**
+      - research/runs/2026-08.jsonl
       - artifacts/traces/**
       - artifacts/manifests/**
+      - artifacts/reports/M1-M2/**
     mode: exclusive
     verifier: >-
       controller-only: after the central fixture and verifier are committed,
@@ -277,10 +281,14 @@ tasks:
         - TASK_POOL.yaml
         - tests/fixtures/**
         - tests/golden/**
+        - tests/e2e/**
+        - research/corpora/**
+        - research/runs/2026-08.jsonl
         - artifacts/traces/**
         - artifacts/manifests/**
+        - artifacts/reports/M1-M2/**
     prerequisites: [T-L2-vertical-slice, T-M1M2-central-source-oracle]
-    verifier_command: define before activation
+    verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
       - ROADMAP.md
       - roadmaps/standardir.md

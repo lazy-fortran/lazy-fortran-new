@@ -170,9 +170,11 @@ python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" "$manifest" \
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
     "$regression_corpus" "$standard" "$standard/specs/lexical-facts-v0.sx" "$source_hash" \
     "$run_dir/contract-standardir.sx" "$run_dir/contract-grammar.sx" \
-    "$standard_commit" "$fo_version" "$fo_sha256" <<'PY'
+    "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" <<'PY'
 import hashlib
 import json
+import platform
+import shutil
 import subprocess
 import sys
 import tomllib
@@ -193,6 +195,7 @@ from pathlib import Path
     standard_commit,
     fo_version,
     fo_sha256,
+    fo_path,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 run_dir = Path(run_directory)
@@ -228,6 +231,61 @@ input_hashes["regression_corpus"] = {
 def version(command: list[str]) -> str:
     result = subprocess.run(command, text=True, capture_output=True, check=False)
     return (result.stdout + result.stderr).splitlines()[0]
+
+
+def tool_identity(name: str, command: list[str]) -> dict[str, str]:
+    path = shutil.which(name)
+    if path is None:
+        raise SystemExit(f"missing tool for reproducibility record: {name}")
+    resolved = Path(path).resolve()
+    return {
+        "version": version(command),
+        "path": str(resolved),
+        "sha256": digest(resolved),
+    }
+
+
+environment = {
+    "host": {
+        "os": platform.system(),
+        "os_release": platform.release(),
+        "architecture": platform.machine(),
+        "python_version": platform.python_version(),
+        "python_path": sys.executable,
+    },
+    "worktree": {
+        "central_root": str(repository_root),
+        "central_state": "clean",
+        "component_root": str(Path(standard).resolve()),
+        "component_state": "clean",
+        "component_build_tree_before": "absent",
+    },
+    "commands": [
+        {
+            "argv": ["scripts/verify_active_milestone.sh"],
+            "cwd": str(repository_root),
+        },
+        {
+            "argv": ["tests/e2e/run-m1m2.sh"],
+            "cwd": str(repository_root),
+        },
+        {
+            "argv": ["fo", "version"],
+            "cwd": str(Path(standard).resolve()),
+        },
+    ],
+    "toolchain": {
+        "fo": {
+            "version": fo_version,
+            "path": str(Path(fo_path).resolve()),
+            "sha256": fo_sha256,
+        },
+        "antlr4": tool_identity("antlr4", ["antlr4"]),
+        "bison": tool_identity("bison", ["bison", "--version"]),
+        "tree_sitter": tool_identity("tree-sitter", ["tree-sitter", "--version"]),
+    },
+    "locale": {"LC_ALL": "C", "LANG": "C"},
+}
 
 
 trace = {
@@ -296,8 +354,9 @@ trace = {
         "undefined_symbols": validation["bison"]["undefined_symbols"],
     },
     "reproducibility": {
-        "environment_record": "research/runs/2026-08.jsonl",
+        "environment_record": manifest["environment_record"],
         "environment_compared": False,
+        "environment": environment,
         "locale": {"LC_ALL": "C", "LANG": "C"},
         "commands": ["scripts/verify_active_milestone.sh", "tests/e2e/run-m1m2.sh"],
         "fo_clean_command": "(cd standard-new && fo clean)",
@@ -310,5 +369,6 @@ Path(trace_path).write_text(json.dumps(trace, indent=2) + "\n", encoding="utf-8"
 print(json.dumps(trace, sort_keys=True))
 PY
 
-cmp "$run_dir/trace.json" "$trace"
+python3 "$ROOT/tests/e2e/compare_m1m2_trace.py" "$run_dir/trace.json" "$trace" \
+    >"$run_dir/trace-compare.log"
 printf 'M1-M2 PASS\ntrace %s\n' "$trace"

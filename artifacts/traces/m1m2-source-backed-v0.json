@@ -3,7 +3,7 @@
   "fixture": "M1-M2-source-backed-v0",
   "fixture_manifest": {
     "path": "tests/fixtures/m1m2-source-backed-v0.toml",
-    "sha256": "a20756ff010973505bd4d8983f7ecb8bb998abf7d48731abf77ac4d03b337efd"
+    "sha256": "bffb2f93ca15dec0da5ce5d432f9ebe734264288c61dd4f023610cb6d20aef26"
   },
   "source": {
     "manifest": "artifacts/standards/j3-24-007.toml",
@@ -13,6 +13,7 @@
   "regression": {
     "checks": {
       "corpus_status": true,
+      "environment_record": true,
       "fixture_hash": true,
       "fixture_link": true,
       "fixture_path": true,
@@ -24,9 +25,9 @@
       "verifier": true
     },
     "fixture": "tests/fixtures/m1m2-source-backed-v0.toml",
-    "fixture_sha256": "a20756ff010973505bd4d8983f7ecb8bb998abf7d48731abf77ac4d03b337efd",
+    "fixture_sha256": "bffb2f93ca15dec0da5ce5d432f9ebe734264288c61dd4f023610cb6d20aef26",
     "manifest": "research/corpora/m1m2-source-backed-v0.toml",
-    "manifest_sha256": "0b15c7a31b041360c26a66148b875b3c93bb48f77ea5f54d5380af0e2682e893",
+    "manifest_sha256": "38680a2b5652136d718a027c7a539bad70126c47cad0eae4cd45cc28953bed97",
     "origin": "MECHANICAL",
     "status": "PASS"
   },
@@ -76,7 +77,7 @@
       "sha256": "8d24750892d41d5086dd95015bd5b464ec7dde0e3dfb4431c0228fcdc5f3c209"
     },
     "regression_corpus": {
-      "sha256": "0b15c7a31b041360c26a66148b875b3c93bb48f77ea5f54d5380af0e2682e893"
+      "sha256": "38680a2b5652136d718a027c7a539bad70126c47cad0eae4cd45cc28953bed97"
     }
   },
   "outputs": {
@@ -120,8 +121,71 @@
     "undefined_symbols": 0
   },
   "reproducibility": {
-    "environment_record": "research/runs/2026-08.jsonl",
+    "environment_record": "research/runs/2026-08.jsonl#R000447",
     "environment_compared": false,
+    "environment": {
+      "host": {
+        "os": "Linux",
+        "os_release": "7.1.6-1-cachyos",
+        "architecture": "x86_64",
+        "python_version": "3.14.6",
+        "python_path": "/usr/bin/python3"
+      },
+      "worktree": {
+        "central_root": "/home/ert/code/lazy-fortran-new",
+        "central_state": "clean",
+        "component_root": "/home/ert/code/standard-new",
+        "component_state": "clean",
+        "component_build_tree_before": "absent"
+      },
+      "commands": [
+        {
+          "argv": [
+            "scripts/verify_active_milestone.sh"
+          ],
+          "cwd": "/home/ert/code/lazy-fortran-new"
+        },
+        {
+          "argv": [
+            "tests/e2e/run-m1m2.sh"
+          ],
+          "cwd": "/home/ert/code/lazy-fortran-new"
+        },
+        {
+          "argv": [
+            "fo",
+            "version"
+          ],
+          "cwd": "/home/ert/code/standard-new"
+        }
+      ],
+      "toolchain": {
+        "fo": {
+          "version": "0.3.2",
+          "path": "/home/ert/.local/bin/fo",
+          "sha256": "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68"
+        },
+        "antlr4": {
+          "version": "ANTLR Parser Generator  Version 4.13.2",
+          "path": "/usr/bin/antlr4",
+          "sha256": "345697e77b7191e2afe70b223f205a8a7fd18a655e6865f503a764583d9a3dcc"
+        },
+        "bison": {
+          "version": "bison (GNU Bison) 3.8.2",
+          "path": "/usr/bin/bison",
+          "sha256": "f6647c43e1ab7e256ef26936b475ba3cf792a4e9a46ea1769481dfda17d701c2"
+        },
+        "tree_sitter": {
+          "version": "tree-sitter 0.26.9",
+          "path": "/usr/bin/tree-sitter",
+          "sha256": "c5ffce366b3c5755041ce63cf51910cbf1c607f7c0ffbd81d7a92efa6543f531"
+        }
+      },
+      "locale": {
+        "LC_ALL": "C",
+        "LANG": "C"
+      }
+    },
     "locale": {
       "LC_ALL": "C",
       "LANG": "C"
