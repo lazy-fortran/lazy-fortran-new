@@ -268,17 +268,41 @@ replays:
     mode: standard-new-statement-boundary-plan-review-fixes
     report: standard-new:test/test_standardir_statement_boundary
     result: truthful-identity-and-boundary-validation-pass-target-mapping-open
+  - run: R000429
+    supersedes: R000428
+    standard-new: "54700a29"
+    mode: standard-new-raw-source-statement-boundary-mapping
+    report: .cache/runs/E0171/R000429-source-boundary-mapping/mapping-final.tsv
+    result: 95-of-95-selected-boundary-sites-mapped-raw-source-target-insertion-open
+  - run: R000430
+    mode: luna-independent-review-of-raw-source-boundary-mapping
+    report: research/experiments/E0171-can-current-standardir-grammar-projectio/findings.md
+    result: candidate-closure-confirmed-scope-and-order-limitations-recorded
 
 result: >
-  The source and production boundary-plan subgates pass through R000427. The
-  experiment remains running: the typed plan validates and preserves source
-  lineage, but target expression mapping, token insertion, generated runtime
-  behavior and parser-oracle classification remain open. Structural evidence
-  is not language equivalence, parse-tree equivalence, complete lexer behavior
-  or semantic coverage.
+  The source boundary-plan and raw source-path subgates pass through R000430.
+  The selected 95-row witness maps 95 of 95 sites with explicit source
+  occurrence lineage and no ambiguous or unsupported mapping. The experiment
+  remains running: target expression mapping, token insertion, generated
+  runtime behavior and parser-oracle classification remain open. Structural
+  evidence is not language equivalence, parse-tree equivalence, complete lexer
+  behavior or semantic coverage.
 
 latest_replay: >
-  R000423 is the latest production projection gate. The `standard-new`
+  R000429 is the latest production raw-source mapping gate, and R000430 is its
+  independent Luna review. The `standard-new` `sxstatementboundarymap` CLI at
+  commit `54700a2` maps all 95 rows from R000420 against the raw StandardIR SX
+  tree, including the R1505 `rhs/1/1` and `rhs/2/1` alternative paths. Its
+  disposition counts are 95 mapped, 0 ambiguous, 0 unsupported and 0
+  suppressed; the output is canonical, with 19 fields and no trailing
+  whitespace. The clean `fo clean && fo` pipeline passes 48 tests with zero
+  warnings. Luna confirms that this is a selected-witness closure claim only:
+  it does not mean 95 of the Fortran 2023 grammar is mapped. The mapper emits
+  plan order, so duplicated source occurrences are compared as a set; this is
+  deterministic but not an order-preserving replay. Source byte locations are
+  locators, not authenticity proof; PDF fidelity remains the laboratory gate.
+  R000423 is the latest production projection gate before boundary mapping. The
+  `standard-new`
   statement-sequence CLI at commit `4c2d8c2` agrees byte-for-byte with the
   95-row R000420 source-evidence witness: zero rows are missing or extra, and
   all source fields and canonical expression paths match. The clean full `fo`

@@ -488,3 +488,53 @@ productions with the neutral tree-sitter identity.
 This closes truthful labeling and plan validation only. It does not authenticate
 the source document inside production, map paths through target normalization,
 insert separators, or establish lexer/parser behavior.
+
+## R000429: raw-source boundary mapping closes the selected witness
+
+`standard-new` `54700a2` adds a read-only `sxstatementboundarymap` CLI and a
+reusable raw-SX source mapper. The mapper matches the complete source
+occurrence lineage, navigates the canonical path before alternative flattening,
+and records the raw node kind, name, pre-order index and selected alternative.
+The CLI retains candidate, suppressed and unsupported input rows as explicit
+dispositions and rejects unknown statuses.
+
+The replay uses the 522-record StandardIR SX input from R000404 and the
+95-row candidate witness from R000420. It produces exactly 95 data rows:
+
+```text
+mapped       95
+ambiguous     0
+unsupported   0
+suppressed    0
+```
+
+R1505 is the required raw-alternative control: `rhs/1/1` maps to
+`function-stmt` and `rhs/2/1` maps to `subroutine-stmt`. The final output is
+`.cache/runs/E0171/R000429-source-boundary-mapping/mapping-final.tsv` and has
+no trailing whitespace. Reproduce it after a clean production build with:
+
+```text
+(cd ../standard-new && fo clean && fo)
+(cd ../standard-new && fo exec --no-build sxstatementboundarymap \
+  ../lazy-fortran-new/.cache/runs/E0171/R000404-clean-witness-replay/input/standardir.sx \
+  ../lazy-fortran-new/.cache/runs/E0171/R000420-statement-sequence-candidates/candidates.tsv \
+  ../lazy-fortran-new/.cache/runs/E0171/R000429-source-boundary-mapping/mapping-final.tsv)
+```
+
+The mapper output is in deterministic plan order. The independent review in
+R000430 found six reordered rows for duplicated source definitions (`R1532`,
+`R1537` and `R1541`) when compared with the witness's original order. This is
+not a loss because the audit key is the complete row set, but the result is
+not an order-preserving replay. The output's byte locations are locators; they
+do not authenticate the PDF or include extracted source text. The 95 rows are
+the selected statement-boundary denominator, not the complete 502-record
+syntax corpus and not semantic coverage.
+
+## R000430: independent Luna review confirms the bounded claim
+
+The read-only Luna review confirms raw path fidelity, source-lineage retention,
+and the R1505 alternative control. It accepts the claim “95/95 selected
+boundary sites mapped” and rejects any broader claim that the Fortran 2023
+grammar is 95/95 mapped or that the result proves language equivalence,
+parser behavior, target insertion, lexer completeness, or StandardIR PDF
+fidelity. The remaining target and authenticity gates stay open.
