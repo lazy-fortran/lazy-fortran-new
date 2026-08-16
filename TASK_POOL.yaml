@@ -141,9 +141,9 @@ milestones:
       - research/runs/2026-08.jsonl#R000444
   - id: M1-M2
     title: Source-valid StandardIR and sane generated grammars
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: NEEDS_FIX
+    review_state: PASS
     prerequisites: [L2]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
@@ -156,8 +156,14 @@ milestones:
       - artifacts/reports/M1-M2/replay-v4-luna-scope.md
       - artifacts/reports/M1-M2/replay-v4-luna-contract.md
       - artifacts/reports/M1-M2/replay-v4-luna-reproducibility.md
+      - artifacts/reports/M1-M2/replay-v5-luna-integration.md
+      - artifacts/reports/M1-M2/replay-v6-luna-integration.md
+      - research/runs/2026-08.jsonl#R000451
       - research/runs/2026-08.jsonl#R000450
       - research/runs/2026-08.jsonl#R000452
+      - research/runs/2026-08.jsonl#R000453
+      - research/runs/2026-08.jsonl#R000454
+      - research/runs/2026-08.jsonl#R000455
   - id: M3
     title: Source-backed Core 0 semantics
     status: BLOCKED
@@ -245,9 +251,9 @@ tasks:
   - id: T-M1M2-source-backed-fixture
     milestone: M1-M2
     title: Define and implement the central source-backed StandardIR grammar gate
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: NEEDS_FIX
+    review_state: PASS
     priority: 100
     depends_on:
       - T-L2-vertical-slice
@@ -315,6 +321,8 @@ tasks:
       - artifacts/reports/M1-M2/
       - research/runs/2026-08.jsonl#R000450
       - research/runs/2026-08.jsonl#R000452
+      - research/runs/2026-08.jsonl#R000454
+      - research/runs/2026-08.jsonl#R000455
     retry_count: 0
     integration_cycle_trigger: interface_change
 
@@ -366,6 +374,7 @@ tasks:
       - tests/e2e/validate_m1m2_contracts.py
       - tests/fixtures/m1m2-source-backed-v0.toml
       - research/runs/2026-08.jsonl#R000450
+      - research/runs/2026-08.jsonl#R000454
 
   - id: T-L2-fortfront-frontend-trace
     milestone: L2

@@ -6,9 +6,8 @@ milestone ledger.
 
 ## Current verification state
 
-The historical evidence below is preserved. L0, L1 and L2 corrected replays
-pass. The M1-M2 central gate passes; its promotion metadata is the active open
-correction.
+The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
+replays and focused reviews pass. M3 remains blocked pending activation.
 
 ## L0 — Normative lexical slice
 
@@ -133,7 +132,7 @@ is recorded in `research/decisions/D0122-narrow-l2-boundary.md`.
 
 Next after: L2
 
-Current status: `OPEN` pending the final promotion metadata review.
+Current status: `PASS`.
 
 Active task: `T-M1M2-source-backed-fixture`.
 
@@ -157,12 +156,13 @@ central clean-checkout and provenance contract consumes them.
 - [x] Positive, negative and mutation controls pass independently.
 - [x] A complete trace, clean-checkout command and regression entry pass.
 
-Central evidence: `R000450`,
+Central evidence: `R000450` (exact payload authority) and corrected replay
+`R000454`,
 `tests/fixtures/m1m2-source-backed-v0.toml`,
 `research/corpora/m1m2-source-backed-v0.toml`,
 `artifacts/traces/m1m2-source-backed-v0.json`, and the exact-revision focused
-review reports under `artifacts/reports/M1-M2/`. The final metadata review is
-`R000452`; its correction is retained before promotion.
+review reports under `artifacts/reports/M1-M2/`. The focused integration review
+`R000455` passes. R000451–R000453 remain retained failed reviews.
 
 Do not begin parser-conflict reduction or semantic/model work before this
 gate has an executable central verifier.

@@ -20,8 +20,8 @@ normative source fact
 
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
-is promoted; the M1-M2 central gate has passed and its final promotion metadata
-review is in progress.
+is promoted; M1-M2 is promoted by its corrected central replay and focused
+review. M3 remains blocked pending activation of its own verifier.
 
 ## Component pins
 
@@ -71,11 +71,12 @@ not current promotion evidence.
   the current clean checkout; its central gate passes and three valid focused
   Luna scopes pass in `R000444`. The promotion reports are retained under
   `artifacts/reports/L2/replay-v4-luna-*.md`.
-- M1-M2: `OPEN` pending final metadata review. The central source-backed gate
-  passes in `R000450`; its fixture, regression corpus, trace, exact environment
-  record and failed review history are retained under `artifacts/` and
-  `research/runs/2026-08.jsonl`. `R000452` found stale control-plane wording;
-  no source, grammar or oracle defect remains open.
+- M1-M2: `PASS`. The source-backed gate passes in corrected replay `R000454`
+  from pushed commit `cf84423`; `R000450` remains the exact payload authority.
+  The fixture, regression corpus, trace, environment record and failed review
+  history are retained under `artifacts/` and `research/runs/2026-08.jsonl`.
+  Focused integration review `R000455` passes; no source, grammar or oracle
+  defect remains open.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -92,7 +93,7 @@ emission contract interchange.
 ## Active fixture
 
 ID: T-M1M2-source-backed-fixture — central source-backed StandardIR grammar
-gate; the verifier passes in `R000450` and final promotion metadata is pending.
+gate; corrected replay `R000454` and focused review `R000455` pass.
 
 Boundary decision: `research/decisions/D0123-m1m2-central-source-gate.md`.
 
@@ -105,16 +106,14 @@ the source-to-target witness required by `docs/oracle-policy.md`.
 
 ## Current blocker
 
-The L2 boundary is promoted. The M1-M2 source-backed fixture, retrieval
-manifest and executable clean-checkout verifier pass in `R000450`. The current
-blocker is reconciliation of the authoritative promotion metadata after the
-`R000452` integration review; M3 remains blocked until this milestone closes.
+The L2 boundary and M1-M2 source-backed fixture are promoted. M3 remains
+blocked until its scope, verifier and independent oracle are activated.
 
 ## Next executable task
 
-Reconcile the M1-M2 promotion metadata and rerun the focused integration
-review. Do not begin parser-conflict reduction or semantic/model work before
-the bounded M1-M2 gate is promoted.
+Define and activate the bounded M3 verifier. Do not begin parser-conflict
+reduction or semantic/model work before that verifier and its independent
+oracle are accepted.
 
 ## Last verified central command
 
@@ -122,8 +121,9 @@ the bounded M1-M2 gate is promoted.
 Current L0 replay and four-lane review: PASS.
 Current L1 replay and four-lane review: PASS.
 Current L2: corrected central execution gate `R000441` `PASS`; focused
-promotion review `R000444` `PASS`; L2 is promoted. M1-M2 central replay
-`R000450` is `PASS`; final metadata review `R000452` is the open correction.
+promotion review `R000444` `PASS`; L2 is promoted. M1-M2 corrected replay
+`R000454` and focused integration review `R000455` are `PASS`; M1-M2 is
+promoted and M3 remains blocked.
 ```
 
 ## Blacklisted pseudo-progress
