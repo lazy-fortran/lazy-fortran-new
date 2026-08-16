@@ -8,7 +8,8 @@ milestone ledger.
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
 replays and focused reviews pass. The bounded M3 C1106, C702 and C601 slices are
-promoted by their central verifiers and focused reviews. Full M3 remains open.
+promoted by their central verifiers and focused reviews. C603 has a passing
+replay and remains under final focused review. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -61,6 +62,32 @@ Evidence: `research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md`,
 `research/runs/2026-08.jsonl#R000001` through `#R000015`, plus focused review
 reports under `artifacts/reports/M3/`. No model output can promote a semantic
 fact.
+
+## M3 — bounded C603 semantic-oracle candidate
+
+Bounded-slice status: `REPLAY PASS; REVIEW PENDING`; central replay `R000001`
+passes. Full Core 0 semantics remain open and are not claimed.
+
+The slice binds J3/24-007 C603, canonical-text line 2878, to the already
+represented StandardIR row R611. Its typed candidate carries a label spelling.
+A valid one-to-five-digit spelling containing a nonzero digit is `ACCEPTED`,
+an all-zero spelling is `REJECTED`, and a non-label spelling is `UNRESOLVED`.
+The deterministic oracle does not parse statements, analyze scope or consume
+model output. Five source/provenance mutation controls must fail closed;
+regenerate the complete inventory with:
+
+```text
+tests/e2e/run-m3-c603.sh .cache/runs/E0178/R000001
+```
+
+Evidence: `research/decisions/D0128-fourth-m3-c603-label-digit-oracle.md`,
+`research/experiments/E0178-can-a-deterministic-oracle-enforce-c603-/`,
+`contracts/m3-c603-label-digit-oracle-v0.sxs`,
+`tests/e2e/validate_m3_c603.py`,
+`artifacts/traces/m3-c603-source-backed-v0.json`, and
+`research/runs/2026-08.jsonl#R000023` through `#R000025`, plus focused review
+reports under `artifacts/reports/M3/`. Promotion remains pending the final
+focused review; no model output can promote a semantic fact.
 
 ## M3 — bounded C601 semantic-oracle successor
 
