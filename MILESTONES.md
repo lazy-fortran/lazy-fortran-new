@@ -8,8 +8,8 @@ milestone ledger.
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
 replays and focused reviews pass. The bounded M3 C1106, C702, C601 and C603
-slices are promoted by their central verifiers and focused reviews. Full M3
-remains open.
+slices are promoted by their central verifiers and focused reviews. C721 has a
+passing replay and remains under final focused review. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -88,6 +88,33 @@ Evidence: `research/decisions/D0128-fourth-m3-c603-label-digit-oracle.md`,
 `research/runs/2026-08.jsonl#R000023` through `#R000027`, plus focused review
 reports under `artifacts/reports/M3/`. This promotes only the bounded C603
 slice; no model output can promote a semantic fact.
+
+## M3 — bounded C721 semantic-oracle candidate
+
+Bounded-slice status: `REPLAY PASS; REVIEW PENDING`; central replay `R000001`
+passes. Full Core 0 semantics remain open and are not claimed.
+
+The slice binds J3/24-007 C721, canonical-text line 3355, to the already
+represented StandardIR rows R714 and R716. Its typed candidate carries
+kind-parameter and exponent-letter states. A kind parameter paired with `E`
+is `ACCEPTED`, a kind parameter paired with `D` is `REJECTED`, an absent kind
+parameter makes the implication vacuous and is `ACCEPTED`, and an unknown state
+is `UNRESOLVED`. The deterministic oracle does not parse real literals,
+evaluate constants or consume model output. Five source/provenance mutation
+controls must fail closed; regenerate the complete inventory with:
+
+```text
+tests/e2e/run-m3-c721.sh .cache/runs/E0179/R000001
+```
+
+Evidence: `research/decisions/D0129-fifth-m3-c721-exponent-letter-oracle.md`,
+`research/experiments/E0179-can-a-deterministic-oracle-enforce-c721-/`,
+`contracts/m3-c721-exponent-letter-oracle-v0.sxs`,
+`tests/e2e/validate_m3_c721.py`,
+`artifacts/traces/m3-c721-source-backed-v0.json`, and
+`research/runs/2026-08.jsonl#R000028`, plus focused review reports under
+`artifacts/reports/M3/`. Promotion remains pending the final focused review;
+no model output can promote a semantic fact.
 
 ## M3 — bounded C601 semantic-oracle successor
 

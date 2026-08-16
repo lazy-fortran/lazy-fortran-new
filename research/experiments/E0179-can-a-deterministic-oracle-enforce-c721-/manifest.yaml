@@ -2,9 +2,13 @@ id: "E0179"
 title: "Deterministic C721 exponent-letter oracle"
 question: >
   Can a deterministic oracle enforce C721 exponent-letter legality
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
+candidate_run: R000001
+candidate_runs: [R000001]
+reported_run: R000001
+reported_runs: [R000001]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
