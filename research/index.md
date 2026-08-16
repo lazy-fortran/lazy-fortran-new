@@ -311,7 +311,8 @@ Runs recorded: 406
 | [D0113](decisions/D0113-truthful-generated-profile-identity.md) | accepted |  | Keep generated profile identity truthful |
 | [D0114](decisions/D0114-source-path-mapping-before-target-normalization.md) | amended by D0115 |  | Map boundary paths before target normalization |
 | [D0115](decisions/D0115-raw-source-paths-before-alternative-flattening.md) | accepted | Amends D0114 | Resolve source paths against raw StandardIR before flattening |
-| [D0116](decisions/D0116-source-target-boundary-correspondence-trace.md) | accepted |  | Carry boundary correspondence through target transformations |
+| [D0116](decisions/D0116-source-target-boundary-correspondence-trace.md) | amended by D0117 |  | Carry boundary correspondence through target transformations |
+| [D0117](decisions/D0117-source-target-relations-and-parser-evidence.md) | accepted | Amends D0116 | Treat target correspondence as a relation and keep parser evidence layered |
 
 ### Proposed decisions
 

@@ -40,13 +40,15 @@ directly from a raw witness or conflict report.
 
 The immediate sequence is:
 
-1. Add and validate the D0116 source-to-target correspondence trace during
-   target normalization. Map the R000429/R000430 source results through each
-   target expression tree without changing the raw-source identity. Preserve explicit `mapped`,
-   `ambiguous`, `unsupported` or `suppressed` dispositions and fail closed on
-   any target path that cannot be justified structurally. No rule-number, LHS
-   suffix, alternative-number heuristic or target spelling may repair a
-   mismatch; target insertion remains blocked until this gate is green.
+1. Add and validate the D0116/D0117 source-to-target correspondence trace
+   during target normalization. Map the R000429/R000430 source results through
+   each target expression tree without changing raw-source identity. Treat the
+   trace as a relation: zero, one or several target slots may be justified, but
+   every source occurrence needs an explicit mapped, ambiguous, unsupported or
+   suppressed disposition. Fail closed on any target path that cannot be
+   justified structurally. No rule-number, LHS suffix, alternative-number
+   heuristic or target spelling may repair a mismatch; target insertion remains
+   blocked until this gate is green.
 2. Make the generated lexer/runtime consume the now-passing source behavior
    oracle R000426 for separators, comments, continuation and keyword/name
    reuse. The target gate must prove nested `IF (...) action-stmt` and
@@ -62,8 +64,11 @@ The immediate sequence is:
    the source witness is already green in R000420/R000423; those are inputs,
    not reasons to skip the target gates.
 4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
-   the witnessed boundary behavior. A conflict count, `%expect` value,
-   precedence setting or matching reference diagnostic is not a gate.
+   the witnessed boundary behavior. Retain per-state/lookahead diagnostics and
+   counterexamples where Bison provides them, and keep lexical precedence,
+   parse precedence and intentional ambiguity separate for tree-sitter. A
+   conflict count, `%expect` value, precedence setting or matching reference
+   diagnostic is not a gate.
 5. Only after those deterministic gates close may broader grammar quality work
    resume; model and semantic campaigns remain paused.
 

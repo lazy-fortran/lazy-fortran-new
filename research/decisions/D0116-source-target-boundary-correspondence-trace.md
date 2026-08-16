@@ -1,7 +1,7 @@
 # D0116. Carry boundary correspondence through target transformations
 
 Date: 2026-08-16
-Status: accepted
+Status: amended by D0117
 
 ## Context
 
