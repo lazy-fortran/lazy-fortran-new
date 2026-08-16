@@ -164,7 +164,7 @@ milestones:
     title: Source-backed Core 0 semantics
     status: OPEN
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     prerequisites: [M1-M2]
     verifier_command: tests/e2e/run-m3-c721.sh .cache/runs/E0179/R000001
     evidence_paths:
@@ -262,10 +262,12 @@ milestones:
       - tests/e2e/validate_m3_c721.py
       - artifacts/traces/m3-c721-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000028
+      - research/runs/2026-08.jsonl#R000029
+      - artifacts/reports/M3/c721-semantic-review-v1.md
+      - artifacts/reports/M3/c721-reproducibility-review-v1.md
     notes: >-
-      The bounded C1106, C702, C601 and C603 slices are promoted. The C721
-      replay passes and awaits its final focused review. Full Core 0 semantics
-      remain unpromoted and require later contracts.
+      The bounded C1106, C702, C601, C603 and C721 slices are promoted. Full
+      Core 0 semantics remain unpromoted and require later contracts.
   - id: M4-M6
     title: Generated frontend, practical compiler and self-hosting
     status: BLOCKED
@@ -947,9 +949,9 @@ tasks:
   - id: T-M3-c721-semantic-oracle
     milestone: M3
     title: Verify the bounded C721 exponent-letter semantic oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c603-semantic-oracle
@@ -1033,6 +1035,9 @@ tasks:
       - artifacts/traces/m3-c721-source-backed-v0.json
       - research/experiments/E0179-can-a-deterministic-oracle-enforce-c721-/manifest.yaml
       - research/runs/2026-08.jsonl#R000028
+      - research/runs/2026-08.jsonl#R000029
+      - artifacts/reports/M3/c721-semantic-review-v1.md
+      - artifacts/reports/M3/c721-reproducibility-review-v1.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

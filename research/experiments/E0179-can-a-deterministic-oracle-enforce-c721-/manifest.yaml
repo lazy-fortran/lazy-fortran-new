@@ -8,7 +8,7 @@ closed: "2026-08-17"
 candidate_run: R000001
 candidate_runs: [R000001]
 reported_run: R000001
-reported_runs: [R000001]
+reported_runs: [R000001, R000029]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
