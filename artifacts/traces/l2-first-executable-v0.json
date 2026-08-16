@@ -59,7 +59,7 @@
       "commit": "181715ac2fa04b0682db24564126dee882cac345",
       "contract": "mir-v0 -> bounded RV64 Linux emission",
       "input": {
-        "path": "cache/l2.mir.sx",
+        "path": ".cache/l2-run/l2.mir.sx",
         "sha256": "20baf8ef28d83c884b70c67c224027a416e5d9e0fb21d8533a26024b654ebcb6"
       },
       "output": {
