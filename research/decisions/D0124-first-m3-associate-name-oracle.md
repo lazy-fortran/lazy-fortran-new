@@ -1,7 +1,7 @@
 # D0124. First M3 slice uses associate construct-name consistency
 
 Date: 2026-08-16
-Status: accepted
+Status: amended by D0125
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 <!-- Optional headers, one per line, when they apply:

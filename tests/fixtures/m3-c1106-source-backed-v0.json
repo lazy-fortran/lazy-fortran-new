@@ -21,6 +21,10 @@
       {"line": 8733, "text": "associate-construct does not specify an associate-construct-name, the corresponding end-associate-stmt"},
       {"line": 8734, "text": "shall not specify an associate-construct-name."}
     ],
+    "case_identity_lines": [
+      {"line": 2759, "text": "case letters. A lower-case letter is equivalent to the corresponding upper-case letter in program units except in a"},
+      {"line": 2760, "text": "character context (3.21)."}
+    ],
     "standardir": {
       "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
       "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
@@ -66,6 +70,17 @@
         "source_rule": "C1106",
         "start": {"known": true, "present": false, "value": null},
         "end": {"known": true, "present": false, "value": null}
+      }
+    },
+    {
+      "id": "positive-case-variant",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "type": "associate-construct-name-pair",
+        "source_rule": "C1106",
+        "start": {"known": true, "present": true, "value": "FOO"},
+        "end": {"known": true, "present": true, "value": "foo"}
       }
     },
     {

@@ -2,7 +2,7 @@ id: "E0175"
 title: "Deterministic C1106 associate-name semantic oracle"
 question: >
   Can a deterministic oracle enforce associate construct name consistency
-status: running          # draft | running | reported | abandoned
+status: draft            # draft | running | reported | abandoned
 opened: "2026-08-16"
 closed: ""
 
@@ -44,7 +44,7 @@ metrics:
 # State the complete eligible set and exclusions before the first run. A rate
 # over the successful subset is reported alongside the strict rate.
 denominator: >
-  Every case in tests/fixtures/m3-c1106-source-backed-v0.json: two positive
+  Every case in tests/fixtures/m3-c1106-source-backed-v0.json: three positive
   witnesses, two negative neighbours and one unknown-side control. Mutation
   controls are a separate source-binding denominator.
 
@@ -73,7 +73,7 @@ falsifiable_by: >
 gate: >
   tests/e2e/run-m3-c1106.sh must pass from clean central and standard-new
   checkouts, including the standard-new sxsemantic canonicalization,
-  normative PDF/canonical-text/StandardIR hash and witness checks, all five
+  normative PDF/canonical-text/StandardIR hash and witness checks, all six
   independently computed outcomes, three observed mutation failures, exact
   committed trace comparison, and zero model calls or semantic promotions.
 

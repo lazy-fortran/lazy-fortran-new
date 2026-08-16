@@ -166,7 +166,7 @@ milestones:
     status: OPEN
     verification: NOT STARTED
     prerequisites: [M1-M2]
-    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000469
+    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000470
     evidence_paths:
       - ROADMAP.md
       - research/decisions/D0124-first-m3-associate-name-oracle.md
@@ -446,6 +446,7 @@ tasks:
       - T-M1M2-source-backed-fixture
     inputs:
       - path: research/decisions/D0124-first-m3-associate-name-oracle.md
+      - path: research/decisions/D0125-m3-c1106-case-insensitive-names.md
       - path: research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/manifest.yaml
       - path: contracts/m3-c1106-semantic-oracle-v0.sxs
       - path: contracts/fixtures/m3-c1106-semantic-oracle-v0.sx
@@ -476,7 +477,7 @@ tasks:
     verifier: >-
       run the exact central command from a clean central checkout and the
       pinned clean standard-new checkout; require source/provenance binding,
-      standard-new semantic canonicalization, five independent outcomes,
+      standard-new semantic canonicalization, six independent outcomes,
       three observed mutation failures, exact trace reuse and zero model calls
       or semantic promotions
     output: artifact
@@ -507,9 +508,10 @@ tasks:
         - ROADMAP.md
         - TASK_POOL.yaml
     prerequisites: [T-M1M2-source-backed-fixture]
-    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000469
+    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000470
     evidence_paths:
       - research/decisions/D0124-first-m3-associate-name-oracle.md
+      - research/decisions/D0125-m3-c1106-case-insensitive-names.md
       - contracts/m3-c1106-semantic-oracle-v0.sxs
       - contracts/fixtures/m3-c1106-semantic-oracle-v0.sx
       - tests/fixtures/m3-c1106-source-backed-v0.json

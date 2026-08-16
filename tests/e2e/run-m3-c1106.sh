@@ -10,7 +10,7 @@ need sha256sum
 need git
 need fo
 
-[ "$#" -eq 1 ] || die "usage: $0 .cache/runs/E0175/R000469"
+[ "$#" -eq 1 ] || die "usage: $0 .cache/runs/E0175/R000470"
 run_arg="$1"
 case "$run_arg" in
     .cache/runs/E0175/*) ;;
@@ -27,10 +27,40 @@ standardir="$ROOT/.cache/runs/E0171/R000433-provenance-replay/standardir.sx"
 source_pdf="$ROOT/.cache/j3-24-007.pdf"
 golden="$ROOT/tests/golden/m3-c1106-semantic-items.sx"
 validator="$ROOT/tests/e2e/validate_m3_c1106.py"
+manifest="$ROOT/research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/manifest.yaml"
 standard="$(resolve_repo standard-new)"
 
 central_commit="$(git -C "$ROOT" rev-parse HEAD)"
 standard_commit="$(git -C "$standard" rev-parse HEAD)"
+central_pin="$(python3 - "$manifest" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+text = Path(sys.argv[1]).read_text(encoding="utf-8")
+match = re.search(r"(?ms)^repos:\n(?:(?:[ \t]+).*(?:\n|$))*?[ \t]+lazy-fortran-new:[ \t]+\"([0-9a-f]{7,64})\"", text)
+if match is None:
+    raise SystemExit("manifest has no concrete lazy-fortran-new pin")
+print(match.group(1))
+PY
+)"
+[ "$(git -C "$ROOT" cat-file -t "${central_pin}^{commit}" 2>/dev/null || true)" = "commit" ] || \
+    die "manifest central pin does not resolve: $central_pin"
+functional_paths=(
+    contracts/m3-c1106-semantic-oracle-v0.sxs
+    contracts/fixtures/m3-c1106-semantic-oracle-v0.sx
+    contracts/registry.sx
+    tests/e2e/run-m3-c1106.sh
+    tests/e2e/validate_m3_c1106.py
+    tests/fixtures/m3-c1106-semantic-items.sx
+    tests/fixtures/m3-c1106-source-backed-v0.json
+    tests/golden/m3-c1106-semantic-items.sx
+    artifacts/traces/m3-c1106-source-backed-v0.json
+    research/decisions/D0124-first-m3-associate-name-oracle.md
+    research/decisions/D0125-m3-c1106-case-insensitive-names.md
+)
+git -C "$ROOT" diff --quiet "$central_pin" -- "${functional_paths[@]}" || \
+    die "functional M3 files differ from manifest central pin $central_pin"
 [ "$standard_commit" = "f94c4c51b51fce22b533b7eeda08741970320913" ] || \
     die "standard-new checkout is not the pinned M3 revision"
 [ -z "$(git -C "$ROOT" status --porcelain --untracked-files=normal)" ] || \
@@ -66,7 +96,7 @@ python3 "$validator" "$fixture" "$run_dir/semantic-items.canonical.sx" "$standar
     >"$run_dir/oracle.log"
 cmp "$run_dir/result.json" "$ROOT/artifacts/traces/m3-c1106-source-backed-v0.json"
 
-python3 - "$run_dir/run-environment.json" "$central_commit" "$standard" \
+python3 - "$run_dir/run-environment.json" "$central_pin" "$central_commit" "$standard" \
     "$standard_commit" "$fo_path" "$fo_version" "$fo_sha256" "$validator" \
     "$fixture" "$semantic_input" "$standardir" "$canonical_text" "$source_pdf" <<'PY'
 import hashlib
@@ -79,6 +109,7 @@ from pathlib import Path
 
 (
     output,
+    central_pin,
     central_commit,
     standard,
     standard_commit,
@@ -114,8 +145,10 @@ def identity(name: str, command: list[str]) -> dict[str, str]:
 record = {
     "central": {
         "repository": "lazy-fortran-new",
-        "commit": central_commit,
+        "revision_pin": central_pin,
+        "worktree_commit": central_commit,
         "state": "clean",
+        "functional_tree_matches_pin": True,
     },
     "standard_new": {
         "repository": standard,

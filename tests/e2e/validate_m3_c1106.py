@@ -41,6 +41,12 @@ def require_string(value: Any, label: str) -> None:
     require(isinstance(value, str) and value != "", f"{label} is not a nonempty string")
 
 
+def fortran_name_identity(value: str) -> str:
+    """Normalize ASCII Fortran letter equivalence without broad Unicode rules."""
+
+    return "".join(chr(ord(char) + 32) if "A" <= char <= "Z" else char for char in value)
+
+
 def validate_side(side: Any, label: str) -> None:
     require(isinstance(side, dict), f"{label} is not an object")
     exact_keys(side, {"known", "present", "value"}, label)
@@ -66,7 +72,7 @@ def c1106_oracle(candidate: dict[str, Any]) -> str:
         return "REJECTED"
     if not start["present"]:
         return "ACCEPTED"
-    return "ACCEPTED" if start["value"] == end["value"] else "REJECTED"
+    return "ACCEPTED" if fortran_name_identity(start["value"]) == fortran_name_identity(end["value"]) else "REJECTED"
 
 
 def validate_candidate(case: dict[str, Any]) -> dict[str, Any]:
@@ -128,6 +134,13 @@ def validate_canonical_lines(source: dict[str, Any], canonical_path: Path) -> No
         parts = actual.split(maxsplit=1)
         require(len(parts) == 2 and parts[0].isdigit(), f"canonical source line lacks line marker: {number}")
         require(parts[1] == item["text"], f"canonical source text differs at line {number}")
+    for item in source["case_identity_lines"]:
+        number = item["line"]
+        require(1 <= number <= len(lines), f"case identity source line is out of range: {number}")
+        actual = lines[number - 1]
+        parts = actual.split(maxsplit=1)
+        require(len(parts) == 2 and parts[0].isdigit(), f"case identity source line lacks line marker: {number}")
+        require(parts[1] == item["text"], f"case identity source text differs at line {number}")
 
 
 def validate_semantic_item(doc: dict[str, Any], root: Path, semantic_input: Path) -> None:
@@ -203,7 +216,7 @@ def set_path(document: dict[str, Any], path: list[str], value: Any) -> None:
 
 
 def validate_fixture_shape(doc: dict[str, Any]) -> None:
-    require(isinstance(doc["cases"], list) and len(doc["cases"]) == 5, "fixture case count differs")
+    require(isinstance(doc["cases"], list) and len(doc["cases"]) == 6, "fixture case count differs")
     ids = set()
     results = []
     for case in doc["cases"]:
@@ -269,6 +282,7 @@ def build_result(
             "canonical_text_sha256": digest(canonical_path),
             "standardir_sha256": digest(standardir_path),
             "canonical_lines": [item["line"] for item in fixture["source"]["canonical_lines"]],
+            "case_identity_lines": [item["line"] for item in fixture["source"]["case_identity_lines"]],
             "standardir_rules": [row["rule"] for row in fixture["source"]["standardir"]["rows"]],
         },
         "semantic_items": {
@@ -296,6 +310,7 @@ def self_test() -> None:
         (side(True, False, None), side(True, False, None), "ACCEPTED"),
         (side(True, True, "a"), side(True, True, "b"), "REJECTED"),
         (side(True, True, "a"), side(True, False, None), "REJECTED"),
+        (side(True, True, "FOO"), side(True, True, "foo"), "ACCEPTED"),
         (side(True, True, "a"), side(False, False, None), "UNRESOLVED"),
     ]
     for start, end, expected in cases:
