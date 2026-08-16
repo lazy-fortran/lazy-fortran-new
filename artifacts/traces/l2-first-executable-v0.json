@@ -1,7 +1,7 @@
 {
   "milestone": "L2",
   "fixture": "L2-first-executable-v0",
-  "lab_commit": "ad2a8b2",
+  "lab_commit": "559a376",
   "boundary": "frontend-v0-to-mir-v0-to-riscv64-linux-v0",
   "contracts": [
     "frontend-v0",
@@ -23,20 +23,20 @@
     },
     "worktree_state": "clean",
     "commands": [
-      "/home/ert/code/lazy-fortran-new/scripts/verify_active_milestone.sh",
-      "(cd /home/ert/code/standard-new && fo clean)",
-      "(cd /home/ert/code/fortfront-new && fo clean)",
-      "(cd /home/ert/code/ffc-new && fo clean)",
-      "(cd /home/ert/code/fortback-new && fo clean)",
-      "(cd /home/ert/code/ffc-new && fo exec ffc-lower-frontend-v0 /home/ert/code/lazy-fortran-new/tests/fixtures/l2-first-executable-v0.sx /home/ert/code/lazy-fortran-new/.cache/l2-run/l2.mir.sx)",
-      "(cd /home/ert/code/ffc-new && fo exec ffc-lower-frontend-v0 /home/ert/code/lazy-fortran-new/tests/fixtures/l2-first-executable-v0.sx /home/ert/code/lazy-fortran-new/.cache/l2-run/l2.two.mir.sx)",
-      "(cd /home/ert/code/ffc-new && fo exec ffc-lower-frontend-v0 /home/ert/code/lazy-fortran-new/tests/negative/l2-first-executable-v0-rejected.sx /home/ert/code/lazy-fortran-new/.cache/l2-run/negative.mir.sx)",
-      "(cd /home/ert/code/fortback-new && fo exec fortback-mir-v0 /home/ert/code/lazy-fortran-new/tests/negative/l2-mir-v0-malformed.sx /home/ert/code/lazy-fortran-new/.cache/l2-run/malformed.elf)",
-      "(cd /home/ert/code/fortback-new && fo exec fortback-mir-v0 /home/ert/code/lazy-fortran-new/tests/negative/l2-mir-v0-out-of-scope.sx /home/ert/code/lazy-fortran-new/.cache/l2-run/out-of-scope.elf)",
-      "(cd /home/ert/code/fortback-new && fo exec fortback-mir-v0 /home/ert/code/lazy-fortran-new/.cache/l2-run/l2.mir.sx /home/ert/code/lazy-fortran-new/.cache/l2-run/l2.elf)",
-      "(cd /home/ert/code/fortback-new && fo exec fortback-mir-v0 /home/ert/code/lazy-fortran-new/.cache/l2-run/l2.mir.sx /home/ert/code/lazy-fortran-new/.cache/l2-run/l2.two.elf)",
-      "readelf -h /home/ert/code/lazy-fortran-new/.cache/l2-run/l2.elf",
-      "qemu-riscv64 /home/ert/code/lazy-fortran-new/.cache/l2-run/l2.elf"
+      "scripts/verify_active_milestone.sh",
+      "(cd standard-new && fo clean)",
+      "(cd fortfront-new && fo clean)",
+      "(cd ffc-new && fo clean)",
+      "(cd fortback-new && fo clean)",
+      "(cd ffc-new && fo exec ffc-lower-frontend-v0 ../lazy-fortran-new/tests/fixtures/l2-first-executable-v0.sx ../lazy-fortran-new/.cache/l2-run/l2.mir.sx)",
+      "(cd ffc-new && fo exec ffc-lower-frontend-v0 ../lazy-fortran-new/tests/fixtures/l2-first-executable-v0.sx ../lazy-fortran-new/.cache/l2-run/l2.two.mir.sx)",
+      "(cd ffc-new && fo exec ffc-lower-frontend-v0 ../lazy-fortran-new/tests/negative/l2-first-executable-v0-rejected.sx ../lazy-fortran-new/.cache/l2-run/negative.mir.sx)",
+      "(cd fortback-new && fo exec fortback-mir-v0 ../lazy-fortran-new/tests/negative/l2-mir-v0-malformed.sx ../lazy-fortran-new/.cache/l2-run/malformed.elf)",
+      "(cd fortback-new && fo exec fortback-mir-v0 ../lazy-fortran-new/tests/negative/l2-mir-v0-out-of-scope.sx ../lazy-fortran-new/.cache/l2-run/out-of-scope.elf)",
+      "(cd fortback-new && fo exec fortback-mir-v0 ../lazy-fortran-new/.cache/l2-run/l2.mir.sx ../lazy-fortran-new/.cache/l2-run/l2.elf)",
+      "(cd fortback-new && fo exec fortback-mir-v0 ../lazy-fortran-new/.cache/l2-run/l2.mir.sx ../lazy-fortran-new/.cache/l2-run/l2.two.elf)",
+      "readelf -h .cache/l2-run/l2.elf",
+      "qemu-riscv64 .cache/l2-run/l2.elf"
     ]
   },
   "stages": [
@@ -49,7 +49,7 @@
         "sha256": "f411b44dd3398f207a30624b2ab150edba40a56ff761c25c0b825a8da9f8c889"
       },
       "output": {
-        "path": "cache/l2.mir.sx",
+        "path": ".cache/l2-run/l2.mir.sx",
         "sha256": "20baf8ef28d83c884b70c67c224027a416e5d9e0fb21d8533a26024b654ebcb6"
       },
       "observable": "canonical MIR-v0 SX"
@@ -63,7 +63,7 @@
         "sha256": "20baf8ef28d83c884b70c67c224027a416e5d9e0fb21d8533a26024b654ebcb6"
       },
       "output": {
-        "path": "cache/l2.elf",
+        "path": ".cache/l2-run/l2.elf",
         "sha256": "19d427d991d2ca2c444c4f74ef90d928a1a04225ed15aa2dc3adb7f622a7aa04"
       },
       "observable": "deterministic RV64 Linux ELF executable"
