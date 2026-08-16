@@ -76,3 +76,11 @@ requires byte-identical committed trace output. The corrected replay and all
 four independent Luna lanes passed. The v1 reports remain immutable failure
 evidence; the v2 reports are active. L1 is promoted and L2 is now the open
 active task.
+
+## 2026-08-16 — first L2 execution boundary
+
+Accepted as [D0121](decisions/D0121-first-executable-rv64-slice.md). The next
+slice is the smallest real cross-repository path from `frontend-v0` SX through
+`ffc-new` to canonical `mir-v0` SX, then through a bounded `fortback-new` RV64
+Linux emitter and QEMU runtime oracle. It deliberately does not claim general
+instruction selection, a complete ABI, or full Fortran compilation.

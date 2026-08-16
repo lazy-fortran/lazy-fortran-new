@@ -108,4 +108,5 @@ Do not define L3 until L2 passes.
 
 The first L2 fixture and runner must be defined before any execution result is
 claimed. The existing `scripts/verify_active_milestone.sh` is fail-closed for
-L2 until an L2 runner exists.
+L2 until an L2 runner exists. The selected boundary is recorded in
+`research/decisions/D0121-first-executable-rv64-slice.md`.

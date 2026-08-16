@@ -78,6 +78,8 @@ ID: T-L2-vertical-slice — deliver the first frontend-to-executable path.
 Candidate family: to be created under `tests/fixtures/` after the component
 interfaces are fixed.
 
+Boundary decision: `research/decisions/D0121-first-executable-rv64-slice.md`.
+
 Expected observable: a runnable artifact and independently verified runtime
 result, with the complete source-to-frontend-to-MIR-to-backend trace.
 

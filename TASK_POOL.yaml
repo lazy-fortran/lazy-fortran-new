@@ -169,6 +169,7 @@ tasks:
       - STATUS.md
       - MILESTONES.md
       - docs/vertical-slice.md
+      - research/decisions/D0121-first-executable-rv64-slice.md
     retry_count: 0
     integration_cycle_trigger: interface_change
 
