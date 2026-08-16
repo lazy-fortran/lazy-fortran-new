@@ -1,0 +1,21 @@
+(schema m3-c723-complex-named-constant-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum shape-state scalar nonscalar unknown)
+  (enum value-type-state integer real other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record complex-named-constant-use
+    (shape shape-state)
+    (type value-type-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact complex-named-constant-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

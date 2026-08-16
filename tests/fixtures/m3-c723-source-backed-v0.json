@@ -1,0 +1,78 @@
+{
+  "schema_version": "m3-c723-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "complex-named-constant-legality",
+  "contract": {
+    "schema": "contracts/m3-c723-complex-named-constant-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c723-complex-named-constant-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C723",
+    "printed_page": 82,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3396, "text": "C723 (R718) Each named constant in a complex literal constant shall be scalar and of type integer or real."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R718", "lhs": "complex-literal-constant", "page": 83, "byte_start": 213517, "byte_length": 61, "occurrence": 68},
+        {"rule": "R719", "lhs": "real-part", "page": 83, "byte_start": 213579, "byte_length": 104, "occurrence": 69},
+        {"rule": "R720", "lhs": "imag-part", "page": 83, "byte_start": 213684, "byte_length": 104, "occurrence": 70}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c723-semantic-items.sx",
+    "sha256": "3d94972e3d3d14401d94c88a7efdb9caada0bbe47fb4168cce93e13c299ba020",
+    "id": "S-C723",
+    "subject": "complex-named-constant-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C723",
+    "page": 82,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-scalar-integer",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "complex-named-constant-use", "source_rule": "C723", "shape": "scalar", "value_type": "integer"}
+    },
+    {
+      "id": "positive-scalar-real",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "complex-named-constant-use", "source_rule": "C723", "shape": "scalar", "value_type": "real"}
+    },
+    {
+      "id": "negative-nonscalar-integer",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "complex-named-constant-use", "source_rule": "C723", "shape": "nonscalar", "value_type": "integer"}
+    },
+    {
+      "id": "unresolved-type-state",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "complex-named-constant-use", "source_rule": "C723", "shape": "scalar", "value_type": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3397},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R717"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C723 (R718) Each named constant in a complex literal constant shall be scalar and of type logical."},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C724"}
+  ]
+}
