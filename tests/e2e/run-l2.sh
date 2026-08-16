@@ -19,13 +19,16 @@ frontend="$(resolve_repo fortfront-new)"
 compiler="$(resolve_repo ffc-new)"
 backend="$(resolve_repo fortback-new)"
 mkdir -p "$ROOT/.cache"
-run_dir=$(mktemp -d "$ROOT/.cache/l2-run.XXXXXX")
+run_dir="$ROOT/.cache/l2-run"
+rm -rf "$run_dir"
+mkdir -p "$run_dir"
 trap 'rm -rf "$run_dir"' EXIT
 
 IFS=$'\t' read -r source golden mir_oracle negative malformed_mir out_of_scope_mir \
     oracle trace evidence_manifest fo_version fo_sha256 \
     standard_commit frontend_commit compiler_commit backend_commit \
-    central_contracts runtime_oracle qemu_version readelf_version \
+    central_contracts fixture_runtime_oracle runtime_oracle qemu_version \
+    readelf_version lab_commit \
     runtime_exit_status host_os host_architecture lc_all lang worktree_state <<EOF
 $(python3 - "$manifest" "$ROOT" <<'PY'
 import sys
@@ -52,9 +55,11 @@ print("\t".join(map(str, (
     manifest["compiler_component_commit"],
     manifest["backend_component_commit"],
     ",".join(manifest["central_contracts"]),
+    manifest["runtime_oracle"],
     evidence["runtime_oracle"],
     evidence["qemu_version"],
     evidence["readelf_version"],
+    evidence["lab_commit"],
     evidence["runtime_exit_status"],
     evidence["host_os"],
     evidence["host_architecture"],
@@ -67,10 +72,14 @@ PY
 EOF
 
 need "$runtime_oracle"
+[ "$fixture_runtime_oracle" = "$runtime_oracle" ]
 [ "$(uname -s)" = "$host_os" ]
 [ "$(uname -m)" = "$host_architecture" ]
 [ "${LC_ALL:-}" = "$lc_all" ]
 [ "${LANG:-}" = "$lang" ]
+[ "$(git -C "$ROOT" cat-file -t "$lab_commit" 2>/dev/null)" = "commit" ]
+git -C "$ROOT" merge-base --is-ancestor "$lab_commit" HEAD
+git -C "$ROOT" diff --quiet "$lab_commit" HEAD -- tests/e2e contracts tests/fixtures scripts
 [ "$(fo version | awk '{print $2}')" = "$fo_version" ]
 [ "$(sha256sum "$(command -v fo)" | awk '{print $1}')" = "$fo_sha256" ]
 [ "$($runtime_oracle --version | head -n1)" = "$qemu_version" ]
@@ -177,7 +186,7 @@ python3 "$oracle" "$manifest" "$source" "$mir" "$golden" "$mir_oracle" "$artifac
     "$negative" "$malformed_mir" "$out_of_scope_mir" \
     "$qemu_status" "$fo_version" "$fo_sha256" "$runtime_oracle" \
     "$qemu_version" "$readelf_version" "$host_os" "$host_architecture" \
-    "$lc_all" "$lang" "$worktree_state" \
+    "$lc_all" "$lang" "$worktree_state" "$lab_commit" \
     >"$run_dir/oracle.log"
 
 python3 - "$run_dir/trace.json" "$manifest" "$source" "$mir" "$artifact" \
@@ -187,6 +196,10 @@ python3 - "$run_dir/trace.json" "$manifest" "$source" "$mir" "$artifact" \
     "$fo_version" "$fo_sha256" "$central_contracts" "$runtime_oracle" \
     "$qemu_version" "$readelf_version" "$runtime_exit_status" \
     "$host_os" "$host_architecture" "$lc_all" "$lang" "$worktree_state" \
+    "$lab_commit" "$standard" "$frontend" "$compiler" "$backend" \
+    "$source" "$mir" "$mir_two" "$golden" "$negative" "$negative_output" \
+    "$malformed_mir" "$malformed_output" "$out_of_scope_mir" \
+    "$out_of_scope_output" "$artifact" "$artifact_two" \
     <<'PY'
 import hashlib
 import json
@@ -205,12 +218,17 @@ def digest(path):
     standard_commit, frontend_commit, compiler_commit, backend_commit,
     qemu_status, fo_version, fo_sha256, central_contracts, runtime_oracle,
     qemu_version, readelf_version, runtime_exit_status, host_os,
-    host_architecture, lc_all, lang, worktree_state,
+    host_architecture, lc_all, lang, worktree_state, lab_commit, standard,
+    frontend, compiler, backend, source, mir, mir_two, golden, negative,
+    negative_output, malformed_mir, malformed_output, out_of_scope_mir,
+    out_of_scope_output, artifact, artifact_two,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
+root = Path(trace_path).parents[2]
 trace = {
     "milestone": "L2",
     "fixture": manifest["id"],
+    "lab_commit": lab_commit,
     "boundary": manifest["boundary"],
     "contracts": central_contracts.split(","),
     "toolchain": {
@@ -226,11 +244,20 @@ trace = {
         "locale": {"LC_ALL": lc_all, "LANG": lang},
         "worktree_state": worktree_state,
         "commands": [
-            "scripts/verify_active_milestone.sh",
-            "fo clean (standard-new, fortfront-new, ffc-new, fortback-new)",
-            "fo exec ffc-lower-frontend-v0 <source> <cache/l2.mir.sx>",
-            "fo exec fortback-mir-v0 <cache/l2.mir.sx> <cache/l2.elf>",
-            runtime_oracle + " <cache/l2.elf>",
+            f"{root / 'scripts/verify_active_milestone.sh'}",
+            f"(cd {standard} && fo clean)",
+            f"(cd {frontend} && fo clean)",
+            f"(cd {compiler} && fo clean)",
+            f"(cd {backend} && fo clean)",
+            f"(cd {compiler} && fo exec ffc-lower-frontend-v0 {source} {mir})",
+            f"(cd {compiler} && fo exec ffc-lower-frontend-v0 {source} {mir_two})",
+            f"(cd {compiler} && fo exec ffc-lower-frontend-v0 {negative} {negative_output})",
+            f"(cd {backend} && fo exec fortback-mir-v0 {malformed_mir} {malformed_output})",
+            f"(cd {backend} && fo exec fortback-mir-v0 {out_of_scope_mir} {out_of_scope_output})",
+            f"(cd {backend} && fo exec fortback-mir-v0 {mir} {artifact})",
+            f"(cd {backend} && fo exec fortback-mir-v0 {mir} {artifact_two})",
+            f"readelf -h {artifact}",
+            f"{runtime_oracle} {artifact}",
         ],
     },
     "stages": [

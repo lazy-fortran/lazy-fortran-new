@@ -2,6 +2,7 @@ id = "L2-first-executable-v0"
 milestone = "L2"
 boundary = "frontend-v0-to-mir-v0-to-riscv64-linux-v0"
 central_contracts = ["frontend-v0", "mir-v0"]
+runtime_oracle = "qemu-riscv64"
 trace = "artifacts/traces/l2-first-executable-v0.json"
 evidence_manifest = "artifacts/manifests/l2-first-executable-v0.toml"
 standard_component = "standard-new"

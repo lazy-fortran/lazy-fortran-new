@@ -26,12 +26,12 @@ def fail(message: str) -> None:
 
 
 def main() -> int:
-    if len(sys.argv) != 21:
+    if len(sys.argv) != 22:
         fail(
             "usage: oracle_l2.py manifest source mir golden mir-oracle artifact "
             "negative malformed-mir out-of-scope-mir qemu-status fo-version "
             "fo-sha256 runtime-oracle qemu-version readelf-version host-os "
-            "host-architecture lc-all lang worktree-state"
+            "host-architecture lc-all lang worktree-state lab-commit"
         )
     (
         manifest_path,
@@ -54,6 +54,7 @@ def main() -> int:
         lc_all,
         lang,
         worktree_state,
+        lab_commit,
     ) = sys.argv[1:]
     manifest_path, source_path, mir_path, golden_path, mir_oracle_path, artifact_path, \
         negative_path, malformed_mir_path, out_of_scope_mir_path = map(
@@ -68,6 +69,8 @@ def main() -> int:
         fail("unexpected L2 boundary")
     if manifest.get("central_contracts") != ["frontend-v0", "mir-v0"]:
         fail("L2 contract lineage is not the reviewed sequence")
+    if manifest.get("runtime_oracle") != runtime_oracle:
+        fail("runtime oracle differs from the fixture manifest")
     root = Path(__file__).resolve().parents[2]
     evidence_manifest = root / manifest["evidence_manifest"]
     evidence = tomllib.loads(evidence_manifest.read_text(encoding="utf-8"))
@@ -87,6 +90,8 @@ def main() -> int:
             fail(f"{field} differs from the committed evidence manifest")
     if qemu_status != evidence["runtime_exit_status"]:
         fail("QEMU exit status differs from the committed evidence manifest")
+    if lab_commit != evidence["lab_commit"]:
+        fail("laboratory commit differs from the committed evidence manifest")
     if evidence["id"] != manifest["id"]:
         fail("evidence manifest has a different fixture ID")
     if evidence["contracts"] != manifest["central_contracts"]:
