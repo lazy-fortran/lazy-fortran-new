@@ -8,7 +8,9 @@
   },
   "component": {
     "repository": "standard-new",
-    "commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235"
+    "commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235",
+    "worktree_state": "clean",
+    "build_tree_before": "absent"
   },
   "contracts": [
     {
@@ -59,7 +61,9 @@
     }
   },
   "toolchain": {
-    "fo": "fo 0.3.2",
+    "fo_version": "0.3.2",
+    "fo_sha256": "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68",
+    "fo_path": "/home/ert/.local/bin/fo",
     "antlr4": "ANTLR Parser Generator  Version 4.13.2",
     "bison": "bison (GNU Bison) 3.8.2",
     "tree_sitter": "tree-sitter 0.26.9",
@@ -91,6 +95,8 @@
       "scripts/verify_active_milestone.sh",
       "tests/e2e/run-m1m2.sh"
     ],
+    "fo_clean_command": "(cd standard-new && fo clean)",
+    "component_build_tree_before": "absent",
     "negative_command": "(cd standard-new && fo exec --no-build sxroundtrip tests/negative/m1m2-source-backed-v0-unclosed.sx <run-dir>/negative.roundtrip.sx)"
   },
   "origin": "MECHANICAL"

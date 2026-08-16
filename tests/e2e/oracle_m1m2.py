@@ -60,6 +60,10 @@ def main() -> None:
     ):
         fail("central contract declarations are incomplete")
     repository_root = fixture.resolve().parents[2]
+    source_manifest = tomllib.loads(
+        (repository_root / doc["source_manifest"]).read_text(encoding="utf-8")
+    )
+    source_document = source_manifest["name"].upper()
     contracts = []
     for name, relative_path, expected_hash in zip(
         contract_names, contract_paths, contract_hashes
@@ -223,8 +227,25 @@ def main() -> None:
             if len(set(definitions)) != len(definitions):
                 fail(f"{expected_name} has duplicate target definitions")
             for witness in witnesses:
-                if f"source-term={witness['source_term']}" not in text:
+                lexical_lines = [
+                    line
+                    for line in text.splitlines()
+                    if "lexical-fact" in line
+                    and f"source-term={witness['source_term']}" in line
+                ]
+                if not lexical_lines:
                     fail(f"{expected_name} lexical source spelling is missing")
+                source_markers = (
+                    f"document={source_document}",
+                    f"rule={witness['rule']}",
+                    f"page={witness['page']}",
+                    f"source-document-sha256={golden['source_sha256']}",
+                )
+                if any(
+                    not any(marker in line for line in lexical_lines)
+                    for marker in source_markers
+                ):
+                    fail(f"{expected_name} lexical source provenance is missing")
                 if witness["target"] not in text:
                     fail(f"{expected_name} lexical target is missing")
                 if witness.get("canonical_spelling") and (

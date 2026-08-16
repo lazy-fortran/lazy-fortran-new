@@ -9,6 +9,7 @@ need python3
 need sha256sum
 need git
 need jq
+need fo
 
 "$ROOT/scripts/check_pins.sh" >/dev/null
 "$ROOT/scripts/check-contracts.sh" >/dev/null
@@ -50,10 +51,20 @@ oracle="$ROOT/$(mget oracle)"
 golden="$ROOT/$(mget golden)"
 negative_fixture="$ROOT/$(mget negative_fixture)"
 negative_golden="$ROOT/$(mget negative_golden)"
+expected_fo_version="$(mget fo_version)"
+expected_fo_sha256="$(mget fo_sha256)"
+fo_path="$(command -v fo)"
+fo_version="$(fo version | awk 'NR == 1 { print $2 }')"
+fo_sha256="$(sha256sum "$fo_path" | awk '{print $1}')"
+[ "$fo_version" = "$expected_fo_version" ]
+[ "$fo_sha256" = "$expected_fo_sha256" ]
 
 "$ROOT/scripts/fetch.sh" --verify j3-24-007 >/dev/null
 [ -f "$source_cache" ]
 [ "$(git -C "$standard" rev-parse HEAD)" = "$standard_commit" ]
+[ -z "$(git -C "$standard" status --porcelain --untracked-files=normal)" ]
+(cd "$standard" && fo clean) >"$run_dir/standard-fo-clean.log" 2>&1
+[ ! -e "$standard/build" ]
 [ -z "$(git -C "$standard" status --porcelain --untracked-files=normal)" ]
 
 (cd "$standard" && fo) >"$run_dir/standard-fo.log" 2>&1
@@ -129,6 +140,7 @@ cmp "$run_dir/grammar.ebnf" "$run_dir/grammar.two.ebnf"
 cmp "$run_dir/Fortran2023.g4" "$run_dir/Fortran2023.two.g4"
 cmp "$run_dir/fortran2023.y" "$run_dir/fortran2023.two.y"
 cmp "$run_dir/grammar.js" "$run_dir/grammar.two.js"
+[ -z "$(git -C "$standard" status --porcelain --untracked-files=normal)" ]
 
 python3 "$oracle" "$manifest" "$source_cache" "$run_dir/all.jsonl" \
     "$run_dir/selected.jsonl" "$run_dir/standardir.sx" "$run_dir/classifications.sx" \
@@ -141,7 +153,7 @@ python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" "$manifest" \
 
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
     "$standard" "$standard/specs/lexical-facts-v0.sx" "$source_hash" \
-    "$standard_commit" <<'PY'
+    "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" <<'PY'
 import hashlib
 import json
 import subprocess
@@ -150,7 +162,7 @@ import tomllib
 from pathlib import Path
 
 
-trace_path, manifest_path, run_directory, source_cache, standard, lexical_path, source_hash, standard_commit = sys.argv[1:]
+trace_path, manifest_path, run_directory, source_cache, standard, lexical_path, source_hash, standard_commit, fo_version, fo_sha256, fo_path = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 run_dir = Path(run_directory)
 repository_root = Path(manifest_path).resolve().parents[2]
@@ -174,7 +186,12 @@ trace = {
         "sha256": source_hash,
         "bytes": Path(source_cache).stat().st_size,
     },
-    "component": {"repository": "standard-new", "commit": standard_commit},
+    "component": {
+        "repository": "standard-new",
+        "commit": standard_commit,
+        "worktree_state": "clean",
+        "build_tree_before": "absent",
+    },
     "contracts": [
         {
             "id": name,
@@ -205,7 +222,9 @@ trace = {
         for name in ("grammar.ebnf", "Fortran2023.g4", "fortran2023.y", "grammar.js")
     },
     "toolchain": {
-        "fo": version(["fo", "version"]),
+        "fo_version": fo_version,
+        "fo_sha256": fo_sha256,
+        "fo_path": fo_path,
         "antlr4": version(["antlr4"]),
         "bison": version(["bison", "--version"]),
         "tree_sitter": version(["tree-sitter", "--version"]),
@@ -231,6 +250,8 @@ trace = {
     "reproducibility": {
         "locale": {"LC_ALL": "C", "LANG": "C"},
         "commands": ["scripts/verify_active_milestone.sh", "tests/e2e/run-m1m2.sh"],
+        "fo_clean_command": "(cd standard-new && fo clean)",
+        "component_build_tree_before": "absent",
         "negative_command": "(cd standard-new && fo exec --no-build sxroundtrip tests/negative/m1m2-source-backed-v0-unclosed.sx <run-dir>/negative.roundtrip.sx)",
     },
     "origin": "MECHANICAL",
