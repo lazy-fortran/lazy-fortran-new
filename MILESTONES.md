@@ -7,7 +7,8 @@ milestone ledger.
 ## Current verification state
 
 The historical evidence below is preserved. L0, L1 and L2 corrected replays
-pass. M1-M2 is the active open milestone.
+pass. The M1-M2 central gate passes; its promotion metadata is the active open
+correction.
 
 ## L0 — Normative lexical slice
 
@@ -132,7 +133,7 @@ is recorded in `research/decisions/D0122-narrow-l2-boundary.md`.
 
 Next after: L2
 
-Current status: `OPEN`.
+Current status: `OPEN` pending the final promotion metadata review.
 
 Active task: `T-M1M2-source-backed-fixture`.
 
@@ -147,14 +148,21 @@ central clean-checkout and provenance contract consumes them.
 
 ### Definition of done
 
-- [ ] Source material has an external manifest, hash and retrieval command.
-- [ ] A central fixture consumes the pinned source-backed StandardIR input.
-- [ ] Source identity and lexical target witnesses pass before generators run.
-- [ ] All four grammar projections regenerate deterministically.
-- [ ] ANTLR4, Bison and tree-sitter validators pass with the declared conflict
+- [x] Source material has an external manifest, hash and retrieval command.
+- [x] A central fixture consumes the pinned source-backed StandardIR input.
+- [x] Source identity and lexical target witnesses pass before generators run.
+- [x] All four grammar projections regenerate deterministically.
+- [x] ANTLR4, Bison and tree-sitter validators pass with the declared conflict
       policy and no undefined symbols.
-- [ ] Positive, negative and mutation controls pass independently.
-- [ ] A complete trace, clean-checkout command and regression entry pass.
+- [x] Positive, negative and mutation controls pass independently.
+- [x] A complete trace, clean-checkout command and regression entry pass.
+
+Central evidence: `R000450`,
+`tests/fixtures/m1m2-source-backed-v0.toml`,
+`research/corpora/m1m2-source-backed-v0.toml`,
+`artifacts/traces/m1m2-source-backed-v0.json`, and the exact-revision focused
+review reports under `artifacts/reports/M1-M2/`. The final metadata review is
+`R000452`; its correction is retained before promotion.
 
 Do not begin parser-conflict reduction or semantic/model work before this
 gate has an executable central verifier.

@@ -6,7 +6,6 @@ MAX_PARALLEL_WORKERS: 4
 # inputs, verifier, output and ownership are all available. These four tasks
 # have disjoint writes and consume only the pinned baseline below.
 ready_frontier:
-  - T-M1M2-central-source-oracle
   - T-L2-fortfront-frontend-trace
   - T-L2-ffc-mir-trace
   - T-L2-fortback-observable-trace
@@ -143,12 +142,22 @@ milestones:
   - id: M1-M2
     title: Source-valid StandardIR and sane generated grammars
     status: OPEN
-    verification: NOT STARTED
+    verification: PASS
+    review_state: NEEDS_FIX
     prerequisites: [L2]
-    verifier_command: define before activation
+    verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
       - ROADMAP.md
       - roadmaps/standardir.md
+      - tests/e2e/run-m1m2.sh
+      - tests/fixtures/m1m2-source-backed-v0.toml
+      - research/corpora/m1m2-source-backed-v0.toml
+      - artifacts/traces/m1m2-source-backed-v0.json
+      - artifacts/reports/M1-M2/replay-v4-luna-scope.md
+      - artifacts/reports/M1-M2/replay-v4-luna-contract.md
+      - artifacts/reports/M1-M2/replay-v4-luna-reproducibility.md
+      - research/runs/2026-08.jsonl#R000450
+      - research/runs/2026-08.jsonl#R000452
   - id: M3
     title: Source-backed Core 0 semantics
     status: BLOCKED
@@ -237,6 +246,8 @@ tasks:
     milestone: M1-M2
     title: Define and implement the central source-backed StandardIR grammar gate
     status: OPEN
+    verification: PASS
+    review_state: NEEDS_FIX
     priority: 100
     depends_on:
       - T-L2-vertical-slice
@@ -290,17 +301,28 @@ tasks:
     prerequisites: [T-L2-vertical-slice, T-M1M2-central-source-oracle]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
-      - ROADMAP.md
-      - roadmaps/standardir.md
       - research/decisions/D0123-m1m2-central-source-gate.md
-      - artifacts/standards/
+      - artifacts/standards/j3-24-007.toml
+      - tests/e2e/run-m1m2.sh
+      - tests/e2e/oracle_m1m2.py
+      - tests/e2e/validate_m1m2_contracts.py
+      - tests/e2e/validate_m1m2_grammars.py
+      - tests/e2e/validate_m1m2_regression.py
+      - tests/e2e/compare_m1m2_trace.py
+      - tests/fixtures/m1m2-source-backed-v0.toml
+      - research/corpora/m1m2-source-backed-v0.toml
+      - artifacts/traces/m1m2-source-backed-v0.json
+      - artifacts/reports/M1-M2/
+      - research/runs/2026-08.jsonl#R000450
+      - research/runs/2026-08.jsonl#R000452
     retry_count: 0
     integration_cycle_trigger: interface_change
 
   - id: T-M1M2-central-source-oracle
     milestone: M1-M2
     title: Audit the frozen source-backed StandardIR inputs and oracle boundary
-    status: OPEN
+    status: PASS
+    verification: PASS
     priority: 90
     depends_on:
       - T-L2-vertical-slice
@@ -338,6 +360,12 @@ tasks:
       worktree: read-only report view of /home/ert/code/standard-new at the pinned commit
       owner: worker
       allowed_paths: []
+    evidence_paths:
+      - artifacts/standards/j3-24-007.toml
+      - tests/e2e/oracle_m1m2.py
+      - tests/e2e/validate_m1m2_contracts.py
+      - tests/fixtures/m1m2-source-backed-v0.toml
+      - research/runs/2026-08.jsonl#R000450
 
   - id: T-L2-fortfront-frontend-trace
     milestone: L2

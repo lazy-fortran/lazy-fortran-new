@@ -19,8 +19,9 @@ project-management loops.
 
 The initial delivery setup completed L0 and L1. L2 is now promoted by the
 corrected central replay and focused review `R000444`. The active central
-milestone is the one named by `STATUS.md` and `MILESTONES.md`; M1-M2 is now open
-with its first source-backed central gate defined by `D0123`. Those
+milestone is the one named by `STATUS.md` and `MILESTONES.md`; the M1-M2
+source-backed central gate passes in `R000450` under `D0123`, with final
+promotion metadata review still open. Those
 control-plane files govern the current delivery loop; the phase checklist
 below remains the long-horizon architecture and research ordering:
 
@@ -49,7 +50,9 @@ evidence. No new provenance, correspondence, schema, semantic, model or
 backend work is allowed unless the active central acceptance test consumes it.
 The bounded D0122 L2 backend slice is complete and does not claim the broad
 normative backend or source-validity gates in the historical phase checklist.
-The next delivery task is the central source-backed M1-M2 gate under D0123.
+The immediate delivery task is to reconcile the M1-M2 promotion metadata and
+rerun its final focused review. M3 remains blocked until that bounded gate is
+promoted.
 Existing correspondence work remains preserved historical evidence; it is
 paused rather than deleted and can resume only when it is the next measured
 blocker for a delivery slice.

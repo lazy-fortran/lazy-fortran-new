@@ -18,9 +18,10 @@ normative source fact
 → deterministic observable
 ```
 
-The result must have an independent oracle. This is an open delivery target,
-not a claim that the complete standard or compiler is implemented. L2 is now
-promoted; M1-M2 is the next open delivery target.
+The result must have an independent oracle. This remains a bounded delivery
+target, not a claim that the complete standard or compiler is implemented. L2
+is promoted; the M1-M2 central gate has passed and its final promotion metadata
+review is in progress.
 
 ## Component pins
 
@@ -70,8 +71,11 @@ not current promotion evidence.
   the current clean checkout; its central gate passes and three valid focused
   Luna scopes pass in `R000444`. The promotion reports are retained under
   `artifacts/reports/L2/replay-v4-luna-*.md`.
-- M1-M2: `OPEN`; no promotion evidence exists yet. The next task is the
-  central source-backed grammar gate selected by `D0123`.
+- M1-M2: `OPEN` pending final metadata review. The central source-backed gate
+  passes in `R000450`; its fixture, regression corpus, trace, exact environment
+  record and failed review history are retained under `artifacts/` and
+  `research/runs/2026-08.jsonl`. `R000452` found stale control-plane wording;
+  no source, grammar or oracle defect remains open.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -87,8 +91,8 @@ emission contract interchange.
 
 ## Active fixture
 
-ID: T-M1M2-source-backed-fixture — define the first central source-backed
-StandardIR grammar gate.
+ID: T-M1M2-source-backed-fixture — central source-backed StandardIR grammar
+gate; the verifier passes in `R000450` and final promotion metadata is pending.
 
 Boundary decision: `research/decisions/D0123-m1m2-central-source-gate.md`.
 
@@ -101,17 +105,16 @@ the source-to-target witness required by `docs/oracle-policy.md`.
 
 ## Current blocker
 
-The L2 boundary is promoted. M1-M2 has no central source-backed fixture,
-retrieval manifest or executable verifier yet; historical cached replays are
-not current clean-checkout evidence. The next task is to establish that gate
-without vendoring external source material.
+The L2 boundary is promoted. The M1-M2 source-backed fixture, retrieval
+manifest and executable clean-checkout verifier pass in `R000450`. The current
+blocker is reconciliation of the authoritative promotion metadata after the
+`R000452` integration review; M3 remains blocked until this milestone closes.
 
 ## Next executable task
 
-Implement the central source-backed M1-M2 gate as
-`T-M1M2-source-backed-fixture`; do not begin parser-conflict reduction or
-semantic/model work before its source, projection and clean-checkout verifier
-are defined.
+Reconcile the M1-M2 promotion metadata and rerun the focused integration
+review. Do not begin parser-conflict reduction or semantic/model work before
+the bounded M1-M2 gate is promoted.
 
 ## Last verified central command
 
@@ -119,7 +122,8 @@ are defined.
 Current L0 replay and four-lane review: PASS.
 Current L1 replay and four-lane review: PASS.
 Current L2: corrected central execution gate `R000441` `PASS`; focused
-promotion review `R000444` `PASS`; L2 is promoted and M1-M2 is now open.
+promotion review `R000444` `PASS`; L2 is promoted. M1-M2 central replay
+`R000450` is `PASS`; final metadata review `R000452` is the open correction.
 ```
 
 ## Blacklisted pseudo-progress
