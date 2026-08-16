@@ -13,12 +13,25 @@ correspondence layer.
 
 ## 2026-08-16 — L0 delivered
 
-`R000437` passed from a clean checkout. The central runner now consumes the
+`R000437` was recorded as passed. The central runner consumes the
 pinned `standard-new` lexical specification and schema, checks deterministic
 roundtrip and generated-schema hashes, verifies a reviewed golden with an
 independent Python oracle, rejects an unbalanced negative fixture with its
-expected diagnostic, and rejects a source-hash mutation. L1 is now the active
-milestone; its frontend runner is not yet implemented.
+expected diagnostic, and rejects a source-hash mutation. At the time of that
+record L1 was the next active milestone; its later historical result is
+`R000438`.
+
+## 2026-08-16 — control-plane replay audit
+
+The historical delivery records `R000437` and `R000438` are preserved. The
+current control-plane status is not promoted from those records alone:
+`scripts/run_e2e.sh` and `tests/e2e/run-l1.sh` verify clean sibling component
+pins but do not establish a clean central checkout before execution, and the
+recorded L1 run predates the commit that contains its final central inputs.
+Therefore current L0/L1 verification is `NEEDS REPLAY`; L2 is not started.
+The next active task is the clean L0 replay, followed by the clean L1 replay.
+No provenance or correspondence maintenance is allowed to displace those
+verifiers.
 
 ## Recurring failure modes
 

@@ -2,11 +2,12 @@
 
 ## Active milestone
 
-L2 — first compiled execution slice
+L0 — normative lexical slice (current replay gate)
 
 ## Central goal
 
-A minimal source fixture must extend the verified L0 path into the frontend:
+Progress through the cross-repository delivery path from normative source to
+an executable compiler observable:
 
 ```text
 normative source fact
@@ -18,7 +19,8 @@ normative source fact
 ```
 
 The result must have an independent oracle. This is an open delivery target,
-not a claim that the complete standard or compiler is implemented.
+not a claim that the complete standard or compiler is implemented. L2 is not
+started while the current L0/L1 replay gate is open.
 
 ## Component pins
 
@@ -33,48 +35,63 @@ with `scripts/check_pins.sh` after changing a component pin.
 | ffc-new | lazy-fortran/ffc-new | `32538492ba10de8d6c8745b71da372ebd5b6db36` | compiler driver and middle end | clean main; central L0 use not wired |
 | fortback-new | lazy-fortran/fortback-new | `a149015b8592b6c4c96b513171c1002f7654545b` | backend | clean main; central L0 use not wired |
 
-## Completed milestones
+## Historical milestone evidence
 
-L0 passed as `R000437` from a clean checkout. The pinned
+L0 was recorded as passed by `R000437`. The pinned
 `standard-new/specs/lexical-facts-v0.sx` source regenerated a deterministic
 canonical SX output and generated schema artifact. The reviewed golden and
 independent oracle passed; the malformed neighbor produced `unclosed SX list`;
 the source-hash mutation was rejected by the oracle. See
 `artifacts/traces/l0-lexical-slice-v0.json`.
 
-L1 passed as `R000438` from a clean checkout. The pinned `standard-new`
+L1 was recorded as passed by `R000438`. The pinned `standard-new`
 canonicalized the two-rule StandardIR grammar fixture and the pinned
 `fortfront-new` grammar frontier accepted `PROGRAM` and rejected `BAD`; the
 malformed StandardIR neighbor and independent oracle passed. See
-`artifacts/traces/l1-frontend-slice-v0.json`.
+`artifacts/traces/l1-frontend-slice-v0.json`. This remains historical evidence,
+not current promotion evidence.
+
+## Current verification state
+
+- L0: `NEEDS REPLAY`. `R000437` is retained historical evidence.
+- L1: `NEEDS REPLAY`. `R000438` is retained historical evidence.
+- L2: `NOT STARTED` and blocked by the L0/L1 replay gate.
+
+The existing L0 and L1 runners check clean sibling component pins but do not
+assert a clean central checkout before execution. The recorded L1 run also
+predates the commit containing its final central inputs. No replay is claimed
+by this audit.
 
 ## Active fixture
 
-ID: OPEN — choose the smallest existing fixture before implementation.
+ID: T-L0-replay-current — replay the existing L0 fixture from the current
+clean central checkout.
 
-Candidate family: smallest existing source-to-MIR or driver fixture that the
-pinned `ffc-new` and `fortback-new` revisions can consume.
+Candidate family: `tests/fixtures/l0-lexical-slice.toml`, followed only after
+its PASS by `tests/fixtures/l1-frontend-slice.toml`.
 
-Expected observable: OPEN — must be fixed before implementation and recorded
-with its oracle for L2.
+Expected observable: the existing L0 deterministic StandardIR artifact,
+reviewed golden, negative diagnostic and mutation rejection.
 
-Oracle: OPEN — runtime output, reviewed golden, differential or metamorphic.
+Oracle: `tests/e2e/oracle_l0.py` and the existing L0 negative/mutation gates.
 
 ## Current blocker
 
-No central L2 runner yet binds the verified frontend artifact to the pinned
-driver/backend path and an independently checked executable observable.
+No current replay has established the L0/L1 evidence from this central
+checkout, and no central L2 runner binds the frontend artifact to the pinned
+driver/backend path.
 
 ## Next executable task
 
-Choose the smallest existing driver/backend-compatible fixture and implement
-the central L2 runner. It must fail closed until the fixture, expected runtime
-observable and oracle are named.
+Run `scripts/run_e2e.sh` from a clean central checkout. If it passes, promote
+only the replay task and make `tests/e2e/run-l1.sh` the next active verifier.
+Do not implement L2 in this audit.
 
 ## Last verified central command
 
 ```text
-PASS — `scripts/verify_active_milestone.sh` for L1; see `R000438`.
+Historical PASS — `scripts/verify_active_milestone.sh` for L1; see `R000438`.
+Current replay: `NEEDS REPLAY`.
 ```
 
 ## Blacklisted pseudo-progress

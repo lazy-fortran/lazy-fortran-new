@@ -337,3 +337,30 @@ For cross-repository work:
 
 A component-local build or test is necessary but never sufficient for a
 cross-repository milestone.
+
+## Persistent Goal Mode operating system
+
+The durable control-plane queue is `TASK_POOL.yaml`. `STATUS.md` records
+current verified facts, `MILESTONES.md` defines delivery gates, and
+`docs/operating-loop.md` defines the fast and integration cycles. Read those
+files before every Goal Mode cycle, together with the entrypoint list in
+`docs/goal-mode.md`.
+
+Use one active task and its named verifier per fast cycle. Continue with the
+next dependency-ready task after a PASS; do not stop merely because a local
+milestone passed. Enter an integration cycle after four verified deltas,
+three no-progress cycles, a milestone pass, or an interface change.
+
+Never infer central progress from commit messages, component-local tests,
+architecture prose, provenance fields, generated code compiling, artifact
+hashes, or an unconsumed trace. A current milestone status changes only from
+the executed verifier and independent oracle. Historical runs remain
+immutable evidence; if their clean-checkout conditions are not verified for
+the current control-plane checkout, record `NEEDS REPLAY` and do not promote
+the next milestone.
+
+At integration cycles, use the four independent GPT-5.6 Luna review lanes in
+`docs/luna-review-protocol.md`; do not reveal one reviewer's conclusion to
+another before verdicts exist. Use GPT-Sol only under
+`docs/gpt-sol-consult-protocol.md`, after two materially distinct failed
+attempts or a genuinely underdetermined design/specification decision.

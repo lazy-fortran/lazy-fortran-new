@@ -1,0 +1,152 @@
+schema: 1
+
+control_plane:
+  repository: lazy-fortran-new
+  entrypoint_files:
+    - AGENTS.md
+    - TASK_POOL.yaml
+    - STATUS.md
+    - MILESTONES.md
+    - docs/goal-mode.md
+    - docs/operating-loop.md
+    - docs/cross-repo-protocol.md
+    - docs/component-contracts.md
+    - docs/oracle-policy.md
+    - docs/reproducibility.md
+    - docs/vertical-slice.md
+    - research/decision-log.md
+  status_values: [OPEN, PASS, FAIL, BLOCKED, RETIRED]
+
+terminal_mission:
+  id: lazy-fortran-generated-compiler
+  statement: >
+    Deliver a specification-generated Fortran compiler whose cross-repository
+    source-to-executable behavior is reproducible and independently verified.
+  completion_requires:
+    - every activated milestone has a PASS task and retained evidence
+    - the final compiler path passes from a clean checkout
+    - component revisions and interfaces are pinned centrally
+    - each observable has an independent oracle
+
+milestone_pass_requires:
+  - pinned component revisions
+  - positive fixture
+  - invalid near-neighbor fixture
+  - independent oracle
+  - clean-checkout reproduction
+  - regression-corpus entry
+  - trace and artifact evidence
+
+active_task: T-L0-replay-current
+
+milestones:
+  - id: L0
+    title: Normative lexical slice
+    status: OPEN
+    verification: NEEDS REPLAY
+    historical_status: PASS
+    prerequisites: []
+    verifier_command: scripts/run_e2e.sh
+    evidence_paths:
+      - artifacts/manifests/l0-lexical-slice-v0.toml
+      - artifacts/traces/l0-lexical-slice-v0.json
+      - research/runs/2026-08.jsonl#R000437
+  - id: L1
+    title: Frontend slice
+    status: BLOCKED
+    verification: NEEDS REPLAY
+    historical_status: PASS
+    prerequisites: [T-L0-replay-current]
+    verifier_command: tests/e2e/run-l1.sh
+    evidence_paths:
+      - artifacts/manifests/l1-frontend-slice-v0.toml
+      - artifacts/traces/l1-frontend-slice-v0.json
+      - research/runs/2026-08.jsonl#R000438
+  - id: L2
+    title: First compiled execution slice
+    status: BLOCKED
+    verification: NOT STARTED
+    prerequisites: [T-L1-replay-current]
+    verifier_command: scripts/verify_active_milestone.sh
+    evidence_paths:
+      - STATUS.md
+      - MILESTONES.md
+  - id: M1-M2
+    title: Source-valid StandardIR and sane generated grammars
+    status: BLOCKED
+    verification: NOT STARTED
+    prerequisites: [L2]
+    verifier_command: define before activation
+    evidence_paths:
+      - ROADMAP.md
+      - roadmaps/standardir.md
+  - id: M3
+    title: Source-backed Core 0 semantics
+    status: BLOCKED
+    verification: NOT STARTED
+    prerequisites: [M1-M2]
+    verifier_command: define before activation
+    evidence_paths:
+      - ROADMAP.md
+  - id: M4-M6
+    title: Generated frontend, practical compiler and self-hosting
+    status: BLOCKED
+    verification: NOT STARTED
+    prerequisites: [M3]
+    verifier_command: define before activation
+    evidence_paths:
+      - ROADMAP.md
+
+tasks:
+  - id: T-L0-replay-current
+    milestone: L0
+    title: Replay L0 from the current clean central checkout
+    status: OPEN
+    prerequisites:
+      - all component pins in repos.toml resolve to clean main checkouts
+    verifier_command: scripts/run_e2e.sh
+    evidence_paths:
+      - tests/e2e/run-l0.sh
+      - artifacts/manifests/l0-lexical-slice-v0.toml
+      - artifacts/traces/l0-lexical-slice-v0.json
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+  - id: T-L1-replay-current
+    milestone: L1
+    title: Replay L1 from the current clean central checkout
+    status: BLOCKED
+    prerequisites: [T-L0-replay-current]
+    verifier_command: tests/e2e/run-l1.sh
+    evidence_paths:
+      - tests/e2e/run-l1.sh
+      - artifacts/manifests/l1-frontend-slice-v0.toml
+      - artifacts/traces/l1-frontend-slice-v0.json
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+  - id: T-L2-vertical-slice
+    milestone: L2
+    title: Define and deliver the first frontend-to-executable path
+    status: BLOCKED
+    prerequisites: [T-L1-replay-current]
+    verifier_command: scripts/verify_active_milestone.sh
+    evidence_paths:
+      - STATUS.md
+      - MILESTONES.md
+      - docs/vertical-slice.md
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
+integration_cycle:
+  triggers:
+    verified_deltas: 4
+    no_progress_cycles: 3
+    milestone_pass: true
+    interface_change: true
+  required_actions:
+    - stop fast-cycle task selection
+    - verify all pins and active contracts
+    - rerun every relevant central verifier from a clean checkout
+    - obtain the four independent Luna reviews
+    - reconcile evidence and update STATUS.md/MILESTONES.md
+    - commit central metadata only after the gates pass
+  resume_rule: select the next dependency-ready OPEN task; do not stop at a local PASS

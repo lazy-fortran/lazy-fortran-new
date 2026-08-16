@@ -4,6 +4,13 @@ Milestone status is changed only after the central verification command and
 its independent oracle pass. Component repositories do not maintain a second
 milestone ledger.
 
+## Current verification state
+
+The historical evidence below is preserved. Current promotion status is
+separate: L0 and L1 are both `NEEDS REPLAY` because the existing runners do
+not assert a clean central checkout before execution, and no replay was run
+for this audit. L2 is `NOT STARTED`.
+
 ## L0 — Normative lexical slice
 
 ### Goal
@@ -35,6 +42,8 @@ Evidence: `R000437`,
 `artifacts/traces/l0-lexical-slice-v0.json`. Regenerate with
 `scripts/run_e2e.sh`.
 
+Current status: `NEEDS REPLAY` from the current central checkout.
+
 ## L1 — Frontend slice
 
 Blocked by: L0
@@ -60,9 +69,13 @@ Evidence: `R000438`,
 `artifacts/traces/l1-frontend-slice-v0.json`. Regenerate with
 `scripts/verify_active_milestone.sh`.
 
+Current status: `NEEDS REPLAY` from the current central checkout.
+
 ## L2 — First compiled execution slice
 
 Blocked by: L1
+
+Current status: `NOT STARTED`.
 
 ```text
 source
