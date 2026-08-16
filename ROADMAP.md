@@ -11,8 +11,11 @@ not copied into several places and left to rot. Any count appearing here names
 the command that regenerates it.
 
 **Active critical path.** The corrected E0157 audit and Luna review are green
-in R000371, and the authoritative PDF-fidelity gate is green in E0158/R000372
-for the same current StandardIR source hash used by R000404. The v2
+in R000371, and E0158/R000372 closes the raw source-span, continuation and
+RHS-structure checks for the same current StandardIR source hash used by
+R000404. It does not close the source metadata contract: R000404 shows that
+the header and every syntax record currently carry `(clause 5)`, including
+rules whose normative clause is encoded by the rule number. The v2
 lexical-layout projection is green in R000411, the source-derived
 statement-sequence witness is green in R000420, and its production projection
 is green in R000423 at `standard-new` `4c2d8c2`: the CLI agrees byte-for-byte
@@ -21,8 +24,9 @@ plan and raw-source mapping infrastructure are green through R000430 at
 `standard-new` `54700a2`; all 95 selected sites map with explicit lineage and
 Luna has confirmed the bounded claim. R000431/R000432 now close the bounded
 source-target correspondence join at `standard-new` `2fef265`, with 86 mapped
-rows and nine explicit deduplication suppressions. D0116/D0117 now fix the
-next interface:
+rows and nine explicit deduplication suppressions. The retained-target
+relation for those suppressions is the next production review. D0116/D0117
+now fix the next interface:
 target normalization must emit a typed source-to-target correspondence trace
 relation,
 not a post-hoc name or hash match. No model run,
@@ -34,8 +38,10 @@ statements. The source-level behavior oracle R000426 now passes, and R000428
 closes the typed, validated boundary-plan and truthful-identity subgates at
 `standard-new` `107d7a3`. The plan deliberately does not insert target
 separators yet. The source mapper uses raw SX before alternative flattening
-(D0115/D0116); the next gate is linking the nine suppressed source occurrences
-to retained target occurrences, followed by generated token/runtime
+(D0115/D0116); the next gate is repairing normative-clause and occurrence
+provenance, then linking the nine suppressed source occurrences to retained
+target occurrences. Assumed syntax and repeated rule occurrences must have an
+explicit StandardIR/projection contract before generated token/runtime
 behavior, regeneration of all four grammar targets and parser-oracle checks.
 This is D0111 through D0117 layered onto the two-tier
 evidence protocol in D0105; R000400 remains the profile negative control and
@@ -44,19 +50,30 @@ directly from a raw witness or conflict report.
 
 The immediate sequence is:
 
-1. Finish the D0116/D0117 source-to-target correspondence gate during target
+1. Repair the source provenance contract before downstream generation. Derive
+   the normative clause from each rule number, preserve the clause of every
+   source occurrence separately, and retain page/byte coordinates as occurrence
+   locators. Represent repeated rule occurrences explicitly as one canonical
+   rule with occurrence lineage, or as occurrence records linked to that rule;
+   target deduplication must point to the retained occurrence. Keep R401/R402/
+   R403 as compact assumed-syntax facts and generate their concrete closure
+   only in a projection that records the derivation. Rerun the full source
+   metadata and PDF-span audit with negative controls. No parser generator or
+   model run is allowed while this gate is open.
+2. Finish the D0116/D0117 source-to-target correspondence gate during target
    normalization. The R000429/R000430 source results already join one-to-one
    to the R000431 trace, but nine selected `rule-deduplicate` suppressions have
-   no retained-target pointer. Add that relation generically, preserving raw
-   source identity and distinguishing alternative-level hashes from
-   transformation-node hashes. Every source occurrence must end as an explicit
-   mapped, ambiguous, unsupported or suppressed disposition with a retained
-   target relation where suppression is justified. Fail closed on any target
-   path that cannot be justified structurally, including normalizer paths that
-   reject unsupported recursion. No rule-number, LHS suffix, alternative-number
-   heuristic or target spelling may repair a mismatch; target insertion remains
-   blocked until this gate is green.
-2. Make the generated lexer/runtime consume the now-passing source behavior
+   no retained-target pointer in the pinned production output. Add that
+   relation generically, preserving raw source identity and distinguishing
+   alternative-level hashes from transformation-node hashes. Every source
+   occurrence must end as an explicit mapped, ambiguous, unsupported or
+   suppressed disposition with a retained target relation where suppression is
+   justified. Fail closed on any target path that cannot be justified
+   structurally, including normalizer paths that reject unsupported recursion.
+   No rule-number, LHS suffix, alternative-number heuristic or target spelling
+   may repair a mismatch; target insertion remains blocked until this gate is
+   green.
+3. Make the generated lexer/runtime consume the now-passing source behavior
    oracle R000426 for separators, comments, continuation and keyword/name
    reuse. The target gate must prove nested `IF (...) action-stmt` and
    ordinary statement sequences separately; source/compiler agreement alone is
@@ -64,19 +81,19 @@ The immediate sequence is:
    runtime still consumes caller-supplied tokens rather than raw Fortran source,
    so the first target gate must make the boundary-token stream explicit and
    testable; it must not be described as a completed source lexer.
-3. Regenerate all four targets only after the mapping and token/runtime gates
+4. Regenerate all four targets only after the mapping and token/runtime gates
    pass. Require exact source identity, per-format transformation witnesses,
    selected-profile validation and parser-generator smoke before any conflict
    classification. The central v2 contract is already green in R000411 and
    the source witness is already green in R000420/R000423; those are inputs,
    not reasons to skip the target gates.
-4. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
+5. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
    the witnessed boundary behavior. Retain per-state/lookahead diagnostics and
    counterexamples where Bison provides them, and keep lexical precedence,
    parse precedence and intentional ambiguity separate for tree-sitter. A
    conflict count, `%expect` value, precedence setting or matching reference
    diagnostic is not a gate.
-5. Only after those deterministic gates close may broader grammar quality work
+6. Only after those deterministic gates close may broader grammar quality work
    resume; model and semantic campaigns remain paused.
 
 A checked box means the thing exists and was observed working, not that someone
@@ -540,12 +557,13 @@ changes a denominator.
       structural audit. The report is
       `.cache/runs/E0167-audit-replay-v2`; it does not claim language
       equivalence.
-- [x] E0168: replay the authoritative PDF-fidelity gate against the exact
-      current source used for the four-format output. R000372 passes all 522
-      source spans, 20 duplicate families/40 occurrences, all token/ref leaves,
-      page continuation handling, R741/R843/R1103/R1307/R1315, PDF lineage and
-      the negative mutation. No extractor repair or rule-number exception is
-      justified.
+- [x] E0168: replay the raw PDF-fidelity gate against the exact current source
+      used for the four-format output. R000372 passes the source spans, token/
+      ref leaves, page continuation handling, the R741/R843/R1103/R1307/R1315
+      controls, PDF lineage and the negative mutation. Its scope is raw span
+      and RHS fidelity. It does not validate normative-clause metadata,
+      repeated-occurrence modeling or assumed-syntax closure; R000404 reopens
+      those source metadata gates.
 - [x] E0169: compare the current Bison target controls with LFortran. The
       generated file is GLR and source-lineage-bearing but has no precedence
       declarations or actions; LFortran has 11 precedence directives, typed
@@ -1309,16 +1327,19 @@ witnesses.
 
 The historical closure and projection reports exist, but the complete
 selected Fortran syntax profile is not yet accepted as faithful. Before this
-milestone can close again, every referenced name must be accounted for as an
-explicit production, an R401/R402/R403 assumed expansion, a lexical fact, a
-fixed erratum/token operation, or a source-backed semantic-only fact, and the
-new D0083 validity audit must pass. An explicitly unsupported profile feature
-is a separate exclusion decision, not a hidden resolution.
+milestone can close again, source metadata must distinguish normative clause
+from occurrence location, repeated rule occurrences must retain their source
+lineage, and every referenced name must be accounted for as an explicit
+production, an R401/R402/R403 assumed expansion, a lexical fact, a fixed
+erratum/token operation, or a source-backed semantic-only fact. The new D0083
+validity audit must pass all of these layers. An explicitly unsupported profile
+feature is a separate exclusion decision, not a hidden resolution.
 
 The selected production parser inputs—EBNF, ANTLR4, Bison and tree-sitter—are
-structurally sane. They retain provenance, contain no unresolved symbols, and
-pass their target validators without fatal errors. The three validators run in
-the same automatic procedure; a target-specific rewrite or a hand-maintained
+structurally sane only after they are generated from the source-valid
+projection. They retain provenance, contain no unresolved symbols, and pass
+their target validators without fatal errors. The three validators run in the
+same automatic procedure; a target-specific rewrite or a hand-maintained
 conflict list is not a gate. Target warnings remain reported as evidence under
 D0030, and any warning that indicates lost source structure or unresolved
 symbols blocks this milestone. The direct parser has no dispatch collisions,
@@ -1339,9 +1360,11 @@ repair is one generic pipeline with these boundaries:
    classified as layout or boundary records, not discarded before the grammar
    parser sees them.
 2. Record occurrences before canonicalization. The identity key is the source
-   document hash, source byte span and occurrence ordinal. The normalized
-   production key is separate. Repeated identical occurrences, repeated
-   definitions and conflicting occurrences become explicit outcomes.
+   document hash, source byte span and occurrence ordinal. Store the normative
+   clause derived from the rule number separately from the clause containing
+   the occurrence. The normalized production key is separate. Repeated
+   identical occurrences, repeated definitions and conflicting occurrences
+   become explicit outcomes.
 3. Lex the notation with a source-independent token policy. The lexer must
    separate punctuation, delimiters, Unicode operators, ellipsis, quoted
    terminals and identifier-like metavariables even when the PDF has no spaces.
@@ -1359,8 +1382,10 @@ repair is one generic pipeline with these boundaries:
    must fail when a continuation, token boundary or span is changed.
 6. Classify the reference closure. Every reference is reported as a numbered
    production, lexical fact, R401/R402/R403 assumed syntax, fixed D0025 erratum,
-   semantic-only name or unresolved. An unresolved reference is a measured
-   state. It is not silently converted into a parser alias.
+   semantic-only name or unresolved. Assumed syntax remains a source-backed
+   derivation that target projections may expand mechanically. An unresolved
+   reference is a measured state. It is not silently converted into a parser
+   alias.
 7. Generate exports only from `source-valid` records. EBNF, ANTLR4, Bison,
    tree-sitter and the direct parser receive the same accepted StandardIR
    stream. A deterministic closure pass supplies only source-backed implicit
