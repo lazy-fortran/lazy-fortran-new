@@ -7,10 +7,9 @@ milestone ledger.
 ## Current verification state
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
-replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603 and
-C721 slices are promoted by their central verifiers and focused reviews. C725
-has a passing central replay and is pending focused review. Full M3 remains
-open.
+replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603, C721
+and C725 slices are promoted by their central verifiers and focused reviews.
+Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -119,7 +118,8 @@ slice; no model output can promote a semantic fact.
 
 ## M3 — bounded C725 semantic-oracle slice
 
-Bounded-slice status: `PENDING REVIEW`; central replay `R000001` passes.
+Bounded-slice status: `PASS`; central replay `R000001` and focused review
+`R000031` pass.
 Full Core 0 semantics remain open and are not claimed.
 
 The slice binds J3/24-007 C725, canonical-text line 3452, to the already
@@ -140,8 +140,9 @@ Evidence: `research/decisions/D0130-sixth-m3-c725-int-literal-kind-oracle.md`,
 `contracts/m3-c725-int-literal-kind-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c725.py`,
 `artifacts/traces/m3-c725-source-backed-v0.json`, and
-`research/runs/2026-08.jsonl#R000030`. This is a candidate bounded slice;
-focused review is required before promotion and full M3 remains open.
+`research/runs/2026-08.jsonl#R000030` and `#R000031`, plus focused review
+reports under `artifacts/reports/M3/`. This promotes only the bounded C725
+slice; full M3 remains open.
 
 ## M3 — bounded C601 semantic-oracle successor
 

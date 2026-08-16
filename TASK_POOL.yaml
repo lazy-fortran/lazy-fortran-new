@@ -164,7 +164,7 @@ milestones:
     title: Source-backed Core 0 semantics
     status: OPEN
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     prerequisites: [M1-M2]
     verifier_command: tests/e2e/run-m3-c725.sh .cache/runs/E0180/R000001
     evidence_paths:
@@ -276,10 +276,12 @@ milestones:
       - tests/e2e/validate_m3_c725.py
       - artifacts/traces/m3-c725-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000030
+      - research/runs/2026-08.jsonl#R000031
+      - artifacts/reports/M3/c725-semantic-review-v1.md
+      - artifacts/reports/M3/c725-reproducibility-review-v1.md
     notes: >-
-      The bounded C1106, C702, C601, C603 and C721 slices are promoted. C725
-      replay passes and focused review is pending. Full Core 0 semantics remain
-      unpromoted.
+      The bounded C1106, C702, C601, C603, C721 and C725 slices are promoted.
+      Full Core 0 semantics remain unpromoted.
   - id: M4-M6
     title: Generated frontend, practical compiler and self-hosting
     status: BLOCKED
@@ -1056,9 +1058,9 @@ tasks:
   - id: T-M3-c725-semantic-oracle
     milestone: M3
     title: Verify the bounded C725 int-literal kind semantic oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c721-semantic-oracle
@@ -1142,6 +1144,9 @@ tasks:
       - artifacts/traces/m3-c725-source-backed-v0.json
       - research/experiments/E0180-can-a-deterministic-oracle-enforce-c725-/manifest.yaml
       - research/runs/2026-08.jsonl#R000030
+      - research/runs/2026-08.jsonl#R000031
+      - artifacts/reports/M3/c725-semantic-review-v1.md
+      - artifacts/reports/M3/c725-reproducibility-review-v1.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

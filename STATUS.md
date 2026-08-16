@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-M3 — bounded C725 semantic-oracle slice pending review; full Core 0 remains pending
+M3 — six bounded semantic-oracle slices promoted; full Core 0 remains pending
 
 ## Central goal
 
@@ -22,8 +22,8 @@ The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. M3 is now open through the promoted C1106, C702, C601, C603 and C721
-contracts. C725 has a passing central replay and is pending focused review;
-the full Core 0 semantic milestone remains unpromoted.
+contracts, and the C725 contract is now promoted by its replay and focused
+reviews. The full Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -107,8 +107,8 @@ not current promotion evidence.
   D0130 selects C725's int-literal kind-parameter exclusion over the already
   represented R723/R708 shapes. The exact C725 gate is
   `tests/e2e/run-m3-c725.sh .cache/runs/E0180/R000001`; replay `R000001`
-  passes and focused review is pending. No model output is promoted and full
-  Core 0 remains open.
+  passes and focused review `R000031` passes. No model output is promoted and
+  full Core 0 remains open.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -125,9 +125,8 @@ emission contract interchange.
 ## Active fixture
 
 ID: `T-M3-c725-semantic-oracle` — bounded source-backed C725 int-literal
-kind-parameter semantic oracle; central replay `R000001` passes and focused
-review is pending. The bounded slice is not yet promoted; full M3 remains
-open.
+kind-parameter semantic oracle; central replay `R000001` and focused review
+`R000031` pass. The bounded slice is promoted; full M3 remains open.
 
 Boundary decision: `research/decisions/D0130-sixth-m3-c725-int-literal-kind-oracle.md`.
 
@@ -145,12 +144,13 @@ cannot promote a fact.
 ## Active task
 
 ID: `T-M3-c725-semantic-oracle` — E0180 C725 source-backed semantic-oracle
-vertical slice.
+vertical slice; the bounded slice is promoted and full M3 remains open.
 
 Verifier: `tests/e2e/run-m3-c725.sh .cache/runs/E0180/R000001` from clean
 central and component checkouts. It includes the standard-new semantic-items
 canonicalization, C725 source/provenance checks, the independent oracle, five
-mutation controls, exact trace comparison and zero model/promotion counters.
+mutation controls, exact trace comparison and zero model/promotion counters;
+focused reviews `R000031` pass.
 
 ## Current blocker
 
@@ -162,19 +162,19 @@ verified. E0172's runtime identity failure is retained as R000456. The
 central C1106 replay R000474 and focused review R000476 pass. C702 replay
 R000012 and focused review R000015 pass. C601 replay R000003 and focused
 review R000022 pass. C603 replay R000001 and focused review R000027 pass. C721
-replay R000001 and focused review R000029 pass. C725 replay R000001 passes and
-its focused review is pending. The remaining blocker is the C725 focused
-review; after that, the controller will reassess whether the six bounded
-contracts satisfy the full M3/Core 0 definition. A green slice alone does not
-close full M3.
+replay R000001 and focused review R000029 pass. C725 replay R000001 and
+focused review R000031 pass. The remaining blocker is now the full M3/Core 0
+definition and its source-backed acceptance evidence. The controller must
+reassess that boundary before starting another contract. A green bounded slice
+alone does not close full M3.
 
 ## Next executable task
 
-Complete the two focused C725 reviews against the pushed candidate revision,
-retain their reports and R000031 review record, then promote C725 only if both
-independent scopes pass. Do not resume E0172, start broad parsing/semantic
-work, or promote a model fact. Do not treat the C725 replay as the full M3
-milestone.
+Reassess the full M3/Core 0 acceptance boundary against the six promoted
+source-backed slices and their retained independent reviews. If the definition
+still has a gap, record exactly one next executable contract before any
+implementation. Do not resume E0172, start broad parsing/semantic work, or
+promote a model fact.
 
 ## Last verified central command
 
@@ -192,8 +192,8 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   review `R000027` are `PASS`; the C721 central replay `R000001` and focused
   review `R000029` are `PASS`. The C725 central replay
   `tests/e2e/run-m3-c725.sh .cache/runs/E0180/R000001` is `PASS`; focused
-  review is pending. The bounded C1106, C702, C601, C603 and C721 slices are
-  promoted, while C725 and full M3 remain open.
+  review `R000031` is `PASS`. The bounded C1106, C702, C601, C603, C721 and
+  C725 slices are promoted, while full M3 remains open.
 ```
 
 ## Blacklisted pseudo-progress
