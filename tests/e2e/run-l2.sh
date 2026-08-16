@@ -90,7 +90,7 @@ need "$runtime_oracle"
 [ "${LANG:-}" = "$lang" ]
 [ "$(git -C "$ROOT" cat-file -t "$lab_commit" 2>/dev/null)" = "commit" ]
 git -C "$ROOT" merge-base --is-ancestor "$lab_commit" HEAD
-git -C "$ROOT" diff --quiet "$lab_commit" HEAD -- tests/e2e contracts tests/fixtures scripts
+git -C "$ROOT" diff --quiet "$lab_commit" HEAD -- tests/e2e contracts scripts tests/fixtures/l2-first-executable-v0.sx
 [ "$(fo version | awk '{print $2}')" = "$fo_version" ]
 [ "$(sha256sum "$(command -v fo)" | awk '{print $1}')" = "$fo_sha256" ]
 [ "$($runtime_oracle --version | head -n1)" = "$qemu_version" ]
