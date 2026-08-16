@@ -1,0 +1,100 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-named-integer",
+      "kind": "positive",
+      "named_constant": "present",
+      "value_type": "integer"
+    },
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-named-integer-control",
+      "kind": "positive",
+      "named_constant": "present",
+      "value_type": "integer"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "negative-noninteger-constant",
+      "kind": "negative",
+      "named_constant": "present",
+      "value_type": "noninteger"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-type-state",
+      "kind": "unresolved",
+      "named_constant": "present",
+      "value_type": "unknown"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c718-scalar-int-constant-oracle-v0.sx",
+    "fixture_sha256": "9e1ffb866a1c14889bd7d5680c450b9294c0540a575af1a7b1de8cdae629bd25",
+    "schema": "contracts/m3-c718-scalar-int-constant-oracle-v0.sxs",
+    "schema_sha256": "4e76e50de99970d89d9a6507bc7017716bf8b66051a1d5375baa1e47485adb79",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c718-source-backed-v0.json",
+  "fixture_sha256": "96329856490153f977e98b4c3a8ecaa50d2e0c5c8b666a45f0a8b25ad24ca589",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c718.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 1,
+    "UNRESOLVED": 1
+  },
+  "property": "scalar-int-constant-legality",
+  "schema_version": "m3-c718-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "13dbb3e7b3f9ae5cd09a5761751b41b80ae9c231658b3c207d9e7ce449ec39b6",
+    "input": "tests/fixtures/m3-c718-semantic-items.sx",
+    "input_sha256": "13dbb3e7b3f9ae5cd09a5761751b41b80ae9c231658b3c207d9e7ce449ec39b6"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3296
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 80,
+    "rule": "C718",
+    "standardir_rules": [
+      "R709"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

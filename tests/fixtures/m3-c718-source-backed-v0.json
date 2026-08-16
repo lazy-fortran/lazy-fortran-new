@@ -1,0 +1,76 @@
+{
+  "schema_version": "m3-c718-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "scalar-int-constant-legality",
+  "contract": {
+    "schema": "contracts/m3-c718-scalar-int-constant-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c718-scalar-int-constant-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C718",
+    "printed_page": 80,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3296, "text": "C718 (R709) A scalar-int-constant-name shall be a named constant of type integer."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R709", "lhs": "kind-param", "page": 80, "byte_start": 207647, "byte_length": 65, "occurrence": 59}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c718-semantic-items.sx",
+    "sha256": "13dbb3e7b3f9ae5cd09a5761751b41b80ae9c231658b3c207d9e7ce449ec39b6",
+    "id": "S-C718",
+    "subject": "scalar-int-constant-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C718",
+    "page": 80,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-named-integer",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "scalar-int-constant-use", "source_rule": "C718", "named_constant": "present", "value_type": "integer"}
+    },
+    {
+      "id": "positive-named-integer-control",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "scalar-int-constant-use", "source_rule": "C718", "named_constant": "present", "value_type": "integer"}
+    },
+    {
+      "id": "negative-noninteger-constant",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "scalar-int-constant-use", "source_rule": "C718", "named_constant": "present", "value_type": "noninteger"}
+    },
+    {
+      "id": "unresolved-type-state",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "scalar-int-constant-use", "source_rule": "C718", "named_constant": "present", "value_type": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3297},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R708"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C718 (R709) A scalar-int-constant-name shall not be a named constant of type integer."},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C719"}
+  ]
+}

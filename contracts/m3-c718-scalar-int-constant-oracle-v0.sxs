@@ -1,0 +1,21 @@
+(schema m3-c718-scalar-int-constant-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum named-constant-state present absent unknown)
+  (enum type-state integer noninteger unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record scalar-int-constant-use
+    (named-constant named-constant-state)
+    (type type-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact scalar-int-constant-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
