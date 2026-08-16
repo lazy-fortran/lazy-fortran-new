@@ -56,7 +56,7 @@ tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000012
 ```
 
 Evidence: `research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md`,
-`research/experiments/E0176-can-a-deterministic-oracle-enforce-c702/`,
+`research/experiments/E0176-can-a-deterministic-oracle-enforce-c702-/`,
 `contracts/m3-c702-semantic-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c702.py`,
 `artifacts/traces/m3-c702-source-backed-v0.json`, and
