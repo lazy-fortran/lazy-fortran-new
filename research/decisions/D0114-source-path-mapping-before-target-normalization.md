@@ -1,7 +1,7 @@
 # D0114. Map boundary paths before target normalization
 
 Date: 2026-08-16
-Status: accepted
+Status: amended by D0115
 
 ## Context
 

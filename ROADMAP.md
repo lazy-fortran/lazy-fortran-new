@@ -16,7 +16,9 @@ for the same current StandardIR source hash used by R000404. The v2
 lexical-layout projection is green in R000411, the source-derived
 statement-sequence witness is green in R000420, and its production projection
 is green in R000423 at `standard-new` `4c2d8c2`: the CLI agrees byte-for-byte
-with the 95-row lab witness, and `fo clean && fo` passes. No model run,
+with the 95-row lab witness, and `fo clean && fo` passes. The typed boundary
+plan and source-only mapping infrastructure are now green at `standard-new`
+`3d4387c`; the full-corpus raw-source mapping replay is still open. No model run,
 semantic extraction or backend work resumes while the remaining deterministic
 grammar path is open. The boundary implementation derives candidates from
 StandardIR graph topology plus the v2 source facts; it does not append EOS to
@@ -24,10 +26,11 @@ every `-stmt`, because nested `action-stmt` references are not complete source
 statements. The source-level behavior oracle R000426 now passes, and R000428
 closes the typed, validated boundary-plan and truthful-identity subgates at
 `standard-new` `107d7a3`. The plan deliberately does not insert target
-separators yet. The next gate is mapping those sites through source and target
-expression trees, followed by generated token/runtime behavior, regeneration of
-all four grammar targets and parser-oracle checks. This is D0111 through D0114
-layered onto the two-tier
+separators yet. The source mapper must use raw SX before alternative flattening
+(D0115); the next gate is the full-corpus source replay, then mapping those
+sites through target expression trees, followed by generated token/runtime
+behavior, regeneration of all four grammar targets and parser-oracle checks.
+This is D0111 through D0115 layered onto the two-tier
 evidence protocol in D0105; R000400 remains the profile negative control and
 R000404 the current clean replay. No target export may insert separators
 directly from a raw witness or conflict report.
@@ -35,11 +38,13 @@ directly from a raw witness or conflict report.
 The immediate sequence is:
 
 1. Map every accepted site in the R000428 plan from its canonical source
-   expression path into the raw grammar and through target normalization. The
+   expression path into the raw StandardIR SX tree before alternative
+   flattening, then map the result through target normalization. The source
    mapper must emit explicit `mapped`, `ambiguous`, `unsupported` or
    `suppressed` dispositions with source lineage; it must not match by rule
-   number, LHS suffix or target spelling. Target insertion remains blocked
-   until all selected sites have a non-guessing disposition.
+   number, LHS suffix, alternative-number heuristic or target spelling. The
+   R1505 raw `(alt ...)` case is a mandatory control. Target insertion remains
+   blocked until all selected sites have a non-guessing disposition.
 2. Make the generated lexer/runtime consume the now-passing source behavior
    oracle R000426 for separators, comments, continuation and keyword/name
    reuse. The target gate must prove nested `IF (...) action-stmt` and
