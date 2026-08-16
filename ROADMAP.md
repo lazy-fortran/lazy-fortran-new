@@ -18,9 +18,9 @@ implementation repositories and do not own cross-repository milestones or
 project-management loops.
 
 The initial delivery setup completed L0 and L1. The active central milestone
-is the one named by `STATUS.md` and `MILESTONES.md`; at commit `0b6470b` it is
-L2, with corrected central replay `R000441` and a fresh independent review
-wave pending. Those control-plane files govern the current delivery loop;
+is the one named by `STATUS.md` and `MILESTONES.md`; the current control plane
+has L2 open with its corrected central replay passing and fresh independent
+review pending. Those control-plane files govern the current delivery loop;
 the phase checklist below remains the long-horizon architecture and research
 ordering:
 

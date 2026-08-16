@@ -90,6 +90,8 @@ def main() -> int:
             fail(f"{field} differs from the committed evidence manifest")
     if qemu_status != evidence["runtime_exit_status"]:
         fail("QEMU exit status differs from the committed evidence manifest")
+    if manifest.get("runtime_exit_status") != evidence["runtime_exit_status"]:
+        fail("runtime exit status differs between fixture and evidence manifest")
     if lab_commit != evidence["lab_commit"]:
         fail("laboratory commit differs from the committed evidence manifest")
     if evidence["id"] != manifest["id"]:

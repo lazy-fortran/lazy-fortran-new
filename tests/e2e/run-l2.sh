@@ -38,6 +38,10 @@ from pathlib import Path
 manifest = tomllib.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 root = Path(sys.argv[2])
 evidence = tomllib.loads((root / manifest["evidence_manifest"]).read_text(encoding="utf-8"))
+if manifest["runtime_oracle"] != evidence["runtime_oracle"]:
+    raise SystemExit("fixture and evidence runtime oracle differ")
+if manifest["runtime_exit_status"] != evidence["runtime_exit_status"]:
+    raise SystemExit("fixture and evidence runtime exit status differ")
 print("\t".join(map(str, (
     root / manifest["source"],
     root / manifest["golden_mir"],
@@ -102,6 +106,47 @@ for field, path in paths.items():
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     if actual != manifest[field]:
         raise SystemExit(f"{field} differs from evidence manifest")
+PY
+
+python3 - "$ROOT" "$lab_commit" "$evidence_manifest" <<'PY'
+import subprocess
+import sys
+import tomllib
+from pathlib import Path
+
+root, lab_commit, evidence_path = map(Path, sys.argv[1:])
+lab_commit = str(lab_commit)
+protected = (
+    "tests/e2e/run-l2.sh",
+    "tests/e2e/oracle_l2.py",
+    "contracts/frontend-v0.sxs",
+    "contracts/mir-v0.sxs",
+    "tests/fixtures/l2-first-executable-v0.toml",
+    "tests/fixtures/l2-first-executable-v0.sx",
+    "tests/golden/l2-first-executable-v0.mir.sx",
+    "tests/golden/l2-first-executable-v0.oracle.toml",
+    "tests/negative/l2-first-executable-v0-rejected.sx",
+    "tests/negative/l2-mir-v0-malformed.sx",
+    "tests/negative/l2-mir-v0-out-of-scope.sx",
+)
+for relative in protected:
+    current = (root / relative).read_bytes()
+    expected = subprocess.check_output(
+        ["git", "-C", str(root), "show", f"{lab_commit}:{relative}"]
+    )
+    if current != expected:
+        raise SystemExit(f"protected laboratory input changed: {relative}")
+
+current_evidence = tomllib.loads(Path(evidence_path).read_text(encoding="utf-8"))
+source_evidence = tomllib.loads(
+    subprocess.check_output(
+        ["git", "-C", str(root), "show", f"{lab_commit}:{evidence_path.relative_to(root)}"],
+        text=True,
+    )
+)
+for key in source_evidence:
+    if key != "lab_commit" and current_evidence.get(key) != source_evidence[key]:
+        raise SystemExit(f"evidence field changed after laboratory pin: {key}")
 PY
 
 for repo in "$standard" "$frontend" "$compiler" "$backend"; do
@@ -203,6 +248,7 @@ python3 - "$run_dir/trace.json" "$manifest" "$source" "$mir" "$artifact" \
     <<'PY'
 import hashlib
 import json
+import os
 import sys
 import tomllib
 from pathlib import Path
@@ -210,6 +256,10 @@ from pathlib import Path
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def from_repo(path, repo):
+    return os.path.relpath(path, repo)
 
 
 (
@@ -244,20 +294,20 @@ trace = {
         "locale": {"LC_ALL": lc_all, "LANG": lang},
         "worktree_state": worktree_state,
         "commands": [
-            f"{root / 'scripts/verify_active_milestone.sh'}",
-            f"(cd {standard} && fo clean)",
-            f"(cd {frontend} && fo clean)",
-            f"(cd {compiler} && fo clean)",
-            f"(cd {backend} && fo clean)",
-            f"(cd {compiler} && fo exec ffc-lower-frontend-v0 {source} {mir})",
-            f"(cd {compiler} && fo exec ffc-lower-frontend-v0 {source} {mir_two})",
-            f"(cd {compiler} && fo exec ffc-lower-frontend-v0 {negative} {negative_output})",
-            f"(cd {backend} && fo exec fortback-mir-v0 {malformed_mir} {malformed_output})",
-            f"(cd {backend} && fo exec fortback-mir-v0 {out_of_scope_mir} {out_of_scope_output})",
-            f"(cd {backend} && fo exec fortback-mir-v0 {mir} {artifact})",
-            f"(cd {backend} && fo exec fortback-mir-v0 {mir} {artifact_two})",
-            f"readelf -h {artifact}",
-            f"{runtime_oracle} {artifact}",
+            "scripts/verify_active_milestone.sh",
+            f"(cd {Path(standard).name} && fo clean)",
+            f"(cd {Path(frontend).name} && fo clean)",
+            f"(cd {Path(compiler).name} && fo clean)",
+            f"(cd {Path(backend).name} && fo clean)",
+            f"(cd {Path(compiler).name} && fo exec ffc-lower-frontend-v0 {from_repo(source, compiler)} {from_repo(mir, compiler)})",
+            f"(cd {Path(compiler).name} && fo exec ffc-lower-frontend-v0 {from_repo(source, compiler)} {from_repo(mir_two, compiler)})",
+            f"(cd {Path(compiler).name} && fo exec ffc-lower-frontend-v0 {from_repo(negative, compiler)} {from_repo(negative_output, compiler)})",
+            f"(cd {Path(backend).name} && fo exec fortback-mir-v0 {from_repo(malformed_mir, backend)} {from_repo(malformed_output, backend)})",
+            f"(cd {Path(backend).name} && fo exec fortback-mir-v0 {from_repo(out_of_scope_mir, backend)} {from_repo(out_of_scope_output, backend)})",
+            f"(cd {Path(backend).name} && fo exec fortback-mir-v0 {from_repo(mir, backend)} {from_repo(artifact, backend)})",
+            f"(cd {Path(backend).name} && fo exec fortback-mir-v0 {from_repo(mir, backend)} {from_repo(artifact_two, backend)})",
+            "readelf -h .cache/l2-run/l2.elf",
+            f"{runtime_oracle} .cache/l2-run/l2.elf",
         ],
     },
     "stages": [
@@ -266,15 +316,15 @@ trace = {
             "commit": compiler_commit,
             "contract": "frontend-v0 -> mir-v0",
             "input": {"path": manifest["source"], "sha256": digest(source)},
-            "output": {"path": "cache/l2.mir.sx", "sha256": digest(mir)},
+            "output": {"path": ".cache/l2-run/l2.mir.sx", "sha256": digest(mir)},
             "observable": "canonical MIR-v0 SX",
         },
         {
             "component": "fortback-new",
             "commit": backend_commit,
             "contract": "mir-v0 -> bounded RV64 Linux emission",
-            "input": {"path": "cache/l2.mir.sx", "sha256": digest(mir)},
-            "output": {"path": "cache/l2.elf", "sha256": digest(artifact)},
+            "input": {"path": ".cache/l2-run/l2.mir.sx", "sha256": digest(mir)},
+            "output": {"path": ".cache/l2-run/l2.elf", "sha256": digest(artifact)},
             "observable": "deterministic RV64 Linux ELF executable",
         },
     ],
