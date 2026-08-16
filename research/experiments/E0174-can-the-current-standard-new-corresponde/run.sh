@@ -19,6 +19,92 @@ trace_input_hash() {
     sha256sum "$path" | awk '{print $1}'
 }
 
+record_run_environment() {
+    local mode=$1
+    local reuse_dir=${2:-}
+    python3 - "$ROOT" "$STANDARD_NEW" "$RUN_DIR" "$EXPECTED_COMMIT" "$mode" "$reuse_dir" "$CANDIDATES" "$COALESCER" <<'PY'
+import hashlib
+import json
+import os
+import platform
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+component = Path(sys.argv[2])
+run_dir = Path(sys.argv[3])
+expected_commit = sys.argv[4]
+mode = sys.argv[5]
+reuse_dir = sys.argv[6]
+candidates = Path(sys.argv[7])
+coalescer = Path(sys.argv[8])
+
+
+def command(argv, cwd=None):
+    result = subprocess.run(argv, cwd=cwd, check=True, text=True, capture_output=True)
+    return (result.stdout + result.stderr).strip()
+
+
+def digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def git_details(path):
+    status = command(["git", "-C", str(path), "status", "--porcelain"])
+    return {
+        "commit": command(["git", "-C", str(path), "rev-parse", "HEAD"]),
+        "worktree_state": "clean" if not status else "dirty",
+    }
+
+
+fo_path = shutil.which("fo")
+if not fo_path:
+    raise SystemExit("fo executable not found")
+compiler_path = shutil.which("gfortran")
+poppler_path = shutil.which("pdftotext")
+fo_version = command([fo_path, "version"])
+compiler_version = command([compiler_path, "--version"]).splitlines()[0] if compiler_path else "missing"
+poppler_version = command([poppler_path, "-v"]).splitlines()[0] if poppler_path else "missing"
+central = git_details(root)
+component_details = git_details(component)
+if component_details["commit"] != str(expected_commit):
+    raise SystemExit("component commit changed while recording run environment")
+
+payload = {
+    "origin": "MECHANICAL",
+    "run": {
+        "mode": mode,
+        "reuse_source": reuse_dir or None,
+    },
+    "central": {"root": str(root), **central},
+    "component": {"root": str(component), **component_details},
+    "toolchain": {
+        "compiler": compiler_version,
+        "fo": fo_version,
+        "fo_path": fo_path,
+        "fo_sha256": digest(fo_path),
+        "poppler": poppler_version,
+        "oracle_versions": {
+            "validator_sha256": digest(root / "research/experiments/E0174-can-the-current-standard-new-corresponde/validate.py"),
+            "coalescer_sha256": digest(coalescer),
+            "candidate_witness_sha256": digest(candidates),
+        },
+    },
+    "environment": {
+        "os": platform.system(),
+        "os_release": platform.release(),
+        "architecture": platform.machine(),
+        "python_path": sys.executable,
+        "python_version": platform.python_version(),
+        "locale": {"LANG": os.environ.get("LANG", ""), "LC_ALL": os.environ.get("LC_ALL", "")},
+    },
+}
+(run_dir / "run-environment.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+PY
+}
+
 check_trace_cache() {
     local cache_dir=$1
     local label path expected actual
@@ -123,9 +209,12 @@ mkdir -p "$RUN_DIR"
 printf '%s\n' "$EXPECTED_COMMIT" > "$RUN_DIR/standard-new-commit.txt"
 printf '%s\n' "$EXPECTED_SOURCE_SHA256" > "$RUN_DIR/source-input-sha256.txt"
 if [[ -n "$REUSE_DIR" ]]; then
+    record_run_environment reuse "$REUSE_DIR"
     cp "$REUSE_DIR/component-gate.json" "$RUN_DIR/component-gate.json"
-    printf 'reused full fo gate from %s\n' "$REUSE_DIR" > "$RUN_DIR/fo.log"
+    cp "$REUSE_DIR/fo.log" "$RUN_DIR/fo.log"
+    printf '%s\n' "$REUSE_DIR" > "$RUN_DIR/component-gate-reused-from.txt"
 else
+    record_run_environment cold
     (cd "$STANDARD_NEW" && fo) > "$RUN_DIR/fo.log" 2>&1
     python3 - "$RUN_DIR/component-gate.json" "$RUN_DIR/fo.log" "$EXPECTED_COMMIT" <<'PY'
 import hashlib

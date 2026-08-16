@@ -27,5 +27,10 @@ source-boundary mapper and evidence coalescer still run:
 
 ```text
 research/experiments/E0174-can-the-current-standard-new-corresponde/run.sh \
-  .cache/runs/E0174/R000005 .cache/runs/E0174/R000004
+.cache/runs/E0174/R000005 .cache/runs/E0174/R000004
 ```
+
+Each run also records `run-environment.json`, including the exact `fo`
+executable hash, toolchain versions, oracle hashes and clean checkout states.
+The cold run remains the reproducibility authority; reuse runs are only
+iteration controls.

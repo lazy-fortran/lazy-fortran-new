@@ -34,6 +34,43 @@ def fail(message: str) -> None:
     raise SystemExit(f"error: {message}")
 
 
+def validate_run_environment(run_dir: Path) -> dict[str, object]:
+    path = run_dir / "run-environment.json"
+    if not path.is_file():
+        fail("run environment record is missing")
+    try:
+        record = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        fail(f"run environment record is not JSON: {exc}")
+    if record.get("origin") != "MECHANICAL":
+        fail("run environment origin differs")
+    if record.get("run", {}).get("mode") not in {"cold", "reuse"}:
+        fail("run environment mode is missing or invalid")
+    component = record.get("component", {})
+    if component.get("commit") != EXPECTED_COMMIT:
+        fail("run environment component commit differs")
+    if component.get("worktree_state") != "clean":
+        fail("run environment component worktree was not clean")
+    central = record.get("central", {})
+    if central.get("worktree_state") != "clean":
+        fail("run environment central worktree was not clean")
+    toolchain = record.get("toolchain", {})
+    for field in ("compiler", "fo", "poppler"):
+        if not isinstance(toolchain.get(field), str) or not toolchain[field]:
+            fail(f"run environment toolchain field is missing: {field}")
+    if not isinstance(toolchain.get("fo_sha256"), str) or len(toolchain["fo_sha256"]) != 64:
+        fail("run environment fo executable hash is missing")
+    oracle_versions = toolchain.get("oracle_versions", {})
+    for field in ("validator_sha256", "coalescer_sha256", "candidate_witness_sha256"):
+        if not isinstance(oracle_versions.get(field), str) or len(oracle_versions[field]) != 64:
+            fail(f"run environment oracle hash is missing: {field}")
+    environment = record.get("environment", {})
+    for field in ("os", "os_release", "architecture", "python_path", "python_version"):
+        if not isinstance(environment.get(field), str) or not environment[field]:
+            fail(f"run environment field is missing: {field}")
+    return record
+
+
 def read_tsv(path: Path, fields: tuple[str, ...]) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8") as handle:
         reader = csv.DictReader(handle, delimiter="\t")
@@ -81,6 +118,7 @@ def load_trace_contract(path: Path) -> list[dict[str, object]]:
 
 def main() -> int:
     run_dir = Path(sys.argv[1]) if len(sys.argv) == 2 else ROOT / ".cache/runs/E0174/R000001"
+    run_environment = validate_run_environment(run_dir)
     if (run_dir / "standard-new-commit.txt").read_text(encoding="utf-8").strip() != EXPECTED_COMMIT:
         fail("standard-new commit pin differs")
     source_input = ROOT / ".cache/runs/E0171/R000433-provenance-replay/standardir.sx"
@@ -195,6 +233,10 @@ def main() -> int:
         "ambiguous_rows": dispositions["ambiguous"],
         "selected_dispositions": dict(sorted(dispositions.items())),
         "coalescer_summary": summary,
+        "run_mode": run_environment["run"]["mode"],
+        "run_environment_sha256": hashlib.sha256(
+            (run_dir / "run-environment.json").read_bytes()
+        ).hexdigest(),
         "model_calls": 0,
         "semantic_promotions": 0,
     }
