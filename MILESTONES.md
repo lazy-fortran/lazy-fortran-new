@@ -147,7 +147,7 @@ slice; full M3 remains open.
 
 ## M3 — bounded C718 scalar-int-constant semantic-oracle candidate
 
-Bounded-slice status: `CANDIDATE`; central replay `R000033` passes and focused
+Bounded-slice status: `CANDIDATE`; central replay `R000034` passes and focused
 review is pending. Full Core 0 semantics remain open and are not claimed.
 
 The slice binds J3/24-007 C718, canonical-text line 3296, to StandardIR R709,
@@ -160,7 +160,7 @@ provenance mutation controls must fail closed. Regenerate the complete
 inventory with:
 
 ```text
-tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000001
+tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000002
 ```
 
 Evidence: `research/decisions/D0131-m3-core0-closure-after-six-bounded-slices.md`,
@@ -168,7 +168,7 @@ Evidence: `research/decisions/D0131-m3-core0-closure-after-six-bounded-slices.md
 `contracts/m3-c718-scalar-int-constant-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c718.py`,
 `artifacts/traces/m3-c718-source-backed-v0.json`, and
-`research/runs/2026-08.jsonl#R000033`. Promotion requires two focused
+`research/runs/2026-08.jsonl#R000034`. Promotion requires two focused
 independent reviews. This candidate does not close full M3.
 
 ## M3 — Core 0 closure audit

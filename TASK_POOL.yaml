@@ -166,7 +166,7 @@ milestones:
     verification: PASS
     review_state: PENDING
     prerequisites: [M1-M2]
-    verifier_command: tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000001
+    verifier_command: tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000002
     evidence_paths:
       - ROADMAP.md
       - research/decisions/D0124-first-m3-associate-name-oracle.md
@@ -292,10 +292,10 @@ milestones:
       - tests/e2e/run-m3-c718.sh
       - tests/e2e/validate_m3_c718.py
       - artifacts/traces/m3-c718-source-backed-v0.json
-      - research/runs/2026-08.jsonl#R000033
+      - research/runs/2026-08.jsonl#R000034
     notes: >-
       The bounded C1106, C702, C601, C603, C721 and C725 slices are promoted.
-      C718 replay R000033 passes and focused review is pending. The E0181
+      C718 replay R000034 passes and focused review is pending. The E0181
       audit retains 4 hard failures, 2 unresolved, 94 disputed and 69
       unwitnessed rows; full Core 0 semantics remain unpromoted.
   - id: M4-M6
@@ -1242,7 +1242,7 @@ tasks:
         - ROADMAP.md
         - TASK_POOL.yaml
     prerequisites: [T-M3-c725-semantic-oracle]
-    verifier_command: tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000001
+    verifier_command: tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000002
     evidence_paths:
       - research/decisions/D0131-m3-core0-closure-after-six-bounded-slices.md
       - research/experiments/E0182-can-a-deterministic-oracle-enforce-c718-/manifest.yaml
@@ -1254,7 +1254,7 @@ tasks:
       - tests/e2e/run-m3-c718.sh
       - tests/e2e/validate_m3_c718.py
       - artifacts/traces/m3-c718-source-backed-v0.json
-      - research/runs/2026-08.jsonl#R000033
+      - research/runs/2026-08.jsonl#R000034
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
