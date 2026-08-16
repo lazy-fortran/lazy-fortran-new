@@ -167,6 +167,7 @@ trace_path, manifest_path, run_directory, source_cache, standard, lexical_path, 
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 run_dir = Path(run_directory)
 repository_root = Path(manifest_path).resolve().parents[2]
+fixture_path = Path(manifest_path).resolve()
 validation = json.loads((run_dir / "validators" / "result.json").read_text(encoding="utf-8"))
 
 
@@ -182,6 +183,10 @@ def version(command: list[str]) -> str:
 trace = {
     "milestone": "M1-M2",
     "fixture": manifest["id"],
+    "fixture_manifest": {
+        "path": fixture_path.relative_to(repository_root).as_posix(),
+        "sha256": digest(fixture_path),
+    },
     "source": {
         "manifest": manifest["source_manifest"],
         "sha256": source_hash,

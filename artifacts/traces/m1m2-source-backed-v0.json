@@ -1,6 +1,10 @@
 {
   "milestone": "M1-M2",
   "fixture": "M1-M2-source-backed-v0",
+  "fixture_manifest": {
+    "path": "tests/fixtures/m1m2-source-backed-v0.toml",
+    "sha256": "05f14f218be211effa373d7a2f695793505e02b307fb530bce19292d15c04ceb"
+  },
   "source": {
     "manifest": "artifacts/standards/j3-24-007.toml",
     "sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
