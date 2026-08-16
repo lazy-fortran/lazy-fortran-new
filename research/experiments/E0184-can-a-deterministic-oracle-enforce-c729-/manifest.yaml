@@ -10,7 +10,7 @@ candidate_runs: [R000001]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "df2ed91d749afb41137e39a56b6297b0ff3a08da"
+  lazy-fortran-new: "24798c2c18e6e3d751e571d7be2afc23d4fa2c9b"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
