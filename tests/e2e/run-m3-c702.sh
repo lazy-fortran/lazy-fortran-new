@@ -10,7 +10,7 @@ need sha256sum
 need git
 need fo
 
-[ "$#" -eq 1 ] || die "usage: $0 .cache/runs/E0176/R000003"
+[ "$#" -eq 1 ] || die "usage: $0 .cache/runs/E0176/R000009"
 run_arg="$1"
 case "$run_arg" in
     .cache/runs/E0176/*) ;;
