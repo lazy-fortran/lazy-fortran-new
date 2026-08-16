@@ -262,10 +262,10 @@ python3 - "$run_dir/trace.json" "$manifest" "$source" "$mir" "$artifact" \
     "$source" "$mir" "$mir_two" "$golden" "$negative" "$negative_output" \
     "$malformed_mir" "$malformed_output" "$out_of_scope_mir" \
     "$out_of_scope_output" "$artifact" "$artifact_two" \
+    "$evidence_mir_path" "$evidence_artifact_path" \
     <<'PY'
 import hashlib
 import json
-import os
 import sys
 import tomllib
 from pathlib import Path
@@ -275,8 +275,8 @@ def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def from_repo(path, repo):
-    return os.path.relpath(path, repo)
+def command(repository, argv):
+    return {"repository": repository, "resolver": "repos.toml", "argv": argv}
 
 
 (
@@ -288,7 +288,8 @@ def from_repo(path, repo):
     host_architecture, lc_all, lang, worktree_state, lab_commit, standard,
     frontend, compiler, backend, source, mir, mir_two, golden, negative,
     negative_output, malformed_mir, malformed_output, out_of_scope_mir,
-    out_of_scope_output, artifact, artifact_two,
+    out_of_scope_output, artifact, artifact_two, evidence_mir_path,
+    evidence_artifact_path,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 root = Path(trace_path).parents[2]
@@ -311,20 +312,20 @@ trace = {
         "locale": {"LC_ALL": lc_all, "LANG": lang},
         "worktree_state": worktree_state,
         "commands": [
-            "scripts/verify_active_milestone.sh",
-            f"(cd {Path(standard).name} && fo clean)",
-            f"(cd {Path(frontend).name} && fo clean)",
-            f"(cd {Path(compiler).name} && fo clean)",
-            f"(cd {Path(backend).name} && fo clean)",
-            f"(cd {Path(compiler).name} && fo exec ffc-lower-frontend-v0 {from_repo(source, compiler)} {from_repo(mir, compiler)})",
-            f"(cd {Path(compiler).name} && fo exec ffc-lower-frontend-v0 {from_repo(source, compiler)} {from_repo(mir_two, compiler)})",
-            f"(cd {Path(compiler).name} && fo exec ffc-lower-frontend-v0 {from_repo(negative, compiler)} {from_repo(negative_output, compiler)})",
-            f"(cd {Path(backend).name} && fo exec fortback-mir-v0 {from_repo(malformed_mir, backend)} {from_repo(malformed_output, backend)})",
-            f"(cd {Path(backend).name} && fo exec fortback-mir-v0 {from_repo(out_of_scope_mir, backend)} {from_repo(out_of_scope_output, backend)})",
-            f"(cd {Path(backend).name} && fo exec fortback-mir-v0 {from_repo(mir, backend)} {from_repo(artifact, backend)})",
-            f"(cd {Path(backend).name} && fo exec fortback-mir-v0 {from_repo(mir, backend)} {from_repo(artifact_two, backend)})",
-            "readelf -h .cache/l2-run/l2.elf",
-            f"{runtime_oracle} .cache/l2-run/l2.elf",
+            {"repository": "lazy-fortran-new", "resolver": "current-checkout", "argv": ["scripts/verify_active_milestone.sh"]},
+            command("standard-new", ["fo", "clean"]),
+            command("fortfront-new", ["fo", "clean"]),
+            command("ffc-new", ["fo", "clean"]),
+            command("fortback-new", ["fo", "clean"]),
+            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", manifest["source"], evidence_mir_path]),
+            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", manifest["source"], ".cache/l2-run/l2.two.mir.sx"]),
+            command("ffc-new", ["fo", "exec", "ffc-lower-frontend-v0", manifest["negative"], ".cache/l2-run/negative.mir.sx"]),
+            command("fortback-new", ["fo", "exec", "fortback-mir-v0", manifest["negative_mir_malformed"], ".cache/l2-run/malformed.elf"]),
+            command("fortback-new", ["fo", "exec", "fortback-mir-v0", manifest["negative_mir_out_of_scope"], ".cache/l2-run/out-of-scope.elf"]),
+            command("fortback-new", ["fo", "exec", "fortback-mir-v0", evidence_mir_path, evidence_artifact_path]),
+            command("fortback-new", ["fo", "exec", "fortback-mir-v0", evidence_mir_path, ".cache/l2-run/l2.two.elf"]),
+            {"repository": "lazy-fortran-new", "resolver": "current-checkout", "argv": ["readelf", "-h", evidence_artifact_path]},
+            {"repository": "lazy-fortran-new", "resolver": "current-checkout", "argv": [runtime_oracle, evidence_artifact_path]},
         ],
     },
     "stages": [
@@ -333,15 +334,15 @@ trace = {
             "commit": compiler_commit,
             "contract": "frontend-v0 -> mir-v0",
             "input": {"path": manifest["source"], "sha256": digest(source)},
-            "output": {"path": ".cache/l2-run/l2.mir.sx", "sha256": digest(mir)},
+            "output": {"path": evidence_mir_path, "sha256": digest(mir)},
             "observable": "canonical MIR-v0 SX",
         },
         {
             "component": "fortback-new",
             "commit": backend_commit,
             "contract": "mir-v0 -> bounded RV64 Linux emission",
-            "input": {"path": ".cache/l2-run/l2.mir.sx", "sha256": digest(mir)},
-            "output": {"path": ".cache/l2-run/l2.elf", "sha256": digest(artifact)},
+            "input": {"path": evidence_mir_path, "sha256": digest(mir)},
+            "output": {"path": evidence_artifact_path, "sha256": digest(artifact)},
             "observable": "deterministic RV64 Linux ELF executable",
         },
     ],
