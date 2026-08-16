@@ -1,49 +1,59 @@
 # Independent Luna review protocol
 
-Luna reviews are independent evidence checks, not a planning committee.
-Use native GPT-5.6 Luna agents with the same immutable milestone snapshot,
-fixture, pins, verifier output and artifact paths. Do not give any reviewer
-another reviewer's prompt, draft, verdict or conclusions before that reviewer
-issues its own verdict.
+Luna reviews are independent evidence checks, not a planning committee. Use
+the installed `parallel-luna` skill with the same immutable packet, exact
+claim and assigned scope. Reviewers must not see another reviewer's prompt,
+draft, verdict or conclusions before issuing their own verdict.
 
-## Review lanes
+## Review levels
 
-Run one scoped reviewer for each lane:
+### Micro (default)
 
-1. **Milestone truth and scope** — Does the evidence satisfy exactly the
-   active definition of done, without silently claiming a larger result?
-2. **Contract and interface** — Are component revisions, schemas, stage
-   boundaries, adapters and ownership explicit and mutually compatible?
-3. **Oracle independence** — Does the expected behavior come from a genuinely
-   independent normative, golden, differential, metamorphic or negative oracle?
-4. **Reproducibility and determinism** — Can a clean checkout reproduce the
-   result with the recorded commands, versions, hashes and no local state?
-
-## Verdict format
-
-Each reviewer writes one report at the central evidence path, for example:
+Use one reviewer for ordinary meaningful code, derivation, experiment or
+interpretation work. Return only `PASS` or:
 
 ```text
-artifacts/reports/<milestone>/<cycle>-luna-scope.md
-artifacts/reports/<milestone>/<cycle>-luna-contract.md
-artifacts/reports/<milestone>/<cycle>-luna-oracle.md
-artifacts/reports/<milestone>/<cycle>-luna-reproducibility.md
+FIRST ISSUE: ...
+MINIMAL FIX: ...
 ```
 
-The report contains:
+The micro-review is ephemeral. A PASS needs no report, ledger entry or commit;
+an issue returns to the active task.
 
-- snapshot commit and component pins;
-- assigned lane and excluded questions;
-- verdict: `PASS`, `FAIL` or `OPEN`;
-- concrete evidence paths and commands inspected;
-- the smallest blocking defect, if any;
-- whether the verdict is sufficient for milestone promotion.
+### Focused (promotion boundary)
 
-The coordinator compares reports only after all four independent verdicts
-exist. Any `FAIL`, `OPEN` or material disagreement blocks promotion and is
-recorded without averaging. A later adjudication must cite new evidence or a
-bounded GPT-Sol consultation; it must not rewrite a review.
+Use two or three independent scoped reviewers only for milestone promotion,
+cross-component interface changes, major reusable artifacts and release-level
+claims. Select only relevant scopes from:
 
-Luna reviews do not replace the central verifier, component tests, or the
-independent oracle. They review whether those gates mean what the milestone
-claims.
+1. milestone truth and scope;
+2. contract and interface;
+3. oracle independence and adversarial correctness;
+4. reproducibility, determinism and maintainability.
+
+Each reviewer returns:
+
+```markdown
+Verdict: PASS | NEEDS FIX | INVALID
+First fatal issue: [none if PASS; otherwise one exact issue]
+Evidence: [path, command output, counterexample or dependency]
+Required correction: [one minimal corrective action]
+```
+
+The coordinator promotes only if every selected reviewer passes. A valid
+fatal issue is not removed by majority vote.
+
+### Full
+
+Use all relevant scopes only for publication or release, a terminal claim,
+irreversible architecture, or an explicit user request. Full review is not the
+default.
+
+## Retention and historical evidence
+
+Review does not replace the central verifier, component tests or independent
+oracle. Micro results remain ephemeral unless they find a defect. Focused and
+full reports are retained only when they support a durable promotion or
+record a defect that must survive restart. Existing historical four-lane
+reports remain immutable evidence; this protocol defines the default for new
+reviews and does not change milestone status.

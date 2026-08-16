@@ -7,13 +7,17 @@ control_plane:
     - TASK_POOL.yaml
     - STATUS.md
     - MILESTONES.md
+    - ROADMAP.md
     - docs/goal-mode.md
+    - docs/delivery-method.md
     - docs/operating-loop.md
     - docs/cross-repo-protocol.md
     - docs/component-contracts.md
     - docs/oracle-policy.md
     - docs/reproducibility.md
     - docs/vertical-slice.md
+    - docs/luna-review-protocol.md
+    - docs/gpt-sol-consult-protocol.md
     - research/decision-log.md
   status_values: [OPEN, PASS, FAIL, BLOCKED, RETIRED]
 
@@ -205,7 +209,14 @@ integration_cycle:
     - stop fast-cycle task selection
     - verify all pins and active contracts
     - rerun every relevant central verifier from a clean checkout
-    - obtain the four independent Luna reviews
-    - reconcile evidence and update STATUS.md/MILESTONES.md
-    - commit central metadata only after the gates pass
+    - choose micro, focused or full Luna review from docs/luna-review-protocol.md
+    - use focused review only for milestone, interface, reusable-artifact or release boundaries
+    - reconcile evidence and update central metadata only when durable state changed
+    - commit central metadata only after the applicable gates pass
   resume_rule: select the next dependency-ready OPEN task; do not stop at a local PASS
+
+operating_defaults:
+  blocked_leaf: switch_to_independent_open_task
+  ordinary_luna: micro_ephemeral
+  focused_luna: [milestone_promotion, cross_component_interface, major_reusable_artifact, release_claim]
+  ordinary_reading_debugging_experiments_no_progress: no_governance_note_or_mandatory_commit

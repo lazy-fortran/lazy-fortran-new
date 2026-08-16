@@ -3,6 +3,11 @@
 GPT-Sol is a last-resort design and specification consultant. It is not a
 default worker, reviewer, test oracle, or progress generator.
 
+Route this through the installed `expert-escalation` skill, after
+`bounded-exploration` where that skill's trigger applies. Ordinary debugging,
+reading, experiments and `NO_PROGRESS` do not trigger a consultation or a
+governance record.
+
 ## Trigger
 
 Consult GPT-Sol only when either:

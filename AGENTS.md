@@ -359,8 +359,28 @@ immutable evidence; if their clean-checkout conditions are not verified for
 the current control-plane checkout, record `NEEDS REPLAY` and do not promote
 the next milestone.
 
-At integration cycles, use the four independent GPT-5.6 Luna review lanes in
+For ordinary meaningful work, use the `parallel-luna` micro-review when its
+small independent check is useful; keep it ephemeral. Use focused parallel
+review only for milestone promotion, cross-component interfaces, major
+reusable artifacts and release-level claims, as specified in
 `docs/luna-review-protocol.md`; do not reveal one reviewer's conclusion to
-another before verdicts exist. Use GPT-Sol only under
-`docs/gpt-sol-consult-protocol.md`, after two materially distinct failed
-attempts or a genuinely underdetermined design/specification decision.
+another before verdicts exist. Use `bounded-exploration` and then
+`expert-escalation` only under their stated triggers, with GPT-Sol governed by
+`docs/gpt-sol-consult-protocol.md`.
+
+## Reusable research-program skills
+
+Use the installed reusable skills by name; do not copy their protocols into
+this repository. The current routing is:
+
+- `program-loop` for the long-horizon control loop and task continuation;
+- `evidence-gate` for ordinary checks and durable promotion gates;
+- `parallel-luna` for ephemeral micro-reviews and scoped promotion reviews;
+- `bounded-exploration` for a blocked leaf with bounded candidate routes;
+- `expert-escalation` only for a genuine specialist block after its trigger;
+- `fortran` for Fortran build, test, lint and execution work;
+- `referee` only for manuscript review, not compiler delivery work.
+
+The installed copies are synchronized with `krystophny/prompts` `main` when
+this policy is updated. The central documents below select the level and
+retention policy; component repositories do not create competing loops.

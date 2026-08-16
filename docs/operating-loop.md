@@ -41,6 +41,11 @@ A fast cycle is one bounded task and one verifier:
 6. If PASS, update the task pool and select the next dependency-ready task.
 7. If FAIL, retain the failure and retry only with a materially distinct fix.
 
+For ordinary meaningful work, the installed `parallel-luna` skill may run one
+micro-review against the immutable task packet. Its PASS is ephemeral; its
+issue form returns to the active task. It does not create a review file,
+ledger entry or commit by itself.
+
 No fast cycle may silently promote a milestone, begin L2 while an L0/L1
 replay gate is open, or turn an unconsumed trace into delivery progress.
 
@@ -58,11 +63,14 @@ Enter an integration cycle after any one of these events:
 - a milestone PASS;
 - a contract, schema, repository pin or interface change.
 
-The integration cycle freezes new task selection, verifies all component pins,
-replays every relevant central verifier from a clean checkout, runs the four
-independent Luna reviews in `docs/luna-review-protocol.md`, and reconciles
-`STATUS.md`, `MILESTONES.md`, `TASK_POOL.yaml` and evidence. A milestone is
-not promoted until the integration cycle agrees with its independent oracles.
+The integration cycle freezes new task selection, verifies relevant component
+pins, replays the relevant central verifier from a clean checkout, and
+reconciles durable state. It selects the review level in
+`docs/luna-review-protocol.md`: focused parallel review is reserved for
+milestone promotion, cross-component interfaces, major reusable artifacts and
+release-level claims; a routine integration check need not start a panel. A
+milestone is not promoted until its evidence gate and required independent
+review agree with its oracles.
 
 After a successful integration cycle, select the next dependency-ready OPEN
 task. A local milestone PASS is a transition point, not a reason to stop the
@@ -77,10 +85,9 @@ compiler mission.
 If the active task is `BLOCKED`, `NO_PROGRESS`, or exploration returns
 `NO_USEFUL_CANDIDATE`:
 
-1. record the exact blocker, failed routes, and missing input;
-2. commit the state update if `STATUS.md`, `TASK_POOL.yaml`, the decision log,
-   claim/evidence record, or reproducibility record changed;
-3. mark only that task `BLOCKED`;
+1. keep the exact blocker, failed routes and missing input in working context;
+2. persist and commit them only if continuation depends on surviving restart;
+3. mark only that task `BLOCKED` when durable task state is being kept;
 4. select the highest-information independent dependency-ready `OPEN` task;
 5. if none exists, use bounded exploration and expert escalation to create one
    bounded, falsifiable evidence-acquisition task;
@@ -110,3 +117,7 @@ provenance fields, correspondence records, generated code compiling,
 component-local tests, artifact hashes, or traces that no independent test
 consumes. They become relevant only when the active central verifier consumes
 them on the declared vertical path.
+
+Routine reading, debugging, informal experiments and `NO_PROGRESS` likewise
+do not create governance notes or mandatory commits unless they produce a
+durable result, blocker, decision, milestone change or reusable artifact.
