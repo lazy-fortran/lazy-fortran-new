@@ -2,6 +2,7 @@
   (primitive name)
   (primitive bool)
   (enum outcome accepted rejected unresolved)
+  (optional name-option name)
   (record source-ref
     (document name)
     (clause name)
@@ -11,7 +12,7 @@
   (record name-side
     (known bool)
     (present bool)
-    (value name))
+    (value name-option))
   (record associate-construct-name-pair
     (start name-side)
     (end name-side))

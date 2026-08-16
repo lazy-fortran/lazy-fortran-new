@@ -169,6 +169,13 @@ def validate_semantic_item(doc: dict[str, Any], root: Path, semantic_input: Path
         require(fragment in text, f"semantic-items input lacks {fragment}")
 
 
+def validate_contract_schema(doc: dict[str, Any], root: Path) -> None:
+    schema = (root / doc["contract"]["schema"]).read_text(encoding="utf-8")
+    require("(optional name-option name)" in schema, "contract schema lacks optional name type")
+    require("(value name-option)" in schema, "contract schema does not use optional name type")
+    require("(record name-side" in schema, "contract schema lacks typed name-side")
+
+
 def validate_source_binding(
     doc: dict[str, Any],
     root: Path,
@@ -181,6 +188,7 @@ def validate_source_binding(
     require(doc["schema_version"] == "m3-c1106-source-backed-v0", "fixture schema version differs")
     require(doc["origin"] == "HUMAN", "fixture origin is not HUMAN")
     require(doc["property"] == PROPERTY, "fixture property differs")
+    validate_contract_schema(doc, root)
 
     source = doc["source"]
     require(source["document"] == "J3-24-007", "source document differs")

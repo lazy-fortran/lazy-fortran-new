@@ -41,7 +41,7 @@
     "fixture": "contracts/fixtures/m3-c1106-semantic-oracle-v0.sx",
     "fixture_sha256": "65826009969e16c7ec958eb2b13af7af4cbe092167aebd153c6e468b9977d911",
     "schema": "contracts/m3-c1106-semantic-oracle-v0.sxs",
-    "schema_sha256": "d5aa25c4ae603a9b0294780f998f516f750a12b668b0c93ef11ad697d79f28b2",
+    "schema_sha256": "f1a4d3f01e5279e5b4de833d8e6e0e0422e180ac690b0aba13696f4285fbacfb",
     "version": 0
   },
   "fixture": "tests/fixtures/m3-c1106-source-backed-v0.json",

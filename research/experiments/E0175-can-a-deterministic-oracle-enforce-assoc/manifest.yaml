@@ -2,7 +2,7 @@ id: "E0175"
 title: "Deterministic C1106 associate-name semantic oracle"
 question: >
   Can a deterministic oracle enforce associate construct name consistency
-status: running          # draft | running | reported | abandoned
+status: draft            # draft | running | reported | abandoned
 opened: "2026-08-16"
 closed: ""
 
