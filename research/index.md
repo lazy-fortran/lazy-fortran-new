@@ -315,6 +315,7 @@ Runs recorded: 412
 | [D0117](decisions/D0117-source-target-relations-and-parser-evidence.md) | accepted | Amends D0116 | Treat target correspondence as a relation and keep parser evidence layered |
 | [D0118](decisions/D0118-normative-and-occurrence-provenance.md) | accepted |  | Separate normative rule clause from source occurrence provenance |
 | [D0119](decisions/D0119-boundary-candidate-identity.md) | accepted |  | Preserve boundary-candidate identity before target insertion |
+| [D0120](decisions/D0120-delivery-contracts-before-frontier.md) | accepted |  | Use delivery contracts before frontier work |
 
 ### Proposed decisions
 
