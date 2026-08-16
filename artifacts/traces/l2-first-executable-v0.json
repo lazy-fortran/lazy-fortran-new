@@ -1,7 +1,7 @@
 {
   "milestone": "L2",
   "fixture": "L2-first-executable-v0",
-  "lab_commit": "1262b8e",
+  "lab_commit": "6885fd9",
   "boundary": "frontend-v0-to-mir-v0-to-riscv64-linux-v0",
   "contracts": [
     "frontend-v0",
@@ -23,20 +23,139 @@
     },
     "worktree_state": "clean",
     "commands": [
-      "scripts/verify_active_milestone.sh",
-      "(cd standard-new && fo clean)",
-      "(cd fortfront-new && fo clean)",
-      "(cd ffc-new && fo clean)",
-      "(cd fortback-new && fo clean)",
-      "(cd ffc-new && fo exec ffc-lower-frontend-v0 ../lazy-fortran-new/tests/fixtures/l2-first-executable-v0.sx ../lazy-fortran-new/.cache/l2-run/l2.mir.sx)",
-      "(cd ffc-new && fo exec ffc-lower-frontend-v0 ../lazy-fortran-new/tests/fixtures/l2-first-executable-v0.sx ../lazy-fortran-new/.cache/l2-run/l2.two.mir.sx)",
-      "(cd ffc-new && fo exec ffc-lower-frontend-v0 ../lazy-fortran-new/tests/negative/l2-first-executable-v0-rejected.sx ../lazy-fortran-new/.cache/l2-run/negative.mir.sx)",
-      "(cd fortback-new && fo exec fortback-mir-v0 ../lazy-fortran-new/tests/negative/l2-mir-v0-malformed.sx ../lazy-fortran-new/.cache/l2-run/malformed.elf)",
-      "(cd fortback-new && fo exec fortback-mir-v0 ../lazy-fortran-new/tests/negative/l2-mir-v0-out-of-scope.sx ../lazy-fortran-new/.cache/l2-run/out-of-scope.elf)",
-      "(cd fortback-new && fo exec fortback-mir-v0 ../lazy-fortran-new/.cache/l2-run/l2.mir.sx ../lazy-fortran-new/.cache/l2-run/l2.elf)",
-      "(cd fortback-new && fo exec fortback-mir-v0 ../lazy-fortran-new/.cache/l2-run/l2.mir.sx ../lazy-fortran-new/.cache/l2-run/l2.two.elf)",
-      "readelf -h .cache/l2-run/l2.elf",
-      "qemu-riscv64 .cache/l2-run/l2.elf"
+      {
+        "repository": "lazy-fortran-new",
+        "resolver": "current-checkout",
+        "argv": [
+          "scripts/verify_active_milestone.sh"
+        ]
+      },
+      {
+        "repository": "standard-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "clean"
+        ]
+      },
+      {
+        "repository": "fortfront-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "clean"
+        ]
+      },
+      {
+        "repository": "ffc-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "clean"
+        ]
+      },
+      {
+        "repository": "fortback-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "clean"
+        ]
+      },
+      {
+        "repository": "ffc-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "exec",
+          "ffc-lower-frontend-v0",
+          "tests/fixtures/l2-first-executable-v0.sx",
+          ".cache/l2-run/l2.mir.sx"
+        ]
+      },
+      {
+        "repository": "ffc-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "exec",
+          "ffc-lower-frontend-v0",
+          "tests/fixtures/l2-first-executable-v0.sx",
+          ".cache/l2-run/l2.two.mir.sx"
+        ]
+      },
+      {
+        "repository": "ffc-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "exec",
+          "ffc-lower-frontend-v0",
+          "tests/negative/l2-first-executable-v0-rejected.sx",
+          ".cache/l2-run/negative.mir.sx"
+        ]
+      },
+      {
+        "repository": "fortback-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "exec",
+          "fortback-mir-v0",
+          "tests/negative/l2-mir-v0-malformed.sx",
+          ".cache/l2-run/malformed.elf"
+        ]
+      },
+      {
+        "repository": "fortback-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "exec",
+          "fortback-mir-v0",
+          "tests/negative/l2-mir-v0-out-of-scope.sx",
+          ".cache/l2-run/out-of-scope.elf"
+        ]
+      },
+      {
+        "repository": "fortback-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "exec",
+          "fortback-mir-v0",
+          ".cache/l2-run/l2.mir.sx",
+          ".cache/l2-run/l2.elf"
+        ]
+      },
+      {
+        "repository": "fortback-new",
+        "resolver": "repos.toml",
+        "argv": [
+          "fo",
+          "exec",
+          "fortback-mir-v0",
+          ".cache/l2-run/l2.mir.sx",
+          ".cache/l2-run/l2.two.elf"
+        ]
+      },
+      {
+        "repository": "lazy-fortran-new",
+        "resolver": "current-checkout",
+        "argv": [
+          "readelf",
+          "-h",
+          ".cache/l2-run/l2.elf"
+        ]
+      },
+      {
+        "repository": "lazy-fortran-new",
+        "resolver": "current-checkout",
+        "argv": [
+          "qemu-riscv64",
+          ".cache/l2-run/l2.elf"
+        ]
+      }
     ]
   },
   "stages": [
