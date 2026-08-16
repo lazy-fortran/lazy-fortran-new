@@ -164,7 +164,7 @@ milestones:
     title: Source-backed Core 0 semantics
     status: OPEN
     verification: PASS
-    review_state: OPEN
+    review_state: PASS
     prerequisites: [M1-M2]
     verifier_command: tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000012
     evidence_paths:
@@ -200,10 +200,15 @@ milestones:
       - research/runs/2026-08.jsonl#R000010
       - research/runs/2026-08.jsonl#R000011
       - research/runs/2026-08.jsonl#R000012
+      - research/runs/2026-08.jsonl#R000013
+      - research/runs/2026-08.jsonl#R000014
+      - research/runs/2026-08.jsonl#R000015
+      - artifacts/reports/M3/c702-semantic-review-v2.md
+      - artifacts/reports/M3/c702-reproducibility-review-v5.md
     notes: >-
-      The bounded C1106 slice is promoted. The C702 successor replay passes
-      mechanically and is awaiting focused review. Full Core 0 semantics
-      remain unpromoted and require later contracts.
+      The bounded C1106 and C702 slices are promoted by their central
+      verifiers and focused reviews. Full Core 0 semantics remain unpromoted
+      and require later contracts.
   - id: M4-M6
     title: Generated frontend, practical compiler and self-hosting
     status: BLOCKED
@@ -564,9 +569,9 @@ tasks:
   - id: T-M3-c702-semantic-oracle
     milestone: M3
     title: Verify the bounded C702 type-parameter colon semantic oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: OPEN
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c1106-semantic-oracle
@@ -661,6 +666,16 @@ tasks:
       - research/runs/2026-08.jsonl#R000010
       - research/runs/2026-08.jsonl#R000011
       - research/runs/2026-08.jsonl#R000012
+      - research/runs/2026-08.jsonl#R000013
+      - research/runs/2026-08.jsonl#R000014
+      - research/runs/2026-08.jsonl#R000015
+      - artifacts/reports/M3/c702-semantic-review-v1.md
+      - artifacts/reports/M3/c702-semantic-review-v2.md
+      - artifacts/reports/M3/c702-reproducibility-review-v1.md
+      - artifacts/reports/M3/c702-reproducibility-review-v2.md
+      - artifacts/reports/M3/c702-reproducibility-review-v3.md
+      - artifacts/reports/M3/c702-reproducibility-review-v4.md
+      - artifacts/reports/M3/c702-reproducibility-review-v5.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

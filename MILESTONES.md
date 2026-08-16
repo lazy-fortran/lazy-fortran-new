@@ -7,9 +7,8 @@ milestone ledger.
 ## Current verification state
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
-replays and focused reviews pass. The bounded M3 C1106 slice is promoted by
-its central verifier and focused review. The C702 successor replay passes and
-is awaiting focused review. Full M3 remains open.
+replays and focused reviews pass. The bounded M3 C1106 and C702 slices are
+promoted by their central verifiers and focused reviews. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -40,9 +39,8 @@ Evidence: `research/decisions/D0124-first-m3-associate-name-oracle.md`,
 
 ## M3 — bounded C702 semantic-oracle successor
 
-Bounded-slice status: `OPEN`; central replay `R000012` passes and is awaiting
-focused review. Full Core 0 semantics
-remain open and are not claimed.
+Bounded-slice status: `PASS`; central replay `R000012` and focused review
+`R000015` pass. Full Core 0 semantics remain open and are not claimed.
 
 The slice binds J3/24-007 C702, canonical-text lines 3095--3096, to the
 already represented StandardIR rows R701, R832 and R856. Its typed candidate
@@ -60,8 +58,9 @@ Evidence: `research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md`,
 `contracts/m3-c702-semantic-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c702.py`,
 `artifacts/traces/m3-c702-source-backed-v0.json`, and
-`research/runs/2026-08.jsonl#R000001` through `#R000012`. No model output can
-promote a semantic fact.
+`research/runs/2026-08.jsonl#R000001` through `#R000015`, plus focused review
+reports under `artifacts/reports/M3/`. No model output can promote a semantic
+fact.
 
 ## L0 — Normative lexical slice
 

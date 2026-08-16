@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-M3 — bounded C702 semantic-oracle successor under review; full Core 0 remains pending
+M3 — bounded C702 semantic-oracle slice promoted; full Core 0 remains pending
 
 ## Central goal
 
@@ -21,8 +21,8 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 is now open through the promoted C1106 contract and the mechanically
-passing C702 successor; the full Core 0 semantic milestone remains unpromoted.
+review. M3 is now open through the promoted C1106 and C702 contracts; the full
+Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -86,13 +86,11 @@ not current promotion evidence.
 - E0172 remains abandoned before its model cell: R000456 found that the
   endpoint exposed Qwen 3.8 27B while the experiment declared Qwen 3.6
   35B-A3B. No model output was accepted. E0174 is closed.
-- M3 is `OPEN` through the promoted C1106 slice and active task
-  `T-M3-c702-semantic-oracle`. D0126 selects C702's type-parameter colon
-  legality over the already represented R701, R832 and R856 shapes. The exact
-  mechanical gate is
-  `tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000012`; fresh replay
-  `R000012` records the current central commit and the normative PDF hash.
-  Focused review is pending. No model output is promoted and full Core 0
+- M3 is `OPEN` through the promoted C1106 and C702 slices. D0126 selects
+  C702's type-parameter colon legality over the already represented R701, R832
+  and R856 shapes. The exact mechanical gate is
+  `tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000012`; replay `R000012` and
+  focused review `R000015` pass. No model output is promoted and full Core 0
   remains open.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
@@ -110,9 +108,8 @@ emission contract interchange.
 ## Active fixture
 
 ID: `T-M3-c702-semantic-oracle` — bounded source-backed C702 type-parameter
-colon semantic oracle; central replay `R000012` passes and is awaiting focused
-review. C1106 remains promoted and
-full M3 remains open.
+colon semantic oracle; central replay `R000012` and focused review `R000015`
+pass. The bounded slice is promoted; full M3 remains open.
 
 Boundary decision: `research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md`.
 
@@ -144,16 +141,15 @@ control R000468 and both focused independent reviews passing. D0084 keeps
 the broad semantic/model lane closed while the bounded M3 contract is
 verified. E0172's runtime identity failure is retained as R000456. The
 central C1106 replay R000474 and focused review R000476 pass. C702 replay
-R000012 passes; the focused review is the current blocker. Full M3/Core 0
-remains open and requires later
-bounded contracts; a green slice does not close full M3.
+R000012 and focused review R000015 pass. The remaining blocker is full M3/Core
+0, which requires later bounded contracts; a green slice does not close full
+M3.
 
 ## Next executable task
 
-Run the two focused independent reviews against the frozen C702 replay packet,
-then promote only if both review scopes and the complete central gate pass.
-Do not resume E0172, start broad parsing/semantic work, or promote a model
-fact. Do not treat this bounded slice as the full M3 milestone.
+Define the next separate, source-backed M3 contract over an already represented
+shape. Do not resume E0172, start broad parsing/semantic work, or promote a
+model fact. Do not treat the promoted C702 slice as the full M3 milestone.
 
 ## Last verified central command
 
@@ -165,9 +161,9 @@ promotion review `R000444` `PASS`; L2 is promoted. M1-M2 corrected replay
 `R000454` and focused integration review `R000455` are `PASS`; the
 current active replay `scripts/verify_active_milestone.sh` also passes at
 central commit `bdb8717`. The M3 C1106 central replay `R000474` and focused
-review `R000476` are `PASS`; the C702 central replay `R000012` is `PASS` and
-focused review is pending. The bounded C1106 slice is promoted, while full M3
-remains open.
+review `R000476` are `PASS`; the C702 central replay `R000012` and focused
+review `R000015` are `PASS`. The bounded C1106 and C702 slices are promoted,
+while full M3 remains open.
 ```
 
 ## Blacklisted pseudo-progress
