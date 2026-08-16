@@ -40,8 +40,8 @@ Evidence: `research/decisions/D0124-first-m3-associate-name-oracle.md`,
 
 ## M3 — bounded C702 semantic-oracle successor
 
-Bounded-slice status: `OPEN`; central replay `R000003` passes and corrected
-ledger candidate `R000005` is awaiting focused review. Full Core 0 semantics
+Bounded-slice status: `OPEN`; central replay `R000007` passes and is awaiting
+focused review. Full Core 0 semantics
 remain open and are not claimed.
 
 The slice binds J3/24-007 C702, canonical-text lines 3095--3096, to the
@@ -52,7 +52,7 @@ and allocatable contexts are `ACCEPTED`, neither is `REJECTED`, and unknown is
 the complete inventory with:
 
 ```text
-tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000003
+tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000007
 ```
 
 Evidence: `research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md`,
@@ -60,7 +60,7 @@ Evidence: `research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md`,
 `contracts/m3-c702-semantic-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c702.py`,
 `artifacts/traces/m3-c702-source-backed-v0.json`, and
-`research/runs/2026-08.jsonl#R000001` through `#R000006`. No model output can
+`research/runs/2026-08.jsonl#R000001` through `#R000007`. No model output can
 promote a semantic fact.
 
 ## L0 — Normative lexical slice

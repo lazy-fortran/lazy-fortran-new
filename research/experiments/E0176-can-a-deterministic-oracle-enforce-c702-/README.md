@@ -15,7 +15,7 @@ not an input and cannot promote a fact.
 Run the complete gate with:
 
 ```text
-tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000003
+tests/e2e/run-m3-c702.sh .cache/runs/E0176/R000007
 ```
 
 The command canonicalizes the pinned semantic-items SX through `standard-new`,
