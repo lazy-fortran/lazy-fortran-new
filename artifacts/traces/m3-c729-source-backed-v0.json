@@ -1,0 +1,94 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-present-allowed-context",
+      "kind": "positive"
+    },
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-absent-other-context",
+      "kind": "positive"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "negative-present-other-context",
+      "kind": "negative"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-present-unknown-context",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c729-optional-comma-oracle-v0.sx",
+    "fixture_sha256": "4342b7eb564919011e811e1195131b92348f1d42c517a2f49caf96ef5b18f59f",
+    "schema": "contracts/m3-c729-optional-comma-oracle-v0.sxs",
+    "schema_sha256": "a87af854aa0d1f3cbe69268e2a5c02ae2f47b4be1fb68e1102482b33ac083010",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c729-source-backed-v0.json",
+  "fixture_sha256": "ff4048f0f6a0d131f1aee5b6a2475185545a42311caea023172e32cd19dc53cd",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-source-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-r722-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c729.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 1,
+    "UNRESOLVED": 1
+  },
+  "property": "length-selector-optional-comma-legality",
+  "schema_version": "m3-c729-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "03a9107cb25ae6a527875f1206a64f942740756f5cac279b3393a2b121df3849",
+    "input": "tests/fixtures/m3-c729-semantic-items.sx",
+    "input_sha256": "03a9107cb25ae6a527875f1206a64f942740756f5cac279b3393a2b121df3849"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3466
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 84,
+    "rule": "C729",
+    "standardir_rules": [
+      "R722",
+      "R703",
+      "R801"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

@@ -1,0 +1,21 @@
+(schema m3-c729-optional-comma-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum comma-state absent present unknown)
+  (enum context-state allowed other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record optional-comma-use
+    (comma-state comma)
+    (context-state context))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact optional-comma-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

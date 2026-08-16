@@ -1,0 +1,75 @@
+id: "E0184"
+title: "Deterministic C729 optional-comma oracle"
+question: >
+  Can a deterministic oracle enforce C729 optional-comma legality
+status: running        # draft | running | reported | abandoned
+opened: "2026-08-17"
+closed: ""
+candidate_run: R000001
+candidate_runs: [R000001]
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "df2ed91d749afb41137e39a56b6297b0ff3a08da"
+  standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: m3-c729-source-backed-v0
+  normative_source_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  standardir_source: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_source_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  semantic_items: tests/fixtures/m3-c729-semantic-items.sx
+
+variables:
+  property: length-selector-optional-comma-legality
+  outcomes: [ACCEPTED, REJECTED, UNRESOLVED]
+
+model_selection: "No model calls. Candidate facts are human-authored fixtures; the oracle is mechanical."
+
+metrics:
+  - case_outcomes
+  - source_binding
+  - semantic_canonicalization
+  - mutation_controls
+  - model_calls
+  - semantic_promotions
+
+denominator: >
+  Every case in tests/fixtures/m3-c729-source-backed-v0.json: two accepted
+  optional-comma witnesses, one rejected present-comma neighbour and one
+  unknown-context unresolved control. Mutation controls are a separate
+  source-binding denominator.
+
+independent_oracle: >
+  tests/e2e/validate_m3_c729.py computes C729 from typed comma and context
+  states independently of expected labels. It checks only the bounded R722
+  optional-comma restriction and its R703/R801 context; it does not parse
+  statements, analyze declarations, resolve names, type-check or consume
+  model output.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  Any source hash, source span, rule identity or semantic-item provenance
+  mutation is accepted; the canonical semantic-items output changes; an
+  allowed present-comma candidate is rejected; a present comma in another
+  context is accepted; an absent comma is rejected; an unknown state is
+  classified other than UNRESOLVED; or any model call or semantic promotion
+  is observed.
+
+gate: >
+  tests/e2e/run-m3-c729.sh .cache/runs/E0184/R000001 must pass from clean
+  central and standard-new checkouts, including standard-new sxsemantic
+  canonicalization, normative PDF/canonical-text/StandardIR hash and witness
+  checks, four independently computed outcomes, five observed mutation
+  failures, exact committed trace comparison and zero model calls or semantic
+  promotions.
+
+analysis: tests/e2e/validate_m3_c729.py
+run: tests/e2e/run-m3-c729.sh .cache/runs/E0184/R000001

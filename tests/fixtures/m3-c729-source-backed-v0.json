@@ -1,0 +1,78 @@
+{
+  "schema_version": "m3-c729-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "length-selector-optional-comma-legality",
+  "contract": {
+    "schema": "contracts/m3-c729-optional-comma-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c729-optional-comma-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C729",
+    "printed_page": 84,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3466, "text": "C729 (R722) The optional comma in a length-selector is permitted only in a declaration-type-spec in a type-declaration-stmt."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R722", "lhs": "length-selector", "page": 84, "byte_start": 217452, "byte_length": 83, "occurrence": 72},
+        {"rule": "R703", "lhs": "declaration-type-spec", "page": 77, "byte_start": 197098, "byte_length": 309, "occurrence": 53},
+        {"rule": "R801", "lhs": "type-declaration-stmt", "page": 117, "byte_start": 304626, "byte_length": 98, "occurrence": 135}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c729-semantic-items.sx",
+    "sha256": "03a9107cb25ae6a527875f1206a64f942740756f5cac279b3393a2b121df3849",
+    "id": "S-C729",
+    "subject": "length-selector-optional-comma-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C729",
+    "page": 84,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-present-allowed-context",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "optional-comma-use", "source_rule": "C729", "comma_state": "present", "context_state": "allowed"}
+    },
+    {
+      "id": "positive-absent-other-context",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "optional-comma-use", "source_rule": "C729", "comma_state": "absent", "context_state": "other"}
+    },
+    {
+      "id": "negative-present-other-context",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"type": "optional-comma-use", "source_rule": "C729", "comma_state": "present", "context_state": "other"}
+    },
+    {
+      "id": "unresolved-present-unknown-context",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"type": "optional-comma-use", "source_rule": "C729", "comma_state": "present", "context_state": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C729 (R722) The optional comma in a length-selector is permitted everywhere."},
+    {"id": "standardir-source-hash", "path": ["source", "standardir", "sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "standardir-r722-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R721"},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C730"}
+  ]
+}

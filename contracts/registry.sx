@@ -18,4 +18,5 @@
   (contract m3-c721-exponent-letter-oracle 0 lazy-fortran-new)
   (contract m3-c725-int-literal-kind-oracle 0 lazy-fortran-new)
   (contract m3-c718-scalar-int-constant-oracle 0 lazy-fortran-new)
-  (contract m3-c723-complex-named-constant-oracle 0 lazy-fortran-new))
+  (contract m3-c723-complex-named-constant-oracle 0 lazy-fortran-new)
+  (contract m3-c729-optional-comma-oracle 0 lazy-fortran-new))
