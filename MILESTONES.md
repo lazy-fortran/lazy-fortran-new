@@ -85,6 +85,15 @@ Next after: L1
 
 Current status: `OPEN`.
 
+Active fixture: `tests/fixtures/l2-first-executable-v0.sx`.
+
+Verifier: `scripts/verify_active_milestone.sh`.
+
+Evidence paths: `tests/e2e/run-l2.sh`, `tests/e2e/oracle_l2.py`,
+`tests/fixtures/l2-first-executable-v0.toml`,
+`artifacts/manifests/l2-first-executable-v0.toml`, and
+`artifacts/traces/l2-first-executable-v0.json`.
+
 ```text
 source
 → frontend
@@ -106,7 +115,6 @@ source
 
 Do not define L3 until L2 passes.
 
-The first L2 fixture and runner must be defined before any execution result is
-claimed. The existing `scripts/verify_active_milestone.sh` is fail-closed for
-L2 until an L2 runner exists. The selected boundary is recorded in
+The first L2 fixture and runner are now defined, but no execution result is
+claimed until the complete gate passes. The selected boundary is recorded in
 `research/decisions/D0121-first-executable-rv64-slice.md`.

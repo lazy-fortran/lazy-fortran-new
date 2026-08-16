@@ -81,8 +81,12 @@ milestones:
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
-      - STATUS.md
-      - MILESTONES.md
+      - tests/e2e/run-l2.sh
+      - tests/e2e/oracle_l2.py
+      - tests/fixtures/l2-first-executable-v0.toml
+      - artifacts/manifests/l2-first-executable-v0.toml
+      - artifacts/traces/l2-first-executable-v0.json
+      - research/runs/2026-08.jsonl#R000439
   - id: M1-M2
     title: Source-valid StandardIR and sane generated grammars
     status: BLOCKED

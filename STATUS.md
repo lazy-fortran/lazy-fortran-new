@@ -32,8 +32,8 @@ with `scripts/check_pins.sh` after changing a component pin.
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `03719c6ebea7dcfc3e88d2a0997ea8935209d235` | normative source → StandardIR | clean main; full `fo` recorded in lane evidence |
 | fortfront-new | lazy-fortran/fortfront-new | `fc828b237c7c7d3962ccdcff6faf629266aaf8de` | frontend | clean main; L1 consumer verified |
-| ffc-new | lazy-fortran/ffc-new | `32538492ba10de8d6c8745b71da372ebd5b6db36` | compiler driver and middle end | clean main; central L0 use not wired |
-| fortback-new | lazy-fortran/fortback-new | `a149015b8592b6c4c96b513171c1002f7654545b` | backend | clean main; central L0 use not wired |
+| ffc-new | lazy-fortran/ffc-new | `5a82330dc2eff870792c0de8cd7cea8d13e7a8fb` | compiler driver and middle end | clean main; MIR-v0 CLI bridge |
+| fortback-new | lazy-fortran/fortback-new | `181715ac2fa04b0682db24564126dee882cac345` | backend | clean main; bounded RV64 Linux executable bridge and CLI boundary test |
 
 ## Historical milestone evidence
 
@@ -75,8 +75,7 @@ made yet.
 
 ID: T-L2-vertical-slice — deliver the first frontend-to-executable path.
 
-Candidate family: to be created under `tests/fixtures/` after the component
-interfaces are fixed.
+Candidate family: `tests/fixtures/l2-first-executable-v0.sx`.
 
 Boundary decision: `research/decisions/D0121-first-executable-rv64-slice.md`.
 
@@ -88,8 +87,9 @@ oracles required by `docs/oracle-policy.md`.
 
 ## Current blocker
 
-No L2 central runner or executable fixture exists yet. This is an open
-implementation task, not a blocker in the terminal mission.
+The first central runner is implemented as `tests/e2e/run-l2.sh` and passed
+the corrected component revisions. L2 remains open until the independent
+review lanes pass and the promotion evidence is committed.
 
 ## Next executable task
 
@@ -102,7 +102,8 @@ incomplete.
 ```text
 Current L0 replay and four-lane review: PASS.
 Current L1 replay and four-lane review: PASS.
-Current L2: `OPEN`; no execution runner has passed.
+Current L2: central execution gate `PASS`; milestone promotion is pending
+independent review.
 ```
 
 ## Blacklisted pseudo-progress

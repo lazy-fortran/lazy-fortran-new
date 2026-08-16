@@ -1,0 +1,63 @@
+{
+  "milestone": "L2",
+  "fixture": "L2-first-executable-v0",
+  "boundary": "frontend-v0-to-mir-v0-to-riscv64-linux-v0",
+  "contracts": [
+    "frontend-v0",
+    "mir-v0",
+    "targetir-v0",
+    "emission-v0"
+  ],
+  "toolchain": {
+    "fo_version": "0.3.2",
+    "fo_sha256": "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68",
+    "qemu_riscv64": "qemu-riscv64 version 11.0.3",
+    "readelf": "GNU readelf (GNU Binutils) 2.47"
+  },
+  "stages": [
+    {
+      "component": "ffc-new",
+      "commit": "5a82330dc2eff870792c0de8cd7cea8d13e7a8fb",
+      "contract": "frontend-v0 -> mir-v0",
+      "input": {
+        "path": "tests/fixtures/l2-first-executable-v0.sx",
+        "sha256": "f411b44dd3398f207a30624b2ab150edba40a56ff761c25c0b825a8da9f8c889"
+      },
+      "output": {
+        "path": "cache/l2.mir.sx",
+        "sha256": "20baf8ef28d83c884b70c67c224027a416e5d9e0fb21d8533a26024b654ebcb6"
+      },
+      "observable": "canonical MIR-v0 SX"
+    },
+    {
+      "component": "fortback-new",
+      "commit": "181715ac2fa04b0682db24564126dee882cac345",
+      "contract": "mir-v0 -> targetir-v0 -> emission-v0",
+      "input": {
+        "path": "cache/l2.mir.sx",
+        "sha256": "20baf8ef28d83c884b70c67c224027a416e5d9e0fb21d8533a26024b654ebcb6"
+      },
+      "output": {
+        "path": "cache/l2.elf",
+        "sha256": "19d427d991d2ca2c444c4f74ef90d928a1a04225ed15aa2dc3adb7f622a7aa04"
+      },
+      "observable": "deterministic RV64 Linux ELF executable"
+    }
+  ],
+  "upstream_pins": {
+    "standard-new": "03719c6ebea7dcfc3e88d2a0997ea8935209d235",
+    "fortfront-new": "fc828b237c7c7d3962ccdcff6faf629266aaf8de",
+    "ffc-new": "5a82330dc2eff870792c0de8cd7cea8d13e7a8fb",
+    "fortback-new": "181715ac2fa04b0682db24564126dee882cac345"
+  },
+  "negative": {
+    "path": "tests/negative/l2-first-executable-v0-rejected.sx",
+    "sha256": "2b3bf4f220ceaa15f6d5e23f189a378870bfe832ffeb9c55b12f570e4dc9c6b7",
+    "observable": "FFC rejects input without creating output"
+  },
+  "runtime": {
+    "oracle": "qemu-riscv64",
+    "exit_status": 0
+  },
+  "origin": "MECHANICAL"
+}

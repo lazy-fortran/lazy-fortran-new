@@ -17,5 +17,6 @@ active=$(awk '
 case "$active" in
     L0\ *) "$ROOT/scripts/run_e2e.sh" "$@" ;;
     L1\ *) "$ROOT/tests/e2e/run-l1.sh" "$@" ;;
+    L2\ *) "$ROOT/tests/e2e/run-l2.sh" "$@" ;;
     *) die "no central runner is implemented for active milestone: $active" ;;
 esac
