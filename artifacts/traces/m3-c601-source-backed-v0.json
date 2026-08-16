@@ -1,0 +1,90 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-short-name",
+      "kind": "positive",
+      "spelling_length": 1
+    },
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-boundary-name",
+      "kind": "positive",
+      "spelling_length": 63
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "negative-length-neighbour",
+      "kind": "negative",
+      "spelling_length": 64
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-invalid-name-shape",
+      "kind": "unresolved",
+      "spelling_length": 2
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c601-name-length-oracle-v0.sx",
+    "fixture_sha256": "9e147d6d100601403e2bd6bf2763a80e429ea2451bc194ef6decc68f945c09a1",
+    "schema": "contracts/m3-c601-name-length-oracle-v0.sxs",
+    "schema_sha256": "ff4965ebd609ea0aa0f58e82a224cfc64ca4036281fafe82d20e7d6051ebacf2",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c601-source-backed-v0.json",
+  "fixture_sha256": "768f0cfc72754f2a384f8e786ff9fa37d6546c5f7dbbf55b8c5e094b2e2ab4dc",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c601.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 1,
+    "UNRESOLVED": 1
+  },
+  "property": "name-length-legality",
+  "schema_version": "m3-c601-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "aa9c916c41544a7d66ee8d399cd31c052e320958535f6a4aa5cddea0d4d113c4",
+    "input": "tests/fixtures/m3-c601-semantic-items.sx",
+    "input_sha256": "aa9c916c41544a7d66ee8d399cd31c052e320958535f6a4aa5cddea0d4d113c4"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      2809
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "6",
+    "document": "J3-24-007",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 67,
+    "rule": "C601",
+    "standardir_rules": [
+      "R601",
+      "R602",
+      "R603"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

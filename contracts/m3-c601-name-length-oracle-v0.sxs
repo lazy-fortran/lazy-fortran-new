@@ -1,0 +1,18 @@
+(schema m3-c601-name-length-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record name-length-use
+    (spelling name))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact name-length-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

@@ -1,0 +1,76 @@
+{
+  "schema_version": "m3-c601-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "name-length-legality",
+  "contract": {
+    "schema": "contracts/m3-c601-name-length-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c601-name-length-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "6",
+    "rule": "C601",
+    "printed_page": 67,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 2809, "text": "C601 (R603) The maximum length of a name is 63 characters."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R601", "lhs": "alphanumeric-character", "page": 67, "byte_start": 173300, "byte_length": 68, "occurrence": 29},
+        {"rule": "R602", "lhs": "underscore", "page": 67, "byte_start": 174187, "byte_length": 23, "occurrence": 30},
+        {"rule": "R603", "lhs": "name", "page": 68, "byte_start": 175756, "byte_length": 53, "occurrence": 31}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c601-semantic-items.sx",
+    "sha256": "aa9c916c41544a7d66ee8d399cd31c052e320958535f6a4aa5cddea0d4d113c4",
+    "id": "S-C601",
+    "subject": "name-length-legality",
+    "document": "J3-24-007",
+    "clause": "6",
+    "rule": "C601",
+    "page": 67,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-short-name",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "name-length-use", "source_rule": "C601", "spelling": "A"}
+    },
+    {
+      "id": "positive-boundary-name",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "name-length-use", "source_rule": "C601", "spelling": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}
+    },
+    {
+      "id": "negative-length-neighbour",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"type": "name-length-use", "source_rule": "C601", "spelling": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}
+    },
+    {
+      "id": "unresolved-invalid-name-shape",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"type": "name-length-use", "source_rule": "C601", "spelling": "1A"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C601 (R603) The maximum length of a name is 64 characters."},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C602"}
+  ]
+}

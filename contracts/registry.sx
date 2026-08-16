@@ -12,4 +12,5 @@
   (contract targetir 0 fortback-new backend-generators)
   (contract emission 0 fortback-new ffc-new driver)
   (contract m3-c1106-semantic-oracle 0 lazy-fortran-new)
-  (contract m3-c702-semantic-oracle 0 lazy-fortran-new))
+  (contract m3-c702-semantic-oracle 0 lazy-fortran-new)
+  (contract m3-c601-name-length-oracle 0 lazy-fortran-new))

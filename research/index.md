@@ -175,6 +175,7 @@ Runs recorded: 466
 | E0174 | reported | 11 | Can the current standard-new correspondence producer consume coalesced boundary sites without duplicate relations? |
 | E0175 | reported | 7 | Can a deterministic oracle enforce associate construct name consistency |
 | E0176 | reported | 15 | Can a deterministic oracle enforce C702 type-parameter colon legality |
+| E0177 | draft | 0 | Can a deterministic oracle enforce C601 name-length legality |
 
 ## Run status
 
@@ -327,6 +328,7 @@ Runs recorded: 466
 | [D0124](decisions/D0124-first-m3-associate-name-oracle.md) | amended by D0125 | Supersedes D####; Amends D####; Retracts D#### | First M3 slice uses associate construct-name consistency |
 | [D0125](decisions/D0125-m3-c1106-case-insensitive-names.md) | accepted | Amends D0124; Supersedes D####; Amends D####; Retracts D#### | C1106 names compare case-insensitively |
 | [D0126](decisions/D0126-second-m3-c702-type-param-colon-oracle.md) | accepted |  | Second M3 slice uses C702 type-parameter colon legality |
+| [D0127](decisions/D0127-third-m3-c601-name-length-oracle.md) | accepted |  | Third M3 slice uses C601 name-length legality |
 
 ### Proposed decisions
 
