@@ -90,8 +90,8 @@ not current promotion evidence.
   the source-backed C1106 associate-construct-name relation with ASCII
   case-insensitive identity. The exact gate is
   `tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000474`; its mechanical replay
-  passes, while focused promotion review remains pending. No model output is
-  promoted and the full Core 0 milestone remains open.
+  and focused promotion review `R000476` pass. The bounded slice is promoted;
+  no model output is promoted and the full Core 0 milestone remains open.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -108,7 +108,8 @@ emission contract interchange.
 ## Active fixture
 
 ID: `T-M3-c1106-semantic-oracle` — bounded source-backed C1106 semantic
-oracle; central replay `R000474` passes and focused review is pending.
+oracle; central replay `R000474` and focused review `R000476` pass; the bounded
+slice is promoted and full M3 remains open.
 
 Boundary decisions: `research/decisions/D0124-first-m3-associate-name-oracle.md`
 and `research/decisions/D0125-m3-c1106-case-insensitive-names.md`.
@@ -140,21 +141,16 @@ correspondence replay verifier passes in E0174/R000467, with fast iteration
 control R000468 and both focused independent reviews passing. D0084 keeps
 the broad semantic/model lane closed while the bounded M3 contract is
 verified. E0172's runtime identity failure is retained as R000456. The
-central C1106 replay passes in R000474; the remaining blocker is focused
-review and final promotion reconciliation. A green slice does not close full
-M3.
+central C1106 replay R000474 and focused review R000476 pass. The remaining
+blocker is full M3/Core 0, which requires a separately defined bounded
+contract; a green slice does not close full M3.
 
 ## Next executable task
 
-The central gate has passed. The next action is the focused independent review
-against the frozen R000474/R000475 packet, followed by final promotion reconciliation:
-
-```text
-tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000474
-```
-
+The bounded slice is promoted. The next action is to define one separate,
+source-backed M3 contract over an already represented shape before broadening.
 Do not resume E0172, start broad parsing/semantic work, or promote a model
-fact. After review, define a separate next M3 contract before broadening.
+fact. Do not treat this bounded slice as the full M3 milestone.
 
 ## Last verified central command
 
@@ -165,8 +161,9 @@ Current L2: corrected central execution gate `R000441` `PASS`; focused
 promotion review `R000444` `PASS`; L2 is promoted. M1-M2 corrected replay
 `R000454` and focused integration review `R000455` are `PASS`; the
 current active replay `scripts/verify_active_milestone.sh` also passes at
-central commit `bdb8717`. The M3 C1106 central replay `R000474` is `PASS`;
-focused review and final promotion reconciliation remain pending.
+central commit `bdb8717`. The M3 C1106 central replay `R000474` and focused
+review `R000476` are `PASS`; the bounded slice is promoted and full M3 remains
+open.
 ```
 
 ## Blacklisted pseudo-progress

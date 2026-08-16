@@ -7,14 +7,13 @@ milestone ledger.
 ## Current verification state
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
-replays and focused reviews pass. The bounded M3 C1106 replay passes its
-central verifier; focused review is pending. Full M3 remains open.
+replays and focused reviews pass. The bounded M3 C1106 slice is promoted by
+its central verifier and focused review. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
-Current status: `OPEN`; central verifier `R000474` is `PASS`, focused review
-and final promotion reconciliation are pending. Full Core 0 semantics are not
-claimed.
+Bounded-slice status: `PASS`; central verifier `R000474` and focused review
+`R000476` pass. Full Core 0 semantics remain open and are not claimed.
 
 The slice binds J3/24-007 C1106 to StandardIR R1102/R1103/R1106. Its typed
 name-side contract uses an optional name value, and its deterministic oracle
@@ -33,7 +32,10 @@ Evidence: `research/decisions/D0124-first-m3-associate-name-oracle.md`,
 `artifacts/traces/m3-c1106-source-backed-v0.json`, and
 `research/runs/2026-08.jsonl#R000471`,
 `research/runs/2026-08.jsonl#R000473`, and
-`research/runs/2026-08.jsonl#R000475`.
+`research/runs/2026-08.jsonl#R000474`,
+`research/runs/2026-08.jsonl#R000475`, plus focused review
+`research/runs/2026-08.jsonl#R000476` and reports under
+`artifacts/reports/M3/`.
 
 ## L0 — Normative lexical slice
 

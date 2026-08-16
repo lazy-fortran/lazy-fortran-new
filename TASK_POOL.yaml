@@ -164,7 +164,7 @@ milestones:
     title: Source-backed Core 0 semantics
     status: OPEN
     verification: PASS
-    review_state: OPEN
+    review_state: PASS
     prerequisites: [M1-M2]
     verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000474
     evidence_paths:
@@ -178,9 +178,13 @@ milestones:
       - research/runs/2026-08.jsonl#R000473
       - research/runs/2026-08.jsonl#R000474
       - research/runs/2026-08.jsonl#R000475
+      - research/runs/2026-08.jsonl#R000476
+      - artifacts/reports/M3/c1106-semantic-review-v1.md
+      - artifacts/reports/M3/c1106-reproducibility-review-v1.md
     notes: >-
-      The bounded C1106 slice is the first active M3 contract. Full Core 0
-      semantics remain unpromoted and require later contracts.
+      The bounded C1106 slice is promoted by its central verifier and focused
+      review. Full Core 0 semantics remain unpromoted and require later
+      contracts.
   - id: M4-M6
     title: Generated frontend, practical compiler and self-hosting
     status: BLOCKED
@@ -442,9 +446,9 @@ tasks:
   - id: T-M3-c1106-semantic-oracle
     milestone: M3
     title: Verify the bounded C1106 associate-name semantic oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: OPEN
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M1M2-source-backed-fixture
@@ -532,6 +536,9 @@ tasks:
       - research/runs/2026-08.jsonl#R000473
       - research/runs/2026-08.jsonl#R000474
       - research/runs/2026-08.jsonl#R000475
+      - research/runs/2026-08.jsonl#R000476
+      - artifacts/reports/M3/c1106-semantic-review-v1.md
+      - artifacts/reports/M3/c1106-reproducibility-review-v1.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
