@@ -4,8 +4,7 @@ MAX_PARALLEL_WORKERS: 4
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier:
-  - T-M3-c1106-semantic-oracle
+ready_frontier: []
 
 controller_ownership:
   owner: controller
@@ -164,9 +163,10 @@ milestones:
   - id: M3
     title: Source-backed Core 0 semantics
     status: OPEN
-    verification: NOT STARTED
+    verification: PASS
+    review_state: OPEN
     prerequisites: [M1-M2]
-    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000470
+    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000471
     evidence_paths:
       - ROADMAP.md
       - research/decisions/D0124-first-m3-associate-name-oracle.md
@@ -174,6 +174,7 @@ milestones:
       - contracts/m3-c1106-semantic-oracle-v0.sxs
       - tests/e2e/run-m3-c1106.sh
       - artifacts/traces/m3-c1106-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000471
     notes: >-
       The bounded C1106 slice is the first active M3 contract. Full Core 0
       semantics remain unpromoted and require later contracts.
@@ -439,7 +440,7 @@ tasks:
     milestone: M3
     title: Verify the bounded C1106 associate-name semantic oracle
     status: OPEN
-    verification: NOT STARTED
+    verification: PASS
     review_state: OPEN
     priority: 100
     depends_on:
@@ -508,7 +509,7 @@ tasks:
         - ROADMAP.md
         - TASK_POOL.yaml
     prerequisites: [T-M1M2-source-backed-fixture]
-    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000470
+    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000471
     evidence_paths:
       - research/decisions/D0124-first-m3-associate-name-oracle.md
       - research/decisions/D0125-m3-c1106-case-insensitive-names.md
@@ -522,6 +523,9 @@ tasks:
       - artifacts/traces/m3-c1106-source-backed-v0.json
       - research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/README.md
       - research/experiments/E0175-can-a-deterministic-oracle-enforce-assoc/manifest.yaml
+      - research/runs/2026-08.jsonl#R000469
+      - research/runs/2026-08.jsonl#R000470
+      - research/runs/2026-08.jsonl#R000471
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

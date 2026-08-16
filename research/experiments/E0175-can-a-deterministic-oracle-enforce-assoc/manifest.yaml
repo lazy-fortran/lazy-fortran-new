@@ -5,6 +5,8 @@ question: >
 status: running          # draft | running | reported | abandoned
 opened: "2026-08-16"
 closed: ""
+candidate_run: R000471
+candidate_runs: [R000469, R000470, R000471]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
