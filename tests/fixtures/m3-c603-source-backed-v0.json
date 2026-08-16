@@ -1,0 +1,76 @@
+{
+  "schema_version": "m3-c603-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "label-digit-legality",
+  "contract": {
+    "schema": "contracts/m3-c603-label-digit-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c603-label-digit-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "6",
+    "rule": "C603",
+    "printed_page": 69,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 2878, "text": "C603 (R611) At least one digit in a label shall be nonzero."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R611", "lhs": "label", "page": 70, "byte_start": 177609, "byte_length": 62, "occurrence": 50}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c603-semantic-items.sx",
+    "sha256": "e822f94659baa1211feda12a06e6ed8d46298661104918a7d33e614d9b17a3d2",
+    "id": "S-C603",
+    "subject": "label-digit-legality",
+    "document": "J3-24-007",
+    "clause": "6",
+    "rule": "C603",
+    "page": 69,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-short-label",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "label-digit-use", "source_rule": "C603", "spelling": "1"}
+    },
+    {
+      "id": "positive-five-digit-label",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "label-digit-use", "source_rule": "C603", "spelling": "00001"}
+    },
+    {
+      "id": "negative-all-zero-label",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"type": "label-digit-use", "source_rule": "C603", "spelling": "00000"}
+    },
+    {
+      "id": "unresolved-invalid-label-shape",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"type": "label-digit-use", "source_rule": "C603", "spelling": "A1"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 2809},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R610"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C603 (R611) At least one digit in a label shall be zero."},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C602"}
+  ]
+}

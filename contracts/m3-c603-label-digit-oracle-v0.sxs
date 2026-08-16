@@ -1,0 +1,18 @@
+(schema m3-c603-label-digit-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record label-digit-use
+    (spelling name))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact label-digit-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

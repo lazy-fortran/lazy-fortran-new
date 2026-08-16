@@ -176,6 +176,7 @@ Runs recorded: 473
 | E0175 | reported | 7 | Can a deterministic oracle enforce associate construct name consistency |
 | E0176 | reported | 15 | Can a deterministic oracle enforce C702 type-parameter colon legality |
 | E0177 | reported | 7 | Can a deterministic oracle enforce C601 name-length legality |
+| E0178 | draft | 0 | Can a deterministic oracle enforce C603 label-digit legality |
 
 ## Run status
 
@@ -329,6 +330,7 @@ Runs recorded: 473
 | [D0125](decisions/D0125-m3-c1106-case-insensitive-names.md) | accepted | Amends D0124; Supersedes D####; Amends D####; Retracts D#### | C1106 names compare case-insensitively |
 | [D0126](decisions/D0126-second-m3-c702-type-param-colon-oracle.md) | accepted |  | Second M3 slice uses C702 type-parameter colon legality |
 | [D0127](decisions/D0127-third-m3-c601-name-length-oracle.md) | accepted |  | Third M3 slice uses C601 name-length legality |
+| [D0128](decisions/D0128-fourth-m3-c603-label-digit-oracle.md) | accepted |  | Fourth M3 slice uses C603 label-digit legality |
 
 ### Proposed decisions
 
