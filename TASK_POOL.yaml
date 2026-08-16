@@ -1,5 +1,32 @@
 schema: 1
 
+MAX_PARALLEL_WORKERS: 4
+
+# A task is READY when it is OPEN and its declared dependencies, immutable
+# inputs, verifier, output and ownership are all available. These four tasks
+# have disjoint writes and consume only the pinned baseline below.
+ready_frontier:
+  - T-M1M2-central-source-oracle
+  - T-L2-fortfront-frontend-trace
+  - T-L2-ffc-mir-trace
+  - T-L2-fortback-observable-trace
+
+controller_ownership:
+  owner: controller
+  repository: lazy-fortran-new
+  worktree: /home/ert/code/lazy-fortran-new
+  reserved_writes:
+    - STATUS.md
+    - MILESTONES.md
+    - TASK_POOL.yaml
+    - repos.toml
+    - contracts/**
+    - tests/fixtures/**
+    - tests/golden/**
+    - artifacts/traces/**
+    - artifacts/manifests/**
+    - integration-merges
+
 control_plane:
   repository: lazy-fortran-new
   entrypoint_files:
@@ -210,7 +237,49 @@ tasks:
     milestone: M1-M2
     title: Define and implement the central source-backed StandardIR grammar gate
     status: OPEN
-    prerequisites: [T-L2-vertical-slice]
+    priority: 100
+    depends_on:
+      - T-L2-vertical-slice
+      - T-M1M2-central-source-oracle
+    inputs:
+      - path: artifacts/standards/j3-24-007.toml
+        sha256: becec69a4e43c168e0706efd712eda90a2cabacc29e900a7d3dc4fa4c0f1d7ec
+      - path: contracts/standardir-v0.sxs
+        sha256: 29982299e721cc7ab75b9f981aca325eddc3be87f17615316f895eb047ac5a49
+      - path: contracts/standardir-grammar-v0.sxs
+        sha256: bf458264bd6186d66df7993604af2a182c416b7f0caf12f49a6b928cbf9d29c9
+      - component: standard-new
+        commit: 03719c6ebea7dcfc3e88d2a0997ea8935209d235
+    writes:
+      - STATUS.md
+      - MILESTONES.md
+      - TASK_POOL.yaml
+      - tests/fixtures/**
+      - tests/golden/**
+      - artifacts/traces/**
+      - artifacts/manifests/**
+    mode: exclusive
+    verifier: >-
+      controller-only: after the central fixture and verifier are committed,
+      run tests/e2e/run-m1m2.sh from a clean checkout and its independent
+      source and grammar oracles; do not dispatch this task to a worker
+    output: artifact
+    integration: controller-only
+    estimated_cost: large
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - STATUS.md
+        - MILESTONES.md
+        - TASK_POOL.yaml
+        - tests/fixtures/**
+        - tests/golden/**
+        - artifacts/traces/**
+        - artifacts/manifests/**
+    prerequisites: [T-L2-vertical-slice, T-M1M2-central-source-oracle]
     verifier_command: define before activation
     evidence_paths:
       - ROADMAP.md
@@ -219,6 +288,200 @@ tasks:
       - artifacts/standards/
     retry_count: 0
     integration_cycle_trigger: interface_change
+
+  - id: T-M1M2-central-source-oracle
+    milestone: M1-M2
+    title: Audit the frozen source-backed StandardIR inputs and oracle boundary
+    status: OPEN
+    priority: 90
+    depends_on:
+      - T-L2-vertical-slice
+    inputs:
+      - path: artifacts/standards/j3-24-007.toml
+        sha256: becec69a4e43c168e0706efd712eda90a2cabacc29e900a7d3dc4fa4c0f1d7ec
+      - path: tests/fixtures/l1-frontend-slice.toml
+        sha256: 590fb3e3c79ba978811497c778e689b12e8ba85ecf429efd657918f69ed5cc64
+      - path: tests/fixtures/l1-standardir-grammar-v0.sx
+        sha256: 59b818ca91185145fe64426c5bb4378e4d2932b23efc3e27a6374cfde9369ab9
+      - path: tests/golden/l1-standardir-grammar-v0.roundtrip.sx
+        sha256: 59b818ca91185145fe64426c5bb4378e4d2932b23efc3e27a6374cfde9369ab9
+      - path: contracts/standardir-grammar-v0.sxs
+        sha256: bf458264bd6186d66df7993604af2a182c416b7f0caf12f49a6b928cbf9d29c9
+      - path: contracts/fixtures/standardir-grammar-v0.sx
+        sha256: 195b8d3093ae6359b611db145675aac2a38c8396be2cf20f44cb82be60922daa
+      - component: standard-new
+        commit: 03719c6ebea7dcfc3e88d2a0997ea8935209d235
+    writes: []
+    mode: report
+    verifier: >-
+      return a report-only PASS or NEEDS EVIDENCE after checking every listed
+      hash, the pinned standard-new checkout, the source locator and the
+      independent-oracle boundary; make no authoritative edits
+    output: report
+    final_observable: >-
+      a report that states whether the frozen source identity, StandardIR
+      grammar witness and oracle boundary are sufficient inputs for the
+      controller's M1-M2 gate, with named gaps if not
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: m1m2-source-audit
+    ownership:
+      component: standard-new
+      worktree: read-only report view of /home/ert/code/standard-new at the pinned commit
+      owner: worker
+      allowed_paths: []
+
+  - id: T-L2-fortfront-frontend-trace
+    milestone: L2
+    title: Trace the pinned fortfront frontend-v0 handoff
+    status: OPEN
+    priority: 80
+    depends_on:
+      - T-L2-vertical-slice
+    inputs:
+      - path: tests/fixtures/l2-first-executable-v0.toml
+        sha256: d31558888ce2beded460e48c10db15fcec35bc09e3723a96ae6670cb6ad15784
+      - path: tests/fixtures/l2-first-executable-v0.sx
+        sha256: f411b44dd3398f207a30624b2ab150edba40a56ff761c25c0b825a8da9f8c889
+      - path: tests/negative/l2-first-executable-v0-rejected.sx
+        sha256: 2b3bf4f220ceaa15f6d5e23f189a378870bfe832ffeb9c55b12f570e4dc9c6b7
+      - path: contracts/frontend-v0.sxs
+        sha256: ad56f352bf394c8a2cadce7daee86b3bb08083c7695ad870baf60b1954dffc9c
+      - path: contracts/fixtures/frontend-v0.sx
+        sha256: b69e7056433fe84ac4dfb1ec00b7e6d1f83e62207d9ff6ec52aafd7091a0630e
+      - path: contracts/mir-v0.sxs
+        sha256: 15367b3b3f2ca2f3778675dd348346b575ec12897f90d0f6829fdc6c993f41c2
+      - component: standard-new
+        commit: 03719c6ebea7dcfc3e88d2a0997ea8935209d235
+      - component: fortfront-new
+        commit: fc828b237c7c7d3962ccdcff6faf629266aaf8de
+      - component: ffc-new
+        commit: 5a82330dc2eff870792c0de8cd7cea8d13e7a8fb
+      - component: fortback-new
+        commit: 181715ac2fa04b0682db24564126dee882cac345
+    writes:
+      - fortfront-new/test/test_dispatch_l2_frontend_trace.f90
+    mode: worktree
+    verifier: cd <assigned-worktree> && fo
+    output: patch
+    final_observable: >-
+      deterministic frontend-v0 acceptance for the valid witness and stable
+      rejection of the invalid neighbor, including the declared source-span
+      and diagnostic class; no MIR or backend claim
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: l2-component-slices
+    ownership:
+      component: fortfront-new
+      worktree: isolated dispatch worktree from /home/ert/code/fortfront-new at fc828b237c7c7d3962ccdcff6faf629266aaf8de
+      owner: worker
+      allowed_paths:
+        - test/test_dispatch_l2_frontend_trace.f90
+
+  - id: T-L2-ffc-mir-trace
+    milestone: L2
+    title: Trace the pinned ffc frontend-v0 to MIR-v0 handoff
+    status: OPEN
+    priority: 80
+    depends_on:
+      - T-L2-vertical-slice
+    inputs:
+      - path: tests/fixtures/l2-first-executable-v0.toml
+        sha256: d31558888ce2beded460e48c10db15fcec35bc09e3723a96ae6670cb6ad15784
+      - path: tests/fixtures/l2-first-executable-v0.sx
+        sha256: f411b44dd3398f207a30624b2ab150edba40a56ff761c25c0b825a8da9f8c889
+      - path: tests/golden/l2-first-executable-v0.mir.sx
+        sha256: 24662352aa66af913bfff52df466a76cf54a55445f9315b4b10b928c63a80f7d
+      - path: tests/golden/l2-first-executable-v0.oracle.toml
+        sha256: fdae6e0b529ab3b8fe1c703b624f8253bb5b7549397bfd9f72ed0ed39f1f954d
+      - path: tests/negative/l2-first-executable-v0-rejected.sx
+        sha256: 2b3bf4f220ceaa15f6d5e23f189a378870bfe832ffeb9c55b12f570e4dc9c6b7
+      - path: contracts/frontend-v0.sxs
+        sha256: ad56f352bf394c8a2cadce7daee86b3bb08083c7695ad870baf60b1954dffc9c
+      - path: contracts/fixtures/frontend-v0.sx
+        sha256: b69e7056433fe84ac4dfb1ec00b7e6d1f83e62207d9ff6ec52aafd7091a0630e
+      - path: contracts/mir-v0.sxs
+        sha256: 15367b3b3f2ca2f3778675dd348346b575ec12897f90d0f6829fdc6c993f41c2
+      - path: contracts/fixtures/mir-v0.sx
+        sha256: 539456593015aad2f4269b086a2dde35e031f00503ecdd8abf7f1e68aec1a3d3
+      - component: fortfront-new
+        commit: fc828b237c7c7d3962ccdcff6faf629266aaf8de
+      - component: ffc-new
+        commit: 5a82330dc2eff870792c0de8cd7cea8d13e7a8fb
+      - component: fortback-new
+        commit: 181715ac2fa04b0682db24564126dee882cac345
+    writes:
+      - ffc-new/test/test_dispatch_l2_mir_trace.f90
+    mode: worktree
+    verifier: cd <assigned-worktree> && fo
+    output: patch
+    final_observable: >-
+      canonical MIR-v0 SX byte output equal to the frozen golden hash, with
+      the invalid frontend neighbor rejected without an output artifact
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: l2-component-slices
+    ownership:
+      component: ffc-new
+      worktree: isolated dispatch worktree from /home/ert/code/ffc-new at 5a82330dc2eff870792c0de8cd7cea8d13e7a8fb
+      owner: worker
+      allowed_paths:
+        - test/test_dispatch_l2_mir_trace.f90
+
+  - id: T-L2-fortback-observable-trace
+    milestone: L2
+    title: Trace the pinned fortback MIR-v0 to RV64 observable
+    status: OPEN
+    priority: 80
+    depends_on:
+      - T-L2-vertical-slice
+    inputs:
+      - path: tests/fixtures/l2-first-executable-v0.toml
+        sha256: d31558888ce2beded460e48c10db15fcec35bc09e3723a96ae6670cb6ad15784
+      - path: tests/golden/l2-first-executable-v0.mir.sx
+        sha256: 24662352aa66af913bfff52df466a76cf54a55445f9315b4b10b928c63a80f7d
+      - path: tests/golden/l2-first-executable-v0.oracle.toml
+        sha256: fdae6e0b529ab3b8fe1c703b624f8253bb5b7549397bfd9f72ed0ed39f1f954d
+      - path: tests/negative/l2-mir-v0-malformed.sx
+        sha256: afb45c30d4333ab47e3208e57264348c0df045b5ffab6dd9dc49fd8b70199656
+      - path: tests/negative/l2-mir-v0-out-of-scope.sx
+        sha256: 6f9cf852bb3e587790640abffba02620d05b5b3e070feb3ccb1df1e539b3c553
+      - path: contracts/mir-v0.sxs
+        sha256: 15367b3b3f2ca2f3778675dd348346b575ec12897f90d0f6829fdc6c993f41c2
+      - path: contracts/fixtures/mir-v0.sx
+        sha256: 539456593015aad2f4269b086a2dde35e031f00503ecdd8abf7f1e68aec1a3d3
+      - path: contracts/targetir-v0.sxs
+        sha256: ecd47d1d45048a26f012ab0a750641e8eed963128d6e7ce93a9514dea472a869
+      - path: contracts/fixtures/targetir-v0.sx
+        sha256: ff3442f9c10ad7c594a52335abb3d0b738716248e50cb5cf8b46d5e51a003cb0
+      - path: contracts/emission-v0.sxs
+        sha256: dc23c75e81f56d8d58c45f879031b63a9adf17c6f75c7c7f4c415696809cbb62
+      - path: contracts/fixtures/emission-v0.sx
+        sha256: 6915e728976186408342c7bc554e0c854b43aa0c7ff3218011cd3c15fbe7e10d
+      - component: ffc-new
+        commit: 5a82330dc2eff870792c0de8cd7cea8d13e7a8fb
+      - component: fortback-new
+        commit: 181715ac2fa04b0682db24564126dee882cac345
+    writes:
+      - fortback-new/test/test_dispatch_l2_observable_trace.f90
+    mode: worktree
+    verifier: >-
+      cd <assigned-worktree> && fo && scripts/check_text_policy.sh --self-test
+      && scripts/check_text_policy.sh
+    output: patch
+    final_observable: >-
+      deterministic RV64 Linux ELF from the frozen MIR-v0 witness with
+      qemu-riscv64 exit status 0, plus rejection without artifacts for the
+      malformed and out-of-scope MIR neighbors
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: l2-component-slices
+    ownership:
+      component: fortback-new
+      worktree: isolated dispatch worktree from /home/ert/code/fortback-new at 181715ac2fa04b0682db24564126dee882cac345
+      owner: worker
+      allowed_paths:
+        - test/test_dispatch_l2_observable_trace.f90
 
 integration_cycle:
   triggers:
