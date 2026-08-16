@@ -111,6 +111,11 @@ def main() -> int:
     )
     manifest = tomllib.loads(manifest_path.read_text(encoding="utf-8"))
 
+    if manifest.get("boundary") != "standard-new-local-schema-generator-v0":
+        fail("L0 boundary is not explicitly the standard-new local generator slice")
+    if manifest.get("central_contract") != "none":
+        fail("L0 incorrectly claims a central cross-repository contract")
+
     if digest(Path(source_path)) != manifest["source_sha256"]:
         fail("source fixture hash differs from the pinned manifest")
     if digest(Path(manifest["schema"])) != manifest["schema_sha256"]:

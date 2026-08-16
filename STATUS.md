@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-L0 — normative lexical slice (current replay gate)
+L1 — frontend slice (current replay gate)
 
 ## Central goal
 
@@ -20,7 +20,7 @@ normative source fact
 
 The result must have an independent oracle. This is an open delivery target,
 not a claim that the complete standard or compiler is implemented. L2 is not
-started while the current L0/L1 replay gate is open.
+started until L1 is replayed and promoted.
 
 ## Component pins
 
@@ -53,50 +53,52 @@ not current promotion evidence.
 
 ## Current verification state
 
-- L0: `NEEDS FIX`. The current `scripts/run_e2e.sh` replay passed its local
-  verifier, but the integration cycle had three independent Luna PASS reviews
-  and one contract/interface FAIL. `R000437` is retained historical evidence.
-- L1: `NEEDS REPLAY`. `R000438` is retained historical evidence.
+- L0: `PASS`. The corrected component-local boundary replay, independent
+  oracle, clean-build/toolchain checks, deterministic outputs, committed trace
+  comparison, and all four independent Luna reviews pass. The v2 reports are
+  retained historical evidence; the v3 reports are the active review evidence.
+- L1: `NEEDS REPLAY` and is now the active task. `R000438` is retained
+  historical evidence only.
 - L2: `NOT STARTED` and blocked by the L0/L1 replay gate.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
-and `standard-new/specs/schema-v0.sxs`, but does not assert their compatibility
-with the central `contracts/standardir-v0.sxs` contract. The schemas differ
-materially while sharing the `standardir-v0` identity. The recorded L1 run
-also predates the commit containing its final central inputs. No L1 promotion
-is claimed by this audit.
+and the component's `specs/schema-v0.sxs` generator fixture. It is now
+explicitly classified as a component-local generator boundary, not as a
+consumer of central `contracts/standardir-v0.sxs`; the accepted D0022
+decision says that local schema is not the complete StandardIR contract. The
+recorded L1 run also predates the commit containing its final central inputs.
+No current L1 promotion is claimed.
 
 ## Active fixture
 
-ID: T-L0-contract-boundary — declare and verify the actual standard-new
-lexical-facts boundary against the central contract before replay promotion.
+ID: T-L1-replay-current — replay the current frontend slice from the central
+checkout.
 
-Candidate family: `tests/fixtures/l0-lexical-slice.toml`, followed only after
-its PASS by `tests/fixtures/l1-frontend-slice.toml`.
+Candidate family: `tests/fixtures/l1-frontend-slice.toml`.
 
-Expected observable: the existing L0 deterministic artifact, reviewed golden,
-negative diagnostic and mutation rejection, plus an executable check that the
-consumed component boundary is the declared central contract.
+Expected observable: the existing L1 deterministic frontend artifact,
+independent oracle, clean-build/toolchain checks and committed trace equality.
 
-Oracle: `tests/e2e/oracle_l0.py` and the existing L0 negative/mutation gates.
+Oracle: `tests/e2e/oracle_l1.py` and the existing L1 negative/acceptance gates.
 
 ## Current blocker
 
-The L0 replay is locally green, but its actual source/schema boundary is not
-yet tied to the central contract registry. Until that compatibility claim is
-declared and checked, L0 cannot be promoted and no central L2 runner binds the
-frontend artifact to the pinned driver/backend path.
+L1 has historical evidence but has not been replayed from the current central
+checkout. L2 remains blocked until L1 is replayed and passes its independent
+review gate.
 
 ## Next executable task
 
-Repair the L0 contract boundary and extend its central verifier. Then rerun
-the L0 verifier and the four Luna lanes. Do not implement L2 in this audit.
+Run `tests/e2e/run-l1.sh`, repair only defects exposed by that replay, then
+obtain the four independent Luna lanes. Do not implement L2 until L1 is
+replayed and promoted.
 
 ## Last verified central command
 
 ```text
-Historical PASS — `scripts/verify_active_milestone.sh` for L1; see `R000438`.
-Current L0 replay: local verifier PASS; integration review `NEEDS FIX`.
+Current L0 replay and four-lane review: PASS.
+Current L1 replay: `NEEDS REPLAY`; historical `R000438` is not promotion
+evidence.
 ```
 
 ## Blacklisted pseudo-progress

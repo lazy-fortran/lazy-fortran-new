@@ -41,14 +41,25 @@ verifiers.
   correctness.
 - A generated artifact must be regenerated and checked, never hand-edited.
 
-## 2026-08-16 — L0 replay contract boundary failure
+## 2026-08-16 — L0 replay boundary classification correction
 
 The current L0 replay passed its local deterministic, negative, mutation and
-independent-oracle checks. The four independent Luna reviews then found three
-PASS results and one contract/interface FAIL: the runner consumes
-`standard-new`'s lexical-facts source and local schema without checking a
-mapping to the central `contracts/standardir-v0.sxs` contract. The schemas
-differ materially while sharing the same identity. The replay and reviews are
-retained; L0 is not promoted, L1 remains blocked, and the next task is the
-smallest executable boundary repair. No GPT-Sol consultation is triggered by
-this single failure.
+independent-oracle checks. The contract review correctly found that the
+runner's component-local generator fixture was not mapped to the central
+`standardir-v0` contract. D0022 and D0027 show that such a mapping would be
+the wrong repair: the local schema is not complete StandardIR and lexical
+facts are a separate projection. L0 is therefore explicitly classified as a
+component-local generator slice. The earlier review remains immutable; a new
+integration review must verify this narrower, accurate boundary before L0 is
+promoted. No GPT-Sol consultation is triggered.
+
+## 2026-08-16 — L0 promoted after boundary and review reconciliation
+
+The corrected L0 runner declares the component-local generator boundary,
+rejects a false central StandardIR claim, clears ignored component build
+state, pins the exact `fo` executable, records the toolchain and boundary in
+the trace, and compares the generated trace with the committed trace. The
+local verifier passed and all four independent Luna lanes passed against the
+reconciled candidate. The v2 reports remain immutable historical evidence;
+the v3 reports are the active evidence. L0 is promoted and L1 is the next
+replay gate. No L2 work has started.

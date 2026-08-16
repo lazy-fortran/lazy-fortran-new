@@ -6,6 +6,7 @@ set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/../../scripts/lib.sh"
 need python3
 need sha256sum
+need fo
 
 "$ROOT/scripts/check_pins.sh" >/dev/null
 
@@ -13,7 +14,7 @@ manifest="$ROOT/tests/fixtures/l0-lexical-slice.toml"
 component="$(resolve_repo standard-new)"
 run_dir=$(mktemp -d "$ROOT/.cache/l0-run.XXXXXX")
 
-read -r source_path schema_path golden_path negative_path oracle_path expected_roundtrip expected_schema negative_diagnostic <<EOF
+IFS=$'\t' read -r source_path schema_path golden_path negative_path oracle_path expected_roundtrip expected_schema negative_diagnostic expected_fo_version expected_fo_sha256 committed_trace <<EOF
 $(python3 - "$manifest" "$ROOT" <<'PY'
 import sys
 import tomllib
@@ -21,7 +22,7 @@ from pathlib import Path
 
 manifest = tomllib.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 root = Path(sys.argv[2])
-print(
+print("\t".join(map(str, (
     root / manifest["source"],
     root / manifest["schema"],
     root / manifest["roundtrip_golden"],
@@ -30,15 +31,32 @@ print(
     manifest["roundtrip_sha256"],
     manifest["generated_schema_sha256"],
     manifest["negative_diagnostic"],
-)
+    manifest["fo_version"],
+    manifest["fo_sha256"],
+    root / manifest["trace"],
+))))
 PY
 )
 EOF
+
+fo_version=$(fo version | awk 'NR == 1 {print $2}')
+fo_binary=$(command -v fo)
+fo_sha256=$(sha256sum "$fo_binary" | awk '{print $1}')
+[ "$fo_version" = "$expected_fo_version" ] || {
+    printf 'fo version %s differs from pinned %s\n' "$fo_version" "$expected_fo_version" >&2
+    exit 1
+}
+[ "$fo_sha256" = "$expected_fo_sha256" ] || {
+    printf 'fo binary hash %s differs from pinned %s\n' "$fo_sha256" "$expected_fo_sha256" >&2
+    exit 1
+}
 
 roundtrip="$run_dir/lexical-facts.roundtrip.sx"
 schema_one="$run_dir/schema_v0_generated.one.f90"
 schema_two="$run_dir/schema_v0_generated.two.f90"
 roundtrip_two="$run_dir/lexical-facts.roundtrip.two.sx"
+
+(cd "$component" && fo clean) >"$run_dir/fo-clean.log" 2>&1
 
 (cd "$component" && fo exec sxroundtrip "$source_path" "$roundtrip") \
     >"$run_dir/roundtrip.log" 2>&1
@@ -89,7 +107,8 @@ fi
 
 python3 - "$run_dir/trace.json" "$manifest" "$component" "$source_path" \
     "$roundtrip" "$schema_one" "$run_dir/oracle.log" "$negative_path" \
-    "$run_dir/negative.log" "$run_dir/mutation-oracle.log" <<'PY'
+    "$run_dir/negative.log" "$run_dir/mutation-oracle.log" "$fo_version" \
+    "$fo_sha256" <<'PY'
 import hashlib
 import json
 import sys
@@ -112,13 +131,18 @@ def digest(path):
     negative,
     negative_log,
     mutation_log,
+    fo_version,
+    fo_sha256,
 ) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 trace = {
     "milestone": "L0",
     "fixture": manifest["id"],
+    "boundary": manifest["boundary"],
+    "central_contract": manifest["central_contract"],
     "component": manifest["component"],
     "component_commit": manifest["component_commit"],
+    "toolchain": {"fo_version": fo_version, "fo_sha256": fo_sha256},
     "source": {"path": manifest["source"], "sha256": digest(source)},
     "schema": {"path": manifest["schema"], "sha256": digest(manifest["schema"])},
     "outputs": {
@@ -144,4 +168,5 @@ Path(trace_path).write_text(json.dumps(trace, indent=2) + "\n", encoding="utf-8"
 print(json.dumps(trace, sort_keys=True))
 PY
 
+cmp "$run_dir/trace.json" "$committed_trace"
 printf 'L0 PASS\ntrace %s\n' "$run_dir/trace.json"

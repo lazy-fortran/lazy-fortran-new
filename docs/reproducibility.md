@@ -7,6 +7,7 @@ Every verified cross-repository run records:
 - active contract revisions;
 - source and fixture hashes;
 - compiler, runtime and build-tool versions;
+- exact `fo` version and executable hash for Fortran component runs;
 - operating system, architecture, locale and relevant environment;
 - exact command line;
 - every stage input and output hash;
@@ -15,7 +16,9 @@ Every verified cross-repository run records:
 ## Clean-checkout rule
 
 A PASS is valid only when a fresh checkout can run the documented command
-without untracked generated files or a developer-local cache.
+without untracked generated files or a developer-local cache. Component
+drivers must clear their ignored build tree before the first generated output;
+the run must record the exact driver version and executable hash.
 
 ## Central commands
 

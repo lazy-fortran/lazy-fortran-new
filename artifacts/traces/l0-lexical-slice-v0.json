@@ -1,8 +1,14 @@
 {
   "milestone": "L0",
   "fixture": "L0-lexical-slice-v0",
+  "boundary": "standard-new-local-schema-generator-v0",
+  "central_contract": "none",
   "component": "standard-new",
   "component_commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235",
+  "toolchain": {
+    "fo_version": "0.3.2",
+    "fo_sha256": "0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68"
+  },
   "source": {
     "path": "../standard-new/specs/lexical-facts-v0.sx",
     "sha256": "4074c170112f2ec6001a18f7fa6f8d72270cf788b552488c0120f7eb3d22177d"

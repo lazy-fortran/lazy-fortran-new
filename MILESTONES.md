@@ -6,10 +6,8 @@ milestone ledger.
 
 ## Current verification state
 
-The historical evidence below is preserved. Current promotion status is
-separate: the L0 local replay is green but its integration cycle is `NEEDS
-FIX` because the consumed `standard-new` lexical-facts boundary is not tied to
-the central contract. L1 is `NEEDS REPLAY`. L2 is `NOT STARTED`.
+The historical evidence below is preserved. L0's corrected replay and final
+four-lane review now pass. L1 is `NEEDS REPLAY`. L2 is `NOT STARTED`.
 
 ## L0 — Normative lexical slice
 
@@ -36,21 +34,25 @@ standard-new
 - [x] An independent oracle passes.
 - [x] The central clean-checkout command passes.
 - [x] The result enters the regression corpus.
-- [ ] The actual consumed `standard-new` boundary is declared against a
-      central contract and checked by the central verifier.
+- [x] The boundary is explicitly classified as a component-local
+      `standard-new` generator fixture and checked by the central verifier.
 
 Evidence: `R000437`,
 `artifacts/manifests/l0-lexical-slice-v0.toml` and
-`artifacts/traces/l0-lexical-slice-v0.json`. Regenerate with
-`scripts/run_e2e.sh`.
+`artifacts/traces/l0-lexical-slice-v0.json`; the active review evidence is
+`artifacts/reports/L0/replay-boundary-v3-luna-scope.md`,
+`artifacts/reports/L0/replay-boundary-v3-luna-contract.md`,
+`artifacts/reports/L0/replay-boundary-v3-luna-oracle.md`, and
+`artifacts/reports/L0/replay-boundary-v3-luna-reproducibility.md`. Regenerate
+the deterministic evidence with `scripts/run_e2e.sh`.
 
-Current status: `NEEDS FIX` after the current replay's contract/interface
-review. The local verifier passed; promotion is blocked by the missing
-boundary check.
+Current status: `PASS`. The v2 review reports are retained historical evidence;
+the v3 four-lane reports are the active promotion evidence. Regenerate with
+`scripts/run_e2e.sh` and review with the four independent Luna lanes.
 
 ## L1 — Frontend slice
 
-Blocked by: L0
+Next after: L0
 
 ```text
 source fixture
