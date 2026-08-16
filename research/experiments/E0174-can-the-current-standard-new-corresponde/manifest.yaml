@@ -2,13 +2,15 @@ id: "E0174"
 title: "Current StandardIR correspondence replay with coalesced boundaries"
 question: >
   Can the current standard-new correspondence producer consume coalesced boundary sites without duplicate relations?
-status: running          # draft | running | reported | abandoned
+status: reported          # draft | running | reported | abandoned
 opened: "2026-08-16"
-closed: ""
+closed: "2026-08-16"
+reported_run: R000467
+reported_runs: [R000467, R000468]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "5b2c547b7c8874eae91795cb3c41d34dbf755116"
+  lazy-fortran-new: "02d13eeb01c126ed102699ee910a5471433bba44"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
