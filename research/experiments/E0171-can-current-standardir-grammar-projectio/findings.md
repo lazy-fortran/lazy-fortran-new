@@ -601,3 +601,50 @@ source-lineage-preserving correspondence relation through the current generic
 normalizer, with explicit suppression rather than fabricated target paths.
 The next gate is to connect the nine suppressions to retained target
 occurrences. Parser generators remain downstream and were not run.
+
+## R000435: corrected correspondence replay exposes duplicate candidate identity
+
+The replay was regenerated from the corrected source-provenance StandardIR at
+`standard-new` `30c973f`. The selected mapping still has 95 rows and every row
+finds one trace row, but the corrected audit now includes `source_node_kind`
+and reports only 71 distinct structural source keys: 24 groups contain 48
+duplicate rows. These are generic derivation overlaps, including
+`first-plus-repeat` and `repeat-item` naming the same source node and path.
+
+The correspondence trace has 4,871 rows in 37 fields. Its full disposition
+counts are 4,069 mapped, 717 suppressed and 85 unsupported; the selected
+95-row subset is 86 mapped and 9 `rule-deduplicate` suppressions. The full
+trace has 124 retained target relations, and all 124 `rule-deduplicate` rows
+have one. The audit status is `FAIL` because duplicate structural candidate
+keys are not yet resolved; its selected subset counts must not be mistaken for
+whole-trace quality.
+
+Reproduce the corrected audit with:
+
+```text
+python research/experiments/E0171-can-current-standardir-grammar-projectio/audit-correspondence-witness.py \
+  .cache/runs/E0171/R000435-correspondence-replay/mapping.tsv \
+  .cache/runs/E0171/R000435-correspondence-replay/correspondence.jsonl \
+  .cache/runs/E0171/R000435-correspondence-replay/joined-v2.tsv \
+  .cache/runs/E0171/R000435-correspondence-replay/summary-v2.json
+```
+
+This is a useful deterministic failure: no downstream grammar generator or
+parser oracle was run, and no source candidate was silently discarded.
+
+## R000436: independent Luna review keeps the correspondence gate open
+
+The read-only GPT-5.6 Luna review confirms the 37-field contract, numeric and
+hash validation, 95 selected joins, and complete retained provenance for the
+nine selected rule-deduplication rows. It rejects the stronger phrase “95
+one-to-one source boundaries” because the input contains 24 duplicate
+structural-key groups. It also notes that the trace does not carry the
+candidate derivation kind, so the current join cannot distinguish those
+evidence rows.
+
+The review supports only this bounded statement: every selected candidate row
+has one deterministic lookup result under the current structural key, and the
+nine selected rule-deduplication rows retain source/target provenance. Before
+separator insertion, the pipeline must either carry complete candidate
+identity through the generic trace or coalesce equal structural boundaries
+while retaining all contributing derivations. D0119 records that boundary.

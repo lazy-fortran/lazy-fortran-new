@@ -79,6 +79,7 @@ def source_key(row: dict[str, str]) -> tuple[str, ...]:
         row["source_sha256"],
         row["alternative"],
         row["path"],
+        row["source_node_kind"],
     )
 
 
@@ -92,6 +93,7 @@ def trace_key(row: dict[str, object]) -> tuple[str, ...]:
         str(row["source_hash"]),
         str(row["source_alternative"]),
         str(row["raw_source_path"]),
+        str(row["source_node_kind"]),
     )
 
 
@@ -232,6 +234,11 @@ def main() -> int:
     if not mapping:
         fail(f"{mapping_path}: empty mapping")
     trace = read_trace(trace_path)
+    mapping_keys = [source_key(row) for row in mapping]
+    mapping_key_counts = Counter(mapping_keys)
+    duplicate_mapping_keys = {
+        key: count for key, count in mapping_key_counts.items() if count > 1
+    }
     by_key: defaultdict[tuple[str, ...], list[dict[str, object]]] = defaultdict(list)
     for row in trace:
         by_key[trace_key(row)].append(row)
@@ -306,14 +313,38 @@ def main() -> int:
 
     summary = {
         "mapping_rows": len(mapping),
+        "mapping_distinct_source_keys": len(mapping_key_counts),
+        "mapping_duplicate_source_key_groups": len(duplicate_mapping_keys),
+        "mapping_duplicate_source_rows": sum(duplicate_mapping_keys.values()),
         "trace_rows": len(trace),
         "join_cardinality": {str(k): cardinalities[k] for k in sorted(cardinalities)},
         "input_dispositions": dict(sorted(input_dispositions.items())),
-        "trace_dispositions": dict(sorted(dispositions.items())),
-        "transformations": dict(sorted(transformations.items())),
+        "selected_trace_dispositions": dict(sorted(dispositions.items())),
+        "selected_transformations": dict(sorted(transformations.items())),
+        "trace_dispositions_total": dict(
+            sorted(Counter(str(row["disposition"]) for row in trace).items())
+        ),
+        "trace_transformations_total": dict(
+            sorted(Counter(str(row["transformation"]) for row in trace).items())
+        ),
+        "trace_retained_target_total": sum(
+            any(str(row[field]) not in {"", "0"} for field in RETAINED_SOURCE_FIELDS)
+            for row in trace
+        ),
+        "trace_rule_deduplicate_without_retained_target": sum(
+            row["disposition"] == "suppressed"
+            and row["transformation"] == "rule-deduplicate"
+            and not any(str(row[field]) not in {"", "0"} for field in RETAINED_SOURCE_FIELDS)
+            for row in trace
+        ),
         "missing_or_multiple": anomalies,
         "status": "PASS"
-        if not anomalies and not dispositions["ambiguous"] and not dispositions["unsupported"]
+        if (
+            not anomalies
+            and not duplicate_mapping_keys
+            and not dispositions["ambiguous"]
+            and not dispositions["unsupported"]
+        )
         else "FAIL",
         "mapping_sha256": hashlib.sha256(mapping_path.read_bytes()).hexdigest(),
         "trace_sha256": hashlib.sha256(trace_path.read_bytes()).hexdigest(),

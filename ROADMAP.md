@@ -10,70 +10,72 @@ order, the steps in each phase, and the gate that ends it, so that facts are
 not copied into several places and left to rot. Any count appearing here names
 the command that regenerates it.
 
-**Active critical path.** The corrected E0157 audit and Luna review are green
-in R000371, and E0158/R000372 closes the raw source-span, continuation and
-RHS-structure checks for the same current StandardIR source hash used by
-R000404. It does not close the source metadata contract: R000404 shows that
-the header and every syntax record currently carry `(clause 5)`, including
-rules whose normative clause is encoded by the rule number. The v2
-lexical-layout projection is green in R000411, the source-derived
+**Active critical path.** R000433 closes the source-provenance and
+authoritative PDF-fidelity gate for the pinned numbered-syntax corpus at
+`standard-new` `30c973f`: the replay command extracts all pages with
+`fo exec pdfproductions`, converts them with `fo exec pdfstandardir`, and runs
+`E0158/check.sh` before any grammar generator. The command reports 522 syntax
+records, 522 unique source spans, 20 duplicate rule families with 40 retained
+occurrences, all source hashes and token/ref leaves passing, and the five
+representative witnesses R741/R843/R1103/R1307/R1315 passing. R1307's two
+continuation headers are removed by the generic fidelity checker. The
+production now derives occurrence clauses from canonical page headings and
+keeps them separate from the normative clause derived from the rule ID;
+R1401's clause-14 definition in the clause-5 overview is the controlling
+duplicate-occurrence witness. R000434 is the required read-only Luna review;
+it confirms the bounded claim “mechanical syntax extraction with
+canonical-source provenance” and keeps constraints, prose, lexical/source
+form, semantics, parser behavior, ISO/J3 equivalence and complete-standard
+coverage explicitly open. D0118 records this contract.
+
+The v2 lexical-layout projection is green in R000411, the source-derived
 statement-sequence witness is green in R000420, and its production projection
-is green in R000423 at `standard-new` `4c2d8c2`: the CLI agrees byte-for-byte
-with the 95-row lab witness, and `fo clean && fo` passes. The typed boundary
-plan and raw-source mapping infrastructure are green through R000430 at
-`standard-new` `54700a2`; all 95 selected sites map with explicit lineage and
-Luna has confirmed the bounded claim. R000431/R000432 now close the bounded
-source-target correspondence join at `standard-new` `2fef265`, with 86 mapped
-rows and nine explicit deduplication suppressions. The retained-target
-relation for those suppressions is the next production review. D0116/D0117
-now fix the next interface:
-target normalization must emit a typed source-to-target correspondence trace
-relation,
-not a post-hoc name or hash match. No model run,
-semantic extraction or backend work resumes while the remaining deterministic
-grammar path is open. The boundary implementation derives candidates from
-StandardIR graph topology plus the v2 source facts; it does not append EOS to
-every `-stmt`, because nested `action-stmt` references are not complete source
-statements. The source-level behavior oracle R000426 now passes, and R000428
-closes the typed, validated boundary-plan and truthful-identity subgates at
-`standard-new` `107d7a3`. The plan deliberately does not insert target
-separators yet. The source mapper uses raw SX before alternative flattening
-(D0115/D0116); the next gate is repairing normative-clause and occurrence
-provenance, then linking the nine suppressed source occurrences to retained
-target occurrences. Assumed syntax and repeated rule occurrences must have an
-explicit StandardIR/projection contract before generated token/runtime
-behavior, regeneration of all four grammar targets and parser-oracle checks.
-This is D0111 through D0117 layered onto the two-tier
-evidence protocol in D0105; R000400 remains the profile negative control and
-R000404 the current clean replay. No target export may insert separators
-directly from a raw witness or conflict report.
+is green in R000423 at `standard-new` `4c2d8c2`. The typed boundary plan and
+raw-source mapping infrastructure are green through R000430 at
+`standard-new` `54700a2`; they establish source lineage, not 95 distinct
+insertion sites. R000435/R000436 are the corrected correspondence replay and
+Luna review. The 37-field trace is mechanically valid, but the 95 candidate
+rows contain 24 duplicate structural-key groups, leaving 71 distinct
+structural keys; the audit therefore fails closed. The full trace also has 85
+unsupported and 717 suppressed rows, which must not be hidden by reporting
+only the selected subset. D0119 defines the required separation between
+candidate-evidence identity and structural-boundary identity. No model run,
+semantic extraction or backend work resumes while this deterministic relation
+gate is open. The boundary implementation derives candidates from StandardIR
+graph topology plus the v2 source facts; it does not append EOS to every
+`-stmt`, because nested `action-stmt` references are not complete source
+statements. The source-level behavior oracle R000426 passes, and R000428 closes
+the typed, validated boundary-plan and truthful-identity subgates at
+`standard-new` `107d7a3`. Target separator insertion remains disabled until
+candidate identity is preserved or generically coalesced, every selected
+structural site has an explicit relation, and the full relation audit is
+reviewed. This is D0111 through D0119 layered onto the two-tier evidence
+protocol in D0105; R000400 remains the profile negative control. No target
+export may insert separators directly from a raw witness or conflict report.
 
 The immediate sequence is:
 
-1. Repair the source provenance contract before downstream generation. Derive
-   the normative clause from each rule number, preserve the clause of every
-   source occurrence separately, and retain page/byte coordinates as occurrence
-   locators. Represent repeated rule occurrences explicitly as one canonical
-   rule with occurrence lineage, or as occurrence records linked to that rule;
-   target deduplication must point to the retained occurrence. Keep R401/R402/
-   R403 as compact assumed-syntax facts and generate their concrete closure
-   only in a projection that records the derivation. Rerun the full source
-   metadata and PDF-span audit with negative controls. No parser generator or
-   model run is allowed while this gate is open.
-2. Finish the D0116/D0117 source-to-target correspondence gate during target
-   normalization. The R000429/R000430 source results already join one-to-one
-   to the R000431 trace, but nine selected `rule-deduplicate` suppressions have
-   no retained-target pointer in the pinned production output. Add that
-   relation generically, preserving raw source identity and distinguishing
-   alternative-level hashes from transformation-node hashes. Every source
-   occurrence must end as an explicit mapped, ambiguous, unsupported or
-   suppressed disposition with a retained target relation where suppression is
-   justified. Fail closed on any target path that cannot be justified
-   structurally, including normalizer paths that reject unsupported recursion.
-   No rule-number, LHS suffix, alternative-number heuristic or target spelling
-   may repair a mismatch; target insertion remains blocked until this gate is
-   green.
-3. Make the generated lexer/runtime consume the now-passing source behavior
+1. Repair the selected correspondence gate exposed by R000435/R000436. Keep
+   candidate-evidence identity (including candidate kind and derivation) apart
+   from structural-boundary identity, and either carry it through the generic
+   trace or coalesce equal structural sites while retaining every contributing
+   derivation. The audit must report selected and whole-trace dispositions
+   separately and fail on duplicate structural keys, missing relations,
+   ambiguity or unsupported input. No rule-number, LHS suffix,
+   alternative-number heuristic or target spelling may repair a mismatch.
+2. Re-run the corrected correspondence gate and the required read-only Luna
+   review. The gate is green only when the candidate identity contract is
+   explicit, duplicate groups are accounted for, retained-target provenance is
+   checked at the correct transformation scope, and the independent review
+   supports the bounded claim. Do not call 95 candidate rows 95 source sites
+   unless the evidence proves that identity.
+3. Verify the assumed-syntax and repeated-occurrence projections against the
+   accepted provenance contract. R401/R402/R403 remain compact authoritative
+   facts; any concrete closure is a derived projection with source lineage.
+   Repeated numbered occurrences remain distinct source evidence while target
+   deduplication points to the retained occurrence. This is a deterministic
+   contract gate, not a semantic or model run.
+4. Make the generated lexer/runtime consume the now-passing source behavior
    oracle R000426 for separators, comments, continuation and keyword/name
    reuse. The target gate must prove nested `IF (...) action-stmt` and
    ordinary statement sequences separately; source/compiler agreement alone is
@@ -81,19 +83,20 @@ The immediate sequence is:
    runtime still consumes caller-supplied tokens rather than raw Fortran source,
    so the first target gate must make the boundary-token stream explicit and
    testable; it must not be described as a completed source lexer.
-4. Regenerate all four targets only after the mapping and token/runtime gates
+5. Regenerate all four targets only after the correspondence, provenance and
+   token/runtime gates
    pass. Require exact source identity, per-format transformation witnesses,
    selected-profile validation and parser-generator smoke before any conflict
    classification. The central v2 contract is already green in R000411 and
    the source witness is already green in R000420/R000423; those are inputs,
    not reasons to skip the target gates.
-5. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
+6. Reclassify the `SAVE` / `LETTER` witness and its Bison counterparts using
    the witnessed boundary behavior. Retain per-state/lookahead diagnostics and
    counterexamples where Bison provides them, and keep lexical precedence,
    parse precedence and intentional ambiguity separate for tree-sitter. A
    conflict count, `%expect` value, precedence setting or matching reference
    diagnostic is not a gate.
-6. Only after those deterministic gates close may broader grammar quality work
+7. Only after those deterministic gates close may broader grammar quality work
    resume; model and semantic campaigns remain paused.
 
 A checked box means the thing exists and was observed working, not that someone

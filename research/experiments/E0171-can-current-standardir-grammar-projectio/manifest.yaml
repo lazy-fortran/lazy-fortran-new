@@ -300,33 +300,44 @@ replays:
     mode: independent-luna-review-source-provenance-replay
     report: research/experiments/E0171-can-current-standardir-grammar-projectio/reviews/R000434-luna.md
     result: bounded-syntax-provenance-claim-confirmed-complete-standard-open
+  - run: R000435
+    supersedes: R000431
+    standard-new: "30c973f629fbfc68d756ec4824b2696021689222"
+    mode: corrected-selected-correspondence-replay
+    report: .cache/runs/E0171/R000435-correspondence-replay
+    result: audit-failure-duplicate-structural-candidate-keys
+  - run: R000436
+    supersedes: R000432
+    mode: independent-luna-review-corrected-correspondence-replay
+    report: research/experiments/E0171-can-current-standardir-grammar-projectio/reviews/R000436-luna.md
+    result: bounded-lookup-claim-only-candidate-identity-open
 
 result: >
-  The source boundary-plan, raw source-path and bounded source-target
-  correspondence subgates pass through R000432. The selected 95-row witness
-  joins one-to-one to the generic target trace: 86 rows are mapped and nine
-  are explicit rule-deduplicate suppressions. The experiment remains running:
-  those nine retained-target relations, token insertion, generated runtime
-  behavior and parser-oracle classification remain open. Structural evidence
-  is not language equivalence, parse-tree equivalence, complete lexer behavior
-  or semantic coverage.
+  The source boundary-plan and raw source-path subgates pass, but the selected
+  source-target correspondence gate remains open. R000435 finds one trace row
+  for each of 95 input rows while also exposing 24 duplicate structural-key
+  groups (71 distinct structural keys). The selected rows are 86 mapped and
+  nine explicit rule-deduplicate suppressions; this is not a one-to-one set of
+  95 distinct source boundaries. The trace has 4,871 rows, including 85
+  unsupported and 717 suppressed rows at whole-trace scope. Candidate identity
+  must be preserved or generically coalesced before target insertion. Structural
+  evidence is not language equivalence, parse-tree equivalence, complete lexer
+  behavior or semantic coverage.
 
 latest_replay: >
-  R000431 is the latest production source-target correspondence replay, and
-  R000432 is its independent Luna review. At `standard-new` commit
-  `2fef265fe08543828f5574026babbcdd2d0a91df`, the opt-in correspondence
-  witness has 4,853 deterministic JSONL rows and the exact 26-field contract.
-  All 95 selected raw source boundaries join exactly once. The selected trace
-  has 86 mapped rows and nine explicit rule-deduplicate suppressions; no
-  selected row is ambiguous or unsupported. The complete trace has 4,053
-  mapped, 715 suppressed, 85 unsupported and zero ambiguous rows. The clean
-  `fo clean && fo` pipeline passes 49 tests with zero warnings. The witness
-  proves only a bounded source-lineage-preserving correspondence relation.
-  The nine suppressions have no target path because they describe a retained
-  target occurrence; the next gate must make that relation explicit before
-  target separator insertion. Source byte locations remain locators, not PDF
-  authenticity proof. The mapper output is a set comparison, not an
-  order-preserving replay.
+  R000435 is the latest mechanical replay and R000436 its independent Luna
+  review. At `standard-new` commit `30c973f629fbfc68d756ec4824b2696021689222`,
+  the correspondence witness has 4,871 deterministic JSONL rows and the
+  exact 37-field contract. All 95 selected input rows find one trace row, but
+  they contain 24 duplicate structural-key groups and only 71 distinct
+  structural keys. The selected trace has 86 mapped rows and nine explicit
+  rule-deduplicate suppressions; the full trace has 4,069 mapped, 717
+  suppressed and 85 unsupported rows. The corrected audit fails closed on
+  duplicate candidate keys. The review supports only a per-row deterministic
+  lookup claim; candidate kind is not yet carried through the trace. The next
+  gate is D0119: preserve candidate identity or coalesce equal structural
+  boundaries while retaining all derivation evidence. Parser generators,
+  separator insertion and model campaigns remain blocked.
   R000423 is the latest production projection gate before boundary mapping. The
   `standard-new`
   statement-sequence CLI at commit `4c2d8c2` agrees byte-for-byte with the
