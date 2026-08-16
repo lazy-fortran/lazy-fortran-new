@@ -30,47 +30,47 @@
     },
     "commands": [
       {
-        "repository": "lazy-fortran-new",
-        "resolver": "current-checkout",
+        "cwd_repository": "lazy-fortran-new",
+        "cwd_resolver": "current-checkout",
         "argv_template": [
           "scripts/verify_active_milestone.sh"
         ]
       },
       {
-        "repository": "standard-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "standard-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "clean"
         ]
       },
       {
-        "repository": "fortfront-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "fortfront-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "clean"
         ]
       },
       {
-        "repository": "ffc-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "ffc-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "clean"
         ]
       },
       {
-        "repository": "fortback-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "fortback-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "clean"
         ]
       },
       {
-        "repository": "ffc-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "ffc-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "exec",
@@ -80,8 +80,8 @@
         ]
       },
       {
-        "repository": "ffc-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "ffc-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "exec",
@@ -91,8 +91,8 @@
         ]
       },
       {
-        "repository": "ffc-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "ffc-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "exec",
@@ -102,8 +102,8 @@
         ]
       },
       {
-        "repository": "fortback-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "fortback-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "exec",
@@ -113,8 +113,8 @@
         ]
       },
       {
-        "repository": "fortback-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "fortback-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "exec",
@@ -124,8 +124,8 @@
         ]
       },
       {
-        "repository": "fortback-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "fortback-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "exec",
@@ -135,8 +135,8 @@
         ]
       },
       {
-        "repository": "fortback-new",
-        "resolver": "repos.toml",
+        "cwd_repository": "fortback-new",
+        "cwd_resolver": "repos.toml",
         "argv_template": [
           "fo",
           "exec",
@@ -146,8 +146,8 @@
         ]
       },
       {
-        "repository": "lazy-fortran-new",
-        "resolver": "current-checkout",
+        "cwd_repository": "lazy-fortran-new",
+        "cwd_resolver": "current-checkout",
         "argv_template": [
           "readelf",
           "-h",
@@ -155,8 +155,8 @@
         ]
       },
       {
-        "repository": "lazy-fortran-new",
-        "resolver": "current-checkout",
+        "cwd_repository": "lazy-fortran-new",
+        "cwd_resolver": "current-checkout",
         "argv_template": [
           "qemu-riscv64",
           "${LAB}/.cache/l2-run/l2.elf"
