@@ -156,6 +156,7 @@ python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
     "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" <<'PY'
 import hashlib
 import json
+import platform
 import subprocess
 import sys
 import tomllib
@@ -248,6 +249,13 @@ trace = {
         "undefined_symbols": validation["bison"]["undefined_symbols"],
     },
     "reproducibility": {
+        "host": {
+            "os": platform.system(),
+            "os_release": platform.release(),
+            "architecture": platform.machine(),
+            "python_version": platform.python_version(),
+            "python_path": sys.executable,
+        },
         "locale": {"LC_ALL": "C", "LANG": "C"},
         "commands": ["scripts/verify_active_milestone.sh", "tests/e2e/run-m1m2.sh"],
         "fo_clean_command": "(cd standard-new && fo clean)",
