@@ -1,0 +1,19 @@
+(schema m3-c725-int-literal-kind-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum kind-param-state present absent unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record int-literal-kind-use
+    (kind-param kind-param-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact int-literal-kind-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

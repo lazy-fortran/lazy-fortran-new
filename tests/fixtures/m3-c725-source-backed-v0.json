@@ -1,0 +1,77 @@
+{
+  "schema_version": "m3-c725-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "int-literal-kind-legality",
+  "contract": {
+    "schema": "contracts/m3-c725-int-literal-kind-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c725-int-literal-kind-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C725",
+    "printed_page": 83,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3452, "text": "C725 (R723) The int-literal-constant shall not include a kind-param."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R723", "lhs": "char-length", "page": 84, "byte_start": 217536, "byte_length": 70, "occurrence": 73},
+        {"rule": "R708", "lhs": "int-literal-constant", "page": 80, "byte_start": 207585, "byte_length": 61, "occurrence": 58}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c725-semantic-items.sx",
+    "sha256": "6228e1d386207bd73a4674e630968fd8ae0f63cc9c930185e06f529f96ca2f80",
+    "id": "S-C725",
+    "subject": "int-literal-kind-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C725",
+    "page": 83,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-no-kind-short",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "int-literal-kind-use", "source_rule": "C725", "kind_param": "absent"}
+    },
+    {
+      "id": "positive-no-kind-zero",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "int-literal-kind-use", "source_rule": "C725", "kind_param": "absent"}
+    },
+    {
+      "id": "negative-kind-param",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"type": "int-literal-kind-use", "source_rule": "C725", "kind_param": "present"}
+    },
+    {
+      "id": "unresolved-kind-state",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"type": "int-literal-kind-use", "source_rule": "C725", "kind_param": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3297},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R722"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C725 (R723) The int-literal-constant shall include a kind-param."},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C724"}
+  ]
+}
