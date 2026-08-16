@@ -13,8 +13,10 @@ At the start of every cycle read `AGENTS.md`, `TASK_POOL.yaml`, `STATUS.md`,
 
 Follow `docs/operating-loop.md`: one active task in a fast cycle, then an
 integration cycle after the triggers in `TASK_POOL.yaml`. Work on one active
-central task and one verifier. A change counts only when that verifier moves
-the task to PASS with an independent oracle.
+central task and one verifier. A delivery result counts only when that
+verifier moves the task to PASS with an independent oracle. A reviewed state
+change may still be committed when continuation depends on recording a
+blocker or switching the active task; it must not claim a delivery PASS.
 
 Do not count component-local success, a new contract, provenance or trace
 fields, generated code compiling, an artifact hash, or architecture prose as
@@ -32,6 +34,7 @@ independent Luna review lanes from `docs/luna-review-protocol.md` at
 integration cycles and never expose one reviewer's conclusion to another
 before its verdict.
 
-Commit only verified PASS results. Do not start L2 or promote any milestone
-while a prior replay task is `NEEDS REPLAY`, `OPEN` or `BLOCKED`. Do not start
-a second fixture family until the first reaches its declared final observable.
+Commit verified results or reviewed state updates. Do not start L2 or promote
+any milestone while a prior replay task is `NEEDS REPLAY`, `OPEN` or `BLOCKED`.
+Do not start a second fixture family until the first reaches its declared
+final observable.
