@@ -7,7 +7,7 @@ milestone ledger.
 ## Current verification state
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
-replays and focused reviews pass. The bounded M3 C1106 and C702 slices are
+replays and focused reviews pass. The bounded M3 C1106, C702 and C601 slices are
 promoted by their central verifiers and focused reviews. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
@@ -59,6 +59,32 @@ Evidence: `research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md`,
 `tests/e2e/validate_m3_c702.py`,
 `artifacts/traces/m3-c702-source-backed-v0.json`, and
 `research/runs/2026-08.jsonl#R000001` through `#R000015`, plus focused review
+reports under `artifacts/reports/M3/`. No model output can promote a semantic
+fact.
+
+## M3 — bounded C601 semantic-oracle successor
+
+Bounded-slice status: `PASS`; central replay `R000003` and focused review
+`R000022` pass. Full Core 0 semantics remain open and are not claimed.
+
+The slice binds J3/24-007 C601, canonical-text line 2809, to the already
+represented StandardIR rows R601, R602 and R603. Its typed candidate carries a
+name spelling. A valid spelling of at most 63 characters is `ACCEPTED`, a
+valid longer spelling is `REJECTED`, and a non-name spelling is `UNRESOLVED`.
+The deterministic oracle does not parse complete source, resolve names or
+consume model output. Five source/provenance mutation controls must fail
+closed; regenerate the complete inventory with:
+
+```text
+tests/e2e/run-m3-c601.sh .cache/runs/E0177/R000003
+```
+
+Evidence: `research/decisions/D0127-third-m3-c601-name-length-oracle.md`,
+`research/experiments/E0177-can-a-deterministic-oracle-enforce-c601-/`,
+`contracts/m3-c601-name-length-oracle-v0.sxs`,
+`tests/e2e/validate_m3_c601.py`,
+`artifacts/traces/m3-c601-source-backed-v0.json`, and
+`research/runs/2026-08.jsonl#R000016` through `#R000022`, plus focused review
 reports under `artifacts/reports/M3/`. No model output can promote a semantic
 fact.
 

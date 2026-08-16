@@ -2,11 +2,13 @@ id: "E0177"
 title: "Deterministic C601 name-length oracle"
 question: >
   Can a deterministic oracle enforce C601 name-length legality
-status: running         # draft | running | reported | abandoned
 opened: "2026-08-16"
-closed: ""
+closed: "2026-08-16"
 candidate_run: R000003
 candidate_runs: [R000001, R000002, R000003]
+reported_run: R000003
+reported_runs: [R000003, R000022]
+status: reported         # draft | running | reported | abandoned
 
 # Every commit the result depends on. Exact, not "main".
 repos:
