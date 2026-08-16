@@ -55,6 +55,7 @@ functional_paths=(
     tests/fixtures/m3-c702-semantic-items.sx
     tests/fixtures/m3-c702-source-backed-v0.json
     tests/golden/m3-c702-semantic-items.sx
+    artifacts/traces/m3-c702-source-backed-v0.json
     research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md
 )
 git -C "$ROOT" diff --quiet "$central_pin" -- "${functional_paths[@]}" || \
