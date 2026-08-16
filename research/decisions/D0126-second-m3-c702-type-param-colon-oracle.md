@@ -27,7 +27,7 @@ known pointer or known allocatable attribute      → ACCEPTED
 known context with neither attribute              → REJECTED
 ```
 
-The source binding is J3/24-007 C702 at canonical-text lines 3096--3097,
+The source binding is J3/24-007 C702 at canonical-text lines 3095--3096,
 printed page 62, with the already represented StandardIR rows R701, R832 and
 R856. The contract carries the normative PDF hash, canonical-text hash,
 StandardIR hash and exact row metadata. It includes positive pointer and
@@ -58,7 +58,7 @@ bounded property.
 
 ## Evidence
 
-* `.cache/runs/E0001/R000003/j3-24-007.canonical.txt` lines 3096--3097.
+* `.cache/runs/E0001/R000003/j3-24-007.canonical.txt` lines 3095--3096.
 * `.cache/runs/E0171/R000433-provenance-replay/standardir.sx` rows R701,
   R832 and R856.
 * `artifacts/standards/j3-24-007.toml` and its pinned PDF hash.
