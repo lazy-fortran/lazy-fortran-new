@@ -41,6 +41,11 @@ A fast cycle is one bounded task and one verifier:
 6. If PASS, update the task pool and select the next dependency-ready task.
 7. If FAIL, retain the failure and retry only with a materially distinct fix.
 
+Every durable commit is pushed to its configured upstream in the same cycle
+and the remote revision is verified before the result is reported as integrated
+or synchronized. A local durable commit without a successful push is
+`BLOCKED`; scratch work and ordinary `NO_PROGRESS` remain ephemeral.
+
 For ordinary meaningful work, the installed `parallel-luna` skill may run one
 micro-review against the immutable task packet. Its PASS is ephemeral; its
 issue form returns to the active task. It does not create a review file,

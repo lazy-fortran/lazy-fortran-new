@@ -239,9 +239,13 @@ file scope do not overlap. The prompt must require a concise report of base
 commit, branch/worktree, allowed paths, commit, changed files, commands run,
 independent-oracle results, warnings, decisions encountered, experiment needed
 and blockers. Agents may commit only within their assigned production
-repository. Pushing is a separate explicit action. Let native Codex manage the
-subagent lifetime and result collection; use its managed wait/result mechanism
-when a result is needed. Do not background or self-poll processes.
+repository. Agents do not push: after a verified component or central commit,
+the coordinator pushes it in the same cycle and verifies that the configured
+remote contains the revision before reporting it integrated or synchronized.
+A durable commit left only in a local clone is `BLOCKED`, not complete. Let
+native Codex manage the subagent lifetime and result collection; use its
+managed wait/result mechanism when a result is needed. Do not background or
+self-poll processes.
 
 After reports arrive, the central agent checks the commits, runs the relevant
 gates, writes or updates decisions and experiments, appends runs, updates the
