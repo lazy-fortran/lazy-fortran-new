@@ -59,7 +59,7 @@ fo_sha256="$(sha256sum "$fo_path" | awk '{print $1}')"
 [ "$fo_version" = "$expected_fo_version" ]
 [ "$fo_sha256" = "$expected_fo_sha256" ]
 
-"$ROOT/scripts/fetch.sh" --verify j3-24-007 >/dev/null
+"$ROOT/scripts/fetch.sh" j3-24-007 >/dev/null
 [ -f "$source_cache" ]
 [ "$(git -C "$standard" rev-parse HEAD)" = "$standard_commit" ]
 [ -z "$(git -C "$standard" status --porcelain --untracked-files=normal)" ]
@@ -86,6 +86,10 @@ cmp "$run_dir/standardir.sx" "$run_dir/standardir.roundtrip.sx"
 python3 "$ROOT/tests/e2e/generate_m1m2_sidecars.py" "$run_dir/standardir.sx" \
     "$standard/specs/lexical-facts-v0.sx" "$run_dir/classifications.sx" \
     "$run_dir/roots.sx"
+
+python3 "$ROOT/tests/e2e/validate_m1m2_contracts.py" "$manifest" \
+    "$run_dir/standardir.sx" "$run_dir/contract-standardir.sx" \
+    "$run_dir/contract-grammar.sx" >"$run_dir/contract-oracle.log"
 
 # This source oracle is deliberately before any grammar generator runs.
 python3 "$oracle" "$manifest" "$source_cache" "$run_dir/all.jsonl" \
@@ -153,6 +157,7 @@ python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" "$manifest" \
 
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
     "$standard" "$standard/specs/lexical-facts-v0.sx" "$source_hash" \
+    "$run_dir/contract-standardir.sx" "$run_dir/contract-grammar.sx" \
     "$standard_commit" "$fo_version" "$fo_sha256" "$fo_path" <<'PY'
 import hashlib
 import json
@@ -163,7 +168,21 @@ import tomllib
 from pathlib import Path
 
 
-trace_path, manifest_path, run_directory, source_cache, standard, lexical_path, source_hash, standard_commit, fo_version, fo_sha256, fo_path = sys.argv[1:]
+(
+    trace_path,
+    manifest_path,
+    run_directory,
+    source_cache,
+    standard,
+    lexical_path,
+    source_hash,
+    contract_standardir,
+    contract_grammar,
+    standard_commit,
+    fo_version,
+    fo_sha256,
+    fo_path,
+) = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 run_dir = Path(run_directory)
 repository_root = Path(manifest_path).resolve().parents[2]
@@ -221,6 +240,8 @@ trace = {
             "standardir": "standardir.sx",
             "classifications": "classifications.sx",
             "roots": "roots.sx",
+            "contract_standardir": "contract-standardir.sx",
+            "contract_grammar": "contract-grammar.sx",
         }.items()
     },
     "outputs": {
@@ -239,6 +260,8 @@ trace = {
     "oracles": {
         "source": manifest["oracle"],
         "grammar": "tests/e2e/validate_m1m2_grammars.py",
+        "contracts": "tests/e2e/validate_m1m2_contracts.py",
+        "contract_result": "PASS",
         "negative": manifest["negative_fixture"],
         "negative_result": "PASS",
         "negative_parser": "standard-new sxroundtrip",
@@ -273,5 +296,5 @@ Path(trace_path).write_text(json.dumps(trace, indent=2) + "\n", encoding="utf-8"
 print(json.dumps(trace, sort_keys=True))
 PY
 
-install -D -m 0644 "$run_dir/trace.json" "$trace"
+cmp "$run_dir/trace.json" "$trace"
 printf 'M1-M2 PASS\ntrace %s\n' "$trace"

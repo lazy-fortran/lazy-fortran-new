@@ -3,7 +3,7 @@
   "fixture": "M1-M2-source-backed-v0",
   "fixture_manifest": {
     "path": "tests/fixtures/m1m2-source-backed-v0.toml",
-    "sha256": "05f14f218be211effa373d7a2f695793505e02b307fb530bce19292d15c04ceb"
+    "sha256": "75e891fa4241ba72d8ffefd31a28f59d33e3849dc95d9b23dd1929a9b07c8ca7"
   },
   "source": {
     "manifest": "artifacts/standards/j3-24-007.toml",
@@ -48,6 +48,12 @@
     },
     "roots": {
       "sha256": "9942ec86185a2b8f2b225184f9ed5e35166db8782c3e2ac00412dccaee35bc3c"
+    },
+    "contract_standardir": {
+      "sha256": "be66b4fc0df5bbf2f19d2d71b470b6e2d463957a47a1670df98080b3cf9729b8"
+    },
+    "contract_grammar": {
+      "sha256": "8d24750892d41d5086dd95015bd5b464ec7dde0e3dfb4431c0228fcdc5f3c209"
     }
   },
   "outputs": {
@@ -76,6 +82,8 @@
   "oracles": {
     "source": "tests/e2e/oracle_m1m2.py",
     "grammar": "tests/e2e/validate_m1m2_grammars.py",
+    "contracts": "tests/e2e/validate_m1m2_contracts.py",
+    "contract_result": "PASS",
     "negative": "tests/negative/m1m2-source-backed-v0-unclosed.sx",
     "negative_result": "PASS",
     "negative_parser": "standard-new sxroundtrip",
