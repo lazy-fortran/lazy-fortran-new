@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c725-semantic-oracle
+active_task: T-M3-c718-semantic-oracle
 
 milestones:
   - id: L0
@@ -164,9 +164,9 @@ milestones:
     title: Source-backed Core 0 semantics
     status: OPEN
     verification: PASS
-    review_state: PASS
+    review_state: PENDING
     prerequisites: [M1-M2]
-    verifier_command: tests/e2e/run-m3-c725.sh .cache/runs/E0180/R000001
+    verifier_command: tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000001
     evidence_paths:
       - ROADMAP.md
       - research/decisions/D0124-first-m3-associate-name-oracle.md
@@ -279,9 +279,25 @@ milestones:
       - research/runs/2026-08.jsonl#R000031
       - artifacts/reports/M3/c725-semantic-review-v1.md
       - artifacts/reports/M3/c725-reproducibility-review-v1.md
+      - research/decisions/D0131-m3-core0-closure-after-six-bounded-slices.md
+      - research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/manifest.yaml
+      - artifacts/reports/M3/m3-core0-closure-audit-v1.md
+      - research/runs/2026-08.jsonl#R000032
+      - research/experiments/E0182-can-a-deterministic-oracle-enforce-c718-/manifest.yaml
+      - contracts/m3-c718-scalar-int-constant-oracle-v0.sxs
+      - contracts/fixtures/m3-c718-scalar-int-constant-oracle-v0.sx
+      - tests/fixtures/m3-c718-source-backed-v0.json
+      - tests/fixtures/m3-c718-semantic-items.sx
+      - tests/golden/m3-c718-semantic-items.sx
+      - tests/e2e/run-m3-c718.sh
+      - tests/e2e/validate_m3_c718.py
+      - artifacts/traces/m3-c718-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000033
     notes: >-
       The bounded C1106, C702, C601, C603, C721 and C725 slices are promoted.
-      Full Core 0 semantics remain unpromoted.
+      C718 replay R000033 passes and focused review is pending. The E0181
+      audit retains 4 hard failures, 2 unresolved, 94 disputed and 69
+      unwitnessed rows; full Core 0 semantics remain unpromoted.
   - id: M4-M6
     title: Generated frontend, practical compiler and self-hosting
     status: BLOCKED
@@ -1147,6 +1163,98 @@ tasks:
       - research/runs/2026-08.jsonl#R000031
       - artifacts/reports/M3/c725-semantic-review-v1.md
       - artifacts/reports/M3/c725-reproducibility-review-v1.md
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+
+  - id: T-M3-c718-semantic-oracle
+    milestone: M3
+    title: Verify the bounded C718 scalar-int-constant semantic oracle
+    status: OPEN
+    verification: PASS
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c725-semantic-oracle
+    inputs:
+      - path: research/decisions/D0131-m3-core0-closure-after-six-bounded-slices.md
+      - path: research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/manifest.yaml
+      - path: research/experiments/E0182-can-a-deterministic-oracle-enforce-c718-/manifest.yaml
+      - path: contracts/m3-c718-scalar-int-constant-oracle-v0.sxs
+      - path: contracts/fixtures/m3-c718-scalar-int-constant-oracle-v0.sx
+      - path: tests/fixtures/m3-c718-source-backed-v0.json
+      - path: tests/fixtures/m3-c718-semantic-items.sx
+      - path: tests/golden/m3-c718-semantic-items.sx
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - component: standard-new
+        commit: f94c4c51b51fce22b533b7eeda08741970320913
+    writes:
+      - contracts/m3-c718-scalar-int-constant-oracle-v0.sxs
+      - contracts/fixtures/m3-c718-scalar-int-constant-oracle-v0.sx
+      - contracts/registry.sx
+      - tests/fixtures/m3-c718-*
+      - tests/golden/m3-c718-*
+      - tests/e2e/run-m3-c718.sh
+      - tests/e2e/validate_m3_c718.py
+      - artifacts/traces/m3-c718-source-backed-v0.json
+      - research/experiments/E0182-can-a-deterministic-oracle-enforce-c718-/**
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      run tests/e2e/run-m3-c718.sh from a clean central checkout with the
+      pinned clean standard-new checkout; require C718/R709 source/provenance
+      binding to canonical line 3296 and exact StandardIR occurrence 59,
+      semantic-items canonicalization, four independently computed outcomes,
+      five observed mutation failures, exact trace comparison and zero model
+      calls or semantic promotions, then require two focused independent
+      reviews before promotion
+    output: artifact
+    final_observable: >-
+      a replayable source-backed C718 oracle with ACCEPTED, REJECTED and
+      UNRESOLVED outcomes over typed named-constant and value-type states;
+      this promotes only the bounded slice and not full M3 Core 0 semantics
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/m3-c718-scalar-int-constant-oracle-v0.sxs
+        - contracts/fixtures/m3-c718-scalar-int-constant-oracle-v0.sx
+        - contracts/registry.sx
+        - tests/fixtures/m3-c718-*
+        - tests/golden/m3-c718-*
+        - tests/e2e/run-m3-c718.sh
+        - tests/e2e/validate_m3_c718.py
+        - artifacts/traces/m3-c718-source-backed-v0.json
+        - research/experiments/E0182-can-a-deterministic-oracle-enforce-c718-/**
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c725-semantic-oracle]
+    verifier_command: tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000001
+    evidence_paths:
+      - research/decisions/D0131-m3-core0-closure-after-six-bounded-slices.md
+      - research/experiments/E0182-can-a-deterministic-oracle-enforce-c718-/manifest.yaml
+      - contracts/m3-c718-scalar-int-constant-oracle-v0.sxs
+      - contracts/fixtures/m3-c718-scalar-int-constant-oracle-v0.sx
+      - tests/fixtures/m3-c718-source-backed-v0.json
+      - tests/fixtures/m3-c718-semantic-items.sx
+      - tests/golden/m3-c718-semantic-items.sx
+      - tests/e2e/run-m3-c718.sh
+      - tests/e2e/validate_m3_c718.py
+      - artifacts/traces/m3-c718-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000033
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

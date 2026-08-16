@@ -9,7 +9,8 @@ milestone ledger.
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
 replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603, C721
 and C725 slices are promoted by their central verifiers and focused reviews.
-Full M3 remains open.
+The C718 candidate replay passes and awaits focused review. Full M3 remains
+open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -143,6 +144,43 @@ Evidence: `research/decisions/D0130-sixth-m3-c725-int-literal-kind-oracle.md`,
 `research/runs/2026-08.jsonl#R000030` and `#R000031`, plus focused review
 reports under `artifacts/reports/M3/`. This promotes only the bounded C725
 slice; full M3 remains open.
+
+## M3 — bounded C718 scalar-int-constant semantic-oracle candidate
+
+Bounded-slice status: `CANDIDATE`; central replay `R000033` passes and focused
+review is pending. Full Core 0 semantics remain open and are not claimed.
+
+The slice binds J3/24-007 C718, canonical-text line 3296, to StandardIR R709,
+whose `kind-param` production contains the `scalar-int-constant-name` shape.
+Its typed candidate carries named-constant and value-type states. The oracle
+accepts `(present, integer)`, rejects known non-matches, and returns
+`UNRESOLVED` for unknown state. It does not perform name resolution, type
+inference, constant evaluation, parsing or model inference. Five source and
+provenance mutation controls must fail closed. Regenerate the complete
+inventory with:
+
+```text
+tests/e2e/run-m3-c718.sh .cache/runs/E0182/R000001
+```
+
+Evidence: `research/decisions/D0131-m3-core0-closure-after-six-bounded-slices.md`,
+`research/experiments/E0182-can-a-deterministic-oracle-enforce-c718-/`,
+`contracts/m3-c718-scalar-int-constant-oracle-v0.sxs`,
+`tests/e2e/validate_m3_c718.py`,
+`artifacts/traces/m3-c718-source-backed-v0.json`, and
+`research/runs/2026-08.jsonl#R000033`. Promotion requires two focused
+independent reviews. This candidate does not close full M3.
+
+## M3 — Core 0 closure audit
+
+Audit status: `NEEDS EVIDENCE`. E0181/R000032 reproducibly replays the retained
+287-row ledger: 4 hard failures, 2 unresolved rows, 94 disputed rows, 69
+unwitnessed rows, 7 not-applicable rows and zero semantic promotions. The
+audit command and report are recorded in
+`research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/`,
+`artifacts/reports/M3/m3-core0-closure-audit-v1.md`, and
+`research/runs/2026-08.jsonl#R000032`. These counts keep full M3 open and do
+not authorize semantic promotion.
 
 ## M3 — bounded C601 semantic-oracle successor
 
