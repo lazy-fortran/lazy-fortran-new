@@ -98,6 +98,14 @@ def main() -> int:
         fail("evidence manifest has a different fixture ID")
     if evidence["contracts"] != manifest["central_contracts"]:
         fail("evidence manifest disagrees on the central contract boundary")
+    if evidence["mir"] != ".cache/l2-run/l2.mir.sx":
+        fail("evidence MIR path is not the runner path")
+    if evidence["artifact"] != ".cache/l2-run/l2.elf":
+        fail("evidence artifact path is not the runner path")
+    if mir_path.relative_to(root).as_posix() != evidence["mir"]:
+        fail("MIR path differs from the evidence manifest")
+    if artifact_path.relative_to(root).as_posix() != evidence["artifact"]:
+        fail("ELF path differs from the evidence manifest")
     for key in ("standard_commit", "frontend_commit", "compiler_commit", "backend_commit"):
         if evidence[key] != manifest[key.replace("_commit", "_component_commit")]:
             fail(f"evidence manifest disagrees on {key}")

@@ -27,9 +27,10 @@ trap 'rm -rf "$run_dir"' EXIT
 IFS=$'\t' read -r source golden mir_oracle negative malformed_mir out_of_scope_mir \
     oracle trace evidence_manifest fo_version fo_sha256 \
     standard_commit frontend_commit compiler_commit backend_commit \
-    central_contracts fixture_runtime_oracle runtime_oracle qemu_version \
+    central_contracts fixture_runtime_oracle fixture_lab_commit runtime_oracle qemu_version \
     readelf_version lab_commit \
-    runtime_exit_status host_os host_architecture lc_all lang worktree_state <<EOF
+    runtime_exit_status host_os host_architecture lc_all lang worktree_state \
+    evidence_mir_path evidence_artifact_path <<EOF
 $(python3 - "$manifest" "$ROOT" <<'PY'
 import sys
 import tomllib
@@ -42,6 +43,8 @@ if manifest["runtime_oracle"] != evidence["runtime_oracle"]:
     raise SystemExit("fixture and evidence runtime oracle differ")
 if manifest["runtime_exit_status"] != evidence["runtime_exit_status"]:
     raise SystemExit("fixture and evidence runtime exit status differ")
+if manifest["lab_commit"] != evidence["lab_commit"]:
+    raise SystemExit("fixture and evidence laboratory commit differ")
 print("\t".join(map(str, (
     root / manifest["source"],
     root / manifest["golden_mir"],
@@ -60,6 +63,7 @@ print("\t".join(map(str, (
     manifest["backend_component_commit"],
     ",".join(manifest["central_contracts"]),
     manifest["runtime_oracle"],
+    manifest["lab_commit"],
     evidence["runtime_oracle"],
     evidence["qemu_version"],
     evidence["readelf_version"],
@@ -70,6 +74,8 @@ print("\t".join(map(str, (
     evidence["lc_all"],
     evidence["lang"],
     evidence["worktree_state"],
+    evidence["mir"],
+    evidence["artifact"],
 ))))
 PY
 )
@@ -77,6 +83,7 @@ EOF
 
 need "$runtime_oracle"
 [ "$fixture_runtime_oracle" = "$runtime_oracle" ]
+[ "$fixture_lab_commit" = "$lab_commit" ]
 [ "$(uname -s)" = "$host_os" ]
 [ "$(uname -m)" = "$host_architecture" ]
 [ "${LC_ALL:-}" = "$lc_all" ]
@@ -134,6 +141,14 @@ for relative in protected:
     expected = subprocess.check_output(
         ["git", "-C", str(root), "show", f"{lab_commit}:{relative}"]
     )
+    if relative == "tests/fixtures/l2-first-executable-v0.toml":
+        current_doc = tomllib.loads(current.decode("utf-8"))
+        expected_doc = tomllib.loads(expected.decode("utf-8"))
+        current_doc.pop("lab_commit", None)
+        expected_doc.pop("lab_commit", None)
+        if current_doc != expected_doc:
+            raise SystemExit(f"protected laboratory input changed: {relative}")
+        continue
     if current != expected:
         raise SystemExit(f"protected laboratory input changed: {relative}")
 
@@ -145,7 +160,7 @@ source_evidence = tomllib.loads(
     )
 )
 for key in source_evidence:
-    if key != "lab_commit" and current_evidence.get(key) != source_evidence[key]:
+    if key not in {"lab_commit", "mir", "artifact"} and current_evidence.get(key) != source_evidence[key]:
         raise SystemExit(f"evidence field changed after laboratory pin: {key}")
 PY
 
@@ -164,11 +179,13 @@ actual_backend_commit=$(git -C "$backend" rev-parse HEAD)
 [ "$actual_compiler_commit" = "$compiler_commit" ]
 [ "$actual_backend_commit" = "$backend_commit" ]
 
-mir="$run_dir/l2.mir.sx"
+mir="$ROOT/$evidence_mir_path"
 mir_two="$run_dir/l2.two.mir.sx"
-artifact="$run_dir/l2.elf"
+artifact="$ROOT/$evidence_artifact_path"
 artifact_two="$run_dir/l2.two.elf"
 negative_output="$run_dir/negative.mir.sx"
+[ "$mir" = "$run_dir/l2.mir.sx" ]
+[ "$artifact" = "$run_dir/l2.elf" ]
 
 (cd "$compiler" && fo exec ffc-lower-frontend-v0 "$source" "$mir") \
     >"$run_dir/ffc.log" 2>&1
