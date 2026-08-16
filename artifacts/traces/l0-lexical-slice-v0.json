@@ -1,0 +1,36 @@
+{
+  "milestone": "L0",
+  "fixture": "L0-lexical-slice-v0",
+  "component": "standard-new",
+  "component_commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235",
+  "source": {
+    "path": "../standard-new/specs/lexical-facts-v0.sx",
+    "sha256": "4074c170112f2ec6001a18f7fa6f8d72270cf788b552488c0120f7eb3d22177d"
+  },
+  "schema": {
+    "path": "../standard-new/specs/schema-v0.sxs",
+    "sha256": "12381f2bdf5b194f00bafe303d32110a7ae052dc602e6e49ac0479134dd9937d"
+  },
+  "outputs": {
+    "roundtrip": {
+      "sha256": "1f3f588ab4d73a98dfec592ed7f0ce72310b1e4e957fd73edf1988bf74dbf75f"
+    },
+    "generated_schema": {
+      "sha256": "e0c67d3ddf00621c166b853e1e691bb65ecf64fcefa6d2a5421a98c6c6fca3e3"
+    }
+  },
+  "oracle": {
+    "path": "tests/e2e/oracle_l0.py",
+    "result": "oracle: PASS source provenance, canonical output and generated schema"
+  },
+  "negative": {
+    "path": "tests/negative/l0-lexical-facts-unbalanced.sx",
+    "diagnostic": "unclosed SX list",
+    "result": "rejected"
+  },
+  "mutation": {
+    "source": "../standard-new/specs/lexical-facts-v0.sx",
+    "result": "rejected by independent oracle"
+  },
+  "origin": "MECHANICAL"
+}
