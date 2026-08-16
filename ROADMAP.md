@@ -19,8 +19,9 @@ is green in R000423 at `standard-new` `4c2d8c2`: the CLI agrees byte-for-byte
 with the 95-row lab witness, and `fo clean && fo` passes. The typed boundary
 plan and raw-source mapping infrastructure are green through R000430 at
 `standard-new` `54700a2`; all 95 selected sites map with explicit lineage and
-Luna has confirmed the bounded claim. D0116 now fixes the next interface:
-target normalization must emit a typed source-to-target correspondence trace,
+Luna has confirmed the bounded claim. D0116/D0117 now fix the next interface:
+target normalization must emit a typed source-to-target correspondence trace
+relation,
 not a post-hoc name or hash match. No model run,
 semantic extraction or backend work resumes while the remaining deterministic
 grammar path is open. The boundary implementation derives candidates from
@@ -33,7 +34,7 @@ separators yet. The source mapper uses raw SX before alternative flattening
 (D0115/D0116); the next gate is mapping those 95 source sites through target
 expression trees, followed by generated token/runtime
 behavior, regeneration of all four grammar targets and parser-oracle checks.
-This is D0111 through D0116 layered onto the two-tier
+This is D0111 through D0117 layered onto the two-tier
 evidence protocol in D0105; R000400 remains the profile negative control and
 R000404 the current clean replay. No target export may insert separators
 directly from a raw witness or conflict report.
