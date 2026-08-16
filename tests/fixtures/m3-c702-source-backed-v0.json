@@ -1,0 +1,78 @@
+{
+  "schema_version": "m3-c702-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "type-param-colon-attribute-legality",
+  "contract": {
+    "schema": "contracts/m3-c702-semantic-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c702-semantic-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C702",
+    "printed_page": 62,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3095, "text": "C701 (R701) The type-param-value for a kind type parameter shall be a constant expression."},
+      {"line": 3096, "text": "C702 (R701) A colon shall not be used as a type-param-value except in the declaration of an entity that has"},
+      {"line": 3097, "text": "the POINTER or ALLOCATABLE attribute."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R701", "lhs": "type-param-value", "page": 76, "byte_start": 193654, "byte_length": 59, "occurrence": 51},
+        {"rule": "R832", "lhs": "allocatable-stmt", "page": 135, "byte_start": 358279, "byte_length": 67, "occurrence": 166},
+        {"rule": "R856", "lhs": "pointer-stmt", "page": 139, "byte_start": 370335, "byte_length": 56, "occurrence": 190}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c702-semantic-items.sx",
+    "sha256": "81f4e2a617051e5dd8f8b2edf70860b04a2d47cc9bf21a9f382dcece9bc51bd4",
+    "id": "S-C702",
+    "subject": "type-param-colon-attribute-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C702",
+    "page": 62,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-pointer-attribute",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "type-param-colon-use", "source_rule": "C702", "attribute_context": "pointer"}
+    },
+    {
+      "id": "positive-allocatable-attribute",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"type": "type-param-colon-use", "source_rule": "C702", "attribute_context": "allocatable"}
+    },
+    {
+      "id": "negative-neither-attribute",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"type": "type-param-colon-use", "source_rule": "C702", "attribute_context": "neither"}
+    },
+    {
+      "id": "unresolved-unknown-attribute-context",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"type": "type-param-colon-use", "source_rule": "C702", "attribute_context": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "standardir-source-hash", "path": ["source", "standardir", "sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C701"}
+  ]
+}

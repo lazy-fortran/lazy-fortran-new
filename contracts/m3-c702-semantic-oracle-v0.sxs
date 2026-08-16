@@ -1,0 +1,19 @@
+(schema m3-c702-semantic-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum attribute-context pointer allocatable neither unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record type-param-colon-use
+    (attribute-context attribute-context))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact type-param-colon-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
