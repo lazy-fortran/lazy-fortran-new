@@ -166,7 +166,7 @@ milestones:
     verification: PASS
     review_state: OPEN
     prerequisites: [M1-M2]
-    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000473
+    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000474
     evidence_paths:
       - ROADMAP.md
       - research/decisions/D0124-first-m3-associate-name-oracle.md
@@ -176,6 +176,8 @@ milestones:
       - artifacts/traces/m3-c1106-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000471
       - research/runs/2026-08.jsonl#R000473
+      - research/runs/2026-08.jsonl#R000474
+      - research/runs/2026-08.jsonl#R000475
     notes: >-
       The bounded C1106 slice is the first active M3 contract. Full Core 0
       semantics remain unpromoted and require later contracts.
@@ -510,7 +512,7 @@ tasks:
         - ROADMAP.md
         - TASK_POOL.yaml
     prerequisites: [T-M1M2-source-backed-fixture]
-    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000473
+    verifier_command: tests/e2e/run-m3-c1106.sh .cache/runs/E0175/R000474
     evidence_paths:
       - research/decisions/D0124-first-m3-associate-name-oracle.md
       - research/decisions/D0125-m3-c1106-case-insensitive-names.md
@@ -528,6 +530,8 @@ tasks:
       - research/runs/2026-08.jsonl#R000470
       - research/runs/2026-08.jsonl#R000471
       - research/runs/2026-08.jsonl#R000473
+      - research/runs/2026-08.jsonl#R000474
+      - research/runs/2026-08.jsonl#R000475
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
