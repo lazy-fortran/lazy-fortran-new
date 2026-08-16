@@ -197,7 +197,17 @@
     ],
     "fo_clean_command": "(cd standard-new && fo clean)",
     "component_build_tree_before": "absent",
-    "negative_command": "(cd standard-new && fo exec --no-build sxroundtrip tests/negative/m1m2-source-backed-v0-unclosed.sx <run-dir>/negative.roundtrip.sx)"
+    "negative_command": {
+      "argv": [
+        "fo",
+        "exec",
+        "--no-build",
+        "sxroundtrip",
+        "/home/ert/code/lazy-fortran-new/tests/negative/m1m2-source-backed-v0-unclosed.sx",
+        "<run-dir>/negative.roundtrip.sx"
+      ],
+      "cwd": "/home/ert/code/standard-new"
+    }
   },
   "origin": "MECHANICAL"
 }

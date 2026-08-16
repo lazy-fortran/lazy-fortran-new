@@ -371,7 +371,7 @@ trace = {
             "argv": [
                 "fo", "exec", "--no-build", "sxroundtrip",
                 str(Path(negative_fixture).resolve()),
-                str((run_dir / "negative.roundtrip.sx").resolve()),
+                "<run-dir>/negative.roundtrip.sx",
             ],
             "cwd": str(Path(standard).resolve()),
         },
