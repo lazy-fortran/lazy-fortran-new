@@ -164,9 +164,9 @@ milestones:
     title: Source-backed Core 0 semantics
     status: OPEN
     verification: PASS
-    review_state: PASS
+    review_state: PENDING
     prerequisites: [M1-M2]
-    verifier_command: tests/e2e/run-m3-c601.sh .cache/runs/E0177/R000003
+    verifier_command: tests/e2e/run-m3-c603.sh .cache/runs/E0178/R000001
     evidence_paths:
       - ROADMAP.md
       - research/decisions/D0124-first-m3-associate-name-oracle.md
@@ -241,10 +241,13 @@ milestones:
       - research/runs/2026-08.jsonl#R000023
       - research/runs/2026-08.jsonl#R000024
       - research/runs/2026-08.jsonl#R000025
+      - research/runs/2026-08.jsonl#R000026
       - artifacts/reports/M3/c603-semantic-review-v1.md
       - artifacts/reports/M3/c603-reproducibility-review-v1.md
       - artifacts/reports/M3/c603-semantic-review-v2.md
       - artifacts/reports/M3/c603-reproducibility-review-v2.md
+      - artifacts/reports/M3/c603-semantic-review-v3.md
+      - artifacts/reports/M3/c603-reproducibility-review-v3.md
     notes: >-
       The bounded C1106, C702 and C601 slices are promoted. The C603 replay
       passes and awaits its final focused review before promotion. Full Core 0
@@ -914,10 +917,13 @@ tasks:
       - research/runs/2026-08.jsonl#R000023
       - research/runs/2026-08.jsonl#R000024
       - research/runs/2026-08.jsonl#R000025
+      - research/runs/2026-08.jsonl#R000026
       - artifacts/reports/M3/c603-semantic-review-v1.md
       - artifacts/reports/M3/c603-reproducibility-review-v1.md
       - artifacts/reports/M3/c603-semantic-review-v2.md
       - artifacts/reports/M3/c603-reproducibility-review-v2.md
+      - artifacts/reports/M3/c603-semantic-review-v3.md
+      - artifacts/reports/M3/c603-reproducibility-review-v3.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

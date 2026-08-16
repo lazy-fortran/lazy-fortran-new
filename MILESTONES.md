@@ -85,7 +85,7 @@ Evidence: `research/decisions/D0128-fourth-m3-c603-label-digit-oracle.md`,
 `contracts/m3-c603-label-digit-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c603.py`,
 `artifacts/traces/m3-c603-source-backed-v0.json`, and
-`research/runs/2026-08.jsonl#R000023` through `#R000025`, plus focused review
+`research/runs/2026-08.jsonl#R000023` through `#R000026`, plus focused review
 reports under `artifacts/reports/M3/`. Promotion remains pending the final
 focused review; no model output can promote a semantic fact.
 
