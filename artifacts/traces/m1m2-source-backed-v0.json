@@ -10,6 +10,18 @@
     "repository": "standard-new",
     "commit": "03719c6ebea7dcfc3e88d2a0997ea8935209d235"
   },
+  "contracts": [
+    {
+      "id": "standardir-v0",
+      "path": "contracts/standardir-v0.sxs",
+      "sha256": "29982299e721cc7ab75b9f981aca325eddc3be87f17615316f895eb047ac5a49"
+    },
+    {
+      "id": "standardir-grammar-v0",
+      "path": "contracts/standardir-grammar-v0.sxs",
+      "sha256": "bf458264bd6186d66df7993604af2a182c416b7f0caf12f49a6b928cbf9d29c9"
+    }
+  ],
   "lexical": {
     "path": "standard-new/specs/lexical-facts-v0.sx",
     "sha256": "4074c170112f2ec6001a18f7fa6f8d72270cf788b552488c0120f7eb3d22177d",
@@ -63,6 +75,12 @@
     "source_result": "PASS",
     "grammar_result": "PASS",
     "mutation_control": "observed_failure"
+  },
+  "grammar_policy": {
+    "bison": "glr-allowed",
+    "shift_reduce_conflicts": 758,
+    "reduce_reduce_conflicts": 3885,
+    "undefined_symbols": 0
   },
   "reproducibility": {
     "locale": {

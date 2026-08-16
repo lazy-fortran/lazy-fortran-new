@@ -19,6 +19,18 @@ def fail(message: str) -> None:
     raise SystemExit(f"M1-M2 oracle failure: {message}")
 
 
+def balanced(text: str) -> bool:
+    depth = 0
+    for character in text:
+        if character == "(":
+            depth += 1
+        elif character == ")":
+            depth -= 1
+            if depth < 0:
+                return False
+    return depth == 0
+
+
 def records(path: Path) -> list[dict]:
     try:
         return [
@@ -40,6 +52,33 @@ def main() -> None:
         Path, sys.argv[1:9]
     )
     doc = tomllib.loads(fixture.read_text(encoding="utf-8"))
+    contract_names = doc.get("central_contracts", [])
+    contract_paths = doc.get("central_contract_paths", [])
+    contract_hashes = doc.get("central_contract_sha256", [])
+    if not contract_names or not (
+        len(contract_names) == len(contract_paths) == len(contract_hashes)
+    ):
+        fail("central contract declarations are incomplete")
+    repository_root = fixture.resolve().parents[2]
+    contracts = []
+    for name, relative_path, expected_hash in zip(
+        contract_names, contract_paths, contract_hashes
+    ):
+        path = Path(relative_path)
+        if path.is_absolute() or ".." in path.parts:
+            fail(f"central contract path escapes repository: {relative_path}")
+        contract_path = repository_root / path
+        if not contract_path.is_file():
+            fail(f"missing central contract: {relative_path}")
+        actual_hash = digest(contract_path)
+        if actual_hash != expected_hash:
+            fail(f"central contract hash differs: {relative_path}")
+        contract_text = contract_path.read_text(encoding="utf-8")
+        if not contract_text.startswith(f"(schema {name}"):
+            fail(f"central contract root differs: {relative_path}")
+        if not balanced(contract_text):
+            fail(f"central contract is unbalanced: {relative_path}")
+        contracts.append({"id": name, "path": relative_path, "sha256": actual_hash})
     golden = tomllib.loads((fixture.parent.parent / "golden" / "m1m2-source-backed-v0.oracle.toml").read_text())
     if digest(pdf) != golden["source_sha256"] or pdf.stat().st_size != golden["source_bytes"]:
         fail("pinned PDF identity differs")
@@ -163,7 +202,10 @@ def main() -> None:
         print("M1-M2 negative oracle: PASS")
 
     if extra:
+        if len(extra) != 4:
+            fail("expected exactly four grammar projection paths")
         patterns = {
+            "ebnf": re.compile(r"^[A-Za-z_][A-Za-z0-9_-]*\s*(?:::=|=)", re.M),
             "antlr": re.compile(r"^\s*(r_[A-Za-z0-9_]+)\s*:", re.M),
             "bison": re.compile(r"^\s*(r_[A-Za-z0-9_]+)\s*:", re.M),
             "tree-sitter": re.compile(r"^\s*(r_[A-Za-z0-9_]+):\s*\$\s*=>", re.M),
@@ -171,7 +213,12 @@ def main() -> None:
         for path, expected_name in zip(map(Path, extra), patterns):
             text = path.read_text(encoding="utf-8")
             definitions = patterns[expected_name].findall(text)
-            if len(definitions) != doc["expected_target_definitions"]:
+            expected_definitions = (
+                doc["expected_ebnf_target_definitions"]
+                if expected_name == "ebnf"
+                else doc["expected_target_definitions"]
+            )
+            if len(definitions) != expected_definitions:
                 fail(f"{expected_name} target definition count differs")
             if len(set(definitions)) != len(definitions):
                 fail(f"{expected_name} has duplicate target definitions")

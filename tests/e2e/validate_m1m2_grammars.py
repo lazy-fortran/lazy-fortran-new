@@ -7,6 +7,7 @@ import json
 import re
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
 
 
@@ -32,9 +33,13 @@ def mutate(source: Path, destination: Path) -> None:
 
 
 def main() -> None:
-    if len(sys.argv) != 2:
-        raise SystemExit("usage: validate_m1m2_grammars.py RUN-DIRECTORY")
+    if len(sys.argv) != 3:
+        raise SystemExit("usage: validate_m1m2_grammars.py RUN-DIRECTORY FIXTURE")
     run_dir = Path(sys.argv[1])
+    fixture = tomllib.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
+    bison_policy = fixture.get("bison_conflict_policy")
+    if bison_policy != "glr-allowed":
+        raise SystemExit(f"unsupported Bison conflict policy: {bison_policy!r}")
     for tool in ("antlr4", "bison", "tree-sitter"):
         require_tool(tool)
     validation = run_dir / "validators"
@@ -75,6 +80,36 @@ def main() -> None:
         if status != 0:
             raise SystemExit(f"{name} rejected the generated grammar")
         results[name] = {"status": "PASS", "command": command}
+        if name == "bison":
+            grammar_text = (run_dir / "fortran2023.y").read_text(encoding="utf-8")
+            if bison_policy == "glr-allowed" and "%glr-parser" not in grammar_text:
+                raise SystemExit("Bison grammar does not declare the GLR conflict policy")
+            lowered = output.lower()
+            if re.search(
+                r"undefined\s+(?:symbol|rule)|used, but is not defined|not defined as a token",
+                lowered,
+            ):
+                raise SystemExit("Bison reported an undefined symbol or rule")
+            shift_reduce = sum(
+                int(value)
+                for value in re.findall(
+                    r"warning:\s+(\d+)\s+shift/reduce\s+conflicts?", output, re.I
+                )
+            )
+            reduce_reduce = sum(
+                int(value)
+                for value in re.findall(
+                    r"warning:\s+(\d+)\s+reduce/reduce\s+conflicts?", output, re.I
+                )
+            )
+            results[name].update(
+                {
+                    "conflict_policy": bison_policy,
+                    "shift_reduce_conflicts": shift_reduce,
+                    "reduce_reduce_conflicts": reduce_reduce,
+                    "undefined_symbols": 0,
+                }
+            )
 
     mutation_dir = validation / "mutation"
     (mutation_dir / "antlr").mkdir(parents=True)

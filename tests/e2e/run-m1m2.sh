@@ -11,6 +11,7 @@ need git
 need jq
 
 "$ROOT/scripts/check_pins.sh" >/dev/null
+"$ROOT/scripts/check-contracts.sh" >/dev/null
 
 manifest="$ROOT/tests/fixtures/m1m2-source-backed-v0.toml"
 standard="$(resolve_repo standard-new)"
@@ -132,10 +133,10 @@ cmp "$run_dir/grammar.js" "$run_dir/grammar.two.js"
 python3 "$oracle" "$manifest" "$source_cache" "$run_dir/all.jsonl" \
     "$run_dir/selected.jsonl" "$run_dir/standardir.sx" "$run_dir/classifications.sx" \
     "$run_dir/roots.sx" "$standard/specs/lexical-facts-v0.sx" \
-    "$run_dir/Fortran2023.g4" "$run_dir/fortran2023.y" \
+    "$run_dir/grammar.ebnf" "$run_dir/Fortran2023.g4" "$run_dir/fortran2023.y" \
     "$run_dir/grammar.js" --negative "$negative_fixture" "$negative_golden" \
     >"$run_dir/final-oracle.log"
-python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" \
+python3 "$ROOT/tests/e2e/validate_m1m2_grammars.py" "$run_dir" "$manifest" \
     >"$run_dir/validators.log"
 
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$source_cache" \
@@ -152,6 +153,8 @@ from pathlib import Path
 trace_path, manifest_path, run_directory, source_cache, standard, lexical_path, source_hash, standard_commit = sys.argv[1:]
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
 run_dir = Path(run_directory)
+repository_root = Path(manifest_path).resolve().parents[2]
+validation = json.loads((run_dir / "validators" / "result.json").read_text(encoding="utf-8"))
 
 
 def digest(path: Path) -> str:
@@ -172,6 +175,16 @@ trace = {
         "bytes": Path(source_cache).stat().st_size,
     },
     "component": {"repository": "standard-new", "commit": standard_commit},
+    "contracts": [
+        {
+            "id": name,
+            "path": path,
+            "sha256": digest(repository_root / path),
+        }
+        for name, path in zip(
+            manifest["central_contracts"], manifest["central_contract_paths"]
+        )
+    ],
     "lexical": {
         "path": "standard-new/specs/lexical-facts-v0.sx",
         "sha256": digest(Path(lexical_path)),
@@ -208,6 +221,12 @@ trace = {
         "source_result": "PASS",
         "grammar_result": "PASS",
         "mutation_control": "observed_failure",
+    },
+    "grammar_policy": {
+        "bison": validation["bison"]["conflict_policy"],
+        "shift_reduce_conflicts": validation["bison"]["shift_reduce_conflicts"],
+        "reduce_reduce_conflicts": validation["bison"]["reduce_reduce_conflicts"],
+        "undefined_symbols": validation["bison"]["undefined_symbols"],
     },
     "reproducibility": {
         "locale": {"LC_ALL": "C", "LANG": "C"},
