@@ -344,47 +344,28 @@ cross-repository milestone.
 
 ## Persistent Goal Mode operating system
 
-The durable control-plane queue is `TASK_POOL.yaml`. `STATUS.md` records
-current verified facts, `MILESTONES.md` defines delivery gates, and
-`docs/operating-loop.md` defines the fast and integration cycles. Read those
-files before every Goal Mode cycle, together with the entrypoint list in
-`docs/goal-mode.md`.
+`TASK_POOL.yaml`, `STATUS.md`, `MILESTONES.md` and
+`docs/operating-loop.md` are the local control-plane entry points. At fast-cycle
+entry read `AGENTS.md`, `STATUS.md`, `TASK_POOL.yaml`, the active task and its
+named verifier/evidence. Load the roadmap, contracts, component records and
+review protocols only when the active task names them or an integration cycle
+requires them; reconcile the full map at integration.
 
-Use one active task and its named verifier per fast cycle. Continue with the
-next dependency-ready task after a PASS; do not stop merely because a local
-milestone passed. Enter an integration cycle after four verified deltas,
-three no-progress cycles, a milestone pass, or an interface change.
+Use one active task and one verifier per fast cycle. Central status changes
+only from that verifier and its independent oracle. Component-local success,
+provenance, generated code, hashes, traces and architecture prose are not
+delivery evidence unless the central fixture consumes them. Historical runs
+whose clean-checkout conditions are not verified for this checkout are
+`NEEDS REPLAY` and cannot promote a milestone.
 
-Never infer central progress from commit messages, component-local tests,
-architecture prose, provenance fields, generated code compiling, artifact
-hashes, or an unconsumed trace. A current milestone status changes only from
-the executed verifier and independent oracle. Historical runs remain
-immutable evidence; if their clean-checkout conditions are not verified for
-the current control-plane checkout, record `NEEDS REPLAY` and do not promote
-the next milestone.
+Use installed skills by trigger rather than copying their protocols here:
+`program-loop` and the relevant domain skill are the baseline;
+`evidence-gate`, `parallel-luna`, `bounded-exploration` and
+`expert-escalation` activate only at their stated boundaries. `fortran` owns
+the local Fortran workflow; `referee` is for manuscript review only.
 
-For ordinary meaningful work, use the `parallel-luna` micro-review when its
-small independent check is useful; keep it ephemeral. Use focused parallel
-review only for milestone promotion, cross-component interfaces, major
-reusable artifacts and release-level claims, as specified in
-`docs/luna-review-protocol.md`; do not reveal one reviewer's conclusion to
-another before verdicts exist. Use `bounded-exploration` and then
-`expert-escalation` only under their stated triggers, with GPT-Sol governed by
-`docs/gpt-sol-consult-protocol.md`.
-
-## Reusable research-program skills
-
-Use the installed reusable skills by name; do not copy their protocols into
-this repository. The current routing is:
-
-- `program-loop` for the long-horizon control loop and task continuation;
-- `evidence-gate` for ordinary checks and durable promotion gates;
-- `parallel-luna` for ephemeral micro-reviews and scoped promotion reviews;
-- `bounded-exploration` for a blocked leaf with bounded candidate routes;
-- `expert-escalation` only for a genuine specialist block after its trigger;
-- `fortran` for Fortran build, test, lint and execution work;
-- `referee` only for manuscript review, not compiler delivery work.
-
-The installed copies are synchronized with `krystophny/prompts` `main` when
-this policy is updated. The central documents below select the level and
-retention policy; component repositories do not create competing loops.
+For cross-repository work, pin consumed revisions, commit component changes
+first, then update the central pin and run the central end-to-end verifier.
+Do not start L2 or a second fixture family while the preceding replay gate is
+open. Durable state changes are pushed and remotely verified; scratch work is
+not.
