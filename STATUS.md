@@ -61,8 +61,8 @@ not current promotion evidence.
 - L1: `PASS`. The corrected replay and all four independent Luna reviews pass;
   v1 reports retain the two repaired review failures and v2 reports are the
   active evidence.
-- L2: `OPEN`; the bounded central execution gate is `PASS` in `R000439`, and
-  promotion remains pending after the independent review findings.
+- L2: `OPEN`; the corrected bounded central execution gate is `PASS` in
+  `R000441`. Promotion remains pending a fresh independent review wave.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -92,24 +92,24 @@ oracles required by `docs/oracle-policy.md`.
 
 ## Current blocker
 
-The first central runner is implemented as `tests/e2e/run-l2.sh` and passed
-the corrected component revisions. Review found evidence defects in oracle
-independence and boundary claims. The next task closes those findings and
-replays the gate; L2 remains open until all review lanes pass.
+The first central runner is implemented as `tests/e2e/run-l2.sh`. The v1 review
+findings were corrected in the current candidate and the replay passed as
+`R000441`. The next task is a fresh independent review wave; L2 remains open
+until all review lanes pass.
 
 ## Next executable task
 
-Close the independent-oracle, contract-boundary, and negative-MIR review
-findings, then replay `scripts/verify_active_milestone.sh`; do not add a second
-source feature family while this execution slice is incomplete.
+Run the fresh four-lane independent review against the corrected candidate and
+promote L2 only if all lanes pass; do not add a second source feature family
+while this execution slice is incomplete.
 
 ## Last verified central command
 
 ```text
 Current L0 replay and four-lane review: PASS.
 Current L1 replay and four-lane review: PASS.
-Current L2: central execution gate `PASS`; milestone promotion is pending
-independent review.
+Current L2: corrected central execution gate `R000441` `PASS`; milestone
+promotion is pending a fresh independent review.
 ```
 
 ## Blacklisted pseudo-progress

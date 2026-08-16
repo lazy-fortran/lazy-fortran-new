@@ -78,7 +78,7 @@ milestones:
     title: First compiled execution slice
     status: OPEN
     verification: PASS
-    review_state: NEEDS FIX
+    review_state: PENDING_FRESH_REVIEW
     prerequisites: [T-L1-replay-current]
     verifier_command: scripts/verify_active_milestone.sh
     evidence_paths:
@@ -96,7 +96,7 @@ milestones:
       - artifacts/reports/L2/replay-v1-luna-oracle.md
       - artifacts/reports/L2/replay-v1-luna-reproducibility.md
       - artifacts/reports/L2-initial-cli-failure.md
-      - research/runs/2026-08.jsonl#R000439
+      - research/runs/2026-08.jsonl#R000441
   - id: M1-M2
     title: Source-valid StandardIR and sane generated grammars
     status: BLOCKED

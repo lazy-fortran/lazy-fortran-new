@@ -122,7 +122,7 @@ TargetIR and ELF emission structures remain internal to this bounded slice.
 
 Do not define L3 until L2 passes.
 
-The central execution gate passed as `R000439`, but promotion remains open
-until the independent review findings are corrected and the selected boundary
-is replayed. The active boundary is recorded in
+The initial execution gate was superseded by corrected run `R000441`. The
+corrected gate passes, but promotion remains open until a fresh independent
+review wave passes. The active boundary is recorded in
 `research/decisions/D0122-narrow-l2-boundary.md`.
