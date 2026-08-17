@@ -86,13 +86,33 @@ def validate_standardir(source, path):
     require("(lhs name)" in lines[31] and "(lhs dummy-arg-name)" in lines[509], "name witnesses differ")
 
 def validate_contract_files(root):
-    schema = (root / "contracts/m3-c763-pass-arg-name-v0.sxs").read_text()
-    witness = (root / "contracts/fixtures/m3-c763-pass-arg-name-v0.sx").read_text()
-    require(schema.startswith("(schema m3-c763-pass-arg-name-v0"), "schema identity differs")
-    require("(enum pass-argument-state present absent unknown)" in schema and "(enum dummy-name-relation matching nonmatching unknown)" in schema, "typed schema differs")
-    require("(record pass-argument-name-fact" in schema and "(record semantic-candidate" in schema, "schema records differ")
-    require(witness.startswith("(contract-witness") and "(contract m3-c763-pass-arg-name)" in witness and "(version 0)" in witness, "fixture contract identity differs")
-    require("(standard-rule R741)" in witness and "(byte-start 243182)" in witness and "(byte-length 139)" in witness, "fixture source correspondence differs")
+    schema_lines = (root / "contracts/m3-c763-pass-arg-name-v0.sxs").read_text(encoding="utf-8").splitlines()
+    expected_schema = [
+        "(schema m3-c763-pass-arg-name-v0",
+        "  (primitive name)",
+        "  (enum outcome accepted rejected unresolved)",
+        "  (enum pass-argument-state present absent unknown)",
+        "  (enum dummy-name-relation matching nonmatching unknown)",
+        "  (record source-ref (document name) (clause name) (rule name) (standard-rule name) (page int) (source-hash name))",
+        "  (record source-span (byte-start int) (byte-length int) (page-start int) (page-end int))",
+        "  (record pass-argument-name-fact (pass-argument-state pass-argument-state) (dummy-name-relation dummy-name-relation))",
+        "  (record semantic-candidate (id name) (property name) (source source-ref) (span source-span) (fact pass-argument-name-fact) (expected outcome))",
+        "  (list candidates semantic-candidate))",
+    ]
+    require(schema_lines == expected_schema, "schema fields differ")
+    witness_lines = (root / "contracts/fixtures/m3-c763-pass-arg-name-v0.sx").read_text(encoding="utf-8").splitlines()
+    expected_witness = [
+        "(contract-witness",
+        "  (contract m3-c763-pass-arg-name)",
+        "  (version 0)",
+        "  (origin llm)",
+        "  (resolution disputed)",
+        "  (property pass-argument-name)",
+        f"  (source (source-ref (document J3-24-007) (clause 7) (rule C763) (standard-rule R741) (page 79) (source-hash {SOURCE})))",
+        "  (span (source-span (byte-start 243182) (byte-length 139) (page-start 94) (page-end 94)))",
+        "  (outcomes accepted rejected unresolved))",
+    ]
+    require(witness_lines == expected_witness, "contract fixture fields differ")
 
 def validate_binding(doc, root, pdf, canonical, page_index, standardir, semantic):
     validate_contract_files(root)
@@ -116,6 +136,7 @@ def validate_binding(doc, root, pdf, canonical, page_index, standardir, semantic
     validate_standardir(s, standardir)
     expected_item = {"clause": "7", "document": "J3-24-007", "id": "S-C763", "origin": "llm", "page": 79, "path": "tests/fixtures/m3-c763-semantic-items.sx", "resolution": "disputed", "rule": "C763", "sha256": digest(semantic), "source_hash": SOURCE, "subject": PROPERTY}
     require(doc["semantic_item"] == expected_item, "semantic item identity differs")
+    require(doc["mutation_controls"] == [name for name, _, _ in MUTATIONS], "mutation inventory differs")
 
 def validate_cases(doc, expected):
     require(len(doc["cases"]) == 9 and len({case["id"] for case in doc["cases"]}) == 9, "candidate set differs")
