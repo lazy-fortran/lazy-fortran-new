@@ -1,0 +1,38 @@
+(schema m3-c745-derived-type-sequence-component-presence-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c745-sequence-presence absent present unknown)
+  (enum c745-component-presence zero one-or-more unknown)
+  (enum c745-context derived-type-def other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record sequence-component-use
+    (sequence-presence c745-sequence-presence)
+    (component-presence c745-component-presence)
+    (context c745-context))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact sequence-component-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
+(contract-witness
+  (contract m3-c745-derived-type-sequence-component-presence)
+  (version 0)
+  (origin human)
+  (resolution disputed)
+  (property derived-type-def-sequence-component-presence)
+  (source (source-ref (document J3-24-007) (clause 7) (rule C745) (page 89) (source-hash 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)))
+  (span (source-span (byte-start 232141) (byte-length 276) (page-start 89) (page-end 89)))
+  (outcomes accepted rejected unresolved))

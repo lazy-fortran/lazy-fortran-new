@@ -1,0 +1,533 @@
+{
+  "schema_version": "m3-c745-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "derived-type-def-sequence-component-presence",
+  "contract": {
+    "schema": "contracts/m3-c745-derived-type-sequence-component-presence-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c745-derived-type-sequence-component-presence-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C745",
+    "printed_page": 89,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {
+        "line": 3665,
+        "text": "C745 (R726) If SEQUENCE appears, the type shall have at least one component, each data component shall"
+      },
+      {
+        "line": 3666,
+        "text": "be declared to be of an intrinsic type or of a sequence type, the derived type shall not have any type"
+      },
+      {
+        "line": 3667,
+        "text": "parameter, and a type-bound-procedure-part shall not appear."
+      }
+    ],
+    "source_span": {
+      "byte_start": 232141,
+      "byte_length": 276,
+      "page_start": 89,
+      "page_end": 89
+    },
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [
+        {
+          "page": 89,
+          "start": 230288,
+          "length": 2594
+        }
+      ]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {
+          "rule": "R726",
+          "lhs": "derived-type-def",
+          "page": 88,
+          "byte_start": 229000,
+          "byte_length": 177,
+          "occurrence": 76
+        },
+        {
+          "rule": "R731",
+          "lhs": "sequence-stmt",
+          "page": 89,
+          "byte_start": 232107,
+          "byte_length": 33,
+          "occurrence": 81
+        },
+        {
+          "rule": "R735",
+          "lhs": "component-part",
+          "page": 93,
+          "byte_start": 240048,
+          "byte_length": 51,
+          "occurrence": 85
+        }
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c745-semantic-items.sx",
+    "sha256": "51bbc34f1dd2361a566d6f236c89046ffa1d40841e4b1a8ed968df03a0576695",
+    "id": "S-C745",
+    "subject": "derived-type-def-sequence-component-presence",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C745",
+    "page": 89,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-absent-zero-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "zero",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "positive-absent-one-or-more-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "one-or-more",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "positive-absent-unknown-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "negative-present-zero-derived-type-def",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "zero",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "positive-present-one-or-more-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "one-or-more",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "zero",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-or-more-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "one-or-more",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-absent-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-one-or-more-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "one-or-more",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-one-or-more-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "one-or-more",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-or-more-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "one-or-more",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-absent-one-or-more-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "one-or-more",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "absent",
+        "component_presence": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-one-or-more-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "one-or-more",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "present",
+        "component_presence": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-or-more-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "one-or-more",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-sequence-component-presence",
+        "source_rule": "C745",
+        "sequence_presence": "unknown",
+        "component_presence": "unknown",
+        "context": "unknown"
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "id": "normative-pdf-hash",
+      "path": [
+        "source",
+        "pdf_sha256"
+      ],
+      "value": "bad-pdf"
+    },
+    {
+      "id": "canonical-first-line-identity",
+      "path": [
+        "source",
+        "canonical_lines",
+        0,
+        "text"
+      ],
+      "value": "C745 (R726) mutated"
+    },
+    {
+      "id": "canonical-third-line-text",
+      "path": [
+        "source",
+        "canonical_lines",
+        2,
+        "text"
+      ],
+      "value": "mutated C745 text"
+    },
+    {
+      "id": "source-span-start",
+      "path": [
+        "source",
+        "source_span",
+        "byte_start"
+      ],
+      "value": 232140
+    },
+    {
+      "id": "source-span-length",
+      "path": [
+        "source",
+        "source_span",
+        "byte_length"
+      ],
+      "value": 275
+    },
+    {
+      "id": "page-boundary",
+      "path": [
+        "source",
+        "page_index",
+        "pages",
+        0,
+        "length"
+      ],
+      "value": 2593
+    },
+    {
+      "id": "page-index-identity",
+      "path": [
+        "source",
+        "page_index",
+        "sha256"
+      ],
+      "value": "bad-page-index"
+    },
+    {
+      "id": "standardir-row-identity",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        0,
+        "rule"
+      ],
+      "value": "R999"
+    },
+    {
+      "id": "standardir-lhs-identity",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        0,
+        "lhs"
+      ],
+      "value": "wrong-lhs"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "path": [
+        "semantic_item",
+        "rule"
+      ],
+      "value": "C999"
+    },
+    {
+      "id": "contract-property-identity",
+      "path": [
+        "property"
+      ],
+      "value": "wrong-property"
+    },
+    {
+      "id": "source-page-identity",
+      "path": [
+        "source",
+        "printed_page"
+      ],
+      "value": 90
+    }
+  ]
+}
