@@ -24,12 +24,12 @@ STANDARDIR_SHA256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32c
 EXPECTED_OUTCOMES_SHA256 = "fc2d31361b99e523dd4e2ec32de91e528ec40f41aac5244e3611f9571c5a34ce"
 EXPECTED_OUTCOMES_PATH = "tests/fixtures/m3-c747-expected-outcomes-v0.json"
 PROPERTY = "derived-type-def-type-parameter-name-exact-once"
-SOURCE_SPAN = {"byte_start": 237572, "byte_length": 183, "page_start": 77, "page_end": 77}
+SOURCE_SPAN = {"byte_start": 237572, "byte_length": 183, "page_start": 91, "page_end": 91}
 CANONICAL_LINES = [
     {"line": 3766, "text": "C747 (R732) Each type-param-name in the derived-type-stmt in a derived-type-def shall appear exactly once as"},
     {"line": 3767, "text": "a type-param-name in a type-param-def-stmt in that derived-type-def ."},
 ]
-PAGE = {"page": 77, "start": 195782, "length": 2519}
+PAGE = {"page": 91, "start": 235554, "length": 2214}
 STANDARDIR_ROWS = [
     {"rule": "R727", "lhs": "derived-type-stmt", "page": 88, "byte_start": 229178, "byte_length": 108, "occurrence": 77},
     {"rule": "R732", "lhs": "type-param-def-stmt", "page": 91, "byte_start": 237232, "byte_length": 95, "occurrence": 82},
@@ -175,7 +175,15 @@ def validate_binding(doc: dict[str, Any], root: Path, pdf: Path, canonical: Path
     require(lines[3765] == SOURCE_BYTES.splitlines(keepends=True)[0] and lines[3766] == SOURCE_BYTES.splitlines(keepends=True)[1], "canonical lines differ")
     require(source["source_span"] == SOURCE_SPAN and canonical.read_bytes()[237572:237755] == SOURCE_BYTES, "source span differs")
     require(digest(page_index) == PAGE_INDEX_SHA256 and source["page_index"] == {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": PAGE_INDEX_SHA256, "pages": [PAGE]}, "page index identity differs")
-    require("page 77 start 195782 length 2519" in page_index.read_text(encoding="utf-8"), "page index span differs")
+    page_records = []
+    for line in page_index.read_text(encoding="utf-8").splitlines():
+        match = re.fullmatch(r"page (\d+) start (\d+) length (\d+)", line)
+        if match:
+            page_records.append({"page": int(match.group(1)), "start": int(match.group(2)), "length": int(match.group(3))})
+    span_start = SOURCE_SPAN["byte_start"]
+    span_end = span_start + SOURCE_SPAN["byte_length"]
+    containing_pages = [record for record in page_records if record["start"] <= span_start and span_end <= record["start"] + record["length"]]
+    require(containing_pages == [PAGE], "source span is not contained by the recorded page-index page")
     validate_standardir(source, standardir)
     require(doc["semantic_item"] == SEMANTIC_ITEM, "semantic item identity differs")
     require((root / SEMANTIC_ITEM["path"]).resolve() == semantic.resolve() and digest(semantic) == SEMANTIC_ITEM["sha256"], "semantic item hash differs")
