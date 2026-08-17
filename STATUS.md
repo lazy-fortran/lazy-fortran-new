@@ -156,13 +156,14 @@ not resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-core0-closure-audit-after-c1586` — re-run the retained E0181 Core 0
-closure audit after bounded C1586 promotion. Full M3 remains open.
+ID: `T-M3-core0-witness-coverage-reconciliation` — reconcile retained E0181
+witness coverage against the thirteen promoted bounded slices. Full M3 remains
+open.
 
-Verifier: the exact retained E0181 audit command below. It must reproduce the
-source/schema/witness gates and record the remaining hard, unresolved,
-disputed and unwitnessed ledger states plus one next executable task. It must
-not broaden semantic work, resume E0172 or promote a model fact.
+Verifier: the exact deterministic witness inventory command below. It must
+identify every disputed and unwitnessed row, map it to the existing bounded
+contracts where possible, and name one next executable task. It must not
+broaden semantic work, resume E0172 or promote a model fact.
 
 ## Current blocker
 
@@ -175,18 +176,22 @@ central C1106 replay R000474 and focused review R000476 pass. C702 replay
 R000012 and focused review R000015 pass. C601 replay R000003 and focused
 review R000022 pass. C603 replay R000001 and focused review R000027 pass. C721
 replay R000001 and focused review R000029 pass. C725 replay R000001 and
-focused review R000031 pass. The remaining blocker is the full M3/Core 0
-closure, which remains blocked by the E0181 audit counts: 4 hard failures, 2
-unresolved rows, 94 disputed rows and 69 unwitnessed rows across the retained
-287-row ledger. The corrected C718 replay and focused reviews are green. The
+focused review R000031 pass. The fresh E0181 closure audit is recorded as
+R000074 and passes its deterministic audit gate. Full M3/Core 0 remains blocked
+by the retained 287-row ledger: 4 hard failures, 2 unresolved rows, 94
+disputed rows and 69 unwitnessed rows. The corrected C718 replay and focused
+reviews are green. The
 C723 replay and focused review are green. The C729 replay and focused review
 are green; R000043 retains the earlier reproducibility failure. C719 replay
 R000051 and focused review R000052 are green. C738 replay R000053 and focused
 review R000055 are green. C1579 replay R000004 is green in R000062 and
 focused review R000064 passes; C1586 replay R000067 and focused review
-R000072 also pass, so thirteen bounded slices are promoted. They cannot close
-the complete ledger gate. A
-green bounded slice alone does not close full M3.
+R000072 also pass, so thirteen bounded slices are promoted. The audit residual
+identities are C601@1, C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1;
+the first four are hard failures, C704@2 is reference-only, and the last two
+are unresolved. These residual states do not close the complete ledger gate.
+The current blocker is witness closure outside the bounded slices: 94 disputed
+and 69 unwitnessed rows. A green bounded slice alone does not close full M3.
 Regenerate the E0181 counts with:
 
 ```text
@@ -195,12 +200,12 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-core0-closure-audit-after-c1586`. The bounded C1586
-self-name slice is already promoted; the remaining blocker is the retained
-E0181 Core 0 ledger. Its exact command is:
+Run and record `T-M3-core0-witness-coverage-reconciliation`. The preceding
+E0181 audit is PASS for the audit only; the remaining blocker is witness
+coverage across the retained ledger. Its exact verifier is:
 
 ```text
-E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
+jq -s 'map(select(.status == "disputed" or .status == "unwitnessed")) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
 ## Last verified central command

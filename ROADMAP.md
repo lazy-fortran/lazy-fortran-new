@@ -70,9 +70,11 @@ and focused review R000055 pass.
 D0136/D0137/E0187 is the promoted C1579 bounded slice; replay E0187/R000004
 is green in R000062 and focused review R000064 passes. D0138/E0188 is now the
 promoted C1586 bounded slice; replay R000067 and focused review R000072 pass.
-The E0181 Core 0 closure audit remains open. Its exact residual-selection
-replay passes in R000065. Broad semantic and model work remains closed; the
-next task is the exact retained E0181 closure audit after C1586 promotion.
+The E0181 Core 0 closure audit is recorded as an audit-only pass in R000074;
+full M3 remains open because witness coverage is incomplete. Broad semantic
+and model work remains closed; the next task is deterministic reconciliation
+of the disputed and unwitnessed rows against the thirteen promoted bounded
+slices.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -342,12 +344,14 @@ tests/e2e/run-m3-c1586-self-reference.sh --fresh
 
 The first replay retained a trace-format failure as `R000066`; corrected replay
 `R000067`, focused review `R000072` and post-promotion regression replay
-`R000073` pass. This promotes only the bounded
-C1586 projection; full M3 remains open. The next executable task is
-`T-M3-core0-closure-audit-after-c1586`, using the retained E0181 command:
+`R000073` pass. This promotes only the bounded C1586 projection; full M3
+remains open. The post-promotion E0181 audit `R000074` passes its deterministic
+merge, validation and witness checks, but leaves 94 disputed and 69 unwitnessed
+rows. The next executable task is
+`T-M3-core0-witness-coverage-reconciliation`, using this exact inventory:
 
 ```text
-E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
+jq -s 'map(select(.status == "disputed" or .status == "unwitnessed")) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
