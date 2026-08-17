@@ -529,11 +529,11 @@ functional revision is
 M3_C735_EXPECTED_CENTRAL_COMMIT=ffdda31c289531d4b6ac4b0a32ce6db6fb6bb1de tests/e2e/run-m3-c735.sh --fresh
 ```
 
-The next controller task selects one bounded property after C735. Its
-post-C735 partition is regenerated with:
+The completed controller selection after C735 is recorded by E0203/R000530.
+Its post-C735 partition is regenerated with:
 
 ```text
-jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
 Regenerate the C735 selection evidence with:
@@ -572,7 +572,37 @@ jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","
 Regenerate the current post-C735 residual partition with:
 
 ```text
-jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+```
+
+## M3 — selected C743 private-or-sequence uniqueness property
+
+Selection status: `PASS`; E0203/R000530 mechanically confirms 149 residual
+rows, 85 `disputed`, 64 `unwitnessed` and `C743@1` first. The selected source
+is J3/24-007 C743 at canonical line 3637, printed page 89, byte span
+`230736:105`. Existing StandardIR R726 (`derived-type-def`) contains a
+zero-or-more repeat of R729 (`private-or-sequence`).
+
+D0149 defines the next bounded candidate as occurrence
+`none | single | duplicate | unknown` crossed with context
+`derived-type-def | other | unknown`. In the derived-type-def context, none or
+single is `ACCEPTED`, duplicate is `REJECTED`, and all other states are
+`UNRESOLVED`. The selection does not parse definitions, distinguish PRIVATE
+from SEQUENCE, resolve names or promote C743. The next implementation command
+is `tests/e2e/run-m3-c743.sh --fresh`.
+
+Regenerate the selected row and source bindings with:
+
+```text
+jq -c 'select(.row_key == "C743@1")' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+nl -ba .cache/runs/E0001/R000003/j3-24-007.canonical.txt | sed -n '3637p'
+python3 - <<'PY'
+from pathlib import Path
+lines = Path('.cache/runs/E0001/R000003/j3-24-007.canonical.txt').read_bytes().splitlines(keepends=True)
+print('start', sum(map(len, lines[:3636])), 'length', len(lines[3636]))
+PY
+rg -n '^page 89 ' .cache/runs/E0001/R000003/j3-24-007.pages.index
+sed -n '77,80p' .cache/runs/E0171/R000433-provenance-replay/standardir.sx
 ```
 
 ## M3 — bounded C601 semantic-oracle successor

@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c735
+active_task: T-M3-c743-derived-type-private-or-sequence-uniqueness-oracle
 
 milestones:
   - id: L0
@@ -4165,7 +4165,7 @@ tasks:
         - TASK_POOL.yaml
     prerequisites: [T-M3-c733-kind-param-representation-method-oracle]
     verifier_command: >-
-      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     evidence_paths:
       - research/experiments/E0201-can-the-post-c733-residual-select-one-so/manifest.yaml
       - research/runs/2026-08.jsonl#R000520
@@ -4268,9 +4268,9 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c735
     milestone: M3
     title: Select the next bounded property after C735 promotion
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c735-derived-type-attr-uniqueness-oracle
@@ -4310,6 +4310,7 @@ tasks:
       owner: controller
       allowed_paths:
         - research/experiments/E0203-*
+        - research/decisions/D0149-twenty-third-m3-c743-private-or-sequence-uniqueness-oracle.md
         - artifacts/reports/M3/m3-core0-next-property-selection-v10.md
         - research/runs/2026-08.jsonl
         - STATUS.md
@@ -4318,13 +4319,103 @@ tasks:
         - TASK_POOL.yaml
     prerequisites: [T-M3-c735-derived-type-attr-uniqueness-oracle]
     verifier_command: >-
-      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     evidence_paths:
       - research/experiments/E0202-can-a-deterministic-source-backed-c735-oracle/manifest.yaml
       - research/runs/2026-08.jsonl#R000527
       - research/runs/2026-08.jsonl#R000528
       - research/runs/2026-08.jsonl#R000529
+      - research/runs/2026-08.jsonl#R000530
+      - research/experiments/E0203-can-the-post-c735-residual-select-one-so/manifest.yaml
+      - research/decisions/D0149-twenty-third-m3-c743-private-or-sequence-uniqueness-oracle.md
+      - artifacts/reports/M3/m3-core0-next-property-selection-v10.md
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+
+  - id: T-M3-c743-derived-type-private-or-sequence-uniqueness-oracle
+    milestone: M3
+    title: Define and implement the bounded C743 private-or-sequence uniqueness oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection-after-c735
+    inputs:
+      - path: research/decisions/D0149-twenty-third-m3-c743-private-or-sequence-uniqueness-oracle.md
+      - path: research/experiments/E0203-can-the-post-c735-residual-select-one-so/manifest.yaml
+      - path: research/experiments/E0204-can-a-deterministic-source-backed-c743-o/manifest.yaml
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v10.md
+      - path: research/runs/2026-08.jsonl#R000530
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    writes:
+      - research/experiments/E0204-can-a-deterministic-source-backed-c743-o/manifest.yaml
+      - contracts/m3-c743-derived-type-private-or-sequence-uniqueness-v0.sxs
+      - contracts/fixtures/m3-c743-derived-type-private-or-sequence-uniqueness-v0.sx
+      - contracts/registry.sx
+      - tests/fixtures/m3-c743-source-backed-v0.json
+      - tests/fixtures/m3-c743-semantic-items.sx
+      - tests/golden/m3-c743-semantic-items.sx
+      - tests/e2e/run-m3-c743.sh
+      - tests/e2e/validate_m3_c743.py
+      - artifacts/traces/m3-c743-source-backed-v0.json
+      - artifacts/reports/M3/m3-c743-source-backed-v0.md
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - research/runs/2026-08.jsonl
+    mode: exclusive
+    verifier: >-
+      define one source-backed C743 contract over canonical line 3637, printed
+      page 89 and existing StandardIR R726/R729; implement a deterministic
+      ACCEPTED/REJECTED/UNRESOLVED oracle over typed none, single, duplicate
+      and unknown private-or-sequence occurrence states in the
+      derived-type-def context; include positive witnesses, the duplicate
+      negative neighbour, unresolved controls and source/page/rule/identity
+      mutations; run the clean central gate; require zero model calls and zero
+      semantic-fact promotions. Do not parse derived-type definitions,
+      distinguish PRIVATE from SEQUENCE, resolve type names or broaden C743/M3.
+    output: artifact
+    final_observable: >-
+      a replayable bounded C743 source-backed private-or-sequence uniqueness
+      oracle with independent validation and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0149-twenty-third-m3-c743-private-or-sequence-uniqueness-oracle.md
+        - research/experiments/E0203-*
+        - research/experiments/E0204-*
+        - contracts/m3-c743-*
+        - contracts/fixtures/m3-c743-*
+        - tests/fixtures/m3-c743-*
+        - tests/golden/m3-c743-*
+        - tests/e2e/run-m3-c743.sh
+        - tests/e2e/validate_m3_c743.py
+        - artifacts/traces/m3-c743-source-backed-v0.json
+        - artifacts/reports/M3/m3-c743-source-backed-v0.md
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c735]
+    verifier_command: tests/e2e/run-m3-c743.sh --fresh
+    evidence_paths:
+      - research/decisions/D0149-twenty-third-m3-c743-private-or-sequence-uniqueness-oracle.md
+      - research/experiments/E0203-can-the-post-c735-residual-select-one-so/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v10.md
+      - research/runs/2026-08.jsonl#R000530
+      - research/experiments/E0204-can-a-deterministic-source-backed-c743-o/manifest.yaml
+      - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

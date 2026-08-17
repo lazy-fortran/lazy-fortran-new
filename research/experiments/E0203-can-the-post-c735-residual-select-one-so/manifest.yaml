@@ -2,13 +2,13 @@ id: "E0203"
 title: "Post-C735 residual bounded-property selection"
 question: >
   Can the post-C735 residual select one source-backed bounded property?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "b86cf560541f2c9bd4853c5345046ca152227e45"
+  lazy-fortran-new: "f86b7b9f2c4b465ed563e13574de9a72e9cc50fc"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -64,7 +64,9 @@ falsifiable_by: >-
 gate: >-
   The exact verifier command in TASK_POOL.yaml must pass, and the controller
   must inspect the pinned C743 source and StandardIR shape before selecting one
-  bounded property.
+  bounded property. The selection is reported only when the source, page and
+  StandardIR bindings independently pass and no model output or semantic fact
+  is promoted.
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: >-
@@ -82,4 +84,16 @@ result:
   partition_result_sha256: d9ba356c03fa1b66bbbd70e9f76248488f0a0a4bd101047032ddebfd580f3253
   model_calls: 0
   semantic_promotions: 0
-  selection: PENDING
+  selection_run: research/runs/2026-08.jsonl#R000530
+  report: artifacts/reports/M3/m3-core0-next-property-selection-v10.md
+  report_sha256: 6748d861d923744076231eaeb8027f669bfaa46724a36508d54e43ee78ad0252
+  selected_row: C743@1
+  selected_constraint: C743
+  selected_property: derived-type-def-private-or-sequence-uniqueness
+  source_page: 89
+  source_span: "230736:105"
+  standardir_rules: [R726, R729]
+  source_binding: PASS
+  page_binding: PASS
+  standardir_binding: PASS
+  selection: C743@1
