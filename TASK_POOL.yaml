@@ -315,6 +315,7 @@ milestones:
       - research/runs/2026-08.jsonl#R000042
       - research/runs/2026-08.jsonl#R000043
       - research/runs/2026-08.jsonl#R000044
+      - research/runs/2026-08.jsonl#R000045
       - artifacts/reports/M3/c729-semantic-review-v0.md
       - artifacts/reports/M3/c729-reproducibility-review-v0.md
       - artifacts/reports/M3/c729-semantic-review-v1.md
@@ -1490,6 +1491,7 @@ tasks:
       - research/runs/2026-08.jsonl#R000042
       - research/runs/2026-08.jsonl#R000043
       - research/runs/2026-08.jsonl#R000044
+      - research/runs/2026-08.jsonl#R000045
       - artifacts/reports/M3/c729-semantic-review-v0.md
       - artifacts/reports/M3/c729-reproducibility-review-v0.md
       - artifacts/reports/M3/c729-semantic-review-v1.md

@@ -212,9 +212,9 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   .cache/runs/E0182/R000002` is `PASS` in R000034; focused review R000036 is
   `PASS`. C723 replay `tests/e2e/run-m3-c723.sh
   .cache/runs/E0183/R000001` is `PASS` in R000037; focused review R000038 is
-  `PASS`. C729 replay `tests/e2e/run-m3-c729.sh --fresh` is `PASS` in R000042;
-  focused review R000044 is `PASS`; nine bounded slices are promoted and full
-  M3 remains open.
+  `PASS`. C729 replay `tests/e2e/run-m3-c729.sh --fresh` is `PASS` in R000042
+  and final clean-checkout replay R000045 is `PASS`; focused review R000044
+  is `PASS`; nine bounded slices are promoted and full M3 remains open.
 ```
 
 ## Blacklisted pseudo-progress
