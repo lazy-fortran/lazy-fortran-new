@@ -363,7 +363,7 @@
   ],
   "contract": {
     "fixture": "contracts/fixtures/m3-c747-derived-type-type-parameter-name-exact-once-v0.sx",
-    "fixture_sha256": "f34ca9506442b641e734668c4b380ab763642bfa7a0688601efef4a5e59eedba",
+    "fixture_sha256": "86ed6a871b0ab0d478d1402300a9452ebac35e782af93daf682e33295e39bc10",
     "schema": "contracts/m3-c747-derived-type-type-parameter-name-exact-once-v0.sxs",
     "schema_sha256": "db9352a84d0969f61eb3468afe6705251739c6e808516ddb4789a2a5205b1e58",
     "version": 0
@@ -375,7 +375,7 @@
     "sha256": "fc2d31361b99e523dd4e2ec32de91e528ec40f41aac5244e3611f9571c5a34ce"
   },
   "fixture": "tests/fixtures/m3-c747-source-backed-v0.json",
-  "fixture_sha256": "5f8102f757d4e1ec7f0a53579c7cfd7053b43bebe1bc7cd64d2ec04e605f5dc1",
+  "fixture_sha256": "fb29976c5155f23ba0fbab0c516bfaf99b0a2bbe7888070279427ae97b76ef1a",
   "milestone": "M3",
   "model_calls": 0,
   "mutation_controls": [
@@ -455,9 +455,9 @@
     "page_index": {
       "pages": [
         {
-          "length": 2519,
-          "page": 77,
-          "start": 195782
+          "length": 2214,
+          "page": 91,
+          "start": 235554
         }
       ],
       "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
@@ -470,8 +470,8 @@
     "source_span": {
       "byte_length": 183,
       "byte_start": 237572,
-      "page_end": 77,
-      "page_start": 77
+      "page_end": 91,
+      "page_start": 91
     },
     "standardir_rules": [
       "R727",
