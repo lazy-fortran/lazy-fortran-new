@@ -2219,6 +2219,7 @@ tasks:
         commit: f94c4c51b51fce22b533b7eeda08741970320913
       - path: research/runs/2026-08.jsonl#R000065
     writes:
+      - contracts/registry.sx
       - contracts/m3-c1586-statement-function-self-reference-oracle-v0.sxs
       - contracts/fixtures/m3-c1586-statement-function-self-reference-oracle-v0.sx
       - tests/fixtures/m3-c1586-source-backed-v0.json
@@ -2254,6 +2255,7 @@ tasks:
       worktree: /home/ert/code/lazy-fortran-new
       owner: controller
       allowed_paths:
+        - contracts/registry.sx
         - contracts/m3-c1586-statement-function-self-reference-oracle-v0.sxs
         - contracts/fixtures/m3-c1586-statement-function-self-reference-oracle-v0.sx
         - tests/fixtures/m3-c1586-*

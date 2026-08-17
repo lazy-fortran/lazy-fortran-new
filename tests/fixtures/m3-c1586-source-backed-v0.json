@@ -1,0 +1,69 @@
+{
+  "schema_version": "m3-c1586-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "statement-function-self-name-exclusion",
+  "contract": {
+    "schema": "contracts/m3-c1586-statement-function-self-reference-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c1586-statement-function-self-reference-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "15",
+    "rule": "C1586",
+    "printed_page": 358,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_pages_index": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+    "canonical_pages_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "canonical_page": {"page": 358, "start": 1019965, "length": 3429},
+    "canonical_lines": [
+      {"line": 15464, "text": "28 C1586 (R1547) Each primary in scalar-expr shall be a constant (literal or named), a reference to a variable, a reference to a"},
+      {"line": 15465, "text": "29 function, or an expression in parentheses. Each operation shall be intrinsic. If scalar-expr contains a reference to a"},
+      {"line": 15466, "text": "30 function, the reference shall not require an explicit interface, the function shall not require an explicit interface unless it is"},
+      {"line": 15467, "text": "31 an intrinsic function, the function shall not be a transformational intrinsic, and the result shall be scalar. If an argument to"},
+      {"line": 15468, "text": "32 a function is an array, it shall be an array name. If a reference to a statement function appears in scalar-expr, its definition"},
+      {"line": 15469, "text": "33 shall have been provided earlier in the scoping unit and shall not be the name of the statement function being defined."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R1547", "lhs": "stmt-function-stmt", "page": 358, "byte_start": 1022521, "byte_length": 86, "occurrence": 522}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c1586-semantic-items.sx",
+    "sha256": "2dd274bdb9beb8e6aaeb4a58be1d0e9fb632ebdbb476948099fc1b47b11610cd",
+    "id": "S-C1586",
+    "subject": "statement-function-self-name-exclusion",
+    "document": "J3-24-007",
+    "clause": "15",
+    "rule": "C1586",
+    "page": 358,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {"id": "positive-no-statement-function-reference", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "statement-function-self-reference", "source_rule": "C1586", "reference_presence": "absent", "name_relation": "not-applicable"}},
+    {"id": "positive-different-statement-function-name", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "statement-function-self-reference", "source_rule": "C1586", "reference_presence": "present", "name_relation": "different"}},
+    {"id": "negative-self-reference", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "statement-function-self-reference", "source_rule": "C1586", "reference_presence": "present", "name_relation": "same"}},
+    {"id": "unresolved-reference-name", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "statement-function-self-reference", "source_rule": "C1586", "reference_presence": "present", "name_relation": "unknown"}},
+    {"id": "unresolved-reference-presence", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "statement-function-self-reference", "source_rule": "C1586", "reference_presence": "unknown", "name_relation": "unknown"}},
+    {"id": "unresolved-reference-presence-with-known-relation", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "statement-function-self-reference", "source_rule": "C1586", "reference_presence": "unknown", "name_relation": "different"}}
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-page-identity", "path": ["source", "printed_page"], "value": 357},
+    {"id": "canonical-page-boundary", "path": ["source", "canonical_page", "start"], "value": 1019966},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 4, "line"], "value": 15469},
+    {"id": "canonical-source-line-text", "path": ["source", "canonical_lines", 5, "text"], "value": "33 shall have been provided earlier in the scoping unit and shall not be the name of the statement function being defined"},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R1546"},
+    {"id": "standardir-row-metadata", "path": ["source", "standardir", "rows", 0, "byte_start"], "value": 1022522},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C1587"}
+  ]
+}

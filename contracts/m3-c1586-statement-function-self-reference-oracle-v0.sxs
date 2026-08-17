@@ -1,0 +1,21 @@
+(schema m3-c1586-statement-function-self-reference-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum reference-presence absent present unknown)
+  (enum name-relation not-applicable same different unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record statement-function-self-reference
+    (reference-presence reference-presence)
+    (name-relation name-relation))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact statement-function-self-reference)
+    (expected outcome))
+  (list candidates semantic-candidate))

@@ -153,27 +153,17 @@ start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-e0181-next-residual-selection-3` — select the next bounded property
-from the retained E0181 residual ledger after C1579 promotion. Full M3 remains
-open. The task passes in `R000065`; its selected successor is the bounded
-C1586 statement-function self-reference oracle.
+ID: `T-M3-c1586-statement-function-self-reference-oracle` — implement and
+verify the bounded C1586 statement-function self-name projection. Full M3
+remains open.
 
-Verifier: `E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
-E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
-E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis
-research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh`.
-It must select one already represented StandardIR/syntax shape and define the
-next bounded contract, or record one precise blocker and executable successor.
-It must not revive E0172 or promote a model fact.
-
-The prior E0181 selection audit that selected C738 was rerun with:
-
-```text
-E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
-```
-
-No model experiment or broad semantic/parser work is in scope. The next
-implementation command is `tests/e2e/run-m3-c1586-self-reference.sh --fresh`.
+Verifier: `tests/e2e/run-m3-c1586-self-reference.sh --fresh`. It must verify
+C1586 canonical lines 15464--15469 (with the decisive prohibition on lines
+15468--15469) on PDF/page-index page 358, the existing StandardIR R1547
+metadata, typed absent/present and same/different/unknown witness outcomes,
+source/rule mutation rejection, exact trace comparison and zero model calls or
+semantic promotions. It must not parse expressions,
+resolve names, decide definition ordering or resume E0172.
 
 ## Current blocker
 
@@ -207,7 +197,8 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 Implement and verify `T-M3-c1586-statement-function-self-reference-oracle`.
 The selected contract checks only the C1586 self-name prohibition at canonical
-lines 15468--15469 on page 358 over StandardIR R1547. It must not parse
+lines 15464--15469, with the decisive text on lines 15468--15469, on page 358
+over StandardIR R1547. It must not parse
 expressions, resolve names, decide definition ordering, resume E0172 or promote
 a model fact. Its exact command is:
 

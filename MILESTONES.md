@@ -322,9 +322,10 @@ as `R000065`. This is not yet a promoted slice.
 
 D0138/E0188 select only the C1586 prohibition on a statement-function
 reference having the same name as the statement function being defined. The
-source binding is canonical-text lines 15468--15469 on PDF/page-index page
-358, with the already represented StandardIR R1547 `stmt-function-stmt`
-production. The planned typed oracle returns `ACCEPTED` for no reference or a
+source binding is canonical-text lines 15464--15469, with the decisive
+prohibition on lines 15468--15469, on PDF/page-index page 358, with the already
+represented StandardIR R1547 `stmt-function-stmt` production. The planned typed
+oracle returns `ACCEPTED` for no reference or a
 different name, `REJECTED` for the same name and `UNRESOLVED` for unknown
 relevant state. It does not parse expressions, resolve names, decide
 definition ordering or cover the remainder of C1586. The implementation gate

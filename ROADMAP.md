@@ -328,8 +328,9 @@ remains abandoned and no model output can promote a semantic fact.
 **Next M3 contract.** D0138/E0188 select the smallest executable projection
 of unresolved C1586: a statement-function reference may not have the same name
 as the statement function being defined. The source binding is canonical-text
-lines 15468--15469 on PDF/page-index page 358, with the already represented
-StandardIR R1547 `stmt-function-stmt` production. The typed candidate carries
+lines 15464--15469, with the decisive prohibition on lines 15468--15469, on
+PDF/page-index page 358, with the already represented StandardIR R1547
+`stmt-function-stmt` production. The typed candidate carries
 reference presence and name-relation states; the planned oracle returns
 `ACCEPTED` for absent or different-name references, `REJECTED` for a same-name
 reference and `UNRESOLVED` for unknown relevant state. It does not parse
