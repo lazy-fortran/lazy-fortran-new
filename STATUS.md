@@ -25,9 +25,10 @@ The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. Full Core 0 semantics remain open and no semantic fact is promoted.
-C757 is the latest bounded leaf, verified by its clean replay and focused
-review/evidence gate recorded in R000624. C760 is the preceding harvested
-leaf, recorded in R000623. The provisional harvest contains
+C761 is the latest bounded leaf, verified by its pushed clean replay and
+focused review/evidence gate recorded in R000630. C759 is the preceding
+implemented leaf and C760 is the preceding harvested leaf, recorded in R000623.
+The provisional harvest contains
 110 packets with readiness counts `READY=17`, `NEEDS_REVIEW=7` and
 `NOT_READY=86`; regenerate those values with
 `jq -c '{packet_count,readiness_counts}' artifacts/staging/m3-harvest-v0.json`.
@@ -300,24 +301,27 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-c761-pointer-presence-oracle` — OPEN. Selection R000629 passes and
-binds C761/R741 to J3-24-007 canonical line 3871, source span `242981:74`,
-printed page 79, PDF page 94, ledger page 93, page-index record 93 and
-StandardIR occurrence R741@91. The residual before this selection was 135
-rows: 79 `disputed` and 56 `unwitnessed`.
+ID: `T-M3-core0-next-bounded-property-selection-after-c761` — OPEN. The
+bounded C761 implementation passes its pushed clean replay and focused review
+gate in R000630. Selection R000629 bound C761/R741 to J3-24-007 canonical line
+3871, source span `242981:74`, printed page 79, PDF page 94, ledger page 93,
+page-index record 93 and StandardIR occurrence R741@91. The pre-C761 residual
+was 135 rows: 79 `disputed` and 56 `unwitnessed`.
 
-The implementation target is the smallest bounded C761 property: a typed
+The completed implementation was the smallest bounded C761 property: a typed
 `proc-component-attr-spec-list` state of `pointer-present`, `pointer-absent`
 or `unknown`, with deterministic `ACCEPTED`, `REJECTED` or `UNRESOLVED`
-outcomes. The worker may generate labelled intake fixtures, but the independent
-expected table, source/provenance checks, mutation controls, replay and
-promotion decision remain controller-gated. No Fortran parser, model-driven
-promotion or full M3 claim is in scope.
+outcomes. R000630 records 1 `ACCEPTED`, 1 `REJECTED` and 1 `UNRESOLVED`,
+eleven rejected mutations, zero model calls and zero semantic promotions. The
+exact claim is closed only as a bounded oracle leaf; no Fortran parser,
+model-driven promotion or full M3 claim is in scope.
 
-Verifier after implementation: `tests/e2e/run-m3-c761.sh --fresh`. The
-completed C759 verifier remains `tests/e2e/run-m3-c759.sh --fresh`; its pushed
-clean regression is R000628 at central
-`c7041685dc0a0a35394cc2b37b34616b2a626929`.
+The next controller-exclusive selection recomputes 134 residual rows (78
+`disputed`, 56 `unwitnessed`) with C762@1 first; regenerate it with the exact
+`jq` command in `TASK_POOL.yaml`. The completed verifier was
+`tests/e2e/run-m3-c761.sh --fresh`. The completed C759 verifier remains
+`tests/e2e/run-m3-c759.sh --fresh`; its pushed clean regression is R000628 at
+central `c7041685dc0a0a35394cc2b37b34616b2a626929`.
 
 The completed C754 verifier was `tests/e2e/run-m3-c754.sh --fresh`. Its
 27-state typed product crosses pointer attribute, allocatable attribute and

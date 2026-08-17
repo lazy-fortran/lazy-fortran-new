@@ -834,9 +834,18 @@ record 93, PDF page 94 and StandardIR occurrence R741@91. D0169 selects the
 bounded target as the typed state of a supplied
 `proc-component-attr-spec-list`: `pointer-present`, `pointer-absent` or
 `unknown`, mapping to `ACCEPTED`, `REJECTED` and `UNRESOLVED`. The active
-implementation task is `T-M3-c761-pointer-presence-oracle`. It may not parse
-Fortran or promote a semantic fact; the Luna fixture packet remains labelled
-intake only.
+implementation task was `T-M3-c761-pointer-presence-oracle`. Its pushed clean
+replay and focused review pass are recorded in R000630: 1 `ACCEPTED`, 1
+`REJECTED`, 1 `UNRESOLVED`, eleven rejected mutations, zero model calls and
+zero semantic promotions. The result and committed trace hash to
+`9fb7a9ee4a42fbb3b5518d30b392a7adf2d36edd96f73aaa767335d472f53f65`.
+C761 is closed only as a bounded oracle leaf; the Luna fixture packet remains
+labelled intake only, and no semantic fact is promoted.
+
+The next controller-exclusive selection leaves 134 rows (78 `disputed`, 56
+`unwitnessed`) with C762@1 first. Regenerate it with the exact `jq` command in
+`TASK_POOL.yaml`; the selection must independently source-bind C762 before any
+implementation task is opened.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 

@@ -2,9 +2,9 @@ id: "E0228"
 title: "Can a bounded source-backed oracle classify C761 pointer-presence states?"
 question: >
   Can a bounded source-backed oracle classify C761 pointer-presence states?
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
