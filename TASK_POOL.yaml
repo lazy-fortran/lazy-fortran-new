@@ -5212,6 +5212,12 @@ tasks:
       - research/experiments/E0213-post-c747-residual-bounded-property-sele/manifest.yaml
       - artifacts/reports/M3/m3-core0-next-property-selection-v17.md
       - research/runs/2026-08.jsonl#R000576
+      - research/experiments/E0214-deterministic-source-backed-c748-exact-o/manifest.yaml
+      - artifacts/reports/M3/m3-c748-source-backed-v0.md
+      - artifacts/traces/m3-c748-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000577
+      - .cache/runs/E0214/R000001/result.json
+      - .cache/runs/E0214/R000001/run-environment.json
       - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - .cache/runs/E0001/R000003/j3-24-007.pages.index
       - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
