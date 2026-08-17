@@ -2320,8 +2320,9 @@ candidate semantic packet remains `LLM` and disputed. The focused review and
 evidence gate are recorded in
 `artifacts/reports/M3/m3-c757-focused-review-v1.md` and
 `research/runs/2026-08.jsonl#R000624`. This closes only the bounded C757 leaf.
-The next operation is a fresh residual selection after C757; full M3 remains
-open.
+Pushed-revision regression R000625 reproduces the result and trace from
+central `360eb5303ace29863c756358080d19088332e15a`. The next operation is a
+fresh residual selection after C757; full M3 remains open.
 
 The M3 model lane
 remains frozen by

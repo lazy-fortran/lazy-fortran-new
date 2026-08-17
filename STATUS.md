@@ -94,7 +94,9 @@ contract and semantic-item mutations are rejected. It records zero model calls
 and zero semantic promotions. The expected table is controller-derived and
 `MECHANICAL`; the candidate semantic packet remains `LLM` and disputed. Two
 independent medium-depth focused reviewers pass and the evidence gate passes
-for this bounded leaf only. Full M3 remains open.
+for this bounded leaf only. Pushed-revision regression R000625 reproduces the
+same result and trace from central `360eb5303ace29863c756358080d19088332e15a`.
+Full M3 remains open.
 
 ## Component pins
 
