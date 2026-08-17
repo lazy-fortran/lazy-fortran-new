@@ -80,4 +80,5 @@ result:
   replay_result_sha256: ef3688718d261f8a1dcccf0a29d229948dd87ce947c4950685399b3f5e573261
   replay_trace_sha256: ef3688718d261f8a1dcccf0a29d229948dd87ce947c4950685399b3f5e573261
   retained_failure: research/runs/2026-08.jsonl#R000066
-  review_state: pending
+  review_run: research/runs/2026-08.jsonl#R000072
+  review_state: pass

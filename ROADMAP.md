@@ -68,12 +68,11 @@ slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
 and focused review R000055 pass.
 D0136/D0137/E0187 is the promoted C1579 bounded slice; replay E0187/R000004
-is green in R000062 and focused review R000064 passes.
+is green in R000062 and focused review R000064 passes. D0138/E0188 is now the
+promoted C1586 bounded slice; replay R000067 and focused review R000072 pass.
 The E0181 Core 0 closure audit remains open. Its exact residual-selection
-replay passes in R000065; D0138/E0188 select a bounded C1586
-statement-function self-name projection over StandardIR R1547. Broad semantic
-and model work remains closed until each later bounded contract is explicitly
-defined.
+replay passes in R000065. Broad semantic and model work remains closed; the
+next task is the exact retained E0181 closure audit after C1586 promotion.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -325,13 +324,13 @@ rejected, five unresolved and seven mutation failures; focused review R000064
 passes. This is a bounded slice only; it does not close full M3. E0172
 remains abandoned and no model output can promote a semantic fact.
 
-**Next M3 contract.** D0138/E0188 select the smallest executable projection
+**Promoted M3 contract.** D0138/E0188 selected and promoted the smallest executable projection
 of unresolved C1586: a statement-function reference may not have the same name
 as the statement function being defined. The source binding is canonical-text
 lines 15464--15469, with the decisive prohibition on lines 15468--15469, on
 PDF/page-index page 358, with the already represented StandardIR R1547
 `stmt-function-stmt` production. The typed candidate carries
-reference presence and name-relation states; the planned oracle returns
+reference presence and name-relation states; the oracle returns
 `ACCEPTED` for absent or different-name references, `REJECTED` for a same-name
 reference and `UNRESOLVED` for unknown relevant state. It does not parse
 expressions, resolve names, decide definition ordering or cover the other
@@ -341,10 +340,14 @@ C1586 conditions. The implementation gate is:
 tests/e2e/run-m3-c1586-self-reference.sh --fresh
 ```
 
-The first replay retained a trace-format failure as `R000066`; the corrected
-candidate replay `R000067` passes the clean central gate. Focused independent
-review is pending, so this remains selected contract evidence rather than a
-promoted slice; full M3 remains open.
+The first replay retained a trace-format failure as `R000066`; corrected replay
+`R000067` and focused review `R000072` pass. This promotes only the bounded
+C1586 projection; full M3 remains open. The next executable task is
+`T-M3-core0-closure-audit-after-c1586`, using the retained E0181 command:
+
+```text
+E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
+```
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
@@ -1795,8 +1798,9 @@ above and in D0124/E0175. The subsequent promoted slices are C702 in
 D0126/E0176, C601 in D0127/E0177, C603 in D0128/E0178, C721 in D0129/E0179,
 C725 in D0130/E0180, C718 in D0131/E0182, C723 in D0132/E0183 and C729 in
 D0133/E0184, and C719 in D0134/E0185. D0135/E0186 is the promoted C738
-slice and D0136/D0137/E0187 is the promoted C1579 slice; twelve bounded
-slices are promoted. The E0181 Core 0 audit remains open.
+slice, D0136/D0137/E0187 is the promoted C1579 slice, and D0138/E0188 is the
+promoted C1586 slice; thirteen bounded slices are promoted. The E0181 Core 0
+audit remains open.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

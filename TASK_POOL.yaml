@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c1586-statement-function-self-reference-oracle
+active_task: T-M3-core0-closure-audit-after-c1586
 
 milestones:
   - id: L0
@@ -194,6 +194,24 @@ milestones:
       - research/decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md
       - research/experiments/E0188-c1586-statement-function-self-reference/manifest.yaml
       - research/runs/2026-08.jsonl#R000065
+      - contracts/m3-c1586-statement-function-self-reference-oracle-v0.sxs
+      - contracts/fixtures/m3-c1586-statement-function-self-reference-oracle-v0.sx
+      - tests/fixtures/m3-c1586-source-backed-v0.json
+      - tests/e2e/validate_m3_c1586_self_reference.py
+      - artifacts/traces/m3-c1586-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000066
+      - research/runs/2026-08.jsonl#R000067
+      - research/runs/2026-08.jsonl#R000068
+      - research/runs/2026-08.jsonl#R000069
+      - research/runs/2026-08.jsonl#R000070
+      - research/runs/2026-08.jsonl#R000071
+      - research/runs/2026-08.jsonl#R000072
+      - artifacts/reports/M3/c1586-semantic-review-v0.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v0.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v1.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v2.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v3.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v4.md
       - research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md
       - research/experiments/E0176-can-a-deterministic-oracle-enforce-c702-/
       - contracts/m3-c702-semantic-oracle-v0.sxs
@@ -2200,9 +2218,9 @@ tasks:
   - id: T-M3-c1586-statement-function-self-reference-oracle
     milestone: M3
     title: Verify the bounded C1586 statement-function self-reference oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-e0181-next-residual-selection-3
@@ -2232,6 +2250,17 @@ tasks:
       - artifacts/traces/m3-c1586-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000066
       - research/runs/2026-08.jsonl#R000067
+      - research/runs/2026-08.jsonl#R000068
+      - research/runs/2026-08.jsonl#R000069
+      - research/runs/2026-08.jsonl#R000070
+      - research/runs/2026-08.jsonl#R000071
+      - research/runs/2026-08.jsonl#R000072
+      - artifacts/reports/M3/c1586-semantic-review-v0.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v0.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v1.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v2.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v3.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v4.md
       - research/experiments/E0188-c1586-statement-function-self-reference/**
       - research/runs/2026-08.jsonl
       - STATUS.md
@@ -2289,6 +2318,76 @@ tasks:
       - research/runs/2026-08.jsonl#R000065
       - research/runs/2026-08.jsonl#R000066
       - research/runs/2026-08.jsonl#R000067
+      - research/runs/2026-08.jsonl#R000068
+      - research/runs/2026-08.jsonl#R000069
+      - research/runs/2026-08.jsonl#R000070
+      - research/runs/2026-08.jsonl#R000071
+      - research/runs/2026-08.jsonl#R000072
+      - artifacts/reports/M3/c1586-semantic-review-v0.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v0.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v1.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v2.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v3.md
+      - artifacts/reports/M3/c1586-reproducibility-review-v4.md
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+
+  - id: T-M3-core0-closure-audit-after-c1586
+    milestone: M3
+    title: Re-run the retained E0181 Core 0 closure audit after C1586 promotion
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c1586-statement-function-self-reference-oracle
+    inputs:
+      - path: research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/manifest.yaml
+      - path: research/runs/2026-08.jsonl#R000065
+      - path: research/runs/2026-08.jsonl#R000072
+      - path: artifacts/reports/M3/m3-core0-closure-audit-v1.md
+    writes:
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - research/runs/2026-08.jsonl
+      - artifacts/reports/M3/m3-core0-closure-audit-v2.md
+    mode: exclusive
+    verifier: >-
+      E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
+      E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
+      E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis
+      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the/analyse.sh
+    output: artifact
+    final_observable: >-
+      an exact retained Core 0 ledger audit that records the remaining hard,
+      unresolved, disputed and unwitnessed rows and one next executable task;
+      it promotes no semantic fact and does not restart E0172
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - research/runs/2026-08.jsonl
+        - artifacts/reports/M3/m3-core0-closure-audit-v2.md
+    prerequisites: [T-M3-c1586-statement-function-self-reference-oracle]
+    verifier_command: >-
+      E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
+      E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
+      E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis
+      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the/analyse.sh
+    evidence_paths:
+      - research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the/manifest.yaml
+      - artifacts/reports/M3/m3-core0-closure-audit-v1.md
+      - research/runs/2026-08.jsonl#R000065
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

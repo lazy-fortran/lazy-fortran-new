@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-M3 — twelve bounded semantic-oracle slices promoted; full Core 0 remains
+M3 — thirteen bounded semantic-oracle slices promoted; full Core 0 remains
 pending
 
 ## Central goal
@@ -23,7 +23,7 @@ The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. M3 is now open through the promoted C1106, C702, C601, C603, C721,
-C725, C718, C723, C729, C719, C738 and C1579 contracts. The full Core 0
+C725, C718, C723, C729, C719, C738, C1579 and C1586 contracts. The full Core 0
 semantic milestone remains unpromoted.
 
 ## Component pins
@@ -129,9 +129,9 @@ not current promotion evidence.
   full M3 remains open. The exact E0181 residual-selection audit passes again
   in R000065; D0138 selects the bounded C1586 statement-function self-name
   projection over the existing R1547 shape. The first candidate replay is
-  retained as `R000066`; corrected replay `R000067` passes with eight mutation
-  failures and zero model calls or semantic promotions. Focused review remains
-  pending; no model fact is promoted and full M3 remains open.
+  retained as `R000066`; corrected replay `R000067` and focused review `R000072`
+  pass with eight mutation failures and zero model calls or semantic
+  promotions. C1586 is promoted as a bounded slice; full M3 remains open.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -147,26 +147,22 @@ emission contract interchange.
 
 ## Active fixture
 
-Last promoted fixture: `T-M3-c1579-semantic-oracle` — replay `E0187/R000004`
-is recorded centrally as `R000062` and focused review `R000064` passes. C1579
-is promoted as a bounded slice: three accepted, one rejected, five unresolved
-and seven mutation failures. It binds C1579 lines 15386--15387 on printed page
-357 to StandardIR R1532/R1544. Full M3 remains open; do not resume E0172 or
-start broad semantic work.
+Last promoted fixture: `T-M3-c1586-statement-function-self-reference-oracle` —
+replay `E0188/R000002` is recorded centrally as `R000067` and focused review
+`R000072` passes. C1586 is promoted as a bounded slice: two accepted, one
+rejected, three unresolved and eight mutation failures. It binds canonical
+lines 15464--15469 on page 358 to StandardIR R1547. Full M3 remains open; do
+not resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-c1586-statement-function-self-reference-oracle` — implement and
-verify the bounded C1586 statement-function self-name projection. Full M3
-remains open.
+ID: `T-M3-core0-closure-audit-after-c1586` — re-run the retained E0181 Core 0
+closure audit after bounded C1586 promotion. Full M3 remains open.
 
-Verifier: `tests/e2e/run-m3-c1586-self-reference.sh --fresh`. It must verify
-C1586 canonical lines 15464--15469 (with the decisive prohibition on lines
-15468--15469) on PDF/page-index page 358, the existing StandardIR R1547
-metadata, typed absent/present and same/different/unknown witness outcomes,
-source/rule mutation rejection, exact trace comparison and zero model calls or
-semantic promotions. It must not parse expressions,
-resolve names, decide definition ordering or resume E0172.
+Verifier: the exact retained E0181 audit command below. It must reproduce the
+source/schema/witness gates and record the remaining hard, unresolved,
+disputed and unwitnessed ledger states plus one next executable task. It must
+not broaden semantic work, resume E0172 or promote a model fact.
 
 ## Current blocker
 
@@ -187,26 +183,24 @@ C723 replay and focused review are green. The C729 replay and focused review
 are green; R000043 retains the earlier reproducibility failure. C719 replay
 R000051 and focused review R000052 are green. C738 replay R000053 and focused
 review R000055 are green. C1579 replay R000004 is green in R000062 and
-focused review R000064 passes; twelve bounded slices are promoted. They cannot
-close the complete ledger gate. A
+focused review R000064 passes; C1586 replay R000067 and focused review
+R000072 also pass, so thirteen bounded slices are promoted. They cannot close
+the complete ledger gate. A
 green bounded slice alone does not close full M3.
 Regenerate the E0181 counts with:
 
 ```text
-E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
+E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
 ```
 
 ## Next executable task
 
-Implement and verify `T-M3-c1586-statement-function-self-reference-oracle`.
-The selected contract checks only the C1586 self-name prohibition at canonical
-lines 15464--15469, with the decisive text on lines 15468--15469, on page 358
-over StandardIR R1547. It must not parse
-expressions, resolve names, decide definition ordering, resume E0172 or promote
-a model fact. Its exact command is:
+Run and record `T-M3-core0-closure-audit-after-c1586`. The bounded C1586
+self-name slice is already promoted; the remaining blocker is the retained
+E0181 Core 0 ledger. Its exact command is:
 
 ```text
-tests/e2e/run-m3-c1586-self-reference.sh --fresh
+E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
 ```
 
 ## Last verified central command
@@ -239,11 +233,10 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   promoted. C1579 replay `tests/e2e/run-m3-c1579.sh --fresh` is `PASS` in
   `E0187/R000004`, recorded centrally as `R000062`, and focused review
   `R000064` is `PASS`; twelve bounded slices are promoted and full M3 remains
-  open. E0181 residual selection is `PASS` in `R000065`; D0138/E0188 select
-  the bounded C1586 self-name projection. The first C1586 replay is retained
-  as `R000066`; corrected replay `R000067` passes, with focused review still
-  pending. The next review must use the pushed clean state and the replay
-  command shown above.
+  open. E0181 residual selection is `PASS` in `R000065`; D0138/E0188 bounded
+  C1586 replay `R000067` and focused review `R000072` pass. The retained
+  closure blocker is the remaining E0181 ledger; the next task is the exact
+  closure audit shown above.
 ```
 
 ## Blacklisted pseudo-progress
