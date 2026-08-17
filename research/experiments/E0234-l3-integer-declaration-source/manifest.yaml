@@ -1,0 +1,80 @@
+id: "E0234"
+title: "Can one integer declaration extend the first raw-source executable slice"
+question: >
+  Can the exact free-form source shape program p / integer :: x / end program p
+  reach the existing frontend-v0, MIR-v0 and executable path while its malformed
+  integer :: neighbour is rejected?
+status: running         # draft | running | reported | abandoned
+opened: "2026-08-18"
+
+repos:
+  lazy-fortran-new: "284ad93594f0d412c98b2f7d9ed952c526abd701"
+  standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
+  fortfront-new: "b51aff12c158da1f6a3643e76abb524e1d01fc7c"
+  ffc-new: "bcaadcb58c24af613204aa398541c0d2e35abf91"
+  fortback-new: "c578904a8d18e9d5410934f5489a21d5dadfad05"
+
+inputs:
+  decision: research/decisions/D0174-l3-integer-declaration-successor.md
+  contract_schema: contracts/l3-declaration-v0.sxs
+  contract_witness: contracts/fixtures/l3-declaration-v0.sx
+  manifest: tests/fixtures/l3-declaration-v0.toml
+  source: tests/fixtures/l3-declaration-v0.f90
+  source_sha256: 13a37b087a056a5f64f26a3a29145bbab71967bf2a3a8efab505c056ffdd13f6
+  negative: tests/negative/l3-declaration-v0-missing-entity.f90
+  negative_sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
+  runner: tests/e2e/run-l3-declaration.sh
+  validator: tests/e2e/validate_l3_declaration.py
+  validator_sha256: d151ca9ae0e092a05e172b28859424648acbd9f35dbb2fdb445f53256157b3ce
+  trace: artifacts/traces/l3-declaration-v0.json
+  trace_sha256: 24c4a6fcb525d4f6dc5dd48359b7f0dd2d2ee0c245584566c2494dfc4779e94d
+
+variables:
+  source_case: "one named free-form main program with one integer declaration"
+  stages: "raw source | frontend-v0 | MIR-v0 | RV64 Linux executable"
+  negative_case: "integer declaration with missing entity name"
+  model_calls: 0
+  semantic_promotions: 0
+
+model_selection: >-
+  No model call is part of implementation or replay. The production worker was
+  medium-depth gpt-5.6-luna, but the deterministic central oracle is authoritative.
+
+metrics:
+  - exact positive and negative source hashes
+  - frontend-v0 and MIR-v0 canonical output hashes
+  - deterministic executable hash and runtime exit status
+  - independent negative diagnostic and no-negative-MIR control
+  - component revisions, toolchain and clean-checkout state
+  - model calls and semantic promotions
+
+denominator: >-
+  One exact positive source, one malformed declaration neighbour, the frontend,
+  MIR and executable stage chain, and the no-output negative control. General
+  declaration parsing, typed symbol representation, expressions, I/O, modules,
+  procedures, fixed form and semantic analysis are excluded.
+
+independent_oracle: >-
+  tests/e2e/validate_l3_declaration.py independently checks exact source bytes,
+  accepted frontend-v0 and MIR-v0 golden observables, rejected diagnostic,
+  absence of negative MIR, ELF64 RISC-V identity and a second qemu-riscv64
+  execution. It does not import the fortfront, ffc or fortback implementations.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >-
+  Positive rejection, malformed-neighbour acceptance, changed canonical output,
+  negative MIR or executable creation, nonzero runtime, pin mismatch, dirty
+  checkout, trace mismatch, model call or semantic promotion.
+
+gate: >-
+  From a clean checkout run
+  L3_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+  tests/e2e/run-l3-declaration.sh --fresh. The first bootstrap creates the
+  committed trace; subsequent replays compare it byte for byte.
+
+analysis: >-
+  L3_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+  tests/e2e/run-l3-declaration.sh --fresh

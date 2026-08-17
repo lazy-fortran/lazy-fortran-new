@@ -232,6 +232,7 @@ Runs recorded: 701
 | E0231 | reported | 8 | Can the bounded source-backed C763 PASS-argument-name property be replayed deterministically? |
 | E0232 | reported | 1 | Which residual source occurrence should follow promoted C763? |
 | E0233 | reported | 6 | Can the first raw source program reach the existing executable path |
+| E0234 | running | 0 | Can the exact free-form source shape program p / integer :: x / end program p |
 
 ## Run status
 

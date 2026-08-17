@@ -1,0 +1,42 @@
+{
+  "boundary": "raw-source-declaration-to-frontend-v0-to-mir-v0-to-riscv64-linux-v0",
+  "components": {
+    "ffc-new": "bcaadcb58c24af613204aa398541c0d2e35abf91",
+    "fortback-new": "c578904a8d18e9d5410934f5489a21d5dadfad05",
+    "fortfront-new": "b51aff12c158da1f6a3643e76abb524e1d01fc7c",
+    "standard-new": "f94c4c51b51fce22b533b7eeda08741970320913"
+  },
+  "contracts": [
+    "l3-declaration",
+    "l3-raw-program",
+    "frontend-v0",
+    "mir-v0"
+  ],
+  "fixture": "l3-declaration-v0",
+  "milestone": "L3",
+  "model_calls": 0,
+  "negative": {
+    "frontend_sha256": "dda830518f6541f0d6201eb2ddfebe9a60dd9324edddd7fd436c7186d54220ea",
+    "path": "tests/negative/l3-declaration-v0-missing-entity.f90",
+    "result": "rejected",
+    "sha256": "9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd"
+  },
+  "positive": {
+    "artifact_sha256": "19d427d991d2ca2c444c4f74ef90d928a1a04225ed15aa2dc3adb7f622a7aa04",
+    "frontend_sha256": "f8420e6496de4e5ff440676c1c782174e31b4f565e46cc838dcd28c6a3f5548d",
+    "mir_sha256": "20baf8ef28d83c884b70c67c224027a416e5d9e0fb21d8533a26024b654ebcb6",
+    "result": "accepted",
+    "runtime_exit_status": 0
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "path": "tests/fixtures/l3-declaration-v0.f90",
+    "sha256": "13a37b087a056a5f64f26a3a29145bbab71967bf2a3a8efab505c056ffdd13f6"
+  },
+  "toolchain": {
+    "fo": "fo 0.3.2",
+    "python": "Python 3.14.6",
+    "qemu": "qemu-riscv64 version 11.0.3",
+    "readelf": "GNU readelf (GNU Binutils) 2.47"
+  }
+}
