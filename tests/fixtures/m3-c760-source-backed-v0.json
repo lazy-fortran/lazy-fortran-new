@@ -1,24 +1,193 @@
 {
-  "schema_version": "m3-c760-source-backed-v0",
+  "cases": [
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "occurrence_count": "zero"
+        },
+        "id": "zero",
+        "property": "procedure-attribute-occurrence",
+        "source": {
+          "clause": "7.5.4.1",
+          "document": "J3-24-007",
+          "page": 93,
+          "rule": "C760",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 119,
+          "byte_start": 242862,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "zero",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "occurrence_count": "one"
+        },
+        "id": "one",
+        "property": "procedure-attribute-occurrence",
+        "source": {
+          "clause": "7.5.4.1",
+          "document": "J3-24-007",
+          "page": 93,
+          "rule": "C760",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 119,
+          "byte_start": 242862,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "one",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "REJECTED",
+        "fact": {
+          "occurrence_count": "duplicate"
+        },
+        "id": "duplicate",
+        "property": "procedure-attribute-occurrence",
+        "source": {
+          "clause": "7.5.4.1",
+          "document": "J3-24-007",
+          "page": 93,
+          "rule": "C760",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 119,
+          "byte_start": 242862,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "REJECTED",
+      "id": "duplicate",
+      "kind": "negative"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "occurrence_count": "unknown"
+        },
+        "id": "unknown",
+        "property": "procedure-attribute-occurrence",
+        "source": {
+          "clause": "7.5.4.1",
+          "document": "J3-24-007",
+          "page": 93,
+          "rule": "C760",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 119,
+          "byte_start": 242862,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c760-proc-component-attr-uniqueness-v0.sx",
+    "schema": "contracts/m3-c760-proc-component-attr-uniqueness-v0.sxs",
+    "version": 0
+  },
+  "mutation_controls": [
+    "source-rule",
+    "source-span",
+    "printed-page",
+    "pdf-hash",
+    "canonical-hash",
+    "page-index-hash",
+    "standardir-hash",
+    "standardir-ref",
+    "semantic-item-hash",
+    "contract-version"
+  ],
   "origin": "LLM",
   "property": "procedure-attribute-occurrence",
-  "contract": {"schema": "contracts/m3-c760-proc-component-attr-uniqueness-v0.sxs", "fixture": "contracts/fixtures/m3-c760-proc-component-attr-uniqueness-v0.sx", "version": 0},
+  "schema_version": "m3-c760-source-backed-v0",
+  "semantic_item": {
+    "clause": "7.5.4.1",
+    "document": "J3-24-007",
+    "id": "S-C760",
+    "origin": "llm",
+    "page": 93,
+    "path": "tests/fixtures/m3-c760-semantic-items.sx",
+    "resolution": "disputed",
+    "rule": "C760",
+    "sha256": "da8bbae3d8617161b8fe22c34d231afa331cb7952f245b84eff473bf6042956d",
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "subject": "procedure-attribute-occurrence"
+  },
   "source": {
-    "document": "J3-24-007", "clause": "7.5.4.1", "rule": "C760", "standard_rule": "R741", "printed_page": 93,
-    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_lines": [
+      {
+        "line": 3869,
+        "text": "7 C760 (R741) The same proc-component-attr-spec shall not appear more than once in a given proc-component-"
+      },
+      {
+        "line": 3870,
+        "text": "8 def-stmt."
+      }
+    ],
     "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
     "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
-    "canonical_lines": [{"line": 3869, "text": "7 C760 (R741) The same proc-component-attr-spec shall not appear more than once in a given proc-component-"}, {"line": 3870, "text": "8 def-stmt."}],
-    "source_span": {"byte_start": 242862, "byte_length": 119, "page_start": 93, "page_end": 93},
-    "page_index": {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929", "pages": [{"page": 93, "start": 239957, "length": 2451}]},
-    "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e", "rows": [{"rule": "R741", "lhs": "proc-component-def-stmt", "page": 94, "byte_start": 242577, "byte_length": 118, "occurrence": 91}]}
-  },
-  "semantic_item": {"path": "tests/fixtures/m3-c760-semantic-items.sx", "sha256": "da8bbae3d8617161b8fe22c34d231afa331cb7952f245b84eff473bf6042956d", "id": "S-C760", "subject": "procedure-attribute-occurrence", "document": "J3-24-007", "clause": "7.5.4.1", "rule": "C760", "page": 93, "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e", "origin": "llm", "resolution": "disputed"},
-  "cases": [
-    {"id": "zero", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "procedure-attribute-occurrence", "source_rule": "C760", "occurrence_count": "zero"}},
-    {"id": "one", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "procedure-attribute-occurrence", "source_rule": "C760", "occurrence_count": "one"}},
-    {"id": "duplicate", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "procedure-attribute-occurrence", "source_rule": "C760", "occurrence_count": "duplicate"}},
-    {"id": "unknown", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "procedure-attribute-occurrence", "source_rule": "C760", "occurrence_count": "unknown"}}
-  ],
-  "mutation_controls": ["source-rule", "source-span", "printed-page", "pdf-hash", "canonical-hash", "page-index-hash", "standardir-hash", "standardir-ref", "semantic-item-hash", "contract-version"]
+    "clause": "7.5.4.1",
+    "document": "J3-24-007",
+    "page_index": {
+      "pages": [
+        {
+          "length": 2451,
+          "page": 93,
+          "start": 239957
+        }
+      ],
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+    },
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 93,
+    "rule": "C760",
+    "source_span": {
+      "byte_length": 119,
+      "byte_start": 242862,
+      "page_end": 93,
+      "page_start": 93
+    },
+    "standard_rule": "R741",
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "rows": [
+        {
+          "byte_length": 118,
+          "byte_start": 242577,
+          "lhs": "proc-component-def-stmt",
+          "occurrence": 91,
+          "page": 94,
+          "rule": "R741"
+        }
+      ],
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+    }
+  }
 }

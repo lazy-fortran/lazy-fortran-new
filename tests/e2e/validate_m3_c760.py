@@ -79,9 +79,15 @@ def validate_cases(doc, expected):
     require(len(doc["cases"]) == 4, "case count differs"); ids = [c.get("id") for c in doc["cases"]]; require(set(ids) == set(expected) and len(ids) == len(set(ids)), "case IDs differ")
     counts = {x: 0 for x in OUTCOMES}
     for case in doc["cases"]:
-        keys(case, {"id", "kind", "expected", "candidate"}, f"case {case['id']}"); c = case["candidate"]; keys(c, {"fact", "source_rule", "occurrence_count"}, f"case {case['id']} candidate")
-        require(c["fact"] == PROPERTY and c["source_rule"] == "C760" and c["occurrence_count"] in COUNT, "case candidate differs")
-        result = oracle(c); require(case["expected"] == expected[case["id"]] == result, f"case {case['id']} oracle disagrees")
+        keys(case, {"id", "kind", "expected", "candidate"}, f"case {case['id']}")
+        c = case["candidate"]
+        keys(c, {"id", "property", "source", "span", "fact", "expected"}, f"case {case['id']} candidate")
+        require(c["id"] == case["id"] and c["property"] == PROPERTY, f"case {case['id']} candidate identity differs")
+        require(c["source"] == {"document": "J3-24-007", "clause": "7.5.4.1", "rule": "C760", "page": 93, "source_hash": SOURCE_HASH}, f"case {case['id']} candidate source differs")
+        require(c["span"] == {"byte_start": SPAN["byte_start"], "byte_length": SPAN["byte_length"], "page_start": SPAN["page_start"], "page_end": SPAN["page_end"]}, f"case {case['id']} candidate span differs")
+        keys(c["fact"], {"occurrence_count"}, f"case {case['id']} fact")
+        require(c["fact"]["occurrence_count"] in COUNT and c["expected"] == case["expected"], f"case {case['id']} candidate fact differs")
+        result = oracle(c["fact"]); require(case["expected"] == expected[case["id"]] == result, f"case {case['id']} oracle disagrees")
         require(case["kind"] == {"ACCEPTED": "positive", "REJECTED": "negative", "UNRESOLVED": "unresolved"}[result], f"case {case['id']} kind differs"); counts[result] += 1
     return counts
 def self_test(root):
