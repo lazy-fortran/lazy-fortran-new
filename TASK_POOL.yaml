@@ -350,9 +350,9 @@ milestones:
       - artifacts/traces/m3-c723-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000037
     notes: >-
-      The bounded C1106, C702, C601, C603, C721, C725, C718, C723 and C729
-      slices are promoted. C719 replay R000051 passes and focused review is
-      pending. The E0181 audit retains 4 hard failures, 2 unresolved, 94
+      The bounded C1106, C702, C601, C603, C721, C725, C718, C723, C729 and
+      C719 slices are promoted; C719 replay R000051 and focused review
+      R000052 pass. The E0181 audit retains 4 hard failures, 2 unresolved, 94
       disputed and 69 unwitnessed rows; full Core 0 semantics remain
       unpromoted.
   - id: M4-M6
