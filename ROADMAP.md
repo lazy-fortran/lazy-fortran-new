@@ -61,13 +61,15 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through eighteen bounded contracts, including C717, C720, C722, C724 and C726.
+through nineteen bounded contracts, including C717, C720, C722, C724, C726 and
+C731.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
-R000504 and focused review R000505 pass, post-C726 reconciliation R000506
-leaves 153 residual rows, and the current task selects the next bounded
-source-backed property. Selection R000507 selects C731@1; the current task is
-the bounded C731 constant-expression oracle.
+R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
+leaves 153 residual rows. Selection R000507 selects C731@1; replay R000511 and
+focused review R000510 promote that bounded oracle. Post-C731 reconciliation
+R000512 leaves 152 residual rows with C732@1 first; the current task selects
+the next bounded source-backed property.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -91,7 +93,8 @@ R000493 selects C724@1; replay R000494 and focused review R000495 pass. C726
 replay R000504 and focused review R000505 pass; post-C726 reconciliation
 R000506 leaves 153 outside-promoted rows, with C731@1 first. Selection R000507
 binds C731 to canonical lines 3469--3470 on page 85 and existing StandardIR
-R721. The active task is `T-M3-c731-constant-expression-oracle`.
+R721. The active task is
+`T-M3-core0-next-bounded-property-selection-after-c731`.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -436,6 +439,11 @@ replay is reproducible with:
 ```text
 M3_C731_EXPECTED_CENTRAL_COMMIT=2855a9e3e9e65875eacbd4199ddfe84cca32f5c6 tests/e2e/run-m3-c731.sh --fresh
 ```
+
+Post-C731 reconciliation R000512 leaves 152 outside-promoted rows (88
+disputed and 64 unwitnessed), with C732@1 first. The next selection task must
+recompute this partition from the exact promoted set before defining another
+bounded oracle.
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl

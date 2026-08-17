@@ -486,6 +486,10 @@ bind the typed 12-state constant-expression/context oracle to that source span;
 the result is bounded-only with zero model calls and semantic promotions. Full
 M3 remains open.
 
+Post-C731 reconciliation `R000512` reports 152 outside-promoted rows (88
+disputed and 64 unwitnessed), with C732@1 first. The next controller task is
+selection of one source-backed bounded property; full M3 remains open.
+
 Regenerate the C731 result with:
 
 ```text
