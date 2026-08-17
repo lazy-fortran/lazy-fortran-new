@@ -1,0 +1,9 @@
+(contract-witness
+  (contract m3-c735-derived-type-attr-uniqueness-oracle)
+  (version 0)
+  (origin human)
+  (resolution disputed)
+  (property derived-type-stmt-type-attr-uniqueness)
+  (source (source-ref (document J3-24-007) (clause 7) (rule C735) (page 88) (source-hash 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)))
+  (span (source-span (byte-start 229534) (byte-length 101) (page-start 88) (page-end 88)))
+  (outcomes accepted rejected unresolved))

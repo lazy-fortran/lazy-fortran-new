@@ -1,0 +1,211 @@
+{
+  "cases": [
+    {
+      "attr_occurrence": "none",
+      "computed": "ACCEPTED",
+      "context": "derived-type-stmt",
+      "expected": "ACCEPTED",
+      "id": "accepted-no-attributes",
+      "kind": "positive"
+    },
+    {
+      "attr_occurrence": "distinct",
+      "computed": "ACCEPTED",
+      "context": "derived-type-stmt",
+      "expected": "ACCEPTED",
+      "id": "accepted-distinct-attributes",
+      "kind": "positive"
+    },
+    {
+      "attr_occurrence": "duplicate",
+      "computed": "REJECTED",
+      "context": "derived-type-stmt",
+      "expected": "REJECTED",
+      "id": "rejected-duplicate-attribute",
+      "kind": "negative"
+    },
+    {
+      "attr_occurrence": "unknown",
+      "computed": "UNRESOLVED",
+      "context": "derived-type-stmt",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-occurrence",
+      "kind": "unresolved"
+    },
+    {
+      "attr_occurrence": "none",
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-no-attributes-other",
+      "kind": "unresolved"
+    },
+    {
+      "attr_occurrence": "distinct",
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-distinct-attributes-other",
+      "kind": "unresolved"
+    },
+    {
+      "attr_occurrence": "duplicate",
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-duplicate-attribute-other",
+      "kind": "unresolved"
+    },
+    {
+      "attr_occurrence": "unknown",
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-other",
+      "kind": "unresolved"
+    },
+    {
+      "attr_occurrence": "none",
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-no-attributes-unknown-context",
+      "kind": "unresolved"
+    },
+    {
+      "attr_occurrence": "distinct",
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-distinct-attributes-unknown-context",
+      "kind": "unresolved"
+    },
+    {
+      "attr_occurrence": "duplicate",
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-duplicate-attribute-unknown-context",
+      "kind": "unresolved"
+    },
+    {
+      "attr_occurrence": "unknown",
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-context",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c735-derived-type-attr-uniqueness-oracle-v0.sx",
+    "fixture_sha256": "2b72297292b05b86735d5fa51991cdcc2565bc6608586c5d412deda72d9d3975",
+    "schema": "contracts/m3-c735-derived-type-attr-uniqueness-oracle-v0.sxs",
+    "schema_sha256": "57c5fe476884fbb31ce81f4e66b877affbdf3ffcd59997ab320204ce677d6b91",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c735-source-backed-v0.json",
+  "fixture_sha256": "486738b417eb7ad09611e7e4fc4be6ce679d2018b7f1ba95d13f0fcc71dada57",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-span-start",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-span-length",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-boundary",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-lhs-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-property-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c735.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 1,
+    "UNRESOLVED": 9
+  },
+  "property": "derived-type-stmt-type-attr-uniqueness",
+  "schema_version": "m3-c735-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "d28e62f834a6bf04f52f5379d427513426608d813ee51334739055002a03042e",
+    "input": "tests/fixtures/m3-c735-semantic-items.sx",
+    "input_sha256": "d28e62f834a6bf04f52f5379d427513426608d813ee51334739055002a03042e"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3620
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "pages": [
+        {
+          "length": 2274,
+          "page": 88,
+          "start": 228013
+        }
+      ],
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 88,
+    "rule": "C735",
+    "source_span": {
+      "byte_length": 101,
+      "byte_start": 229534,
+      "page_end": 88,
+      "page_start": 88
+    },
+    "standardir_rules": [
+      "R727",
+      "R728"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

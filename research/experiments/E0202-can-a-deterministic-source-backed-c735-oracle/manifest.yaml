@@ -1,0 +1,77 @@
+id: "E0202"
+title: "Deterministic C735 derived-type attribute uniqueness oracle"
+question: >
+  Can a deterministic source-backed C735 oracle classify typed uniqueness
+  states for type attributes in a derived-type statement?
+status: running         # draft | running | reported | abandoned
+opened: "2026-08-17"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "71089f6d9418b8ff9878a88f3a9817ca25e20102"
+  standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
+
+inputs:
+  standard: j3-24-007
+  profile: "m3-core0-c735-derived-type-attr-uniqueness"
+  normative_source_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  canonical_pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  canonical_pages_index_sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+  standardir_source: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_source_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  witnesses: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+  witnesses_sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
+  predecessor_selection: research/runs/2026-08.jsonl#R000521
+  selected_row: C735@1
+  selected_source_page: 88
+  selected_source_span: "228853:101"
+  selected_standardir_rules: [R727, R728]
+  selection_report: artifacts/reports/M3/m3-core0-next-property-selection-v9.md
+  selection_report_sha256: b93b035b7c5585c3f4039be4d13a1114da73b5cc0c5bf6d2bc0d7acd9aa570b0
+
+variables:
+  attr_occurrence: [none, distinct, duplicate, unknown]
+  context: [derived-type-stmt, other, unknown]
+
+model_selection: "No model execution; retained model-origin rows are input only."
+
+metrics:
+  - outcome counts
+  - typed state coverage
+  - mutation controls
+  - source binding
+  - page binding
+  - StandardIR binding
+  - semantic promotions
+  - model calls
+
+denominator: >-
+  The complete 12-state product of the four typed occurrence states and three
+  context states, plus twelve source, page, identity and contract mutations.
+
+independent_oracle: >-
+  The validator independently recomputes the typed ACCEPTED/REJECTED/
+  UNRESOLVED relation and checks the pinned canonical source, page index and
+  StandardIR R727/R728 rows. No model-origin observation is an oracle.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >-
+  The experiment fails if the 12-state table does not produce 2 ACCEPTED,
+  1 REJECTED and 9 UNRESOLVED outcomes; any mutation is accepted; the C735
+  source/page/R727/R728 binding differs; or a model call or semantic
+  promotion is observed.
+
+gate: >-
+  tests/e2e/run-m3-c735.sh --fresh must pass from a clean central checkout,
+  including exact source/page/StandardIR binding, the complete 12-state typed
+  outcome table, twelve mutation rejections, exact trace comparison and zero
+  model calls or semantic promotions.
+
+analysis: tests/e2e/validate_m3_c735.py
+run: tests/e2e/run-m3-c735.sh --fresh
