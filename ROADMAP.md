@@ -871,7 +871,13 @@ passes the pin-aligned clean replay with 4 `ACCEPTED`, 1 `REJECTED`, 4
 `UNRESOLVED`, 15 rejected mutations, zero model calls and zero semantic
 promotions. Focused review R000642 passes with two independent reviewers.
 C763 is promoted only as this bounded oracle leaf; the required
-post-promotion regression remains before C764 selection.
+post-promotion regression R000643 passes from pushed central
+`834c90b7c66bc64cbbe033f56e98f5b26d729fa1`. R000644 then leaves 132 residual
+rows (76 `disputed`, 56 `unwitnessed`) with C768@1 first. It binds C768/R737
+to canonical lines 3977--3979, byte span `249918:239`, printed page 82,
+PDF/ledger page 96, page-index `96:247480:3187`, and existing StandardIR
+R737/R738/R739/R743. D0172 selects a bounded initialization-attribute target;
+the next task is the controller-exclusive C768 source selection.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 

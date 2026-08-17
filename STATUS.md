@@ -346,8 +346,14 @@ C763 implementation replay R000641 and focused review R000642 pass. The
 corrected validator checks complete schema/witness fields and the exact
 15-control inventory. The bounded C763 leaf records 4 `ACCEPTED`, 1
 `REJECTED`, 4 `UNRESOLVED`, zero model calls and zero semantic promotions;
-full M3 remains open. Post-promotion regression is the remaining executable
-handoff before selecting C764.
+full M3 remains open. Post-promotion regression R000643 reproduces the result
+and committed trace from pushed central `834c90b7c66bc64cbbe033f56e98f5b26d729fa1`.
+The next controller-exclusive selection R000644 leaves 132 rows (76
+`disputed`, 56 `unwitnessed`) with C768@1 first; its source audit binds C768/
+R737 to canonical lines 3977--3979, byte span `249918:239`, printed page 82,
+PDF/ledger page 96, page-index `96:247480:3187`, and StandardIR
+R737/R738/R739/R743. D0172 records the bounded initialization-attribute
+target; implementation is not yet registered as promoted.
 
 The completed C754 verifier was `tests/e2e/run-m3-c754.sh --fresh`. Its
 27-state typed product crosses pointer attribute, allocatable attribute and
@@ -451,16 +457,17 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 Current M3 state: C763 is promoted only as a bounded oracle leaf after its
 pin-aligned replay and two-review evidence gate. The remaining blocker is the
 scope itself—full M3 still lacks a complete semantic verifier and does not
-parse arbitrary Fortran. The next executable action is the post-promotion
-C763 regression; after it passes, select C764 from the deterministic residual.
+parse arbitrary Fortran. The post-promotion regression R000643 passes. The
+next executable action is the controller-exclusive C768 source-selection
+task `T-M3-core0-next-bounded-property-selection-after-c763`.
 
 ## Next executable task
 
-Run the pushed clean post-promotion replay for C763 using the exact verifier in
-`TASK_POOL.yaml`, then record the regression and select C764. Do not run a
-model, restart E0172, parse general Fortran, infer interfaces or scopes, or
-promote a semantic fact. Only the controller may update the central task,
-promotion and regression evidence.
+The next task is the C768 source-selection contract. Use the exact residual
+command and pinned evidence in `TASK_POOL.yaml`; do not run a model, restart
+E0172, parse general Fortran, infer declarations or names, or promote a
+semantic fact. The next implementation task is not registered until this
+selection passes.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
