@@ -38,6 +38,11 @@ semantic promotions. The result and committed trace both have SHA-256
 The run environment has SHA-256
 `bb0b18e76de32aa79a76b9d5adf26f300eb02f014e03dfc3b75071b3037a2874`.
 
+The final clean control-plane replay is `E0204/R000006` at revision
+`56693eba2bad8347387964fbec11bd99171bb126`; it reproduces the same committed
+trace and has run-environment SHA-256
+`7a49f05b5ad17af37d22f0928a4a56ffcfbcf36479868aaa5725eaf3d73b5cfc`.
+
 The replay uses central revision `e4e7edf8281050f3dc854a5a984baba80d9aab27`,
 functional revision `061f6769d042406b608da2a908d665a9856d856d`, and
 standard-new revision `f94c4c51b51fce22b533b7eeda08741970320913`. The pinned
