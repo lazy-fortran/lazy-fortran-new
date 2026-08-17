@@ -20,6 +20,8 @@ inputs:
   normative_source_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
   canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
   canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  canonical_pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  canonical_pages_index_sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
   standardir_source: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
   standardir_source_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
   semantic_items: tests/fixtures/m3-c1579-semantic-items.sx
@@ -75,10 +77,10 @@ falsifiable_by: >
 gate: >
   tests/e2e/run-m3-c1579.sh --fresh must pass from clean central and
   standard-new checkouts, including standard-new sxsemantic canonicalization,
-  normative PDF/canonical-text/StandardIR hash and witness checks, nine
-  independently computed cases covering the complete typed state table, six
-  observed mutation failures, exact committed trace comparison and zero model
-  calls or semantic promotions.
+  normative PDF/canonical-text/page-index/StandardIR hash and witness checks,
+  nine independently computed cases covering the complete typed state table,
+  seven observed mutation failures, exact committed trace comparison and zero
+  model calls or semantic promotions.
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: tests/e2e/validate_m3_c1579.py

@@ -301,11 +301,12 @@ bounded C738 slice; it does not close full M3. E0172 remains abandoned and no
 model output can promote a semantic fact. The next executable task is the
 retained E0181 residual-selection audit.
 
-**Current M3 successor.** D0136 defines the twelfth bounded delivery contract:
+**Current M3 successor.** D0136, corrected by D0137, defines the twelfth
+bounded delivery contract:
 J3-24-007 C1579 forbids an ENTRY `entry-name` from appearing in a
 specification or type declaration when RESULT appears. E0187 binds the
-property to canonical-text lines 15386--15387 and the already represented
-StandardIR R1532/R1544 shapes. Its typed candidate carries RESULT presence and
+property to canonical-text lines 15386--15387 and printed page 357, with the
+already represented StandardIR R1532/R1544 shapes. Its typed candidate carries RESULT presence and
 entry-name declaration states. The deterministic oracle returns `ACCEPTED`
 when RESULT is absent or the declaration is absent, `REJECTED` when both are
 present, and `UNRESOLVED` for unknown state. It does not parse statements,
@@ -317,7 +318,7 @@ tests/e2e/run-m3-c1579.sh --fresh
 ```
 
 Replay E0187/R000003, recorded as R000060, produces three accepted, one
-rejected, five unresolved and six mutation failures; focused review is pending.
+rejected, five unresolved and seven mutation failures; focused review is pending.
 This is a candidate bounded slice only; it does not close full M3. E0172
 remains abandoned and no model output can promote a semantic fact.
 

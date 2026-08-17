@@ -11,10 +11,13 @@
     "document": "J3-24-007",
     "clause": "15",
     "rule": "C1579",
-    "printed_page": 356,
+    "printed_page": 357,
     "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
     "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
     "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_pages_index": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+    "canonical_pages_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "canonical_page": {"page": 357, "start": 1015376, "length": 4588},
     "canonical_lines": [
       {"line": 15386, "text": "1 C1579 (R1544) If RESULT appears, the entry-name shall not appear in any specification or type declaration statement in the"},
       {"line": 15387, "text": "2 scoping unit of the function subprogram."}
@@ -31,13 +34,13 @@
   },
   "semantic_item": {
     "path": "tests/fixtures/m3-c1579-semantic-items.sx",
-    "sha256": "01258f8b0c250be25599e6e1ce366fecd1ada5b86a3a1a99ef40f18525e972a4",
+    "sha256": "32dd44af2af7e87d12303970432dcf38dcf7483e5e398890cf58392a83621f72",
     "id": "S-C1579",
     "subject": "result-entry-name-exclusion",
     "document": "J3-24-007",
     "clause": "15",
     "rule": "C1579",
-    "page": 356,
+    "page": 357,
     "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
     "origin": "human",
     "resolution": "disputed"
@@ -55,6 +58,7 @@
   ],
   "mutations": [
     {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-page-identity", "path": ["source", "printed_page"], "value": 356},
     {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 15387},
     {"id": "canonical-source-line-text", "path": ["source", "canonical_lines", 1, "text"], "value": "2 scoping unit of a subroutine subprogram."},
     {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 1, "rule"], "value": "R1545"},

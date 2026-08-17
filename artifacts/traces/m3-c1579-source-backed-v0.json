@@ -75,18 +75,22 @@
   ],
   "contract": {
     "fixture": "contracts/fixtures/m3-c1579-result-entry-name-oracle-v0.sx",
-    "fixture_sha256": "ad3335e673689e72e889f3e76d9a92fcb219adf50b551e72e115240efb4b3122",
+    "fixture_sha256": "ad53a0f1645b3f23fa3c4d68cffa81a7166d14b77699def3dea75c93d46eaa1f",
     "schema": "contracts/m3-c1579-result-entry-name-oracle-v0.sxs",
     "schema_sha256": "7d5ca589b5454d9ad936cef547f34b85aab0019a40318a2348c74c2cf852c20d",
     "version": 0
   },
   "fixture": "tests/fixtures/m3-c1579-source-backed-v0.json",
-  "fixture_sha256": "c8656d5ab6328658739c05ee07dd4e1673081e5f59f46f8f18ccdcd5083c386c",
+  "fixture_sha256": "2cbd6b79ec752d344e34c468a786fb1010e4d5c43716e1ac0896cfac4a43b059",
   "milestone": "M3",
   "model_calls": 0,
   "mutation_controls": [
     {
       "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-page-identity",
       "result": "REJECTED"
     },
     {
@@ -121,9 +125,9 @@
   "schema_version": "m3-c1579-source-backed-v0",
   "semantic_items": {
     "canonical_output": "PASS",
-    "canonical_output_sha256": "01258f8b0c250be25599e6e1ce366fecd1ada5b86a3a1a99ef40f18525e972a4",
+    "canonical_output_sha256": "32dd44af2af7e87d12303970432dcf38dcf7483e5e398890cf58392a83621f72",
     "input": "tests/fixtures/m3-c1579-semantic-items.sx",
-    "input_sha256": "01258f8b0c250be25599e6e1ce366fecd1ada5b86a3a1a99ef40f18525e972a4"
+    "input_sha256": "32dd44af2af7e87d12303970432dcf38dcf7483e5e398890cf58392a83621f72"
   },
   "semantic_promotions": 0,
   "source": {
@@ -131,11 +135,17 @@
       15386,
       15387
     ],
+    "canonical_page": {
+      "length": 4588,
+      "page": 357,
+      "start": 1015376
+    },
+    "canonical_pages_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
     "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
     "clause": "15",
     "document": "J3-24-007",
     "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
-    "printed_page": 356,
+    "printed_page": 357,
     "rule": "C1579",
     "standardir_rules": [
       "R1532",

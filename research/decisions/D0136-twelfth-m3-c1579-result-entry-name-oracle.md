@@ -1,7 +1,7 @@
 # D0136. Twelfth M3 slice uses C1579 RESULT entry-name exclusion
 
 Date: 2026-08-17
-Status: accepted
+Status: superseded by D0137
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context

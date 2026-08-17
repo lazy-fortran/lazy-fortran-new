@@ -147,7 +147,7 @@ recorded centrally as `R000053` and focused review `R000055` pass. C738 is
 promoted as a bounded slice; full M3 remains open.
 
 Active candidate: `T-M3-c1579-semantic-oracle` — corrected replay `E0187/R000003`
-passes with three accepted, one rejected, five unresolved and six mutation
+passes with three accepted, one rejected, five unresolved and seven mutation
 failures; central run R000060 records it. R000058 and R000059 are retained
 failures; focused review is pending. It binds C1579 lines 15386--15387 to
 StandardIR R1532/R1544. Do not resume E0172 or start broad semantic work.
@@ -159,7 +159,7 @@ exclusion oracle selected by the retained E0181 ledger. Full M3 remains open.
 
 Verifier: `tests/e2e/run-m3-c1579.sh --fresh` from clean central and component
 checkouts. Replay `E0187/R000003` is recorded centrally as `R000060` with
-three accepted, one rejected, five unresolved and six mutation failures;
+three accepted, one rejected, five unresolved and seven mutation failures;
 focused review is pending. It must not revive E0172 or promote a model fact.
 
 The prior E0181 selection audit that selected C738 was rerun with:

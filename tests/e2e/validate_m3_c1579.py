@@ -17,6 +17,7 @@ OUTCOMES = {"ACCEPTED", "REJECTED", "UNRESOLVED"}
 SOURCE_SHA256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
 PDF_SHA256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 STANDARDIR_SHA256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+PAGES_INDEX_SHA256 = "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
 PROPERTY = "result-entry-name-exclusion"
 EXPECTED_CANONICAL_LINES = [
     {"line": 15386, "text": "1 C1579 (R1544) If RESULT appears, the entry-name shall not appear in any specification or type declaration statement in the"},
@@ -109,7 +110,17 @@ def validate_standardir_rows(source: dict[str, Any], standardir_path: Path) -> N
         require(int(source_field(line, r"\(byte-start (\d+)\)", "byte-start")) == row["byte_start"], f"{row['rule']} byte-start differs")
         require(int(source_field(line, r"\(byte-length (\d+)\)", "byte-length")) == row["byte_length"], f"{row['rule']} byte-length differs")
         require(int(source_field(line, r"\(occurrence (\d+)\)", "occurrence")) == row["occurrence"], f"{row['rule']} occurrence differs")
-        require(source_field(line, r"\(source-sha256 ([^)]+)\)", "source-sha256") == SOURCE_SHA256, f"{row['rule']} source hash differs")
+    require(source_field(line, r"\(source-sha256 ([^)]+)\)", "source-sha256") == SOURCE_SHA256, f"{row['rule']} source hash differs")
+
+
+def validate_canonical_page(source: dict[str, Any], root: Path, pages_index_path: Path) -> None:
+    expected_path = root / source["canonical_pages_index"]
+    require(pages_index_path.resolve() == expected_path.resolve(), "canonical page-index path differs")
+    require(digest(pages_index_path) == PAGES_INDEX_SHA256, "canonical page-index hash differs")
+    expected = source["canonical_page"]
+    require(expected == {"page": 357, "start": 1015376, "length": 4588}, "canonical page identity differs")
+    lines = pages_index_path.read_text(encoding="utf-8").splitlines()
+    require(f"page {expected['page']} start {expected['start']} length {expected['length']}" in lines, "canonical page boundary differs")
 
 
 def validate_canonical_lines(source: dict[str, Any], canonical_path: Path) -> None:
@@ -147,13 +158,13 @@ def validate_contract_files(doc: dict[str, Any], root: Path) -> None:
     fixture = (root / doc["contract"]["fixture"]).read_text(encoding="utf-8")
     for fragment in (
         "(contract m3-c1579-result-entry-name-oracle)", "(property result-entry-name-exclusion)",
-        "(document J3-24-007)", "(clause 15)", "(rule C1579)", "(page 356)",
+        "(document J3-24-007)", "(clause 15)", "(rule C1579)", "(page 357)",
         "(source-hash " + SOURCE_SHA256 + ")",
     ):
         require(fragment in fixture, f"contract fixture lacks {fragment}")
 
 
-def validate_source_binding(doc: dict[str, Any], root: Path, source_pdf: Path, canonical_path: Path, standardir_path: Path, semantic_input: Path) -> None:
+def validate_source_binding(doc: dict[str, Any], root: Path, source_pdf: Path, canonical_path: Path, pages_index_path: Path, standardir_path: Path, semantic_input: Path) -> None:
     exact_keys(doc, {"schema_version", "origin", "property", "contract", "source", "semantic_item", "cases", "mutations"}, "fixture")
     require(doc["schema_version"] == "m3-c1579-source-backed-v0", "fixture schema version differs")
     require(doc["origin"] == "HUMAN", "fixture origin is not HUMAN")
@@ -163,7 +174,7 @@ def validate_source_binding(doc: dict[str, Any], root: Path, source_pdf: Path, c
     require(source["document"] == "J3-24-007", "source document differs")
     require(source["clause"] == "15", "source clause differs")
     require(source["rule"] == "C1579", "source rule differs")
-    require(source["printed_page"] == 356, "source printed page differs")
+    require(source["printed_page"] == 357, "source printed page differs")
     require(source["pdf_sha256"] == PDF_SHA256, "fixture PDF hash differs")
     require(source["canonical_text_sha256"] == SOURCE_SHA256, "fixture canonical hash differs")
     require(source["canonical_text"] == ".cache/runs/E0001/R000003/j3-24-007.canonical.txt", "canonical path differs")
@@ -173,6 +184,7 @@ def validate_source_binding(doc: dict[str, Any], root: Path, source_pdf: Path, c
     require(manifest["bytes"] == source_pdf.stat().st_size, "standard manifest byte count differs")
     require(digest(source_pdf) == PDF_SHA256, "normative PDF hash differs")
     validate_canonical_lines(source, canonical_path)
+    validate_canonical_page(source, root, pages_index_path)
     validate_standardir_rows(source, standardir_path)
     item = doc["semantic_item"]
     require(item["document"] == source["document"], "semantic document differs")
@@ -205,15 +217,15 @@ def validate_fixture_shape(doc: dict[str, Any]) -> None:
     expected_pairs = {(result, declaration) for result in expected_states for declaration in expected_states}
     observed_pairs = {(item["result_presence"], item["entry_name_declaration"]) for item in results}
     require(observed_pairs == expected_pairs, "fixture does not witness the complete typed state table")
-    require(len(doc["mutations"]) == 6, "mutation control count differs")
+    require(len(doc["mutations"]) == 7, "mutation control count differs")
     for mutation in doc["mutations"]:
         exact_keys(mutation, {"id", "path", "value"}, f"mutation {mutation.get('id', '<missing>')}")
         require(isinstance(mutation["path"], list) and mutation["path"], "mutation path is invalid")
 
 
-def build_result(fixture_path: Path, fixture: dict[str, Any], root: Path, source_pdf: Path, canonical_path: Path, standardir_path: Path, semantic_input: Path, semantic_output: Path, golden: Path) -> dict[str, Any]:
+def build_result(fixture_path: Path, fixture: dict[str, Any], root: Path, source_pdf: Path, canonical_path: Path, pages_index_path: Path, standardir_path: Path, semantic_input: Path, semantic_output: Path, golden: Path) -> dict[str, Any]:
     validate_fixture_shape(fixture)
-    validate_source_binding(fixture, root, source_pdf, canonical_path, standardir_path, semantic_input)
+    validate_source_binding(fixture, root, source_pdf, canonical_path, pages_index_path, standardir_path, semantic_input)
     require(semantic_output.read_bytes() == semantic_input.read_bytes(), "canonical semantic-items output differs from input")
     require(semantic_output.read_bytes() == golden.read_bytes(), "canonical semantic-items output differs from golden")
     case_results = [validate_candidate(case) for case in fixture["cases"]]
@@ -222,7 +234,7 @@ def build_result(fixture_path: Path, fixture: dict[str, Any], root: Path, source
         mutated = copy.deepcopy(fixture)
         set_path(mutated, mutation["path"], mutation["value"])
         try:
-            validate_source_binding(mutated, root, source_pdf, canonical_path, standardir_path, semantic_input)
+            validate_source_binding(mutated, root, source_pdf, canonical_path, pages_index_path, standardir_path, semantic_input)
         except ContractError:
             mutation_results.append({"id": mutation["id"], "result": "REJECTED"})
         else:
@@ -232,7 +244,7 @@ def build_result(fixture_path: Path, fixture: dict[str, Any], root: Path, source
         "schema_version": fixture["schema_version"], "milestone": "M3", "property": PROPERTY,
         "fixture": str(fixture_path.relative_to(root)), "fixture_sha256": digest(fixture_path),
         "contract": {"schema": fixture["contract"]["schema"], "schema_sha256": digest(root / fixture["contract"]["schema"]), "fixture": fixture["contract"]["fixture"], "fixture_sha256": digest(root / fixture["contract"]["fixture"]), "version": fixture["contract"]["version"]},
-        "source": {"document": fixture["source"]["document"], "clause": fixture["source"]["clause"], "rule": fixture["source"]["rule"], "printed_page": fixture["source"]["printed_page"], "pdf_sha256": digest(source_pdf), "canonical_text_sha256": digest(canonical_path), "standardir_sha256": digest(standardir_path), "canonical_lines": [item["line"] for item in fixture["source"]["canonical_lines"]], "standardir_rules": [row["rule"] for row in fixture["source"]["standardir"]["rows"]]},
+        "source": {"document": fixture["source"]["document"], "clause": fixture["source"]["clause"], "rule": fixture["source"]["rule"], "printed_page": fixture["source"]["printed_page"], "pdf_sha256": digest(source_pdf), "canonical_text_sha256": digest(canonical_path), "canonical_pages_index_sha256": digest(pages_index_path), "canonical_page": fixture["source"]["canonical_page"], "standardir_sha256": digest(standardir_path), "canonical_lines": [item["line"] for item in fixture["source"]["canonical_lines"]], "standardir_rules": [row["rule"] for row in fixture["source"]["standardir"]["rows"]]},
         "semantic_items": {"input": fixture["semantic_item"]["path"], "input_sha256": digest(semantic_input), "canonical_output_sha256": digest(semantic_output), "canonical_output": "PASS"},
         "cases": case_results, "outcome_counts": counts, "mutation_controls": mutation_results,
         "model_calls": 0, "semantic_promotions": 0, "origin": "MECHANICAL", "oracle": "tests/e2e/validate_m3_c1579.py",
@@ -260,14 +272,14 @@ def main(argv: list[str]) -> int:
     if argv[1:] == ["--self-test"]:
         self_test()
         return 0
-    if len(argv) != 8:
-        print("usage: validate_m3_c1579.py FIXTURE SEMANTIC_OUTPUT STANDARDIR CANONICAL_TEXT PDF GOLDEN RESULT_JSON", file=sys.stderr)
+    if len(argv) != 9:
+        print("usage: validate_m3_c1579.py FIXTURE SEMANTIC_OUTPUT STANDARDIR CANONICAL_TEXT PAGES_INDEX PDF GOLDEN RESULT_JSON", file=sys.stderr)
         return 2
-    fixture_path, semantic_output, standardir, canonical_text, source_pdf, golden, result_path = map(Path, argv[1:])
+    fixture_path, semantic_output, standardir, canonical_text, pages_index, source_pdf, golden, result_path = map(Path, argv[1:])
     root = fixture_path.resolve().parents[2]
     try:
         fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
-        result = build_result(fixture_path.resolve(), fixture, root, source_pdf.resolve(), canonical_text.resolve(), standardir.resolve(), root / fixture["semantic_item"]["path"], semantic_output.resolve(), golden.resolve())
+        result = build_result(fixture_path.resolve(), fixture, root, source_pdf.resolve(), canonical_text.resolve(), pages_index.resolve(), standardir.resolve(), root / fixture["semantic_item"]["path"], semantic_output.resolve(), golden.resolve())
         result_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     except (ContractError, OSError, KeyError, TypeError, ValueError) as error:
         print(f"M3 C1579 validator: FAIL: {error}", file=sys.stderr)

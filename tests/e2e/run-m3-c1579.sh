@@ -34,6 +34,7 @@ mkdir -p -- "$run_dir"
 fixture="$ROOT/tests/fixtures/m3-c1579-source-backed-v0.json"
 semantic_input="$ROOT/tests/fixtures/m3-c1579-semantic-items.sx"
 canonical_text="$ROOT/.cache/runs/E0001/R000003/j3-24-007.canonical.txt"
+pages_index="$ROOT/.cache/runs/E0001/R000003/j3-24-007.pages.index"
 standardir="$ROOT/.cache/runs/E0171/R000433-provenance-replay/standardir.sx"
 source_pdf="$ROOT/.cache/j3-24-007.pdf"
 golden="$ROOT/tests/golden/m3-c1579-semantic-items.sx"
@@ -66,6 +67,7 @@ functional_paths=(
     tests/golden/m3-c1579-semantic-items.sx
     artifacts/traces/m3-c1579-source-backed-v0.json
     research/decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md
+    research/decisions/D0137-c1579-printed-page-correction.md
 )
 git -C "$ROOT" diff --quiet "$central_pin" -- "${functional_paths[@]}" || die "functional M3 C1579 files differ from manifest central pin $central_pin"
 [ "$standard_commit" = "f94c4c51b51fce22b533b7eeda08741970320913" ] || die "standard-new checkout is not the pinned M3 revision"
@@ -77,6 +79,7 @@ git -C "$ROOT" diff --quiet "$central_pin" -- "${functional_paths[@]}" || die "f
 "$ROOT/scripts/check-contracts.sh" --self-test >"$run_dir/check-contracts-self-test.log"
 "$ROOT/scripts/fetch.sh" j3-24-007 >"$run_dir/fetch.log"
 [ -f "$canonical_text" ] || die "missing pinned canonical source: $canonical_text"
+[ -f "$pages_index" ] || die "missing pinned canonical page index: $pages_index"
 [ -f "$standardir" ] || die "missing pinned StandardIR source: $standardir"
 [ -f "$source_pdf" ] || die "missing fetched normative source: $source_pdf"
 
@@ -93,11 +96,11 @@ fo_sha256="$(sha256sum "$fo_path" | awk '{print $1}')"
 cmp "$run_dir/semantic-items.canonical.sx" "$golden"
 
 python3 "$validator" --self-test >"$run_dir/oracle-self-test.log"
-python3 "$validator" "$fixture" "$run_dir/semantic-items.canonical.sx" "$standardir" "$canonical_text" "$source_pdf" "$golden" "$run_dir/result.json" >"$run_dir/oracle.log"
+python3 "$validator" "$fixture" "$run_dir/semantic-items.canonical.sx" "$standardir" "$canonical_text" "$pages_index" "$source_pdf" "$golden" "$run_dir/result.json" >"$run_dir/oracle.log"
 [ -f "$ROOT/artifacts/traces/m3-c1579-source-backed-v0.json" ] || die "missing committed C1579 trace"
 cmp "$run_dir/result.json" "$ROOT/artifacts/traces/m3-c1579-source-backed-v0.json"
 
-python3 - "$run_dir/run-environment.json" "$central_pin" "$central_commit" "$standard" "$standard_commit" "$fo_path" "$fo_version" "$fo_sha256" "$validator" "$fixture" "$semantic_input" "$standardir" "$canonical_text" "$source_pdf" <<'PY'
+python3 - "$run_dir/run-environment.json" "$central_pin" "$central_commit" "$standard" "$standard_commit" "$fo_path" "$fo_version" "$fo_sha256" "$validator" "$fixture" "$semantic_input" "$standardir" "$canonical_text" "$pages_index" "$source_pdf" <<'PY'
 import hashlib
 import json
 import platform
@@ -106,7 +109,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-output, central_pin, central_commit, standard, standard_commit, fo_path, fo_version, fo_sha256, validator, fixture, semantic_input, standardir, canonical_text, source_pdf = sys.argv[1:]
+output, central_pin, central_commit, standard, standard_commit, fo_path, fo_version, fo_sha256, validator, fixture, semantic_input, standardir, canonical_text, pages_index, source_pdf = sys.argv[1:]
 
 def digest(path: str) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -125,7 +128,7 @@ def identity(name: str, command: list[str]) -> dict[str, str]:
 record = {
     "central": {"repository": "lazy-fortran-new", "revision_pin": central_pin, "worktree_commit": central_commit, "state": "clean", "functional_tree_matches_pin": True},
     "standard_new": {"repository": standard, "commit": standard_commit, "state": "clean", "build_tree_after": "absent"},
-    "inputs": {"fixture": {"path": "tests/fixtures/m3-c1579-source-backed-v0.json", "sha256": digest(fixture)}, "semantic_items": {"path": "tests/fixtures/m3-c1579-semantic-items.sx", "sha256": digest(semantic_input)}, "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "sha256": digest(standardir)}, "canonical_text": {"path": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt", "sha256": digest(canonical_text)}, "normative_pdf": {"path": ".cache/j3-24-007.pdf", "sha256": digest(source_pdf)}},
+    "inputs": {"fixture": {"path": "tests/fixtures/m3-c1579-source-backed-v0.json", "sha256": digest(fixture)}, "semantic_items": {"path": "tests/fixtures/m3-c1579-semantic-items.sx", "sha256": digest(semantic_input)}, "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "sha256": digest(standardir)}, "canonical_text": {"path": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt", "sha256": digest(canonical_text)}, "canonical_pages_index": {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": digest(pages_index)}, "normative_pdf": {"path": ".cache/j3-24-007.pdf", "sha256": digest(source_pdf)}},
     "toolchain": {"fo": {"path": str(Path(fo_path).resolve()), "version": fo_version, "sha256": fo_sha256}, "python": identity("python3", ["python3", "--version"]), "sha256sum": identity("sha256sum", ["sha256sum", "--version"]), "git": identity("git", ["git", "--version"]), "compiler": version(["gfortran", "--version"]), "poppler": version(["pdftotext", "-v"]), "oracle_sha256": digest(validator)},
     "environment": {"os": platform.system(), "os_release": platform.release(), "architecture": platform.machine(), "python_version": platform.python_version(), "python_path": sys.executable, "locale": {"LANG": "C", "LC_ALL": "C"}},
     "commands": ["scripts/check_pins.sh", "scripts/check-contracts.sh", "scripts/check-contracts.sh --self-test", "scripts/fetch.sh j3-24-007", "(cd standard-new && fo clean)", "(cd standard-new && fo)", "(cd standard-new && fo exec --no-build sxsemantic tests/fixtures/m3-c1579-semantic-items.sx <run-dir>/semantic-items.canonical.sx)", "python3 tests/e2e/validate_m3_c1579.py --self-test", "python3 tests/e2e/validate_m3_c1579.py ..."],

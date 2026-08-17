@@ -294,7 +294,7 @@ and pin-order failures; focused review is pending. Full Core 0 semantics
 remain open and are not claimed.
 
 The slice binds J3-24-007 C1579 at canonical-text lines 15386--15387 and
-printed page 356 to the already represented StandardIR R1532/R1544 shapes. Its
+printed page 357 to the already represented StandardIR R1532/R1544 shapes. Its
 typed candidate carries RESULT-presence and entry-name declaration states. A
 missing RESULT or missing declaration is `ACCEPTED`, both present is
 `REJECTED`, and unknown state is `UNRESOLVED`. The oracle does not parse
@@ -306,6 +306,7 @@ tests/e2e/run-m3-c1579.sh --fresh
 ```
 
 Evidence: `research/decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md`,
+`research/decisions/D0137-c1579-printed-page-correction.md`,
 `research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml`,
 the C1579 contract, validator, fixtures and trace, `research/runs/2026-08.jsonl#R000060`,
 retained failures `#R000058` and `#R000059`, and the retained E0181 selection
