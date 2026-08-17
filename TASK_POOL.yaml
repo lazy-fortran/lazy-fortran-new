@@ -6430,9 +6430,9 @@ tasks:
   - id: T-M3-c759-type-param-value-oracle
     milestone: M3
     title: Implement the bounded C759 type-param-value oracle
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on: [T-M3-core0-next-bounded-property-selection-after-c757]
     inputs:
@@ -6443,6 +6443,21 @@ tasks:
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v24.md
         sha256: b4d71d024f2b7d69bbb345203e661288732fcc17c4bbdc10f487179c17ccddfe
       - path: research/runs/2026-08.jsonl#R000625
+      - path: contracts/m3-c759-type-param-value-v0.sxs
+      - path: contracts/fixtures/m3-c759-type-param-value-v0.sx
+      - path: tests/fixtures/m3-c759-source-backed-v0.json
+        sha256: 5524a5142e6e2178c9084379bf7261117574b336eb102ed96208a9b0deaa73d8
+      - path: tests/fixtures/m3-c759-expected-outcomes-v0.json
+        sha256: cf841419a2eb2f2e71d833357902c9d679f6b4c414b6527e428d232b9faeef46
+      - path: tests/fixtures/m3-c759-semantic-items.sx
+        sha256: 464664eb9452260656628512774907730a0eebd05b9f555b165b185b48307ddd
+      - path: tests/e2e/validate_m3_c759.py
+      - path: tests/e2e/run-m3-c759.sh
+      - path: artifacts/traces/m3-c759-source-backed-v0.json
+        sha256: 8c2540368c3ff5c75d3a493c6cc2b3cc6caae111518c18426815f2bb9e67515c
+      - path: artifacts/reports/M3/m3-c759-focused-review-v1.md
+        sha256: 86c937e182f45c12ea5412da94964655f0bad3d4eb9ce5e10c0abf68d8493e28
+      - path: research/runs/2026-08.jsonl#R000627
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
         sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
@@ -6464,13 +6479,17 @@ tasks:
       and zero semantic promotions. The component-specification category must
       remain an opaque bounded input unless independently source-backed. Do not
       parse Fortran, inspect adjacent C758/C760 or broaden the property.
-    verifier_command: tests/e2e/run-m3-c759.sh --fresh
+    verifier_command: >-
+      M3_C759_EXPECTED_CENTRAL_COMMIT=fb3a36b7ceb804cd81f09b60ee285d40040feb72
+      C759_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new
+      STANDARD_NEW_ROOT=/home/ert/code/standard-new
+      tests/e2e/run-m3-c759.sh --fresh
     final_observable: >-
       a replayable C759 source-backed oracle with an independent expected-
       outcome table, deterministic three-outcome decisions, rejected mutation
       controls and no semantic promotion
     retry_count: 0
-    integration_cycle_trigger: milestone_pass
+    integration_cycle_trigger: post_promotion_selection
 integration_cycle:
   triggers:
     verified_deltas: 4

@@ -770,6 +770,14 @@ unresolved until its representation is independently checked. This closes
 only the bounded C757 oracle and selects C759; it does not parse arbitrary
 Fortran, promote a semantic fact or close full M3.
 
+The C759 implementation then passed its corrected replay and focused review in
+`research/runs/2026-08.jsonl#R000627`: 2 `ACCEPTED`, 1 `REJECTED`, 1
+`UNRESOLVED`, fifteen rejected mutation controls, zero model calls and zero
+semantic promotions. The first focused review found a schema/fixture fact-shape
+mismatch; the controller repaired it, reran the clean gate, and obtained two
+fresh focused `PASS` reviews. C759 is promoted only as a bounded oracle leaf;
+full M3 remains open.
+
 ## M3 — harvested C760 procedure-component-attribute uniqueness oracle
 
 `T-M3-c760-harvested-oracle` is `PASS` and its bounded claim is `CLOSED`.

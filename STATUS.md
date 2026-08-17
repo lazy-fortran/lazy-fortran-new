@@ -106,6 +106,14 @@ StandardIR occurrence R736@86. The harvest's incomplete one-line binding is
 not reused. This is selection evidence only; no model call or semantic
 promotion occurred.
 
+The C759 implementation and corrected review gate now pass in R000627. The
+four-state replay produces 2 `ACCEPTED`, 1 `REJECTED` and 1 `UNRESOLVED`,
+rejects fifteen mutation controls, and records zero model calls and zero
+semantic promotions. The first review found and the controller repaired a
+schema-to-fixture correspondence defect; the corrected replay and two fresh
+focused reviews pass. C759 is closed only as a bounded oracle leaf; full M3
+remains open.
+
 ## Component pins
 
 These are the clean component revisions currently pinned by the control plane.
@@ -292,12 +300,12 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-c759-type-param-value-oracle` — implement the bounded C759
-type-param-value oracle. The preceding selection task passes in E0226/R000626;
-C757 is the latest passing leaf with evidence in E0225/R000625 and
-`artifacts/reports/M3/m3-c757-focused-review-v1.md`. C760 is the preceding
-harvested leaf, recorded in R000623. The harvest remains provisional and is
-not a semantic promotion queue.
+ID: `T-M3-c759-type-param-value-oracle` — PASS. The corrected implementation,
+clean replay and focused review gate pass in E0226/R000627. The preceding
+selection task passes in E0226/R000626. C757 is the prior passing leaf with
+evidence in E0225/R000625; C760 is the preceding harvested leaf, recorded in
+R000623. The harvest remains provisional and is not a semantic promotion
+queue.
 
 Verifier: `tests/e2e/run-m3-c759.sh --fresh`. It must independently bind C759
 to canonical lines 3854--3855, source span `242269:126`, printed page 79,
