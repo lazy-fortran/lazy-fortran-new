@@ -491,7 +491,11 @@ disputed and 64 unwitnessed), with C732@1 first. The next controller task is
 selection of one source-backed bounded property; selection replay `R000513`
 binds C732 canonical line 3493, page 85, byte span `221195:107`, to existing
 StandardIR R724 (`char-literal-constant`). The next task is the bounded C732
-kind-parameter representation-method oracle; full M3 remains open.
+kind-parameter representation-method oracle. Central replay `R000514` passes
+with 1 `ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`, twelve rejected mutation
+controls, zero model calls and zero semantic promotions. Focused review and
+remote parity remain pending, so C732 is not yet counted as promoted; full M3
+remains open.
 
 Regenerate the C731 result with:
 

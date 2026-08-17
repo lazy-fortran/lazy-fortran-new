@@ -141,7 +141,10 @@ not current promotion evidence.
   page 85, byte span `221195:107`, over existing StandardIR R724
   (`char-literal-constant`). The next bounded contract is the
   kind-parameter representation-method relation; it does not inspect a real
-  processor or parse literals.
+  processor or parse literals. E0198 central replay `R000514` passes with
+  `1 ACCEPTED`, `1 REJECTED`, `7 UNRESOLVED`, twelve rejected mutation
+  controls, zero model calls and zero semantic promotions. Its focused review
+  is pending, so C732 is not yet counted among the promoted slices.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -233,16 +236,23 @@ Run and record the next bounded property selection after C731. The retained
 152-row witness ledger remains open; do not restart E0172 or broaden semantic
 work. The post-C731 reconciliation R000512 leaves 88 disputed and 64
 unwitnessed rows, with C732@1 first. That selection is now recorded in E0197
-and R000513. The controller must implement the bounded C732 contract before
-any broader semantic work.
+and R000513. The bounded C732 implementation replay is R000514; its
+independent review and durable synchronization remain before bounded
+promotion. No broader semantic work is authorized.
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
-The next bounded oracle must reuse trustworthy source/provenance machinery and
-must leave semantic promotion and model execution at zero. Its exact task is
-`T-M3-c732-kind-param-representation-method-oracle`.
+The next gate is the focused independent review of the exact R000514 packet,
+followed by push and remote-parity verification. The bounded oracle must
+reuse trustworthy source/provenance machinery and leave semantic promotion
+and model execution at zero. Its exact task is
+`T-M3-c732-kind-param-representation-method-oracle`; replay with:
+
+```text
+M3_C732_EXPECTED_CENTRAL_COMMIT=40bad4f842a87000ceddb68449a801c2282e2b60 tests/e2e/run-m3-c732.sh --fresh
+```
 
 ## Last verified central command
 
