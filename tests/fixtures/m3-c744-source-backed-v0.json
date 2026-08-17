@@ -1,0 +1,521 @@
+{
+  "schema_version": "m3-c744-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "derived-type-def-end-type-name-relation",
+  "contract": {
+    "schema": "contracts/m3-c744-derived-type-end-type-name-relation-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c744-derived-type-end-type-name-relation-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C744",
+    "printed_page": 89,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {
+        "line": 3639,
+        "text": "C744 (R730) If END TYPE is followed by a type-name, the type-name shall be the same as that in the"
+      },
+      {
+        "line": 3640,
+        "text": "corresponding derived-type-stmt."
+      }
+    ],
+    "source_span": {
+      "byte_start": 230888,
+      "byte_length": 137,
+      "page_start": 89,
+      "page_end": 89
+    },
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [
+        {
+          "page": 89,
+          "start": 230288,
+          "length": 2594
+        }
+      ]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {
+          "rule": "R727",
+          "lhs": "derived-type-stmt",
+          "page": 88,
+          "byte_start": 229178,
+          "byte_length": 108,
+          "occurrence": 77
+        },
+        {
+          "rule": "R730",
+          "lhs": "end-type-stmt",
+          "page": 89,
+          "byte_start": 230841,
+          "byte_length": 46,
+          "occurrence": 80
+        }
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c744-semantic-items.sx",
+    "sha256": "a62bac2012f06078b2d9d06290d725b17c63ab55a128cef0911f39801c2eb3c7",
+    "id": "S-C744",
+    "subject": "derived-type-def-end-type-name-relation",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C744",
+    "page": 89,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "accepted-absent-same-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "same",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "accepted-absent-different-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "different",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "accepted-absent-unknown-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "accepted-present-same-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "same",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "rejected-present-different-derived-type-def",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "different",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-same-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "same",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-different-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "different",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-absent-same-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "same",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-different-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "different",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-same-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "same",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-different-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "different",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-same-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "same",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-different-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "different",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-same-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "same",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-absent-different-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "different",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "absent",
+        "relation": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-same-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "same",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-different-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "different",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "present",
+        "relation": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-same-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "same",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-different-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "different",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-end-type-name-relation",
+        "source_rule": "C744",
+        "presence": "unknown",
+        "relation": "unknown",
+        "context": "unknown"
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "id": "normative-pdf-hash",
+      "path": [
+        "source",
+        "pdf_sha256"
+      ],
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "canonical-first-line-identity",
+      "path": [
+        "source",
+        "canonical_lines",
+        0,
+        "line"
+      ],
+      "value": 3638
+    },
+    {
+      "id": "canonical-second-line-text",
+      "path": [
+        "source",
+        "canonical_lines",
+        1,
+        "text"
+      ],
+      "value": "corresponding derived-type-stmt"
+    },
+    {
+      "id": "source-span-start",
+      "path": [
+        "source",
+        "source_span",
+        "byte_start"
+      ],
+      "value": 230889
+    },
+    {
+      "id": "source-span-length",
+      "path": [
+        "source",
+        "source_span",
+        "byte_length"
+      ],
+      "value": 136
+    },
+    {
+      "id": "page-boundary",
+      "path": [
+        "source",
+        "source_span",
+        "page_start"
+      ],
+      "value": 88
+    },
+    {
+      "id": "page-index-identity",
+      "path": [
+        "source",
+        "page_index",
+        "pages",
+        0,
+        "start"
+      ],
+      "value": 230289
+    },
+    {
+      "id": "standardir-row-identity",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        1,
+        "rule"
+      ],
+      "value": "R729"
+    },
+    {
+      "id": "standardir-lhs-identity",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        1,
+        "lhs"
+      ],
+      "value": "private-or-sequence"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "path": [
+        "semantic_item",
+        "rule"
+      ],
+      "value": "C743"
+    },
+    {
+      "id": "contract-property-identity",
+      "path": [
+        "property"
+      ],
+      "value": "other-property"
+    },
+    {
+      "id": "source-page-identity",
+      "path": [
+        "source",
+        "printed_page"
+      ],
+      "value": 88
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+(schema m3-c744-derived-type-end-type-name-relation-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c744-name-presence absent present unknown)
+  (enum c744-name-relation same different unknown)
+  (enum c744-context derived-type-def other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record end-type-name-use
+    (presence c744-name-presence)
+    (relation c744-name-relation)
+    (context c744-context))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact end-type-name-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
+(contract-witness
+  (contract m3-c744-derived-type-end-type-name-relation)
+  (version 0)
+  (origin human)
+  (resolution disputed)
+  (property derived-type-def-end-type-name-relation)
+  (source (source-ref (document J3-24-007) (clause 7) (rule C744) (page 89) (source-hash 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)))
+  (span (source-span (byte-start 230888) (byte-length 137) (page-start 89) (page-end 89)))
+  (outcomes accepted rejected unresolved))
