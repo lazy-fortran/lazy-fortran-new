@@ -1,0 +1,635 @@
+{
+  "schema_version": "m3-c747-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "derived-type-def-type-parameter-name-exact-once",
+  "contract": {
+    "schema": "contracts/m3-c747-derived-type-type-parameter-name-exact-once-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c747-derived-type-type-parameter-name-exact-once-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C747",
+    "printed_page": 77,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {
+        "line": 3766,
+        "text": "C747 (R732) Each type-param-name in the derived-type-stmt in a derived-type-def shall appear exactly once as"
+      },
+      {
+        "line": 3767,
+        "text": "a type-param-name in a type-param-def-stmt in that derived-type-def ."
+      }
+    ],
+    "source_span": {
+      "byte_start": 237572,
+      "byte_length": 183,
+      "page_start": 77,
+      "page_end": 77
+    },
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [
+        {
+          "page": 77,
+          "start": 195782,
+          "length": 2519
+        }
+      ]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {
+          "rule": "R727",
+          "lhs": "derived-type-stmt",
+          "page": 88,
+          "byte_start": 229178,
+          "byte_length": 108,
+          "occurrence": 77
+        },
+        {
+          "rule": "R732",
+          "lhs": "type-param-def-stmt",
+          "page": 91,
+          "byte_start": 237232,
+          "byte_length": 95,
+          "occurrence": 82
+        },
+        {
+          "rule": "R733",
+          "lhs": "type-param-decl",
+          "page": 91,
+          "byte_start": 237328,
+          "byte_length": 72,
+          "occurrence": 83
+        }
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c747-semantic-items.sx",
+    "sha256": "1719c5cea78f6cd5c174d6b7e2cfc6328362828ca995bb145f760f9fff4241a0",
+    "id": "S-C747",
+    "subject": "derived-type-def-type-parameter-name-exact-once",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C747",
+    "page": 77,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-absent-zero-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "zero",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-absent-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-one-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "one",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-absent-one-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "one",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-one-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "one",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-many-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "many",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-absent-many-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "many",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-many-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "many",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-unknown-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "absent",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "negative-present-zero-derived-type-def",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "zero",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-present-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-present-one-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "one",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-present-one-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "one",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-one-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "one",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "negative-present-many-derived-type-def",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "many",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-present-many-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "many",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-many-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "many",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "present",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "zero",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "one",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "one",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "one",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-many-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "many",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-many-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "many",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-many-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "many",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-exact-once",
+        "source_rule": "C747",
+        "derived_name_presence": "unknown",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "unknown"
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "id": "source-rule-mutation",
+      "path": [
+        "source",
+        "rule"
+      ],
+      "value": "C746"
+    },
+    {
+      "id": "source-page-mutation",
+      "path": [
+        "source",
+        "printed_page"
+      ],
+      "value": 78
+    },
+    {
+      "id": "source-hash-mutation",
+      "path": [
+        "source",
+        "canonical_text_sha256"
+      ],
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "source-byte-start-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "byte_start"
+      ],
+      "value": 237573
+    },
+    {
+      "id": "source-byte-length-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "byte_length"
+      ],
+      "value": 182
+    },
+    {
+      "id": "source-page-start-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "page_start"
+      ],
+      "value": 76
+    },
+    {
+      "id": "source-page-end-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "page_end"
+      ],
+      "value": 78
+    },
+    {
+      "id": "page-index-mutation",
+      "path": [
+        "source",
+        "page_index",
+        "pages",
+        0,
+        "page"
+      ],
+      "value": 78
+    },
+    {
+      "id": "standardir-rule-mutation",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        0,
+        "rule"
+      ],
+      "value": "R728"
+    },
+    {
+      "id": "standardir-shape-mutation",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        1,
+        "lhs"
+      ],
+      "value": "type-param-decl"
+    },
+    {
+      "id": "contract-version-mutation",
+      "path": [
+        "contract",
+        "version"
+      ],
+      "value": 1
+    },
+    {
+      "id": "semantic-rule-mutation",
+      "path": [
+        "semantic_item",
+        "rule"
+      ],
+      "value": "C746"
+    }
+  ]
+}

@@ -36,4 +36,5 @@
   (contract m3-c743-derived-type-private-or-sequence-uniqueness 0 lazy-fortran-new)
   (contract m3-c744-derived-type-end-type-name-relation 0 lazy-fortran-new)
   (contract m3-c745-derived-type-sequence-component-presence 0 lazy-fortran-new)
-  (contract m3-c746-derived-type-type-parameter-name-membership 0 lazy-fortran-new))
+  (contract m3-c746-derived-type-type-parameter-name-membership 0 lazy-fortran-new)
+  (contract m3-c747-derived-type-type-parameter-name-exact-once 0 lazy-fortran-new))

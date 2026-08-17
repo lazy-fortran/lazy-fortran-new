@@ -23,8 +23,9 @@ target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. M3 is now open through twenty-six bounded contracts; C746 is promoted
 only as a bounded oracle leaf by E0210/R000566 and focused review R000567.
-Regenerate the post-C746 residual partition with the active selection command
-in `TASK_POOL.yaml`. The full Core 0 semantic milestone remains unpromoted.
+Selection R000568 passes for C747 at canonical lines 3766--3767, page 77, over
+existing StandardIR R727/R732/R733. The active task implements the bounded
+C747 exact-once oracle. The full Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -162,7 +163,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-core0-next-bounded-property-selection-after-c746`.
+Current fixture: `T-M3-c747-type-parameter-name-exact-once-oracle`.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
 Clean replay R000527 and focused review R000528 pass. The replay binds C735
 line 3620, page 88, byte span `229534:101`, to existing StandardIR R727/R728;
@@ -189,20 +190,23 @@ first and binds it to canonical lines 3764--3765, page 77, and existing
 StandardIR R727/R732/R733. E0210/R000566 and focused review R000567 pass for
 C746, which is promoted only as a bounded typed membership oracle. The
 post-C746 partition leaves 145 outside-promoted rows (84 disputed and 61
-unwitnessed), with C747@1 first. The active task selects the next bounded
-source-backed property.
+unwitnessed), with C747@1 first. R000568 selects C747's occurrence-cardinality
+relation. The active task implements this bounded C747 oracle only.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c746` — select the next
-bounded source-backed property after the C746 leaf.
+ID: `T-M3-c747-type-parameter-name-exact-once-oracle` — implement the bounded
+C747 type-parameter-name exact-once oracle selected after C746.
 
-Verifier: recompute the exact post-C746 partition with the command in
-`TASK_POOL.yaml`. It must reproduce 145 residual rows, 84 `disputed`, 61
-`unwitnessed`, with C747@1 first, inspect that row's pinned canonical source
-and existing StandardIR shape, and select exactly one bounded property or
-record that no eligible row is available. Do not run a model, promote a
-semantic fact, restart E0172, start general parsing or close full M3.
+Verifier: from a clean checkout, run `tests/e2e/run-m3-c747.sh --fresh`.
+The oracle must classify typed derived-name presence (`absent`, `present`,
+`unknown`), definition-occurrence cardinality (`zero`, `one`, `many`,
+`unknown`) and context (`derived-type-def`, `other`, `unknown`) as
+`ACCEPTED`/`REJECTED`/`UNRESOLVED`, bind C747 lines 3766--3767/page 77 to
+R727/R732/R733, reject source/page/rule/identity mutations, and record zero
+model calls and zero semantic-fact promotions. It must not parse derived-type
+definitions, compare real identifier spellings, check extra definition names,
+or perform general semantic analysis.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -261,7 +265,8 @@ the first four are hard failures, C704@2 is reference-only, and the last two
 are unresolved. These residual states do not close the complete ledger gate.
 The current blocker is witness closure outside the bounded slices: the
   post-C746 partition records 145 residual rows (84 disputed and 61 unwitnessed),
-  with C747@1 first. Regenerate it with the exact command in `TASK_POOL.yaml`.
+  with C747@1 first. R000568 binds that row to the C747 exactly-once contract;
+  the next missing artifact is its implementation and independent oracle.
 C744 is now promoted only as a bounded typed oracle leaf by E0206/R000538 and
 focused review R000539. E0207/R000542 selects C745's first component-presence
 obligation. The corrected implementation replay E0208/R000556 and focused
@@ -283,13 +288,13 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Select the next bounded source-backed property after the C746 leaf. The exact
-selection verifier is the post-C746 partition command in `TASK_POOL.yaml`.
-It must reproduce 145 residual rows, 84 `disputed`, 61 `unwitnessed`, with
-C747@1 first, inspect the pinned C747 source and existing StandardIR shape,
-and select one property or record that no eligible row is available. It must
-not run a model, promote a semantic fact, restart E0172, start general parsing
-or close full M3.
+Implement the bounded C747 source-backed type-parameter-name exact-once oracle.
+The exact contract is D0153, selected by R000568 and reported in
+`artifacts/reports/M3/m3-core0-next-property-selection-v16.md`. The source
+binding is J3-24-007 canonical lines 3766--3767, page 77, over existing
+StandardIR R727/R732/R733. The verifier is
+`tests/e2e/run-m3-c747.sh --fresh`. It must not restart E0172, parse general
+Fortran, check extra definition names or close full M3.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
@@ -380,10 +385,10 @@ next task is `T-M3-c731-constant-expression-oracle`.
 C735 replay `R000527` and focused review `R000528` also pass. The exact final
 replay command is:
 `M3_C735_EXPECTED_CENTRAL_COMMIT=ffdda31c289531d4b6ac4b0a32ce6db6fb6bb1de tests/e2e/run-m3-c735.sh --fresh`.
-The next active task is
-`T-M3-core0-next-bounded-property-selection-after-c743`; E0204/R000531 and
-R000532 have promoted the bounded C743 oracle leaf, and the next missing
-artifact is the next source-backed residual selection.
+The C746 replay `tests/e2e/run-m3-c746.sh --fresh` is `PASS` in R000566 and
+focused review R000567 passes. Post-C746 selection `R000568` is `PASS` with
+145 residual rows, 84 disputed and 61 unwitnessed, and C747@1 first. The
+current active task is `T-M3-c747-type-parameter-name-exact-once-oracle`.
 ```
 
 ## Blacklisted pseudo-progress

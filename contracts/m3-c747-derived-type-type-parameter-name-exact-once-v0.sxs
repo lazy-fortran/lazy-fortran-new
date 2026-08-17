@@ -1,0 +1,29 @@
+(schema m3-c747-derived-type-type-parameter-name-exact-once-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c747-derived-name-presence absent present unknown)
+  (enum c747-definition-occurrence-cardinality zero one many unknown)
+  (enum c747-context derived-type-def other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record type-parameter-name-exact-once
+    (derived-name-presence c747-derived-name-presence)
+    (definition-occurrence-cardinality c747-definition-occurrence-cardinality)
+    (context c747-context))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact type-parameter-name-exact-once)
+    (expected outcome))
+  (list candidates semantic-candidate))

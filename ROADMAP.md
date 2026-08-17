@@ -64,8 +64,9 @@ endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
 through twenty-six bounded contracts. E0210 replay R000566 and focused review
 R000567 pass for C746, which is promoted only as a bounded typed membership
 oracle. The post-C746 residual partition has 145 rows, 84 disputed and 61
-unwitnessed, with C747@1 first. The active task is selection of the next
-bounded source-backed property. Full M3 remains open.
+unwitnessed, with C747@1 first. R000568 selects C747's bounded occurrence-
+cardinality relation. The active task implements that oracle. Full M3 remains
+open.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -101,8 +102,10 @@ corrected post-C745 selection R000564 records 146 residual rows (84 disputed
 and 62 unwitnessed), with C746@1 first. It binds C746 to canonical lines
 3764--3765, printed page 77, byte span `237401:171`, and existing StandardIR
 R727/R732/R733. The C746 implementation and replay pass with zero model calls
-and zero semantic promotions. The active task now selects the next bounded
-source-backed property. The retained model row is not evidence.
+and zero semantic promotions. R000568 then selects C747 over canonical lines
+3766--3767, page 77, byte span `237572:183`, using the same StandardIR
+witnesses. The active task implements the bounded C747 exact-once oracle. The
+retained model row is not evidence.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -599,9 +602,12 @@ rejected mutations, zero model calls and zero semantic promotions. C745 is
 promoted only as this bounded oracle leaf; it does not parse, count real
 components or close full M3. Corrected selection R000564 binds C746 to
 canonical lines 3764--3765, page 77, byte span `237401:171`, over existing
-StandardIR R727/R732/R733. D0152 defines the next typed membership contract;
-the active implementation must provide its independent oracle and replayable
-mutation controls.
+StandardIR R727/R732/R733. D0152's C746 membership contract is implemented
+and passes replay R000566 with focused review R000567. The post-C746 selection
+R000568 binds C747 to canonical lines 3766--3767, page 77, byte span
+`237572:183`, over the same StandardIR witnesses. D0153 defines the bounded
+exact-once relation; the active implementation must provide its independent
+oracle and replayable mutation controls.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

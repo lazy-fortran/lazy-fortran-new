@@ -755,9 +755,28 @@ Evidence: `research/experiments/E0210-can-a-deterministic-source-backed-c746-o/m
 `R000567`.
 
 The post-C746 residual partition has 145 rows (84 `disputed` and 61
-`unwitnessed`) with C747@1 first. The active task selects the next bounded
-source-backed property. Regenerate that partition with the exact command in
-`TASK_POOL.yaml`.
+`unwitnessed`) with C747@1 first. R000568 selects C747's bounded
+type-parameter-name occurrence-cardinality relation. The active task
+implements this C747 oracle.
+
+## M3 — selected C747 type-parameter-name exact-once relation
+
+Selection status: `PASS`; R000568 is the deterministic post-C746 selection
+run. C747 is J3-24-007 clause 7, canonical lines 3766--3767, printed page 77,
+byte span `237572:183`, over existing StandardIR R727/R732/R733.
+
+D0153 defines the typed candidate as derived-name presence, definition
+occurrence cardinality and derived-type-definition context. The bounded oracle
+accepts the vacuous absent case and the present/one case, rejects present/zero
+and present/many, and returns `UNRESOLVED` otherwise. The C747 leaf does not
+check extra definition names, parse definitions, compare real names, perform
+name resolution or close full M3. No model output can promote a semantic fact.
+
+Evidence: `research/decisions/D0153-twenty-seventh-m3-c747-type-parameter-name-exact-once.md`,
+`research/experiments/E0211-post-c746-residual-bounded-property-sele/manifest.yaml`,
+`artifacts/reports/M3/m3-core0-next-property-selection-v16.md`, and
+`research/runs/2026-08.jsonl#R000568`. The next task implements the bounded
+C747 oracle with its independent expected-outcome table and replay gate.
 
 ## M3 — bounded C601 semantic-oracle successor
 

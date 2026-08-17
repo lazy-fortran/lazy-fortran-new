@@ -1,0 +1,483 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "absent",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-absent-zero-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-zero-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-zero-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "absent",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-absent-one-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-one-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-one-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "absent",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-absent-many-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-many-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-many-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "absent",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-absent-unknown-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-unknown-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-unknown-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "REJECTED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "present",
+      "expected": "REJECTED",
+      "fixture_expected": "REJECTED",
+      "id": "negative-present-zero-derived-type-def",
+      "kind": "negative"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-zero-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-zero-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "present",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-present-one-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-one-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-one-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "REJECTED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "present",
+      "expected": "REJECTED",
+      "fixture_expected": "REJECTED",
+      "id": "negative-present-many-derived-type-def",
+      "kind": "negative"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-many-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-many-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-unknown-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-unknown-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-unknown-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-zero-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-zero-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "zero",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-zero-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-one-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-one-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "one",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-one-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-many-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-many-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "many",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-many-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "definition_occurrence_cardinality": "unknown",
+      "derived_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-unknown",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c747-derived-type-type-parameter-name-exact-once-v0.sx",
+    "fixture_sha256": "f34ca9506442b641e734668c4b380ab763642bfa7a0688601efef4a5e59eedba",
+    "schema": "contracts/m3-c747-derived-type-type-parameter-name-exact-once-v0.sxs",
+    "schema_sha256": "db9352a84d0969f61eb3468afe6705251739c6e808516ddb4789a2a5205b1e58",
+    "version": 0
+  },
+  "expected_outcomes": {
+    "comparison": "PASS",
+    "origin": "HUMAN",
+    "path": "tests/fixtures/m3-c747-expected-outcomes-v0.json",
+    "sha256": "fc2d31361b99e523dd4e2ec32de91e528ec40f41aac5244e3611f9571c5a34ce"
+  },
+  "fixture": "tests/fixtures/m3-c747-source-backed-v0.json",
+  "fixture_sha256": "5f8102f757d4e1ec7f0a53579c7cfd7053b43bebe1bc7cd64d2ec04e605f5dc1",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "source-rule-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-hash-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-byte-start-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-byte-length-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-start-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-end-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-rule-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-shape-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-version-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-mutation",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c747.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 5,
+    "REJECTED": 2,
+    "UNRESOLVED": 29
+  },
+  "property": "derived-type-def-type-parameter-name-exact-once",
+  "schema_version": "m3-c747-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "1719c5cea78f6cd5c174d6b7e2cfc6328362828ca995bb145f760f9fff4241a0",
+    "input": "tests/fixtures/m3-c747-semantic-items.sx",
+    "input_sha256": "1719c5cea78f6cd5c174d6b7e2cfc6328362828ca995bb145f760f9fff4241a0"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3766,
+      3767
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "pages": [
+        {
+          "length": 2519,
+          "page": 77,
+          "start": 195782
+        }
+      ],
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 77,
+    "rule": "C747",
+    "source_span": {
+      "byte_length": 183,
+      "byte_start": 237572,
+      "page_end": 77,
+      "page_start": 77
+    },
+    "standardir_rules": [
+      "R727",
+      "R732",
+      "R733"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}
