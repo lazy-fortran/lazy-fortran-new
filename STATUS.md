@@ -120,7 +120,7 @@ not current promotion evidence.
   R000037 and focused review R000038 now pass. D0133 selects C729; replay
   R000042 and focused review R000044 pass. R000043 retains the earlier
   reproducibility failure and its repair. D0134 selects C719 over R709;
-  replay R000047 passes and focused review is pending.
+  authoritative replay R000048 passes and focused review is pending.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
