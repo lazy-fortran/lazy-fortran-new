@@ -66,8 +66,11 @@ R000567 pass for C746, which is promoted only as a bounded typed membership
 oracle. The post-C746 residual partition has 145 rows, 84 disputed and 61
 unwitnessed, with C747@1 first. R000568 selects C747's bounded occurrence-
 cardinality relation; R000574 and R000575 pass, promoting only that bounded
-oracle. R000576 selects C748@1 over line 3834 and R737; its implementation is
-the active task. Full M3 remains open.
+oracle. R000576 selects C748@1 over line 3834 and R737. The v0 implementation
+replay R000577 was rejected by focused review R000578 because it encoded
+exact-once instead of C748's at-most-once rule. D0156 corrects the contract;
+replay R000579 passes with the deterministic at-most-once oracle, and the
+active task is the second focused review. Full M3 remains open.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506

@@ -7,7 +7,7 @@ opened: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "d60211a"
+  lazy-fortran-new: "d60211aeb224367bf887f546b891890f8c3cc4e9"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
@@ -83,13 +83,15 @@ analysis: >-
 
 result:
   run: research/runs/2026-08.jsonl#R000579
-  central_revision: d60211a
-  functional_revision: d60211a
+  central_revision: b3abc202c9e0b82058feccfc1c06099715b589c9
+  functional_revision: d60211aeb224367bf887f546b891890f8c3cc4e9
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
   report: artifacts/reports/M3/m3-c748-source-backed-v1.md
+  report_sha256: df420c62901b0abb76d2a3131b7cd0f68dadf559acb63f30fa53b4adbb51a5bb
   trace: artifacts/traces/m3-c748-source-backed-v1.json
   trace_sha256: c7eff81858ef61a7194faf97555de9a671a03c7170ee11e6b8dc69c87af72c2e
-  run_environment: pending-correction-replay
+  run_environment: .cache/runs/E0214/R000004/run-environment.json
+  run_environment_sha256: 63602187297326ba8cd47f403eba1eadfffb2442cab00affb4ef40432b9334eb
   outcome_counts: {accepted: 6, rejected: 1, unresolved: 29}
   mutation_controls: 12
   model_calls: 0
