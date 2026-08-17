@@ -844,10 +844,14 @@ reproduces the same result from pushed central `4115334085a4d1a4910a43a4cd1725ab
 The Luna fixture packet remains labelled intake only, and no semantic fact is
 promoted.
 
-The next controller-exclusive selection leaves 134 rows (78 `disputed`, 56
-`unwitnessed`) with C762@1 first. Regenerate it with the exact `jq` command in
-`TASK_POOL.yaml`; the selection must independently source-bind C762 before any
-implementation task is opened.
+The next controller-exclusive selection left 134 rows (78 `disputed`, 56
+`unwitnessed`) with C762@1 first. R000632 independently binds C762/R741 to
+canonical lines 3872--3873, byte span `243055:127`, printed page 79, ledger
+page 93, PDF page 94, page-index record `93:239957:2451`, and existing
+StandardIR R741/R742. D0170 selects the bounded conditional-NOPASS target;
+the active implementation task is `T-M3-c762-conditional-nopass-oracle`.
+It may not parse procedure interfaces or promote a semantic fact. Regenerate
+the selection with the exact `jq` command in `TASK_POOL.yaml`.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 

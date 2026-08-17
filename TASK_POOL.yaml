@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-M3-core0-next-bounded-property-selection-after-c761
+  - T-M3-c762-conditional-nopass-oracle
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c761
+active_task: T-M3-c762-conditional-nopass-oracle
 
 milestones:
   - id: L0
@@ -6604,15 +6604,22 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c761
     milestone: M3
     title: Select the next bounded source-backed property after C761
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on: [T-M3-c761-pointer-presence-oracle]
     inputs:
       - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
         sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c0
+      - path: research/experiments/E0229-which-residual-source-occurrence-should-/manifest.yaml
+        sha256: 7765acafd7166e66f29f61d21a5db2bc69ac14111aef2246e1f03c14e360bc98
+      - path: research/decisions/D0170-thirty-eighth-m3-c762-selection.md
+        sha256: f62c7003ab1e7ea047622a2dd83418cb925ff214313db71cee28764d8c3d16c8
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v26.md
+        sha256: d8dba5e7f41b2a046e731d747fad35c84916a5b3d4248ee88af8cf7d64cb88e1
       - path: research/runs/2026-08.jsonl#R000630
+      - path: research/runs/2026-08.jsonl#R000632
       - path: artifacts/reports/M3/m3-c761-focused-review-v1.md
         sha256: b564a8c35c134234722000b0cc6e55228a3bba00da928cb002299d137c410684
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
@@ -6638,6 +6645,65 @@ tasks:
     final_observable: one exact next source-backed C762 property with no semantic promotion
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-M3-c762-conditional-nopass-oracle
+    milestone: M3
+    title: Implement the bounded C762 conditional-NOPASS oracle
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-M3-core0-next-bounded-property-selection-after-c761]
+    inputs:
+      - path: research/experiments/E0229-which-residual-source-occurrence-should-/manifest.yaml
+        sha256: 7765acafd7166e66f29f61d21a5db2bc69ac14111aef2246e1f03c14e360bc98
+      - path: research/decisions/D0170-thirty-eighth-m3-c762-selection.md
+        sha256: f62c7003ab1e7ea047622a2dd83418cb925ff214313db71cee28764d8c3d16c8
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v26.md
+        sha256: d8dba5e7f41b2a046e731d747fad35c84916a5b3d4248ee88af8cf7d64cb88e1
+      - path: research/runs/2026-08.jsonl#R000632
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+    output: bounded-oracle
+    final_observable: >-
+      a replayable C762 source-backed oracle with typed trigger and NOPASS
+      states, an independent expected-outcome table, negative neighbours,
+      unknown controls, mutation controls and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: isolated-medium-luna
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new-c762-medium
+      owner: controller
+      allowed_paths:
+        - contracts/m3-c762-*
+        - contracts/fixtures/m3-c762-*
+        - tests/fixtures/m3-c762-*
+        - tests/e2e/run-m3-c762.sh
+        - tests/e2e/validate_m3_c762.py
+        - artifacts/traces/m3-c762-*
+        - artifacts/reports/M3/m3-c762-*
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c761]
+    verifier: >-
+      run a fresh source-backed C762 replay over canonical lines 3872--3873,
+      source span 243055:127, printed page 79, PDF page 94, ledger page 93,
+      page-index record 93 and StandardIR R741/R742. Require explicit trigger
+      and NOPASS state products, deterministic ACCEPTED/REJECTED/UNRESOLVED
+      outcomes, schema-to-fixture correspondence, negative neighbours,
+      source/page/identity/schema/fixture mutations, zero model calls and zero
+      semantic promotions. Do not parse Fortran or broaden M3.
+    verifier_command: >-
+      M3_C762_EXPECTED_CENTRAL_COMMIT=<central-revision>
+      C762_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new
+      STANDARD_NEW_ROOT=/home/ert/code/standard-new
+      tests/e2e/run-m3-c762.sh --fresh
+    retry_count: 0
+    integration_cycle_trigger: post_promotion_selection
 integration_cycle:
   triggers:
     verified_deltas: 4

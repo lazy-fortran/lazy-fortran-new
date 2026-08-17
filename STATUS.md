@@ -301,7 +301,8 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c761` — OPEN. The
+ID: `T-M3-c762-conditional-nopass-oracle` — OPEN. Selection R000632 passes
+and the next implementation contract is now ready. The
 bounded C761 implementation passes its pushed clean replay and focused review
 gate in R000630; post-promotion regression R000631 reproduces it. Selection
 R000629 bound C761/R741 to J3-24-007 canonical line
@@ -317,10 +318,11 @@ eleven rejected mutations, zero model calls and zero semantic promotions. The
 exact claim is closed only as a bounded oracle leaf; no Fortran parser,
 model-driven promotion or full M3 claim is in scope.
 
-The next controller-exclusive selection recomputes 134 residual rows (78
-`disputed`, 56 `unwitnessed`) with C762@1 first; regenerate it with the exact
-`jq` command in `TASK_POOL.yaml`. The completed verifier was
-`tests/e2e/run-m3-c761.sh --fresh`. The completed C759 verifier remains
+R000632 selected C762@1 from 134 residual rows (78 `disputed`, 56
+`unwitnessed`). The active implementation types the supplied conditional
+NOPASS state as explicit trigger state × NOPASS state and must preserve
+`UNRESOLVED` whenever those inputs do not determine the rule. The completed
+C761 verifier was `tests/e2e/run-m3-c761.sh --fresh`. The completed C759 verifier remains
 `tests/e2e/run-m3-c759.sh --fresh`; its pushed clean regression is R000628 at
 central `c7041685dc0a0a35394cc2b37b34616b2a626929`.
 
