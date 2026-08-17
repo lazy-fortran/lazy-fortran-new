@@ -412,8 +412,8 @@ not authorize semantic promotion. The coverage report is
 
 ## M3 — selected C720 kind-param representation-method oracle
 
-Selection status: `PASS`; implementation task
-`T-M3-c720-kind-param-representation-oracle` is `OPEN`. D0141/E0190 binds
+Selection status: `PASS`; bounded C720 implementation and focused review
+tasks are `PASS`. D0141/E0190 binds
 canonical line 3298 on page 80 to StandardIR R708. The typed candidate has
 `representation_method = absent | present | unknown`, with outcomes
 `ACCEPTED`, `REJECTED` and `UNRESOLVED`. The selection report is
@@ -424,8 +424,9 @@ The first implementation replay is retained as R000484; corrected replay
 `research/runs/2026-08.jsonl#R000486` passes the exact
 `M3_C720_EXPECTED_CENTRAL_COMMIT=abecd36ed9a1f560dc675bb8ea0b6679e2f042c3 tests/e2e/run-m3-c720.sh --fresh`
 gate with one outcome in each of ACCEPTED, REJECTED and UNRESOLVED, eight
-mutation failures and zero model calls or semantic promotions. Focused
-independent review is pending; C720 is not yet promoted.
+mutation failures and zero model calls or semantic promotions. Focused review
+`R000487` passes. C720 is promoted as a bounded oracle slice only. The next
+task is `T-M3-core0-next-bounded-property-selection-after-c720`.
 
 ## M3 — bounded C601 semantic-oracle successor
 

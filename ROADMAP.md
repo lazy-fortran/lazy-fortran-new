@@ -78,11 +78,10 @@ Full M3 remains open
 because witness coverage is incomplete. Broad semantic and model work remains
 closed; D0139/D0140/E0189 define the bounded C717 contract, durable-pin replay
 R000480 and focused review R000481 pass after the R000479 central-revision
-durability failure. C717 is promoted as a bounded slice, and
-`T-M3-c720-kind-param-representation-oracle` is the active task.
-C720 clean replay R000486 passes its bounded gate with an explicit expected
-central worktree revision; focused independent review is pending before
-promotion.
+durability failure. C717 is promoted as a bounded slice. C720 clean replay
+R000486 and focused review R000487 pass with an explicit
+expected central worktree revision. C720 is promoted as a bounded slice, and
+`T-M3-core0-next-bounded-property-selection-after-c720` is the active task.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -381,24 +380,26 @@ promotes only the bounded C717 observable, not full C717, arbitrary Fortran pars
 analysis, processor inference, model work or full M3 promotion. E0172 remains
 abandoned.
 
-The next selected contract is D0141/E0190: C720 states that a `kind-param`
+The selected contract was D0141/E0190: C720 states that a `kind-param`
 value shall specify a representation method that exists on the processor. Its
 typed state is `representation_method = absent | present | unknown`, bound to
 canonical line 3298, page 80 and StandardIR R708. The implementation gate is
-`tests/e2e/run-m3-c720.sh --fresh`; it is open and no C720 semantic fact is
-promoted.
+`M3_C720_EXPECTED_CENTRAL_COMMIT=abecd36ed9a1f560dc675bb8ea0b6679e2f042c3 tests/e2e/run-m3-c720.sh --fresh`;
+R000486 and R000487 pass. This promotes only the bounded C720 oracle, not a
+full C720 semantic fact.
 
 The post-promotion E0181 audit `R000074` passes its deterministic
 merge, validation and witness checks. Reconciliation `R000076` maps the
 pre-C717 set; `R000482` maps fourteen promoted IDs and leaves 157
 outside-promoted rows (90 disputed and 67 unwitnessed). Clean selection replay
-`R000483` selects C720@1. The next executable task is the focused independent
-review for `T-M3-c720-kind-param-representation-oracle`; the residual inventory remains
+`R000483` selects C720@1; review `R000487` then promotes the bounded slice.
+The next executable task is
+`T-M3-core0-next-bounded-property-selection-after-c720`; the residual inventory remains
 available through
 this exact verifier:
 
 ```text
-jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
 After L0, L1 adds the first frontend contract path and L2 adds the first

@@ -2,9 +2,9 @@ id: "E0190"
 title: "Deterministic C720 kind-param representation-method oracle"
 question: >
   Can a deterministic source-backed oracle enforce C720 kind-param representation-method legality
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -50,6 +50,19 @@ replay:
   expected_central_commit: abecd36ed9a1f560dc675bb8ea0b6679e2f042c3
   result_sha256: 523f4207d06e89f0a5d17993cf25dab843f4a07c3054b4e764ec143905e89925
   run_environment_sha256: 3e91ebffb0442cdefc5cf5596f73cd7d815bd27950028b2dbdb77bfd9c1f268e
+
+result:
+  replay_run: research/runs/2026-08.jsonl#R000486
+  review_run: research/runs/2026-08.jsonl#R000487
+  semantic_review: artifacts/reports/M3/c720-semantic-review-v1.md
+  reproducibility_review: artifacts/reports/M3/c720-reproducibility-review-v1.md
+  candidate_promotion: BOUNDED_ONLY
+  outcomes: {ACCEPTED: 1, REJECTED: 1, UNRESOLVED: 1}
+  mutation_controls: 8
+  model_calls: 0
+  semantic_promotions: 0
+  full_m3: OPEN
+  non_claims: kind-expression-evaluation, processor-introspection, C719-enforcement, Fortran-parsing, full-C720-semantics
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
