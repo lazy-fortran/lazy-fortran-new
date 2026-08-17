@@ -2,9 +2,9 @@ id: "E0192"
 title: "Deterministic C724 scalar-int-constant-expr legality oracle"
 question: >
   Can a deterministic source-backed oracle enforce C724 scalar-int-constant-expr legality
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -111,3 +111,16 @@ replay:
   expected_central_commit: 9ad8283dfd855b5b8ada79ad81c583af9ba292b3
   result_sha256: 77b630d47632912a5bcd0d4c7104a451cfa5f60f548d3b1c5831a3aa648412ef
   run_environment_sha256: 04dfa661f35f4528f57ccad2fca0665fcaa8d292ee8d29a9526b0497d56e0ccc
+
+result:
+  replay_run: research/runs/2026-08.jsonl#R000494
+  review_run: research/runs/2026-08.jsonl#R000495
+  semantic_review: artifacts/reports/M3/c724-semantic-review-v1.md
+  reproducibility_review: artifacts/reports/M3/c724-reproducibility-review-v1.md
+  candidate_promotion: BOUNDED_ONLY
+  outcomes: {ACCEPTED: 1, REJECTED: 5, UNRESOLVED: 3}
+  mutation_controls: 8
+  model_calls: 0
+  semantic_promotions: 0
+  full_m3: OPEN
+  non_claims: constant-expression-evaluation, processor-introspection, Fortran-parsing, full-C724-semantics

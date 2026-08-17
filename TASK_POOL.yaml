@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c724-focused-review
+active_task: T-M3-core0-next-bounded-property-selection-after-c724
 
 milestones:
   - id: L0
@@ -3292,7 +3292,7 @@ tasks:
     title: Verify the bounded C724 scalar-int-constant-expr legality oracle
     status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-core0-next-bounded-property-selection-after-c722
@@ -3374,13 +3374,14 @@ tasks:
       - artifacts/reports/M3/m3-core0-next-property-selection-v4.md
       - research/runs/2026-08.jsonl#R000493
       - research/runs/2026-08.jsonl#R000494
+      - research/runs/2026-08.jsonl#R000495
 
   - id: T-M3-c724-focused-review
     milestone: M3
     title: Focused independent review of the C724 oracle packet
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c724-scalar-int-constant-expr-oracle
@@ -3437,6 +3438,110 @@ tasks:
       - .cache/runs/E0192/R000001/run-environment.json
       - artifacts/reports/M3/c724-semantic-review-v1.md
       - artifacts/reports/M3/c724-reproducibility-review-v1.md
+
+  - id: T-M3-core0-post-c724-reconciliation
+    milestone: M3
+    title: Reconcile retained E0181 witness coverage after bounded C724 promotion
+    status: PASS
+    verification: PASS
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c724-focused-review
+    inputs:
+      - path: research/runs/2026-08.jsonl#R000495
+      - path: research/runs/2026-08.jsonl#R000496
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+        sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
+      - path: research/experiments/E0192-can-a-deterministic-source-backed-oracle/manifest.yaml
+    writes:
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - research/runs/2026-08.jsonl
+    mode: exclusive
+    verifier: >-
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    output: artifact
+    final_observable: >-
+      a deterministic post-C724 residual inventory with no model execution,
+      no semantic-fact promotion and exact promoted-contract partition
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M3-c724-focused-review]
+    verifier_command: >-
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    evidence_paths:
+      - research/runs/2026-08.jsonl#R000492
+      - research/runs/2026-08.jsonl#R000494
+      - research/runs/2026-08.jsonl#R000495
+      - research/runs/2026-08.jsonl#R000496
+      - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+
+  - id: T-M3-core0-next-bounded-property-selection-after-c724
+    milestone: M3
+    title: Select the next bounded property after C724 promotion
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-post-c724-reconciliation
+    inputs:
+      - path: research/runs/2026-08.jsonl#R000496
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+        sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
+      - path: .cache/runs/E0181/R000002/analysis/merged/selected-rows.jsonl
+        sha256: 7dc2593a8df0e58a754fd98b04c06cfcaeef877d745b2c77fa7612d5d6f58145
+    writes:
+      - artifacts/reports/M3/m3-core0-next-property-selection-v5.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    output: contract
+    final_observable: >-
+      one exact next M3 source-backed residual property after C724 bounded
+      promotion, with its selected-row identity and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - artifacts/reports/M3/m3-core0-next-property-selection-v5.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-core0-post-c724-reconciliation]
+    verifier_command: >-
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    evidence_paths:
+      - research/runs/2026-08.jsonl#R000494
+      - research/runs/2026-08.jsonl#R000495
+      - research/runs/2026-08.jsonl#R000496
+      - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+      - .cache/runs/E0181/R000002/analysis/merged/selected-rows.jsonl
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

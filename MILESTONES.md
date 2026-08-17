@@ -449,14 +449,21 @@ The post-promotion reconciliation `R000492` reports 155 outside-promoted rows
 (88 disputed and 67 unwitnessed). Selection replay `R000493` selects C724@1;
 the next task verifies the bounded C724 oracle.
 
-## M3 — selected C724 scalar-int-constant-expr legality oracle
+## M3 — bounded C724 scalar-int-constant-expr legality oracle
 
-Selection status: `PASS`; implementation task
-`T-M3-c724-scalar-int-constant-expr-oracle` is `OPEN`. D0143/E0192 binds
-canonical lines 3450--3451 on page 83 to existing StandardIR R721 on page 84.
-The typed candidate has `value_sign = negative | nonnegative | unknown` and
-`representation_method = absent | present | unknown`. The implementation
-gate is `tests/e2e/run-m3-c724.sh --fresh`; C724 is not promoted.
+Bounded-slice status: `PASS`; implementation replay `R000494` and focused
+review `R000495` pass. D0143/E0192 binds canonical lines 3450--3451 on page
+83 to existing StandardIR R721 on page 84. The typed candidate has
+`value_sign = negative | nonnegative | unknown` and
+`representation_method = absent | present | unknown`; the complete table
+returns 1 `ACCEPTED`, 5 `REJECTED` and 3 `UNRESOLVED`, with eight mutations
+rejected and zero model calls or semantic promotions. C724 is promoted only
+as this bounded oracle slice; it does not evaluate expressions, inspect
+processors, parse Fortran or close full M3.
+
+Post-C724 reconciliation `R000496` reports 154 outside-promoted rows (88
+disputed and 66 unwitnessed). The next task selects C726@1 from that residual;
+the exact partition and handoff are recorded in `TASK_POOL.yaml`.
 
 ## M3 — bounded C601 semantic-oracle successor
 
