@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "40ec4da2f7193d3e152605bc490f19087a3aa6cc"
+  lazy-fortran-new: "8a93191"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
@@ -30,6 +30,22 @@ inputs:
   decision: research/decisions/D0146-twentieth-m3-c732-kind-param-representation-method-oracle.md
   decision_sha256: 27fed0a87ec30139cec1343cb6be12b9b2d055cfbbfbf531e218fd7c52790ca8
   source_span: "221195:107"
+  contract_schema: contracts/m3-c732-kind-param-representation-method-oracle-v0.sxs
+  contract_schema_sha256: 584da9a4e4f903542edbb33a68b19c101665bbbad356b0ced45508cedef7a442
+  contract_fixture: contracts/fixtures/m3-c732-kind-param-representation-method-oracle-v0.sx
+  contract_fixture_sha256: 7058894314da490d75b3778967ce2b82bf3dd05039d83956fd1451a78c1b4a3b
+  semantic_items: tests/fixtures/m3-c732-semantic-items.sx
+  semantic_items_sha256: 33bb75f84eddefbc0ae278745e23be9c3640b461865ec8bd537a214501d26548
+  source_fixture: tests/fixtures/m3-c732-source-backed-v0.json
+  source_fixture_sha256: 21715ec14e3fed24f52c17b7fb813282ecb197aa47af4a742bbf6daf1700ec9a
+  semantic_golden: tests/golden/m3-c732-semantic-items.sx
+  semantic_golden_sha256: 33bb75f84eddefbc0ae278745e23be9c3640b461865ec8bd537a214501d26548
+  validator: tests/e2e/validate_m3_c732.py
+  validator_sha256: 408a6584dabec263299d2cb92829b5319b92ae431971deea0a346ef9197c7ff0
+  runner: tests/e2e/run-m3-c732.sh
+  runner_sha256: 6b2f7c7f92b4b0a7903dad502b4be195731d3460364504cf11a336169cfb406d
+  trace: artifacts/traces/m3-c732-source-backed-v0.json
+  trace_sha256: 693c3690cd2a9ef61cc6cac2bea7a67b68daaac2d4dd40a39021e555ec4af1f9
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:

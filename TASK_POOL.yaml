@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c731
+active_task: T-M3-c732-kind-param-representation-method-oracle
 
 milestones:
   - id: L0
@@ -3819,9 +3819,9 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c731
     milestone: M3
     title: Select the next bounded property after C731 promotion
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c731-constant-expression-oracle
@@ -3873,7 +3873,91 @@ tasks:
     evidence_paths:
       - research/experiments/E0197-can-the-post-c731-residual-select-one-so/manifest.yaml
       - research/runs/2026-08.jsonl#R000512
+      - research/runs/2026-08.jsonl#R000513
+      - artifacts/reports/M3/m3-core0-next-property-selection-v7.md
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+
+  - id: T-M3-c732-kind-param-representation-method-oracle
+    milestone: M3
+    title: Define and implement the bounded C732 kind-parameter representation-method oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection-after-c731
+    inputs:
+      - path: research/experiments/E0197-can-the-post-c731-residual-select-one-so/manifest.yaml
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v7.md
+      - path: research/runs/2026-08.jsonl#R000513
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    writes:
+      - research/decisions/D0146-twentieth-m3-c732-kind-param-representation-method-oracle.md
+      - research/experiments/E0198-can-a-deterministic-source-backed-c732-oracle/manifest.yaml
+      - contracts/m3-c732-kind-param-representation-method-oracle-v0.sxs
+      - contracts/fixtures/m3-c732-kind-param-representation-method-oracle-v0.sx
+      - contracts/registry.sx
+      - tests/fixtures/m3-c732-source-backed-v0.json
+      - tests/fixtures/m3-c732-semantic-items.sx
+      - tests/golden/m3-c732-semantic-items.sx
+      - tests/e2e/run-m3-c732.sh
+      - tests/e2e/validate_m3_c732.py
+      - artifacts/traces/m3-c732-source-backed-v0.json
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - research/runs/2026-08.jsonl
+    mode: exclusive
+    verifier: >-
+      define one source-backed C732 contract over canonical line 3493 and
+      existing StandardIR R724; implement a deterministic
+      ACCEPTED/REJECTED/UNRESOLVED oracle over typed processor-supported,
+      processor-unsupported and unknown kind-parameter states in the
+      char-literal-constant context; include positive witnesses, negative
+      neighbours, unresolved controls and source/page/rule mutations; run the
+      clean central gate; require zero model calls and zero semantic-fact
+      promotions. Do not inspect processor capabilities, parse literals or
+      broaden C732/M3.
+    output: artifact
+    final_observable: >-
+      a replayable bounded C732 source-backed kind-parameter oracle with
+      independent validation and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0146-twentieth-m3-c732-kind-param-representation-method-oracle.md
+        - research/experiments/E0198-can-a-deterministic-source-backed-c732-oracle/manifest.yaml
+        - contracts/m3-c732-*
+        - contracts/fixtures/m3-c732-*
+        - tests/fixtures/m3-c732-*
+        - tests/golden/m3-c732-*
+        - tests/e2e/run-m3-c732.sh
+        - tests/e2e/validate_m3_c732.py
+        - artifacts/traces/m3-c732-source-backed-v0.json
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c731]
+    verifier_command: tests/e2e/run-m3-c732.sh --fresh
+    evidence_paths:
+      - research/experiments/E0197-can-the-post-c731-residual-select-one-so/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v7.md
+      - research/runs/2026-08.jsonl#R000513
+      - contracts/m3-c732-kind-param-representation-method-oracle-v0.sxs
+      - contracts/fixtures/m3-c732-kind-param-representation-method-oracle-v0.sx
+      - tests/fixtures/m3-c732-source-backed-v0.json
+      - tests/e2e/run-m3-c732.sh
+      - tests/e2e/validate_m3_c732.py
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

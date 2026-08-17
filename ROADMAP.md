@@ -93,8 +93,15 @@ R000493 selects C724@1; replay R000494 and focused review R000495 pass. C726
 replay R000504 and focused review R000505 pass; post-C726 reconciliation
 R000506 leaves 153 outside-promoted rows, with C731@1 first. Selection R000507
 binds C731 to canonical lines 3469--3470 on page 85 and existing StandardIR
-R721. The active task is
-`T-M3-core0-next-bounded-property-selection-after-c731`.
+R721. E0197 selection replay R000513 binds C732 canonical line 3493, page 85,
+byte span `221195:107`, to existing StandardIR R724
+(`char-literal-constant`). The active task is
+`T-M3-c732-kind-param-representation-method-oracle`. Its typed contract
+accepts only a processor-supported kind parameter in that source-named
+context, rejects a processor-unsupported value there, and returns
+`UNRESOLVED` for unknown states or other contexts. It does not discover
+processor capabilities, parse literals or perform general semantic analysis.
+Full M3 remains open.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing

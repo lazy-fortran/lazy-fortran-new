@@ -488,7 +488,10 @@ M3 remains open.
 
 Post-C731 reconciliation `R000512` reports 152 outside-promoted rows (88
 disputed and 64 unwitnessed), with C732@1 first. The next controller task is
-selection of one source-backed bounded property; full M3 remains open.
+selection of one source-backed bounded property; selection replay `R000513`
+binds C732 canonical line 3493, page 85, byte span `221195:107`, to existing
+StandardIR R724 (`char-literal-constant`). The next task is the bounded C732
+kind-parameter representation-method oracle; full M3 remains open.
 
 Regenerate the C731 result with:
 
