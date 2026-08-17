@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c726-type-param-star-context-oracle
+active_task: T-M3-core0-next-bounded-property-selection-after-c726
 
 milestones:
   - id: L0
@@ -3551,9 +3551,9 @@ tasks:
   - id: T-M3-c726-type-param-star-context-oracle
     milestone: M3
     title: Define and implement the bounded C726 type-param-value star-context oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-core0-next-bounded-property-selection-after-c724
@@ -3579,6 +3579,8 @@ tasks:
       - artifacts/reports/M3/c726-reproducibility-review-v1.md
       - artifacts/reports/M3/c726-semantic-review-v2.md
       - artifacts/reports/M3/c726-reproducibility-review-v2.md
+      - artifacts/reports/M3/c726-semantic-review-v3.md
+      - artifacts/reports/M3/c726-reproducibility-review-v3.md
       - STATUS.md
       - MILESTONES.md
       - ROADMAP.md
@@ -3635,6 +3637,8 @@ tasks:
       - research/runs/2026-08.jsonl#R000502
       - research/runs/2026-08.jsonl#R000503
       - research/runs/2026-08.jsonl#R000504
+      - research/runs/2026-08.jsonl#R000505
+      - research/runs/2026-08.jsonl#R000506
       - .cache/runs/E0194/R000004/result.json
         sha256: 36c742c9c53fcd57f35597ea473c6b249abea54af13ed1ebf85e496f25e0b4b6
       - .cache/runs/E0194/R000004/run-environment.json
@@ -3649,6 +3653,66 @@ tasks:
       - artifacts/reports/M3/c726-reproducibility-review-v1.md
       - artifacts/reports/M3/c726-semantic-review-v2.md
       - artifacts/reports/M3/c726-reproducibility-review-v2.md
+      - artifacts/reports/M3/c726-semantic-review-v3.md
+      - artifacts/reports/M3/c726-reproducibility-review-v3.md
+
+  - id: T-M3-core0-next-bounded-property-selection-after-c726
+    milestone: M3
+    title: Select the next bounded property after C726 promotion
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c726-type-param-star-context-oracle
+    inputs:
+      - path: research/runs/2026-08.jsonl#R000505
+      - path: research/runs/2026-08.jsonl#R000506
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+        sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
+    writes:
+      - research/experiments/E0195-can-the-post-c726-residual-select-one-source-backed-property/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v6.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      run the exact promoted-contract residual partition with C726 included;
+      confirm 153 residual rows, 88 disputed, 65 unwitnessed and first row
+      C731@1; inspect that row's pinned canonical source and existing
+      StandardIR shape; select exactly one source-backed bounded property with
+      no model execution or semantic promotion. Do not broaden the semantic
+      lane or start general parsing.
+    output: contract
+    final_observable: >-
+      one exact next M3 source-backed residual property after C726 bounded
+      promotion, with its source identity and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/experiments/E0195-can-the-post-c726-residual-select-one-source-backed-property/manifest.yaml
+        - artifacts/reports/M3/m3-core0-next-property-selection-v6.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c726-type-param-star-context-oracle]
+    verifier_command: >-
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    evidence_paths:
+      - research/runs/2026-08.jsonl#R000504
+      - research/runs/2026-08.jsonl#R000505
+      - research/runs/2026-08.jsonl#R000506
+      - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

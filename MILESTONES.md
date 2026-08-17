@@ -7,8 +7,9 @@ milestone ledger.
 ## Current verification state
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
-replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603, C721
-and C725 slices are promoted by their central verifiers and focused reviews.
+replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603, C721,
+C725 and C726 slices are promoted by their central verifiers and focused
+reviews.
 The bounded C718 slice is promoted by its corrected replay and focused reviews.
 The bounded C723 slice is promoted by replay `R000037` and focused review
 `R000038`. The bounded C729 slice is promoted by replay `R000042` and focused
@@ -462,11 +463,24 @@ as this bounded oracle slice; it does not evaluate expressions, inspect
 processors, parse Fortran or close full M3.
 
 Post-C724 reconciliation `R000496` reports 154 outside-promoted rows (88
-disputed and 66 unwitnessed). The next task selects C726@1 from that residual;
-selection replay `R000497` passes with no semantic promotion. C726 is not yet
-promoted: its normative span crosses pages 84--85 and binds to existing
-StandardIR R721/R722/R723. The next task is the bounded C726 contract, with
-the page-boundary witness retained as a required negative control.
+disputed and 66 unwitnessed). Selection replay `R000497` selects C726@1 from
+that residual without semantic promotion.
+
+## M3 — bounded C726 type-param-value star-context oracle
+
+Bounded-slice status: `PASS`; current clean replay `R000504` and focused review
+`R000505` pass. D0144/E0194 bind canonical lines 3453--3457 and 3460--3461,
+across pages 84--85, to existing StandardIR R721/R722/R723. The typed
+candidate varies `type_param_value = star | explicit | unknown` and seven
+source-named context states. The complete table returns 17 `ACCEPTED`, 1
+`REJECTED` and 3 `UNRESOLVED`; twelve source, page, identity and boundary
+mutations reject. The independent validator records zero model calls and zero
+semantic promotions. C726 is promoted only as this bounded oracle slice; it
+does not parse Fortran, infer context, claim full C726 semantics or close M3.
+
+The post-C726 reconciliation `R000506` reports 153 outside-promoted rows (88
+disputed and 65 unwitnessed), with C731@1 first. The next task selects one
+source-backed property from that residual; full M3 remains open.
 
 ## M3 — bounded C601 semantic-oracle successor
 

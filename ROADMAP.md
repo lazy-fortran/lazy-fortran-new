@@ -61,10 +61,12 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through seventeen bounded contracts, including C717, C720, C722 and C724.
-C724 is promoted only as its bounded scalar-int-constant-expr oracle; the
-post-C724 reconciliation R000496 and selection R000497 pass, and the current
-task is the bounded C726 type-param-value star-context oracle.
+through eighteen bounded contracts, including C717, C720, C722, C724 and C726.
+C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
+promoted only as its bounded type-param-value star-context oracle; replay
+R000504 and focused review R000505 pass, post-C726 reconciliation R000506
+leaves 153 residual rows, and the current task selects the next bounded
+source-backed property.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -84,9 +86,10 @@ durability failure. C717 is promoted as a bounded slice. C720 clean replay
 R000486 and focused review R000487 pass with an explicit
 expected central worktree revision. C720 is promoted as a bounded slice.
 C722 replay R000490 and focused review R000491 also pass. Selection replay
-R000493 selects C724@1; replay R000494 and focused review R000495 pass. Post-C724
-reconciliation R000496 and selection R000497 pass; the active task is
-`T-M3-c726-type-param-star-context-oracle`.
+R000493 selects C724@1; replay R000494 and focused review R000495 pass. C726
+replay R000504 and focused review R000505 pass; post-C726 reconciliation
+R000506 leaves 153 outside-promoted rows, with C731@1 first. The active task is
+`T-M3-core0-next-bounded-property-selection-after-c726`.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -418,13 +421,29 @@ pass with 1 `ACCEPTED`, 5 `REJECTED`, 3 `UNRESOLVED`, eight mutation failures,
 zero model calls and zero semantic promotions. The post-C724 reconciliation
 `R000496` leaves 154 outside-promoted rows (88 disputed and 66 unwitnessed),
 with C726@1 first. Selection R000497 records the source span across pages
-84--85 and the existing StandardIR R721/R722/R723 shapes. The next executable
-task is `T-M3-c726-type-param-star-context-oracle`; the residual inventory
-remains available through this exact verifier:
+84--85 and the existing StandardIR R721/R722/R723 shapes. C726 is promoted
+only as its bounded type-param-value star-context oracle: replay R000504 and
+focused review R000505 pass with 17 `ACCEPTED`, 1 `REJECTED`, 3 `UNRESOLVED`,
+twelve mutation failures and zero model calls or semantic promotions.
+Post-C726 reconciliation R000506 leaves 153 residual rows (88 disputed and 65
+unwitnessed), with C731@1 first. The next executable task is
+`T-M3-core0-next-bounded-property-selection-after-c726`; the residual
+inventory remains available through this exact verifier:
 
 ```text
-jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
+
+## M3 — bounded C726 type-param-value star-context oracle
+
+Bounded-slice status: `PASS`; E0194 replay `R000504` and focused review
+`R000505` pass at the immutable replay commit `ae6f214`. D0144 binds the
+complete source span `217828:518`, canonical lines 3453--3457 and 3460--3461
+across pages 84--85, to StandardIR R721/R722/R723. The independent validator
+checks the full 21-state typed relation and twelve mutations: 17 `ACCEPTED`,
+1 `REJECTED`, 3 `UNRESOLVED`, with zero model calls and semantic promotions.
+This is a bounded oracle only; it does not parse Fortran, infer context or
+close full C726/M3. R000506 is the post-promotion residual reconciliation.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
@@ -1877,13 +1896,15 @@ C725 in D0130/E0180, C718 in D0131/E0182, C723 in D0132/E0183 and C729 in
 D0133/E0184, and C719 in D0134/E0185. D0135/E0186 is the promoted C738
 slice, D0136/D0137/E0187 is the promoted C1579 slice, and D0138/E0188 is the
 promoted C1586 slice and bounded C717 slice; C720 and C722 are also promoted
-bounded slices. D0143/E0192 adds the seventeenth bounded C724 oracle. The E0181
+bounded slices. D0143/E0192 adds the seventeenth bounded C724 oracle, and
+D0144/E0194 adds the eighteenth bounded C726 oracle. The E0181
 Core 0 audit, pre-C717 reconciliation and post-promotion reconciliations are
-recorded as R000074 through R000076, R000482, R000488, R000492 and R000496;
-154 outside-promoted witness rows remain (88 disputed and 66 unwitnessed).
-Full M3 remains open. Selection R000497 chooses C726@1; the next task defines
-and implements its bounded oracle with the page-84/page-85 boundary retained
-as a negative control.
+recorded as R000074 through R000076, R000482, R000488, R000492, R000496 and
+R000506; 153 outside-promoted witness rows remain (88 disputed and 65
+unwitnessed). Full M3 remains open. R000504/R000505 verify the bounded C726
+source-backed oracle over the page-84/page-85 span; the next task selects one
+source-backed property from the remaining residual. No semantic fact is
+promoted.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

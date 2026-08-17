@@ -2,9 +2,9 @@ id: "E0194"
 title: "Deterministic C726 type-param-value star-context oracle"
 question: >
   Can a deterministic source-backed oracle classify C726 type-param-value star use from explicit typed context states?
-status: running         # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -128,5 +128,8 @@ result:
   model_calls: 0
   semantic_promotions: 0
   full_m3: OPEN
-  focused_review: PENDING
+  focused_review: research/runs/2026-08.jsonl#R000505
+  semantic_review: artifacts/reports/M3/c726-semantic-review-v3.md
+  reproducibility_review: artifacts/reports/M3/c726-reproducibility-review-v3.md
+  focused_review_status: PASS
   non_claims: Fortran-parsing, context-inference, type-parameter-evaluation, full-C726-semantics
