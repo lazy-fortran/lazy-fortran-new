@@ -18,6 +18,7 @@ case "$active" in
     L0\ *) "$ROOT/scripts/run_e2e.sh" "$@" ;;
     L1\ *) "$ROOT/tests/e2e/run-l1.sh" "$@" ;;
     L2\ *) "$ROOT/tests/e2e/run-l2.sh" "$@" ;;
+    L3\ *) "$ROOT/tests/e2e/run-l3.sh" "$@" ;;
     M1-M2\ *) "$ROOT/tests/e2e/run-m1m2.sh" "$@" ;;
     M3\ *) "$ROOT/tests/e2e/run-m3-c748.sh" --fresh ;;
     *) die "no central runner is implemented for active milestone: $active" ;;

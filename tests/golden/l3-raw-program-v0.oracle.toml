@@ -1,0 +1,6 @@
+boundary = "raw-source-to-frontend-v0-to-mir-v0-to-riscv64-linux-v0"
+frontend_status = "accepted"
+frontend_root_kind = "program"
+mir_function_name = "main"
+mir_instruction_count = 2
+runtime_exit_status = 0

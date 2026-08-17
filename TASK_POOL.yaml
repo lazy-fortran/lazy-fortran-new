@@ -6983,7 +6983,7 @@ tasks:
       - path: contracts/fixtures/l3-raw-program-v0.sx
         sha256: 9bcb7c1e6147f8d7f50603cf892cc6288d27fb60b02842573d02558fe7ef1de9
       - component: fortfront-new
-        commit: 73cf2af7a1ee7c13bae302868dc1595aa4ed0a79
+        commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
     output: raw-source frontend-v0 producer commit
     integration: controller-only
     estimated_cost: medium
