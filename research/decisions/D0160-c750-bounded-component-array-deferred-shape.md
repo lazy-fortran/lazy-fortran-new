@@ -1,14 +1,14 @@
 # D0160. C750 bounded component-array deferred-shape oracle
 
 Date: 2026-08-17
-Status: proposed
+Status: accepted
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
-## Decision needed
+## Acceptance
 
-Accept this bounded C750 leaf only after the fresh replay and focused
-independent review both pass with the control-plane evidence recorded by
-E0218/R000004 and its successor review run.
+The fresh replay, focused independent review and evidence gate pass at the
+frozen control-plane revision. This accepts only the bounded C750 oracle leaf;
+the parent M3 claim remains open.
 
 ## Context
 
@@ -20,7 +20,7 @@ mutation controls, zero model calls and zero semantic promotions.
 
 ## Decision
 
-Retain the C750 typed relation as a bounded oracle candidate:
+Promote only the bounded C750 typed relation:
 
 ```text
 component-def-stmt + present + deferred-shape-list  ACCEPTED
@@ -36,7 +36,7 @@ or close full M3.
 
 * Treating the deterministic replay as a complete C750 semantic implementation.
 * Combining C750 with C751 or C754.
-* Promoting the leaf before an independent review of the frozen replay packet.
+* Promoting the C750 relation as a complete semantic implementation.
 
 ## Reversal condition
 
@@ -47,8 +47,12 @@ reproducibility defect, or if an independent mutation control is accepted.
 
 * `research/runs/2026-08.jsonl#R000594` records the C750 selection.
 * `research/runs/2026-08.jsonl#R000596` records the clean C750 replay.
-* `artifacts/reports/M3/m3-c750-source-backed-v0.md` records the bounded
+* `research/runs/2026-08.jsonl#R000597` records the focused review and evidence
+  gate.
+* `artifacts/reports/M3/m3-c750-source-backed-v1.md` records the bounded
   result and non-claims.
+* `artifacts/reports/M3/m3-c750-focused-review-v1.md` records the two passing
+  independent review lanes.
 * `.cache/runs/E0218/R000004/result.json` and its run-environment record pin
   the replay outputs and toolchain.
 

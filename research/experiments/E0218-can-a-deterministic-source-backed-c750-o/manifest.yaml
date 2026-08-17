@@ -95,15 +95,18 @@ gate: >-
 # Script that turns runs into the tables and figures in report.md.
 analysis: >-
   Controller-owned bounded C750 replay report
-  artifacts/reports/M3/m3-c750-source-backed-v0.md
+  artifacts/reports/M3/m3-c750-source-backed-v1.md
 
 result:
   run: research/runs/2026-08.jsonl#R000596
   central_revision: 7c0bf9740450f26d6bcf879c4a980c7e0d58ce6c
   functional_revision: 474ad0c
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
-  report: artifacts/reports/M3/m3-c750-source-backed-v0.md
-  report_sha256: b1d898c8cd9a257dd49b9670536f1c45ab0f617cb338baf64af738195593f604
+  report: artifacts/reports/M3/m3-c750-source-backed-v1.md
+  report_sha256: 4b59c498806ab2fc3a79e1ffcad84693141a37d9dad67b744d055ceae71ef3a7
+  focused_review: artifacts/reports/M3/m3-c750-focused-review-v1.md
+  focused_review_sha256: 713cbd779d3d6acfc759cf94140c52e5f5af7e3e94ee856302b9fd474c242cb7
+  focused_review_run: research/runs/2026-08.jsonl#R000597
   trace: artifacts/traces/m3-c750-source-backed-v0.json
   trace_sha256: 026f59e792809db1aa5e466e0ed8086e1c1922f8ee4a3cbe302db8d82c85d2c0
   result: .cache/runs/E0218/R000004/result.json
@@ -111,9 +114,9 @@ result:
   run_environment: .cache/runs/E0218/R000004/run-environment.json
   run_environment_sha256: 59bf6fc7e6e54121a40c1eb45db864345bddc681608f91addd41095e4f26a12e
   decision: research/decisions/D0160-c750-bounded-component-array-deferred-shape.md
-  decision_sha256: bd3e7cea479e48d0e7807e9e58ca34d505fc6c29a93950ae845f02e219ebea4a
+  decision_sha256: 91a74c6eead81342e04c86fda7e23b0246790a6cc4bc837cd766122627d2a21f
   outcome_counts: {accepted: 1, rejected: 1, unresolved: 25}
   mutation_controls: 12
   model_calls: 0
   semantic_promotions: 0
-  status: PASS-BOUNDED-ONLY-REVIEW-PENDING
+  status: PASS-BOUNDED-ONLY

@@ -61,7 +61,7 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through twenty-nine bounded contracts. E0210 replay R000566 and focused review
+through thirty bounded contracts. E0210 replay R000566 and focused review
 R000567 pass for C746, which is promoted only as a bounded typed membership
 oracle. The post-C746 residual partition has 145 rows, 84 disputed and 61
 unwitnessed, with C747@1 first. R000568 selects C747's bounded occurrence-
@@ -78,10 +78,11 @@ pass the bounded C749 component-type eligibility oracle. It is promoted only
 as a bounded leaf with 4 `ACCEPTED`, 1 `REJECTED`, 49 `UNRESOLVED`, twelve
 rejected mutations, zero model calls and zero semantic promotions. E0217/R000594
 selects C750@1 at canonical lines 3838--3839, printed page 79, byte span
-`241058:135`, over existing StandardIR R737/R740. E0218/R000595 passes the
-bounded C750 replay with 1 `ACCEPTED`, 1 `REJECTED`, 25 `UNRESOLVED`, twelve
-rejected mutations, zero model calls and zero semantic promotions. Focused
-review remains pending; full M3 remains open.
+`241058:135`, over existing StandardIR R737/R740. E0218/R000596 and focused
+review/evidence gate R000597 pass the bounded C750 replay with 1 `ACCEPTED`, 1
+`REJECTED`, 25 `UNRESOLVED`, twelve rejected mutations, zero model calls and
+zero semantic promotions. C750 is promoted only as a bounded leaf; full M3
+remains open.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -630,14 +631,14 @@ allocatable-attribute state × component-array-spec state × component-def-stmt
 context. The bounded oracle will accept present + deferred-shape-list in that
 context, reject present + explicit-shape-list there, and return `UNRESOLVED`
 otherwise. The selection made zero model calls and no semantic promotion.
-E0218/R000595 passes the technical replay with 1 `ACCEPTED`, 1 `REJECTED`, 25
+E0218/R000596 passes the technical replay with 1 `ACCEPTED`, 1 `REJECTED`, 25
 `UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
-promotions. Focused review remains pending; full M3 remains open.
+promotions. Focused review/evidence gate R000597 passes; full M3 remains open.
 
 ## M3 — bounded C750 component-array deferred-shape oracle
 
-Technical replay status: `PASS` in E0218/R000595; focused independent review
-is pending, so the bounded leaf is not yet promoted. The source is J3-24-007
+Bounded-slice status: `PASS` in E0218/R000596; focused review/evidence gate
+R000597 also passes, so C750 is promoted only as a bounded leaf. The source is J3-24-007
 clause 7, canonical lines 3838--3839, printed page 79, byte span
 `241058:135`, page-index record 93, over existing StandardIR R737/R740. The
 27-state typed product yields 1 `ACCEPTED`, 1 `REJECTED` and 25 `UNRESOLVED`
@@ -647,12 +648,12 @@ The replay makes zero model calls and zero semantic promotions.
 Replay command:
 
 ```text
-M3_C750_EXPECTED_CENTRAL_COMMIT=3aeb547cb5d12a7a7e8024dc4314f603e59e9264 tests/e2e/run-m3-c750.sh --fresh
+M3_C750_EXPECTED_CENTRAL_COMMIT=7c0bf9740450f26d6bcf879c4a980c7e0d58ce6c tests/e2e/run-m3-c750.sh --fresh
 ```
 
-Evidence: E0218 manifest, D0160, replay report and R000595. This does not
-parse arbitrary Fortran, perform name resolution or close full M3. Promotion
-awaits focused review of the frozen replay packet.
+Evidence: E0218 manifest, D0160, replay reports, focused review report and
+R000596--R000597. This does not parse arbitrary Fortran, perform name
+resolution or close full M3.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
@@ -692,8 +693,9 @@ corrected replay R000574 and focused review R000575 pass, promoting only this
 bounded leaf. R000576 selects C748@1; corrected replay R000579 and focused
 review R000580 promote it only as a bounded at-most-once leaf. C749 corrected replay
 R000593 and focused review/evidence gate R000592 pass. E0217/R000594 selects
-C750@1, so the next active task is
-`T-M3-c750-component-array-spec-deferred-shape-oracle`.
+C750@1; E0218/R000596 and focused review/evidence gate R000597 promote C750
+only as a bounded leaf. The next active task is
+`T-M3-core0-next-bounded-property-selection-after-c750`.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

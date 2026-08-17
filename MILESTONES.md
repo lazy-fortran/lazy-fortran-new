@@ -25,6 +25,10 @@ remains open. `R000479` retains the repaired central-revision failure.
 C735 is promoted by replay `R000527` and focused review `R000528`; C743 is
 promoted only as its bounded oracle leaf by replay `R000531` and focused review
 `R000532`. Full M3 remains open.
+The C749 bounded oracle passes replay `R000593` and focused review/evidence gate
+`R000592`. The C750 bounded oracle passes replay `R000596` and focused
+review/evidence gate `R000597`; both are bounded leaves only, and full M3
+remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -845,25 +849,27 @@ StandardIR R737/R740. D0159 defines the typed candidate as pointer-or-
 allocatable-attribute state × component-array-spec state × component-def-stmt
 context. The bounded oracle accepts present + deferred-shape-list in that
 context, rejects present + explicit-shape-list there, and returns
-`UNRESOLVED` otherwise. E0218/R000595 passes the technical replay with 1
+`UNRESOLVED` otherwise. E0218/R000596 passes the technical replay with 1
 `ACCEPTED`, 1 `REJECTED`, 25 `UNRESOLVED`, twelve rejected mutations, zero
-model calls and zero semantic promotions. Focused review remains pending; full
-M3 remains open.
+model calls and zero semantic promotions. Focused review/evidence gate R000597
+passes; full M3 remains open.
 
 ## M3 — bounded C750 component-array deferred-shape oracle
 
-Technical replay status: `PASS` in E0218/R000595; focused independent review
-is pending, so this bounded leaf is not yet promoted. The exact command is:
+Bounded-slice status: `PASS` in E0218/R000596; focused review/evidence gate
+R000597 also passes, so C750 is promoted only as a bounded leaf. The exact
+command is:
 
 ```text
-M3_C750_EXPECTED_CENTRAL_COMMIT=3aeb547cb5d12a7a7e8024dc4314f603e59e9264 tests/e2e/run-m3-c750.sh --fresh
+M3_C750_EXPECTED_CENTRAL_COMMIT=7c0bf9740450f26d6bcf879c4a980c7e0d58ce6c tests/e2e/run-m3-c750.sh --fresh
 ```
 
 The 27-state product binds C750 canonical lines 3838--3839, printed page 79,
 byte span `241058:135`, page-index record 93, and StandardIR R737/R740. It
 produces 1 `ACCEPTED`, 1 `REJECTED` and 25 `UNRESOLVED` outcomes, rejects
 twelve mutations, and records zero model calls and zero semantic promotions.
-This does not parse arbitrary Fortran or close full M3.
+Evidence: E0218 manifest, D0160, replay reports, focused review report and
+R000596--R000597. This does not parse arbitrary Fortran or close full M3.
 
 ## M3 — bounded C601 semantic-oracle successor
 
