@@ -1,0 +1,846 @@
+{
+  "schema_version": "m3-c749-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "component-def-stmt-component-type-eligibility",
+  "contract": {
+    "schema": "contracts/m3-c749-component-type-eligibility-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c749-component-type-eligibility-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C749",
+    "printed_page": 79,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {
+        "line": 3835,
+        "text": "C749 (R737) If neither the POINTER nor the ALLOCATABLE attribute is specified, the declaration-type-"
+      },
+      {
+        "line": 3836,
+        "text": "spec in the component-def-stmt shall specify an intrinsic type, or a previously defined derived, enum, or"
+      },
+      {
+        "line": 3837,
+        "text": "enumeration type."
+      }
+    ],
+    "source_span": {
+      "byte_start": 240824,
+      "byte_length": 234,
+      "page_start": 93,
+      "page_end": 93
+    },
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [
+        {
+          "page": 93,
+          "start": 239957,
+          "length": 2451
+        }
+      ]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {
+          "rule": "R703",
+          "lhs": "declaration-type-spec",
+          "page": 77,
+          "byte_start": 197098,
+          "byte_length": 309,
+          "occurrence": 53
+        },
+        {
+          "rule": "R737",
+          "lhs": "data-component-def-stmt",
+          "page": 93,
+          "byte_start": 240182,
+          "byte_length": 115,
+          "occurrence": 87
+        }
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c749-semantic-items.sx",
+    "sha256": "70838c6a2d651a02f57689d7ccff315fc3c106ee8166d8d0cbf4c90b9d73cacd",
+    "id": "S-C749",
+    "subject": "component-def-stmt-component-type-eligibility",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C749",
+    "page": 79,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-absent-intrinsic-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "intrinsic",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-intrinsic-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "intrinsic",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-intrinsic-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "intrinsic",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-previously-defined-derived-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-previously-defined-derived-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-previously-defined-derived-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-enum-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "enum",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-enum-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "enum",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-enum-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "enum",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-enumeration-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "enumeration",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-enumeration-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "enumeration",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-enumeration-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "enumeration",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "negative-absent-other-component-def-stmt",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "other",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-other-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "other",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-other-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "other",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "unknown",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "absent",
+        "declaration_type_category": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-intrinsic-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "intrinsic",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-intrinsic-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "intrinsic",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-intrinsic-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "intrinsic",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-previously-defined-derived-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-previously-defined-derived-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-previously-defined-derived-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-enum-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "enum",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-enum-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "enum",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-enum-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "enum",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-enumeration-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "enumeration",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-enumeration-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "enumeration",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-enumeration-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "enumeration",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-other-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "other",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-other-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "other",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-other-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "other",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "unknown",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "present",
+        "declaration_type_category": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-intrinsic-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "intrinsic",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-intrinsic-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "intrinsic",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-intrinsic-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "intrinsic",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-previously-defined-derived-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-previously-defined-derived-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-previously-defined-derived-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "previously-defined-derived",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-enum-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "enum",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-enum-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "enum",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-enum-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "enum",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-enumeration-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "enumeration",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-enumeration-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "enumeration",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-enumeration-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "enumeration",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-other-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "other",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-other-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "other",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-other-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "other",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "unknown",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-type-eligibility",
+        "source_rule": "C749",
+        "pointer_or_allocatable_attribute": "unknown",
+        "declaration_type_category": "unknown",
+        "context": "unknown"
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "id": "source-rule",
+      "path": [
+        "source",
+        "rule"
+      ],
+      "value": "C750"
+    },
+    {
+      "id": "printed-page",
+      "path": [
+        "source",
+        "printed_page"
+      ],
+      "value": 78
+    },
+    {
+      "id": "canonical-hash",
+      "path": [
+        "source",
+        "canonical_text_sha256"
+      ],
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "span-start",
+      "path": [
+        "source",
+        "source_span",
+        "byte_start"
+      ],
+      "value": 240825
+    },
+    {
+      "id": "span-length",
+      "path": [
+        "source",
+        "source_span",
+        "byte_length"
+      ],
+      "value": 233
+    },
+    {
+      "id": "canonical-line",
+      "path": [
+        "source",
+        "canonical_lines",
+        0,
+        "text"
+      ],
+      "value": "C749 mutated"
+    },
+    {
+      "id": "page-index-hash",
+      "path": [
+        "source",
+        "page_index",
+        "sha256"
+      ],
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "page-index-start",
+      "path": [
+        "source",
+        "page_index",
+        "pages",
+        0,
+        "start"
+      ],
+      "value": 239958
+    },
+    {
+      "id": "standardir-hash",
+      "path": [
+        "source",
+        "standardir",
+        "sha256"
+      ],
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "standardir-rule",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        1,
+        "rule"
+      ],
+      "value": "R738"
+    },
+    {
+      "id": "semantic-item-hash",
+      "path": [
+        "semantic_item",
+        "sha256"
+      ],
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "contract-version",
+      "path": [
+        "contract",
+        "version"
+      ],
+      "value": 1
+    }
+  ]
+}

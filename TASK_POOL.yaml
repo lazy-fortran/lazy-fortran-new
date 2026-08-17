@@ -5606,7 +5606,12 @@ tasks:
         sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
     writes:
       - contracts/m3-c749-component-type-eligibility-v0.sxs
+      - contracts/fixtures/m3-c749-component-type-eligibility-v0.sx
+      - contracts/registry.sx
       - tests/fixtures/m3-c749-expected-outcomes-v0.json
+      - tests/fixtures/m3-c749-source-backed-v0.json
+      - tests/fixtures/m3-c749-semantic-items.sx
+      - tests/golden/m3-c749-semantic-items.sx
       - tests/e2e/run-m3-c749.sh
       - tests/e2e/validate_m3_c749.py
       - artifacts/traces/m3-c749-source-backed-v0.json
