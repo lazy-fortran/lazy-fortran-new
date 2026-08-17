@@ -866,7 +866,12 @@ name-shape witnesses. D0171 selects a bounded typed implication over
 `pass_argument_state` and `dummy_name_relation`; the implementation task is
 `T-M3-c763-pass-arg-name-oracle`. It must remain a deterministic oracle slice,
 with negative neighbours, mutation controls and zero model-driven promotion;
-it does not parse procedure interfaces, infer names or close full M3.
+it does not parse procedure interfaces, infer names or close full M3. R000641
+passes the pin-aligned clean replay with 4 `ACCEPTED`, 1 `REJECTED`, 4
+`UNRESOLVED`, 15 rejected mutations, zero model calls and zero semantic
+promotions. Focused review R000642 passes with two independent reviewers.
+C763 is promoted only as this bounded oracle leaf; the required
+post-promotion regression remains before C764 selection.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 

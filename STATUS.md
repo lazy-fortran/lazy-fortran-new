@@ -342,6 +342,13 @@ controls and zero model-driven promotion. The completed C761 verifier was
 `tests/e2e/run-m3-c759.sh --fresh`; its pushed clean regression is R000628 at
 central `c7041685dc0a0a35394cc2b37b34616b2a626929`.
 
+C763 implementation replay R000641 and focused review R000642 pass. The
+corrected validator checks complete schema/witness fields and the exact
+15-control inventory. The bounded C763 leaf records 4 `ACCEPTED`, 1
+`REJECTED`, 4 `UNRESOLVED`, zero model calls and zero semantic promotions;
+full M3 remains open. Post-promotion regression is the remaining executable
+handoff before selecting C764.
+
 The completed C754 verifier was `tests/e2e/run-m3-c754.sh --fresh`. Its
 27-state typed product crosses pointer attribute, allocatable attribute and
 component-array-spec shape, each `absent`, `present` or `unknown`; it produced
@@ -441,21 +448,19 @@ Regenerate the E0181 counts with:
 E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
 ```
 
-Current M3 state: C762 is closed as a bounded oracle leaf. Its replay,
-two-review evidence gate and post-promotion regression pass. The remaining
-blocker is the scope itself—full M3 still lacks a complete semantic verifier
-and does not parse arbitrary Fortran. The next implementation is the bounded
-C763 PASS-argument-name oracle; its source selection is closed in R000635 and
-the implementation task is `T-M3-c763-pass-arg-name-oracle`.
+Current M3 state: C763 is promoted only as a bounded oracle leaf after its
+pin-aligned replay and two-review evidence gate. The remaining blocker is the
+scope itself—full M3 still lacks a complete semantic verifier and does not
+parse arbitrary Fortran. The next executable action is the post-promotion
+C763 regression; after it passes, select C764 from the deterministic residual.
 
 ## Next executable task
 
-Implement and centrally verify the bounded C763 PASS-argument-name oracle.
-Use the exact contract and verifier in `TASK_POOL.yaml`. Do not run a model,
-restart E0172, parse general Fortran, infer interfaces or scopes, or promote a
-semantic fact. The implementation must remain in an isolated medium Luna
-worktree; only the controller may integrate, review, promote the bounded leaf,
-and push central evidence.
+Run the pushed clean post-promotion replay for C763 using the exact verifier in
+`TASK_POOL.yaml`, then record the regression and select C764. Do not run a
+model, restart E0172, parse general Fortran, infer interfaces or scopes, or
+promote a semantic fact. Only the controller may update the central task,
+promotion and regression evidence.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

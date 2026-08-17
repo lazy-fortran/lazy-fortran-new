@@ -100,8 +100,10 @@ analysis: >-
 result:
   technical_run: research/runs/2026-08.jsonl#R000641
   technical_status: PASS-REVIEW-FROZEN
-  promotion_status: PENDING-REVIEW
+  promotion_status: PASS-BOUNDED-ONLY
   report: artifacts/reports/M3/m3-c763-source-backed-v4.md
+  review_run: research/runs/2026-08.jsonl#R000642
+  review_report: artifacts/reports/M3/m3-c763-focused-review-v2.md
   result: .cache/runs/E0231/R000009/result.json
   result_sha256: 110fadb92abcf50a28fb0248c8d1636009bbf0f36b833fc3a1efc760d7fe8223
   trace: artifacts/traces/m3-c763-source-backed-v0.json
