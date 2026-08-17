@@ -103,3 +103,11 @@ gate: >
 # Script that turns runs into the tables and figures in report.md.
 analysis: tests/e2e/validate_m3_c724.py
 run: tests/e2e/run-m3-c724.sh --fresh
+
+replay:
+  run: research/runs/2026-08.jsonl#R000494
+  functional_revision: 0d9a97fabf877c6b62010a03507a2f0f57f0a737
+  central_worktree_commit: 9ad8283dfd855b5b8ada79ad81c583af9ba292b3
+  expected_central_commit: 9ad8283dfd855b5b8ada79ad81c583af9ba292b3
+  result_sha256: 77b630d47632912a5bcd0d4c7104a451cfa5f60f548d3b1c5831a3aa648412ef
+  run_environment_sha256: 04dfa661f35f4528f57ccad2fca0665fcaa8d292ee8d29a9526b0497d56e0ccc

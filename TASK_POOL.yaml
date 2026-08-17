@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c724-scalar-int-constant-expr-oracle
+active_task: T-M3-c724-focused-review
 
 milestones:
   - id: L0
@@ -3290,8 +3290,8 @@ tasks:
   - id: T-M3-c724-scalar-int-constant-expr-oracle
     milestone: M3
     title: Verify the bounded C724 scalar-int-constant-expr legality oracle
-    status: OPEN
-    verification: NOT_STARTED
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on:
@@ -3301,6 +3301,11 @@ tasks:
       - path: research/experiments/E0192-can-a-deterministic-source-backed-oracle/manifest.yaml
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v4.md
       - path: research/runs/2026-08.jsonl#R000493
+      - path: research/runs/2026-08.jsonl#R000494
+      - path: .cache/runs/E0192/R000001/result.json
+        sha256: 77b630d47632912a5bcd0d4c7104a451cfa5f60f548d3b1c5831a3aa648412ef
+      - path: .cache/runs/E0192/R000001/run-environment.json
+        sha256: 04dfa661f35f4528f57ccad2fca0665fcaa8d292ee8d29a9526b0497d56e0ccc
       - path: contracts/m3-c724-scalar-int-constant-expr-oracle-v0.sxs
       - path: contracts/fixtures/m3-c724-scalar-int-constant-expr-oracle-v0.sx
       - path: tests/fixtures/m3-c724-semantic-items.sx
@@ -3368,6 +3373,70 @@ tasks:
       - research/experiments/E0192-can-a-deterministic-source-backed-oracle/manifest.yaml
       - artifacts/reports/M3/m3-core0-next-property-selection-v4.md
       - research/runs/2026-08.jsonl#R000493
+      - research/runs/2026-08.jsonl#R000494
+
+  - id: T-M3-c724-focused-review
+    milestone: M3
+    title: Focused independent review of the C724 oracle packet
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c724-scalar-int-constant-expr-oracle
+    inputs:
+      - path: research/experiments/E0192-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - path: research/runs/2026-08.jsonl#R000494
+      - path: .cache/runs/E0192/R000001/result.json
+        sha256: 77b630d47632912a5bcd0d4c7104a451cfa5f60f548d3b1c5831a3aa648412ef
+      - path: .cache/runs/E0192/R000001/run-environment.json
+        sha256: 04dfa661f35f4528f57ccad2fca0665fcaa8d292ee8d29a9526b0497d56e0ccc
+      - path: tests/e2e/run-m3-c724.sh
+        sha256: dfb8382b676c71fe911b2fa27831a4bdce723c357ed62543e03ff3c3e041463f
+      - path: tests/e2e/validate_m3_c724.py
+        sha256: 64727c6c3a03260bf92c77160a75df57999e88c11efd680275f84696f79d3a85
+      - path: artifacts/traces/m3-c724-source-backed-v0.json
+        sha256: 77b630d47632912a5bcd0d4c7104a451cfa5f60f548d3b1c5831a3aa648412ef
+    writes:
+      - artifacts/reports/M3/c724-*-review-v*.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      Two fresh focused independent reviews of the frozen R000494 packet must
+      both return PASS: one checks C724 oracle scope and counterexamples and
+      the other checks revision separation, provenance and reproducibility. A
+      review cannot promote semantic facts or broaden the contract.
+    output: evidence
+    final_observable: >-
+      two durable focused PASS reports for the bounded C724 packet, or one
+      precise retained review failure and its minimal correction
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - artifacts/reports/M3/c724-*-review-v*.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c724-scalar-int-constant-expr-oracle]
+    verifier_command: focused independent review of the frozen R000494 evidence packet
+    evidence_paths:
+      - research/experiments/E0192-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - research/runs/2026-08.jsonl#R000494
+      - .cache/runs/E0192/R000001/result.json
+      - .cache/runs/E0192/R000001/run-environment.json
+      - artifacts/reports/M3/c724-semantic-review-v1.md
+      - artifacts/reports/M3/c724-reproducibility-review-v1.md
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2
