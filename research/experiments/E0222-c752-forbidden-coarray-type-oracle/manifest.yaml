@@ -1,0 +1,74 @@
+id: "E0222"
+title: "Implement the bounded source-backed C752 forbidden coarray-type oracle"
+question: >
+  Can the selected C752 coarray/type restriction be checked by a small
+  deterministic source-backed oracle without parsing Fortran or promoting a
+  semantic fact?
+status: running         # draft | running | reported | abandoned
+opened: "2026-08-17"
+
+repos:
+  lazy-fortran-new: "6af9e98"
+
+inputs:
+  standard: j3-24-007
+  predecessor: research/runs/2026-08.jsonl#R000606
+  decision: research/decisions/D0163-thirty-third-m3-c752-selection.md
+  contract: contracts/m3-c752-forbidden-coarray-type-v0.sxs
+  fixture: tests/fixtures/m3-c752-source-backed-v0.json
+  expected_outcomes: tests/fixtures/m3-c752-expected-outcomes-v0.json
+  semantic_items: tests/fixtures/m3-c752-semantic-items.sx
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  pages_index_sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+  standardir: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  normative_pdf_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+  source_rule: C752
+  source_span: "241335:223"
+  page_index_records: ["93:239957:2451"]
+  standardir_rules: [R702, R703, R704, R737, R739]
+
+model_selection: "No model execution; deterministic typed oracle only."
+
+metrics:
+  - typed state count and outcome partition
+  - source and StandardIR binding
+  - rejected source/provenance mutations
+  - model calls
+  - semantic promotions
+
+denominator: >-
+  Exactly fifteen states from coarray-spec absent, present or unknown crossed
+  with component type C_PTR, C_FUNPTR, TEAM_TYPE, other or unknown. Unknown
+  information is not guessed.
+
+independent_oracle: >-
+  The validator independently checks the pinned source bytes, page-index
+  record, StandardIR rows, semantic-item replay and expected-outcome table;
+  its C752 decision procedure is authored separately from the expected JSON.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >-
+  Any source, span, page-index, StandardIR, mutation, state-count, outcome,
+  model-call or promotion mismatch fails the replay.
+
+gate: >-
+  Run tests/e2e/run-m3-c752.sh --fresh from a clean checkout. It must pass the
+  central contract and pin gates, sxsemantic replay, fifteen-state oracle,
+  twelve negative mutation controls and final clean-tree check.
+
+analysis: >-
+  Controller-owned bounded C752 replay report
+  artifacts/reports/M3/m3-c752-source-backed-v0.md
+
+result:
+  technical_run: PENDING
+  technical_status: PENDING
+  promotion_status: PENDING
+  result: artifacts/traces/m3-c752-source-backed-v0.json
+  report: artifacts/reports/M3/m3-c752-source-backed-v0.md
