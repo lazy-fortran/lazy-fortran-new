@@ -30,6 +30,22 @@ inputs:
   decision: research/decisions/D0147-twenty-first-m3-c733-kind-param-representation-method-oracle.md
   decision_sha256: 770b2292a25fe43372123dcbe82f70b00ed33c390616e1de9a2602063e6a7411
   source_span: "226248:107"
+  contract_schema: contracts/m3-c733-kind-param-representation-method-oracle-v0.sxs
+  contract_schema_sha256: 41160893cd4addbadcaf3511722e6fa595d9cb7b963bd3b36a920e5cf9f7ab18
+  contract_fixture: contracts/fixtures/m3-c733-kind-param-representation-method-oracle-v0.sx
+  contract_fixture_sha256: 84644487995790077137013f168b03b44edf26124723da0b9d9a6fcc6a4ebb2a
+  semantic_items: tests/fixtures/m3-c733-semantic-items.sx
+  semantic_items_sha256: e1174b7fff10c7389df6313eb396e951f5842e38ba3c07fb55be462489c671f3
+  source_fixture: tests/fixtures/m3-c733-source-backed-v0.json
+  source_fixture_sha256: 518cfaf514f5106d94524d1117a9a7f121d19932a72f3016321c2b649e241d7d
+  semantic_golden: tests/golden/m3-c733-semantic-items.sx
+  semantic_golden_sha256: e1174b7fff10c7389df6313eb396e951f5842e38ba3c07fb55be462489c671f3
+  validator: tests/e2e/validate_m3_c733.py
+  validator_sha256: 1e320f7bbd41ca6dbafa146a59e9b7662e627fda95761481982205a6dbb2dc6f
+  runner: tests/e2e/run-m3-c733.sh
+  runner_sha256: a589e476d423da7570e47ff38ad77e281dc9e43300725be406fbc572d033ad0e
+  trace: artifacts/traces/m3-c733-source-backed-v0.json
+  trace_sha256: 5fb0aed9930619f8c934e03c1f20bff8813d3173a5577a215ba440261390e881
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
