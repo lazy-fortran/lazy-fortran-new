@@ -198,6 +198,7 @@ Runs recorded: 569
 | E0197 | reported | 1 | Can the post-C731 residual select one source-backed property? |
 | E0198 | reported | 3 | Can a deterministic source-backed C732 oracle classify kind-parameter representation-method states? |
 | E0199 | reported | 1 | Can the post-C732 residual select one source-backed property? |
+| E0200 | running | 0 | Can a deterministic source-backed C733 oracle classify logical-literal kind-parameter representation-method states? |
 
 ## Run status
 
@@ -370,6 +371,7 @@ Runs recorded: 569
 | [D0144](decisions/D0144-eighteenth-m3-c726-type-param-star-context-oracle.md) | accepted |  | Eighteenth M3 slice uses C726 type-param-value star-context legality |
 | [D0145](decisions/D0145-nineteenth-m3-c731-constant-expression-oracle.md) | accepted |  | Nineteenth M3 slice uses C731 constant-expression length states |
 | [D0146](decisions/D0146-twentieth-m3-c732-kind-param-representation-method-oracle.md) | accepted |  | Twentieth M3 slice uses C732 kind-parameter representation-method states |
+| [D0147](decisions/D0147-twenty-first-m3-c733-kind-param-representation-method-oracle.md) | accepted |  | Twenty-first M3 slice uses C733 logical-literal representation-method states |
 
 ### Proposed decisions
 

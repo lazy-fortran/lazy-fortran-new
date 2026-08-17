@@ -496,8 +496,11 @@ with 1 `ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`, twelve rejected mutation
 controls, zero model calls and zero semantic promotions. Focused review and
 remote parity pass in `R000515` and the pushed `8e4fbe47` revision, so C732 is
 promoted only as this bounded oracle slice. Post-C732 reconciliation `R000516`
-leaves 151 residual rows (87 disputed, 64 unwitnessed), with C733@1 first. The
-next task is bounded-property selection after C732; full M3 remains open.
+leaves 151 residual rows (87 disputed, 64 unwitnessed), with C733@1 first.
+Selection `R000517` binds C733 canonical line 3564, page 87, byte span
+`226248:107`, to existing StandardIR R725 (`logical-literal-constant`). The
+next task is the bounded C733 kind-parameter representation-method oracle;
+full M3 remains open.
 
 Regenerate the C731 result with:
 

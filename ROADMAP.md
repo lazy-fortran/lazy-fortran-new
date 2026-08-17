@@ -109,9 +109,14 @@ Clean central replay R000514 passes with 1 `ACCEPTED`, 1 `REJECTED`, 7
 semantic promotions. Focused review R000515 passes and remote parity is
 verified at `8e4fbe47`; C732 is promoted only as this bounded oracle slice.
 Post-C732 reconciliation R000516 leaves 151 residual rows (87 disputed, 64
-unwitnessed), with C733@1 first. The active task is
-`T-M3-core0-next-bounded-property-selection-after-c732`. Full M3 remains
-open.
+unwitnessed), with C733@1 first. E0199/R000517 binds C733 canonical line 3564,
+page 87, byte span `226248:107`, to existing StandardIR R725
+(`logical-literal-constant`). The active task is
+`T-M3-c733-kind-param-representation-method-oracle`. Its typed relation
+accepts a processor-supported kind parameter in the logical-literal context,
+rejects a processor-unsupported value there, and returns `UNRESOLVED`
+otherwise. It does not inspect processors, parse literals or perform general
+semantic analysis. Full M3 remains open.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing

@@ -162,22 +162,22 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-core0-next-bounded-property-selection-after-c732`.
+Current fixture: `T-M3-c733-kind-param-representation-method-oracle`.
 C732 is promoted only as a bounded kind-parameter representation-method
 oracle. Post-C732 reconciliation R000516 leaves 151 outside-promoted rows,
 with C733@1 first. E0199/R000517 binds C733 line 3564, page 87, byte span
-`226248:107`, to existing StandardIR R725 (`logical-literal-constant`). Full
-M3 remains open; do not resume E0172 or start broad semantic work.
+`226248:107`, to existing StandardIR R725 (`logical-literal-constant`). The
+next contract uses typed processor-support states in that context. Full M3
+remains open; do not resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c732` — select exactly
-one source-backed property after C732 promotion.
+ID: `T-M3-c733-kind-param-representation-method-oracle` — define and implement
+one bounded source-backed property after C732 promotion.
 
-Verifier: the exact twenty-contract `jq` partition in TASK_POOL.yaml. It must
-confirm 151 residual rows, 87 disputed, 64 unwitnessed and C733@1 first, then
-bind the source and StandardIR shape without model execution or semantic
-promotion.
+Verifier: `tests/e2e/run-m3-c733.sh --fresh`. It must bind C733 line 3564 on
+page 87 to R725, classify the finite typed state table, reject source/page/
+identity mutations, and observe zero model calls or semantic promotions.
 
 ## Current blocker
 
