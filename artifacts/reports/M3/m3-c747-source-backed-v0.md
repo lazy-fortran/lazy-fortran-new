@@ -38,14 +38,14 @@ The clean central verifier is:
 M3_C747_EXPECTED_CENTRAL_COMMIT=<current-commit> tests/e2e/run-m3-c747.sh --fresh
 ```
 
-It passed in E0212/R000004 with central worktree revision
-`4aaf3cf315afc2693a8b3691582353d2eead47b4`, functional tree pinned at
+It passed in E0212/R000005 with central worktree revision
+`b76fd08aacf5605c3a0caaa659b5f13ce47a39ba`, functional tree pinned at
 `bffd7c208956bb8a231712ead6e1fef243ec3887`, and `standard-new` at
 `f94c4c51b51fce22b533b7eeda08741970320913`. The recorded result and committed
 trace both have SHA-256
 `eb9a72073eb3cf4a5a1b5e81574d6257c683af4d6dce41db245ac4b0fe2283c1`.
 The run environment has SHA-256
-`42048b88cce8ebb6c1df3ff0d071a95b143b85bf728c33b6b75bad10badd6205`.
+`0b8e19c54812a9b1466397ac8ce5d818c81da6c0f320bb76908f8a5d459e67c5`.
 
 The independent validator has SHA-256
 `78caf3130cd0f12d87b4d7d328bb846ccab1656069863ae875d69676016d446c`. The

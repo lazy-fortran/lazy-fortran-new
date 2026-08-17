@@ -82,16 +82,16 @@ analysis: >-
   artifacts/reports/M3/m3-c747-source-backed-v0.md
 
 result:
-  run: research/runs/2026-08.jsonl#R000572
-  central_revision: 4aaf3cf315afc2693a8b3691582353d2eead47b4
+  run: research/runs/2026-08.jsonl#R000573
+  central_revision: b76fd08aacf5605c3a0caaa659b5f13ce47a39ba
   functional_revision: bffd7c208956bb8a231712ead6e1fef243ec3887
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
   report: artifacts/reports/M3/m3-c747-source-backed-v0.md
-  report_sha256: ff8ea7a7c80511ab01009cba2d7751cb0c0ca045aa8dda4c14af1465b9ae29ae
+  report_sha256: bde362466ffbd8f275890e35d38e0c1aeacfbf09b64b48326b61d13eba03e6f7
   trace: artifacts/traces/m3-c747-source-backed-v0.json
   trace_sha256: eb9a72073eb3cf4a5a1b5e81574d6257c683af4d6dce41db245ac4b0fe2283c1
-  run_environment: .cache/runs/E0212/R000004/run-environment.json
-  run_environment_sha256: 42048b88cce8ebb6c1df3ff0d071a95b143b85bf728c33b6b75bad10badd6205
+  run_environment: .cache/runs/E0212/R000005/run-environment.json
+  run_environment_sha256: 0b8e19c54812a9b1466397ac8ce5d818c81da6c0f320bb76908f8a5d459e67c5
   outcome_counts: {accepted: 5, rejected: 2, unresolved: 29}
   mutation_controls: 12
   model_calls: 0
