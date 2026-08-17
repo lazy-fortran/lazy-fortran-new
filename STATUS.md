@@ -124,9 +124,9 @@ not current promotion evidence.
   final replay R000051 and focused review R000052 pass. The bounded C719
   slice is promoted; D0135 selects C738 and corrected replay R000053 plus
   focused review R000055 pass.
-  D0136 selects C1579; corrected replay R000003 is recorded as R000060 for
-  E0187. R000058 retains the first focused-review failure and R000059 retains
-  the pin-order replay failure; the corrected focused review is pending.
+  D0136/D0137 correct C1579; corrected replay R000004 is recorded as R000062
+  for E0187. R000058, R000059 and R000061 retain earlier review or replay
+  failures; the corrected focused review is pending.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -146,11 +146,12 @@ Last promoted fixture: `T-M3-c738-semantic-oracle` — replay `R000005` is
 recorded centrally as `R000053` and focused review `R000055` pass. C738 is
 promoted as a bounded slice; full M3 remains open.
 
-Active candidate: `T-M3-c1579-semantic-oracle` — corrected replay `E0187/R000003`
+Active candidate: `T-M3-c1579-semantic-oracle` — corrected replay `E0187/R000004`
 passes with three accepted, one rejected, five unresolved and seven mutation
-failures; central run R000060 records it. R000058 and R000059 are retained
-failures; focused review is pending. It binds C1579 lines 15386--15387 to
-StandardIR R1532/R1544. Do not resume E0172 or start broad semantic work.
+failures; central run R000062 records it. R000058, R000059 and R000061 are
+retained failures; focused review is pending. It binds C1579 lines 15386--15387
+on printed page 357 to StandardIR R1532/R1544. Do not resume E0172 or start
+broad semantic work.
 
 ## Active task
 
@@ -158,7 +159,7 @@ ID: `T-M3-c1579-semantic-oracle` — verify the bounded C1579 RESULT entry-name
 exclusion oracle selected by the retained E0181 ledger. Full M3 remains open.
 
 Verifier: `tests/e2e/run-m3-c1579.sh --fresh` from clean central and component
-checkouts. Replay `E0187/R000003` is recorded centrally as `R000060` with
+checkouts. Replay `E0187/R000004` is recorded centrally as `R000062` with
 three accepted, one rejected, five unresolved and seven mutation failures;
 focused review is pending. It must not revive E0172 or promote a model fact.
 
@@ -189,7 +190,7 @@ C723 replay and focused review are green. The C729 replay and focused review
 are green; R000043 retains the earlier reproducibility failure. C719 replay
 R000051 and focused review R000052 are green. C738 replay R000053 and focused
 review R000055 are green. The eleven promoted slices cannot close the complete
-ledger gate. C1579 replay R000003 is green in R000060 and focused review is
+ledger gate. C1579 replay R000004 is green in R000062 and focused review is
 pending. A
 green bounded slice alone does not close full M3.
 Regenerate the E0181 counts with:
@@ -201,7 +202,7 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 ## Next executable task
 
 Run two focused independent reviews of C1579 against `E0187/R000003` and
-`R000060`. If both pass, promote only this bounded slice; full M3 remains open.
+`R000062`. If both pass, promote only this bounded slice; full M3 remains open.
 Do not resume E0172, start broad parsing/semantic work, or promote a model
 fact.
 
@@ -233,7 +234,7 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   promoted. C738 replay `tests/e2e/run-m3-c738.sh --fresh` is `PASS` in
   R000053 and focused review R000055 is `PASS`; eleven bounded slices are
   promoted. C1579 replay `tests/e2e/run-m3-c1579.sh --fresh` is `PASS` in
-  `E0187/R000003`, recorded centrally as `R000060`, and awaits focused review;
+  `E0187/R000004`, recorded centrally as `R000062`, and awaits focused review;
   full M3 remains open.
 ```
 
