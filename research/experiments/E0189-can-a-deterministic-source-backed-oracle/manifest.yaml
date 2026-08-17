@@ -2,9 +2,9 @@ id: "E0189"
 title: "Deterministic C717 kind-selector legality oracle"
 question: >
   Can a deterministic source-backed oracle enforce C717 kind-selector legality
-status: running         # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -92,7 +92,7 @@ result:
   selection_run: research/runs/2026-08.jsonl#R000076
   selected_row_key: C717@1
   selection_status: PASS
-  implementation_status: DURABLE_PIN_REPLAY_PASS_BOUNDED_ONLY
+  implementation_status: BOUNDED_REVIEW_PASS
   failed_review_packet: .cache/runs/E0189/R000001
   failed_review_reports:
     - artifacts/reports/M3/c717-semantic-review-v0.md
@@ -106,4 +106,9 @@ result:
   durable_pin_result_sha256: f4b52f8f48f8069c0001d8db617589968b695c416b4ba4cb4c9318b2e38bbd00
   latest_review_failure_run: research/runs/2026-08.jsonl#R000479
   latest_review_failure_report: artifacts/reports/M3/c717-reproducibility-review-v1.md
-  review_status: PENDING_AFTER_DURABLE_REPLAY
+  review_run: research/runs/2026-08.jsonl#R000481
+  review_reports:
+    - artifacts/reports/M3/c717-semantic-review-v2.md
+    - artifacts/reports/M3/c717-reproducibility-review-v2.md
+  review_status: PASS
+  candidate_promotion: BOUNDED_ONLY

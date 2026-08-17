@@ -23,8 +23,8 @@ The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. M3 is now open through the promoted C1106, C702, C601, C603, C721,
-C725, C718, C723, C729, C719, C738, C1579 and C1586 contracts. The full Core 0
-semantic milestone remains unpromoted.
+C725, C718, C723, C729, C719, C738, C1579, C1586 and bounded C717 contracts.
+The full Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -153,19 +153,18 @@ binding is canonical lines 3263--3264 on page 80, with the page-index span and
 R706 metadata pinned. Durable-pin clean replay R000480 passes one accepted, five
 rejected, three unresolved and eight mutation controls with zero model calls
 and semantic promotions. Replay `R000479` found and `R000480` repairs a
-central-revision durability defect; final focused review is pending. Full M3
-remains open and C717 is not promoted. Do not resume E0172 or start broad
-semantic work.
+central-revision durability defect; focused review `R000481` passes. C717 is
+promoted as a bounded slice only. Full M3 remains open; do not resume E0172 or
+start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-c717-focused-review` — independently review the frozen C717 replay
-packet before any bounded promotion. Full M3 remains open.
+ID: `T-M3-core0-next-bounded-property-selection-after-c717` — select the next
+bounded property from the outside-promoted residual. Full M3 remains open.
 
-Verifier: the focused independent review of R000480. One lane checks the
-semantic property, source binding, typed states and nonclaims; the other
-checks clean pushed parity, exact pins, mutation controls, trace identity and
-task wiring. Review may promote only the bounded C717 slice.
+Verifier: the exact promoted-contract residual partition in R000482. It must
+select one already represented StandardIR/syntax shape or record one precise
+blocker; it may not start broad semantic/parser work or promote model output.
 
 ## Current blocker
 
@@ -180,9 +179,10 @@ review R000022 pass. C603 replay R000001 and focused review R000027 pass. C721
 replay R000001 and focused review R000029 pass. C725 replay R000001 and
 focused review R000031 pass. The fresh E0181 closure audit is recorded as
 R000074, and clean pushed replay R000075 reproduces it; both pass the
-deterministic audit gate. Reconciliation R000076 also passes: it joins all
-thirteen promoted contract IDs and leaves 158 outside-promoted residual rows
-(91 disputed and 67 unwitnessed). Full M3/Core 0 remains blocked
+deterministic audit gate. Reconciliation R000076 passes for the pre-C717 set.
+Post-promotion reconciliation R000482 joins fourteen promoted contract IDs and
+leaves 157 outside-promoted residual rows (90 disputed and 67 unwitnessed).
+Full M3/Core 0 remains blocked
 by the retained 287-row ledger: 4 hard failures, 2 unresolved rows, 94
 disputed rows and 69 unwitnessed rows. The corrected C718 replay and focused
 reviews are green. The
@@ -191,19 +191,16 @@ are green; R000043 retains the earlier reproducibility failure. C719 replay
 R000051 and focused review R000052 are green. C738 replay R000053 and focused
 review R000055 are green. C1579 replay R000004 is green in R000062 and
 focused review R000064 passes; C1586 replay R000067 and focused review
-R000072 also pass, so thirteen bounded slices are promoted. The audit residual
+R000072 also pass, and C717 replay R000480 and review R000481 pass, so fourteen
+bounded slices are promoted. The audit residual
 identities are C601@1, C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1;
 the first four are hard failures, C704@2 is reference-only, and the last two
 are unresolved. These residual states do not close the complete ledger gate.
-The current blocker is witness closure outside the bounded slices: 158 rows
-(91 disputed and 67 unwitnessed) remain after the five residual rows attached
-to promoted contracts are separated. A green bounded slice alone does not
-close full M3. The selected C717 contract and durable-pin clean replay R000480
-pass. Review R000479 records a reproducibility `NEEDS_FIX`; R000480 uses pin
-8574f74, which contains the durable R000478 record and corrected handoff
-metadata. Final review of R000480 remains required.
-The replay establishes only the bounded C717 observable, not semantic promotion
-of the retained ledger.
+The current blocker is witness closure outside the bounded slices: 157 rows
+(90 disputed and 67 unwitnessed) remain after promoted-contract rows are
+separated. A green bounded slice alone does not close full M3. The C717 replay,
+durable pin, focused review and post-promotion reconciliation pass only their
+bounded/coverage claims; no retained-ledger semantic fact is promoted.
 Regenerate the E0181 counts with:
 
 ```text
@@ -212,9 +209,8 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-c717-focused-review` against durable replay
-`research/runs/2026-08.jsonl#R000480`. R000479 remains retained failure evidence;
-the outside-promoted residual remains the full-M3 blocker. Its exact inventory
+Run and record `T-M3-core0-next-bounded-property-selection-after-c717`. The
+outside-promoted residual remains the full-M3 blocker. Its exact inventory
 verifier is:
 
 ```text
@@ -258,9 +254,9 @@ witness reconciliation `R000076` pass without semantic promotion. C717's first
 focused review is retained as `R000477` with `NEEDS_FIX`. D0140 repairs the
 precedence and truth-table defect; corrected clean replay `R000478` passes with
 the exact source binding, nine typed outcomes, eight mutation failures and
-zero model calls or semantic promotions. Review `R000479` found the central
-revision durability defect; durable replay `R000480` repairs it and the active
-task remains `T-M3-c717-focused-review`.
+zero model calls or semantic promotions. Durable replay `R000480` and focused
+review `R000481` pass. C717 is now a bounded promoted slice;
+the active task is `T-M3-core0-next-bounded-property-selection-after-c717`.
 ```
 
 ## Blacklisted pseudo-progress

@@ -18,9 +18,9 @@ The bounded C719 slice is promoted by replay `R000051` and focused review
 review `R000055`. The bounded C1579 slice is promoted by replay `R000062` and
 focused review `R000064`. The bounded C1586 slice is promoted by replay
 `R000067` and focused review `R000072`. Full M3 remains open.
-The C717 contract and durable-pin clean central replay `R000480` pass. Focused
-review `R000479` retains the repaired central-revision failure; final focused
-review of `R000480` is pending, so C717 is not promoted.
+The C717 contract, durable-pin clean central replay `R000480`, and focused
+review `R000481` pass. C717 is promoted as a bounded slice only; full M3
+remains open. `R000479` retains the repaired central-revision failure.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -349,10 +349,9 @@ remains open.
 
 ## M3 — bounded C717 kind-selector legality semantic-oracle slice
 
-Bounded-slice status: `CENTRAL REPLAY PASS`; the durable-pin replay is
-`R000480`, while final focused review is pending after the retained `R000479`
-failure. This is not yet promoted. Full Core 0 semantics remain open and are
-not claimed.
+Bounded-slice status: `PASS`; durable-pin replay `R000480` and focused review
+`R000481` pass. This promotes only the bounded C717 projection. Full Core 0
+semantics remain open and are not claimed.
 
 D0139/E0189 selects the fourteenth bounded delivery contract. It binds
 J3-24-007 C717, canonical lines 3263--3264 on printed/page-index page 80, to
@@ -379,13 +378,13 @@ Evidence: `research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md`,
 the C717 contract, fixtures, validator, trace and
 `artifacts/reports/M3/m3-core0-next-property-selection-v1.md`, D0140, the
 retained failed review reports, and `research/runs/2026-08.jsonl#R000478` through
-`#R000480`.
+`#R000482`.
 
 ## M3 — Core 0 closure audit
 
 Audit and reconciliation status: `PASS` for coverage accounting only; full M3
 status remains `NEEDS EVIDENCE`. The next task is
-`T-M3-c717-focused-review`. E0181/R000074 and clean pushed
+`T-M3-core0-next-bounded-property-selection-after-c717`. E0181/R000074 and clean pushed
 replay R000075 reproduce the retained 287-row ledger: 4 hard failures, 2
 unresolved rows, 1 reference-only row, 117 self-consistent rows, 94
 disputed rows, 69 unwitnessed rows, 7
@@ -400,14 +399,16 @@ The audit report is recorded in
 `research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/`,
 `artifacts/reports/M3/m3-core0-closure-audit-v2.md`, and
 `research/runs/2026-08.jsonl#R000074` and `#R000075`. Reconciliation
-`research/runs/2026-08.jsonl#R000076` maps the thirteen promoted IDs and leaves
-158 outside-promoted rows: 91 disputed and 67 unwitnessed. The residual
+`research/runs/2026-08.jsonl#R000076` maps the thirteen pre-C717 promoted IDs;
+post-promotion reconciliation `R000482` maps fourteen promoted IDs and leaves
+157 outside-promoted rows: 90 disputed and 67 unwitnessed. The residual
 identities from the audit are C601@1,
 C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1. The 94 disputed and 69
 unwitnessed rows are the total retained witness status; the outside-promoted
-blocker is the 158-row partition above. These counts keep full M3 open and do
+blocker is the 157-row partition above. These counts keep full M3 open and do
 not authorize semantic promotion. The coverage report is
-`artifacts/reports/M3/m3-core0-witness-coverage-v1.md`.
+`artifacts/reports/M3/m3-core0-witness-coverage-v1.md` and
+`artifacts/reports/M3/m3-core0-witness-coverage-v2.md`.
 
 ## M3 — bounded C601 semantic-oracle successor
 

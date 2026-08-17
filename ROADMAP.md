@@ -71,12 +71,14 @@ D0136/D0137/E0187 is the promoted C1579 bounded slice; replay E0187/R000004
 is green in R000062 and focused review R000064 passes. D0138/E0188 is now the
 promoted C1586 bounded slice; replay R000067 and focused review R000072 pass.
 The E0181 Core 0 closure audit is recorded as an audit-only pass in R000074;
-clean pushed replay R000075 reproduces it. Reconciliation R000076 passes
-coverage accounting and leaves 158 outside-promoted rows. Full M3 remains open
+clean pushed replay R000075 reproduces it. Reconciliation R000076 covers the
+pre-C717 set; post-promotion reconciliation R000482 leaves 157
+outside-promoted rows. Full M3 remains open
 because witness coverage is incomplete. Broad semantic and model work remains
 closed; D0139/D0140/E0189 define the bounded C717 contract, durable-pin replay
-R000480 passes after the R000479 central-revision durability failure,
-and `T-M3-c717-focused-review` is the active promotion gate.
+R000480 and focused review R000481 pass after the R000479 central-revision
+durability failure. C717 is promoted as a bounded slice, and
+`T-M3-core0-next-bounded-property-selection-after-c717` is the active task.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -366,20 +368,20 @@ semantic-item and contract mutations must fail closed. The central gate is:
 tests/e2e/run-m3-c717.sh --fresh
 ```
 
-Durable-pin clean replay R000480 passes with one accepted, five rejected, three
+Durable-pin clean replay R000480 and focused review R000481 pass with one
+accepted, five rejected, three
 unresolved, eight mutation failures and zero model calls or semantic
 promotions. D0140 makes known-violation precedence explicit and requires all
-nine typed state combinations. R000479 remains retained failure evidence;
-focused review of R000480 is pending. This is a bounded C717 observable, not
-full C717, arbitrary Fortran parsing, semantic
+nine typed state combinations. R000479 remains retained failure evidence. This
+promotes only the bounded C717 observable, not full C717, arbitrary Fortran parsing, semantic
 analysis, processor inference, model work or full M3 promotion. E0172 remains
 abandoned.
 
 The post-promotion E0181 audit `R000074` passes its deterministic
-merge, validation and witness checks. Reconciliation `R000076` maps all
-thirteen promoted IDs and leaves 158 outside-promoted rows (91 disputed and 67
-unwitnessed). The next executable task is
-`T-M3-c717-focused-review` against R000480; the residual inventory remains
+merge, validation and witness checks. Reconciliation `R000076` maps the
+pre-C717 set; `R000482` maps fourteen promoted IDs and leaves 157
+outside-promoted rows (90 disputed and 67 unwitnessed). The next executable task
+is `T-M3-core0-next-bounded-property-selection-after-c717`; the residual inventory remains
 available through
 this exact verifier:
 
@@ -1837,9 +1839,10 @@ D0126/E0176, C601 in D0127/E0177, C603 in D0128/E0178, C721 in D0129/E0179,
 C725 in D0130/E0180, C718 in D0131/E0182, C723 in D0132/E0183 and C729 in
 D0133/E0184, and C719 in D0134/E0185. D0135/E0186 is the promoted C738
 slice, D0136/D0137/E0187 is the promoted C1579 slice, and D0138/E0188 is the
-promoted C1586 slice; thirteen bounded slices are promoted. The E0181 Core 0
-audit and coverage reconciliation are recorded as R000074 through R000076;
-158 outside-promoted witness rows remain. Full M3 remains open. The next task
+promoted C1586 slice and bounded C717 slice; fourteen bounded slices are
+promoted. The E0181 Core 0 audit, pre-C717 reconciliation and post-promotion
+reconciliation are recorded as R000074 through R000076 and R000482; 157
+outside-promoted witness rows remain. Full M3 remains open. The next task
 selects one bounded property from that residual.
 The M3 model lane
 remains frozen by

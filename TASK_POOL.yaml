@@ -516,6 +516,8 @@ tasks:
       - path: artifacts/standards/j3-24-007.toml
         sha256: becec69a4e43c168e0706efd712eda90a2cabacc29e900a7d3dc4fa4c0f1d7ec
       - research/decisions/D0140-c717-known-violation-precedence.md
+      - research/decisions/D0140-c717-known-violation-precedence.md
+      - research/decisions/D0140-c717-known-violation-precedence.md
       - path: contracts/standardir-v0.sxs
         sha256: 29982299e721cc7ab75b9f981aca325eddc3be87f17615316f895eb047ac5a49
       - path: contracts/standardir-grammar-v0.sxs
@@ -2561,12 +2563,13 @@ tasks:
     title: Verify the bounded C717 kind-selector legality oracle
     status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-core0-next-bounded-property-selection
     inputs:
       - path: research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md
+      - path: research/decisions/D0140-c717-known-violation-precedence.md
       - path: research/experiments/E0189-can-a-deterministic-source-backed-oracle/manifest.yaml
       - path: contracts/m3-c717-kind-selector-oracle-v0.sxs
       - path: contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx
@@ -2634,17 +2637,20 @@ tasks:
       - tests/e2e/run-m3-c717.sh
       - tests/e2e/validate_m3_c717.py
       - artifacts/traces/m3-c717-source-backed-v0.json
+      - artifacts/reports/M3/c717-semantic-review-v2.md
+      - artifacts/reports/M3/c717-reproducibility-review-v2.md
       - research/runs/2026-08.jsonl#R000478
       - research/runs/2026-08.jsonl#R000480
+      - research/runs/2026-08.jsonl#R000481
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
   - id: T-M3-c717-focused-review
     milestone: M3
     title: Focused independent review of the bounded C717 oracle
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c717-kind-selector-oracle
@@ -2663,6 +2669,8 @@ tasks:
       - artifacts/reports/M3/c717-reproducibility-review-v0.md
       - artifacts/reports/M3/c717-semantic-review-v1.md
       - artifacts/reports/M3/c717-reproducibility-review-v1.md
+      - artifacts/reports/M3/c717-semantic-review-v2.md
+      - artifacts/reports/M3/c717-reproducibility-review-v2.md
       - research/runs/2026-08.jsonl
       - STATUS.md
       - MILESTONES.md
@@ -2705,8 +2713,87 @@ tasks:
       - research/runs/2026-08.jsonl#R000478
       - research/runs/2026-08.jsonl#R000479
       - research/runs/2026-08.jsonl#R000480
-      - research/runs/2026-08.jsonl#R000480
-      - research/runs/2026-08.jsonl#R000480
+      - research/runs/2026-08.jsonl#R000481
+
+  - id: T-M3-core0-next-bounded-property-selection-after-c717
+    milestone: M3
+    title: Select the next bounded property after C717 promotion
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c717-focused-review
+    inputs:
+      - path: artifacts/reports/M3/m3-core0-witness-coverage-v2.md
+      - path: research/runs/2026-08.jsonl#R000482
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+        sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
+      - research/runs/2026-08.jsonl#R000481
+    writes:
+      - research/decisions/D0141-*.md
+      - research/experiments/E0190-*/manifest.yaml
+      - contracts/m3-*-oracle-v0.sxs
+      - contracts/fixtures/m3-*-oracle-v0.sx
+      - tests/fixtures/m3-*-source-backed-v0.json
+      - tests/e2e/run-m3-*.sh
+      - tests/e2e/validate_m3_*.py
+      - artifacts/traces/m3-*-source-backed-v0.json
+      - artifacts/reports/M3/m3-core0-next-property-selection-v2.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717"];
+      def is_promoted($id): any(promoted[]; . == $id);
+      map(select((.status == "disputed" or .status == "unwitnessed") and
+      (is_promoted(.constraint_id) | not))) |
+      {rows: length, by_status: (group_by(.status) | map({status:
+      .[0].status, count: length})), row_keys: map(.row_key)}'
+      .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    output: contract
+    final_observable: >-
+      one exact next M3 source-backed property over an already represented
+      StandardIR/syntax shape, with pinned normative evidence, typed candidates,
+      deterministic ACCEPTED/REJECTED/UNRESOLVED oracle and mutation controls;
+      or one precise reproducible blocker. No model experiment or promotion.
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0141-*.md
+        - research/experiments/E0190-*/manifest.yaml
+        - contracts/m3-*-oracle-v0.sxs
+        - contracts/fixtures/m3-*-oracle-v0.sx
+        - tests/fixtures/m3-*-source-backed-v0.json
+        - tests/e2e/run-m3-*.sh
+        - tests/e2e/validate_m3_*.py
+        - artifacts/traces/m3-*-source-backed-v0.json
+        - artifacts/reports/M3/m3-core0-next-property-selection-v2.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c717-focused-review]
+    verifier_command: >-
+      jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717"];
+      def is_promoted($id): any(promoted[]; . == $id);
+      map(select((.status == "disputed" or .status == "unwitnessed") and
+      (is_promoted(.constraint_id) | not))) |
+      {rows: length, by_status: (group_by(.status) | map({status:
+      .[0].status, count: length})), row_keys: map(.row_key)}'
+      .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    evidence_paths:
+      - artifacts/reports/M3/m3-core0-witness-coverage-v2.md
+      - research/runs/2026-08.jsonl#R000482
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2
