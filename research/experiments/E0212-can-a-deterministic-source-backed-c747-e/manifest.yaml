@@ -2,9 +2,9 @@ id: "E0212"
 title: "Deterministic source-backed C747 exact-once oracle"
 question: >
   Can a deterministic source-backed C747 exact-once oracle pass
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -80,3 +80,20 @@ gate: >-
 analysis: >-
   Controller-owned bounded C747 replay report
   artifacts/reports/M3/m3-c747-source-backed-v0.md
+
+result:
+  run: research/runs/2026-08.jsonl#R000570
+  central_revision: cb2e8f1d240a69938d0d7e90b814ccef5d5d6a2f
+  functional_revision: 749f438fe5e11c83ffab21f4b0d2a2486ed284f6
+  standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
+  report: artifacts/reports/M3/m3-c747-source-backed-v0.md
+  report_sha256: ab23f025a2c1681de77fe38412a4cab46e7af36aef0d1441ba0770a684323aeb
+  trace: artifacts/traces/m3-c747-source-backed-v0.json
+  trace_sha256: acd7bafed6987a65655c3af32a2836619164e754b029e0f8dc53c5a7922c5e30
+  run_environment: .cache/runs/E0212/R000002/run-environment.json
+  run_environment_sha256: c9d76f3ca9842075416e5713c81814af349b47cefb1a02f93d30948d8cd25a80
+  outcome_counts: {accepted: 5, rejected: 2, unresolved: 29}
+  mutation_controls: 12
+  model_calls: 0
+  semantic_promotions: 0
+  status: PASS-BOUNDED-ONLY
