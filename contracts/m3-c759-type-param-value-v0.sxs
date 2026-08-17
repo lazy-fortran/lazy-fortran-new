@@ -4,5 +4,6 @@
   (enum type-param-value-kind colon component-specification other unknown)
   (record source-ref (document name) (clause name) (rule name) (page int) (source-hash name))
   (record source-span (byte-start int) (byte-length int) (page-start int) (page-end int))
-  (record type-param-value-candidate (id name) (property name) (source source-ref) (span source-span) (value-kind type-param-value-kind) (expected outcome))
-  (list candidates type-param-value-candidate))
+  (record c759-value-kind (value-kind type-param-value-kind))
+  (record semantic-candidate (id name) (property name) (source source-ref) (span source-span) (fact c759-value-kind) (expected outcome))
+  (list candidates semantic-candidate))

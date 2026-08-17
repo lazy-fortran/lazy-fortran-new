@@ -71,7 +71,14 @@ def validate_standardir(source: dict, path: Path) -> None:
         require(match and match.group(1) == value, f"R736 {label} differs")
     require(f"(source-sha256 {SOURCE_SHA256})" in line and "(ref data-component-def-stmt)" in line and "(ref proc-component-def-stmt)" in line, "R736 binding differs")
 
+def validate_contract_schema(root: Path) -> None:
+    schema = (root / "contracts/m3-c759-type-param-value-v0.sxs").read_text(encoding="utf-8")
+    require("(record c759-value-kind (value-kind type-param-value-kind))" in schema, "C759 fact schema differs")
+    require("(record semantic-candidate (id name) (property name) (source source-ref) (span source-span) (fact c759-value-kind) (expected outcome))" in schema, "C759 candidate schema differs")
+    require("(list candidates semantic-candidate)" in schema, "C759 candidate list schema differs")
+
 def validate_binding(document: dict, root: Path, pdf: Path, canonical: Path, page_index: Path, standardir: Path, semantic: Path) -> None:
+    validate_contract_schema(root)
     exact_keys(document, {"schema_version", "origin", "property", "contract", "source", "semantic_item", "cases", "mutation_controls"}, "fixture")
     require(digest(root / "tests/fixtures/m3-c759-source-backed-v0.json") == SOURCE_FIXTURE_SHA256, "source fixture hash differs")
     require(document["schema_version"] == "m3-c759-source-backed-v0" and document["origin"] == "LLM" and document["property"] == PROPERTY, "fixture identity differs")
