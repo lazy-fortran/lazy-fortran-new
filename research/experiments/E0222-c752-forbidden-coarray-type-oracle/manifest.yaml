@@ -8,7 +8,7 @@ status: running         # draft | running | reported | abandoned
 opened: "2026-08-17"
 
 repos:
-  lazy-fortran-new: "d4294e5"
+  lazy-fortran-new: "e106944"
 
 inputs:
   standard: j3-24-007
