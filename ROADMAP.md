@@ -66,7 +66,8 @@ C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, post-C726 reconciliation R000506
 leaves 153 residual rows, and the current task selects the next bounded
-source-backed property.
+source-backed property. Selection R000507 selects C731@1; the current task is
+the bounded C731 constant-expression oracle.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -88,8 +89,9 @@ expected central worktree revision. C720 is promoted as a bounded slice.
 C722 replay R000490 and focused review R000491 also pass. Selection replay
 R000493 selects C724@1; replay R000494 and focused review R000495 pass. C726
 replay R000504 and focused review R000505 pass; post-C726 reconciliation
-R000506 leaves 153 outside-promoted rows, with C731@1 first. The active task is
-`T-M3-core0-next-bounded-property-selection-after-c726`.
+R000506 leaves 153 outside-promoted rows, with C731@1 first. Selection R000507
+binds C731 to canonical lines 3469--3470 on page 85 and existing StandardIR
+R721. The active task is `T-M3-c731-constant-expression-oracle`.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -427,8 +429,8 @@ focused review R000505 pass with 17 `ACCEPTED`, 1 `REJECTED`, 3 `UNRESOLVED`,
 twelve mutation failures and zero model calls or semantic promotions.
 Post-C726 reconciliation R000506 leaves 153 residual rows (88 disputed and 65
 unwitnessed), with C731@1 first. The next executable task is
-`T-M3-core0-next-bounded-property-selection-after-c726`; the residual
-inventory remains available through this exact verifier:
+`T-M3-c731-constant-expression-oracle` after selection R000507; the C731
+source binding is recorded in the selection report.
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
@@ -444,6 +446,17 @@ checks the full 21-state typed relation and twelve mutations: 17 `ACCEPTED`,
 1 `REJECTED`, 3 `UNRESOLVED`, with zero model calls and semantic promotions.
 This is a bounded oracle only; it does not parse Fortran, infer context or
 close full C726/M3. R000506 is the post-promotion residual reconciliation.
+
+## M3 — bounded C731 constant-expression oracle (next)
+
+Selection status: `PASS` in R000507. C731@1 binds canonical lines 3469--3470,
+byte span `219036:167` on page 85, to existing StandardIR R721. The selected
+property is that the length specified for a character statement function or a
+statement-function dummy argument of type CHARACTER shall be a constant
+expression. The retained model proposal is input only; the next task must
+define a typed candidate, deterministic oracle, negative neighbours and
+source/provenance mutations. It must not evaluate arbitrary Fortran
+expressions, infer names or promote a semantic fact.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
@@ -1902,9 +1915,10 @@ Core 0 audit, pre-C717 reconciliation and post-promotion reconciliations are
 recorded as R000074 through R000076, R000482, R000488, R000492, R000496 and
 R000506; 153 outside-promoted witness rows remain (88 disputed and 65
 unwitnessed). Full M3 remains open. R000504/R000505 verify the bounded C726
-source-backed oracle over the page-84/page-85 span; the next task selects one
-source-backed property from the remaining residual. No semantic fact is
-promoted.
+source-backed oracle over the page-84/page-85 span. Selection R000507 chooses
+C731@1, whose source-backed property is that a character statement-function
+or statement-function dummy-argument length is a constant expression. The
+next task implements one bounded C731 oracle; no semantic fact is promoted.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

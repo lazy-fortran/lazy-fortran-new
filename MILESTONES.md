@@ -479,8 +479,10 @@ semantic promotions. C726 is promoted only as this bounded oracle slice; it
 does not parse Fortran, infer context, claim full C726 semantics or close M3.
 
 The post-C726 reconciliation `R000506` reports 153 outside-promoted rows (88
-disputed and 65 unwitnessed), with C731@1 first. The next task selects one
-source-backed property from that residual; full M3 remains open.
+disputed and 65 unwitnessed), with C731@1 first. Selection `R000507` binds
+C731 to canonical lines 3469--3470 on page 85 and existing StandardIR R721.
+The next task defines the bounded C731 constant-expression oracle; full M3
+remains open.
 
 ## M3 — bounded C601 semantic-oracle successor
 
