@@ -61,18 +61,46 @@
   "milestone": "M3",
   "model_calls": 0,
   "mutation_controls": [
-    {"id": "normative-pdf-hash", "result": "REJECTED"},
-    {"id": "canonical-page-identity", "result": "REJECTED"},
-    {"id": "canonical-page-boundary", "result": "REJECTED"},
-    {"id": "canonical-source-line-identity", "result": "REJECTED"},
-    {"id": "canonical-source-line-text", "result": "REJECTED"},
-    {"id": "standardir-row-identity", "result": "REJECTED"},
-    {"id": "standardir-row-metadata", "result": "REJECTED"},
-    {"id": "semantic-rule-identity", "result": "REJECTED"}
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-page-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-page-boundary",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-text",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-metadata",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    }
   ],
   "oracle": "tests/e2e/validate_m3_c1586_self_reference.py",
   "origin": "MECHANICAL",
-  "outcome_counts": {"ACCEPTED": 2, "REJECTED": 1, "UNRESOLVED": 3},
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 1,
+    "UNRESOLVED": 3
+  },
   "property": "statement-function-self-name-exclusion",
   "schema_version": "m3-c1586-source-backed-v0",
   "semantic_items": {
@@ -83,8 +111,19 @@
   },
   "semantic_promotions": 0,
   "source": {
-    "canonical_lines": [15464, 15465, 15466, 15467, 15468, 15469],
-    "canonical_page": {"length": 3429, "page": 358, "start": 1019965},
+    "canonical_lines": [
+      15464,
+      15465,
+      15466,
+      15467,
+      15468,
+      15469
+    ],
+    "canonical_page": {
+      "length": 3429,
+      "page": 358,
+      "start": 1019965
+    },
     "canonical_pages_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
     "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
     "clause": "15",
@@ -92,7 +131,9 @@
     "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
     "printed_page": 358,
     "rule": "C1586",
-    "standardir_rules": ["R1547"],
+    "standardir_rules": [
+      "R1547"
+    ],
     "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
   }
 }
