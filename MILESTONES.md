@@ -384,7 +384,7 @@ retained failed review reports, and `research/runs/2026-08.jsonl#R000478` throug
 
 Audit and reconciliation status: `PASS` for coverage accounting only; full M3
 status remains `NEEDS EVIDENCE`. The next task is
-`T-M3-c722-kind-param-approximation-oracle`. E0181/R000074 and clean pushed
+`T-M3-core0-next-bounded-property-selection-after-c722`. E0181/R000074 and clean pushed
 replay R000075 reproduce the retained 287-row ledger: 4 hard failures, 2
 unresolved rows, 1 reference-only row, 117 self-consistent rows, 94
 disputed rows, 69 unwitnessed rows, 7
@@ -403,7 +403,9 @@ The audit report is recorded in
 post-promotion reconciliation `R000482` maps fourteen promoted IDs and leaves
 157 outside-promoted rows: 90 disputed and 67 unwitnessed. The residual
 reconciliation `R000488` maps fifteen promoted IDs and leaves 156 outside-
-promoted rows: 89 disputed and 67 unwitnessed. The residual
+promoted rows: 89 disputed and 67 unwitnessed. Post-C722 reconciliation
+`R000492` maps sixteen promoted IDs and leaves 155 outside-promoted rows: 88
+disputed and 67 unwitnessed. The residual
 identities from the audit are C601@1,
 C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1. The 94 disputed and 69
 unwitnessed rows are the total retained witness status; the outside-promoted
@@ -432,15 +434,21 @@ task is `T-M3-core0-next-bounded-property-selection-after-c720`.
 Post-C720 reconciliation `R000488` records 156 outside-promoted rows, with
 89 disputed and 67 unwitnessed. Full M3 remains open.
 
-## M3 — selected C722 kind-param approximation-method oracle
+## M3 — bounded C722 kind-param approximation-method oracle
 
-Selection status: `PASS`; implementation task
-`T-M3-c722-kind-param-approximation-oracle` is `OPEN`. D0142/E0191 binds
-canonical line 3356 on page 82 to StandardIR R714. The typed candidate has
+Bounded-slice status: `PASS`; implementation replay `R000490` and focused
+review `R000491` pass. D0142/E0191 binds canonical line 3356 on page 82 to
+StandardIR R714. The typed candidate has
 `approximation_method = absent | present | unknown`, with outcomes
-`ACCEPTED`, `REJECTED` and `UNRESOLVED`. Selection replay
-`research/runs/2026-08.jsonl#R000489` passes. The implementation gate is
-`tests/e2e/run-m3-c722.sh --fresh`; C722 is not promoted.
+`ACCEPTED`, `REJECTED` and `UNRESOLVED`; eight source/identity mutations are
+rejected and model calls and semantic promotions are zero. C722 is promoted
+only as this bounded oracle slice. It does not evaluate kind expressions,
+inspect processor capabilities, parse Fortran or close full M3.
+
+The post-promotion reconciliation `R000492` reports 155 outside-promoted rows
+(88 disputed and 67 unwitnessed). The next task is
+`T-M3-core0-next-bounded-property-selection-after-c722`; its exact verifier
+and first residual row are recorded in `TASK_POOL.yaml`.
 
 ## M3 — bounded C601 semantic-oracle successor
 
