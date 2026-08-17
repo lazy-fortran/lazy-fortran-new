@@ -33,7 +33,7 @@
   },
   "semantic_item": {
     "path": "tests/fixtures/m3-c738-semantic-items.sx",
-    "sha256": "3bdc39746167fcd9da02cb1e698c04e132eb7b1e1be10a5e45a48b0f0b1f9e7a",
+    "sha256": "788c5729543d80c7b4f5a85b6ceb2d44e8d329247cc283c880f50b38ee5980e4",
     "id": "S-C738",
     "subject": "abstract-required-for-deferred-binding",
     "document": "J3-24-007",
