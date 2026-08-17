@@ -1,0 +1,28 @@
+(schema m3-c754-component-array-spec-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c754-attribute absent present unknown)
+  (enum c754-array-spec explicit-shape-list deferred-shape-list unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record c754-compliance
+    (pointer-attribute c754-attribute)
+    (allocatable-attribute c754-attribute)
+    (component-array-spec c754-array-spec))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact c754-compliance)
+    (expected outcome))
+  (list candidates semantic-candidate))
