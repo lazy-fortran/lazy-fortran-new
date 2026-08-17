@@ -1,0 +1,10 @@
+(schema m3-c762-conditional-nopass-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum trigger-state not-triggered triggered unknown)
+  (enum nopass-state present absent unknown)
+  (record source-ref (document name) (clause name) (rule name) (page int) (source-hash name))
+  (record source-span (byte-start int) (byte-length int) (page-start int) (page-end int))
+  (record conditional-nopass-fact (trigger-state trigger-state) (nopass-state nopass-state))
+  (record semantic-candidate (id name) (property name) (source source-ref) (span source-span) (fact conditional-nopass-fact) (expected outcome))
+  (list candidates semantic-candidate))
