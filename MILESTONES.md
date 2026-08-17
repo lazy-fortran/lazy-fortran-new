@@ -811,9 +811,9 @@ pointer-or-allocatable-attribute state × declaration-type category ×
 component-def-stmt context. The bounded oracle will accept the four allowed
 type categories when the attribute is absent in that context, reject the
 `other` category in that same state, and return `UNRESOLVED` otherwise. The
-selection made zero model calls and no semantic promotion. E0216/R000589 and
-focused review/evidence gate R000592 now pass the implementation; full M3
-remains open.
+selection made zero model calls and no semantic promotion. E0216/R000593 and
+focused review/evidence gate R000592 now pass the implementation. E0217/R000594
+selects C750@1 as the next source-backed property; full M3 remains open.
 
 ## M3 — bounded C749 component-type eligibility oracle
 
@@ -827,13 +827,25 @@ semantic promotions.
 Replay command:
 
 ```text
-M3_C749_EXPECTED_CENTRAL_COMMIT=20ef900b18e16009f4aa5b3d8fb7dc8ea7f7699c tests/e2e/run-m3-c749.sh --fresh
+M3_C749_EXPECTED_CENTRAL_COMMIT=8622283453e652a0ad1a51cac1cb45288aef515a tests/e2e/run-m3-c749.sh --fresh
 ```
 
 Evidence: E0216 manifest, D0158, replay report, focused review report and
-central runs `R000589`--`R000592` under this repository. This is a bounded
+central runs `R000589`--`R000593` under this repository. This is a bounded
 oracle leaf; it does not parse arbitrary Fortran, perform name resolution or
-close full M3. The next task selects one residual property after C749.
+close full M3. E0217/R000594 selects C750@1 as the next property.
+
+## M3 — selected C750 component-array deferred-shape relation
+
+Selection status: `PASS`. E0217/R000594 recomputes the retained post-C749
+partition as 142 rows (82 `disputed`, 60 `unwitnessed`) and selects C750@1.
+The source is J3-24-007 clause 7, canonical lines 3838--3839, printed page
+79, byte span `241058:135`, contained by page-index record 93, over existing
+StandardIR R737/R740. D0159 defines the typed candidate as pointer-or-
+allocatable-attribute state × component-array-spec state × component-def-stmt
+context. The bounded oracle accepts present + deferred-shape-list in that
+context, rejects present + explicit-shape-list there, and returns
+`UNRESOLVED` otherwise. The next task implements C750; full M3 remains open.
 
 ## M3 — bounded C601 semantic-oracle successor
 

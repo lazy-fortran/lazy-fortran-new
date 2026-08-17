@@ -94,18 +94,18 @@ analysis: >-
   artifacts/reports/M3/m3-c749-source-backed-v0.md
 
 result:
-  run: research/runs/2026-08.jsonl#R000589
-  central_revision: 20ef900b18e16009f4aa5b3d8fb7dc8ea7f7699c
+  run: research/runs/2026-08.jsonl#R000593
+  central_revision: 8622283453e652a0ad1a51cac1cb45288aef515a
   functional_revision: 9c26f1ebab90864f08d8fa191601d18d97f6c71e
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
   report: artifacts/reports/M3/m3-c749-source-backed-v0.md
-  report_sha256: 978e66cc7eba79003ea5479becd873e5b30050b4aeb157231e19d74c5eaeb34a
+  report_sha256: de755edbf76ca507b987f97b512163f7ba97b2f20466628bb0ec5a5b8d9cdf3c
   trace: artifacts/traces/m3-c749-source-backed-v0.json
   trace_sha256: 4ad1c0d77479c7904cebfb9da2153d118dcd29370394c359c0805618e1890aa3
-  result: .cache/runs/E0216/R000006/result.json
+  result: .cache/runs/E0216/R000011/result.json
   result_sha256: 4ad1c0d77479c7904cebfb9da2153d118dcd29370394c359c0805618e1890aa3
-  run_environment: .cache/runs/E0216/R000006/run-environment.json
-  run_environment_sha256: 777e21e3d74b2d68b13bef65d662ab5ed5232291e900392d34f150ca874df667
+  run_environment: .cache/runs/E0216/R000011/run-environment.json
+  run_environment_sha256: d653f461148fb8313d85ed63bd33a9d73f01418d00f912ae89ceee0c7cb32cab
   decision: research/decisions/D0158-c749-bounded-component-type-eligibility.md
   decision_sha256: db243da14f3d222698c25f999ca6758afefdc76c7a8c7d90183b877c3d8bfc22
   outcome_counts: {accepted: 4, rejected: 1, unresolved: 49}

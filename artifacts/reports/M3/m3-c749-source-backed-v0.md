@@ -32,7 +32,7 @@ definitions, or check C750/C751.
 
 ## Replay
 
-The exact clean command is:
+The original clean command was:
 
 ```text
 M3_C749_EXPECTED_CENTRAL_COMMIT=20ef900b18e16009f4aa5b3d8fb7dc8ea7f7699c tests/e2e/run-m3-c749.sh --fresh
@@ -46,6 +46,17 @@ are byte-identical with SHA-256
 `4ad1c0d77479c7904cebfb9da2153d118dcd29370394c359c0805618e1890aa3`. The
 run-environment record has SHA-256
 `777e21e3d74b2d68b13bef65d662ab5ed5232291e900392d34f150ca874df667`.
+
+After the expected-outcomes manifest hash correction, the follow-up clean
+replay was:
+
+```text
+M3_C749_EXPECTED_CENTRAL_COMMIT=8622283453e652a0ad1a51cac1cb45288aef515a tests/e2e/run-m3-c749.sh --fresh
+```
+
+It passed as E0216/R000011 with the same result and trace hashes. Its
+run-environment record has SHA-256
+`d653f461148fb8313d85ed63bd33a9d73f01418d00f912ae89ceee0c7cb32cab`.
 
 The 54-state product has 4 `ACCEPTED`, 1 `REJECTED` and 49
 `UNRESOLVED` outcomes. Twelve source, page-index, StandardIR, contract and
