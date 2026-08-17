@@ -1,0 +1,27 @@
+(schema m3-c732-kind-param-representation-method-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c732-kind-param-state processor-supported processor-unsupported unknown)
+  (enum c732-context-state char-literal-constant other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record kind-param-representation-use
+    (kind-param-state c732-kind-param-state)
+    (context c732-context-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact kind-param-representation-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

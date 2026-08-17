@@ -1,0 +1,186 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "context": "char-literal-constant",
+      "expected": "ACCEPTED",
+      "id": "accepted-supported-character-literal",
+      "kind": "positive",
+      "kind_param_state": "processor-supported"
+    },
+    {
+      "computed": "REJECTED",
+      "context": "char-literal-constant",
+      "expected": "REJECTED",
+      "id": "rejected-unsupported-character-literal",
+      "kind": "negative",
+      "kind_param_state": "processor-unsupported"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "char-literal-constant",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-kind-character-literal",
+      "kind": "unresolved",
+      "kind_param_state": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-supported-other",
+      "kind": "unresolved",
+      "kind_param_state": "processor-supported"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unsupported-other",
+      "kind": "unresolved",
+      "kind_param_state": "processor-unsupported"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-other",
+      "kind": "unresolved",
+      "kind_param_state": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-supported-unknown-context",
+      "kind": "unresolved",
+      "kind_param_state": "processor-supported"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unsupported-unknown-context",
+      "kind": "unresolved",
+      "kind_param_state": "processor-unsupported"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-context",
+      "kind": "unresolved",
+      "kind_param_state": "unknown"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c732-kind-param-representation-method-oracle-v0.sx",
+    "fixture_sha256": "7058894314da490d75b3778967ce2b82bf3dd05039d83956fd1451a78c1b4a3b",
+    "schema": "contracts/m3-c732-kind-param-representation-method-oracle-v0.sxs",
+    "schema_sha256": "584da9a4e4f903542edbb33a68b19c101665bbbad356b0ced45508cedef7a442",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c732-source-backed-v0.json",
+  "fixture_sha256": "21715ec14e3fed24f52c17b7fb813282ecb197aa47af4a742bbf6daf1700ec9a",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-span-start",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-span-length",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-boundary",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-lhs-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-property-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c732.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 1,
+    "REJECTED": 1,
+    "UNRESOLVED": 7
+  },
+  "property": "character-literal-kind-param-processor-representation-method",
+  "schema_version": "m3-c732-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "33bb75f84eddefbc0ae278745e23be9c3640b461865ec8bd537a214501d26548",
+    "input": "tests/fixtures/m3-c732-semantic-items.sx",
+    "input_sha256": "33bb75f84eddefbc0ae278745e23be9c3640b461865ec8bd537a214501d26548"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3493
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "pages": [
+        {
+          "length": 3925,
+          "page": 85,
+          "start": 218135
+        }
+      ],
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 85,
+    "rule": "C732",
+    "source_span": {
+      "byte_length": 107,
+      "byte_start": 221195,
+      "page_end": 85,
+      "page_start": 85
+    },
+    "standardir_rules": [
+      "R724"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}
