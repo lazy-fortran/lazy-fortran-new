@@ -49,4 +49,5 @@
   (contract m3-c759-type-param-value 0 lazy-fortran-new)
   (contract m3-c760-proc-component-attr-uniqueness 0 lazy-fortran-new)
   (contract m3-c761-pointer-presence 0 lazy-fortran-new)
-  (contract m3-c762-conditional-nopass 0 lazy-fortran-new))
+  (contract m3-c762-conditional-nopass 0 lazy-fortran-new)
+  (contract m3-c763-pass-arg-name 0 lazy-fortran-new))
