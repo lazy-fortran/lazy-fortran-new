@@ -44,9 +44,9 @@ metrics:
 # State the complete eligible set and exclusions before the first run. A rate
 # over the successful subset is reported alongside the strict rate.
 denominator: >
-  Every case in tests/fixtures/m3-c738-source-backed-v0.json: three accepted
-  witnesses, one rejected deferred-without-abstract neighbour and one unknown
-  unresolved control. Mutation controls are a separate source-binding
+  Every case in tests/fixtures/m3-c738-source-backed-v0.json: four accepted
+  witnesses, two rejected deferred-without-abstract neighbours and two
+  unknown unresolved controls. Mutation controls are a separate source-binding
   denominator.
 
 # State the independent behavioral or structural oracle. Self-consistency is
@@ -73,7 +73,7 @@ falsifiable_by: >
 gate: >
   tests/e2e/run-m3-c738.sh --fresh must pass from clean central and
   standard-new checkouts, including standard-new sxsemantic canonicalization,
-  normative PDF/canonical-text/StandardIR hash and witness checks, five
+  normative PDF/canonical-text/StandardIR hash and witness checks, eight
   independently computed cases, six observed mutation failures, exact
   committed trace comparison and zero model calls or semantic promotions.
 

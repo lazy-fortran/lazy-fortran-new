@@ -64,16 +64,34 @@
       "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "none", "abstract": "absent"}
     },
     {
+      "id": "positive-no-deferred-abstract",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "none", "abstract": "present"}
+    },
+    {
       "id": "negative-deferred-without-abstract",
       "kind": "negative",
       "expected": "REJECTED",
       "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "contains", "abstract": "absent"}
     },
     {
+      "id": "negative-inherited-deferred-without-abstract",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "inherits", "abstract": "absent"}
+    },
+    {
       "id": "unresolved-deferred-binding",
       "kind": "unresolved",
       "expected": "UNRESOLVED",
       "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "unknown", "abstract": "present"}
+    },
+    {
+      "id": "unresolved-abstract-attribute",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "contains", "abstract": "unknown"}
     }
   ],
   "mutations": [

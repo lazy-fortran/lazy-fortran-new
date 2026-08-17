@@ -214,7 +214,7 @@ def set_path(document: dict[str, Any], path: list[Any], value: Any) -> None:
 
 
 def validate_fixture_shape(doc: dict[str, Any]) -> None:
-    require(isinstance(doc["cases"], list) and len(doc["cases"]) == 5, "fixture case count differs")
+    require(isinstance(doc["cases"], list) and len(doc["cases"]) == 8, "fixture case count differs")
     ids = set()
     results = []
     for case in doc["cases"]:
@@ -223,7 +223,7 @@ def validate_fixture_shape(doc: dict[str, Any]) -> None:
         ids.add(result["id"])
         results.append(result)
     require({item["kind"] for item in results} == {"positive", "negative", "unresolved"}, "fixture witness kinds are incomplete")
-    require(sum(item["kind"] == "positive" for item in results) == 3, "positive witness count differs")
+    require(sum(item["kind"] == "positive" for item in results) == 4, "positive witness count differs")
     require(len(doc["mutations"]) == 6, "mutation control count differs")
     for mutation in doc["mutations"]:
         exact_keys(mutation, {"id", "path", "value"}, f"mutation {mutation.get('id', '<missing>')}")
@@ -294,8 +294,11 @@ def self_test() -> None:
         ({"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "contains", "abstract": "present"}, "ACCEPTED"),
         ({"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "inherits", "abstract": "present"}, "ACCEPTED"),
         ({"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "none", "abstract": "absent"}, "ACCEPTED"),
+        ({"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "none", "abstract": "present"}, "ACCEPTED"),
         ({"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "contains", "abstract": "absent"}, "REJECTED"),
+        ({"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "inherits", "abstract": "absent"}, "REJECTED"),
         ({"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "unknown", "abstract": "present"}, "UNRESOLVED"),
+        ({"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "contains", "abstract": "unknown"}, "UNRESOLVED"),
     ]
     for candidate, expected in cases:
         require(c738_oracle(candidate) == expected, f"self-test outcome differs: {expected}")
