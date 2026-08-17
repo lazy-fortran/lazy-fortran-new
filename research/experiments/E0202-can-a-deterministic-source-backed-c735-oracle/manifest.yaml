@@ -24,13 +24,13 @@ inputs:
   standardir_source_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
   witnesses: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
   witnesses_sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
-  predecessor_selection: research/runs/2026-08.jsonl#R000521
+  predecessor_selection: research/runs/2026-08.jsonl#R000522
   selected_row: C735@1
   selected_source_page: 88
-  selected_source_span: "228853:101"
+  selected_source_span: "229534:101"
   selected_standardir_rules: [R727, R728]
   selection_report: artifacts/reports/M3/m3-core0-next-property-selection-v9.md
-  selection_report_sha256: b93b035b7c5585c3f4039be4d13a1114da73b5cc0c5bf6d2bc0d7acd9aa570b0
+  selection_report_sha256: 7cda082651ab4d49838973fc519c38ccc0a7311744adcf2cf4004a0861e42016
 
 variables:
   attr_occurrence: [none, distinct, duplicate, unknown]
