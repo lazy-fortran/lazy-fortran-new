@@ -1,0 +1,873 @@
+{
+  "cases": [
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "absent"
+        },
+        "id": "absent-absent-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-absent-absent",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "absent"
+        },
+        "id": "absent-absent-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-absent-present",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "absent"
+        },
+        "id": "absent-absent-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-absent-unknown",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "present"
+        },
+        "id": "absent-present-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-present-absent",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "present"
+        },
+        "id": "absent-present-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-present-present",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "present"
+        },
+        "id": "absent-present-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-present-unknown",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "unknown"
+        },
+        "id": "absent-unknown-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-unknown-absent",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "unknown"
+        },
+        "id": "absent-unknown-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-unknown-present",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "absent",
+          "pointer_attribute": "unknown"
+        },
+        "id": "absent-unknown-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "absent-unknown-unknown",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "REJECTED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "absent"
+        },
+        "id": "present-absent-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "REJECTED",
+      "id": "present-absent-absent",
+      "kind": "negative"
+    },
+    {
+      "candidate": {
+        "expected": "REJECTED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "absent"
+        },
+        "id": "present-absent-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "REJECTED",
+      "id": "present-absent-present",
+      "kind": "negative"
+    },
+    {
+      "candidate": {
+        "expected": "REJECTED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "absent"
+        },
+        "id": "present-absent-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "REJECTED",
+      "id": "present-absent-unknown",
+      "kind": "negative"
+    },
+    {
+      "candidate": {
+        "expected": "REJECTED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "present"
+        },
+        "id": "present-present-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "REJECTED",
+      "id": "present-present-absent",
+      "kind": "negative"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "present"
+        },
+        "id": "present-present-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "present-present-present",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "present"
+        },
+        "id": "present-present-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "present-present-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "REJECTED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "unknown"
+        },
+        "id": "present-unknown-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "REJECTED",
+      "id": "present-unknown-absent",
+      "kind": "negative"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "unknown"
+        },
+        "id": "present-unknown-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "present-unknown-present",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "present",
+          "pointer_attribute": "unknown"
+        },
+        "id": "present-unknown-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "present-unknown-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "absent"
+        },
+        "id": "unknown-absent-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown-absent-absent",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "absent"
+        },
+        "id": "unknown-absent-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown-absent-present",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "absent"
+        },
+        "id": "unknown-absent-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown-absent-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "present"
+        },
+        "id": "unknown-present-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown-present-absent",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "present"
+        },
+        "id": "unknown-present-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "ACCEPTED",
+      "id": "unknown-present-present",
+      "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "present"
+        },
+        "id": "unknown-present-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown-present-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "absent",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "unknown"
+        },
+        "id": "unknown-unknown-absent",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown-unknown-absent",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "present",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "unknown"
+        },
+        "id": "unknown-unknown-present",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown-unknown-present",
+      "kind": "unresolved"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {
+          "component_array": "unknown",
+          "contiguous_attribute": "unknown",
+          "pointer_attribute": "unknown"
+        },
+        "id": "unknown-unknown-unknown",
+        "property": "contiguous-pointer-component-array",
+        "source": {
+          "clause": "7",
+          "document": "J3-24-007",
+          "page": 79,
+          "rule": "C757",
+          "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+        },
+        "span": {
+          "byte_length": 120,
+          "byte_start": 242052,
+          "page_end": 93,
+          "page_start": 93
+        }
+      },
+      "expected": "UNRESOLVED",
+      "id": "unknown-unknown-unknown",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c757-contiguous-pointer-v0.sx",
+    "schema": "contracts/m3-c757-contiguous-pointer-v0.sxs",
+    "version": 0
+  },
+  "mutation_controls": [
+    "source-rule",
+    "printed-page",
+    "ledger-page",
+    "span-start",
+    "span-length",
+    "canonical-line",
+    "page-index-hash",
+    "page-index-start",
+    "pdf-hash",
+    "canonical-hash",
+    "standardir-hash",
+    "standardir-rule",
+    "ledger-text",
+    "semantic-item-hash",
+    "contract-version"
+  ],
+  "origin": "LLM",
+  "property": "contiguous-pointer-component-array",
+  "schema_version": "m3-c757-source-backed-v0",
+  "semantic_item": {
+    "clause": "7",
+    "document": "J3-24-007",
+    "id": "S-C757",
+    "origin": "llm",
+    "page": 79,
+    "path": "tests/fixtures/m3-c757-semantic-items.sx",
+    "resolution": "disputed",
+    "rule": "C757",
+    "sha256": "551eaf2b0488954f59bde152cdf9e59c72bd43a58375ab68e4ddd5f72fafd0ca",
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "subject": "contiguous-pointer-component-array"
+  },
+  "source": {
+    "canonical_lines": [
+      {
+        "line": 3851,
+        "text": "37 C757 (R737) If the CONTIGUOUS attribute is specified, the component shall be an array with the POINTER"
+      },
+      {
+        "line": 3852,
+        "text": "38 attribute."
+      }
+    ],
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "constraint_span": {
+      "canonical_line": 3851,
+      "ledger_page": 92,
+      "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+      "rule": "R737",
+      "text": "37 C757 (R737) If the CONTIGUOUS attribute is specified, the component shall be an array with the POINTER"
+    },
+    "document": "J3-24-007",
+    "page_index": {
+      "pages": [
+        {
+          "length": 2451,
+          "page": 93,
+          "start": 239957
+        }
+      ],
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+    },
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 79,
+    "rule": "C757",
+    "source_span": {
+      "byte_length": 120,
+      "byte_start": 242052,
+      "page_end": 93,
+      "page_start": 93
+    },
+    "standard_rule": "R737",
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "rows": [
+        {
+          "byte_length": 115,
+          "byte_start": 240182,
+          "lhs": "data-component-def-stmt",
+          "occurrence": 87,
+          "page": 93,
+          "rule": "R737"
+        },
+        {
+          "byte_length": 179,
+          "byte_start": 240298,
+          "lhs": "component-attr-spec",
+          "occurrence": 88,
+          "page": 93,
+          "rule": "R738"
+        },
+        {
+          "byte_length": 157,
+          "byte_start": 240478,
+          "lhs": "component-decl",
+          "occurrence": 89,
+          "page": 93,
+          "rule": "R739"
+        }
+      ],
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+    }
+  }
+}

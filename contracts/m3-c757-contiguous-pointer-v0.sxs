@@ -1,0 +1,9 @@
+(schema m3-c757-contiguous-pointer-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum presence absent present unknown)
+  (record source-ref (document name) (clause name) (rule name) (page int) (source-hash name))
+  (record source-span (byte-start int) (byte-length int) (page-start int) (page-end int))
+  (record c757-compliance (contiguous-attribute presence) (pointer-attribute presence) (component-array presence))
+  (record semantic-candidate (id name) (property name) (source source-ref) (span source-span) (fact c757-compliance) (expected outcome))
+  (list candidates semantic-candidate))
