@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c750
+active_task: T-M3-c751-coarray-allocatable-oracle
 
 milestones:
   - id: L0
@@ -5879,14 +5879,17 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c750
     milestone: M3
     title: Select the next bounded property after C750 promotion
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c750-component-array-spec-deferred-shape-oracle
     inputs:
       - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+      - path: research/experiments/E0219-select-the-next-bounded-source-backed-pr/manifest.yaml
+      - path: research/decisions/D0161-thirty-first-m3-c751-coarray-allocatable-oracle.md
+      - path: research/runs/2026-08.jsonl#R000598
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
         sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
@@ -5931,10 +5934,100 @@ tasks:
     verifier_command: >-
       jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746","C747","C748","C749","C750"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     evidence_paths:
-      - research/runs/2026-08.jsonl#R000597
+      - research/experiments/E0219-select-the-next-bounded-source-backed-pr/manifest.yaml
+      - research/decisions/D0161-thirty-first-m3-c751-coarray-allocatable-oracle.md
+      - artifacts/reports/M3/m3-core0-next-property-selection-v20.md
+      - research/runs/2026-08.jsonl#R000598
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     retry_count: 0
     integration_cycle_trigger: next_implementation
+
+  - id: T-M3-c751-coarray-allocatable-oracle
+    milestone: M3
+    title: Implement the bounded C751 coarray-allocatable oracle
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection-after-c750
+    inputs:
+      - path: research/experiments/E0219-select-the-next-bounded-source-backed-pr/manifest.yaml
+      - path: research/decisions/D0161-thirty-first-m3-c751-coarray-allocatable-oracle.md
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v20.md
+      - path: research/runs/2026-08.jsonl#R000598
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+    writes:
+      - contracts/m3-c751-coarray-allocatable-v0.sxs
+      - contracts/fixtures/m3-c751-coarray-allocatable-v0.sx
+      - contracts/registry.sx
+      - tests/fixtures/m3-c751-expected-outcomes-v0.json
+      - tests/fixtures/m3-c751-source-backed-v0.json
+      - tests/fixtures/m3-c751-semantic-items.sx
+      - tests/golden/m3-c751-semantic-items.sx
+      - tests/e2e/run-m3-c751.sh
+      - tests/e2e/validate_m3_c751.py
+      - artifacts/traces/m3-c751-source-backed-v0.json
+      - artifacts/reports/M3/m3-c751-source-backed-v0.md
+      - research/experiments/E0220-*/manifest.yaml
+      - research/decisions/D0162-*.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      execute a fresh source-backed C751 replay over canonical lines
+      3840--3841, byte span 241193:142, printed page 79 and page-index record
+      93, using R737/R739 plus R809/R810/R811. The typed product is
+      coarray-spec absent|deferred-coshape-list|explicit-coshape-spec|unknown
+      crossed with allocatable-attribute absent|present|unknown. Accept absent
+      coarray-spec and deferred shape with ALLOCATABLE present; reject deferred
+      shape without ALLOCATABLE and every explicit shape; return UNRESOLVED
+      for unknown states. Require all 12 states, source/page/identity
+      mutations, zero model calls and zero semantic promotions. Do not parse
+      Fortran, inspect C752/C754 or broaden the property.
+    output: bounded-oracle
+    final_observable: >-
+      a replayable C751 source-backed oracle with an independent expected-
+      outcome table, deterministic ACCEPTED/REJECTED/UNRESOLVED decisions,
+      rejected mutation controls and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/m3-c751-*
+        - tests/fixtures/m3-c751-*
+        - tests/e2e/run-m3-c751.sh
+        - tests/e2e/validate_m3_c751.py
+        - artifacts/traces/m3-c751-*
+        - artifacts/reports/M3/m3-c751-*
+        - research/experiments/E0220-*
+        - research/decisions/D0162-*.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c750]
+    verifier_command: tests/e2e/run-m3-c751.sh --fresh
+    evidence_paths:
+      - research/experiments/E0219-select-the-next-bounded-source-backed-pr/manifest.yaml
+      - research/decisions/D0161-thirty-first-m3-c751-coarray-allocatable-oracle.md
+      - artifacts/reports/M3/m3-core0-next-property-selection-v20.md
+      - research/runs/2026-08.jsonl#R000598
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 
 integration_cycle:
   triggers:

@@ -82,7 +82,10 @@ selects C750@1 at canonical lines 3838--3839, printed page 79, byte span
 review/evidence gate R000597 pass the bounded C750 replay with 1 `ACCEPTED`, 1
 `REJECTED`, 25 `UNRESOLVED`, twelve rejected mutations, zero model calls and
 zero semantic promotions. C750 is promoted only as a bounded leaf; full M3
-remains open.
+remains open. E0219/R000598 selects C751@1 at canonical lines 3840--3841,
+printed page 79, byte span `241193:142`, over existing StandardIR
+R737/R739/R809/R810/R811. D0161 defines the next bounded coarray/ALLOCATABLE
+relation; no semantic fact is promoted.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -655,6 +658,26 @@ Evidence: E0218 manifest, D0160, replay reports, focused review report and
 R000596--R000597. This does not parse arbitrary Fortran, perform name
 resolution or close full M3.
 
+## M3 — selected C751 coarray-allocatable relation
+
+Selection status: `PASS`. E0219/R000598 recomputes the retained post-C750
+partition as 141 rows (82 `disputed`, 59 `unwitnessed`) and selects C751@1.
+The source is J3-24-007 clause 7, canonical lines 3840--3841, printed page
+79, byte span `241193:142`, contained by page-index record 93. Existing
+StandardIR supplies R737/R739 for the component context and R809/R810/R811 for
+coarray shape alternatives. D0161 defines the 12-state candidate and bounded
+oracle; no model call or semantic promotion occurred.
+
+## M3 — next bounded C751 coarray-allocatable oracle
+
+The active task implements C751's relation: an absent coarray-spec is
+accepted vacuously; deferred-coshape with ALLOCATABLE present is accepted;
+deferred-coshape without ALLOCATABLE and every explicit-coshape are rejected;
+unknown states are unresolved. The exact verifier is
+`tests/e2e/run-m3-c751.sh --fresh`. It must remain a typed source-backed
+oracle and does not parse arbitrary Fortran, inspect C752/C754 or close full
+M3.
+
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
 Selection `R000522` binds C735 canonical line 3620, page 88, byte span
@@ -694,8 +717,8 @@ bounded leaf. R000576 selects C748@1; corrected replay R000579 and focused
 review R000580 promote it only as a bounded at-most-once leaf. C749 corrected replay
 R000593 and focused review/evidence gate R000592 pass. E0217/R000594 selects
 C750@1; E0218/R000596 and focused review/evidence gate R000597 promote C750
-only as a bounded leaf. The next active task is
-`T-M3-core0-next-bounded-property-selection-after-c750`.
+only as a bounded leaf. E0219/R000598 selects C751@1. The next active task is
+`T-M3-c751-coarray-allocatable-oracle`.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

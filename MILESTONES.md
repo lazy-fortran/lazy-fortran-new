@@ -871,6 +871,23 @@ twelve mutations, and records zero model calls and zero semantic promotions.
 Evidence: E0218 manifest, D0160, replay reports, focused review report and
 R000596--R000597. This does not parse arbitrary Fortran or close full M3.
 
+## M3 — selected C751 coarray-allocatable relation
+
+Selection status: `PASS`. E0219/R000598 leaves 141 residual rows (82
+`disputed`, 59 `unwitnessed`) and selects C751@1. The source is J3-24-007
+clause 7, canonical lines 3840--3841, printed page 79, byte span `241193:142`,
+over existing StandardIR R737/R739/R809/R810/R811. D0161 defines the bounded
+12-state candidate; no model call or semantic promotion occurred.
+
+## M3 — next bounded C751 coarray-allocatable oracle
+
+The active task is `T-M3-c751-coarray-allocatable-oracle`. Its exact verifier is
+`tests/e2e/run-m3-c751.sh --fresh`. The bounded contract accepts an absent
+coarray-spec and a deferred-coshape with ALLOCATABLE present, rejects a
+deferred-coshape without ALLOCATABLE and every explicit-coshape, and leaves
+unknown states unresolved. It does not parse arbitrary Fortran or close full
+M3.
+
 ## M3 — bounded C601 semantic-oracle successor
 
 Bounded-slice status: `PASS`; central replay `R000003` and focused review

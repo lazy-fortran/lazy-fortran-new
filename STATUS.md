@@ -42,7 +42,10 @@ next source-backed property. E0218/R000596 passes its bounded replay with 1
 `ACCEPTED`, 1 `REJECTED`, 25 `UNRESOLVED`, twelve rejected mutations, zero
 model calls and zero semantic promotions. Focused review/evidence gate R000597
 passes, so C750 is promoted only as a bounded oracle leaf. The full Core 0
-semantic milestone remains unpromoted.
+semantic milestone remains unpromoted. E0219/R000598 then selects C751@1,
+the C751 coarray/ALLOCATABLE relation at canonical lines 3840--3841, byte span
+`241193:142`, over existing R737/R739/R809/R810/R811. D0161 records the bounded
+candidate; no semantic fact is promoted.
 
 ## Component pins
 
@@ -180,7 +183,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-core0-next-bounded-property-selection-after-c750`.
+Current fixture: `T-M3-c751-coarray-allocatable-oracle`.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
 Clean replay R000527 and focused review R000528 pass. The replay binds C735
 line 3620, page 88, byte span `229534:101`, to existing StandardIR R727/R728;
@@ -226,21 +229,21 @@ remains open. E0217/R000594 selects C750@1 at canonical lines 3838--3839,
 printed page 79, byte span `241058:135`, over existing StandardIR R737/R740.
 E0218/R000596 passes the bounded C750 replay with the independent validator,
 and focused review/evidence gate R000597 passes. C750 is promoted only as a
-bounded oracle leaf; full M3 remains open.
+bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c750` — select the next
-source-backed bounded M3 property after C750. C750's technical replay is
-E0218/R000596 and focused review/evidence gate R000597 passes; C750 is promoted
-only as a bounded leaf.
+ID: `T-M3-c751-coarray-allocatable-oracle` — implement the bounded C751
+coarray/ALLOCATABLE oracle. C750's technical replay is E0218/R000596 and
+focused review/evidence gate R000597 passes; E0219/R000598 selects C751@1.
 
-Verifier: recompute the retained E0181 disputed/unwitnessed partition after
-excluding the thirty promoted bounded contracts, inspect the first remaining
-source occurrence against the pinned canonical text, page index and
-StandardIR witnesses, and select exactly one source-backed bounded property.
-Do not run a model, promote a semantic fact, resume E0172 or start general
-parsing.
+Verifier: `tests/e2e/run-m3-c751.sh --fresh`. It must consume C751's exact
+source span `241193:142` (canonical lines 3840--3841, printed page 79,
+page-index record 93) and existing StandardIR R737/R739/R809/R810/R811
+witnesses. Its 12-state typed product accepts absent coarray-spec and
+deferred-coshape with ALLOCATABLE present, rejects deferred-coshape without
+ALLOCATABLE and every explicit-coshape, and returns `UNRESOLVED` otherwise.
+It must not parse Fortran, inspect C752/C754, run a model or promote a fact.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -336,11 +339,10 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Select the next bounded source-backed property after C750. The active task is
-`T-M3-core0-next-bounded-property-selection-after-c750`; its selector must
-exclude the thirty promoted contracts, bind the first residual to canonical
-source/page/StandardIR evidence, and promote nothing. Do not run a model,
-restart E0172, parse general Fortran or close full M3 by implication.
+Implement the selected C751 bounded source-backed property. The active task is
+`T-M3-c751-coarray-allocatable-oracle`; its exact verifier is
+`tests/e2e/run-m3-c751.sh --fresh`. Do not run a model, restart E0172, parse
+general Fortran, inspect C752/C754 or close full M3 by implication.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
@@ -436,7 +438,7 @@ focused review R000567 passes. Post-C746 selection `R000568` is `PASS` with
 145 residual rows, 84 disputed and 61 unwitnessed, and C747@1 first. C749
 corrected replay R000593 and focused review R000592 pass; E0217/R000594
 selects C750@1. The current active task is
-`T-M3-core0-next-bounded-property-selection-after-c750`.
+`T-M3-c751-coarray-allocatable-oracle`.
 ```
 
 ## Blacklisted pseudo-progress
