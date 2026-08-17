@@ -61,12 +61,12 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through the promoted C1106, C702, C601, C603, C721, C725, C718, C723, C729
-and C719 contracts; D0134/E0185 is the current promoted bounded slice.
+through the promoted C1106, C702, C601, C603, C721, C725, C718, C723, C729,
+C719 and C738 contracts; D0135/E0186 is the current promoted bounded slice.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
-is promoted. D0135/E0186 is the current C738 candidate; corrected replay
-R000053 is green and focused review is pending.
+is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
+and focused review R000055 pass.
 The E0181 Core 0 closure audit remains open, while broad semantic and model
 work remains closed until each later bounded contract is explicitly defined.
 
@@ -277,7 +277,7 @@ mutation failures; focused review R000052 passes. This promotes only the
 bounded C719 slice; it does not close full M3. E0172 remains
 abandoned and no model output can promote a semantic fact.
 
-**Current M3 successor.** D0135 defines the eleventh bounded delivery
+**Latest M3 bounded slice.** D0135 defines the eleventh bounded delivery
 contract: J3-24-007 C738 requires `ABSTRACT` when a derived type contains or
 inherits a deferred type-bound procedure. E0186 binds the property to
 canonical-text lines 3623--3624 and the already represented StandardIR
@@ -294,9 +294,10 @@ tests/e2e/run-m3-c738.sh --fresh
 ```
 
 Replay R000053 produces four accepted, two rejected, two unresolved and six
-mutation failures; focused review is pending. This is a candidate bounded
-slice only; it does not close full M3. E0172 remains abandoned and no model
-output can promote a semantic fact.
+mutation failures; focused review R000055 passes. This promotes only the
+bounded C738 slice; it does not close full M3. E0172 remains abandoned and no
+model output can promote a semantic fact. The next executable task is the
+retained E0181 residual-selection audit.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
@@ -1746,9 +1747,9 @@ The first promoted M3 contract is the deterministic C1106 slice described
 above and in D0124/E0175. The subsequent promoted slices are C702 in
 D0126/E0176, C601 in D0127/E0177, C603 in D0128/E0178, C721 in D0129/E0179,
 C725 in D0130/E0180, C718 in D0131/E0182, C723 in D0132/E0183 and C729 in
-D0133/E0184, and C719 in D0134/E0185. The ten bounded slices are promoted;
-D0135/E0186 is the current C738 candidate and the E0181 Core 0 audit remains
-open.
+D0133/E0184, and C719 in D0134/E0185. The eleven bounded slices are promoted;
+D0135/E0186 is the C738 slice and the E0181 Core 0 audit remains open. The
+next executable task is another retained-ledger residual selection.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

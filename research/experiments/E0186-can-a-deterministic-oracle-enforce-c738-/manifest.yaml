@@ -2,11 +2,13 @@ id: "E0186"
 title: "Deterministic C738 abstract deferred-binding oracle"
 question: >
   Can a deterministic oracle enforce C738 abstract requirement for deferred type-bound procedures
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 candidate_run: R000005
 candidate_runs: [R000005]
+reported_run: R000005
+reported_runs: [R000005, R000053, R000054, R000055]
 
 # Every commit the result depends on. Exact, not "main".
 repos:

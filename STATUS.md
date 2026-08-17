@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-M3 — ten bounded semantic-oracle slices promoted; full Core 0 remains pending
+M3 — eleven bounded semantic-oracle slices promoted; full Core 0 remains pending
 
 ## Central goal
 
@@ -120,8 +120,8 @@ not current promotion evidence.
   R000042 and focused review R000044 pass. R000043 retains the earlier
   reproducibility failure and its repair. D0134 selects C719 over R709;
   final replay R000051 and focused review R000052 pass. The bounded C719
-  slice is promoted; D0135 selects C738 and corrected replay R000053 is
-  green; focused review is pending.
+  slice is promoted; D0135 selects C738 and corrected replay R000053 plus
+  focused review R000055 pass.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -137,27 +137,29 @@ emission contract interchange.
 
 ## Active fixture
 
-Last promoted fixture: `T-M3-c719-semantic-oracle` — replay `R000004` is
-recorded centrally as `R000051` and focused review `R000052` pass. C719 is
+Last promoted fixture: `T-M3-c738-semantic-oracle` — replay `R000005` is
+recorded centrally as `R000053` and focused review `R000055` pass. C738 is
 promoted as a bounded slice; full M3 remains open.
 
-Active candidate: `T-M3-c738-semantic-oracle` — corrected replay `R000053`
-passes and focused review is pending. It binds C738 lines 3623--3624 to
-StandardIR R726/R728/R746/R752 and uses typed deferred-binding/ABSTRACT
-states. Do not resume E0172 or start broad semantic work.
+Active candidate: `T-M3-e0181-next-residual-selection-2` — select the next
+bounded source-backed property from the retained E0181 residual ledger. Do not
+resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-c738-semantic-oracle` — verify the bounded C738 abstract
-requirement for deferred type-bound procedures. The C719 predecessor is
-promoted; full M3 remains open.
+ID: `T-M3-e0181-next-residual-selection-2` — select the next bounded property
+from the retained E0181 residual ledger after bounded C738 promotion. Full M3
+remains open.
 
-Verifier: `tests/e2e/run-m3-c738.sh --fresh` from clean central and component
-checkouts. Corrected replay R000053 passes with four accepted, two rejected,
-two unresolved and six mutation failures; focused review is pending. It must
-not revive E0172 or promote a model fact.
+Verifier: `E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
+E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
+E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis
+research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh`.
+It must select one already represented StandardIR/syntax shape and define the
+next bounded contract, or record one precise blocker and its executable
+successor. It must not revive E0172 or promote a model fact.
 
-The E0181 selection audit that produced this task was rerun with:
+The prior E0181 selection audit that selected C738 was rerun with:
 
 ```text
 E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
@@ -182,10 +184,9 @@ unresolved rows, 94 disputed rows and 69 unwitnessed rows across the retained
 287-row ledger. The corrected C718 replay and focused reviews are green. The
 C723 replay and focused review are green. The C729 replay and focused review
 are green; R000043 retains the earlier reproducibility failure. C719 replay
-R000051 and focused review R000052 are green. C738 replay R000053 is green
-and focused review is pending. The ten promoted slices and the C738 candidate
-cannot close the complete ledger gate. A green bounded slice alone does not
-close full M3.
+R000051 and focused review R000052 are green. C738 replay R000053 and focused
+review R000055 are green. The eleven promoted slices cannot close the complete
+ledger gate. A green bounded slice alone does not close full M3.
 Regenerate the E0181 counts with:
 
 ```text
@@ -194,9 +195,10 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run two focused independent reviews of C738 against R000053. If both pass,
-promote only this bounded slice; then reassess the E0181 residual. Do not
-resume E0172, start broad parsing/semantic work, or promote a model fact.
+Rerun the retained E0181 residual-selection audit and select the next
+source-backed bounded property, or record one precise blocker and its next
+executable task. Do not resume E0172, start broad parsing/semantic work, or
+promote a model fact.
 
 ## Last verified central command
 
@@ -224,7 +226,9 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   is `PASS`. C719 replay `tests/e2e/run-m3-c719.sh --fresh` is `PASS` in
   R000051 and focused review R000052 is `PASS`; ten bounded slices are
   promoted. C738 replay `tests/e2e/run-m3-c738.sh --fresh` is `PASS` in
-  R000053 and awaits focused review; full M3 remains open.
+  R000053 and focused review R000055 is `PASS`; eleven bounded slices are
+  promoted and full M3 remains open. The next verifier is the retained E0181
+  residual-selection audit shown above.
 ```
 
 ## Blacklisted pseudo-progress

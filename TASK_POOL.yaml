@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c738-semantic-oracle
+active_task: T-M3-e0181-next-residual-selection-2
 
 milestones:
   - id: L0
@@ -166,7 +166,11 @@ milestones:
     verification: PASS
     review_state: PENDING
     prerequisites: [M1-M2]
-    verifier_command: tests/e2e/run-m3-c738.sh --fresh
+    verifier_command: >-
+      E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
+      E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
+      E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis
+      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
     evidence_paths:
       - ROADMAP.md
       - research/decisions/D0124-first-m3-associate-name-oracle.md
@@ -349,12 +353,26 @@ milestones:
       - tests/e2e/validate_m3_c723.py
       - artifacts/traces/m3-c723-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000037
+      - research/decisions/D0135-eleventh-m3-c738-abstract-deferred-binding-oracle.md
+      - research/experiments/E0186-can-a-deterministic-oracle-enforce-c738-/manifest.yaml
+      - contracts/m3-c738-abstract-deferred-binding-oracle-v0.sxs
+      - contracts/fixtures/m3-c738-abstract-deferred-binding-oracle-v0.sx
+      - tests/fixtures/m3-c738-source-backed-v0.json
+      - tests/e2e/run-m3-c738.sh
+      - tests/e2e/validate_m3_c738.py
+      - artifacts/traces/m3-c738-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000053
+      - research/runs/2026-08.jsonl#R000054
+      - research/runs/2026-08.jsonl#R000055
+      - artifacts/reports/M3/c738-semantic-review-v1.md
+      - artifacts/reports/M3/c738-reproducibility-review-v1.md
     notes: >-
       The bounded C1106, C702, C601, C603, C721, C725, C718, C723, C729 and
       C719 slices are promoted; C719 replay R000051 and focused review
-      R000052 pass. The E0181 audit retains 4 hard failures, 2 unresolved, 94
-      disputed and 69 unwitnessed rows; full Core 0 semantics remain
-      unpromoted.
+      R000052 pass. C738 is the eleventh bounded slice; the next task reruns
+      the retained E0181 residual-selection audit. The audit retains 4 hard
+      failures, 2 unresolved, 94 disputed and 69 unwitnessed rows; full Core 0
+      semantics remain unpromoted.
   - id: M4-M6
     title: Generated frontend, practical compiler and self-hosting
     status: BLOCKED
@@ -1598,6 +1616,9 @@ tasks:
       - research/experiments/E0186-can-a-deterministic-oracle-enforce-c738-/manifest.yaml
       - research/runs/2026-08.jsonl#R000053
       - research/runs/2026-08.jsonl#R000054
+      - research/runs/2026-08.jsonl#R000055
+      - artifacts/reports/M3/c738-semantic-review-v1.md
+      - artifacts/reports/M3/c738-reproducibility-review-v1.md
       - artifacts/reports/M3/c738-semantic-review-v0.md
       - artifacts/reports/M3/c738-reproducibility-review-v0.md
     retry_count: 0
@@ -1786,9 +1807,9 @@ tasks:
   - id: T-M3-c738-semantic-oracle
     milestone: M3
     title: Verify the bounded C738 abstract deferred-binding semantic oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-e0181-next-residual-selection
@@ -1876,6 +1897,78 @@ tasks:
       - research/runs/2026-08.jsonl#R000054
       - artifacts/reports/M3/c738-semantic-review-v0.md
       - artifacts/reports/M3/c738-reproducibility-review-v0.md
+      - research/runs/2026-08.jsonl#R000055
+      - artifacts/reports/M3/c738-semantic-review-v1.md
+      - artifacts/reports/M3/c738-reproducibility-review-v1.md
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+
+  - id: T-M3-e0181-next-residual-selection-2
+    milestone: M3
+    title: Select the next bounded property from the E0181 residual ledger
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c738-semantic-oracle
+    inputs:
+      - path: research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/manifest.yaml
+      - path: .cache/runs/E0123/R000001/rows.jsonl
+      - path: .cache/runs/E0123/R000001/trajectory.jsonl
+      - path: artifacts/reports/M3/m3-core0-closure-audit-v1.md
+      - path: research/runs/2026-08.jsonl#R000032
+      - path: research/decisions/D0135-eleventh-m3-c738-abstract-deferred-binding-oracle.md
+      - path: research/experiments/E0186-can-a-deterministic-oracle-enforce-c738-/manifest.yaml
+      - path: research/runs/2026-08.jsonl#R000055
+    writes:
+      - research/decisions/D0136-*.md
+      - research/experiments/E0187-*/manifest.yaml
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      rerun the retained E0181 residual-selection audit with its exact pinned
+      rows and trajectory; select one already represented StandardIR/syntax
+      shape and define the next bounded source-backed contract, or record one
+      precise blocker and its executable successor. Do not resume E0172,
+      start broad semantic/parser work or promote model output.
+    output: contract
+    final_observable: >-
+      one next bounded M3 delivery contract or one precise, reproducible
+      blocker with an executable successor task
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0136-*.md
+        - research/experiments/E0187-*/manifest.yaml
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c738-semantic-oracle]
+    verifier_command: >-
+      E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
+      E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
+      E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis
+      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
+    evidence_paths:
+      - research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/manifest.yaml
+      - artifacts/reports/M3/m3-core0-closure-audit-v1.md
+      - research/runs/2026-08.jsonl#R000032
+      - research/decisions/D0135-eleventh-m3-c738-abstract-deferred-binding-oracle.md
+      - research/experiments/E0186-can-a-deterministic-oracle-enforce-c738-/manifest.yaml
+      - research/runs/2026-08.jsonl#R000053
+      - research/runs/2026-08.jsonl#R000055
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
