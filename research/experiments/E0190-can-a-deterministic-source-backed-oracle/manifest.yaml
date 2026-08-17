@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "40c536b9ca593213820cd921a50ec0588388409f"
+  lazy-fortran-new: "763ea821ee2088781fca0421734643fb99fc6d78"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -31,6 +31,17 @@ inputs:
   contract_schema: contracts/m3-c720-kind-param-representation-oracle-v0.sxs
   contract_fixture: contracts/fixtures/m3-c720-kind-param-representation-oracle-v0.sx
   semantic_items: tests/fixtures/m3-c720-semantic-items.sx
+  semantic_items_sha256: 3410a0f65f1aaf20a21efffd01f1a2ca6d5d2cb9c630ff12ab45ac827ca32508
+  source_fixture: tests/fixtures/m3-c720-source-backed-v0.json
+  source_fixture_sha256: 5a1d78a653933f1c9f0084b434f22a8eb5db6707787ab26e343f7221e48a2b74
+  semantic_golden: tests/golden/m3-c720-semantic-items.sx
+  semantic_golden_sha256: 3410a0f65f1aaf20a21efffd01f1a2ca6d5d2cb9c630ff12ab45ac827ca32508
+  validator: tests/e2e/validate_m3_c720.py
+  validator_sha256: cf9f38c3283b3cd9d702383d10f7d6d75c92ad492198be521400cf577b24851a
+  runner: tests/e2e/run-m3-c720.sh
+  runner_sha256: 1307e8ec2617f3d01fd5005d1b9a2eafd107082779724b61e7596a2765f01cf4
+  trace: artifacts/traces/m3-c720-source-backed-v0.json
+  trace_sha256: 523f4207d06e89f0a5d17993cf25dab843f4a07c3054b4e764ec143905e89925
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
