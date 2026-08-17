@@ -1,0 +1,29 @@
+(schema m3-c750-component-array-spec-deferred-shape-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c750-pointer-or-allocatable-attribute absent present unknown)
+  (enum c750-component-array-spec deferred-shape-list explicit-shape-list unknown)
+  (enum c750-context component-def-stmt other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record component-array-eligibility
+    (pointer-or-allocatable-attribute c750-pointer-or-allocatable-attribute)
+    (component-array-spec c750-component-array-spec)
+    (context c750-context))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact component-array-eligibility)
+    (expected outcome))
+  (list candidates semantic-candidate))
