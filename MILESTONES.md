@@ -14,7 +14,8 @@ The bounded C723 slice is promoted by replay `R000037` and focused review
 `R000038`. The bounded C729 slice is promoted by replay `R000042` and focused
 review `R000044`; failed review `R000043` is retained. Full M3 remains open.
 The bounded C719 slice is promoted by replay `R000051` and focused review
-`R000052`. Full M3 remains open.
+`R000052`. The bounded C738 slice is promoted by replay `R000053` and focused
+review `R000055`. Full M3 remains open; C1579 is the current candidate.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -287,9 +288,10 @@ open. The next task is the retained E0181 residual-selection audit.
 
 ## M3 — bounded C1579 RESULT entry-name semantic-oracle candidate
 
-Bounded-slice status: `CANDIDATE`; clean central replay `E0187/R000001` is
-recorded as `R000056` and passes; focused review is pending. Full Core 0
-semantics remain open and are not claimed.
+Bounded-slice status: `CANDIDATE`; clean central replay `E0187/R000003` is
+recorded as `R000060` and passes; R000058 and R000059 retain the first review
+and pin-order failures; focused review is pending. Full Core 0 semantics
+remain open and are not claimed.
 
 The slice binds J3-24-007 C1579 at canonical-text lines 15386--15387 and
 printed page 356 to the already represented StandardIR R1532/R1544 shapes. Its
@@ -305,9 +307,10 @@ tests/e2e/run-m3-c1579.sh --fresh
 
 Evidence: `research/decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md`,
 `research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml`,
-the C1579 contract, validator, fixtures and trace, `research/runs/2026-08.jsonl#R000056`,
-and the retained E0181 selection evidence. Promotion remains bounded to this
-slice and requires the two focused reviews.
+the C1579 contract, validator, fixtures and trace, `research/runs/2026-08.jsonl#R000060`,
+retained failures `#R000058` and `#R000059`, and the retained E0181 selection
+evidence. Promotion remains bounded to this slice and requires the two focused
+reviews.
 
 ## M3 — Core 0 closure audit
 

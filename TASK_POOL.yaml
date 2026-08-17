@@ -370,12 +370,17 @@ milestones:
       - tests/e2e/validate_m3_c1579.py
       - tests/fixtures/m3-c1579-source-backed-v0.json
       - artifacts/traces/m3-c1579-source-backed-v0.json
-      - research/runs/2026-08.jsonl#R000056
+      - research/runs/2026-08.jsonl#R000060
+      - research/runs/2026-08.jsonl#R000058
+      - research/runs/2026-08.jsonl#R000059
+      - artifacts/reports/M3/c1579-semantic-review-v0.md
+      - artifacts/reports/M3/c1579-reproducibility-review-v0.md
     notes: >-
       The bounded C1106, C702, C601, C603, C721, C725, C718, C723, C729 and
       C719 slices are promoted; C719 replay R000051 and focused review
       R000052 pass. C738 is the eleventh bounded slice. D0136 selects C1579;
-      replay R000001 is recorded as R000056 and focused review is pending. The
+      replay R000003 is recorded as R000060 and focused review is pending.
+      R000058 and R000059 retain review and pin-order failures. The
       audit retains 4 hard failures, 2 unresolved, 94 disputed and 69
       unwitnessed rows; full Core 0 semantics remain unpromoted.
   - id: M4-M6
@@ -2024,8 +2029,9 @@ tasks:
       run tests/e2e/run-m3-c1579.sh --fresh from a clean central checkout with
       the pinned clean standard-new checkout; require C1579 source binding to
       canonical lines 15386--15387 and exact R1532/R1544 StandardIR metadata,
-      semantic-items canonicalization, six independently computed outcomes,
-      six observed mutation failures, exact trace comparison and zero model
+      semantic-items canonicalization, nine independently computed outcomes
+      covering the complete typed state table, six observed mutation failures,
+      exact trace comparison and zero model
       calls or semantic promotions, then require two focused independent
       reviews before promotion
     output: artifact
@@ -2070,7 +2076,11 @@ tasks:
       - tests/e2e/run-m3-c1579.sh
       - tests/e2e/validate_m3_c1579.py
       - artifacts/traces/m3-c1579-source-backed-v0.json
-      - research/runs/2026-08.jsonl#R000056
+      - research/runs/2026-08.jsonl#R000060
+      - research/runs/2026-08.jsonl#R000058
+      - research/runs/2026-08.jsonl#R000059
+      - artifacts/reports/M3/c1579-semantic-review-v0.md
+      - artifacts/reports/M3/c1579-reproducibility-review-v0.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
