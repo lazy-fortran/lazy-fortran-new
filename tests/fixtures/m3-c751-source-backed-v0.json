@@ -1,0 +1,77 @@
+{
+  "schema_version": "m3-c751-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "component-c751-coarray-allocatable",
+  "contract": {
+    "schema": "contracts/m3-c751-coarray-allocatable-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c751-coarray-allocatable-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C751",
+    "printed_page": 79,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3840, "text": "C751 (R737) If a coarray-spec appears, it shall be a deferred-coshape-spec-list and the component shall have"},
+      {"line": 3841, "text": "the ALLOCATABLE attribute."}
+    ],
+    "source_span": {"byte_start": 241193, "byte_length": 142, "page_start": 93, "page_end": 93},
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [
+        {"page": 93, "start": 239957, "length": 2451},
+        {"page": 121, "start": 314530, "length": 3127},
+        {"page": 122, "start": 317658, "length": 2535}
+      ]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R737", "lhs": "data-component-def-stmt", "page": 93, "byte_start": 240182, "byte_length": 115, "occurrence": 87},
+        {"rule": "R739", "lhs": "component-decl", "page": 93, "byte_start": 240478, "byte_length": 157, "occurrence": 89},
+        {"rule": "R809", "lhs": "coarray-spec", "page": 121, "byte_start": 317055, "byte_length": 78, "occurrence": 143},
+        {"rule": "R810", "lhs": "deferred-coshape-spec", "page": 122, "byte_start": 319055, "byte_length": 33, "occurrence": 144},
+        {"rule": "R811", "lhs": "explicit-coshape-spec", "page": 122, "byte_start": 319986, "byte_length": 99, "occurrence": 145}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c751-semantic-items.sx",
+    "sha256": "ba222558761df91c8a99984463601ecff137f5b9937330a052b5713bf4e946db",
+    "id": "S-C751",
+    "subject": "component-c751-coarray-allocatable",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C751",
+    "page": 79,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {"id":"accepted-absent-absent","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"absent","allocatable_attribute":"absent"}},
+    {"id":"accepted-absent-present","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"absent","allocatable_attribute":"present"}},
+    {"id":"accepted-absent-unknown","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"absent","allocatable_attribute":"unknown"}},
+    {"id":"accepted-deferred-coshape-list-present","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"deferred-coshape-list","allocatable_attribute":"present"}},
+    {"id":"rejected-deferred-coshape-list-absent","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"deferred-coshape-list","allocatable_attribute":"absent"}},
+    {"id":"rejected-explicit-coshape-spec-absent","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"explicit-coshape-spec","allocatable_attribute":"absent"}},
+    {"id":"rejected-explicit-coshape-spec-present","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"explicit-coshape-spec","allocatable_attribute":"present"}},
+    {"id":"rejected-explicit-coshape-spec-unknown","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"explicit-coshape-spec","allocatable_attribute":"unknown"}},
+    {"id":"unresolved-deferred-coshape-list-unknown","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"deferred-coshape-list","allocatable_attribute":"unknown"}},
+    {"id":"unresolved-unknown-absent","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"unknown","allocatable_attribute":"absent"}},
+    {"id":"unresolved-unknown-present","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"unknown","allocatable_attribute":"present"}},
+    {"id":"unresolved-unknown-unknown","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c751-coarray-allocatable","source_rule":"C751","coarray_spec":"unknown","allocatable_attribute":"unknown"}}
+  ],
+  "mutation_controls": [
+    "source-rule", "printed-page", "canonical-hash", "span-start", "span-length",
+    "canonical-line", "page-index-hash", "page-index-start", "standardir-hash",
+    "standardir-rule", "semantic-item-hash", "contract-version"
+  ]
+}

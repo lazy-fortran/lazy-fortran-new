@@ -1,0 +1,27 @@
+(schema m3-c751-coarray-allocatable-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c751-coarray-spec absent deferred-coshape-list explicit-coshape-spec unknown)
+  (enum c751-allocatable-attribute absent present unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record c751-compliance
+    (coarray-spec c751-coarray-spec)
+    (allocatable-attribute c751-allocatable-attribute))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact c751-compliance)
+    (expected outcome))
+  (list candidates semantic-candidate))

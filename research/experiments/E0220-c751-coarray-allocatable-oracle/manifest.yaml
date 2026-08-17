@@ -1,0 +1,69 @@
+id: "E0220"
+title: "Implement the bounded source-backed C751 coarray-ALLOCATABLE oracle"
+question: >
+  Can the selected C751 coarray/ALLOCATABLE relation be checked by a small
+  deterministic source-backed oracle without parsing Fortran or promoting a
+  semantic fact?
+status: running         # draft | running | reported | abandoned
+opened: "2026-08-17"
+
+repos:
+  lazy-fortran-new: "4c89a399312e37599f2d982cbbf5c1a568b87c94"
+
+inputs:
+  standard: j3-24-007
+  predecessor: research/runs/2026-08.jsonl#R000598
+  decision: research/decisions/D0161-thirty-first-m3-c751-coarray-allocatable-oracle.md
+  contract: contracts/m3-c751-coarray-allocatable-v0.sxs
+  fixture: tests/fixtures/m3-c751-source-backed-v0.json
+  expected_outcomes: tests/fixtures/m3-c751-expected-outcomes-v0.json
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  pages_index_sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+  standardir: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  normative_pdf_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+  source_rule: C751
+  source_span: "241193:142"
+  page_index_records: ["93:239957:2451", "121:314530:3127", "122:317658:2535"]
+  standardir_rules: [R737, R739, R809, R810, R811]
+
+model_selection: "No model execution; deterministic typed oracle only."
+
+metrics:
+  - typed state count and outcome partition
+  - source and StandardIR binding
+  - rejected source/provenance mutations
+  - model calls
+  - semantic promotions
+
+denominator: >-
+  Exactly twelve states from coarray-spec absent, deferred-coshape-list,
+  explicit-coshape-spec or unknown crossed with ALLOCATABLE absent, present or
+  unknown. Unknown information is not guessed.
+
+independent_oracle: >-
+  The validator independently checks the pinned source bytes, page-index
+  records, StandardIR rows, semantic-item replay and expected-outcome table;
+  its C751 decision procedure is authored separately from the expected JSON.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >-
+  Any source, span, page-index, StandardIR, mutation, state-count, outcome,
+  model-call or promotion mismatch fails the replay.
+
+gate: >-
+  Run tests/e2e/run-m3-c751.sh --fresh from a clean checkout. It must pass the
+  central contract and pin gates, sxsemantic replay, twelve-state oracle,
+  twelve negative mutation controls and final clean-tree check.
+
+analysis: >-
+  Controller-owned bounded C751 replay report
+  artifacts/reports/M3/m3-c751-source-backed-v0.md
+
+result:
+  status: PENDING

@@ -1,0 +1,20 @@
+{
+  "schema_version": "m3-c751-expected-outcomes-v0",
+  "origin": "HUMAN",
+  "property": "component-c751-coarray-allocatable",
+  "source_rule": "C751",
+  "outcomes": {
+    "accepted-absent-absent": "ACCEPTED",
+    "accepted-absent-present": "ACCEPTED",
+    "accepted-absent-unknown": "ACCEPTED",
+    "accepted-deferred-coshape-list-present": "ACCEPTED",
+    "rejected-deferred-coshape-list-absent": "REJECTED",
+    "rejected-explicit-coshape-spec-absent": "REJECTED",
+    "rejected-explicit-coshape-spec-present": "REJECTED",
+    "rejected-explicit-coshape-spec-unknown": "REJECTED",
+    "unresolved-deferred-coshape-list-unknown": "UNRESOLVED",
+    "unresolved-unknown-absent": "UNRESOLVED",
+    "unresolved-unknown-present": "UNRESOLVED",
+    "unresolved-unknown-unknown": "UNRESOLVED"
+  }
+}
