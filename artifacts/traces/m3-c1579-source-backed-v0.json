@@ -17,6 +17,14 @@
       "result_presence": "absent"
     },
     {
+      "computed": "UNRESOLVED",
+      "entry_name_declaration": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-result-absent-declaration",
+      "kind": "unresolved",
+      "result_presence": "absent"
+    },
+    {
       "computed": "ACCEPTED",
       "entry_name_declaration": "absent",
       "expected": "ACCEPTED",
@@ -47,6 +55,22 @@
       "id": "unresolved-declaration",
       "kind": "unresolved",
       "result_presence": "present"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "entry_name_declaration": "present",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-result-unknown-declaration-present",
+      "kind": "unresolved",
+      "result_presence": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "entry_name_declaration": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-both-unknown",
+      "kind": "unresolved",
+      "result_presence": "unknown"
     }
   ],
   "contract": {
@@ -57,7 +81,7 @@
     "version": 0
   },
   "fixture": "tests/fixtures/m3-c1579-source-backed-v0.json",
-  "fixture_sha256": "86989fc7bd91278e20c3630416ede4514b2ba2251c76fa06079b3d33b072a670",
+  "fixture_sha256": "c8656d5ab6328658739c05ee07dd4e1673081e5f59f46f8f18ccdcd5083c386c",
   "milestone": "M3",
   "model_calls": 0,
   "mutation_controls": [
@@ -91,7 +115,7 @@
   "outcome_counts": {
     "ACCEPTED": 3,
     "REJECTED": 1,
-    "UNRESOLVED": 2
+    "UNRESOLVED": 5
   },
   "property": "result-entry-name-exclusion",
   "schema_version": "m3-c1579-source-backed-v0",
