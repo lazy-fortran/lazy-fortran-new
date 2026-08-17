@@ -20,8 +20,8 @@ PDF_SHA256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 PAGE_INDEX_SHA256 = "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
 STANDARDIR_SHA256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
 EXPECTED_OUTCOMES_SHA256 = "9fd60d9134b5a073f2b460041ea08a0fbc6c010c6fa20077857f87f5bd456c56"
-SOURCE_FIXTURE_SHA256 = "b3e48765c9bf5a236f1e71d7dd1b2b62b6e709235de1999dd8a9de3ed4376b43"
-SEMANTIC_ITEM_SHA256 = "b64aeab421960c9f8d62090a7402793fe6ad2b0aa13919f2939263f1c3e9e316"
+SOURCE_FIXTURE_SHA256 = "22c13af4489e44918f8f939c9a93ca7e76f2550c2b136c6647c5f45cbc6b722d"
+SEMANTIC_ITEM_SHA256 = "43136c6316c272eafeef984a6a2026bdc3abc315f122fc1135de18c2f8db24fd"
 PROPERTY = "component-c752-forbidden-coarray-type"
 SOURCE_SPAN = {"byte_start": 241335, "byte_length": 223, "page_start": 93, "page_end": 93}
 PAGE_INDEX = [{"page": 93, "start": 239957, "length": 2451}]
@@ -43,7 +43,7 @@ STANDARDIR_ROWS = [
     {"rule": "R739", "lhs": "component-decl", "page": 93, "byte_start": 240478, "byte_length": 157, "occurrence": 89},
 ]
 CONTRACT = {"schema": "contracts/m3-c752-forbidden-coarray-type-v0.sxs", "fixture": "contracts/fixtures/m3-c752-forbidden-coarray-type-v0.sx", "version": 0}
-SEMANTIC_ITEM = {"path": "tests/fixtures/m3-c752-semantic-items.sx", "id": "S-C752", "subject": PROPERTY, "document": "J3-24-007", "clause": "7", "rule": "C752", "page": 79, "source_hash": SOURCE_SHA256, "origin": "human", "resolution": "unwitnessed"}
+SEMANTIC_ITEM = {"path": "tests/fixtures/m3-c752-semantic-items.sx", "id": "S-C752", "subject": PROPERTY, "document": "J3-24-007", "clause": "7", "rule": "C752", "page": 79, "source_hash": SOURCE_SHA256, "origin": "human", "resolution": "disputed"}
 MUTATIONS = [
     ("source-rule", ("source", "rule"), "C751"),
     ("printed-page", ("source", "printed_page"), 80),

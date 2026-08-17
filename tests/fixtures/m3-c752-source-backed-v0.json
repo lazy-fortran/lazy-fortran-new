@@ -50,7 +50,7 @@
     "page": 79,
     "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
     "origin": "human",
-    "resolution": "unwitnessed"
+    "resolution": "disputed"
   },
   "cases": [
     {"id":"accepted-absent-C_PTR","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"C_PTR"}},
