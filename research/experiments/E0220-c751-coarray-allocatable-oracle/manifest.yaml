@@ -4,8 +4,9 @@ question: >
   Can the selected C751 coarray/ALLOCATABLE relation be checked by a small
   deterministic source-backed oracle without parsing Fortran or promoting a
   semantic fact?
-status: running         # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
+closed: "2026-08-17"
 
 repos:
   lazy-fortran-new: "fa63d13"
@@ -66,4 +67,10 @@ analysis: >-
   artifacts/reports/M3/m3-c751-source-backed-v0.md
 
 result:
-  status: PENDING
+  technical_run: research/runs/2026-08.jsonl#R000599
+  review_run: research/runs/2026-08.jsonl#R000600
+  technical_status: PASS
+  promotion_status: NEEDS_EVIDENCE
+  result: artifacts/traces/m3-c751-source-backed-v0.json
+  report: artifacts/reports/M3/m3-c751-source-backed-v0.md
+  review_report: artifacts/reports/M3/m3-c751-focused-review-v1.md

@@ -45,7 +45,11 @@ passes, so C750 is promoted only as a bounded oracle leaf. The full Core 0
 semantic milestone remains unpromoted. E0219/R000598 then selects C751@1,
 the C751 coarray/ALLOCATABLE relation at canonical lines 3840--3841, byte span
 `241193:142`, over existing R737/R739/R809/R810/R811. D0161 records the bounded
-candidate; no semantic fact is promoted.
+candidate; no semantic fact is promoted. E0220/R000599 passes the technical
+C751 replay with 4 `ACCEPTED`, 4 `REJECTED`, 4 `UNRESOLVED`, twelve rejected
+mutations, zero model calls and zero semantic promotions. The focused review
+attempt R000600 returns `NEEDS EVIDENCE` because the configured reviewer
+runner produced no review text; C751 is therefore not promoted yet.
 
 ## Component pins
 
@@ -233,9 +237,10 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-c751-coarray-allocatable-oracle` — implement the bounded C751
-coarray/ALLOCATABLE oracle. C750's technical replay is E0218/R000596 and
-focused review/evidence gate R000597 passes; E0219/R000598 selects C751@1.
+ID: `T-M3-c751-coarray-allocatable-oracle` — technically verified, promotion
+pending focused review. C750's technical replay is E0218/R000596 and focused
+review/evidence gate R000597 passes; E0219/R000598 selects C751@1; E0220/R000599
+passes the C751 verifier and R000600 records the review-infrastructure blocker.
 
 Verifier: `tests/e2e/run-m3-c751.sh --fresh`. It must consume C751's exact
 source span `241193:142` (canonical lines 3840--3841, printed page 79,
@@ -339,10 +344,14 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Implement the selected C751 bounded source-backed property. The active task is
-`T-M3-c751-coarray-allocatable-oracle`; its exact verifier is
-`tests/e2e/run-m3-c751.sh --fresh`. Do not run a model, restart E0172, parse
-general Fortran, inspect C752/C754 or close full M3 by implication.
+Rerun the frozen C751 focused-review packet and record an independent `PASS` or
+the first concrete defect. The technical verifier already passes in
+`R000599`; the remaining blocker is the unavailable review result recorded in
+`R000600`. Use the exact replay command
+`M3_C751_EXPECTED_CENTRAL_COMMIT=bf17ff2193322677dcd631459380f7c3a7f446fb tests/e2e/run-m3-c751.sh --fresh`
+only to reproduce the technical evidence. Do not run a model experiment,
+restart E0172, parse general Fortran, inspect C752/C754 or close full M3 by
+implication.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

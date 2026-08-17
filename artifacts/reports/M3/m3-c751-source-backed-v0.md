@@ -1,7 +1,8 @@
 # M3 C751 bounded replay
 
-Status: `PENDING` until `tests/e2e/run-m3-c751.sh --fresh` passes from a clean
-checkout.
+Technical replay status: `PASS` in `.cache/runs/E0220/R000002` from the clean
+revision recorded by `tests/e2e/run-m3-c751.sh --fresh`. Promotion status:
+`PENDING` independent focused review.
 
 The slice checks J3-24-007 C751 against the existing StandardIR component and
 coarray shapes. Its typed denominator is twelve states: coarray-spec absent,
@@ -19,8 +20,12 @@ mutations must be rejected. It does not parse Fortran, inspect C752/C754,
 resolve names or promote semantic facts. Model calls and semantic promotions
 are zero by contract.
 
-Regenerate the complete replay with:
+Regenerate the complete technical replay with:
 
 ```text
 tests/e2e/run-m3-c751.sh --fresh
 ```
+
+The focused-review attempt is recorded separately in
+`artifacts/reports/M3/m3-c751-focused-review-v1.md`; its external reviewer
+runner returned no review result, so this report does not promote the leaf.

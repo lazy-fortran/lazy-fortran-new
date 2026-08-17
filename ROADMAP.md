@@ -85,7 +85,10 @@ zero semantic promotions. C750 is promoted only as a bounded leaf; full M3
 remains open. E0219/R000598 selects C751@1 at canonical lines 3840--3841,
 printed page 79, byte span `241193:142`, over existing StandardIR
 R737/R739/R809/R810/R811. D0161 defines the next bounded coarray/ALLOCATABLE
-relation; no semantic fact is promoted.
+relation; no semantic fact is promoted. E0220/R000599 passes the technical
+replay with 4 `ACCEPTED`, 4 `REJECTED`, 4 `UNRESOLVED`, twelve rejected
+mutations, zero model calls and zero semantic promotions. R000600 records the
+focused-review runner returning no review text, so promotion remains pending.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -673,10 +676,12 @@ oracle; no model call or semantic promotion occurred.
 The active task implements C751's relation: an absent coarray-spec is
 accepted vacuously; deferred-coshape with ALLOCATABLE present is accepted;
 deferred-coshape without ALLOCATABLE and every explicit-coshape are rejected;
-unknown states are unresolved. The exact verifier is
-`tests/e2e/run-m3-c751.sh --fresh`. It must remain a typed source-backed
-oracle and does not parse arbitrary Fortran, inspect C752/C754 or close full
-M3.
+unknown states are unresolved. E0220/R000599 passes the exact verifier
+`tests/e2e/run-m3-c751.sh --fresh`; R000600 leaves the focused review at
+`NEEDS EVIDENCE` because the configured reviewer runner returned no text. The
+next executable task is to rerun that frozen review packet. The slice remains
+a typed source-backed oracle and does not parse arbitrary Fortran, inspect
+C752/C754 or close full M3.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
