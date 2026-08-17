@@ -852,8 +852,10 @@ StandardIR R741/R742. D0170 selects the bounded conditional-NOPASS target;
 the implementation task was `T-M3-c762-conditional-nopass-oracle`. Its pushed
 clean replay and focused review pass are recorded in R000633: 4 `ACCEPTED`, 1
 `REJECTED`, 4 `UNRESOLVED`, twelve rejected mutations, zero model calls and
-zero semantic promotions. C762 is closed only as a bounded oracle leaf; it may
-not parse procedure interfaces or promote a semantic fact.
+zero semantic promotions. C762 is closed only as a bounded oracle leaf;
+post-promotion regression R000634 reproduces the same result from pushed
+central `43f4487b82c1a3ae9d80ac9648170c801bf003dd`. It may not parse procedure
+interfaces or promote a semantic fact.
 
 The next controller-exclusive selection leaves 133 rows (77 `disputed`, 56
 `unwitnessed`) with C763@1 first. Regenerate it with the exact `jq` command in

@@ -6666,6 +6666,7 @@ tasks:
       - path: artifacts/reports/M3/m3-c762-focused-review-v1.md
         sha256: c62a3e3a9f2c34572501bf0120769a33a6f045fd8e4091ef7bb8398e7735f8b5
       - path: research/runs/2026-08.jsonl#R000633
+      - path: research/runs/2026-08.jsonl#R000634
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
         sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index

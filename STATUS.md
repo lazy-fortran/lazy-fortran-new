@@ -26,7 +26,8 @@ target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. Full Core 0 semantics remain open and no semantic fact is promoted.
 C762 is the latest bounded leaf, verified by its pushed clean replay and
-focused review/evidence gate recorded in R000633. C761 is the preceding
+focused review/evidence gate recorded in R000633; post-promotion regression
+R000634 reproduces it. C761 is the preceding
 implemented leaf and C760 is the preceding harvested leaf, recorded in R000623.
 The provisional harvest contains
 110 packets with readiness counts `READY=17`, `NEEDS_REVIEW=7` and
@@ -319,7 +320,7 @@ model-driven promotion or full M3 claim is in scope.
 
 R000632 selected C762@1 from 134 residual rows (78 `disputed`, 56
 `unwitnessed`). The C762 implementation then passed its pushed clean replay
-and focused review in R000633 with 4 `ACCEPTED`, 1 `REJECTED`, 4 `UNRESOLVED`,
+and focused review in R000633, with post-promotion regression R000634, with 4 `ACCEPTED`, 1 `REJECTED`, 4 `UNRESOLVED`,
 twelve rejected mutations, zero model calls and zero semantic promotions. The
 next controller-exclusive selection leaves 133 rows (77 `disputed`, 56
 `unwitnessed`) with C763@1 first; regenerate it with the exact `jq` command in
