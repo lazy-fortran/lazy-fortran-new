@@ -261,6 +261,30 @@ replay `#R000048`, repair replay `#R000050`, final replay `#R000051`, and
 focused review `#R000052`, with reports under `artifacts/reports/M3/`.
 Promotion is bounded to this slice; full M3 remains open.
 
+## M3 — bounded C738 abstract deferred-binding semantic-oracle candidate
+
+Bounded-slice status: `CANDIDATE`; corrected central replay `R000053` passes;
+focused review is pending. Full Core 0 semantics remain open and are not
+claimed.
+
+The slice binds J3-24-007 C738 at canonical-text lines 3623--3624 and printed
+page 87 to the already represented StandardIR R726/R728/R746/R752 shapes. Its
+typed candidate carries deferred-binding and ABSTRACT states. A non-deferred
+type or a deferred binding with ABSTRACT is `ACCEPTED`, a deferred binding
+without ABSTRACT is `REJECTED`, and unknown state is `UNRESOLVED`. The oracle
+does not parse type definitions, infer deferred bindings, perform inheritance
+analysis or consume model output. Regenerate the replay with:
+
+```text
+tests/e2e/run-m3-c738.sh --fresh
+```
+
+Evidence: `research/decisions/D0135-eleventh-m3-c738-abstract-deferred-binding-oracle.md`,
+`research/experiments/E0186-can-a-deterministic-oracle-enforce-c738-/manifest.yaml`,
+the C738 contract, validator, fixtures and trace, `research/runs/2026-08.jsonl#R000053`,
+retained failed review `#R000054`, and reports under `artifacts/reports/M3/`.
+Promotion remains bounded to this slice and requires the two focused reviews.
+
 ## M3 — Core 0 closure audit
 
 Audit status: `NEEDS EVIDENCE`. E0181/R000032 reproducibly replays the retained
