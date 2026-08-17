@@ -604,10 +604,11 @@ components or close full M3. Corrected selection R000564 binds C746 to
 canonical lines 3764--3765, page 77, byte span `237401:171`, over existing
 StandardIR R727/R732/R733. D0152's C746 membership contract is implemented
 and passes replay R000566 with focused review R000567. The post-C746 selection
-R000568 binds C747 to canonical lines 3766--3767, page 77, byte span
-`237572:183`, over the same StandardIR witnesses. D0153 defines the bounded
-exact-once relation; the active implementation must provide its independent
-oracle and replayable mutation controls.
+R000568 binds C747 to canonical lines 3766--3767, printed page 77, byte span
+`237572:183`, and canonical page-index record 91, over the same StandardIR
+witnesses. D0153 as amended by D0154 defines the bounded exact-once relation;
+the corrected replay R000573 passes, and focused review remains before
+promotion.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

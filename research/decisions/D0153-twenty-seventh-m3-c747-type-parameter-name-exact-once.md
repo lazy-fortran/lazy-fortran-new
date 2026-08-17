@@ -1,7 +1,7 @@
 # D0153. Twenty-seventh M3 slice uses C747 type-parameter-name exact-once
 
 Date: 2026-08-17
-Status: accepted
+Status: amended by D0154
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context

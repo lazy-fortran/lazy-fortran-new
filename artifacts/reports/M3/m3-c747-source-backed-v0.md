@@ -6,7 +6,7 @@ name resolver or complete semantic analyzer.
 
 ## Source contract
 
-The contract is D0153. It binds J3-24-007 clause 7, C747, canonical lines
+The contract is D0153 as amended by D0154. It binds J3-24-007 clause 7, C747, canonical lines
 3766--3767, printed page 77, UTF-8 byte span `237572:183`, and canonical
 page-index record 91 (`start 235554`, `length 2214`) to StandardIR R727
 (`derived-type-stmt`), R732 (`type-param-def-stmt`) and R733

@@ -23,9 +23,12 @@ target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. M3 is now open through twenty-six bounded contracts; C746 is promoted
 only as a bounded oracle leaf by E0210/R000566 and focused review R000567.
-Selection R000568 passes for C747 at canonical lines 3766--3767, page 77, over
-existing StandardIR R727/R732/R733. The active task implements the bounded
-C747 exact-once oracle. The full Core 0 semantic milestone remains unpromoted.
+Selection R000568 passes for C747 at canonical lines 3766--3767, printed page
+77, over existing StandardIR R727/R732/R733. The corrected C747 replay R000573
+binds the span to canonical page-index record 91 and passes, but focused review
+must pass before the twenty-seventh bounded leaf is promoted. D0154 amends
+D0153 to record the two page coordinate systems separately. The full Core 0
+semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -266,7 +269,9 @@ are unresolved. These residual states do not close the complete ledger gate.
 The current blocker is witness closure outside the bounded slices: the
   post-C746 partition records 145 residual rows (84 disputed and 61 unwitnessed),
   with C747@1 first. R000568 binds that row to the C747 exactly-once contract;
-  the next missing artifact is its implementation and independent oracle.
+  R000571 retains the failed provenance review, while R000573 records the
+  corrected replay and D0154 corrects its page-index evidence. The remaining
+  delivery gate is focused review of the corrected packet.
 C744 is now promoted only as a bounded typed oracle leaf by E0206/R000538 and
 focused review R000539. E0207/R000542 selects C745's first component-presence
 obligation. The corrected implementation replay E0208/R000556 and focused
@@ -288,10 +293,12 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Implement the bounded C747 source-backed type-parameter-name exact-once oracle.
-The exact contract is D0153, selected by R000568 and reported in
+Complete promotion of the bounded C747 source-backed type-parameter-name
+exact-once oracle. The exact contract is D0153 as amended by D0154, selected by
+R000568 and reported in
 `artifacts/reports/M3/m3-core0-next-property-selection-v16.md`. The source
-binding is J3-24-007 canonical lines 3766--3767, page 77, over existing
+binding is J3-24-007 canonical lines 3766--3767, printed page 77, with
+canonical page-index record 91 containing byte span `237572:183`, over existing
 StandardIR R727/R732/R733. The verifier is
 `tests/e2e/run-m3-c747.sh --fresh`. It must not restart E0172, parse general
 Fortran, check extra definition names or close full M3.

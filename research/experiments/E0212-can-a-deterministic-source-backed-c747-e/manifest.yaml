@@ -15,7 +15,7 @@ repos:
 inputs:
   standard: j3-24-007
   profile: "m3-c747-derived-type-type-parameter-name-exact-once"
-  decision: research/decisions/D0153-twenty-seventh-m3-c747-type-parameter-name-exact-once.md
+  decision: research/decisions/D0154-c747-page-index-binding.md
   selection: research/runs/2026-08.jsonl#R000568
   source_page: 77
   source_span: "237572:183"
