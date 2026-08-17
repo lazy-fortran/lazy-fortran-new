@@ -65,6 +65,11 @@ R000543--R000546 and focused-review R000548--R000550 retain the missing-trace,
 pin, self-consistency, trace-refresh and evidence-handoff failures. They are
 not deleted or superseded; the corrected packet is the one in R000547.
 
+The post-handoff clean replay `E0208/R000006` is recorded as `R000551` from
+central revision `82ab8b4b553bed01f6dd0eff3673f04e6f5ba223`. It reproduces the
+same result and trace; its run-environment SHA-256 is
+`789622179e2b2e9d72b1667e127f824158257968c069fb5ad3c94442998b5175`.
+
 ## Scope and non-claims
 
 The oracle checks only this typed projection of C745. It does not parse a

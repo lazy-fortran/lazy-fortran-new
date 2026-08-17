@@ -714,7 +714,7 @@ Evidence: `research/experiments/E0208-can-a-deterministic-source-backed-c745-o/m
 `tests/fixtures/m3-c745-expected-outcomes-v0.json`,
 `artifacts/traces/m3-c745-source-backed-v0.json`,
 `artifacts/reports/M3/m3-c745-source-backed-v0.md`, retained replay and review
-runs `R000543`--`R000550`, and retained failed-review report
+runs `R000543`--`R000551`, and retained failed-review report
 `artifacts/reports/M3/m3-c745-focused-review-v0.md`.
 
 ## M3 — bounded C601 semantic-oracle successor
