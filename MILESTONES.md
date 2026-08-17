@@ -8,7 +8,7 @@ milestone ledger.
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
 replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603, C721,
-C725, C726, C731 and C732 slices are promoted by their central verifiers and
+C725, C726, C731, C732 and C733 slices are promoted by their central verifiers and
 focused reviews.
 The bounded C718 slice is promoted by its corrected replay and focused reviews.
 The bounded C723 slice is promoted by replay `R000037` and focused review
@@ -499,10 +499,14 @@ promoted only as this bounded oracle slice. Post-C732 reconciliation `R000516`
 leaves 151 residual rows (87 disputed, 64 unwitnessed), with C733@1 first.
 Selection `R000517` binds C733 canonical line 3564, page 87, byte span
 `226248:107`, to existing StandardIR R725 (`logical-literal-constant`). The
-next task is the bounded C733 kind-parameter representation-method oracle;
+bounded C733 kind-parameter representation-method oracle is now promoted only
+as a bounded slice;
 central replay R000518 passes with 1 `ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`,
 twelve rejected mutation controls, zero model calls and zero semantic
-promotions. Focused review remains pending; full M3 remains open.
+promotions. Focused review R000519 passes. Post-C733 reconciliation R000520
+leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1 first.
+The next task is `T-M3-core0-next-bounded-property-selection-after-c733`; full
+M3 remains open.
 
 Regenerate the C731 result with:
 
@@ -514,6 +518,18 @@ Regenerate the C732 result with:
 
 ```text
 M3_C732_EXPECTED_CENTRAL_COMMIT=40bad4f842a87000ceddb68449a801c2282e2b60 tests/e2e/run-m3-c732.sh --fresh
+```
+
+Regenerate the C733 result with:
+
+```text
+M3_C733_EXPECTED_CENTRAL_COMMIT=5716db592fed41799e4ef8e7000a56cf37a8c1bd tests/e2e/run-m3-c733.sh --fresh
+```
+
+Regenerate the post-C733 residual partition with:
+
+```text
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
 ## M3 — bounded C601 semantic-oracle successor

@@ -61,8 +61,8 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through twenty bounded contracts, including C717, C720, C722, C724, C726,
-C731 and C732.
+through twenty-one bounded contracts, including C717, C720, C722, C724, C726,
+C731, C732 and C733.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -71,8 +71,11 @@ focused review R000510 promote that bounded oracle. Post-C731 reconciliation
 R000512 leaves 152 residual rows with C732@1 first; the current task selects
 the next bounded source-backed property. C732 replay R000514 and focused
 review R000515 pass. Post-C732 reconciliation R000516 leaves 151 residual
-rows with C733@1 first; the active task selects the next bounded property
-after C732.
+rows with C733@1 first; the active task implements the next bounded property
+after C732. C733 replay R000518 and focused review R000519 pass, so C733 is
+promoted only as its bounded oracle slice. Post-C733 reconciliation R000520
+leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1 first;
+the active task now selects the next bounded property after C733.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -118,8 +121,17 @@ rejects a processor-unsupported value there, and returns `UNRESOLVED`
 otherwise. It does not inspect processors, parse literals or perform general
 semantic analysis. Clean central replay R000518 passes with 1 `ACCEPTED`, 1
 `REJECTED`, 7 `UNRESOLVED`, twelve rejected mutation controls, zero model
-calls and zero semantic promotions. Focused independent review remains
-pending; C733 is not yet counted as promoted. Full M3 remains open.
+calls and zero semantic promotions. Focused independent review R000519 passes;
+C733 is promoted only as this bounded oracle slice. Post-C733 reconciliation
+R000520 leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1
+first. The active task is
+`T-M3-core0-next-bounded-property-selection-after-c733`; full M3 remains open.
+
+Regenerate the bounded C733 replay with:
+
+```text
+M3_C733_EXPECTED_CENTRAL_COMMIT=5716db592fed41799e4ef8e7000a56cf37a8c1bd tests/e2e/run-m3-c733.sh --fresh
+```
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -469,9 +481,18 @@ Post-C731 reconciliation R000512 leaves 152 outside-promoted rows (88
 disputed and 64 unwitnessed), with C732@1 first. The bounded C732 replay
 R000514 and focused review R000515 pass; C732 is promoted only as its typed
 state oracle. Post-C732 reconciliation R000516 leaves 151 outside-promoted
-rows (87 disputed and 64 unwitnessed), with C733@1 first. The next selection
-task must recompute this partition from the exact promoted set before defining
-another bounded oracle.
+rows (87 disputed and 64 unwitnessed), with C733@1 first. C733 replay R000518
+and focused review R000519 pass. Post-C733 reconciliation R000520 leaves 150
+outside-promoted rows (86 disputed and 64 unwitnessed), with C735@1 first. The
+next selection task must recompute this partition from the exact promoted set
+before defining another bounded oracle. The current partition is regenerated
+with:
+
+```text
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+```
+
+The following command is the superseded pre-C733 selection command:
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
