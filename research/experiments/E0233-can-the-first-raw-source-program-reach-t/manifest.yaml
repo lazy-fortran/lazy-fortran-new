@@ -106,6 +106,8 @@ result:
   validator_sha256: d633a441641b5c3cbad09ce8533fb61e304eb2f51df674695b8b7aabfccdea3f
   review_run: research/runs/2026-08.jsonl#R000648
   review_report: artifacts/reports/L3/l3-focused-review-v1.md
+  regression_run: research/runs/2026-08.jsonl#R000650
+  regression_status: PASS
   outcomes: {accepted: 1, rejected: 1, runtime_exit_status: 0}
   model_calls: 0
   semantic_promotions: 0

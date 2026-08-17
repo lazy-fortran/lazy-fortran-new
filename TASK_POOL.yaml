@@ -7036,14 +7036,15 @@ tasks:
       - component: fortback-new
         commit: c578904a8d18e9d5410934f5489a21d5dadfad05
       - path: research/experiments/E0233-can-the-first-raw-source-program-reach-t/manifest.yaml
-        sha256: 0b6b04c20f1fc55278a781622b22fc17c9983d43f1767a07e3712f3bcd5ccefa
+        sha256: ead36f2e8231357a2a7409f2ae60803b5a745b41faf533685ef7e6fed3893259
       - path: artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
-        sha256: 2a9efda0de568e467e6b88980bf48564b8881253ef14d98f74d8224a6f27037
+        sha256: d784762f7888ef891f73ee517106a87912c8d7ef5ec1d142438e0d296e64e4e3
       - path: research/runs/2026-08.jsonl#R000645
       - path: research/runs/2026-08.jsonl#R000646
       - path: research/runs/2026-08.jsonl#R000647
       - path: research/runs/2026-08.jsonl#R000648
-    output: clean L3 source-to-executable trace R000647
+      - path: research/runs/2026-08.jsonl#R000650
+    output: clean L3 source-to-executable trace R000647 and post-promotion regression R000650
     integration: controller-only
     estimated_cost: medium
     parallel_group: controller-exclusive

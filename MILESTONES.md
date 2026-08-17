@@ -1137,9 +1137,10 @@ or general Fortran parsing. Its independent oracle checks the accepted and
 rejected result, the emitted executable's exit status, and the complete stage
 trace from a clean checkout. The exact command is
 `L3_EXPECTED_CENTRAL_COMMIT=<pinned-central> tests/e2e/run-l3.sh --fresh`.
-Technical replay R000647 and focused review R000648 pass; the post-promotion
-regression is recorded separately before the next declaration successor is
-started.
+Technical replay R000647, focused review R000648 and corrected post-promotion
+regression R000650 pass. The exact regression command is
+`L3_EXPECTED_CENTRAL_COMMIT=51e867b79c8f6d46322304f688697576a226fa7a
+tests/e2e/run-l3.sh --fresh`. The next declaration successor can now start.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

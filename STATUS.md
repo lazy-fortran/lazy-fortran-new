@@ -9,8 +9,9 @@ pending. D0173 retires residual CXXX intake as the default frontier. The active
 path is one free-form named main program, `program p` / `end program p`, through
 the existing frontend-v0, MIR-v0 and backend contracts to process exit status
 zero. Its required negative neighbour mismatches the end name. The bounded L3
-claim passes technical replay R000647 and focused review R000648; the pushed
-post-promotion regression remains to be recorded. Its next successor is one
+claim passes technical replay R000647 and focused review R000648;
+post-promotion regression R000650 also passes from pushed central revision
+`51e867b`. Its next successor is one
 integer declaration, not another residual CXXX row.
 
 ## Central goal

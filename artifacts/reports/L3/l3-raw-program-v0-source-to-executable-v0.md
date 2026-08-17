@@ -1,6 +1,6 @@
 # L3 raw-source-to-executable replay
 
-Status: technical replay `PASS`; promotion: pending focused review.
+Status: bounded promotion `PASS`; full M3 remains open.
 
 The exact replay command is:
 
@@ -41,6 +41,12 @@ The validator SHA-256 is
 R000646 is retained as a reproducibility failure: its recorded central
 revision did not resolve. R000647 supersedes it after the runner began
 enforcing `L3_EXPECTED_CENTRAL_COMMIT`.
+
+The pushed-revision regression `R000650` reruns the same command with central
+revision `51e867b79c8f6d46322304f688697576a226fa7a` and passes the independent
+validator, negative control, trace comparison and runtime check. `R000649` is
+retained as superseded evidence because its lifecycle metadata named the next
+task instead of the replay task; no execution changed between the two records.
 
 This is only the bounded L3 slice. It does not claim declarations,
 expressions, I/O, modules, procedures, fixed-form source, or general Fortran
