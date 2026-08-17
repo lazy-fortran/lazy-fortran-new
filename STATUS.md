@@ -257,15 +257,19 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c754` — select C757@1
-as the next bounded source-backed property. The preceding C754 task is PASS:
+ID: `T-M3-c757-contiguous-pointer-oracle` — implement the bounded C757
+CONTIGUOUS/POINTER oracle. The preceding C754 task is PASS:
 its oracle is promoted only as the thirty-third bounded leaf by E0224/R000618
 and R000620. E0223/R000617 supplied the preceding C754 source selection.
 
-Verifier: the exact `jq` partition command in `TASK_POOL.yaml`. It must
-recompute 138 residual rows, identify C757@1 first, and bind its canonical
-source span `242052:120` (lines 3851--3852, page 79) to existing StandardIR
-R737/R738/R739 witnesses. It must not run a model or promote a semantic fact.
+Verifier: `tests/e2e/run-m3-c757.sh --fresh`. It must consume C757's exact
+source span `242052:120` (canonical lines 3851--3852, printed page 79,
+page-index record 93) and existing StandardIR R737/R738/R739 witnesses. Its
+27-state typed product crosses CONTIGUOUS presence, POINTER presence and
+component-array presence, each `absent`, `present` or `unknown`; it must
+preserve unknown states, validate source/PDF/page/identity mutations, and
+record zero model calls and semantic promotions. It must not parse Fortran,
+inspect C755/C756/C758 or broaden the property.
 
 The completed C754 verifier was `tests/e2e/run-m3-c754.sh --fresh`. Its
 27-state typed product crosses pointer attribute, allocatable attribute and
@@ -373,11 +377,9 @@ parse arbitrary Fortran. The next bounded selection is C757@1.
 
 ## Next executable task
 
-Select and source-bind the next bounded residual property, C757@1. Recompute
-the post-C754 partition with the command recorded in `TASK_POOL.yaml`, inspect
-the C757 source occurrence and reusable StandardIR witnesses, and create one
-small delivery contract. Do not run a model, restart E0172, parse general
-Fortran, or promote a semantic fact.
+Implement the selected C757 bounded source-backed property with
+`tests/e2e/run-m3-c757.sh --fresh`. Preserve unknown states, do not run a
+model, restart E0172, parse general Fortran, or promote a semantic fact.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

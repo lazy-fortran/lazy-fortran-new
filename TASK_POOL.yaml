@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c754
+active_task: T-M3-c757-contiguous-pointer-oracle
 
 milestones:
   - id: L0
@@ -6260,6 +6260,52 @@ tasks:
       - research/runs/2026-08.jsonl#R000621
     retry_count: 0
     integration_cycle_trigger: next_implementation
+
+  - id: T-M3-c757-contiguous-pointer-oracle
+    milestone: M3
+    title: Implement the bounded C757 contiguous-pointer oracle
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-M3-core0-next-bounded-property-selection-after-c754]
+    inputs:
+      - path: research/experiments/E0225-select-the-next-bounded-source-backed-property-after-c754/manifest.yaml
+      - path: research/decisions/D0166-thirty-fifth-m3-c757-selection.md
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v23.md
+      - path: research/runs/2026-08.jsonl#R000621
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+    output: bounded-oracle
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c754]
+    verifier: >-
+      implement and execute a fresh source-backed C757 replay over canonical
+      lines 3851--3852, byte span 242052:120, printed page 79 and page-index
+      record 93, using R737/R738/R739. The typed product crosses CONTIGUOUS
+      presence, POINTER presence and component-array presence, each absent,
+      present or unknown. Require an independent 27-state expected table,
+      explicit unknown handling, source/page/PDF/identity mutations, zero
+      model calls and zero semantic promotions. Do not parse Fortran, inspect
+      C755/C756/C758 or broaden the property.
+    verifier_command: tests/e2e/run-m3-c757.sh --fresh
+    final_observable: >-
+      a replayable C757 source-backed oracle with an independent expected-
+      outcome table, deterministic ACCEPTED/REJECTED/UNRESOLVED decisions,
+      rejected mutation controls and no semantic promotion
+    evidence_paths:
+      - research/experiments/E0225-select-the-next-bounded-source-backed-property-after-c754/manifest.yaml
+      - research/decisions/D0166-thirty-fifth-m3-c757-selection.md
+      - artifacts/reports/M3/m3-core0-next-property-selection-v23.md
+      - research/runs/2026-08.jsonl#R000621
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4

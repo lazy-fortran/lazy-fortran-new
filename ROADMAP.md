@@ -745,6 +745,12 @@ bind that occurrence and define one bounded contract; it is not yet evidence
 for a C757 semantic fact. Regenerate the partition with the `jq` command in
 the next task record in `TASK_POOL.yaml`.
 
+The active implementation task is `T-M3-c757-contiguous-pointer-oracle`. Its
+verifier will be `tests/e2e/run-m3-c757.sh --fresh`; it must use a typed
+CONTIGUOUS × POINTER × component-array product with explicit unknown states and
+must leave model calls and semantic promotions at zero. This is the next
+bounded contract only, not a Fortran parser or full semantic layer.
+
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
 Selection `R000522` binds C735 canonical line 3620, page 88, byte span
