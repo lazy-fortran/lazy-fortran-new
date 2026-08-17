@@ -2,13 +2,13 @@ id: "E0233"
 title: "Can the first raw source program reach the existing executable path"
 question: >
   Can the first raw source program reach the existing executable path
-status: draft            # draft | running | reported | abandoned
+status: running          # draft | running | reported | abandoned
 opened: "2026-08-18"
 closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "4086bf9068b4e4ca18b69b84a345f3c3335f2e7e"
+  lazy-fortran-new: "9eb04cc00892d4bda6b5e79b58ebfb03d7e24d07"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
   fortfront-new: "89b470760745cc4fd02c142bcb3e44f90a688a93"
   ffc-new: "bcaadcb58c24af613204aa398541c0d2e35abf91"
@@ -95,3 +95,15 @@ gate: >-
 analysis: >-
   M3_L3_EXPECTED_CENTRAL_COMMIT=<pinned-central>
   tests/e2e/run-l3.sh --fresh
+
+result:
+  technical_run: research/runs/2026-08.jsonl#R000645
+  technical_status: PASS
+  promotion_status: PENDING-REVIEW
+  report: artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
+  trace: artifacts/traces/l3-raw-program-v0.json
+  trace_sha256: aacc3581d9b35667af56318bb9d9fc96d587803551d7965ede9d4877d80ac3a2
+  validator_sha256: d633a441641b5c3cbad09ce8533fb61e304eb2f51df674695b8b7aabfccdea3f
+  outcomes: {accepted: 1, rejected: 1, runtime_exit_status: 0}
+  model_calls: 0
+  semantic_promotions: 0

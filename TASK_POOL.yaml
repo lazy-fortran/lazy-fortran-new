@@ -7015,8 +7015,8 @@ tasks:
   - id: T-L3-central-source-executable-replay
     milestone: L3
     title: Replay raw source through frontend, MIR and executable
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on: [T-L3-fortfront-raw-program-source]
@@ -7031,7 +7031,12 @@ tasks:
         commit: bcaadcb58c24af613204aa398541c0d2e35abf91
       - component: fortback-new
         commit: c578904a8d18e9d5410934f5489a21d5dadfad05
-    output: clean L3 source-to-executable trace
+      - path: research/experiments/E0233-can-the-first-raw-source-program-reach-t/manifest.yaml
+        sha256: a02239c5d62b7400279843e6d56f8461e74bdaff4eed2c00b8b96d8f14dca403
+      - path: artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
+        sha256: 8a49b80a3435b122b7490cf4de24ce97f770350ab28c91ecdf36e27ad5e976d8
+      - path: research/runs/2026-08.jsonl#R000645
+    output: clean L3 source-to-executable trace R000645
     integration: controller-only
     estimated_cost: medium
     parallel_group: controller-exclusive
@@ -7042,7 +7047,7 @@ tasks:
       mismatched-end neighbour, compare the independent oracle and committed
       trace, and record zero model calls and zero semantic promotions.
     verifier_command: tests/e2e/run-l3.sh --fresh
-    final_observable: executable exit status zero and stable rejected diagnostic
+    final_observable: executable exit status zero and stable rejected diagnostic; review pending
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 integration_cycle:
