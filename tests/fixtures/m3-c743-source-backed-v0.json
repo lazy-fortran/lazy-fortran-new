@@ -1,0 +1,78 @@
+{
+  "schema_version": "m3-c743-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "derived-type-def-private-or-sequence-uniqueness",
+  "contract": {
+    "schema": "contracts/m3-c743-derived-type-private-or-sequence-uniqueness-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c743-derived-type-private-or-sequence-uniqueness-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C743",
+    "printed_page": 89,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3637, "text": "C743 (R726) The same private-or-sequence shall not appear more than once in a given derived-type-def ."}
+    ],
+    "source_span": {"byte_start": 230736, "byte_length": 105, "page_start": 89, "page_end": 89},
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [{"page": 89, "start": 230288, "length": 2594}]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R726", "lhs": "derived-type-def", "page": 88, "byte_start": 229000, "byte_length": 177, "occurrence": 76},
+        {"rule": "R729", "lhs": "private-or-sequence", "page": 89, "byte_start": 230663, "byte_length": 72, "occurrence": 79}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c743-semantic-items.sx",
+    "sha256": "9a36c62d5576c4af21711d7303359e474971b3288b7746630b7afc10e5228840",
+    "id": "S-C743",
+    "subject": "derived-type-def-private-or-sequence-uniqueness",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C743",
+    "page": 89,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {"id": "accepted-no-occurrence", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "none", "context": "derived-type-def"}},
+    {"id": "accepted-single-occurrence", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "single", "context": "derived-type-def"}},
+    {"id": "rejected-duplicate-occurrence", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "duplicate", "context": "derived-type-def"}},
+    {"id": "unresolved-unknown-occurrence", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "unknown", "context": "derived-type-def"}},
+    {"id": "unresolved-none-other", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "none", "context": "other"}},
+    {"id": "unresolved-single-other", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "single", "context": "other"}},
+    {"id": "unresolved-duplicate-other", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "duplicate", "context": "other"}},
+    {"id": "unresolved-unknown-other", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "unknown", "context": "other"}},
+    {"id": "unresolved-none-unknown-context", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "none", "context": "unknown"}},
+    {"id": "unresolved-single-unknown-context", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "single", "context": "unknown"}},
+    {"id": "unresolved-duplicate-unknown-context", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "duplicate", "context": "unknown"}},
+    {"id": "unresolved-unknown-unknown-context", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "derived-type-def-private-or-sequence-uniqueness", "source_rule": "C743", "occurrence": "unknown", "context": "unknown"}}
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3636},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C743 (R726) The same private-or-sequence shall appear more than once in a given derived-type-def ."},
+    {"id": "source-span-start", "path": ["source", "source_span", "byte_start"], "value": 230737},
+    {"id": "source-span-length", "path": ["source", "source_span", "byte_length"], "value": 104},
+    {"id": "page-boundary", "path": ["source", "source_span", "page_start"], "value": 88},
+    {"id": "page-index-identity", "path": ["source", "page_index", "pages", 0, "start"], "value": 230289},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R729"},
+    {"id": "standardir-lhs-identity", "path": ["source", "standardir", "rows", 0, "lhs"], "value": "private-or-sequence"},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C742"},
+    {"id": "contract-property-identity", "path": ["property"], "value": "other-property"},
+    {"id": "source-page-identity", "path": ["source", "printed_page"], "value": 88}
+  ]
+}

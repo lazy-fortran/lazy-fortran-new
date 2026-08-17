@@ -1,0 +1,9 @@
+(contract-witness
+  (contract m3-c743-derived-type-private-or-sequence-uniqueness)
+  (version 0)
+  (origin human)
+  (resolution disputed)
+  (property derived-type-def-private-or-sequence-uniqueness)
+  (source (source-ref (document J3-24-007) (clause 7) (rule C743) (page 89) (source-hash 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)))
+  (span (source-span (byte-start 230736) (byte-length 105) (page-start 89) (page-end 89)))
+  (outcomes accepted rejected unresolved))
