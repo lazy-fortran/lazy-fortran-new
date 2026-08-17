@@ -1,0 +1,116 @@
+{
+  "cases": [
+    {
+      "abstract": "present",
+      "computed": "ACCEPTED",
+      "deferred_binding": "contains",
+      "expected": "ACCEPTED",
+      "id": "positive-contains-deferred-abstract",
+      "kind": "positive"
+    },
+    {
+      "abstract": "present",
+      "computed": "ACCEPTED",
+      "deferred_binding": "inherits",
+      "expected": "ACCEPTED",
+      "id": "positive-inherits-deferred-abstract",
+      "kind": "positive"
+    },
+    {
+      "abstract": "absent",
+      "computed": "ACCEPTED",
+      "deferred_binding": "none",
+      "expected": "ACCEPTED",
+      "id": "positive-no-deferred-no-abstract",
+      "kind": "positive"
+    },
+    {
+      "abstract": "absent",
+      "computed": "REJECTED",
+      "deferred_binding": "contains",
+      "expected": "REJECTED",
+      "id": "negative-deferred-without-abstract",
+      "kind": "negative"
+    },
+    {
+      "abstract": "present",
+      "computed": "UNRESOLVED",
+      "deferred_binding": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-deferred-binding",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c738-abstract-deferred-binding-oracle-v0.sx",
+    "fixture_sha256": "2650e297651f97239946376ba261d645404bc7cfa5db6324d2b0e161cd8f78b5",
+    "schema": "contracts/m3-c738-abstract-deferred-binding-oracle-v0.sxs",
+    "schema_sha256": "d797fd4e52aae313493a23ee4fec76de53d991486fdd385014d1bf7336757dbb",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c738-source-backed-v0.json",
+  "fixture_sha256": "793ec206d7035da111b49a8e0c538ea23a96dd6ae06ed0759fd21288d9bc121b",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-text",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-metadata",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c738.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 3,
+    "REJECTED": 1,
+    "UNRESOLVED": 1
+  },
+  "property": "abstract-required-for-deferred-binding",
+  "schema_version": "m3-c738-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "788c5729543d80c7b4f5a85b6ceb2d44e8d329247cc283c880f50b38ee5980e4",
+    "input": "tests/fixtures/m3-c738-semantic-items.sx",
+    "input_sha256": "788c5729543d80c7b4f5a85b6ceb2d44e8d329247cc283c880f50b38ee5980e4"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3623,
+      3624
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 87,
+    "rule": "C738",
+    "standardir_rules": [
+      "R726",
+      "R728",
+      "R746",
+      "R752"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}
