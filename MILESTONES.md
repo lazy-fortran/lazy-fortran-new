@@ -658,8 +658,8 @@ Evidence: `research/experiments/E0206-can-a-deterministic-source-backed-c744-o/`
 `tests/e2e/validate_m3_c744.py`,
 `artifacts/traces/m3-c744-source-backed-v0.json`,
 `artifacts/reports/M3/m3-c744-source-backed-v0.md`,
-`artifacts/reports/M3/m3-c744-focused-review-v1.md`, and runs `R000538` and
-`R000539`.
+`artifacts/reports/M3/m3-c744-focused-review-v1.md`, and runs `R000538`,
+`R000539` and final clean handoff `R000540`.
 
 The post-C744 partition has 147 residual rows (84 `disputed`, 63 `unwitnessed`)
 with C745@1 first. Regenerate it with:

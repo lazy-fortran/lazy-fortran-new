@@ -177,7 +177,8 @@ only as a bounded typed oracle leaf. The post-C743 reconciliation R000534
 leaves 148 outside-promoted rows (85 disputed and 63 unwitnessed), with
 C744@1 first. E0205/R000537 selects the C744 END TYPE name relation over
 R727/R730 at canonical lines 3639--3640, byte span `230888:137`, page 89.
-E0206/R000538 replays it and R000539 provides two focused independent reviews;
+E0206/R000538 replays it, R000539 provides two focused independent reviews,
+and final clean handoff R000540 passes;
 C744 is promoted only as a bounded typed oracle leaf. The post-C744 partition
 has 147 outside-promoted rows (84 disputed and 63 unwitnessed), with C745@1
 first. Full M3 remains open.

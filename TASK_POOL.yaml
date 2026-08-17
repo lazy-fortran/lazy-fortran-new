@@ -4577,6 +4577,7 @@ tasks:
       - artifacts/reports/M3/m3-c744-focused-review-v1.md
       - research/runs/2026-08.jsonl#R000538
       - research/runs/2026-08.jsonl#R000539
+      - research/runs/2026-08.jsonl#R000540
       - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - .cache/runs/E0001/R000003/j3-24-007.pages.index
       - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
@@ -4640,6 +4641,7 @@ tasks:
       - research/experiments/E0206-can-a-deterministic-source-backed-c744-o/manifest.yaml
       - research/runs/2026-08.jsonl#R000538
       - research/runs/2026-08.jsonl#R000539
+      - research/runs/2026-08.jsonl#R000540
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 
   - id: T-M2-candidate-evidence-coalescing

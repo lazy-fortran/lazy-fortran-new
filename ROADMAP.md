@@ -86,7 +86,8 @@ focused review R000532 pass, so C743 is promoted only as its bounded
 private-or-sequence uniqueness oracle. The post-C743 residual is 148 rows
 (85 disputed and 63 unwitnessed), with C744@1 first. E0205/R000537 selects
 C744 at canonical lines 3639--3640, page 89, byte span `230888:137`, over
-R727/R730. E0206/R000538 and focused review R000539 pass, promoting C744 only
+R727/R730. E0206/R000538 and focused review R000539 pass; final clean handoff
+R000540 also passes, promoting C744 only
 as its bounded END TYPE name relation oracle. The post-C744 partition has 147
 residual rows (84 disputed and 63 unwitnessed), with C745@1 first; the active
 task selects the next bounded source-backed property.
@@ -146,7 +147,8 @@ R726/R729. E0204 replay R000531 and focused review R000532 pass, so C743 is
 promoted only as this bounded oracle leaf. Post-C743 reconciliation R000534
 leaves 148 residual rows (85 disputed and 63 unwitnessed), with C744@1 first.
 E0205/R000537 selects C744 at canonical lines 3639--3640, page 89, byte span
-`230888:137`, over R727/R730. E0206/R000538 and R000539 pass with 4
+`230888:137`, over R727/R730. E0206/R000538, R000539 and final handoff R000540
+pass with 4
 `ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve rejected mutations, zero
 model calls and zero semantic promotions. C744 is promoted only as its bounded
 typed END TYPE name relation oracle. Post-C744 reconciliation leaves 147
@@ -572,8 +574,8 @@ has 148 rows (85 disputed and 63 unwitnessed), with C744@1 first.
 
 E0205/R000537 binds C744 to canonical lines 3639--3640, page 89, byte span
 `230888:137`, and StandardIR R727/R730. D0150 selects the typed relation over
-END TYPE name presence, name relation and derived-type-def context. E0206/R000538
-and focused review R000539 pass with 4 `ACCEPTED`, 1 `REJECTED`, 22
+END TYPE name presence, name relation and derived-type-def context. E0206/R000538,
+focused review R000539 and final handoff R000540 pass with 4 `ACCEPTED`, 1 `REJECTED`, 22
 `UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
 promotions. C744 is promoted only as this bounded oracle; post-C744
 reconciliation leaves 147 residual rows (84 disputed and 63 unwitnessed), with

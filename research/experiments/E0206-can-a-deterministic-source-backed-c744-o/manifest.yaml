@@ -82,6 +82,7 @@ analysis: >-
 
 result:
   replay_run: research/runs/2026-08.jsonl#R000005
+  final_handoff_run: research/runs/2026-08.jsonl#R000540
   central_revision: eaa19119e914ca72e62042081b58e948ac98ba6d
   functional_revision: fd9ce7a6b4f0aa13e257cca2f5c5906b0ac099d1
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
