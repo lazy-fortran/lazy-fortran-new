@@ -333,6 +333,10 @@ milestones:
       - research/runs/2026-08.jsonl#R000046
       - research/runs/2026-08.jsonl#R000047
       - research/runs/2026-08.jsonl#R000048
+      - research/runs/2026-08.jsonl#R000049
+      - research/runs/2026-08.jsonl#R000050
+      - artifacts/reports/M3/c719-semantic-review-v0.md
+      - artifacts/reports/M3/c719-reproducibility-review-v0.md
       - research/decisions/D0132-seventh-m3-c723-complex-named-constant-oracle.md
       - research/experiments/E0183-can-a-deterministic-oracle-enforce-c723-/manifest.yaml
       - contracts/m3-c723-complex-named-constant-oracle-v0.sxs
@@ -346,7 +350,7 @@ milestones:
       - research/runs/2026-08.jsonl#R000037
     notes: >-
       The bounded C1106, C702, C601, C603, C721, C725, C718, C723 and C729
-      slices are promoted. C719 replay R000048 passes and focused review is
+      slices are promoted. C719 replay R000050 passes and focused review is
       pending. The E0181 audit retains 4 hard failures, 2 unresolved, 94
       disputed and 69 unwitnessed rows; full Core 0 semantics remain
       unpromoted.
@@ -1680,6 +1684,10 @@ tasks:
       - research/runs/2026-08.jsonl#R000046
       - research/runs/2026-08.jsonl#R000047
       - research/runs/2026-08.jsonl#R000048
+      - research/runs/2026-08.jsonl#R000049
+      - research/runs/2026-08.jsonl#R000050
+      - artifacts/reports/M3/c719-semantic-review-v0.md
+      - artifacts/reports/M3/c719-reproducibility-review-v0.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
