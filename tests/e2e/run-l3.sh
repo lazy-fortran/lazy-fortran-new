@@ -20,12 +20,13 @@ need qemu-riscv64
 "$ROOT/scripts/check_pins.sh" >/dev/null
 "$ROOT/scripts/check-contracts.sh" >/dev/null
 
-manifest="$ROOT/tests/fixtures/l3-raw-program-v0.toml"
+manifest="$ROOT/${L3_MANIFEST:-tests/fixtures/l3-raw-program-v0.toml}"
+validator="${L3_VALIDATOR:-$ROOT/tests/e2e/validate_l3.py}"
 standard="$(resolve_repo standard-new)"
 frontend="$(resolve_repo fortfront-new)"
 compiler="$(resolve_repo ffc-new)"
 backend="$(resolve_repo fortback-new)"
-run_root="$ROOT/.cache/runs/E0233"
+run_root="${L3_RUN_ROOT:-$ROOT/.cache/runs/E0233}"
 mkdir -p "$run_root"
 run_number=1
 while [ -e "$run_root/R$(printf '%06d' "$run_number")" ]; do
@@ -60,7 +61,7 @@ from pathlib import Path
 manifest = tomllib.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 root = Path(sys.argv[2])
 for field in ("contract_schema", "contract_witness", "source", "negative",
-              "frontend_golden", "mir_golden", "oracle"):
+              "frontend_golden", "mir_golden", "oracle", "validator"):
     path = root / manifest[field]
     if not path.is_file():
         raise SystemExit(f"missing L3 input: {manifest[field]}")
@@ -120,7 +121,13 @@ negative_frontend_repeat="$run_dir/negative.frontend.repeat.sx"
     >"$run_dir/fortfront-negative-repeat.log" 2>&1
 cmp "$positive_frontend" "$positive_frontend_repeat"
 cmp "$negative_frontend" "$negative_frontend_repeat"
-python3 - "$positive_frontend" "$ROOT/tests/golden/l3-raw-program-v0.frontend.sx" <<'PY'
+frontend_golden="$ROOT/$(python3 - "$manifest" <<'PY'
+import sys, tomllib
+from pathlib import Path
+print(tomllib.loads(Path(sys.argv[1]).read_text())['frontend_golden'])
+PY
+)"
+python3 - "$positive_frontend" "$frontend_golden" <<'PY'
 import sys
 from pathlib import Path
 actual, expected = map(Path, sys.argv[1:])
@@ -138,7 +145,13 @@ fi
 (cd "$compiler" && fo exec ffc-lower-frontend-v0 "$positive_frontend" "$positive_mir_repeat") \
     >"$run_dir/ffc-positive-repeat.log" 2>&1
 cmp "$positive_mir" "$positive_mir_repeat"
-python3 - "$positive_mir" "$ROOT/tests/golden/l3-raw-program-v0.mir.sx" <<'PY'
+mir_golden="$ROOT/$(python3 - "$manifest" <<'PY'
+import sys, tomllib
+from pathlib import Path
+print(tomllib.loads(Path(sys.argv[1]).read_text())['mir_golden'])
+PY
+)"
+python3 - "$positive_mir" "$mir_golden" <<'PY'
 import sys
 from pathlib import Path
 actual, expected = map(Path, sys.argv[1:])
@@ -171,7 +184,7 @@ else
 fi
 [ "$runtime_status" -eq 0 ]
 
-python3 "$ROOT/tests/e2e/validate_l3.py" "$manifest" "$run_dir" \
+python3 "$validator" "$manifest" "$run_dir" \
     "$actual_standard_commit" "$actual_frontend_commit" \
     "$actual_compiler_commit" "$actual_backend_commit" "$runtime_status"
 
@@ -215,7 +228,13 @@ trace = {
 Path(trace_path).write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 PY
 
-committed_trace="$ROOT/artifacts/traces/l3-raw-program-v0.json"
+trace_rel="$(python3 - "$manifest" <<'PY'
+import sys, tomllib
+from pathlib import Path
+print(tomllib.loads(Path(sys.argv[1]).read_text())['trace'])
+PY
+)"
+committed_trace="$ROOT/$trace_rel"
 if [ -f "$committed_trace" ]; then
     cmp "$run_dir/trace.json" "$committed_trace"
 else

@@ -7125,6 +7125,10 @@ tasks:
       - contracts/l3-raw-program-v0.sxs
       - contracts/l3-declaration-v0.sxs
       - contracts/fixtures/l3-declaration-v0.sx
+      - tests/fixtures/l3-declaration-v0.toml
+      - tests/golden/l3-declaration-v0.oracle.toml
+      - tests/e2e/run-l3-declaration.sh
+      - tests/e2e/validate_l3_declaration.py
       - tests/fixtures/l3-raw-program-v0.f90
       - tests/fixtures/l3-declaration-v0.f90
       - tests/negative/l3-declaration-v0-missing-entity.f90
@@ -7214,6 +7218,58 @@ tasks:
     final_observable: accepted exact positive and rejected malformed declaration
     retry_count: 0
     integration_cycle_trigger: interface_change
+  - id: T-L3-declaration-source-executable-replay
+    milestone: L3
+    title: Replay the integer declaration through the executable path
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 90
+    depends_on: [T-L3-fortfront-integer-declaration-source]
+    inputs:
+      - research/decisions/D0174-l3-integer-declaration-successor.md
+      - tests/fixtures/l3-declaration-v0.toml
+      - tests/e2e/run-l3-declaration.sh
+      - tests/e2e/validate_l3_declaration.py
+      - component: fortfront-new
+        commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
+      - component: ffc-new
+        commit: bcaadcb58c24af613204aa398541c0d2e35abf91
+      - component: fortback-new
+        commit: c578904a8d18e9d5410934f5489a21d5dadfad05
+    output: clean declaration source-to-executable trace and regression entry
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - tests/e2e/run-l3.sh
+        - tests/e2e/run-l3-declaration.sh
+        - tests/e2e/validate_l3_declaration.py
+        - tests/fixtures/l3-declaration-v0.toml
+        - tests/golden/l3-declaration-v0.oracle.toml
+        - artifacts/traces/l3-declaration-v0.json
+        - artifacts/reports/L3/l3-declaration-*
+        - research/experiments/E0234-*
+        - research/runs/2026-08.jsonl
+        - TASK_POOL.yaml
+        - STATUS.md
+        - MILESTONES.md
+    verifier: >-
+      from a clean checkout run the exact declaration source through the
+      pinned fortfront frontend, existing ffc MIR lowering and fortback
+      executable path; require the positive acceptance and malformed-neighbour
+      rejection, independent source/output/runtime oracle, stable trace,
+      zero model calls and zero semantic promotions.
+    verifier_command: >-
+      L3_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+      tests/e2e/run-l3-declaration.sh --fresh
+    final_observable: executable exit status zero with rejected malformed declaration
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4
