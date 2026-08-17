@@ -134,7 +134,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f94c4c51b51fce22b533b7eeda08741970320913` | normative source → StandardIR | clean main; full `fo` recorded in E0174/R000010 |
-| fortfront-new | lazy-fortran/fortfront-new | `89b470760745cc4fd02c142bcb3e44f90a688a93` | frontend | clean main; L3 raw-source entrypoint |
+| fortfront-new | lazy-fortran/fortfront-new | `b51aff12c158da1f6a3643e76abb524e1d01fc7c` | frontend | clean main; L3 raw-source and integer-declaration entrypoint |
 | ffc-new | lazy-fortran/ffc-new | `bcaadcb58c24af613204aa398541c0d2e35abf91` | compiler driver and middle end | clean main; registered L2 MIR trace |
 | fortback-new | lazy-fortran/fortback-new | `c578904a8d18e9d5410934f5489a21d5dadfad05` | backend | clean main; registered L2 executable trace |
 

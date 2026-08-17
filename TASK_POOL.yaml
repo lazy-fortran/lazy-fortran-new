@@ -7184,7 +7184,7 @@ tasks:
       - path: tests/negative/l3-declaration-v0-missing-entity.f90
         sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
       - component: fortfront-new
-        commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
+        commit: b51aff12c158da1f6a3643e76abb524e1d01fc7c
       - component: ffc-new
         commit: bcaadcb58c24af613204aa398541c0d2e35abf91
       - component: fortback-new
@@ -7232,7 +7232,7 @@ tasks:
       - tests/e2e/run-l3-declaration.sh
       - tests/e2e/validate_l3_declaration.py
       - component: fortfront-new
-        commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
+        commit: b51aff12c158da1f6a3643e76abb524e1d01fc7c
       - component: ffc-new
         commit: bcaadcb58c24af613204aa398541c0d2e35abf91
       - component: fortback-new
