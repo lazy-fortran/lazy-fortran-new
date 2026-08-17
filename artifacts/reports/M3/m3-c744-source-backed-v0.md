@@ -1,7 +1,7 @@
 # M3 C744 bounded END TYPE name relation oracle
 
-Status: `REPLAY PASS`; focused independent review is recorded separately
-before bounded promotion. Full M3 remains `OPEN`. This artifact does not claim a
+Status: `PASS` for the bounded C744 leaf after clean replay and focused
+independent review; full M3 remains `OPEN`. This artifact does not claim a
 Fortran parser, semantic analyzer, identifier resolver or promotion of the
 retained C744 semantic row.
 
@@ -30,17 +30,17 @@ model output can promote a semantic fact.
 The exact clean-checkout command is:
 
 ```text
-M3_C744_EXPECTED_CENTRAL_COMMIT=bbf32b84a7bcfd38755e1f745ded1944fb966e8b tests/e2e/run-m3-c744.sh --fresh
+M3_C744_EXPECTED_CENTRAL_COMMIT=eaa19119e914ca72e62042081b58e948ac98ba6d tests/e2e/run-m3-c744.sh --fresh
 ```
 
-Replay `E0206/R000003` passes and compares its generated result byte-for-byte
+Replay `E0206/R000005` passes and compares its generated result byte-for-byte
 with `artifacts/traces/m3-c744-source-backed-v0.json`: 4 `ACCEPTED`, 1
 `REJECTED`, 22 `UNRESOLVED`, twelve rejected mutation controls, zero model
 calls and zero semantic promotions. The result and committed trace both have
 SHA-256
 `efbf3eca06176f41dfa8d879b85f859ef4cf21b692d7db0d36079ed490ccc811`. The
 run environment has SHA-256
-`f85643cf17a5bc7e9ebf37aa54825ece337064d1fc48f1a9c05294fe3a98e7af`.
+`c6e6a55b0324ec530e4579f442ef85c3aa97db6cf21efc1142e19d8616c62afb`.
 
 The central control-plane revision is
 `bbf32b84a7bcfd38755e1f745ded1944fb966e8b`; the functional revision pinned by
@@ -59,9 +59,9 @@ are respectively
 `7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2`.
 
 Focused independent review is recorded in
-`artifacts/reports/M3/m3-c744-focused-review-v1.md`. Promotion remains gated
-on that review and a clean replay after this report is committed. No C744
-semantic fact or full M3 claim is promoted.
+`artifacts/reports/M3/m3-c744-focused-review-v1.md`; it passes the same frozen
+packet and clean replay. The bounded candidate is promoted only as this typed
+oracle leaf. No C744 semantic fact or full M3 claim is promoted.
 
 ## Scope and non-claims
 

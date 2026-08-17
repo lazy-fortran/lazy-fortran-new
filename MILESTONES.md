@@ -642,8 +642,34 @@ D0150 defines the bounded candidate as END TYPE name presence
 Absent in the derived-type-def context and present/same there are `ACCEPTED`;
 present/different there is `REJECTED`; all other states are `UNRESOLVED`. The
 selection does not parse definitions, compare real identifier spellings,
-perform case folding or name resolution. The next task implements this typed
-oracle only; full M3 remains open.
+perform case folding or name resolution. E0206/R000538 and focused review
+R000539 pass with 4 `ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve rejected
+mutations, zero model calls and zero semantic promotions. C744 is promoted
+only as this bounded typed oracle; full M3 remains open.
+
+The exact clean replay command is:
+
+```text
+M3_C744_EXPECTED_CENTRAL_COMMIT=eaa19119e914ca72e62042081b58e948ac98ba6d tests/e2e/run-m3-c744.sh --fresh
+```
+
+Evidence: `research/experiments/E0206-can-a-deterministic-source-backed-c744-o/`,
+`contracts/m3-c744-derived-type-end-type-name-relation-v0.sxs`,
+`tests/e2e/validate_m3_c744.py`,
+`artifacts/traces/m3-c744-source-backed-v0.json`,
+`artifacts/reports/M3/m3-c744-source-backed-v0.md`,
+`artifacts/reports/M3/m3-c744-focused-review-v1.md`, and runs `R000538` and
+`R000539`.
+
+The post-C744 partition has 147 residual rows (84 `disputed`, 63 `unwitnessed`)
+with C745@1 first. Regenerate it with:
+
+```text
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+```
+
+The next controller task selects one bounded source-backed property from that
+partition; it does not restart E0172, broaden semantic work or claim full M3.
 
 ## M3 — bounded C601 semantic-oracle successor
 

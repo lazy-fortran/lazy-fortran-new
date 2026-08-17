@@ -61,8 +61,8 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through twenty-three bounded contracts, including C717, C720, C722, C724, C726,
-C731, C732, C733, C735 and C743.
+through twenty-four bounded contracts, including C717, C720, C722, C724, C726,
+C731, C732, C733, C735, C743 and C744.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -86,8 +86,10 @@ focused review R000532 pass, so C743 is promoted only as its bounded
 private-or-sequence uniqueness oracle. The post-C743 residual is 148 rows
 (85 disputed and 63 unwitnessed), with C744@1 first. E0205/R000537 selects
 C744 at canonical lines 3639--3640, page 89, byte span `230888:137`, over
-R727/R730. The active task implements the bounded END TYPE name relation
-oracle.
+R727/R730. E0206/R000538 and focused review R000539 pass, promoting C744 only
+as its bounded END TYPE name relation oracle. The post-C744 partition has 147
+residual rows (84 disputed and 63 unwitnessed), with C745@1 first; the active
+task selects the next bounded source-backed property.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -144,8 +146,12 @@ R726/R729. E0204 replay R000531 and focused review R000532 pass, so C743 is
 promoted only as this bounded oracle leaf. Post-C743 reconciliation R000534
 leaves 148 residual rows (85 disputed and 63 unwitnessed), with C744@1 first.
 E0205/R000537 selects C744 at canonical lines 3639--3640, page 89, byte span
-`230888:137`, over R727/R730. The active task implements its bounded typed
-END TYPE name relation oracle; full M3 remains open.
+`230888:137`, over R727/R730. E0206/R000538 and R000539 pass with 4
+`ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve rejected mutations, zero
+model calls and zero semantic promotions. C744 is promoted only as its bounded
+typed END TYPE name relation oracle. Post-C744 reconciliation leaves 147
+residual rows (84 disputed and 63 unwitnessed), with C745@1 first; full M3
+remains open.
 
 Regenerate the bounded C733 replay with:
 
@@ -566,9 +572,13 @@ has 148 rows (85 disputed and 63 unwitnessed), with C744@1 first.
 
 E0205/R000537 binds C744 to canonical lines 3639--3640, page 89, byte span
 `230888:137`, and StandardIR R727/R730. D0150 selects the typed relation over
-END TYPE name presence, name relation and derived-type-def context. The next
-bounded task implements this relation without parsing, name resolution or
-semantic promotion.
+END TYPE name presence, name relation and derived-type-def context. E0206/R000538
+and focused review R000539 pass with 4 `ACCEPTED`, 1 `REJECTED`, 22
+`UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
+promotions. C744 is promoted only as this bounded oracle; post-C744
+reconciliation leaves 147 residual rows (84 disputed and 63 unwitnessed), with
+C745@1 first. The next bounded task selects one property from that residual,
+without parsing, name resolution or semantic promotion.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

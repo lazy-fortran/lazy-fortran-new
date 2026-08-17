@@ -2,13 +2,13 @@ id: "E0206"
 title: "Bounded C744 END TYPE name relation oracle"
 question: >
   Can a deterministic source-backed C744 oracle classify END TYPE name relation states?
-status: draft            # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "fd9ce7a"
+  lazy-fortran-new: "eaa19119e914ca72e62042081b58e948ac98ba6d"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -79,3 +79,19 @@ gate: >-
 analysis: >-
   Controller-owned bounded C744 replay report
   artifacts/reports/M3/m3-c744-source-backed-v0.md
+
+result:
+  replay_run: research/runs/2026-08.jsonl#R000005
+  central_revision: eaa19119e914ca72e62042081b58e948ac98ba6d
+  functional_revision: fd9ce7a6b4f0aa13e257cca2f5c5906b0ac099d1
+  standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
+  trace: artifacts/traces/m3-c744-source-backed-v0.json
+  trace_sha256: efbf3eca06176f41dfa8d879b85f859ef4cf21b692d7db0d36079ed490ccc811
+  run_environment: .cache/runs/E0206/R000005/run-environment.json
+  run_environment_sha256: c6e6a55b0324ec530e4579f442ef85c3aa97db6cf21efc1142e19d8616c62afb
+  outcome_counts: {accepted: 4, rejected: 1, unresolved: 22}
+  mutation_controls: 12
+  model_calls: 0
+  semantic_promotions: 0
+  focused_review: artifacts/reports/M3/m3-c744-focused-review-v1.md
+  status: PASS-bounded-only
