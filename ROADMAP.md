@@ -434,7 +434,7 @@ C731. The source binding is recorded in the selection report and the
 replay is reproducible with:
 
 ```text
-M3_C731_EXPECTED_CENTRAL_COMMIT=94c71ec785ece8927a98a34a17e02aa452df1528 tests/e2e/run-m3-c731.sh --fresh
+M3_C731_EXPECTED_CENTRAL_COMMIT=2855a9e3e9e65875eacbd4199ddfe84cca32f5c6 tests/e2e/run-m3-c731.sh --fresh
 ```
 
 ```text
@@ -457,7 +457,7 @@ close full C726/M3. R000506 is the post-promotion residual reconciliation.
 Selection status: `PASS` in R000507. C731@1 binds canonical lines 3469--3470,
 byte span `219036:167` on page 85, to existing StandardIR R721. D0145/E0196
 define a typed `length_form × context` relation over the complete 12-state
-product. Replay R000509 and focused review R000510 pass with 2 `ACCEPTED`, 2
+product. Replay R000511 and focused review R000510 pass with 2 `ACCEPTED`, 2
 `REJECTED`, 8 `UNRESOLVED`, twelve rejected mutations and zero model calls or
 semantic promotions. The retained model proposal is input only. The oracle
 does not evaluate arbitrary Fortran expressions, infer names, parse context or
@@ -1924,7 +1924,7 @@ unwitnessed). Full M3 remains open. R000504/R000505 verify the bounded C726
 source-backed oracle over the page-84/page-85 span. Selection R000507 chooses
 C731@1, whose source-backed property is that a character statement-function
 or statement-function dummy-argument length is a constant expression. Replay
-R000509 and focused review R000510 verify the typed C731 oracle with two
+R000511 and focused review R000510 verify the typed C731 oracle with two
 accepted, two rejected and eight unresolved states, twelve rejected mutations,
 and zero model calls or semantic promotions. No semantic fact is promoted;
 full M3 remains open.

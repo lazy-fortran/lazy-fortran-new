@@ -3804,6 +3804,7 @@ tasks:
       - research/runs/2026-08.jsonl#R000508
       - research/runs/2026-08.jsonl#R000509
       - research/runs/2026-08.jsonl#R000510
+      - research/runs/2026-08.jsonl#R000511
       - contracts/m3-c731-constant-expression-oracle-v0.sxs
       - contracts/fixtures/m3-c731-constant-expression-oracle-v0.sx
       - tests/fixtures/m3-c731-source-backed-v0.json
