@@ -811,8 +811,29 @@ pointer-or-allocatable-attribute state × declaration-type category ×
 component-def-stmt context. The bounded oracle will accept the four allowed
 type categories when the attribute is absent in that context, reject the
 `other` category in that same state, and return `UNRESOLVED` otherwise. The
-selection made zero model calls and no semantic promotion. The next task is
-the C749 implementation; full M3 remains open.
+selection made zero model calls and no semantic promotion. E0216/R000589 and
+focused review/evidence gate R000592 now pass the implementation; full M3
+remains open.
+
+## M3 — bounded C749 component-type eligibility oracle
+
+Bounded-slice status: `PASS`. The source is J3-24-007 clause 7, canonical lines
+3835--3837, printed page 79, byte span `240824:234`, page-index record 93, over
+existing StandardIR R703/R737. The complete typed product has 54 states: 4
+`ACCEPTED`, 1 `REJECTED` and 49 `UNRESOLVED`. Twelve source, identity, page and
+contract mutations are rejected. The replay makes zero model calls and zero
+semantic promotions.
+
+Replay command:
+
+```text
+M3_C749_EXPECTED_CENTRAL_COMMIT=20ef900b18e16009f4aa5b3d8fb7dc8ea7f7699c tests/e2e/run-m3-c749.sh --fresh
+```
+
+Evidence: E0216 manifest, D0158, replay report, focused review report and
+central runs `R000589`--`R000592` under this repository. This is a bounded
+oracle leaf; it does not parse arbitrary Fortran, perform name resolution or
+close full M3. The next task selects one residual property after C749.
 
 ## M3 — bounded C601 semantic-oracle successor
 

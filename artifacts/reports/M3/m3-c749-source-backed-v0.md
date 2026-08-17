@@ -1,7 +1,8 @@
 # M3 C749 bounded component-type eligibility oracle
 
-Replay status: `PASS` for the bounded leaf; promotion remains pending the
-focused independent review. The complete M3/Core 0 claim remains `OPEN`.
+Replay status: `PASS`; the focused independent review and evidence gate also
+pass, so C749 is promoted only as a bounded oracle leaf. The complete M3/Core
+0 claim remains `OPEN`.
 This artifact does not claim a Fortran parser, name resolver, general semantic
 analyzer or compiler completeness.
 
@@ -38,9 +39,9 @@ M3_C749_EXPECTED_CENTRAL_COMMIT=20ef900b18e16009f4aa5b3d8fb7dc8ea7f7699c tests/e
 ```
 
 It passed as E0216/R000006. The central worktree was
-`20ef900b18e16009f4aa5b3d8fb7dc8ea7f7699c); the functional tree matched
+`20ef900b18e16009f4aa5b3d8fb7dc8ea7f7699c`; the functional tree matched
 manifest pin `9c26f1ebab90864f08d8fa191601d18d97f6c71e`; and standard-new was
-`f94c4c51b51fce22b533b7eeda08741970320913). The result and committed trace
+`f94c4c51b51fce22b533b7eeda08741970320913`. The result and committed trace
 are byte-identical with SHA-256
 `4ad1c0d77479c7904cebfb9da2153d118dcd29370394c359c0805618e1890aa3`. The
 run-environment record has SHA-256

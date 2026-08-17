@@ -61,7 +61,7 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through twenty-eight bounded contracts. E0210 replay R000566 and focused review
+through twenty-nine bounded contracts. E0210 replay R000566 and focused review
 R000567 pass for C746, which is promoted only as a bounded typed membership
 oracle. The post-C746 residual partition has 145 rows, 84 disputed and 61
 unwitnessed, with C747@1 first. R000568 selects C747's bounded occurrence-
@@ -73,8 +73,11 @@ replay R000579 and focused review R000580 pass with the deterministic
 at-most-once oracle. C748 is promoted only as a bounded leaf. E0215/R000582
 selects C749@1 as the next residual property at canonical lines 3835--3837,
 printed page 79, byte span `240824:234`, page-index record 93, over existing
-StandardIR R703/R737. The active task now implements the bounded C749
-component-type eligibility oracle. Full M3 remains open.
+StandardIR R703/R737. E0216/R000589 and focused review/evidence gate R000592
+pass the bounded C749 component-type eligibility oracle. It is promoted only
+as a bounded leaf with 4 `ACCEPTED`, 1 `REJECTED`, 49 `UNRESOLVED`, twelve
+rejected mutations, zero model calls and zero semantic promotions. The active
+task selects the next residual property after C749. Full M3 remains open.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -116,9 +119,10 @@ witnesses. C747 replay R000574 and focused review R000575 pass, promoting only
 that bounded exact-once oracle. R000576 selects C748@1; its corrected replay
 R000579 and focused review R000580 pass, promoting only the bounded C748
 at-most-once oracle. E0215/R000582 passes the post-C748 residual selection
-with 143 rows (82 `disputed`, 61 `unwitnessed`) and C749@1 first. The retained
-model row is not evidence. The next active task implements C749's bounded
-oracle; it does not parse general Fortran or promote a semantic fact.
+with 143 rows (82 `disputed`, 61 `unwitnessed`) and C749@1 first. E0216/R000589
+and focused review/evidence gate R000592 pass C749's bounded oracle; the next
+active task selects the residual after C749. The retained model row is not
+evidence, and no general Fortran parsing or semantic promotion is claimed.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -586,6 +590,30 @@ semantic promotions. The retained model proposal is input only. The oracle
 does not evaluate arbitrary Fortran expressions, infer names, parse context or
 claim full C731/M3 semantics.
 
+## M3 — bounded C749 component-type eligibility oracle
+
+Bounded-slice status: `PASS`; E0216/R000589 and focused review/evidence gate
+R000592 pass. The source is J3-24-007 clause 7, canonical lines 3835--3837,
+printed page 79, byte span `240824:234`, page-index record 93, over existing
+StandardIR R703/R737. The typed product is pointer-or-allocatable attribute
+state × declaration-type category × component-definition context. The oracle
+classifies 4 `ACCEPTED`, 1 `REJECTED` and 49 `UNRESOLVED` states and rejects
+twelve source, identity, page and contract mutations. It makes zero model
+calls and performs zero semantic promotions.
+
+Replay command:
+
+```text
+M3_C749_EXPECTED_CENTRAL_COMMIT=20ef900b18e16009f4aa5b3d8fb7dc8ea7f7699c tests/e2e/run-m3-c749.sh --fresh
+```
+
+Evidence: `research/experiments/E0216-can-a-deterministic-source-backed-c749-o/manifest.yaml`,
+`research/decisions/D0158-c749-bounded-component-type-eligibility.md`,
+`artifacts/reports/M3/m3-c749-source-backed-v0.md`, focused review
+`artifacts/reports/M3/m3-c749-focused-review-v1.md`, and runs R000589--R000592.
+This does not parse arbitrary Fortran, perform name resolution or close full
+M3. The next active task selects one residual property after C749.
+
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
 Selection `R000522` binds C735 canonical line 3620, page 88, byte span
@@ -622,8 +650,9 @@ R000568 binds C747 to canonical lines 3766--3767, printed page 77, byte span
 witnesses. D0153 as amended by D0154 defines the bounded exact-once relation;
 corrected replay R000574 and focused review R000575 pass, promoting only this
 bounded leaf. R000576 selects C748@1; corrected replay R000579 and focused
-review R000580 promote it only as a bounded at-most-once leaf. The next active
-task is `T-M3-core0-next-bounded-property-selection-after-c748`.
+review R000580 promote it only as a bounded at-most-once leaf. C749 replay
+R000589 and focused review/evidence gate R000592 pass, so the next active task
+is `T-M3-core0-next-bounded-property-selection-after-c749`.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

@@ -1,13 +1,14 @@
 # D0158. C749 bounded component-type eligibility oracle
 
 Date: 2026-08-17
-Status: proposed
+Status: accepted
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
-## Decision needed
+## Acceptance
 
-Accept this bounded leaf only after the fresh replay and focused independent
-review both pass with the control-plane evidence recorded by E0216/R000589.
+The fresh replay, focused independent review and evidence gate pass at the
+frozen control-plane revision. This accepts only the bounded C749 oracle leaf;
+the parent M3 claim remains open.
 
 ## Context
 

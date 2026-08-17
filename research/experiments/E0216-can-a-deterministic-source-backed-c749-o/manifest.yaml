@@ -99,7 +99,7 @@ result:
   functional_revision: 9c26f1ebab90864f08d8fa191601d18d97f6c71e
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
   report: artifacts/reports/M3/m3-c749-source-backed-v0.md
-  report_sha256: e52a397928cc999dbea64f19d72521e1fc8cb592ea7d84df7c9fb7b9881f4aa5
+  report_sha256: 978e66cc7eba79003ea5479becd873e5b30050b4aeb157231e19d74c5eaeb34a
   trace: artifacts/traces/m3-c749-source-backed-v0.json
   trace_sha256: 4ad1c0d77479c7904cebfb9da2153d118dcd29370394c359c0805618e1890aa3
   result: .cache/runs/E0216/R000006/result.json
@@ -107,9 +107,14 @@ result:
   run_environment: .cache/runs/E0216/R000006/run-environment.json
   run_environment_sha256: 777e21e3d74b2d68b13bef65d662ab5ed5232291e900392d34f150ca874df667
   decision: research/decisions/D0158-c749-bounded-component-type-eligibility.md
-  decision_sha256: 138b14041e2b895d71174387b97d42fb332018db176ca64943fb78005749b28d
+  decision_sha256: db243da14f3d222698c25f999ca6758afefdc76c7a8c7d90183b877c3d8bfc22
   outcome_counts: {accepted: 4, rejected: 1, unresolved: 49}
   mutation_controls: 12
   model_calls: 0
   semantic_promotions: 0
-  status: PASS-BOUNDED-ONLY-REVIEW-PENDING
+  focused_review: artifacts/reports/M3/m3-c749-focused-review-v1.md
+  focused_review_sha256: bed5e49547ba44ccc83ebfa55b3ece6345ffe64b66d5e6d368cb7bc9d44edf52
+  focused_review_run: research/runs/2026-08.jsonl#R000592
+  evidence_gate_verdict: PASS
+  review_verdict: PASS
+  status: PASS-BOUNDED-ONLY
