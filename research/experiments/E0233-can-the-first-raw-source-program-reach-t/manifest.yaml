@@ -2,9 +2,9 @@ id: "E0233"
 title: "Can the first raw source program reach the existing executable path"
 question: >
   Can the first raw source program reach the existing executable path
-status: running          # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-18"
-closed: ""
+closed: "2026-08-18"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -99,11 +99,13 @@ analysis: >-
 result:
   technical_run: research/runs/2026-08.jsonl#R000647
   technical_status: PASS
-  promotion_status: PENDING-REVIEW
+  promotion_status: PASS-BOUNDED-ONLY
   report: artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
   trace: artifacts/traces/l3-raw-program-v0.json
   trace_sha256: aacc3581d9b35667af56318bb9d9fc96d587803551d7965ede9d4877d80ac3a2
   validator_sha256: d633a441641b5c3cbad09ce8533fb61e304eb2f51df674695b8b7aabfccdea3f
+  review_run: research/runs/2026-08.jsonl#R000648
+  review_report: artifacts/reports/L3/l3-focused-review-v1.md
   outcomes: {accepted: 1, rejected: 1, runtime_exit_status: 0}
   model_calls: 0
   semantic_promotions: 0

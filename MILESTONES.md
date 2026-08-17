@@ -1109,7 +1109,7 @@ is recorded in `research/decisions/D0122-narrow-l2-boundary.md`.
 
 Next after: L2 and M1-M2
 
-Current status: `OPEN`.
+Current status: `PASS` for the bounded slice; full M3 remains open.
 
 Active source fixture: `tests/fixtures/l3-raw-program-v0.f90`.
 
@@ -1136,7 +1136,10 @@ claim declarations, expressions, I/O, modules, procedures, fixed-form source,
 or general Fortran parsing. Its independent oracle checks the accepted and
 rejected result, the emitted executable's exit status, and the complete stage
 trace from a clean checkout. The exact command is
-`tests/e2e/run-l3.sh --fresh`.
+`L3_EXPECTED_CENTRAL_COMMIT=<pinned-central> tests/e2e/run-l3.sh --fresh`.
+Technical replay R000647 and focused review R000648 pass; the post-promotion
+regression is recorded separately before the next declaration successor is
+started.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

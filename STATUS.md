@@ -8,7 +8,10 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The active
 path is one free-form named main program, `program p` / `end program p`, through
 the existing frontend-v0, MIR-v0 and backend contracts to process exit status
-zero. Its required negative neighbour mismatches the end name.
+zero. Its required negative neighbour mismatches the end name. The bounded L3
+claim passes technical replay R000647 and focused review R000648; the pushed
+post-promotion regression remains to be recorded. Its next successor is one
+integer declaration, not another residual CXXX row.
 
 ## Central goal
 
@@ -463,15 +466,16 @@ Current M3 state: C763 is promoted only as a bounded oracle leaf after its
 pin-aligned replay and two-review evidence gate. The remaining blocker is the
 scope itself—full M3 still lacks a complete semantic verifier and does not
 parse arbitrary Fortran. The post-promotion regression R000643 passes. The
-next executable action is the L3 raw-source contract and frontend task
-`T-L3-fortfront-raw-program-source`; the C768 implementation result is parked
-and is not promoted by this pivot.
+The next executable action after the L3 regression is the controller-owned
+contract task `T-L3-next-declaration-contract`: one named main program with
+`integer :: x` and no executable statements. The C768 implementation result is
+parked and is not promoted by this pivot.
 
 ## Next executable task
 
-The next task is the L3 raw-source contract and central fixture. It must pin
-the exact positive and negative source files, the reused frontend-v0/MIR-v0
-contracts, the component revisions and the independent process oracle before
+The next task is the L3 declaration contract. It must pin one named main
+program containing `integer :: x`, one malformed declaration neighbour, the
+reused frontend-v0/MIR-v0 contracts and the independent process oracle before
 implementation. Do not resume E0172 or start broad semantic work. The C768
 worker result remains parked and is not promoted by this pivot.
 

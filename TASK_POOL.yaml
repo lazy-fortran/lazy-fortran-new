@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-focused-review
+  - T-L3-next-declaration-contract
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-focused-review
+active_task: T-L3-next-declaration-contract
 
 milestones:
   - id: L0
@@ -163,9 +163,9 @@ milestones:
       - research/runs/2026-08.jsonl#R000455
   - id: L3
     title: First raw-source-to-executable Fortran slice
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     prerequisites: [L2, M1-M2]
     verifier_command: tests/e2e/run-l3.sh --fresh
     evidence_paths:
@@ -176,6 +176,10 @@ milestones:
       - tests/e2e/run-l3.sh
       - tests/e2e/validate_l3.py
       - artifacts/traces/l3-raw-program-v0.json
+      - artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
+      - artifacts/reports/L3/l3-focused-review-v1.md
+      - research/runs/2026-08.jsonl#R000647
+      - research/runs/2026-08.jsonl#R000648
     final_observable: executable exit status zero from raw Fortran source
   - id: M3
     title: Source-backed Core 0 semantics
@@ -7017,7 +7021,7 @@ tasks:
     title: Replay raw source through frontend, MIR and executable
     status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on: [T-L3-fortfront-raw-program-source]
     inputs:
@@ -7032,12 +7036,13 @@ tasks:
       - component: fortback-new
         commit: c578904a8d18e9d5410934f5489a21d5dadfad05
       - path: research/experiments/E0233-can-the-first-raw-source-program-reach-t/manifest.yaml
-        sha256: 89c22446f2c103b9aef0c3f7b47910a79a4015d15c158714927bb1292abb72fe
+        sha256: 0b6b04c20f1fc55278a781622b22fc17c9983d43f1767a07e3712f3bcd5ccefa
       - path: artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
-        sha256: bb9bd84f778e8d2176383ea0504982528c2ab0bb5df57cf47acbaacdcfe79890
+        sha256: 2a9efda0de568e467e6b88980bf48564b8881253ef14d98f74d8224a6f27037
       - path: research/runs/2026-08.jsonl#R000645
       - path: research/runs/2026-08.jsonl#R000646
       - path: research/runs/2026-08.jsonl#R000647
+      - path: research/runs/2026-08.jsonl#R000648
     output: clean L3 source-to-executable trace R000647
     integration: controller-only
     estimated_cost: medium
@@ -7051,15 +7056,15 @@ tasks:
     verifier_command: >-
       L3_EXPECTED_CENTRAL_COMMIT=ca65df604bf30335b6566fb9142459427f806404
       tests/e2e/run-l3.sh --fresh
-    final_observable: executable exit status zero and stable rejected diagnostic; review pending
+    final_observable: executable exit status zero and stable rejected diagnostic; review PASS
     retry_count: 0
     integration_cycle_trigger: milestone_pass
   - id: T-L3-focused-review
     milestone: L3
     title: Focused independent review of the raw-source executable slice
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on: [T-L3-central-source-executable-replay]
     inputs:
@@ -7077,7 +7082,7 @@ tasks:
         commit: bcaadcb58c24af613204aa398541c0d2e35abf91
       - component: fortback-new
         commit: c578904a8d18e9d5410934f5489a21d5dadfad05
-    output: two independent medium-depth Luna review reports
+    output: two independent medium-depth Luna review reports; PASS
     integration: controller-only
     estimated_cost: medium
     parallel_group: l3-focused-review
@@ -7101,9 +7106,55 @@ tasks:
     verifier_command: >-
       L3_EXPECTED_CENTRAL_COMMIT=ca65df604bf30335b6566fb9142459427f806404
       tests/e2e/run-l3.sh --fresh
-    final_observable: focused review PASS or one precise fatal blocker
+    final_observable: focused review PASS with two independent reviewers
     retry_count: 0
     integration_cycle_trigger: milestone_pass
+  - id: T-L3-next-declaration-contract
+    milestone: L3
+    title: Define the next raw-source slice with one integer declaration
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 90
+    depends_on: [T-L3-focused-review]
+    inputs:
+      - research/decisions/D0173-pivot-to-raw-source-executable-slice.md
+      - contracts/l3-raw-program-v0.sxs
+      - tests/fixtures/l3-raw-program-v0.f90
+      - component: fortfront-new
+        commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
+      - component: ffc-new
+        commit: bcaadcb58c24af613204aa398541c0d2e35abf91
+      - component: fortback-new
+        commit: c578904a8d18e9d5410934f5489a21d5dadfad05
+    output: one frozen declaration source contract and executable successor task
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/l3-declaration-*
+        - contracts/fixtures/l3-declaration-*
+        - tests/fixtures/l3-declaration-*
+        - tests/negative/l3-declaration-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+        - MILESTONES.md
+        - research/decisions/D01*-l3-*
+    verifier: >-
+      freeze one source-backed successor property over exactly one named main
+      program containing integer :: x and no executable statements, with one
+      malformed declaration neighbour. Reuse the L3 source-to-executable
+      path; do not return to residual CXXX selection or add general semantic
+      analysis.
+    verifier_command: scripts/check-contracts.sh
+    final_observable: exact next source-backed declaration contract
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
 integration_cycle:
   triggers:
     verified_deltas: 4
