@@ -727,10 +727,22 @@ Regenerate the partition with the `jq` command in
 
 ## M3 — next C754 implementation slice
 
-The active task is `T-M3-c754-component-array-spec-oracle`. Its exact verifier
-will be `tests/e2e/run-m3-c754.sh --fresh`. Do not infer attribute presence or
-array shape from model output, parse general Fortran, inspect C753/C755 or close
-full M3 by implication.
+The completed task was `T-M3-c754-component-array-spec-oracle`. Its exact
+verifier was `tests/e2e/run-m3-c754.sh --fresh`. E0224/R000618 passes with 19
+`ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`, thirteen rejected mutations, zero
+model calls and zero semantic promotions. Focused review/evidence gate R000620
+passes with two independent reviewers. C754 is promoted only as a bounded
+oracle leaf; full M3 remains open. Do not infer attribute presence or array
+shape from model output, parse general Fortran, inspect C753/C755 or close full
+M3 by implication.
+
+## M3 — next bounded residual after C754
+
+The post-C754 residual partition has 138 rows (81 `disputed`, 57 `unwitnessed`)
+and selects C757@1 as the next source occurrence. The next task is to source-
+bind that occurrence and define one bounded contract; it is not yet evidence
+for a C757 semantic fact. Regenerate the partition with the `jq` command in
+the next task record in `TASK_POOL.yaml`.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 

@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c754-component-array-spec-oracle
+active_task: T-M3-core0-next-bounded-property-selection-after-c754
 
 milestones:
   - id: L0
@@ -6170,9 +6170,9 @@ tasks:
   - id: T-M3-c754-component-array-spec-oracle
     milestone: M3
     title: Implement the bounded C754 component-array-spec oracle
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on: [T-M3-core0-next-bounded-property-selection-after-c752]
     inputs:
@@ -6180,6 +6180,12 @@ tasks:
       - path: research/decisions/D0165-thirty-fourth-m3-c754-selection.md
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v22.md
       - path: research/runs/2026-08.jsonl#R000617
+      - path: research/experiments/E0224-c754-component-array-spec-oracle/manifest.yaml
+      - path: artifacts/reports/M3/m3-c754-source-backed-v0.md
+      - path: artifacts/reports/M3/m3-c754-focused-review-packet-v1.md
+      - path: artifacts/reports/M3/m3-c754-focused-review-v2.md
+      - path: research/runs/2026-08.jsonl#R000618
+      - path: research/runs/2026-08.jsonl#R000620
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
         sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
@@ -6211,7 +6217,49 @@ tasks:
       - artifacts/reports/M3/m3-core0-next-property-selection-v22.md
       - research/runs/2026-08.jsonl#R000617
     retry_count: 0
-    integration_cycle_trigger: milestone_pass
+    integration_cycle_trigger: post_promotion_selection
+
+  - id: T-M3-core0-next-bounded-property-selection-after-c754
+    milestone: M3
+    status: PASS
+    verification: PASS
+    review_state: PASS
+    priority: 100
+    depends_on: [T-M3-c754-component-array-spec-oracle]
+    inputs:
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+        sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c0
+      - path: research/experiments/E0224-c754-component-array-spec-oracle/manifest.yaml
+      - path: research/runs/2026-08.jsonl#R000620
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+    output: contract
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    prerequisites: [T-M3-c754-component-array-spec-oracle]
+    verifier: >-
+      recompute the retained disputed/unwitnessed partition after excluding
+      the thirty-three promoted bounded contracts, including C754; inspect the
+      first remaining C757 source occurrence against the pinned source,
+      page-index record and reusable StandardIR witnesses. Do not run a model
+      or promote a semantic fact.
+    verifier_command: >-
+      jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746","C747","C748","C749","C750","C751","C752","C754"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    final_observable: one exact next source-backed C757 property with no semantic promotion
+    evidence_paths:
+      - research/experiments/E0224-c754-component-array-spec-oracle/manifest.yaml
+      - research/experiments/E0225-select-the-next-bounded-source-backed-property-after-c754/manifest.yaml
+      - research/decisions/D0166-thirty-fifth-m3-c757-selection.md
+      - artifacts/reports/M3/m3-core0-next-property-selection-v23.md
+      - research/runs/2026-08.jsonl#R000620
+      - research/runs/2026-08.jsonl#R000621
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
 integration_cycle:
   triggers:
     verified_deltas: 4

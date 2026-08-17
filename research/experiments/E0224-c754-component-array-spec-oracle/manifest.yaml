@@ -4,9 +4,9 @@ question: >
   Can the selected C754 component-array-spec restriction be checked by a small
   deterministic source-backed oracle without parsing Fortran or promoting a
   semantic fact?
-status: running        # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: null
+closed: "2026-08-17"
 
 repos:
   lazy-fortran-new: "d59bfad"
@@ -70,10 +70,10 @@ analysis: >-
   artifacts/reports/M3/m3-c754-source-backed-v0.md
 
 result:
-  technical_run: pending
-  review_run: pending
-  technical_status: pending
-  promotion_status: pending
+  technical_run: research/runs/2026-08.jsonl#R000618
+  review_run: research/runs/2026-08.jsonl#R000620
+  technical_status: PASS
+  promotion_status: PASS-BOUNDED-ONLY
   result: artifacts/traces/m3-c754-source-backed-v0.json
   report: artifacts/reports/M3/m3-c754-source-backed-v0.md
-  review_report: artifacts/reports/M3/m3-c754-focused-review.md
+  review_report: artifacts/reports/M3/m3-c754-focused-review-v2.md

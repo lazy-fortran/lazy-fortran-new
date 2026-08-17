@@ -927,6 +927,41 @@ model ran, no semantic fact was promoted, and full M3 remains open.
 Regenerate the partition with the `jq` command in
 `artifacts/reports/M3/m3-core0-next-property-selection-v22.md`.
 
+## M3 — bounded C754 component-array-spec oracle
+
+Bounded-slice status: `PASS`; clean central replay `R000618` and focused
+review/evidence gate `R000620` pass. Full Core 0 semantics remain open and are
+not claimed.
+
+The slice binds J3-24-007 C754 at canonical lines 3847--3848, printed page 79
+and byte span `241715:150` to StandardIR R737/R738/R739/R740. Its typed
+candidate crosses POINTER attribute, ALLOCATABLE attribute and
+component-array-spec shape, each `absent|present|unknown`. The deterministic
+oracle produces 19 `ACCEPTED`, 1 `REJECTED` and 7 `UNRESOLVED` outcomes across
+27 states, rejects thirteen source/provenance mutations, and records zero
+model calls and zero semantic promotions.
+
+The lifecycle is:
+
+```text
+leaf_id: T-M3-c754-component-array-spec-oracle
+claim_id: M3-C754-bounded-oracle
+parent_id: M3
+leaf_status: PASS
+claim_status: CLOSED
+parent_status: OPEN
+evidence_gate_verdict: PASS
+review_verdict: PASS
+```
+
+Evidence: `research/experiments/E0224-c754-component-array-spec-oracle/`,
+`artifacts/reports/M3/m3-c754-source-backed-v0.md`, the focused packet and
+review under `artifacts/reports/M3/`, and
+`research/runs/2026-08.jsonl#R000618` and `#R000620`. This promotes only the
+bounded oracle leaf; it does not parse arbitrary Fortran or promote a C754
+semantic fact. The post-C754 residual has 138 rows (81 `disputed`, 57
+`unwitnessed`), with C757@1 first.
+
 ## M3 — bounded C601 semantic-oracle successor
 
 Bounded-slice status: `PASS`; central replay `R000003` and focused review

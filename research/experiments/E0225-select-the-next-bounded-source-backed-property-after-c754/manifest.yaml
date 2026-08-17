@@ -1,0 +1,51 @@
+id: "E0225"
+title: "Select the next bounded source-backed property after C754"
+question: >
+  Which residual source occurrence follows C754 after excluding the thirty-three
+  promoted bounded oracle leaves, and can its source identity be pinned without
+  promoting a semantic fact?
+status: reported        # draft | running | reported | abandoned
+opened: "2026-08-17"
+closed: "2026-08-17"
+
+repos:
+  lazy-fortran-new: "4350cf4"
+
+inputs:
+  predecessor: research/runs/2026-08.jsonl#R000620
+  witnesses: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+  witnesses_sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c0
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  pages_index_sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+  standardir: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  normative_pdf_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+  source_rule: C757
+  source_span: "242052:120"
+  source_page: 79
+  canonical_lines: [3851, 3852]
+  page_index_record: "93:239957:2451"
+  standardir_rules: [R737, R738, R739]
+
+model_selection: "No model execution; deterministic residual partition only."
+
+selection:
+  rows: 138
+  disputed: 81
+  unwitnessed: 57
+  first_row: C757@1
+  first_status: disputed
+  candidate_status: retained-model-self-consistency-only
+
+gate: >-
+  Run the exact jq partition command in the task record. It must produce 138
+  residual rows, identify C757@1 first, bind its canonical source span and
+  reusable StandardIR witnesses, and record no model call or semantic
+  promotion.
+
+result:
+  run: research/runs/2026-08.jsonl#R000621
+  status: PASS-SELECTION-ONLY
+  report: artifacts/reports/M3/m3-core0-next-property-selection-v23.md

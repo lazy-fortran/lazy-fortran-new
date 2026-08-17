@@ -21,8 +21,10 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 is now open through thirty-one bounded contracts; C746 is promoted
-only as a bounded oracle leaf by E0210/R000566 and focused review R000567.
+review. M3 has thirty-three bounded oracle leaves promoted; full Core 0
+semantics remain open and no semantic fact is promoted. C754 is the latest
+bounded leaf, verified by E0224/R000618 and focused review/evidence gate
+R000620.
 Selection R000568 passes for C747 at canonical lines 3766--3767, printed page
 77, over existing StandardIR R727/R732/R733. The corrected C747 replay R000574
 and focused review R000575 pass; C747 is promoted only as a bounded oracle
@@ -61,7 +63,12 @@ promotions. Focused review/evidence gate R000616 passes with two independent
 reviewers, so C752 is promoted only as the thirty-second bounded oracle leaf;
 full Core 0 remains open. E0223/R000617 then selects C754@1 as the next bounded
 property at canonical lines 3847--3848, byte span `241715:150`, over existing
-R737/R738/R739/R740 witnesses.
+R737/R738/R739/R740 witnesses. E0224/R000618 passes the C754 replay with 19
+`ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`, thirteen rejected mutations, zero
+model calls and zero semantic promotions. Two independent focused reviewers
+and the evidence gate pass in R000620, so C754 is promoted only as the
+thirty-third bounded oracle leaf. The post-C754 residual is 138 rows (81
+`disputed`, 57 `unwitnessed`), with C757@1 first.
 
 ## Component pins
 
@@ -249,19 +256,22 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-c754-component-array-spec-oracle` — implement the bounded C754
-component-array-spec oracle. C752 is closed only as the thirty-second bounded
-leaf by E0222/R000615/R000616; E0223/R000617 selects C754@1.
+ID: `T-M3-core0-next-bounded-property-selection-after-c754` — select C757@1
+as the next bounded source-backed property. The preceding C754 task is PASS:
+its oracle is promoted only as the thirty-third bounded leaf by E0224/R000618
+and R000620. E0223/R000617 supplied the preceding C754 source selection.
 
-Verifier: `tests/e2e/run-m3-c754.sh --fresh`. It must consume C754's exact
-source span `241715:150` (canonical lines 3847--3848, printed page 79,
-page-index record 93) and existing StandardIR R737/R738/R739/R740 witnesses.
-Its 27-state typed product crosses pointer attribute, allocatable attribute
-and component-array-spec shape, each `absent`, `present` or `unknown`; it must
-preserve unknown states, reject only the selected C754 violation, validate
-source/PDF/page/identity mutations, and record zero model calls and semantic
-promotions. It must not parse Fortran, inspect C753/C755 or broaden the
-property.
+Verifier: the exact `jq` partition command in `TASK_POOL.yaml`. It must
+recompute 138 residual rows, identify C757@1 first, and bind its canonical
+source span `242052:120` (lines 3851--3852, page 79) to existing StandardIR
+R737/R738/R739 witnesses. It must not run a model or promote a semantic fact.
+
+The completed C754 verifier was `tests/e2e/run-m3-c754.sh --fresh`. Its
+27-state typed product crosses pointer attribute, allocatable attribute and
+component-array-spec shape, each `absent`, `present` or `unknown`; it produced
+19 `ACCEPTED`, 1 `REJECTED` and 7 `UNRESOLVED`, rejected thirteen source and
+provenance mutations, and recorded zero model calls and zero semantic
+promotions. It does not parse Fortran or promote a semantic fact.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -355,12 +365,18 @@ Regenerate the E0181 counts with:
 E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
 ```
 
+Current M3 state: C754 is no longer blocked. Its bounded leaf passed the
+technical replay and two-review evidence gate; the remaining blocker is the
+scope itself—full M3 still lacks a complete semantic verifier and does not
+parse arbitrary Fortran. The next bounded selection is C757@1.
+
 ## Next executable task
 
-Implement the selected C754 bounded source-backed property. The exact verifier
-is `tests/e2e/run-m3-c754.sh --fresh`; preserve unknown attribute/shape states,
-do not run a model, restart E0172, parse general Fortran, inspect C753/C755 or
-close full M3 by implication.
+Select and source-bind the next bounded residual property, C757@1. Recompute
+the post-C754 partition with the command recorded in `TASK_POOL.yaml`, inspect
+the C757 source occurrence and reusable StandardIR witnesses, and create one
+small delivery contract. Do not run a model, restart E0172, parse general
+Fortran, or promote a semantic fact.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
