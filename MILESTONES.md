@@ -463,7 +463,10 @@ processors, parse Fortran or close full M3.
 
 Post-C724 reconciliation `R000496` reports 154 outside-promoted rows (88
 disputed and 66 unwitnessed). The next task selects C726@1 from that residual;
-the exact partition and handoff are recorded in `TASK_POOL.yaml`.
+selection replay `R000497` passes with no semantic promotion. C726 is not yet
+promoted: its normative span crosses pages 84--85 and binds to existing
+StandardIR R721/R722/R723. The next task is the bounded C726 contract, with
+the page-boundary witness retained as a required negative control.
 
 ## M3 — bounded C601 semantic-oracle successor
 

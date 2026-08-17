@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c724
+active_task: T-M3-c726-type-param-star-context-oracle
 
 milestones:
   - id: L0
@@ -3493,14 +3493,18 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c724
     milestone: M3
     title: Select the next bounded property after C724 promotion
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-core0-post-c724-reconciliation
     inputs:
       - path: research/runs/2026-08.jsonl#R000496
+      - path: research/runs/2026-08.jsonl#R000497
+      - path: research/experiments/E0193-can-the-post-c724-residual-select-one-so/manifest.yaml
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v5.md
+        sha256: 14a299bf5da81d377da242bdfd4821f112b3a8c10bc3ee0ea4938b3ee39a5b88
       - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
         sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
       - path: .cache/runs/E0181/R000002/analysis/merged/selected-rows.jsonl
@@ -3540,8 +3544,87 @@ tasks:
       - research/runs/2026-08.jsonl#R000494
       - research/runs/2026-08.jsonl#R000495
       - research/runs/2026-08.jsonl#R000496
+      - research/runs/2026-08.jsonl#R000497
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
       - .cache/runs/E0181/R000002/analysis/merged/selected-rows.jsonl
+
+  - id: T-M3-c726-type-param-star-context-oracle
+    milestone: M3
+    title: Define and implement the bounded C726 type-param-value star-context oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection-after-c724
+    inputs:
+      - path: research/experiments/E0193-can-the-post-c724-residual-select-one-so/manifest.yaml
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v5.md
+      - path: research/runs/2026-08.jsonl#R000497
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    writes:
+      - research/decisions/D0144-eighteenth-m3-c726-type-param-star-context-oracle.md
+      - research/experiments/E0194-can-a-deterministic-source-backed-c726-oracle/manifest.yaml
+      - contracts/m3-c726-type-param-star-context-oracle-v0.sxs
+      - contracts/fixtures/m3-c726-type-param-star-context-oracle-v0.sx
+      - tests/fixtures/m3-c726-source-backed-v0.json
+      - tests/fixtures/m3-c726-semantic-items.sx
+      - tests/golden/m3-c726-semantic-items.sx
+      - tests/e2e/run-m3-c726.sh
+      - tests/e2e/validate_m3_c726.py
+      - artifacts/traces/m3-c726-source-backed-v0.json
+      - artifacts/reports/M3/c726-semantic-review-v1.md
+      - artifacts/reports/M3/c726-reproducibility-review-v1.md
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - research/runs/2026-08.jsonl
+    mode: exclusive
+    verifier: >-
+      define one source-backed C726 contract over the exact page-84/page-85
+      source span and existing R721/R722/R723 shapes; implement a deterministic
+      ACCEPTED/REJECTED/UNRESOLVED oracle with positive witnesses, negative
+      neighbours and source/page/rule mutations; run the clean central gate;
+      require zero model calls and zero semantic-fact promotions. The contract
+      must not parse Fortran, infer arbitrary contexts or claim full C726/M3.
+    output: artifact
+    final_observable: >-
+      a replayable bounded C726 source-backed oracle whose page-crossing source
+      binding and independent validator pass, without semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0144-eighteenth-m3-c726-type-param-star-context-oracle.md
+        - research/experiments/E0194-can-a-deterministic-source-backed-c726-oracle/manifest.yaml
+        - contracts/m3-c726-type-param-star-context-oracle-v0.sxs
+        - contracts/fixtures/m3-c726-type-param-star-context-oracle-v0.sx
+        - tests/fixtures/m3-c726-source-backed-v0.json
+        - tests/fixtures/m3-c726-semantic-items.sx
+        - tests/golden/m3-c726-semantic-items.sx
+        - tests/e2e/run-m3-c726.sh
+        - tests/e2e/validate_m3_c726.py
+        - artifacts/traces/m3-c726-source-backed-v0.json
+        - artifacts/reports/M3/c726-semantic-review-v1.md
+        - artifacts/reports/M3/c726-reproducibility-review-v1.md
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c724]
+    verifier_command: tests/e2e/run-m3-c726.sh --fresh
+    evidence_paths:
+      - research/experiments/E0193-can-the-post-c724-residual-select-one-so/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v5.md
+      - research/runs/2026-08.jsonl#R000497
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

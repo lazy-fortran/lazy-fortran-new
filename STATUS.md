@@ -148,22 +148,23 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-core0-next-bounded-property-selection-after-c724`. C724
-is promoted only as a bounded scalar-int-constant-expr oracle: R000494/R000495
-pass and bind canonical lines 3450--3451 on page 83 to existing StandardIR
-R721 on page 84. Post-C724 reconciliation R000496 leaves 154 residual rows;
-the next verifier selects C726@1 without semantic promotion. Full M3 remains
+Current fixture: `T-M3-c726-type-param-star-context-oracle`. C724 is promoted
+only as a bounded scalar-int-constant-expr oracle: R000494/R000495 pass and
+bind canonical lines 3450--3451 on page 83 to existing StandardIR R721 on
+page 84. Selection R000497 chooses C726@1 from the post-C724 residual. Its
+source span crosses pages 84--85 and binds to existing StandardIR R721/R722/
+R723; the next contract must make that boundary explicit. Full M3 remains
 open; do not resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c724` — select the next
-bounded property after C724 promotion. Full M3 remains open.
+ID: `T-M3-c726-type-param-star-context-oracle` — define and implement the
+bounded C726 type-param-value star-context oracle. Full M3 remains open.
 
-Verifier: the exact promoted-contract partition in `TASK_POOL.yaml`, with C724
-included, followed by the documented first-row selection. It must report 154
-residual rows, 88 disputed and 66 unwitnessed, with C726@1 first, without
-semantic promotion or model execution.
+Verifier: `tests/e2e/run-m3-c726.sh --fresh` after the D0144/E0194 contract is
+defined. It must bind the exact C726 page-84/page-85 source span to existing
+R721/R722/R723 shapes, cover typed outcomes and negative controls, and observe
+zero semantic promotion or model execution.
 
 ## Current blocker
 
@@ -211,11 +212,17 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-core0-next-bounded-property-selection-after-c724`. The
-exact verifier is the promoted-contract partition recorded in `TASK_POOL.yaml`,
-with C724 included. It must report 154 outside-promoted rows, 88 disputed and
-66 unwitnessed, and select C726@1 as the first residual row. This is coverage
-accounting only; it does not promote a residual semantic fact.
+Run and record `T-M3-c726-type-param-star-context-oracle`. First define D0144
+and E0194 from the C726 selection report, then run the exact central verifier:
+
+```text
+tests/e2e/run-m3-c726.sh --fresh
+```
+
+The bounded oracle must use only the pinned C726 source span and existing
+R721/R722/R723 shapes, include a page-boundary negative control, and leave
+semantic promotion and model execution at zero. It must not parse Fortran or
+claim full C726 or M3.
 
 ## Last verified central command
 

@@ -63,7 +63,8 @@ declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
 through seventeen bounded contracts, including C717, C720, C722 and C724.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle; the
-current task is the post-C724 residual reconciliation.
+post-C724 reconciliation R000496 and selection R000497 pass, and the current
+task is the bounded C726 type-param-value star-context oracle.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -84,8 +85,8 @@ R000486 and focused review R000487 pass with an explicit
 expected central worktree revision. C720 is promoted as a bounded slice.
 C722 replay R000490 and focused review R000491 also pass. Selection replay
 R000493 selects C724@1; replay R000494 and focused review R000495 pass. Post-C724
-reconciliation R000496 is complete, and the active task is
-`T-M3-core0-next-bounded-property-selection-after-c724`.
+reconciliation R000496 and selection R000497 pass; the active task is
+`T-M3-c726-type-param-star-context-oracle`.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -416,8 +417,9 @@ representation-method states. Replay `R000494` and focused review `R000495`
 pass with 1 `ACCEPTED`, 5 `REJECTED`, 3 `UNRESOLVED`, eight mutation failures,
 zero model calls and zero semantic promotions. The post-C724 reconciliation
 `R000496` leaves 154 outside-promoted rows (88 disputed and 66 unwitnessed),
-with C726@1 first. The next executable task is
-`T-M3-core0-next-bounded-property-selection-after-c724`; the residual inventory
+with C726@1 first. Selection R000497 records the source span across pages
+84--85 and the existing StandardIR R721/R722/R723 shapes. The next executable
+task is `T-M3-c726-type-param-star-context-oracle`; the residual inventory
 remains available through this exact verifier:
 
 ```text
@@ -1879,8 +1881,9 @@ bounded slices. D0143/E0192 adds the seventeenth bounded C724 oracle. The E0181
 Core 0 audit, pre-C717 reconciliation and post-promotion reconciliations are
 recorded as R000074 through R000076, R000482, R000488, R000492 and R000496;
 154 outside-promoted witness rows remain (88 disputed and 66 unwitnessed).
-Full M3 remains open. The next task selects one bounded property from that
-residual, beginning with C726@1.
+Full M3 remains open. Selection R000497 chooses C726@1; the next task defines
+and implements its bounded oracle with the page-84/page-85 boundary retained
+as a negative control.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.
