@@ -4679,6 +4679,7 @@ tasks:
       - contracts/registry.sx
       - tests/fixtures/m3-c745-source-backed-v0.json
       - tests/fixtures/m3-c745-semantic-items.sx
+      - tests/fixtures/m3-c745-expected-outcomes-v0.json
       - tests/golden/m3-c745-semantic-items.sx
       - tests/e2e/run-m3-c745.sh
       - tests/e2e/validate_m3_c745.py
