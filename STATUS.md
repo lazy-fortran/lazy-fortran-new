@@ -21,7 +21,7 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 is now open through thirty bounded contracts; C746 is promoted
+review. M3 is now open through thirty-one bounded contracts; C746 is promoted
 only as a bounded oracle leaf by E0210/R000566 and focused review R000567.
 Selection R000568 passes for C747 at canonical lines 3766--3767, printed page
 77, over existing StandardIR R727/R732/R733. The corrected C747 replay R000574
@@ -51,6 +51,10 @@ mutations, zero model calls and zero semantic promotions. The focused review
 passes in R000601 with two independent reviewers, and the integrated clean
 replay R000602 passes. C751 is promoted only as the thirty-first bounded
 oracle leaf; full Core 0 remains open.
+E0221/R000606 then selects C752@1 as the next bounded property at canonical
+lines 3842--3844, byte span `241335:223`, over R702/R703/R704/R737/R739. The
+named module-defined type identities are not direct StandardIR rows; unknown
+type identity must remain unresolved.
 
 ## Component pins
 
@@ -188,7 +192,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-c751-coarray-allocatable-oracle`.
+Current fixture: `T-M3-c752-forbidden-coarray-type-oracle`.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
 Clean replay R000527 and focused review R000528 pass. The replay binds C735
 line 3620, page 88, byte span `229534:101`, to existing StandardIR R727/R728;
@@ -238,19 +242,21 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-The C751 task `T-M3-c751-coarray-allocatable-oracle` is `PASS` and its bounded
-claim is closed. E0220/R000601 records two focused reviewer passes and
-R000602 records the integrated clean replay. C750's technical replay is
-E0218/R000596 and focused review/evidence gate R000597 passes; full M3 remains
-open.
+ID: `T-M3-c752-forbidden-coarray-type-oracle` — implement the bounded C752
+coarray/type-identity oracle. C751 is closed only as a bounded leaf by
+E0220/R000601/R000602; E0221/R000606 selects C752@1.
 
-Verifier: `tests/e2e/run-m3-c751.sh --fresh`. It must consume C751's exact
-source span `241193:142` (canonical lines 3840--3841, printed page 79,
-page-index record 93) and existing StandardIR R737/R739/R809/R810/R811
-witnesses. Its 12-state typed product accepts absent coarray-spec and
-deferred-coshape with ALLOCATABLE present, rejects deferred-coshape without
-ALLOCATABLE and every explicit-coshape, and returns `UNRESOLVED` otherwise.
-It must not parse Fortran, inspect C752/C754, run a model or promote a fact.
+Verifier: `tests/e2e/run-m3-c752.sh --fresh`. It must consume C752's exact
+source span `241335:223` (canonical lines 3842--3844, printed page 79,
+page-index record 93) and existing StandardIR R702/R703/R704/R737/R739
+witnesses. Its 15-state typed product crosses coarray-spec
+(`absent`, `present`, `unknown`) with component type (`C_PTR`, `C_FUNPTR`,
+`TEAM_TYPE`, `other`, `unknown`). It accepts absent coarray-spec for every type
+and present coarray-spec with other type, rejects the three forbidden types
+when present, and returns `UNRESOLVED` for unknown states. The three named
+module-defined types are not direct StandardIR rows, so the oracle must not
+infer their identity. It must not parse Fortran, inspect C753/C754, run a
+model or promote a fact.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -346,14 +352,10 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Rerun the frozen C751 focused-review packet and record an independent `PASS` or
-the first concrete defect. The technical verifier already passes in
-`R000599`; the remaining blocker is the unavailable review result recorded in
-`R000600`. Use the exact replay command
-`M3_C751_EXPECTED_CENTRAL_COMMIT=bf17ff2193322677dcd631459380f7c3a7f446fb tests/e2e/run-m3-c751.sh --fresh`
-only to reproduce the technical evidence. Do not run a model experiment,
-restart E0172, parse general Fortran, inspect C752/C754 or close full M3 by
-implication.
+Implement the selected C752 bounded source-backed property. The exact verifier
+is `tests/e2e/run-m3-c752.sh --fresh`; preserve unresolved named-type identity,
+do not run a model, restart E0172, parse general Fortran, inspect C753/C754 or
+close full M3 by implication.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

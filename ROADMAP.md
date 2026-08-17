@@ -61,7 +61,7 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through thirty bounded contracts. E0210 replay R000566 and focused review
+through thirty-one bounded contracts. E0210 replay R000566 and focused review
 R000567 pass for C746, which is promoted only as a bounded typed membership
 oracle. The post-C746 residual partition has 145 rows, 84 disputed and 61
 unwitnessed, with C747@1 first. R000568 selects C747's bounded occurrence-
@@ -683,6 +683,32 @@ and R000602 passes the exact verifier `tests/e2e/run-m3-c751.sh --fresh`. The
 slice remains a typed source-backed oracle and does not parse arbitrary
 Fortran, inspect C752/C754 or close full M3. The next task selects the next
 bounded source-backed property.
+
+## M3 — selected C752 forbidden coarray-type relation
+
+Selection status: `PASS`. E0221/R000606 records the corrected artifact hashes
+for the deterministic post-C751 selection. The pinned residual partition has
+140 rows (81 `disputed`, 59 `unwitnessed`), with C752@1 first. Regenerate it
+with the `jq` command in `artifacts/reports/M3/m3-core0-next-property-selection-v21.md`.
+
+C752 is J3-24-007 clause 7, canonical lines 3842--3844, printed page 79,
+byte span `241335:223`, and page-index record 93. Existing StandardIR supplies
+R702/R703/R704/R737/R739. The named module-defined types C_PTR, C_FUNPTR and
+TEAM_TYPE are not direct StandardIR rows; unknown type identity must remain
+`UNRESOLVED`. This is selection evidence only: no model ran, no semantic fact
+was promoted, and full M3 remains open.
+
+## M3 — next bounded C752 forbidden coarray-type oracle
+
+The active task is `T-M3-c752-forbidden-coarray-type-oracle`. Its exact
+verifier is `tests/e2e/run-m3-c752.sh --fresh`. The typed candidate crosses
+coarray-spec `absent|present|unknown` with component type
+`C_PTR|C_FUNPTR|TEAM_TYPE|other|unknown`, giving 15 states. The oracle must
+accept absent coarray-spec and present/other, reject present with the three
+forbidden types, and leave unknown states unresolved. It must include source,
+page and identity mutation controls, zero model calls and zero semantic
+promotions. It must not parse general Fortran, inspect C753/C754 or broaden
+the property.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
