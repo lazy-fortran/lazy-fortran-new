@@ -51,7 +51,8 @@ promotion.
 ## Evidence
 
 * `research/runs/2026-08.jsonl#R000571` records the failed focused review;
-  `#R000572` and `#R000573` record the corrected replays.
+  `#R000572`--`#R000574` record the corrected replays and amended decision
+  binding.
 * `artifacts/reports/M3/m3-c747-focused-review-v0.md` records the finding.
 * `artifacts/reports/M3/m3-c747-source-backed-v0.md` records the corrected
   contract and replay.

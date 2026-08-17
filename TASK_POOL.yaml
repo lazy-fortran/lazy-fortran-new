@@ -5114,13 +5114,13 @@ tasks:
       - research/runs/2026-08.jsonl#R000568
       - research/runs/2026-08.jsonl#R000571
       - research/runs/2026-08.jsonl#R000572
-      - research/runs/2026-08.jsonl#R000573
+      - research/runs/2026-08.jsonl#R000574
       - research/experiments/E0212-can-a-deterministic-source-backed-c747-e/manifest.yaml
       - artifacts/reports/M3/m3-c747-focused-review-v0.md
       - artifacts/reports/M3/m3-c747-source-backed-v0.md
       - artifacts/traces/m3-c747-source-backed-v0.json
-      - .cache/runs/E0212/R000005/result.json
-      - .cache/runs/E0212/R000005/run-environment.json
+      - .cache/runs/E0212/R000006/result.json
+      - .cache/runs/E0212/R000006/run-environment.json
       - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - .cache/runs/E0001/R000003/j3-24-007.pages.index
       - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
