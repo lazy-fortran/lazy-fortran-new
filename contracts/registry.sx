@@ -28,4 +28,5 @@
   (contract m3-c720-kind-param-representation-oracle 0 lazy-fortran-new)
   (contract m3-c722-kind-param-approximation-oracle 0 lazy-fortran-new)
   (contract m3-c724-scalar-int-constant-expr-oracle 0 lazy-fortran-new)
-  (contract m3-c726-type-param-star-context-oracle 0 lazy-fortran-new))
+  (contract m3-c726-type-param-star-context-oracle 0 lazy-fortran-new)
+  (contract m3-c731-constant-expression-oracle 0 lazy-fortran-new))

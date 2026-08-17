@@ -1,0 +1,27 @@
+(schema m3-c731-constant-expression-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c731-length-form-state constant-expression non-constant-expression unknown)
+  (enum c731-context-state character-statement-function statement-function-dummy-argument other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record character-length-constant-use
+    (length-form c731-length-form-state)
+    (context c731-context-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact character-length-constant-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
