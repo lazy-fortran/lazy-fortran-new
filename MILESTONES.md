@@ -348,9 +348,10 @@ remains open.
 
 Audit status: `PASS` for the deterministic audit only; full M3 status remains
 `NEEDS EVIDENCE`. The next task is
-`T-M3-core0-witness-coverage-reconciliation`. E0181/R000074 replays the
-retained 287-row ledger: 4 hard failures, 2 unresolved rows, 1 reference-only
-row, 117 self-consistent rows, 94 disputed rows, 69 unwitnessed rows, 7
+`T-M3-core0-witness-coverage-reconciliation`. E0181/R000074 and clean pushed
+replay R000075 reproduce the retained 287-row ledger: 4 hard failures, 2
+unresolved rows, 1 reference-only row, 117 self-consistent rows, 94
+disputed rows, 69 unwitnessed rows, 7
 not-applicable rows and zero semantic promotions. The counts are regenerated
 by:
 
@@ -361,7 +362,8 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 The audit report is recorded in
 `research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/`,
 `artifacts/reports/M3/m3-core0-closure-audit-v2.md`, and
-`research/runs/2026-08.jsonl#R000074`. The residual identities are C601@1,
+`research/runs/2026-08.jsonl#R000074` and `#R000075`. The residual identities
+are C601@1,
 C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1. The 94 disputed and 69
 unwitnessed rows are the current witness-coverage blocker. These counts keep
 full M3 open and do not authorize semantic promotion.

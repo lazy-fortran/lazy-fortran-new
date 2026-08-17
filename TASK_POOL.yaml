@@ -2350,6 +2350,7 @@ tasks:
       - path: artifacts/reports/M3/m3-core0-closure-audit-v1.md
       - path: artifacts/reports/M3/m3-core0-closure-audit-v2.md
       - path: research/runs/2026-08.jsonl#R000074
+      - path: research/runs/2026-08.jsonl#R000075
     writes:
       - STATUS.md
       - MILESTONES.md
@@ -2394,6 +2395,7 @@ tasks:
       - research/runs/2026-08.jsonl#R000065
       - artifacts/reports/M3/m3-core0-closure-audit-v2.md
       - research/runs/2026-08.jsonl#R000074
+      - research/runs/2026-08.jsonl#R000075
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
@@ -2452,6 +2454,7 @@ tasks:
     evidence_paths:
       - artifacts/reports/M3/m3-core0-closure-audit-v2.md
       - research/runs/2026-08.jsonl#R000074
+      - research/runs/2026-08.jsonl#R000075
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     retry_count: 0
     integration_cycle_trigger: milestone_pass

@@ -6,8 +6,8 @@ status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
 closed: "2026-08-17"
 run_id: R000032
-latest_run_id: R000074
-latest_analysis: .cache/runs/E0181/R000002/analysis/report.json
+latest_run_id: R000075
+latest_analysis: .cache/runs/E0181/R000003/analysis/report.json
 latest_analysis_sha256: 95aeb1c96a4b864160535517725384e000975d5472f9248ceb76c320b5e71813
 closure_status: needs_evidence
 

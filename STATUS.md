@@ -177,7 +177,8 @@ R000012 and focused review R000015 pass. C601 replay R000003 and focused
 review R000022 pass. C603 replay R000001 and focused review R000027 pass. C721
 replay R000001 and focused review R000029 pass. C725 replay R000001 and
 focused review R000031 pass. The fresh E0181 closure audit is recorded as
-R000074 and passes its deterministic audit gate. Full M3/Core 0 remains blocked
+R000074, and clean pushed replay R000075 reproduces it; both pass the
+deterministic audit gate. Full M3/Core 0 remains blocked
 by the retained 287-row ledger: 4 hard failures, 2 unresolved rows, 94
 disputed rows and 69 unwitnessed rows. The corrected C718 replay and focused
 reviews are green. The

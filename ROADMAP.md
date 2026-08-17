@@ -71,7 +71,8 @@ D0136/D0137/E0187 is the promoted C1579 bounded slice; replay E0187/R000004
 is green in R000062 and focused review R000064 passes. D0138/E0188 is now the
 promoted C1586 bounded slice; replay R000067 and focused review R000072 pass.
 The E0181 Core 0 closure audit is recorded as an audit-only pass in R000074;
-full M3 remains open because witness coverage is incomplete. Broad semantic
+clean pushed replay R000075 reproduces it. Full M3 remains open because
+witness coverage is incomplete. Broad semantic
 and model work remains closed; the next task is deterministic reconciliation
 of the disputed and unwitnessed rows against the thirteen promoted bounded
 slices.
