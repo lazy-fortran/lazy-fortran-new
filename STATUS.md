@@ -209,11 +209,11 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-c720-kind-param-representation-oracle`. The exact central
-verifier is:
+Complete the focused independent review of the C720 packet. The exact central
+verifier, with its pinned worktree revision, is:
 
 ```text
-tests/e2e/run-m3-c720.sh --fresh
+M3_C720_EXPECTED_CENTRAL_COMMIT=abecd36ed9a1f560dc675bb8ea0b6679e2f042c3 tests/e2e/run-m3-c720.sh --fresh
 ```
 
 ## Last verified central command
@@ -257,7 +257,10 @@ zero model calls or semantic promotions. Durable replay `R000480` and focused
 review `R000481` pass. C717 is a bounded promoted slice and C720 is the
 selected next contract. Clean selection replay `R000483` reproduces the
 157-row partition and selects C720@1; the active task is
-`T-M3-c720-kind-param-representation-oracle`.
+`T-M3-c720-kind-param-representation-oracle`. The first replay is retained as
+R000484; corrected replay R000486 requires and records an explicit central
+worktree revision and passes the bounded gate. Focused independent review is
+still pending before bounded promotion.
 ```
 
 ## Blacklisted pseudo-progress

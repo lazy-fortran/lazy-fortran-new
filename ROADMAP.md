@@ -80,6 +80,9 @@ closed; D0139/D0140/E0189 define the bounded C717 contract, durable-pin replay
 R000480 and focused review R000481 pass after the R000479 central-revision
 durability failure. C717 is promoted as a bounded slice, and
 `T-M3-c720-kind-param-representation-oracle` is the active task.
+C720 clean replay R000486 passes its bounded gate with an explicit expected
+central worktree revision; focused independent review is pending before
+promotion.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -389,8 +392,8 @@ The post-promotion E0181 audit `R000074` passes its deterministic
 merge, validation and witness checks. Reconciliation `R000076` maps the
 pre-C717 set; `R000482` maps fourteen promoted IDs and leaves 157
 outside-promoted rows (90 disputed and 67 unwitnessed). Clean selection replay
-`R000483` selects C720@1. The next executable task
-is `T-M3-c720-kind-param-representation-oracle`; the residual inventory remains
+`R000483` selects C720@1. The next executable task is the focused independent
+review for `T-M3-c720-kind-param-representation-oracle`; the residual inventory remains
 available through
 this exact verifier:
 

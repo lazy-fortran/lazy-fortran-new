@@ -420,6 +420,12 @@ canonical line 3298 on page 80 to StandardIR R708. The typed candidate has
 `artifacts/reports/M3/m3-core0-next-property-selection-v2.md`; the exact
 selection verifier is the promoted-contract partition recorded in
 `research/runs/2026-08.jsonl#R000483`.
+The first implementation replay is retained as R000484; corrected replay
+`research/runs/2026-08.jsonl#R000486` passes the exact
+`M3_C720_EXPECTED_CENTRAL_COMMIT=abecd36ed9a1f560dc675bb8ea0b6679e2f042c3 tests/e2e/run-m3-c720.sh --fresh`
+gate with one outcome in each of ACCEPTED, REJECTED and UNRESOLVED, eight
+mutation failures and zero model calls or semantic promotions. Focused
+independent review is pending; C720 is not yet promoted.
 
 ## M3 — bounded C601 semantic-oracle successor
 

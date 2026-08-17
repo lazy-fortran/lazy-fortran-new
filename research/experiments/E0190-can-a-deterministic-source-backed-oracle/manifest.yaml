@@ -39,15 +39,17 @@ inputs:
   validator: tests/e2e/validate_m3_c720.py
   validator_sha256: cf9f38c3283b3cd9d702383d10f7d6d75c92ad492198be521400cf577b24851a
   runner: tests/e2e/run-m3-c720.sh
-  runner_sha256: 1307e8ec2617f3d01fd5005d1b9a2eafd107082779724b61e7596a2765f01cf4
+  runner_sha256: 1cfa79c239d4c3bf5f1fbaf2bd59e6018fb1c35dfc66df92f3b02c3da615ee3a
   trace: artifacts/traces/m3-c720-source-backed-v0.json
   trace_sha256: 523f4207d06e89f0a5d17993cf25dab843f4a07c3054b4e764ec143905e89925
 
 replay:
-  run: research/runs/2026-08.jsonl#R000484
-  central_worktree_commit: 50f78cc37ec3401ccdd335a94ca3193aa10fccf6
+  run: research/runs/2026-08.jsonl#R000486
+  functional_revision: 1dd52df79344214edcaa584be93805cbab63720e
+  central_worktree_commit: abecd36ed9a1f560dc675bb8ea0b6679e2f042c3
+  expected_central_commit: abecd36ed9a1f560dc675bb8ea0b6679e2f042c3
   result_sha256: 523f4207d06e89f0a5d17993cf25dab843f4a07c3054b4e764ec143905e89925
-  run_environment_sha256: a9b5cf6da45055b754487a9f5ce13f2f3393bb1baade581fa930c1200b7659bd
+  run_environment_sha256: 3e91ebffb0442cdefc5cf5596f73cd7d815bd27950028b2dbdb77bfd9c1f268e
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
