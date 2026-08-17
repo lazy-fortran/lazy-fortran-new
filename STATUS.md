@@ -150,17 +150,18 @@ emission contract interchange.
 Current fixture: `T-M3-c717-kind-selector-oracle`. D0139/E0189 selects the
 bounded C717 kind-selector legality property over StandardIR R706. The source
 binding is canonical lines 3263--3264 on page 80, with the page-index span and
-R706 metadata pinned. Clean replay R000077 passes two accepted, two rejected,
-two unresolved and seven mutation controls with zero model calls and semantic
-promotions. Full M3 remains open; do not resume E0172 or start broad semantic
-work.
+R706 metadata pinned. Corrected clean replay R000478 passes one accepted, five
+rejected, three unresolved and eight mutation controls with zero model calls
+and semantic promotions. Focused review `R000479` found a central-revision
+durability defect; full M3 remains open and C717 is not promoted. Do not resume
+E0172 or start broad semantic work.
 
 ## Active task
 
 ID: `T-M3-c717-focused-review` — independently review the frozen C717 replay
 packet before any bounded promotion. Full M3 remains open.
 
-Verifier: the focused independent review of R000077. One lane checks the
+Verifier: the focused independent review of R000478. One lane checks the
 semantic property, source binding, typed states and nonclaims; the other
 checks clean pushed parity, exact pins, mutation controls, trace identity and
 task wiring. Review may promote only the bounded C717 slice.
@@ -196,9 +197,11 @@ are unresolved. These residual states do not close the complete ledger gate.
 The current blocker is witness closure outside the bounded slices: 158 rows
 (91 disputed and 67 unwitnessed) remain after the five residual rows attached
 to promoted contracts are separated. A green bounded slice alone does not
-close full M3. The selected C717 contract and clean replay R000077 pass, but
-focused independent review is still pending. The replay establishes only the
-bounded C717 observable, not semantic promotion of the retained ledger.
+close full M3. The selected C717 contract and corrected clean replay R000478
+pass. Focused review R000479 records a reproducibility `NEEDS_FIX`: its
+central revision pin predates the durable R000478 record and handoff metadata.
+The replay establishes only the bounded C717 observable, not semantic promotion
+of the retained ledger.
 Regenerate the E0181 counts with:
 
 ```text
@@ -207,10 +210,10 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-c717-focused-review`. The preceding C717 replay is
-`research/runs/2026-08.jsonl#R000077`; the remaining gate is two focused
-independent reviews before bounded promotion. The outside-promoted residual
-remains the full-M3 blocker. Its exact inventory verifier is:
+Repair the R000479 central-revision finding, run and record a fresh C717 replay,
+then rerun `T-M3-c717-focused-review`. The preceding corrected replay is
+`research/runs/2026-08.jsonl#R000478`; the outside-promoted residual remains the
+full-M3 blocker. Its exact inventory verifier is:
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
@@ -249,10 +252,13 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   open. E0181 residual selection is `PASS` in `R000065`; D0138/E0188 bounded
 C1586 replay `R000067` and focused review `R000072` pass; post-promotion
 regression replay `R000073` also passes. E0181 clean replay `R000075` and
-witness reconciliation `R000076` pass without semantic promotion. C717 clean
-replay `R000077` passes with the exact source binding, typed outcomes, seven
-mutation failures and zero model calls or semantic promotions; focused review
-is pending and the active task is `T-M3-c717-focused-review`.
+witness reconciliation `R000076` pass without semantic promotion. C717's first
+focused review is retained as `R000477` with `NEEDS_FIX`. D0140 repairs the
+precedence and truth-table defect; corrected clean replay `R000478` passes with
+the exact source binding, nine typed outcomes, eight mutation failures and
+zero model calls or semantic promotions. Review `R000479` finds a
+central-revision durability defect; the active task remains
+`T-M3-c717-focused-review` for the corrected replay.
 ```
 
 ## Blacklisted pseudo-progress

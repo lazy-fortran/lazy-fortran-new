@@ -515,6 +515,7 @@ tasks:
     inputs:
       - path: artifacts/standards/j3-24-007.toml
         sha256: becec69a4e43c168e0706efd712eda90a2cabacc29e900a7d3dc4fa4c0f1d7ec
+      - research/decisions/D0140-c717-known-violation-precedence.md
       - path: contracts/standardir-v0.sxs
         sha256: 29982299e721cc7ab75b9f981aca325eddc3be87f17615316f895eb047ac5a49
       - path: contracts/standardir-grammar-v0.sxs
@@ -2588,8 +2589,9 @@ tasks:
     verifier: >-
       run tests/e2e/run-m3-c717.sh --fresh from clean central and standard-new
       checkouts; require exact C717 lines 3263--3264 on page 80, page-index
-      span, R706 metadata, typed witness outcomes, seven source/identity
-      mutation failures, exact trace comparison and zero model calls or
+      span, R706 metadata, the complete nine-state truth table, eight source,
+      identity and precedence mutation failures, exact trace comparison and
+      zero model calls or
       semantic promotions. Do not evaluate expressions, inspect processor
       capabilities, parse Fortran or broaden C717 semantics.
     output: artifact
@@ -2632,7 +2634,7 @@ tasks:
       - tests/e2e/run-m3-c717.sh
       - tests/e2e/validate_m3_c717.py
       - artifacts/traces/m3-c717-source-backed-v0.json
-      - research/runs/2026-08.jsonl#R000077
+      - research/runs/2026-08.jsonl#R000478
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
@@ -2647,15 +2649,18 @@ tasks:
       - T-M3-c717-kind-selector-oracle
     inputs:
       - research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md
+      - research/decisions/D0140-c717-known-violation-precedence.md
       - research/experiments/E0189-can-a-deterministic-source-backed-oracle/manifest.yaml
       - artifacts/reports/M3/m3-core0-next-property-selection-v1.md
       - artifacts/traces/m3-c717-source-backed-v0.json
-      - research/runs/2026-08.jsonl#R000077
+      - research/runs/2026-08.jsonl#R000478
       - tests/e2e/run-m3-c717.sh
       - tests/e2e/validate_m3_c717.py
     writes:
       - artifacts/reports/M3/c717-semantic-review-v0.md
       - artifacts/reports/M3/c717-reproducibility-review-v0.md
+      - artifacts/reports/M3/c717-semantic-review-v1.md
+      - artifacts/reports/M3/c717-reproducibility-review-v1.md
       - research/runs/2026-08.jsonl
       - STATUS.md
       - MILESTONES.md
@@ -2663,7 +2668,7 @@ tasks:
       - TASK_POOL.yaml
     mode: exclusive
     verifier: >-
-      Use the focused independent evidence gate on the frozen R000077 packet.
+      Use the focused independent evidence gate on the frozen R000478 packet.
       The semantic lane must check that D0139's C717 property, source lines,
       typed state table and explicit nonclaims match the committed oracle. The
       reproducibility lane must check clean pushed parity, exact pins,
@@ -2672,7 +2677,7 @@ tasks:
       full M3.
     output: review
     final_observable: >-
-      two independent focused review results for R000077, either promotion of
+      two independent focused review results for R000478, either promotion of
       the bounded C717 slice or one precise review blocker
     integration: controller-only
     estimated_cost: small
@@ -2682,18 +2687,20 @@ tasks:
       worktree: /home/ert/code/lazy-fortran-new
       owner: controller
       allowed_paths:
-        - artifacts/reports/M3/c717-*-review-v0.md
+        - artifacts/reports/M3/c717-*-review-v*.md
         - research/runs/2026-08.jsonl
         - STATUS.md
         - MILESTONES.md
         - ROADMAP.md
         - TASK_POOL.yaml
     prerequisites: [T-M3-c717-kind-selector-oracle]
-    verifier_command: focused independent review of the frozen R000077 evidence packet
+    verifier_command: focused independent review of the frozen R000478 evidence packet
     evidence_paths:
       - artifacts/reports/M3/c717-semantic-review-v0.md
       - artifacts/reports/M3/c717-reproducibility-review-v0.md
-      - research/runs/2026-08.jsonl#R000077
+      - artifacts/reports/M3/c717-semantic-review-v1.md
+      - artifacts/reports/M3/c717-reproducibility-review-v1.md
+      - research/runs/2026-08.jsonl#R000478
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

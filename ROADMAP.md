@@ -74,7 +74,9 @@ The E0181 Core 0 closure audit is recorded as an audit-only pass in R000074;
 clean pushed replay R000075 reproduces it. Reconciliation R000076 passes
 coverage accounting and leaves 158 outside-promoted rows. Full M3 remains open
 because witness coverage is incomplete. Broad semantic and model work remains
-closed; D0139/E0189 defines the bounded C717 contract, replay R000077 passes,
+closed; D0139/D0140/E0189 define the bounded C717 contract, corrected replay
+R000478 passes, and focused review R000479 retains a central-revision
+durability failure,
 and `T-M3-c717-focused-review` is the active promotion gate.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
@@ -365,10 +367,12 @@ semantic-item and contract mutations must fail closed. The central gate is:
 tests/e2e/run-m3-c717.sh --fresh
 ```
 
-Clean replay R000077 passes with two accepted, two rejected, two unresolved,
-seven mutation failures and zero model calls or semantic promotions. Focused
-independent review is pending. This is a bounded C717 observable, not full
-C717, arbitrary Fortran parsing, semantic
+Corrected clean replay R000478 passes with one accepted, five rejected, three
+unresolved, eight mutation failures and zero model calls or semantic
+promotions. D0140 makes known-violation precedence explicit and requires all
+nine typed state combinations. Focused review R000479 is `NEEDS_FIX` because
+its central revision pin predates the durable replay and handoff records. This
+is a bounded C717 observable, not full C717, arbitrary Fortran parsing, semantic
 analysis, processor inference, model work or full M3 promotion. E0172 remains
 abandoned.
 
@@ -376,7 +380,8 @@ The post-promotion E0181 audit `R000074` passes its deterministic
 merge, validation and witness checks. Reconciliation `R000076` maps all
 thirteen promoted IDs and leaves 158 outside-promoted rows (91 disputed and 67
 unwitnessed). The next executable task is
-`T-M3-c717-focused-review`; the residual inventory remains available through
+`T-M3-c717-focused-review`; repair the R000479 pin boundary before the next
+replay. The residual inventory remains available through
 this exact verifier:
 
 ```text
