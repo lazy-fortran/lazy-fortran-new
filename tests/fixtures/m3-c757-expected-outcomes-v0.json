@@ -1,5 +1,5 @@
 {
-  "origin": "LLM",
+  "origin": "MECHANICAL",
   "outcomes": {
     "absent-absent-absent": "ACCEPTED",
     "absent-absent-present": "ACCEPTED",
