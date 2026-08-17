@@ -182,14 +182,15 @@ and final clean handoff R000540 passes;
 C744 is promoted only as a bounded typed oracle leaf. The post-C744 partition
 has 147 outside-promoted rows (84 disputed and 63 unwitnessed), with C745@1
 first. E0207/R000542 selects the first C745 obligation over R726/R731/R735 at
-canonical lines 3665--3667, byte span `232141:276`, page 89. The active task
-implements this bounded relation only; its corrected clean replay is R000556
-and its focused review is pending. Full M3 remains open.
+canonical lines 3665--3667, byte span `232141:276`, page 89. E0208/R000556
+and focused review R000560 pass; C745 is promoted only as this bounded oracle
+leaf. Full M3 remains open. The next active task is the post-C745 residual
+selection, whose mechanical reconciliation R000561 leaves C746@1 first.
 
 ## Active task
 
-ID: `T-M3-c745-sequence-component-presence-oracle` — implement the bounded
-C745 SEQUENCE component-presence oracle selected by E0207/R000542.
+ID: `T-M3-core0-next-bounded-property-selection-after-c745` — select the next
+bounded source-backed property after the C745 oracle leaf.
 
 Verifier: from a clean checkout, run `tests/e2e/run-m3-c745.sh --fresh`. The
 oracle must classify the complete 3-by-3-by-3 typed product of SEQUENCE
@@ -274,15 +275,13 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Implement the C745 contract selected by D0151/E0207: typed SEQUENCE presence,
-component presence and context fields, a deterministic three-outcome oracle,
-positive and negative neighbours, unresolved controls, mutation controls, an
-independent expected-outcome table and replayable trace. The exact central
-command is
-`tests/e2e/run-m3-c745.sh --fresh`. This is a bounded oracle delivery only; it
-does not restart E0172, parse general Fortran or close full M3. The current
-replay is PASS; the active-milestone dispatch also passes through C745; focused
-review remains the next gate.
+Select the next bounded source-backed property after C745 promotion. The exact
+partition command is the post-C745 `jq` command in `TASK_POOL.yaml` and
+`artifacts/reports/M3/m3-core0-next-property-selection-v13.md`. It records 146
+residual rows (84 disputed and 62 unwitnessed), with C746@1 first. It must
+inspect C746's normative source and existing StandardIR shape before defining
+a contract. It does not restart E0172, parse general Fortran or close full
+M3.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

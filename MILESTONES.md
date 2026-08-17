@@ -692,8 +692,8 @@ oracle only.
 
 ## M3 — bounded C745 SEQUENCE component-presence oracle implementation
 
-Implementation replay status: `PASS`; focused review is pending. Full M3
-remains `OPEN` and C745 is not yet promoted.
+Bounded-slice status: `PASS`; focused review R000560 passes. C745 is promoted
+only as this bounded oracle leaf. Full M3 remains `OPEN`.
 
 The implementation binds C745 to canonical lines 3665--3667, page 89 and byte
 span `232141:276`, over StandardIR R726/R731/R735. Its typed product varies
@@ -701,8 +701,11 @@ SEQUENCE presence, component presence and context across 27 states. A
 human-authored expected-outcome table is consumed as the independent behavioral
 oracle. The corrected replay records 4 `ACCEPTED`, 1 `REJECTED`, 22
 `UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
-promotions. It does not parse definitions, count real components, evaluate
-the other C745 obligations or claim full M3.
+promotions. C745 is promoted only as this bounded oracle leaf. It does not
+parse definitions, count real components, evaluate the other C745 obligations
+or claim full M3. Post-C745 reconciliation R000561 records 146 residual rows
+(84 disputed and 62 unwitnessed), with C746@1 first; the next selection task
+must establish its source binding.
 
 Regenerate the replay with:
 
@@ -713,11 +716,12 @@ scripts/verify_active_milestone.sh
 Evidence: `research/experiments/E0208-can-a-deterministic-source-backed-c745-o/manifest.yaml`,
 `tests/fixtures/m3-c745-expected-outcomes-v0.json`,
 `artifacts/traces/m3-c745-source-backed-v0.json`,
-`artifacts/reports/M3/m3-c745-source-backed-v2.md`, retained replay and review
-runs `R000543`--`R000559`, and retained failed-review reports
+`artifacts/reports/M3/m3-c745-source-backed-v3.md`, retained replay and review
+runs `R000543`--`R000561`, and retained review reports
 `artifacts/reports/M3/m3-c745-focused-review-v0.md` and
 `artifacts/reports/M3/m3-c745-focused-review-v1.md` and
-`artifacts/reports/M3/m3-c745-focused-review-v2.md`. The malformed historical
+`artifacts/reports/M3/m3-c745-focused-review-v2.md` and
+`artifacts/reports/M3/m3-c745-focused-review-v3.md`. The malformed historical
 selection serialization is preserved in
 `research/runs/archive/2026-08.jsonl.raw`; correction runs `R000558` and
 `R000559` establish the parseable canonical ledger.

@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c745-sequence-component-presence-oracle
+active_task: T-M3-core0-next-bounded-property-selection-after-c745
 
 milestones:
   - id: L0
@@ -4657,9 +4657,9 @@ tasks:
 +  - id: T-M3-c745-sequence-component-presence-oracle
     milestone: M3
     title: Define and implement the bounded C745 SEQUENCE component-presence oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-core0-next-bounded-property-selection-after-c744
@@ -4691,6 +4691,8 @@ tasks:
       - artifacts/reports/M3/m3-c745-source-backed-v1.md
       - artifacts/reports/M3/m3-c745-source-backed-v2.md
       - artifacts/reports/M3/m3-c745-focused-review-v2.md
+      - artifacts/reports/M3/m3-c745-source-backed-v3.md
+      - artifacts/reports/M3/m3-c745-focused-review-v3.md
       - STATUS.md
       - MILESTONES.md
       - ROADMAP.md
@@ -4763,6 +4765,8 @@ tasks:
       - research/runs/2026-08.jsonl#R000557
       - research/runs/2026-08.jsonl#R000558
       - research/runs/2026-08.jsonl#R000559
+      - research/runs/2026-08.jsonl#R000560
+      - research/runs/2026-08.jsonl#R000561
       - research/runs/archive/2026-08.jsonl.raw
       - tests/fixtures/m3-c745-expected-outcomes-v0.json
       - artifacts/traces/m3-c745-source-backed-v0.json
@@ -4772,6 +4776,74 @@ tasks:
       - artifacts/reports/M3/m3-c745-focused-review-v1.md
       - artifacts/reports/M3/m3-c745-source-backed-v2.md
       - artifacts/reports/M3/m3-c745-focused-review-v2.md
+      - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+
+  - id: T-M3-core0-next-bounded-property-selection-after-c745
+    milestone: M3
+    title: Select the next bounded property after C745 promotion
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c745-sequence-component-presence-oracle
+    inputs:
+      - path: research/experiments/E0209-select-the-next-bounded-source-backed-pr/manifest.yaml
+      - path: artifacts/reports/M3/m3-c745-source-backed-v3.md
+      - path: research/runs/2026-08.jsonl#R000560
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+        sha256: 77c6758a0eb52587c7847420bd72e56560b1e1cb5cb0d6acc5d0e69229e53b1b
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    writes:
+      - research/experiments/E0209-*/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v13.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      recompute the exact post-C745 partition from the pinned E0181 witness
+      JSONL after excluding exactly the twenty-five already promoted bounded
+      contracts; confirm 146 residual rows, 84 disputed, 62 unwitnessed and
+      C746@1 first; inspect that row's pinned canonical source and existing
+      StandardIR shape; select exactly one source-backed bounded property or
+      record that no eligible row is available. Do not run a model, promote a
+      semantic fact, resume E0172 or start general parsing.
+    output: contract
+    final_observable: >-
+      one exact next M3 source-backed residual property after C745 bounded
+      promotion, with source identity and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/experiments/E0209-*
+        - artifacts/reports/M3/m3-core0-next-property-selection-v13.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c745-sequence-component-presence-oracle]
+    verifier_command: >-
+      jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+    evidence_paths:
+      - research/experiments/E0209-select-the-next-bounded-source-backed-pr/manifest.yaml
+      - artifacts/reports/M3/m3-c745-source-backed-v3.md
+      - artifacts/reports/M3/m3-core0-next-property-selection-v13.md
+      - research/runs/2026-08.jsonl#R000560
+      - research/runs/2026-08.jsonl#R000561
+      - .cache/runs/E0181/R000002/analysis/witnesses.jsonl
       - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - .cache/runs/E0001/R000003/j3-24-007.pages.index
       - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
