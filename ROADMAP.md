@@ -694,8 +694,9 @@ with the `jq` command in `artifacts/reports/M3/m3-core0-next-property-selection-
 C752 is J3-24-007 clause 7, canonical lines 3842--3844, printed page 79,
 byte span `241335:223`, and page-index record 93. Existing StandardIR supplies
 R702/R703/R704/R737/R739. The named module-defined types C_PTR, C_FUNPTR and
-TEAM_TYPE are not direct StandardIR rows; unknown type identity must remain
-`UNRESOLVED`. This is selection evidence only: no model ran, no semantic fact
+TEAM_TYPE are not direct StandardIR rows; D0164 requires an explicit
+`named-module-type-unknown` state that remains `UNRESOLVED` when a coarray spec
+is present. This is selection evidence only: no model ran, no semantic fact
 was promoted, and full M3 remains open.
 
 ## M3 — next bounded C752 forbidden coarray-type oracle
@@ -703,10 +704,11 @@ was promoted, and full M3 remains open.
 The active task is `T-M3-c752-forbidden-coarray-type-oracle`. Its exact
 verifier is `tests/e2e/run-m3-c752.sh --fresh`. The typed candidate crosses
 coarray-spec `absent|present|unknown` with component type
-`C_PTR|C_FUNPTR|TEAM_TYPE|other|unknown`, giving 15 states. The oracle must
-accept absent coarray-spec and present/other, reject present with the three
-forbidden types, and leave unknown states unresolved. It must include source,
-page and identity mutation controls, zero model calls and zero semantic
+`C_PTR|C_FUNPTR|TEAM_TYPE|other|named-module-type-unknown`, giving 15 states.
+The oracle must accept absent coarray-spec and present/other, reject present
+with the three forbidden types, and leave present named-module-type-unknown
+and all unknown coarray-spec states unresolved. It must include source, page,
+PDF and identity mutation controls, zero model calls and zero semantic
 promotions. It must not parse general Fortran, inspect C753/C754 or broaden
 the property.
 

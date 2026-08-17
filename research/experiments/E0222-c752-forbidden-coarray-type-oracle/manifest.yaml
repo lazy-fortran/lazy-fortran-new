@@ -13,7 +13,7 @@ repos:
 inputs:
   standard: j3-24-007
   predecessor: research/runs/2026-08.jsonl#R000606
-  decision: research/decisions/D0163-thirty-third-m3-c752-selection.md
+  decision: research/decisions/D0164-c752-explicit-named-module-type-state.md
   contract: contracts/m3-c752-forbidden-coarray-type-v0.sxs
   fixture: tests/fixtures/m3-c752-source-backed-v0.json
   expected_outcomes: tests/fixtures/m3-c752-expected-outcomes-v0.json
@@ -41,8 +41,8 @@ metrics:
 
 denominator: >-
   Exactly fifteen states from coarray-spec absent, present or unknown crossed
-  with component type C_PTR, C_FUNPTR, TEAM_TYPE, other or unknown. Unknown
-  information is not guessed.
+  with component type C_PTR, C_FUNPTR, TEAM_TYPE, other or
+  named-module-type-unknown. Unknown named module-type identity is not guessed.
 
 independent_oracle: >-
   The validator independently checks the pinned source bytes, page-index

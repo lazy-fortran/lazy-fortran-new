@@ -57,20 +57,20 @@
     {"id":"accepted-absent-C_FUNPTR","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"C_FUNPTR"}},
     {"id":"accepted-absent-TEAM_TYPE","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"TEAM_TYPE"}},
     {"id":"accepted-absent-other","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"other"}},
-    {"id":"accepted-absent-unknown","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"unknown"}},
+    {"id":"accepted-absent-named-module-type-unknown","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"named-module-type-unknown"}},
     {"id":"accepted-present-other","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"other"}},
     {"id":"rejected-present-C_PTR","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"C_PTR"}},
     {"id":"rejected-present-C_FUNPTR","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"C_FUNPTR"}},
     {"id":"rejected-present-TEAM_TYPE","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"TEAM_TYPE"}},
-    {"id":"unresolved-present-unknown","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"unknown"}},
+    {"id":"unresolved-present-named-module-type-unknown","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"named-module-type-unknown"}},
     {"id":"unresolved-unknown-C_PTR","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"C_PTR"}},
     {"id":"unresolved-unknown-C_FUNPTR","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"C_FUNPTR"}},
     {"id":"unresolved-unknown-TEAM_TYPE","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"TEAM_TYPE"}},
     {"id":"unresolved-unknown-other","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"other"}},
-    {"id":"unresolved-unknown-unknown","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"unknown"}}
+    {"id":"unresolved-unknown-named-module-type-unknown","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"named-module-type-unknown"}}
   ],
   "mutation_controls": [
-    "source-rule", "printed-page", "canonical-hash", "span-start", "span-length",
+    "source-rule", "printed-page", "pdf-hash", "canonical-hash", "span-start", "span-length",
     "canonical-line", "page-index-hash", "page-index-start", "standardir-hash",
     "standardir-rule", "semantic-item-hash", "contract-version"
   ]

@@ -2,7 +2,7 @@
   (primitive name)
   (enum outcome accepted rejected unresolved)
   (enum c752-coarray-spec absent present unknown)
-  (enum c752-component-type C_PTR C_FUNPTR TEAM_TYPE other unknown)
+  (enum c752-component-type C_PTR C_FUNPTR TEAM_TYPE other named-module-type-unknown)
   (record source-ref
     (document name)
     (clause name)

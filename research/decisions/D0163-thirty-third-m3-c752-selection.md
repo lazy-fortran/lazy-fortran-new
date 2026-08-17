@@ -1,7 +1,7 @@
 # D0163. Select C752 forbidden coarray types as the next bounded property
 
 Date: 2026-08-17
-Status: accepted
+Status: amended by D0164
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Acceptance

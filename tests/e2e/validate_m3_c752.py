@@ -13,14 +13,14 @@ from typing import Any
 
 OUTCOMES = {"ACCEPTED", "REJECTED", "UNRESOLVED"}
 SPECS = {"absent", "present", "unknown"}
-TYPES = {"C_PTR", "C_FUNPTR", "TEAM_TYPE", "other", "unknown"}
+TYPES = {"C_PTR", "C_FUNPTR", "TEAM_TYPE", "other", "named-module-type-unknown"}
 FORBIDDEN_TYPES = {"C_PTR", "C_FUNPTR", "TEAM_TYPE"}
 SOURCE_SHA256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
 PDF_SHA256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 PAGE_INDEX_SHA256 = "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
 STANDARDIR_SHA256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
-EXPECTED_OUTCOMES_SHA256 = "9fd60d9134b5a073f2b460041ea08a0fbc6c010c6fa20077857f87f5bd456c56"
-SOURCE_FIXTURE_SHA256 = "c9e9e1ac07e3adc25c69a330c241bf7b9547d0b5cd48b0579f2a36bf2e89132f"
+EXPECTED_OUTCOMES_SHA256 = "5f5a730540e53bb9d52046fffa3c7ccde43365d9e465f48f752013ed5702e566"
+SOURCE_FIXTURE_SHA256 = "07d0c8d6ecb485ae85a890b86e15d455de3f8e6742816eb4adb884bee8f27da9"
 SEMANTIC_ITEM_SHA256 = "43136c6316c272eafeef984a6a2026bdc3abc315f122fc1135de18c2f8db24fd"
 PROPERTY = "component-c752-forbidden-coarray-type"
 SOURCE_SPAN = {"byte_start": 241335, "byte_length": 223, "page_start": 93, "page_end": 93}
@@ -47,6 +47,7 @@ SEMANTIC_ITEM = {"path": "tests/fixtures/m3-c752-semantic-items.sx", "id": "S-C7
 MUTATIONS = [
     ("source-rule", ("source", "rule"), "C751"),
     ("printed-page", ("source", "printed_page"), 80),
+    ("pdf-hash", ("source", "pdf_sha256"), "0" * 64),
     ("canonical-hash", ("source", "canonical_text_sha256"), "0" * 64),
     ("span-start", ("source", "source_span", "byte_start"), 241336),
     ("span-length", ("source", "source_span", "byte_length"), 224),
@@ -147,7 +148,7 @@ def validate_binding(document: dict[str, Any], root: Path, pdf: Path, canonical:
     for page in PAGE_INDEX:
         require(f"page {page['page']} start {page['start']} length {page['length']}" in index_lines, f"page index record {page['page']} absent")
     validate_standardir(source, standardir)
-    require(digest(pdf) == PDF_SHA256, "normative PDF hash differs")
+    require(source["pdf_sha256"] == PDF_SHA256 and digest(pdf) == PDF_SHA256, "normative PDF hash differs")
     require(document["semantic_item"] == {**SEMANTIC_ITEM, "sha256": SEMANTIC_ITEM_SHA256}, "semantic item differs")
     require(digest(semantic) == SEMANTIC_ITEM_SHA256, "semantic item hash differs")
     require(document["mutation_controls"] == [name for name, _, _ in MUTATIONS], "mutation inventory differs")

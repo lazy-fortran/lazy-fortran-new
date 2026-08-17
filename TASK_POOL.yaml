@@ -6088,6 +6088,7 @@ tasks:
     inputs:
       - path: research/experiments/E0221-select-the-next-bounded-source-backed-pr/manifest.yaml
       - path: research/decisions/D0163-thirty-third-m3-c752-selection.md
+      - path: research/decisions/D0164-c752-explicit-named-module-type-state.md
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v21.md
       - path: research/runs/2026-08.jsonl#R000606
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
@@ -6106,10 +6107,11 @@ tasks:
       byte span 241335:223, printed page 79 and page-index record 93, using
       R702/R703/R704/R737/R739. The typed product is coarray-spec
       absent|present|unknown crossed with component-type
-      C_PTR|C_FUNPTR|TEAM_TYPE|other|unknown. Accept absent coarray-spec for
-      every type and present coarray-spec with other type; reject present with
-      C_PTR, C_FUNPTR or TEAM_TYPE; return UNRESOLVED for unknown states.
-      Require all 15 states, source/page/identity mutations, zero model calls
+      C_PTR|C_FUNPTR|TEAM_TYPE|other|named-module-type-unknown. Accept absent
+      coarray-spec for every type and present coarray-spec with other type;
+      reject present with C_PTR, C_FUNPTR or TEAM_TYPE; return UNRESOLVED for
+      present named-module-type-unknown and all unknown coarray-spec states.
+      Require all 15 states, source/page/PDF/identity mutations, zero model calls
       and zero semantic promotions. Preserve unresolved named-type identity;
       do not parse Fortran, inspect C753/C754 or broaden the property.
     verifier_command: tests/e2e/run-m3-c752.sh --fresh
@@ -6120,8 +6122,10 @@ tasks:
     evidence_paths:
       - research/experiments/E0221-select-the-next-bounded-source-backed-pr/manifest.yaml
       - research/decisions/D0163-thirty-third-m3-c752-selection.md
+      - research/decisions/D0164-c752-explicit-named-module-type-state.md
       - artifacts/reports/M3/m3-core0-next-property-selection-v21.md
       - research/runs/2026-08.jsonl#R000606
+      - research/runs/2026-08.jsonl#R000611
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 integration_cycle:

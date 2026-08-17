@@ -251,12 +251,12 @@ source span `241335:223` (canonical lines 3842--3844, printed page 79,
 page-index record 93) and existing StandardIR R702/R703/R704/R737/R739
 witnesses. Its 15-state typed product crosses coarray-spec
 (`absent`, `present`, `unknown`) with component type (`C_PTR`, `C_FUNPTR`,
-`TEAM_TYPE`, `other`, `unknown`). It accepts absent coarray-spec for every type
-and present coarray-spec with other type, rejects the three forbidden types
-when present, and returns `UNRESOLVED` for unknown states. The three named
-module-defined types are not direct StandardIR rows, so the oracle must not
-infer their identity. It must not parse Fortran, inspect C753/C754, run a
-model or promote a fact.
+`TEAM_TYPE`, `other`, `named-module-type-unknown`). It accepts absent
+coarray-spec for every type and present coarray-spec with other type, rejects
+the three forbidden types when present, and returns `UNRESOLVED` for present
+named-module-type-unknown and all unknown coarray-spec states. D0164 makes the
+named module-defined boundary explicit. It must validate the fixture PDF hash,
+must not parse Fortran, inspect C753/C754, run a model or promote a fact.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name

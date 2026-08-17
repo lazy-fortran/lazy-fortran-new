@@ -898,8 +898,10 @@ for the deterministic post-C751 selection. The pinned residual partition has
 J3-24-007 clause 7, canonical lines 3842--3844, printed page 79, byte span
 `241335:223`, and page-index record 93. Existing StandardIR supplies
 R702/R703/R704/R737/R739. C_PTR, C_FUNPTR and TEAM_TYPE are not direct
-StandardIR rows, so unknown type identity remains `UNRESOLVED`. No model ran,
-no semantic fact was promoted, and full M3 remains open.
+StandardIR rows, so D0164 requires an explicit
+`named-module-type-unknown` state; it remains `UNRESOLVED` when a coarray spec
+is present. No model ran, no semantic fact was promoted, and full M3 remains
+open.
 Regenerate the partition with the `jq` command recorded in
 `artifacts/reports/M3/m3-core0-next-property-selection-v21.md`.
 
@@ -908,8 +910,9 @@ Regenerate the partition with the `jq` command recorded in
 The active task is `T-M3-c752-forbidden-coarray-type-oracle`; its exact
 verifier is `tests/e2e/run-m3-c752.sh --fresh`. It will implement the 15-state
 product of coarray-spec `absent|present|unknown` and component type
-`C_PTR|C_FUNPTR|TEAM_TYPE|other|unknown`: absent and present/other are accepted,
-present with a forbidden type is rejected, and unknown states are unresolved.
+`C_PTR|C_FUNPTR|TEAM_TYPE|other|named-module-type-unknown`: absent and
+present/other are accepted, present with a forbidden type is rejected, and
+present named-module-type-unknown or unknown coarray-spec states are unresolved.
 This bounded slice does not parse arbitrary Fortran, inspect C753/C754 or
 close full M3 by implication.
 
