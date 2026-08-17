@@ -38,6 +38,7 @@ page_index="$ROOT/.cache/runs/E0001/R000003/j3-24-007.pages.index"
 standardir="$ROOT/.cache/runs/E0171/R000433-provenance-replay/standardir.sx"
 source_pdf="$ROOT/.cache/j3-24-007.pdf"
 golden="$ROOT/tests/golden/m3-c744-semantic-items.sx"
+trace="$ROOT/artifacts/traces/m3-c744-source-backed-v0.json"
 validator="$ROOT/tests/e2e/validate_m3_c744.py"
 manifest="$ROOT/research/experiments/E0206-can-a-deterministic-source-backed-c744-o/manifest.yaml"
 standard="$(resolve_repo standard-new)"
@@ -98,6 +99,8 @@ cmp "$run_dir/semantic-items.canonical.sx" "$golden"
 
 python3 "$validator" --self-test >"$run_dir/oracle-self-test.log"
 python3 "$validator" "$fixture" "$run_dir/semantic-items.canonical.sx" "$standardir" "$canonical_text" "$page_index" "$source_pdf" "$golden" "$run_dir/result.json" >"$run_dir/oracle.log"
+[ -f "$trace" ] || die "missing committed C744 trace"
+cmp "$run_dir/result.json" "$trace"
 
 python3 - "$run_dir/run-environment.json" "$central_pin" "$central_commit" "$expected_central_commit" "$standard" "$standard_commit" "$fo_path" "$fo_version" "$fo_sha256" "$validator" "$fixture" "$semantic_input" "$standardir" "$canonical_text" "$page_index" "$source_pdf" <<'PY'
 import hashlib
