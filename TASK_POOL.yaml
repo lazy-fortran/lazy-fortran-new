@@ -6766,7 +6766,7 @@ tasks:
       - path: research/experiments/E0230-which-residual-source-occurrence-should-/manifest.yaml
         sha256: 6d1a535a835c9800b23cfaf75e7956d6c9089a182931e2b7803430e9a3db91e4
       - path: research/experiments/E0231-can-the-bounded-source-backed-c763-pass-/manifest.yaml
-        sha256: bc57f7e42627f7e301935ba4ebb90a5b645253f8e5f15edcfdfaa395d18b213c
+        sha256: f1016621eed5d7758c3207eca9f7086914ae6c6cd59c7455b1556bb5d02ec2ad
       - path: research/decisions/D0171-thirty-ninth-m3-c763-selection.md
         sha256: cf71d42e1ed96d56d958564ca0f65204cf174b625c3ee099fe4aa91e2d3fd796
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v27.md

@@ -30,7 +30,7 @@ inputs:
   standardir_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
   normative_pdf: .cache/j3-24-007.pdf
   normative_pdf_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
-  implementation_commit: be7872b4f57c8f3bd18a585914ef172984105e3c
+  implementation_commit: 7d93cd1e46105a62ea759071c10c7c083d7ed551
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
