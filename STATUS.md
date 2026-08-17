@@ -247,10 +247,12 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   `E0187/R000004`, recorded centrally as `R000062`, and focused review
   `R000064` is `PASS`; twelve bounded slices are promoted and full M3 remains
   open. E0181 residual selection is `PASS` in `R000065`; D0138/E0188 bounded
-  C1586 replay `R000067` and focused review `R000072` pass; post-promotion
-  regression replay `R000073` also passes. E0181 clean replay `R000075` and
-  witness reconciliation `R000076` pass without semantic promotion; the next
-  task is the exact outside-residual selection shown above.
+C1586 replay `R000067` and focused review `R000072` pass; post-promotion
+regression replay `R000073` also passes. E0181 clean replay `R000075` and
+witness reconciliation `R000076` pass without semantic promotion. C717 clean
+replay `R000077` passes with the exact source binding, typed outcomes, seven
+mutation failures and zero model calls or semantic promotions; focused review
+is pending and the active task is `T-M3-c717-focused-review`.
 ```
 
 ## Blacklisted pseudo-progress
