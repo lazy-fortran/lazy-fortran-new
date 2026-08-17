@@ -8,7 +8,7 @@ status: running         # draft | running | reported | abandoned
 opened: "2026-08-17"
 
 repos:
-  lazy-fortran-new: "e106944"
+  lazy-fortran-new: "7ba4fdc"
 
 inputs:
   standard: j3-24-007
@@ -60,7 +60,7 @@ falsifiable_by: >-
 gate: >-
   Run tests/e2e/run-m3-c752.sh --fresh from a clean checkout. It must pass the
   central contract and pin gates, sxsemantic replay, fifteen-state oracle,
-  twelve negative mutation controls and final clean-tree check.
+  thirteen negative mutation controls and final clean-tree check.
 
 analysis: >-
   Controller-owned bounded C752 replay report
