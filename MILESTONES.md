@@ -756,8 +756,10 @@ Evidence: `research/experiments/E0210-can-a-deterministic-source-backed-c746-o/m
 
 The post-C746 residual partition has 145 rows (84 `disputed` and 61
 `unwitnessed`) with C747@1 first. R000568 selects C747's bounded
-type-parameter-name occurrence-cardinality relation. The active task
-implements this C747 oracle.
+type-parameter-name occurrence-cardinality relation. R000574 and R000575 pass,
+so C747 is promoted only as a bounded oracle leaf. Post-C747 selection R000576
+leaves 144 rows (83 `disputed`, 61 `unwitnessed`) with C748@1 first; the active
+task implements that next bounded oracle.
 
 ## M3 — selected C747 type-parameter-name exact-once relation
 
@@ -777,9 +779,11 @@ Evidence: `research/decisions/D0153-twenty-seventh-m3-c747-type-parameter-name-e
 `research/decisions/D0154-c747-page-index-binding.md`,
 `research/experiments/E0211-post-c746-residual-bounded-property-sele/manifest.yaml`,
 `artifacts/reports/M3/m3-core0-next-property-selection-v16.md`, and
-`research/runs/2026-08.jsonl#R000568`, and corrected replay
-`research/runs/2026-08.jsonl#R000573`. Focused review remains before promotion
-of the bounded C747 oracle.
+`research/runs/2026-08.jsonl#R000568`, corrected replay
+`research/runs/2026-08.jsonl#R000574` and focused review
+`research/runs/2026-08.jsonl#R000575`. C747 is promoted only as this bounded
+oracle leaf. Post-C747 selection R000576 identifies C748@1 as the next task;
+full M3 remains open.
 
 ## M3 — bounded C601 semantic-oracle successor
 

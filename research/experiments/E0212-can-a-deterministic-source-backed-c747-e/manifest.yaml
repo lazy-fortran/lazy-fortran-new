@@ -88,6 +88,9 @@ result:
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
   report: artifacts/reports/M3/m3-c747-source-backed-v0.md
   report_sha256: 10a71595a13405511db721fc2495f73cdf5a0c73a1101d39c8b3b59c49841aba
+  focused_review: artifacts/reports/M3/m3-c747-focused-review-v1.md
+  focused_review_sha256: 56ef68bfa1cc310f0f315ac1a84013e2c93930ecad6d593e03185eccad2da8bc
+  focused_review_run: research/runs/2026-08.jsonl#R000575
   trace: artifacts/traces/m3-c747-source-backed-v0.json
   trace_sha256: eb9a72073eb3cf4a5a1b5e81574d6257c683af4d6dce41db245ac4b0fe2283c1
   run_environment: .cache/runs/E0212/R000006/run-environment.json

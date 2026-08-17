@@ -21,14 +21,14 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 is now open through twenty-six bounded contracts; C746 is promoted
+review. M3 is now open through twenty-seven bounded contracts; C746 is promoted
 only as a bounded oracle leaf by E0210/R000566 and focused review R000567.
 Selection R000568 passes for C747 at canonical lines 3766--3767, printed page
-77, over existing StandardIR R727/R732/R733. The corrected C747 replay R000573
-binds the span to canonical page-index record 91 and passes, but focused review
-must pass before the twenty-seventh bounded leaf is promoted. D0154 amends
-D0153 to record the two page coordinate systems separately. The full Core 0
-semantic milestone remains unpromoted.
+77, over existing StandardIR R727/R732/R733. The corrected C747 replay R000574
+and focused review R000575 pass; C747 is promoted only as a bounded oracle
+leaf. D0154 amends D0153 to record the two page coordinate systems separately.
+Post-C747 selection R000576 identifies C748@1 as the next residual. The full
+Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -92,7 +92,7 @@ not current promotion evidence.
 - E0172 remains abandoned before its model cell: R000456 found that the
   endpoint exposed Qwen 3.8 27B while the experiment declared Qwen 3.6
   35B-A3B. No model output was accepted. E0174 is closed.
-- M3 is `OPEN` through twenty-six promoted bounded slices, including C717,
+- M3 is `OPEN` through twenty-seven promoted bounded slices, including C717,
   C720, C722, C724, C726, C731, C732, C733, C735, C743 and C744; full Core 0 remains open.
   D0126 selects
   C702's type-parameter colon legality over the already represented R701, R832
@@ -166,7 +166,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-c747-type-parameter-name-exact-once-oracle`.
+Current fixture: `T-M3-c748-component-attr-spec-exact-once-oracle`.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
 Clean replay R000527 and focused review R000528 pass. The replay binds C735
 line 3620, page 88, byte span `229534:101`, to existing StandardIR R727/R728;
@@ -194,22 +194,25 @@ StandardIR R727/R732/R733. E0210/R000566 and focused review R000567 pass for
 C746, which is promoted only as a bounded typed membership oracle. The
 post-C746 partition leaves 145 outside-promoted rows (84 disputed and 61
 unwitnessed), with C747@1 first. R000568 selects C747's occurrence-cardinality
-relation. The active task implements this bounded C747 oracle only.
+relation, and R000574/R000575 promote it only as a bounded oracle leaf.
+Post-C747 selection R000576 leaves 144 rows (83 disputed and 61 unwitnessed),
+with C748@1 first. R000576 binds C748 line 3834, printed page 79, byte span
+`240727:97` to canonical page-index record 93 and StandardIR R737.
 
 ## Active task
 
-ID: `T-M3-c747-type-parameter-name-exact-once-oracle` — implement the bounded
-C747 type-parameter-name exact-once oracle selected after C746.
+ID: `T-M3-c748-component-attr-spec-exact-once-oracle` — implement the bounded
+C748 component-attribute exact-once oracle selected after C747.
 
-Verifier: from a clean checkout, run `tests/e2e/run-m3-c747.sh --fresh`.
-The oracle must classify typed derived-name presence (`absent`, `present`,
-`unknown`), definition-occurrence cardinality (`zero`, `one`, `many`,
-`unknown`) and context (`derived-type-def`, `other`, `unknown`) as
-`ACCEPTED`/`REJECTED`/`UNRESOLVED`, bind C747 lines 3766--3767/page 77 to
-R727/R732/R733, reject source/page/rule/identity mutations, and record zero
-model calls and zero semantic-fact promotions. It must not parse derived-type
-definitions, compare real identifier spellings, check extra definition names,
-or perform general semantic analysis.
+Verifier: from a clean checkout, run `tests/e2e/run-m3-c748.sh --fresh`.
+The oracle must classify typed attribute-name presence (`absent`, `present`,
+`unknown`), occurrence cardinality (`zero`, `one`, `many`, `unknown`) and
+context (`component-def-stmt`, `other`, `unknown`) as
+`ACCEPTED`/`REJECTED`/`UNRESOLVED`, bind C748 line 3834/page 79 to canonical
+page-index record 93 and R737, reject source/page/rule/identity mutations, and
+record zero model calls and zero semantic-fact promotions. It must not parse
+component definitions, resolve attribute names, check C749 through C751, or
+perform general semantic analysis.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -259,7 +262,9 @@ review R000491 pass. C724 replay R000494 and focused review R000495 pass, and
   C744 replay R000538 and focused review R000539 pass, making twenty-four
   bounded slices promoted only as bounded oracle leaves. C745 replay R000556
   and focused review R000560 pass, and C746 replay R000566 with focused review
-  R000567 also pass. The current bounded total is twenty-six. C746 records
+  R000567 also pass. C747 replay R000574 and focused review R000575 pass,
+  making twenty-seven bounded slices promoted only as bounded oracle leaves.
+  C746 records
   4 `ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve rejected mutations,
   zero model calls and zero semantic promotions.
   The audit residual
@@ -269,9 +274,10 @@ are unresolved. These residual states do not close the complete ledger gate.
 The current blocker is witness closure outside the bounded slices: the
   post-C746 partition records 145 residual rows (84 disputed and 61 unwitnessed),
   with C747@1 first. R000568 binds that row to the C747 exactly-once contract;
-  R000571 retains the failed provenance review, while R000573 records the
-  corrected replay and D0154 corrects its page-index evidence. The remaining
-  delivery gate is focused review of the corrected packet.
+  R000571 retains the failed provenance review, while R000574 and R000575
+  record the corrected replay and focused review. R000576 then selects C748@1;
+  the next missing artifact is its bounded implementation and independent
+  oracle.
 C744 is now promoted only as a bounded typed oracle leaf by E0206/R000538 and
 focused review R000539. E0207/R000542 selects C745's first component-presence
 obligation. The corrected implementation replay E0208/R000556 and focused
@@ -293,15 +299,14 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Complete promotion of the bounded C747 source-backed type-parameter-name
-exact-once oracle. The exact contract is D0153 as amended by D0154, selected by
-R000568 and reported in
-`artifacts/reports/M3/m3-core0-next-property-selection-v16.md`. The source
-binding is J3-24-007 canonical lines 3766--3767, printed page 77, with
-canonical page-index record 91 containing byte span `237572:183`, over existing
-StandardIR R727/R732/R733. The verifier is
-`tests/e2e/run-m3-c747.sh --fresh`. It must not restart E0172, parse general
-Fortran, check extra definition names or close full M3.
+Implement the bounded C748 source-backed component-attribute exact-once oracle.
+The exact contract is D0155, selected by R000576 and reported in
+`artifacts/reports/M3/m3-core0-next-property-selection-v17.md`. The source
+binding is J3-24-007 canonical line 3834, printed page 79, with canonical
+page-index record 93 containing byte span `240727:97`, over existing
+StandardIR R737. The verifier is
+`tests/e2e/run-m3-c748.sh --fresh`. It must not restart E0172, parse general
+Fortran, check C749 through C751 or close full M3.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
@@ -395,7 +400,7 @@ replay command is:
 The C746 replay `tests/e2e/run-m3-c746.sh --fresh` is `PASS` in R000566 and
 focused review R000567 passes. Post-C746 selection `R000568` is `PASS` with
 145 residual rows, 84 disputed and 61 unwitnessed, and C747@1 first. The
-current active task is `T-M3-c747-type-parameter-name-exact-once-oracle`.
+current active task is `T-M3-c748-component-attr-spec-exact-once-oracle`.
 ```
 
 ## Blacklisted pseudo-progress

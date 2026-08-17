@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c747-type-parameter-name-exact-once-oracle
+active_task: T-M3-c748-component-attr-spec-exact-once-oracle
 
 milestones:
   - id: L0
@@ -5030,9 +5030,9 @@ tasks:
   - id: T-M3-c747-type-parameter-name-exact-once-oracle
     milestone: M3
     title: Define and implement the bounded C747 type-parameter-name exact-once oracle
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-core0-next-bounded-property-selection-after-c746
@@ -5115,12 +5115,103 @@ tasks:
       - research/runs/2026-08.jsonl#R000571
       - research/runs/2026-08.jsonl#R000572
       - research/runs/2026-08.jsonl#R000574
+      - research/runs/2026-08.jsonl#R000575
       - research/experiments/E0212-can-a-deterministic-source-backed-c747-e/manifest.yaml
       - artifacts/reports/M3/m3-c747-focused-review-v0.md
+      - artifacts/reports/M3/m3-c747-focused-review-v1.md
       - artifacts/reports/M3/m3-c747-source-backed-v0.md
       - artifacts/traces/m3-c747-source-backed-v0.json
       - .cache/runs/E0212/R000006/result.json
       - .cache/runs/E0212/R000006/run-environment.json
+      - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+
+  - id: T-M3-c748-component-attr-spec-exact-once-oracle
+    milestone: M3
+    title: Define and implement the bounded C748 component-attribute exact-once oracle
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c747-type-parameter-name-exact-once-oracle
+    inputs:
+      - path: research/decisions/D0155-twenty-eighth-m3-c748-component-attr-spec-exact-once.md
+      - path: research/experiments/E0213-post-c747-residual-bounded-property-sele/manifest.yaml
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v17.md
+      - path: research/runs/2026-08.jsonl#R000576
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    writes:
+      - research/experiments/E0214-*/manifest.yaml
+      - contracts/m3-c748-*
+      - contracts/fixtures/m3-c748-*
+      - contracts/registry.sx
+      - tests/fixtures/m3-c748-*
+      - tests/golden/m3-c748-*
+      - tests/e2e/run-m3-c748.sh
+      - tests/e2e/validate_m3_c748.py
+      - scripts/verify_active_milestone.sh
+      - artifacts/traces/m3-c748-source-backed-v0.json
+      - artifacts/reports/M3/m3-c748-*.md
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - research/runs/2026-08.jsonl
+    mode: exclusive
+    verifier: >-
+      define one source-backed C748 contract over canonical line 3834, printed
+      page 79, canonical page-index record 93 containing byte span 240727:97,
+      and existing StandardIR R737; implement a deterministic
+      ACCEPTED/REJECTED/UNRESOLVED oracle over typed absent, present and
+      unknown attribute-name presence, zero/one/many/unknown occurrence
+      cardinality and component-def-stmt/other/unknown context; include
+      vacuous and satisfied positive witnesses, zero/many negative neighbors,
+      unresolved controls, source/page/rule/identity mutations and a separately
+      authored expected-outcome table. Require zero model calls and zero
+      semantic fact promotions. Do not parse component definitions, resolve
+      attribute names, check C749 through C751 or perform general semantic
+      analysis.
+    output: artifact
+    final_observable: >-
+      a replayable bounded C748 source-backed component-attribute exact-once
+      oracle with independent validation and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/experiments/E0214-*
+        - contracts/m3-c748-*
+        - contracts/fixtures/m3-c748-*
+        - contracts/registry.sx
+        - tests/fixtures/m3-c748-*
+        - tests/golden/m3-c748-*
+        - tests/e2e/run-m3-c748.sh
+        - tests/e2e/validate_m3_c748.py
+        - scripts/verify_active_milestone.sh
+        - artifacts/traces/m3-c748-source-backed-v0.json
+        - artifacts/reports/M3/m3-c748-*.md
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M3-c747-type-parameter-name-exact-once-oracle]
+    verifier_command: tests/e2e/run-m3-c748.sh --fresh
+    evidence_paths:
+      - research/decisions/D0155-twenty-eighth-m3-c748-component-attr-spec-exact-once.md
+      - research/experiments/E0213-post-c747-residual-bounded-property-sele/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v17.md
+      - research/runs/2026-08.jsonl#R000576
       - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - .cache/runs/E0001/R000003/j3-24-007.pages.index
       - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
