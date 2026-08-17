@@ -179,7 +179,7 @@ ID: `T-M3-c735-derived-type-attr-uniqueness-oracle` — define and implement the
 bounded C735 source-backed type-attribute uniqueness oracle.
 
 Verifier: the clean central gate declared in `TASK_POOL.yaml`, after the
-selection evidence in E0201/R000521. It must bind C735 line 3620 on page 88 to
+selection evidence in E0201/R000522. It must bind C735 line 3620 on page 88 to
 R727/R728, validate the typed uniqueness relation and its mutation controls,
 and observe zero model calls or semantic promotions.
 
@@ -237,7 +237,7 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 Implement the bounded C735 property selected from the post-C733 residual. The
 retained 150-row witness ledger remains open; do not restart E0172 or broaden
-semantic work. Selection R000521 records the C735 source and StandardIR
+semantic work. Selection R000522 records the C735 source and StandardIR
 binding; the next oracle must remain smaller than parsing derived-type
 statements or resolving attribute names. No broader semantic work is
 authorized.

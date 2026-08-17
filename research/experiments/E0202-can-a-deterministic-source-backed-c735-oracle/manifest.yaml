@@ -77,12 +77,12 @@ analysis: tests/e2e/validate_m3_c735.py
 run: tests/e2e/run-m3-c735.sh --fresh
 
 result:
-  replay_run: research/runs/2026-08.jsonl#R000524
-  central_worktree_commit: 8273ac44ea87c69c277fb5ad08379b95e91ef3e
+  replay_run: research/runs/2026-08.jsonl#R000525
+  central_worktree_commit: 045ec561f57b5839a51b0a000055df19879e32db
   functional_revision: 579767e
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
   result_sha256: e2aa5c64fca674f93cafc5243e7566be68ac59a0e8f9c95ae5a44fb1914144de
-  run_environment_sha256: 0ad62e7bbc63a290b6e1058a70c2a52796d6173ff46004e9d2488725ba7d8422
+  run_environment_sha256: 1f850156fe5b5193596a91d4275f9b8664686555e3193825b3df93a2535a6784
   candidate_promotion: BOUNDED_ONLY
   outcomes: {ACCEPTED: 2, REJECTED: 1, UNRESOLVED: 9}
   mutation_controls: 12

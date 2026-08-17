@@ -4169,7 +4169,6 @@ tasks:
     evidence_paths:
       - research/experiments/E0201-can-the-post-c733-residual-select-one-so/manifest.yaml
       - research/runs/2026-08.jsonl#R000520
-      - research/runs/2026-08.jsonl#R000521
       - research/runs/2026-08.jsonl#R000522
       - artifacts/reports/M3/m3-core0-next-property-selection-v9.md
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
@@ -4186,7 +4185,7 @@ tasks:
     inputs:
       - path: research/experiments/E0201-can-the-post-c733-residual-select-one-so/manifest.yaml
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v9.md
-      - path: research/runs/2026-08.jsonl#R000521
+      - path: research/runs/2026-08.jsonl#R000522
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
       - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
