@@ -70,6 +70,11 @@ central revision `82ab8b4b553bed01f6dd0eff3673f04e6f5ba223`. It reproduces the
 same result and trace; its run-environment SHA-256 is
 `789622179e2b2e9d72b1667e127f824158257968c069fb5ad3c94442998b5175`.
 
+The active-milestone verifier also passes through the C745 dispatch at
+`E0208/R000007`, recorded as `R000552`, from central revision
+`9ec8bccd8ac738a40d23c1412570fe36a80f56ab`. Its run-environment SHA-256 is
+`91eb7bb9937c7b8475be58acfea7aba3dd1de8fee8ed3c902e54a6964a56ccca`.
+
 ## Scope and non-claims
 
 The oracle checks only this typed projection of C745. It does not parse a

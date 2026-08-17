@@ -4752,6 +4752,7 @@ tasks:
       - research/runs/2026-08.jsonl#R000549
       - research/runs/2026-08.jsonl#R000550
       - research/runs/2026-08.jsonl#R000551
+      - research/runs/2026-08.jsonl#R000552
       - tests/fixtures/m3-c745-expected-outcomes-v0.json
       - artifacts/traces/m3-c745-source-backed-v0.json
       - artifacts/reports/M3/m3-c745-source-backed-v0.md

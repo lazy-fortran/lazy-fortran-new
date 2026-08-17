@@ -280,7 +280,8 @@ independent expected-outcome table and replayable trace. The exact central
 command is
 `tests/e2e/run-m3-c745.sh --fresh`. This is a bounded oracle delivery only; it
 does not restart E0172, parse general Fortran or close full M3. The current
-replay is PASS; focused review remains the next gate.
+replay is PASS; the active-milestone dispatch also passes through C745; focused
+review remains the next gate.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
