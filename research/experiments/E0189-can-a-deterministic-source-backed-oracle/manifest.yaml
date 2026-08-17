@@ -2,9 +2,9 @@ id: "E0189"
 title: "Deterministic C717 kind-selector legality oracle"
 question: >
   Can a deterministic source-backed oracle enforce C717 kind-selector legality
-status: running         # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -92,4 +92,7 @@ result:
   selection_run: research/runs/2026-08.jsonl#R000076
   selected_row_key: C717@1
   selection_status: PASS
-  implementation_status: MANUAL_VALIDATOR_PASS_CENTRAL_REPLAY_PENDING
+  implementation_status: CENTRAL_REPLAY_PASS_BOUNDED_ONLY
+  replay_run: research/runs/2026-08.jsonl#R000077
+  result_sha256: ead5ee195bc51063f9278d59e88f9367cae6541085a5b305d82c765f7dc17b5a
+  review_status: PENDING

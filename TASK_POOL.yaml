@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c717-kind-selector-oracle
+active_task: T-M3-c717-focused-review
 
 milestones:
   - id: L0
@@ -2558,8 +2558,8 @@ tasks:
   - id: T-M3-c717-kind-selector-oracle
     milestone: M3
     title: Verify the bounded C717 kind-selector legality oracle
-    status: OPEN
-    verification: NOT_STARTED
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on:
@@ -2584,11 +2584,6 @@ tasks:
       - tests/e2e/run-m3-c717.sh
       - tests/e2e/validate_m3_c717.py
       - artifacts/traces/m3-c717-source-backed-v0.json
-      - research/runs/2026-08.jsonl
-      - STATUS.md
-      - MILESTONES.md
-      - ROADMAP.md
-      - TASK_POOL.yaml
     mode: exclusive
     verifier: >-
       run tests/e2e/run-m3-c717.sh --fresh from clean central and standard-new
@@ -2637,8 +2632,68 @@ tasks:
       - tests/e2e/run-m3-c717.sh
       - tests/e2e/validate_m3_c717.py
       - artifacts/traces/m3-c717-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000077
     retry_count: 0
     integration_cycle_trigger: milestone_pass
+
+  - id: T-M3-c717-focused-review
+    milestone: M3
+    title: Focused independent review of the bounded C717 oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c717-kind-selector-oracle
+    inputs:
+      - research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md
+      - research/experiments/E0189-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v1.md
+      - artifacts/traces/m3-c717-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000077
+      - tests/e2e/run-m3-c717.sh
+      - tests/e2e/validate_m3_c717.py
+    writes:
+      - artifacts/reports/M3/c717-semantic-review-v0.md
+      - artifacts/reports/M3/c717-reproducibility-review-v0.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      Use the focused independent evidence gate on the frozen R000077 packet.
+      The semantic lane must check that D0139's C717 property, source lines,
+      typed state table and explicit nonclaims match the committed oracle. The
+      reproducibility lane must check clean pushed parity, exact pins,
+      mutation controls, trace identity and task wiring. Review may promote
+      only the bounded C717 slice; it may not promote the retained ledger or
+      full M3.
+    output: review
+    final_observable: >-
+      two independent focused review results for R000077, either promotion of
+      the bounded C717 slice or one precise review blocker
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - artifacts/reports/M3/c717-*-review-v0.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c717-kind-selector-oracle]
+    verifier_command: focused independent review of the frozen R000077 evidence packet
+    evidence_paths:
+      - artifacts/reports/M3/c717-semantic-review-v0.md
+      - artifacts/reports/M3/c717-reproducibility-review-v0.md
+      - research/runs/2026-08.jsonl#R000077
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

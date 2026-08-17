@@ -74,8 +74,8 @@ The E0181 Core 0 closure audit is recorded as an audit-only pass in R000074;
 clean pushed replay R000075 reproduces it. Reconciliation R000076 passes
 coverage accounting and leaves 158 outside-promoted rows. Full M3 remains open
 because witness coverage is incomplete. Broad semantic and model work remains
-closed; D0139/E0189 now defines the next bounded C717 contract and
-`T-M3-c717-kind-selector-oracle` is the active replay task.
+closed; D0139/E0189 defines the bounded C717 contract, replay R000077 passes,
+and `T-M3-c717-focused-review` is the active promotion gate.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -365,8 +365,10 @@ semantic-item and contract mutations must fail closed. The central gate is:
 tests/e2e/run-m3-c717.sh --fresh
 ```
 
-The manual validator passes; the clean central replay is pending. This is a
-bounded C717 observable, not full C717, arbitrary Fortran parsing, semantic
+Clean replay R000077 passes with two accepted, two rejected, two unresolved,
+seven mutation failures and zero model calls or semantic promotions. Focused
+independent review is pending. This is a bounded C717 observable, not full
+C717, arbitrary Fortran parsing, semantic
 analysis, processor inference, model work or full M3 promotion. E0172 remains
 abandoned.
 
@@ -374,8 +376,8 @@ The post-promotion E0181 audit `R000074` passes its deterministic
 merge, validation and witness checks. Reconciliation `R000076` maps all
 thirteen promoted IDs and leaves 158 outside-promoted rows (91 disputed and 67
 unwitnessed). The next executable task is
-`T-M3-c717-kind-selector-oracle`; the residual inventory remains available
-through this exact verifier:
+`T-M3-c717-focused-review`; the residual inventory remains available through
+this exact verifier:
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl

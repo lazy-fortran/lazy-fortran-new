@@ -18,8 +18,8 @@ The bounded C719 slice is promoted by replay `R000051` and focused review
 review `R000055`. The bounded C1579 slice is promoted by replay `R000062` and
 focused review `R000064`. The bounded C1586 slice is promoted by replay
 `R000067` and focused review `R000072`. Full M3 remains open.
-The C717 contract is defined and its manual oracle passes; its central replay
-is pending and it is not promoted.
+The C717 contract and clean central replay `R000077` pass; focused independent
+review is pending and it is not promoted.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -348,9 +348,9 @@ remains open.
 
 ## M3 — bounded C717 kind-selector legality semantic-oracle slice
 
-Bounded-slice status: `CENTRAL REPLAY PENDING`; the manual independent
-validator passes, but this is not yet promoted. Full Core 0 semantics remain
-open and are not claimed.
+Bounded-slice status: `CENTRAL REPLAY PASS`; focused independent review is
+pending, so this is not yet promoted. Full Core 0 semantics remain open and
+are not claimed.
 
 D0139/E0189 selects the fourteenth bounded delivery contract. It binds
 J3-24-007 C717, canonical lines 3263--3264 on printed/page-index page 80, to
@@ -361,7 +361,9 @@ oracle returns `ACCEPTED` for `(nonnegative, present)`, `REJECTED` for either
 known violation and `UNRESOLVED` for either unknown state. It does not evaluate
 expressions, inspect processor capabilities, parse Fortran or consume model
 output. Seven source, page-index, StandardIR, semantic-item and contract
-identity mutations must fail closed.
+identity mutations must fail closed. Clean replay `R000077` has two accepted,
+two rejected, two unresolved, seven mutation failures and zero model calls or
+semantic promotions.
 
 The exact central verifier is:
 
@@ -372,13 +374,14 @@ tests/e2e/run-m3-c717.sh --fresh
 Evidence: `research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md`,
 `research/experiments/E0189-can-a-deterministic-source-backed-oracle/manifest.yaml`,
 the C717 contract, fixtures, validator, trace and
-`artifacts/reports/M3/m3-core0-next-property-selection-v1.md`.
+`artifacts/reports/M3/m3-core0-next-property-selection-v1.md`, plus
+`research/runs/2026-08.jsonl#R000077`.
 
 ## M3 — Core 0 closure audit
 
 Audit and reconciliation status: `PASS` for coverage accounting only; full M3
 status remains `NEEDS EVIDENCE`. The next task is
-`T-M3-c717-kind-selector-oracle`. E0181/R000074 and clean pushed
+`T-M3-c717-focused-review`. E0181/R000074 and clean pushed
 replay R000075 reproduce the retained 287-row ledger: 4 hard failures, 2
 unresolved rows, 1 reference-only row, 117 self-consistent rows, 94
 disputed rows, 69 unwitnessed rows, 7
