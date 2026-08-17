@@ -2,9 +2,9 @@ id: "E0218"
 title: "Can a deterministic source-backed C750 oracle verify deferred component-array shape"
 question: >
   Can a deterministic source-backed C750 oracle verify deferred component-array shape
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -96,3 +96,24 @@ gate: >-
 analysis: >-
   Controller-owned bounded C750 replay report
   artifacts/reports/M3/m3-c750-source-backed-v0.md
+
+result:
+  run: research/runs/2026-08.jsonl#R000595
+  central_revision: 3aeb547cb5d12a7a7e8024dc4314f603e59e9264
+  functional_revision: 474ad0c
+  standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
+  report: artifacts/reports/M3/m3-c750-source-backed-v0.md
+  report_sha256: 39c4a232db25eebb32edafdd910fc74a1af4c08c7f9e576598c4ab0f756dc650
+  trace: artifacts/traces/m3-c750-source-backed-v0.json
+  trace_sha256: 026f59e792809db1aa5e466e0ed8086e1c1922f8ee4a3cbe302db8d82c85d2c0
+  result: .cache/runs/E0218/R000001/result.json
+  result_sha256: 026f59e792809db1aa5e466e0ed8086e1c1922f8ee4a3cbe302db8d82c85d2c0
+  run_environment: .cache/runs/E0218/R000001/run-environment.json
+  run_environment_sha256: 99e77a238a1b705719dab6ebf0a8aa10b95d40d10307e3b955b1313f3a6f51dd
+  decision: research/decisions/D0160-c750-bounded-component-array-deferred-shape.md
+  decision_sha256: f8076fb1114c129d8ac6d10e33d7792d980e3c0b63514bafa54bb2ccbf975cbe
+  outcome_counts: {accepted: 1, rejected: 1, unresolved: 25}
+  mutation_controls: 12
+  model_calls: 0
+  semantic_promotions: 0
+  status: PASS-BOUNDED-ONLY-REVIEW-PENDING

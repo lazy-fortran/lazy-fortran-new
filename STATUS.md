@@ -38,8 +38,10 @@ no model and made no semantic promotion. E0216/R000593 and focused review
 R000592 pass for C749, which is promoted only as a bounded oracle leaf with 4
 `ACCEPTED`, 1 `REJECTED`, 49 `UNRESOLVED`, twelve rejected mutations, zero
 model calls and zero semantic promotions. E0217/R000594 selects C750@1 as the
-next source-backed property; the next active task implements its bounded
-oracle. The full Core 0 semantic milestone remains unpromoted.
+next source-backed property. E0218/R000595 passes its bounded replay with 1
+`ACCEPTED`, 1 `REJECTED`, 25 `UNRESOLVED`, twelve rejected mutations, zero
+model calls and zero semantic promotions; focused review remains pending. The
+full Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -221,13 +223,16 @@ E0216/R000593 and focused review R000592 pass the C749 replay and evidence
 gate. The bounded C749 oracle is promoted only as a leaf; its full M3 parent
 remains open. E0217/R000594 selects C750@1 at canonical lines 3838--3839,
 printed page 79, byte span `241058:135`, over existing StandardIR R737/R740.
-The next active task implements the bounded C750 oracle.
+E0218/R000595 passes the bounded C750 replay with the independent validator;
+the focused independent review is the remaining gate, so this task remains
+active until the leaf is either promoted or rejected.
 
 ## Active task
 
 ID: `T-M3-c750-component-array-spec-deferred-shape-oracle` — implement the
 bounded C750 component-array deferred-shape oracle. The preceding selection
-task passed as E0217/R000594.
+task passed as E0217/R000594; the technical replay is E0218/R000595 and its
+focused independent review is pending.
 
 Verifier: `tests/e2e/run-m3-c750.sh --fresh`. It must consume C750's exact
 source span `241058:135` (canonical lines 3838--3839, printed page 79,
@@ -308,8 +313,8 @@ The current blocker is witness closure outside the bounded slices: the
   exact-once semantic defect in R000578; C748 is promoted only as a bounded
   at-most-once oracle. E0215/R000582 selected C749; E0216/R000593 and focused
   review R000592 pass, promoting only the bounded C749 oracle leaf. The
-  immediate blocker is the missing bounded C750 implementation and independent
-  oracle; full M3 remains open.
+  immediate blocker is the pending focused independent review of the bounded
+  C750 replay; full M3 remains open.
 C744 is now promoted only as a bounded typed oracle leaf by E0206/R000538 and
 focused review R000539. E0207/R000542 selects C745's first component-presence
 obligation. The corrected implementation replay E0208/R000556 and focused
@@ -331,13 +336,13 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Implement the selected C750 bounded source-backed property. The active task is
-`T-M3-c750-component-array-spec-deferred-shape-oracle`; its verifier is
-`tests/e2e/run-m3-c750.sh --fresh`. The selection evidence is E0217/R000594
-and D0159. The implementation must remain a 27-state typed oracle over the
-pinned C750 source and existing R737/R740 witnesses; it must not run a model,
-promote a semantic fact, restart E0172, parse general Fortran, inspect C751 or
-C754, or close full M3 by implication.
+Complete the focused independent review of the selected C750 bounded
+source-backed property. The active task is
+`T-M3-c750-component-array-spec-deferred-shape-oracle`; its technical verifier
+is `tests/e2e/run-m3-c750.sh --fresh`, which passes in E0218/R000595. Review
+the frozen replay packet before any bounded-leaf promotion. The 27-state
+oracle must not run a model, promote a semantic fact, restart E0172, parse
+general Fortran, inspect C751 or C754, or close full M3 by implication.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

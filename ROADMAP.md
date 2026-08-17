@@ -78,8 +78,10 @@ pass the bounded C749 component-type eligibility oracle. It is promoted only
 as a bounded leaf with 4 `ACCEPTED`, 1 `REJECTED`, 49 `UNRESOLVED`, twelve
 rejected mutations, zero model calls and zero semantic promotions. E0217/R000594
 selects C750@1 at canonical lines 3838--3839, printed page 79, byte span
-`241058:135`, over existing StandardIR R737/R740. The active task implements
-the bounded C750 oracle. Full M3 remains open.
+`241058:135`, over existing StandardIR R737/R740. E0218/R000595 passes the
+bounded C750 replay with 1 `ACCEPTED`, 1 `REJECTED`, 25 `UNRESOLVED`, twelve
+rejected mutations, zero model calls and zero semantic promotions. Focused
+review remains pending; full M3 remains open.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -627,8 +629,30 @@ StandardIR R737/R740. D0159 defines the typed candidate as pointer-or-
 allocatable-attribute state × component-array-spec state × component-def-stmt
 context. The bounded oracle will accept present + deferred-shape-list in that
 context, reject present + explicit-shape-list there, and return `UNRESOLVED`
-otherwise. The selection made zero model calls and no semantic promotion. The
-next task implements the bounded C750 oracle; full M3 remains open.
+otherwise. The selection made zero model calls and no semantic promotion.
+E0218/R000595 passes the technical replay with 1 `ACCEPTED`, 1 `REJECTED`, 25
+`UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
+promotions. Focused review remains pending; full M3 remains open.
+
+## M3 — bounded C750 component-array deferred-shape oracle
+
+Technical replay status: `PASS` in E0218/R000595; focused independent review
+is pending, so the bounded leaf is not yet promoted. The source is J3-24-007
+clause 7, canonical lines 3838--3839, printed page 79, byte span
+`241058:135`, page-index record 93, over existing StandardIR R737/R740. The
+27-state typed product yields 1 `ACCEPTED`, 1 `REJECTED` and 25 `UNRESOLVED`
+outcomes; twelve source, identity, page and contract mutations are rejected.
+The replay makes zero model calls and zero semantic promotions.
+
+Replay command:
+
+```text
+M3_C750_EXPECTED_CENTRAL_COMMIT=3aeb547cb5d12a7a7e8024dc4314f603e59e9264 tests/e2e/run-m3-c750.sh --fresh
+```
+
+Evidence: E0218 manifest, D0160, replay report and R000595. This does not
+parse arbitrary Fortran, perform name resolution or close full M3. Promotion
+awaits focused review of the frozen replay packet.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 

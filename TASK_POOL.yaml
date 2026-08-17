@@ -5761,8 +5761,8 @@ tasks:
   - id: T-M3-c750-component-array-spec-deferred-shape-oracle
     milestone: M3
     title: Implement the bounded C750 component-array deferred-shape oracle
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on:
@@ -5844,6 +5844,12 @@ tasks:
       - research/decisions/D0159-c750-component-array-spec-deferred-shape.md
       - artifacts/reports/M3/m3-core0-next-property-selection-v19.md
       - research/runs/2026-08.jsonl#R000594
+      - artifacts/reports/M3/m3-c750-source-backed-v0.md
+      - research/decisions/D0160-c750-bounded-component-array-deferred-shape.md
+      - research/runs/2026-08.jsonl#R000595
+      - .cache/runs/E0218/R000001/result.json
+      - .cache/runs/E0218/R000001/run-environment.json
+      - artifacts/traces/m3-c750-source-backed-v0.json
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

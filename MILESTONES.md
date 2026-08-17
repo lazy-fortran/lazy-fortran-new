@@ -845,7 +845,25 @@ StandardIR R737/R740. D0159 defines the typed candidate as pointer-or-
 allocatable-attribute state × component-array-spec state × component-def-stmt
 context. The bounded oracle accepts present + deferred-shape-list in that
 context, rejects present + explicit-shape-list there, and returns
-`UNRESOLVED` otherwise. The next task implements C750; full M3 remains open.
+`UNRESOLVED` otherwise. E0218/R000595 passes the technical replay with 1
+`ACCEPTED`, 1 `REJECTED`, 25 `UNRESOLVED`, twelve rejected mutations, zero
+model calls and zero semantic promotions. Focused review remains pending; full
+M3 remains open.
+
+## M3 — bounded C750 component-array deferred-shape oracle
+
+Technical replay status: `PASS` in E0218/R000595; focused independent review
+is pending, so this bounded leaf is not yet promoted. The exact command is:
+
+```text
+M3_C750_EXPECTED_CENTRAL_COMMIT=3aeb547cb5d12a7a7e8024dc4314f603e59e9264 tests/e2e/run-m3-c750.sh --fresh
+```
+
+The 27-state product binds C750 canonical lines 3838--3839, printed page 79,
+byte span `241058:135`, page-index record 93, and StandardIR R737/R740. It
+produces 1 `ACCEPTED`, 1 `REJECTED` and 25 `UNRESOLVED` outcomes, rejects
+twelve mutations, and records zero model calls and zero semantic promotions.
+This does not parse arbitrary Fortran or close full M3.
 
 ## M3 — bounded C601 semantic-oracle successor
 
