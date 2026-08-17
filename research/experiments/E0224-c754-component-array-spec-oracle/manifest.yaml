@@ -9,7 +9,7 @@ opened: "2026-08-17"
 closed: null
 
 repos:
-  lazy-fortran-new: "76d1544"
+  lazy-fortran-new: "6d16ba6a9e92a50f8602d87926bb940e9688f10f"
 
 inputs:
   standard: j3-24-007

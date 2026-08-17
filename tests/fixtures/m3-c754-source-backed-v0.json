@@ -39,6 +39,7 @@
   },
   "semantic_item": {
     "path": "tests/fixtures/m3-c754-semantic-items.sx",
+    "sha256": "61f2f24b66964ac1bcef9c8ff03b0886cf6caaebb120bffb8af0e6fad918d5f1",
     "id": "S-C754",
     "subject": "component-c754-array-spec",
     "document": "J3-24-007",
