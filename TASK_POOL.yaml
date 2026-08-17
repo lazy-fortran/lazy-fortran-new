@@ -3566,7 +3566,7 @@ tasks:
       - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
     writes:
       - research/decisions/D0144-eighteenth-m3-c726-type-param-star-context-oracle.md
-      - research/experiments/E0194-can-a-deterministic-source-backed-c726-oracle/manifest.yaml
+      - research/experiments/E0194-can-a-deterministic-source-backed-oracle/manifest.yaml
       - contracts/m3-c726-type-param-star-context-oracle-v0.sxs
       - contracts/fixtures/m3-c726-type-param-star-context-oracle-v0.sx
       - tests/fixtures/m3-c726-source-backed-v0.json
@@ -3577,6 +3577,8 @@ tasks:
       - artifacts/traces/m3-c726-source-backed-v0.json
       - artifacts/reports/M3/c726-semantic-review-v1.md
       - artifacts/reports/M3/c726-reproducibility-review-v1.md
+      - artifacts/reports/M3/c726-semantic-review-v2.md
+      - artifacts/reports/M3/c726-reproducibility-review-v2.md
       - STATUS.md
       - MILESTONES.md
       - ROADMAP.md
@@ -3603,7 +3605,7 @@ tasks:
       owner: controller
       allowed_paths:
         - research/decisions/D0144-eighteenth-m3-c726-type-param-star-context-oracle.md
-        - research/experiments/E0194-can-a-deterministic-source-backed-c726-oracle/manifest.yaml
+        - research/experiments/E0194-can-a-deterministic-source-backed-oracle/manifest.yaml
         - contracts/m3-c726-type-param-star-context-oracle-v0.sxs
         - contracts/fixtures/m3-c726-type-param-star-context-oracle-v0.sx
         - tests/fixtures/m3-c726-source-backed-v0.json
@@ -3614,6 +3616,8 @@ tasks:
         - artifacts/traces/m3-c726-source-backed-v0.json
         - artifacts/reports/M3/c726-semantic-review-v1.md
         - artifacts/reports/M3/c726-reproducibility-review-v1.md
+        - artifacts/reports/M3/c726-semantic-review-v2.md
+        - artifacts/reports/M3/c726-reproducibility-review-v2.md
         - STATUS.md
         - MILESTONES.md
         - ROADMAP.md
@@ -3625,6 +3629,20 @@ tasks:
       - research/experiments/E0193-can-the-post-c724-residual-select-one-so/manifest.yaml
       - artifacts/reports/M3/m3-core0-next-property-selection-v5.md
       - research/runs/2026-08.jsonl#R000497
+      - research/runs/2026-08.jsonl#R000499
+      - research/runs/2026-08.jsonl#R000500
+      - research/runs/2026-08.jsonl#R000501
+      - research/runs/2026-08.jsonl#R000502
+      - .cache/runs/E0194/R000004/result.json
+        sha256: 36c742c9c53fcd57f35597ea473c6b249abea54af13ed1ebf85e496f25e0b4b6
+      - .cache/runs/E0194/R000004/run-environment.json
+        sha256: 41b831dcbb203995e9a5ec9a3550d724a5856f60007fe91f60626435616a279c
+      - artifacts/traces/m3-c726-source-backed-v0.json
+        sha256: 36c742c9c53fcd57f35597ea473c6b249abea54af13ed1ebf85e496f25e0b4b6
+      - artifacts/reports/M3/c726-semantic-review-v1.md
+      - artifacts/reports/M3/c726-reproducibility-review-v1.md
+      - artifacts/reports/M3/c726-semantic-review-v2.md
+      - artifacts/reports/M3/c726-reproducibility-review-v2.md
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2
