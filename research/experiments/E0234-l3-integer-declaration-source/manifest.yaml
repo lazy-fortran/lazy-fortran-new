@@ -4,11 +4,11 @@ question: >
   Can the exact free-form source shape program p / integer :: x / end program p
   reach the existing frontend-v0, MIR-v0 and executable path while its malformed
   integer :: neighbour is rejected?
-status: running         # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-18"
 
 repos:
-  lazy-fortran-new: "284ad93594f0d412c98b2f7d9ed952c526abd701"
+  lazy-fortran-new: "503ddd0ffff2ea7f7c94c41e86606e9b42ec4149"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
   fortfront-new: "b51aff12c158da1f6a3643e76abb524e1d01fc7c"
   ffc-new: "bcaadcb58c24af613204aa398541c0d2e35abf91"
@@ -78,3 +78,15 @@ gate: >-
 analysis: >-
   L3_EXPECTED_CENTRAL_COMMIT=<pinned-central>
   tests/e2e/run-l3-declaration.sh --fresh
+
+result:
+  technical_run: research/runs/2026-08.jsonl#R000651
+  technical_status: PASS
+  promotion_status: PENDING-FOCUSED-REVIEW
+  report: artifacts/reports/L3/l3-declaration-v0-source-to-executable-v0.md
+  trace: artifacts/traces/l3-declaration-v0.json
+  trace_sha256: 24c4a6fcb525d4f6dc5dd48359b7f0dd2d2ee0c245584566c2494dfc4779e94d
+  validator_sha256: d151ca9ae0e092a05e172b28859424648acbd9f35dbb2fdb445f53256157b3ce
+  outcomes: {accepted: 1, rejected: 1, runtime_exit_status: 0}
+  model_calls: 0
+  semantic_promotions: 0

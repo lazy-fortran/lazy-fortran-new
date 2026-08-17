@@ -1,6 +1,6 @@
 # L3 integer-declaration source-to-executable replay
 
-Status: bootstrap replay `PASS`; committed clean replay pending.
+Status: technical replay `PASS`; promotion pending focused review.
 
 The exact positive source is:
 
@@ -31,6 +31,9 @@ and executable, ELF64/RISC-V identity and a second QEMU run. The slice does
 not expose `x` as a typed AST or MIR declaration and does not claim general
 declaration parsing.
 
-The bootstrap replay accepted the positive, rejected the malformed neighbour,
-returned runtime exit status zero, and recorded zero model calls and zero
-semantic promotions. Regenerate these observations with the command above.
+Clean replay R000651 from central revision
+`503ddd0ffff2ea7f7c94c41e86606e9b42ec4149` accepted the positive, rejected the
+malformed neighbour, returned runtime exit status zero, and recorded zero model
+calls and zero semantic promotions. Regenerate these observations with the
+command above. The bootstrap run remains retained in the ignored run cache;
+R000651 is the promotion input.

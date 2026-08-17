@@ -467,20 +467,21 @@ Current M3 state: C763 is promoted only as a bounded oracle leaf after its
 pin-aligned replay and two-review evidence gate. The remaining blocker is the
 scope itself—full M3 still lacks a complete semantic verifier and does not
 parse arbitrary Fortran. The post-promotion regression R000643 passes. The
-next executable action is the production task
-`T-L3-fortfront-integer-declaration-source`, consuming the frozen
-`T-L3-next-declaration-contract`. It accepts exactly one named main program
-with `integer :: x` and no executable statements, rejects `integer ::`, and
-preserves the existing frontend-v0/MIR-v0 observable. The C768 implementation
-result is parked and is not promoted by this pivot.
+the declaration implementation is now committed as fortfront revision
+`b51aff1`; focused production tests pass. Clean central replay R000651 accepts
+exactly one named main program with `integer :: x`, rejects `integer ::`, and
+preserves the existing frontend-v0/MIR-v0 observable. The active task is
+`T-L3-declaration-source-executable-replay`; focused review is still required
+before promoting this successor. The C768 implementation result is parked and
+is not promoted by this pivot.
 
 ## Next executable task
 
 The L3 declaration contract is frozen by D0174 and passes
-`scripts/check-contracts.sh`. The next task is the isolated fortfront
-implementation, followed by a central raw-source replay with the existing
-MIR and executable oracle. Do not resume E0172 or start broad semantic work.
-The C768 worker result remains parked and is not promoted by this pivot.
+`scripts/check-contracts.sh`. The implementation and technical replay pass;
+the next action is the focused review of R000651. Do not resume E0172 or start
+broad semantic work. The C768 worker result remains parked and is not promoted
+by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

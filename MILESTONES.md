@@ -1148,6 +1148,10 @@ line in the named main program; its malformed neighbour is `integer ::`. The
 production implementation must preserve the existing frontend-v0/MIR-v0
 observable and does not yet expose a typed variable declaration.
 
+The declaration technical replay R000651 passes from central revision
+`503ddd0ffff2ea7f7c94c41e86606e9b42ec4149`; focused review remains before this
+successor is promoted.
+
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 
 Next after: L2
