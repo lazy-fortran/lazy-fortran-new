@@ -38,6 +38,12 @@ mkdir -p "$run_dir"
     printf '%s\n' 'laboratory checkout is not clean' >&2
     exit 1
 }
+central_commit="$(git -C "$ROOT" rev-parse HEAD)"
+expected_central_commit="${L3_EXPECTED_CENTRAL_COMMIT:-}"
+[ -z "$expected_central_commit" ] || [ "$central_commit" = "$expected_central_commit" ] || {
+    printf 'central revision differs: %s\n' "$central_commit" >&2
+    exit 1
+}
 for repo in "$standard" "$frontend" "$compiler" "$backend"; do
     [ -z "$(git -C "$repo" status --porcelain --untracked-files=normal)" ] || {
         printf 'component checkout is not clean: %s\n' "$repo" >&2

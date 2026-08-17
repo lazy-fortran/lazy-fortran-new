@@ -93,7 +93,7 @@ gate: >-
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: >-
-  M3_L3_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+  L3_EXPECTED_CENTRAL_COMMIT=<pinned-central>
   tests/e2e/run-l3.sh --fresh
 
 result:
