@@ -70,8 +70,11 @@ oracle. R000576 selects C748@1 over line 3834 and R737. The v0 implementation
 replay R000577 was rejected by focused review R000578 because it encoded
 exact-once instead of C748's at-most-once rule. D0156 corrects the contract;
 replay R000579 and focused review R000580 pass with the deterministic
-at-most-once oracle. C748 is promoted only as a bounded leaf; the active task
-selects the next residual property. Full M3 remains open.
+at-most-once oracle. C748 is promoted only as a bounded leaf. E0215/R000582
+selects C749@1 as the next residual property at canonical lines 3835--3837,
+printed page 79, byte span `240824:234`, page-index record 93, over existing
+StandardIR R703/R737. The active task now implements the bounded C749
+component-type eligibility oracle. Full M3 remains open.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -112,8 +115,10 @@ and zero semantic promotions. R000568 then selects C747 over canonical lines
 witnesses. C747 replay R000574 and focused review R000575 pass, promoting only
 that bounded exact-once oracle. R000576 selects C748@1; its corrected replay
 R000579 and focused review R000580 pass, promoting only the bounded C748
-at-most-once oracle. The next active task is the post-C748 residual selection;
-the retained model row is not evidence.
+at-most-once oracle. E0215/R000582 passes the post-C748 residual selection
+with 143 rows (82 `disputed`, 61 `unwitnessed`) and C749@1 first. The retained
+model row is not evidence. The next active task implements C749's bounded
+oracle; it does not parse general Fortran or promote a semantic fact.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053

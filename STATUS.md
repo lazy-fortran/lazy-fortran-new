@@ -29,9 +29,13 @@ and focused review R000575 pass; C747 is promoted only as a bounded oracle
 leaf. D0154 amends D0153 to record the two page coordinate systems separately.
 Post-C747 selection R000576 identifies C748@1 as the next residual. C748's
 corrected at-most-once replay R000579 and focused review R000580 pass, so it is
-promoted only as the twenty-eighth bounded oracle leaf. The next active task is
-the deterministic post-C748 residual selection; the full Core 0 semantic
-milestone remains unpromoted.
+promoted only as the twenty-eighth bounded oracle leaf. E0215/R000582 passes
+the deterministic post-C748 residual selection: 143 rows remain (82
+`disputed`, 61 `unwitnessed`), with C749@1 first. The selected source is C749
+at canonical lines 3835--3837, printed page 79, byte span `240824:234`,
+page-index record 93, over existing StandardIR R703/R737. The selection used
+no model and made no semantic promotion. The next active task implements the
+bounded C749 oracle; the full Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -207,18 +211,28 @@ corrects the contract to at-most-once; replay R000579 and focused review
 R000580 pass with 6 `ACCEPTED`, 1 `REJECTED`, 29 `UNRESOLVED`, twelve rejected
 mutations, zero model calls and zero semantic promotions. The complete replay command is
 `M3_C748_EXPECTED_CENTRAL_COMMIT=b3abc202c9e0b82058feccfc1c06099715b589c9 tests/e2e/run-m3-c748.sh --fresh`.
+E0215/R000582 then selects C749@1 as the next bounded property. D0157 binds
+the typed relation to the C749 source span and existing R703/R737 witnesses.
+The selection is complete; C749 itself is not implemented or promoted.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c748` — select the next
-bounded source-backed property after C748 promotion.
+ID: `T-M3-c749-component-type-eligibility-oracle` — implement the bounded
+C749 component-type eligibility oracle. The preceding selection task passed
+as E0215/R000582.
 
-Verifier: run the pinned jq partition command in `TASK_POOL.yaml` over the
-retained E0181 witness JSONL, excluding the twenty-eight promoted contracts;
-inspect the first remaining source occurrence against the canonical text,
-page index and StandardIR witness; select exactly one source-backed bounded
-property or record that no eligible row is available. Do not run a model,
-promote a semantic fact, resume E0172 or start general parsing.
+Verifier: `tests/e2e/run-m3-c749.sh --fresh`. It must consume the exact C749
+source span `240824:234` (canonical lines 3835--3837, printed page 79,
+page-index record 93) and existing StandardIR R703/R737 witnesses. Its typed
+product is attribute state (`absent|present|unknown`) × declaration-type
+category (`intrinsic|previously-defined-derived|enum|enumeration|other|unknown`)
+× context (`component-def-stmt|other|unknown`). Only the four allowed type
+categories in the component-def-stmt/absent case are `ACCEPTED`; the same
+context with `other` is `REJECTED`; all remaining states are `UNRESOLVED`.
+The gate requires the complete 54-state table, positive/negative/unresolved
+cases, mutation controls, zero model calls and zero semantic promotions. It
+must not parse Fortran, resolve names, inspect C750/C751 or broaden the
+property.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -284,8 +298,9 @@ The current blocker is witness closure outside the bounded slices: the
   record the corrected replay and focused review. R000576 then selects C748@1.
   C748 implementation replay R000579 and focused review R000580 pass after the
   exact-once semantic defect in R000578; C748 is promoted only as a bounded
-  at-most-once oracle. The remaining blocker is selection of the next
-  source-backed bounded property after C748.
+  at-most-once oracle. E0215/R000582 closes the selection step and records C749
+  as the next source-backed bounded property. The immediate blocker is the
+  missing C749 implementation and independent oracle; full M3 remains open.
 C744 is now promoted only as a bounded typed oracle leaf by E0206/R000538 and
 focused review R000539. E0207/R000542 selects C745's first component-presence
 obligation. The corrected implementation replay E0208/R000556 and focused
@@ -307,13 +322,13 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Select the next bounded source-backed property after C748 promotion. The
-active task is `T-M3-core0-next-bounded-property-selection-after-c748`; its
-verifier is the pinned jq partition command in `TASK_POOL.yaml`, excluding the
-twenty-eight promoted contracts and inspecting the first remaining source and
-StandardIR witness. It must select exactly one property or record that no
-eligible row is source-backed. It must not run a model, promote a semantic
-fact, restart E0172, parse general Fortran or close full M3.
+Implement the selected C749 bounded source-backed property. The active task is
+`T-M3-c749-component-type-eligibility-oracle`; its verifier is
+`tests/e2e/run-m3-c749.sh --fresh`. The selection evidence is E0215/R000582
+and D0157. The implementation must remain a 54-state typed oracle over the
+pinned C749 source and existing R703/R737 witnesses; it must not run a model,
+promote a semantic fact, restart E0172, parse general Fortran, inspect C750 or
+C751, or close full M3 by implication.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

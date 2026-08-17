@@ -795,9 +795,24 @@ D0156 corrects the typed relation to at-most-once. The corrected replay R000579
 passes `tests/e2e/run-m3-c748.sh --fresh` with 6 `ACCEPTED`, 1 `REJECTED`, 29
 `UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
 promotions. Focused review R000580 passes with no findings, so C748 is promoted
-only as this bounded oracle leaf. The next task is
-`T-M3-core0-next-bounded-property-selection-after-c748`; it does not parse
-component definitions, resolve names, check C749--C751 or close full M3.
+only as this bounded oracle leaf. E0215/R000582 then selects C749@1 as the
+next source-backed property; the active task implements its bounded oracle.
+C748 does not parse component definitions, resolve names, check C749--C751 or
+close full M3.
+
+## M3 — selected C749 component-type eligibility relation
+
+Selection status: `PASS`; E0215/R000582 recomputes the retained post-C748
+partition as 143 rows (82 `disputed`, 61 `unwitnessed`) and selects C749@1.
+The source is J3-24-007 clause 7, canonical lines 3835--3837, printed page
+79, byte span `240824:234`, contained by page-index record 93, over existing
+StandardIR R703/R737. D0157 defines the next typed candidate as
+pointer-or-allocatable-attribute state × declaration-type category ×
+component-def-stmt context. The bounded oracle will accept the four allowed
+type categories when the attribute is absent in that context, reject the
+`other` category in that same state, and return `UNRESOLVED` otherwise. The
+selection made zero model calls and no semantic promotion. The next task is
+the C749 implementation; full M3 remains open.
 
 ## M3 — bounded C601 semantic-oracle successor
 
