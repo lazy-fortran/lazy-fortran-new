@@ -4033,7 +4033,7 @@ tasks:
     milestone: M3
     title: Define and implement the bounded C733 kind-parameter representation-method oracle
     status: OPEN
-    verification: NOT_STARTED
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on:
@@ -4107,6 +4107,7 @@ tasks:
       - research/experiments/E0200-can-a-deterministic-source-backed-c733-oracle/manifest.yaml
       - artifacts/reports/M3/m3-core0-next-property-selection-v8.md
       - research/runs/2026-08.jsonl#R000517
+      - research/runs/2026-08.jsonl#R000518
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

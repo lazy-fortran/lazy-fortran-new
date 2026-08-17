@@ -168,7 +168,10 @@ oracle. Post-C732 reconciliation R000516 leaves 151 outside-promoted rows,
 with C733@1 first. E0199/R000517 binds C733 line 3564, page 87, byte span
 `226248:107`, to existing StandardIR R725 (`logical-literal-constant`). The
 next contract uses typed processor-support states in that context. Full M3
-remains open; do not resume E0172 or start broad semantic work.
+remains open; do not resume E0172 or start broad semantic work. E0200 central
+replay R000518 passes with 1 `ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`, twelve
+rejected mutation controls, zero model calls and zero semantic promotions;
+focused review is pending.
 
 ## Active task
 

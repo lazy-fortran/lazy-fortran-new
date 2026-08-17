@@ -116,7 +116,10 @@ page 87, byte span `226248:107`, to existing StandardIR R725
 accepts a processor-supported kind parameter in the logical-literal context,
 rejects a processor-unsupported value there, and returns `UNRESOLVED`
 otherwise. It does not inspect processors, parse literals or perform general
-semantic analysis. Full M3 remains open.
+semantic analysis. Clean central replay R000518 passes with 1 `ACCEPTED`, 1
+`REJECTED`, 7 `UNRESOLVED`, twelve rejected mutation controls, zero model
+calls and zero semantic promotions. Focused independent review remains
+pending; C733 is not yet counted as promoted. Full M3 remains open.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
