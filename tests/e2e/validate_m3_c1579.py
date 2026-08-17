@@ -191,7 +191,7 @@ def set_path(document: dict[str, Any], path: list[Any], value: Any) -> None:
 
 
 def validate_fixture_shape(doc: dict[str, Any]) -> None:
-    require(isinstance(doc["cases"], list) and len(doc["cases"]) == 6, "fixture case count differs")
+    require(isinstance(doc["cases"], list) and len(doc["cases"]) == 9, "fixture case count differs")
     ids: set[str] = set()
     results = []
     for case in doc["cases"]:
@@ -201,6 +201,10 @@ def validate_fixture_shape(doc: dict[str, Any]) -> None:
         results.append(result)
     require({item["kind"] for item in results} == {"positive", "negative", "unresolved"}, "fixture witness kinds are incomplete")
     require(sum(item["kind"] == "positive" for item in results) == 3, "positive witness count differs")
+    expected_states = {"absent", "present", "unknown"}
+    expected_pairs = {(result, declaration) for result in expected_states for declaration in expected_states}
+    observed_pairs = {(item["result_presence"], item["entry_name_declaration"]) for item in results}
+    require(observed_pairs == expected_pairs, "fixture does not witness the complete typed state table")
     require(len(doc["mutations"]) == 6, "mutation control count differs")
     for mutation in doc["mutations"]:
         exact_keys(mutation, {"id", "path", "value"}, f"mutation {mutation.get('id', '<missing>')}")
@@ -239,10 +243,13 @@ def self_test() -> None:
     cases = [
         ({"result_presence": "absent", "entry_name_declaration": "absent"}, "ACCEPTED"),
         ({"result_presence": "absent", "entry_name_declaration": "present"}, "ACCEPTED"),
+        ({"result_presence": "absent", "entry_name_declaration": "unknown"}, "UNRESOLVED"),
         ({"result_presence": "present", "entry_name_declaration": "absent"}, "ACCEPTED"),
         ({"result_presence": "present", "entry_name_declaration": "present"}, "REJECTED"),
-        ({"result_presence": "unknown", "entry_name_declaration": "absent"}, "UNRESOLVED"),
         ({"result_presence": "present", "entry_name_declaration": "unknown"}, "UNRESOLVED"),
+        ({"result_presence": "unknown", "entry_name_declaration": "absent"}, "UNRESOLVED"),
+        ({"result_presence": "unknown", "entry_name_declaration": "present"}, "UNRESOLVED"),
+        ({"result_presence": "unknown", "entry_name_declaration": "unknown"}, "UNRESOLVED"),
     ]
     for candidate, expected in cases:
         require(c1579_oracle(candidate) == expected, f"self-test outcome differs: {expected}")

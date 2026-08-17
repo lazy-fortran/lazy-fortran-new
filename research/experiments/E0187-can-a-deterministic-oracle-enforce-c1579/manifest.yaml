@@ -46,9 +46,10 @@ metrics:
 # State the complete eligible set and exclusions before the first run. A rate
 # over the successful subset is reported alongside the strict rate.
 denominator: >
-  Every case in tests/fixtures/m3-c1579-source-backed-v0.json: three accepted
-  witnesses, one rejected declaration neighbour and two unknown unresolved
-  controls. Mutation controls are a separate source-binding denominator.
+  Every case in tests/fixtures/m3-c1579-source-backed-v0.json: the complete
+  nine-combination typed state table with three accepted witnesses, one
+  rejected declaration neighbour and five unknown unresolved controls.
+  Mutation controls are a separate source-binding denominator.
 
 # State the independent behavioral or structural oracle. Self-consistency is
 # not an oracle.
@@ -74,9 +75,10 @@ falsifiable_by: >
 gate: >
   tests/e2e/run-m3-c1579.sh --fresh must pass from clean central and
   standard-new checkouts, including standard-new sxsemantic canonicalization,
-  normative PDF/canonical-text/StandardIR hash and witness checks, six
-  independently computed cases, six observed mutation failures, exact
-  committed trace comparison and zero model calls or semantic promotions.
+  normative PDF/canonical-text/StandardIR hash and witness checks, nine
+  independently computed cases covering the complete typed state table, six
+  observed mutation failures, exact committed trace comparison and zero model
+  calls or semantic promotions.
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: tests/e2e/validate_m3_c1579.py
