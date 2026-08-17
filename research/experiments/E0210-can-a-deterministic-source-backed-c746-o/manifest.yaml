@@ -2,9 +2,9 @@ id: "E0210"
 title: "Bounded C746 type-parameter-name membership oracle"
 question: >
   Can a deterministic source-backed C746 oracle enforce derived-type type-parameter-name membership?
-status: draft            # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -84,3 +84,20 @@ gate: >-
 analysis: >-
   Controller-owned bounded C746 replay report
   artifacts/reports/M3/m3-c746-source-backed-v0.md
+
+result:
+  replay_run: research/runs/2026-08.jsonl#R000565
+  final_handoff_run: research/runs/2026-08.jsonl#R000565
+  final_handoff_revision: b8cfd836c6d383e7a9c85d34c676cf79f372954c
+  central_revision: b8cfd836c6d383e7a9c85d34c676cf79f372954c
+  functional_revision: eafe3989d9c1f88943f6a21fa3745d4c3c791d88
+  standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
+  trace: artifacts/traces/m3-c746-source-backed-v0.json
+  trace_sha256: caad123d7aa0a3f30b5d6962e0b15928b8032fba2207fa23cf06105953aa6f66
+  run_environment: .cache/runs/E0210/R000001/run-environment.json
+  run_environment_sha256: cbc3b705412465dee60b484d9cf1068e3007967422b634caed9aec102f581044
+  outcome_counts: {accepted: 4, rejected: 1, unresolved: 22}
+  mutation_controls: 12
+  model_calls: 0
+  semantic_promotions: 0
+  status: PASS-BOUNDED-ONLY
