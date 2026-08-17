@@ -1,0 +1,61 @@
+{
+  "schema_version": "m3-c1579-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "result-entry-name-exclusion",
+  "contract": {
+    "schema": "contracts/m3-c1579-result-entry-name-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c1579-result-entry-name-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "15",
+    "rule": "C1579",
+    "printed_page": 356,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 15386, "text": "1 C1579 (R1544) If RESULT appears, the entry-name shall not appear in any specification or type declaration statement in the"},
+      {"line": 15387, "text": "2 scoping unit of the function subprogram."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R1532", "lhs": "function-subprogram", "page": 354, "byte_start": 1006974, "byte_length": 143, "occurrence": 507},
+        {"rule": "R1544", "lhs": "entry-stmt", "page": 356, "byte_start": 1015283, "byte_length": 77, "occurrence": 519}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c1579-semantic-items.sx",
+    "sha256": "01258f8b0c250be25599e6e1ce366fecd1ada5b86a3a1a99ef40f18525e972a4",
+    "id": "S-C1579",
+    "subject": "result-entry-name-exclusion",
+    "document": "J3-24-007",
+    "clause": "15",
+    "rule": "C1579",
+    "page": 356,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {"id": "positive-result-absent-no-declaration", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "result-entry-name-use", "source_rule": "C1579", "result_presence": "absent", "entry_name_declaration": "absent"}},
+    {"id": "positive-result-absent-declaration-present", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "result-entry-name-use", "source_rule": "C1579", "result_presence": "absent", "entry_name_declaration": "present"}},
+    {"id": "positive-result-present-no-declaration", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "result-entry-name-use", "source_rule": "C1579", "result_presence": "present", "entry_name_declaration": "absent"}},
+    {"id": "negative-result-present-declaration", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "result-entry-name-use", "source_rule": "C1579", "result_presence": "present", "entry_name_declaration": "present"}},
+    {"id": "unresolved-result", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "result-entry-name-use", "source_rule": "C1579", "result_presence": "unknown", "entry_name_declaration": "absent"}},
+    {"id": "unresolved-declaration", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "result-entry-name-use", "source_rule": "C1579", "result_presence": "present", "entry_name_declaration": "unknown"}}
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 15387},
+    {"id": "canonical-source-line-text", "path": ["source", "canonical_lines", 1, "text"], "value": "2 scoping unit of a subroutine subprogram."},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 1, "rule"], "value": "R1545"},
+    {"id": "standardir-row-metadata", "path": ["source", "standardir", "rows", 1, "byte_start"], "value": 1015284},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C1580"}
+  ]
+}

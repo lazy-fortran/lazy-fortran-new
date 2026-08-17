@@ -1,0 +1,21 @@
+(schema m3-c1579-result-entry-name-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum result-presence absent present unknown)
+  (enum entry-name-declaration absent present unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record result-entry-name-use
+    (result result-presence)
+    (entry-name-declaration entry-name-declaration))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact result-entry-name-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
