@@ -7089,13 +7089,13 @@ tasks:
         - MILESTONES.md
     verifier: >-
       two independent medium-depth Luna reviewers inspect the frozen central
-      revision 7a3dbb3a963bbcb4f3b3d5aa4c9bccb83340d420 and the pinned
+      revision a7b6af113706b3bf934ffb378e1c184f1a37f431 and the pinned
       component revisions for scope, source/contract lineage, independent
       oracle, negative control, reproducibility and promotion safety. They
       must return PASS or the first fatal issue. No reviewer may edit or
       promote the claim.
     verifier_command: >-
-      L3_EXPECTED_CENTRAL_COMMIT=7a3dbb3a963bbcb4f3b3d5aa4c9bccb83340d420
+      L3_EXPECTED_CENTRAL_COMMIT=a7b6af113706b3bf934ffb378e1c184f1a37f431
       tests/e2e/run-l3.sh --fresh
     final_observable: focused review PASS or one precise fatal blocker
     retry_count: 0
