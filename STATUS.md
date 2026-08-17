@@ -156,14 +156,15 @@ not resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-core0-witness-coverage-reconciliation` — reconcile retained E0181
-witness coverage against the thirteen promoted bounded slices. Full M3 remains
-open.
+ID: `T-M3-core0-next-bounded-property-selection` — select one next
+source-backed property from the outside-promoted E0181 residual. Full M3
+remains open.
 
-Verifier: the exact deterministic witness inventory command below. It must
-identify every disputed and unwitnessed row, map it to the existing bounded
-contracts where possible, and name one next executable task. It must not
-broaden semantic work, resume E0172 or promote a model fact.
+Verifier: the exact deterministic outside-residual command below. It must
+reproduce the 158 rows not covered by an already promoted bounded contract and
+then define one bounded source-backed property over an already represented
+StandardIR/syntax shape. It must not broaden semantic work, resume E0172 or
+promote a model fact.
 
 ## Current blocker
 
@@ -178,7 +179,9 @@ review R000022 pass. C603 replay R000001 and focused review R000027 pass. C721
 replay R000001 and focused review R000029 pass. C725 replay R000001 and
 focused review R000031 pass. The fresh E0181 closure audit is recorded as
 R000074, and clean pushed replay R000075 reproduces it; both pass the
-deterministic audit gate. Full M3/Core 0 remains blocked
+deterministic audit gate. Reconciliation R000076 also passes: it joins all
+thirteen promoted contract IDs and leaves 158 outside-promoted residual rows
+(91 disputed and 67 unwitnessed). Full M3/Core 0 remains blocked
 by the retained 287-row ledger: 4 hard failures, 2 unresolved rows, 94
 disputed rows and 69 unwitnessed rows. The corrected C718 replay and focused
 reviews are green. The
@@ -191,8 +194,10 @@ R000072 also pass, so thirteen bounded slices are promoted. The audit residual
 identities are C601@1, C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1;
 the first four are hard failures, C704@2 is reference-only, and the last two
 are unresolved. These residual states do not close the complete ledger gate.
-The current blocker is witness closure outside the bounded slices: 94 disputed
-and 69 unwitnessed rows. A green bounded slice alone does not close full M3.
+The current blocker is witness closure outside the bounded slices: 158 rows
+(91 disputed and 67 unwitnessed) remain after the five residual rows attached
+to promoted contracts are separated. A green bounded slice alone does not
+close full M3.
 Regenerate the E0181 counts with:
 
 ```text
@@ -201,12 +206,12 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-core0-witness-coverage-reconciliation`. The preceding
-E0181 audit is PASS for the audit only; the remaining blocker is witness
-coverage across the retained ledger. Its exact verifier is:
+Run and record `T-M3-core0-next-bounded-property-selection`. The preceding
+reconciliation is PASS for coverage accounting only; the remaining blocker is
+the outside-promoted residual. Its exact verifier is:
 
 ```text
-jq -s 'map(select(.status == "disputed" or .status == "unwitnessed")) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
 ## Last verified central command
@@ -241,9 +246,9 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   `R000064` is `PASS`; twelve bounded slices are promoted and full M3 remains
   open. E0181 residual selection is `PASS` in `R000065`; D0138/E0188 bounded
   C1586 replay `R000067` and focused review `R000072` pass; post-promotion
-  regression replay `R000073` also passes. The retained closure blocker is
-  the remaining E0181 ledger; the next task is the exact closure audit shown
-  above.
+  regression replay `R000073` also passes. E0181 clean replay `R000075` and
+  witness reconciliation `R000076` pass without semantic promotion; the next
+  task is the exact outside-residual selection shown above.
 ```
 
 ## Blacklisted pseudo-progress

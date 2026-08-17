@@ -71,11 +71,10 @@ D0136/D0137/E0187 is the promoted C1579 bounded slice; replay E0187/R000004
 is green in R000062 and focused review R000064 passes. D0138/E0188 is now the
 promoted C1586 bounded slice; replay R000067 and focused review R000072 pass.
 The E0181 Core 0 closure audit is recorded as an audit-only pass in R000074;
-clean pushed replay R000075 reproduces it. Full M3 remains open because
-witness coverage is incomplete. Broad semantic
-and model work remains closed; the next task is deterministic reconciliation
-of the disputed and unwitnessed rows against the thirteen promoted bounded
-slices.
+clean pushed replay R000075 reproduces it. Reconciliation R000076 passes
+coverage accounting and leaves 158 outside-promoted rows. Full M3 remains open
+because witness coverage is incomplete. Broad semantic and model work remains
+closed; the next task selects one bounded property from that residual.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -347,12 +346,14 @@ The first replay retained a trace-format failure as `R000066`; corrected replay
 `R000067`, focused review `R000072` and post-promotion regression replay
 `R000073` pass. This promotes only the bounded C1586 projection; full M3
 remains open. The post-promotion E0181 audit `R000074` passes its deterministic
-merge, validation and witness checks, but leaves 94 disputed and 69 unwitnessed
-rows. The next executable task is
-`T-M3-core0-witness-coverage-reconciliation`, using this exact inventory:
+merge, validation and witness checks. Reconciliation `R000076` maps all
+thirteen promoted IDs and leaves 158 outside-promoted rows (91 disputed and 67
+unwitnessed). The next executable task is
+`T-M3-core0-next-bounded-property-selection`, using this exact residual
+inventory:
 
 ```text
-jq -s 'map(select(.status == "disputed" or .status == "unwitnessed")) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
@@ -1806,7 +1807,9 @@ C725 in D0130/E0180, C718 in D0131/E0182, C723 in D0132/E0183 and C729 in
 D0133/E0184, and C719 in D0134/E0185. D0135/E0186 is the promoted C738
 slice, D0136/D0137/E0187 is the promoted C1579 slice, and D0138/E0188 is the
 promoted C1586 slice; thirteen bounded slices are promoted. The E0181 Core 0
-audit remains open.
+audit and coverage reconciliation are recorded as R000074 through R000076;
+158 outside-promoted witness rows remain. Full M3 remains open. The next task
+selects one bounded property from that residual.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

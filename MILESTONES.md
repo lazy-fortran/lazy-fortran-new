@@ -346,9 +346,9 @@ remains open.
 
 ## M3 — Core 0 closure audit
 
-Audit status: `PASS` for the deterministic audit only; full M3 status remains
-`NEEDS EVIDENCE`. The next task is
-`T-M3-core0-witness-coverage-reconciliation`. E0181/R000074 and clean pushed
+Audit and reconciliation status: `PASS` for coverage accounting only; full M3
+status remains `NEEDS EVIDENCE`. The next task is
+`T-M3-core0-next-bounded-property-selection`. E0181/R000074 and clean pushed
 replay R000075 reproduce the retained 287-row ledger: 4 hard failures, 2
 unresolved rows, 1 reference-only row, 117 self-consistent rows, 94
 disputed rows, 69 unwitnessed rows, 7
@@ -362,11 +362,15 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 The audit report is recorded in
 `research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/`,
 `artifacts/reports/M3/m3-core0-closure-audit-v2.md`, and
-`research/runs/2026-08.jsonl#R000074` and `#R000075`. The residual identities
-are C601@1,
+`research/runs/2026-08.jsonl#R000074` and `#R000075`. Reconciliation
+`research/runs/2026-08.jsonl#R000076` maps the thirteen promoted IDs and leaves
+158 outside-promoted rows: 91 disputed and 67 unwitnessed. The residual
+identities from the audit are C601@1,
 C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1. The 94 disputed and 69
-unwitnessed rows are the current witness-coverage blocker. These counts keep
-full M3 open and do not authorize semantic promotion.
+unwitnessed rows are the total retained witness status; the outside-promoted
+blocker is the 158-row partition above. These counts keep full M3 open and do
+not authorize semantic promotion. The coverage report is
+`artifacts/reports/M3/m3-core0-witness-coverage-v1.md`.
 
 ## M3 — bounded C601 semantic-oracle successor
 
