@@ -21,6 +21,8 @@ SOURCE_SHA256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9
 PDF_SHA256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 PAGE_INDEX_SHA256 = "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
 STANDARDIR_SHA256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+EXPECTED_OUTCOMES_SHA256 = "466689895dbd4d6b12df43498a69bd85c81382903ecbc2871df161b2c4b533dd"
+EXPECTED_OUTCOMES_PATH = "tests/fixtures/m3-c745-expected-outcomes-v0.json"
 PROPERTY = "derived-type-def-sequence-component-presence"
 SOURCE_SPAN = {"byte_start": 232141, "byte_length": 276, "page_start": 89, "page_end": 89}
 CANONICAL_LINES = [
@@ -54,6 +56,20 @@ def exact_keys(value: dict[str, Any], expected: set[str], label: str) -> None:
     require(set(value) == expected, f"{label} keys differ")
 
 
+def validate_expected_outcomes(doc: dict[str, Any], path: Path, case_ids: list[str]) -> dict[str, str]:
+    exact_keys(doc, {"schema_version", "origin", "property", "source_rule", "outcomes"}, "expected outcomes")
+    require(digest(path) == EXPECTED_OUTCOMES_SHA256, "expected outcomes hash differs")
+    require(doc["schema_version"] == "m3-c745-expected-outcomes-v0", "expected outcomes schema differs")
+    require(doc["origin"] == "HUMAN", "expected outcomes origin differs")
+    require(doc["property"] == PROPERTY and doc["source_rule"] == "C745", "expected outcomes identity differs")
+    outcomes = doc["outcomes"]
+    require(isinstance(outcomes, dict), "expected outcomes are not a table")
+    require(len(case_ids) == len(set(case_ids)), "fixture case IDs are not unique")
+    exact_keys(outcomes, set(case_ids), "expected outcome rows")
+    require(all(outcome in OUTCOMES for outcome in outcomes.values()), "expected outcome value invalid")
+    return {case_id: outcomes[case_id] for case_id in case_ids}
+
+
 def oracle(candidate: dict[str, str]) -> str:
     if candidate["context"] != "derived-type-def":
         return "UNRESOLVED"
@@ -66,7 +82,7 @@ def oracle(candidate: dict[str, str]) -> str:
     return "UNRESOLVED"
 
 
-def validate_case(case: dict[str, Any]) -> dict[str, Any]:
+def validate_case(case: dict[str, Any], expected_outcomes: dict[str, str]) -> dict[str, Any]:
     exact_keys(case, {"id", "kind", "expected", "candidate"}, f"case {case.get('id', '<missing>')}")
     require(case["kind"] in {"positive", "negative", "unresolved"}, f"case {case['id']} kind invalid")
     require(case["expected"] in OUTCOMES, f"case {case['id']} outcome invalid")
@@ -77,9 +93,11 @@ def validate_case(case: dict[str, Any]) -> dict[str, Any]:
     require(candidate["sequence_presence"] in SEQUENCE_PRESENCES, f"case {case['id']} sequence presence invalid")
     require(candidate["component_presence"] in COMPONENT_PRESENCES, f"case {case['id']} component presence invalid")
     require(candidate["context"] in CONTEXTS, f"case {case['id']} context invalid")
+    independent_expected = expected_outcomes[case["id"]]
+    require(case["expected"] == independent_expected, f"case {case['id']} fixture expectation differs from independent table")
     computed = oracle(candidate)
-    require(computed == case["expected"], f"case {case['id']} expected outcome disagrees")
-    return {"id": case["id"], "kind": case["kind"], "sequence_presence": candidate["sequence_presence"], "component_presence": candidate["component_presence"], "context": candidate["context"], "computed": computed, "expected": case["expected"]}
+    require(computed == independent_expected, f"case {case['id']} independent outcome disagrees")
+    return {"id": case["id"], "kind": case["kind"], "sequence_presence": candidate["sequence_presence"], "component_presence": candidate["component_presence"], "context": candidate["context"], "computed": computed, "expected": independent_expected, "fixture_expected": case["expected"]}
 
 
 def field(line: str, pattern: str, label: str) -> str:
@@ -151,9 +169,10 @@ def set_path(document: dict[str, Any], path: list[Any], value: Any) -> None:
     target[path[-1]] = value
 
 
-def build_result(fixture_path: Path, fixture: dict[str, Any], root: Path, pdf: Path, canonical: Path, page_index: Path, standardir: Path, semantic: Path, semantic_output: Path, golden: Path, output: Path) -> dict[str, Any]:
+def build_result(fixture_path: Path, expected_path: Path, fixture: dict[str, Any], expected_doc: dict[str, Any], root: Path, pdf: Path, canonical: Path, page_index: Path, standardir: Path, semantic: Path, semantic_output: Path, golden: Path, output: Path) -> dict[str, Any]:
     require(len(fixture["cases"]) == 27, "case count differs")
-    cases = [validate_case(case) for case in fixture["cases"]]
+    expected_outcomes = validate_expected_outcomes(expected_doc, expected_path, [case["id"] for case in fixture["cases"]])
+    cases = [validate_case(case, expected_outcomes) for case in fixture["cases"]]
     require({(case["sequence_presence"], case["component_presence"], case["context"]) for case in cases} == {(sequence_presence, component_presence, context) for sequence_presence in SEQUENCE_PRESENCES for component_presence in COMPONENT_PRESENCES for context in CONTEXTS}, "27-state table incomplete")
     require(sum(case["kind"] == "positive" for case in cases) == 4 and sum(case["kind"] == "negative" for case in cases) == 1 and sum(case["kind"] == "unresolved" for case in cases) == 22, "witness kind counts differ")
     require(len(fixture["mutations"]) == 12, "mutation count differs")
@@ -172,6 +191,7 @@ def build_result(fixture_path: Path, fixture: dict[str, Any], root: Path, pdf: P
     result = {
         "schema_version": fixture["schema_version"], "milestone": "M3", "property": PROPERTY,
         "fixture": str(fixture_path.relative_to(root)), "fixture_sha256": digest(fixture_path),
+        "expected_outcomes": {"path": str(expected_path.relative_to(root)), "sha256": digest(expected_path), "origin": expected_doc["origin"], "comparison": "PASS"},
         "contract": {"schema": fixture["contract"]["schema"], "schema_sha256": digest(root / fixture["contract"]["schema"]), "fixture": fixture["contract"]["fixture"], "fixture_sha256": digest(root / fixture["contract"]["fixture"]), "version": fixture["contract"]["version"]},
         "source": {"document": "J3-24-007", "clause": "7", "rule": "C745", "printed_page": 89, "pdf_sha256": digest(pdf), "canonical_text_sha256": digest(canonical), "page_index_sha256": digest(page_index), "standardir_sha256": digest(standardir), "canonical_lines": [3665, 3666, 3667], "source_span": SOURCE_SPAN, "page_index": {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": PAGE_INDEX_SHA256, "pages": [PAGE]}, "standardir_rules": ["R726", "R731", "R735"]},
         "semantic_items": {"input": "tests/fixtures/m3-c745-semantic-items.sx", "input_sha256": digest(semantic), "canonical_output_sha256": digest(semantic_output), "canonical_output": "PASS"},
@@ -182,32 +202,29 @@ def build_result(fixture_path: Path, fixture: dict[str, Any], root: Path, pdf: P
     return result
 
 
-def self_test() -> None:
-    for sequence_presence in SEQUENCE_PRESENCES:
-        for component_presence in COMPONENT_PRESENCES:
-            for context in CONTEXTS:
-                expected = "UNRESOLVED"
-                if context == "derived-type-def" and sequence_presence == "absent":
-                    expected = "ACCEPTED"
-                elif context == "derived-type-def" and sequence_presence == "present" and component_presence == "one-or-more":
-                    expected = "ACCEPTED"
-                elif context == "derived-type-def" and sequence_presence == "present" and component_presence == "zero":
-                    expected = "REJECTED"
-                require(oracle({"sequence_presence": sequence_presence, "component_presence": component_presence, "context": context}) == expected, f"self-test failed for {sequence_presence}/{component_presence}/{context}")
+def self_test(root: Path) -> None:
+    fixture_path = root / "tests/fixtures/m3-c745-source-backed-v0.json"
+    expected_path = root / EXPECTED_OUTCOMES_PATH
+    fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+    expected_doc = json.loads(expected_path.read_text(encoding="utf-8"))
+    expected_outcomes = validate_expected_outcomes(expected_doc, expected_path, [case["id"] for case in fixture["cases"]])
+    for case in fixture["cases"]:
+        validate_case(case, expected_outcomes)
 
 
 def main() -> int:
+    root = Path(__file__).resolve().parents[2]
     if len(sys.argv) == 2 and sys.argv[1] == "--self-test":
-        self_test()
+        self_test(root)
         print("C745 oracle self-test PASS")
         return 0
-    if len(sys.argv) != 9:
-        raise SystemExit("usage: validate_m3_c745.py fixture semantic-output standardir canonical page-index pdf golden result")
-    fixture_path, semantic_output, standardir, canonical, page_index, pdf, golden, output = map(Path, sys.argv[1:])
-    root = Path(__file__).resolve().parents[2]
+    if len(sys.argv) != 10:
+        raise SystemExit("usage: validate_m3_c745.py fixture expected-outcomes semantic-output standardir canonical page-index pdf golden result")
+    fixture_path, expected_path, semantic_output, standardir, canonical, page_index, pdf, golden, output = map(Path, sys.argv[1:])
     try:
         fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
-        result = build_result(fixture_path, fixture, root, pdf, canonical, page_index, standardir, root / "tests/fixtures/m3-c745-semantic-items.sx", semantic_output, golden, output)
+        expected_doc = json.loads(expected_path.read_text(encoding="utf-8"))
+        result = build_result(fixture_path, expected_path, fixture, expected_doc, root, pdf, canonical, page_index, standardir, root / "tests/fixtures/m3-c745-semantic-items.sx", semantic_output, golden, output)
     except (ContractError, OSError, KeyError, TypeError, ValueError) as error:
         print(f"C745 oracle FAIL: {error}", file=sys.stderr)
         return 1

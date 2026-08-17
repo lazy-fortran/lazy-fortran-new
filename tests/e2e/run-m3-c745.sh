@@ -32,6 +32,7 @@ fi
 mkdir -p -- "$run_dir"
 
 fixture="$ROOT/tests/fixtures/m3-c745-source-backed-v0.json"
+expected_outcomes="$ROOT/tests/fixtures/m3-c745-expected-outcomes-v0.json"
 semantic_input="$ROOT/tests/fixtures/m3-c745-semantic-items.sx"
 canonical_text="$ROOT/.cache/runs/E0001/R000003/j3-24-007.canonical.txt"
 page_index="$ROOT/.cache/runs/E0001/R000003/j3-24-007.pages.index"
@@ -67,6 +68,7 @@ functional_paths=(
     contracts/registry.sx
     tests/e2e/run-m3-c745.sh
     tests/e2e/validate_m3_c745.py
+    tests/fixtures/m3-c745-expected-outcomes-v0.json
     tests/fixtures/m3-c745-semantic-items.sx
     tests/fixtures/m3-c745-source-backed-v0.json
     tests/golden/m3-c745-semantic-items.sx
@@ -98,11 +100,11 @@ fo_sha256="$(sha256sum "$fo_path" | awk '{print $1}')"
 cmp "$run_dir/semantic-items.canonical.sx" "$golden"
 
 python3 "$validator" --self-test >"$run_dir/oracle-self-test.log"
-python3 "$validator" "$fixture" "$run_dir/semantic-items.canonical.sx" "$standardir" "$canonical_text" "$page_index" "$source_pdf" "$golden" "$run_dir/result.json" >"$run_dir/oracle.log"
+python3 "$validator" "$fixture" "$expected_outcomes" "$run_dir/semantic-items.canonical.sx" "$standardir" "$canonical_text" "$page_index" "$source_pdf" "$golden" "$run_dir/result.json" >"$run_dir/oracle.log"
 [ -f "$trace" ] || die "missing committed C745 trace"
 cmp "$run_dir/result.json" "$trace"
 
-python3 - "$run_dir/run-environment.json" "$central_pin" "$central_commit" "$expected_central_commit" "$standard" "$standard_commit" "$fo_path" "$fo_version" "$fo_sha256" "$validator" "$fixture" "$semantic_input" "$standardir" "$canonical_text" "$page_index" "$source_pdf" <<'PY'
+python3 - "$run_dir/run-environment.json" "$central_pin" "$central_commit" "$expected_central_commit" "$standard" "$standard_commit" "$fo_path" "$fo_version" "$fo_sha256" "$validator" "$fixture" "$expected_outcomes" "$semantic_input" "$standardir" "$canonical_text" "$page_index" "$source_pdf" <<'PY'
 import hashlib
 import json
 import platform
@@ -111,7 +113,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-output, central_pin, central_commit, expected_central_commit, standard, standard_commit, fo_path, fo_version, fo_sha256, validator, fixture, semantic_input, standardir, canonical_text, page_index, source_pdf = sys.argv[1:]
+output, central_pin, central_commit, expected_central_commit, standard, standard_commit, fo_path, fo_version, fo_sha256, validator, fixture, expected_outcomes, semantic_input, standardir, canonical_text, page_index, source_pdf = sys.argv[1:]
 
 def digest(path: str) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -130,7 +132,7 @@ def identity(name: str, command: list[str]) -> dict[str, str]:
 record = {
     "central": {"repository": "lazy-fortran-new", "revision_pin": central_pin, "worktree_commit": central_commit, "expected_worktree_commit": expected_central_commit or None, "state": "clean", "functional_tree_matches_pin": True},
     "standard_new": {"repository": standard, "commit": standard_commit, "state": "clean", "build_tree_after": "absent"},
-    "inputs": {"fixture": {"path": "tests/fixtures/m3-c745-source-backed-v0.json", "sha256": digest(fixture)}, "semantic_items": {"path": "tests/fixtures/m3-c745-semantic-items.sx", "sha256": digest(semantic_input)}, "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "sha256": digest(standardir)}, "canonical_text": {"path": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt", "sha256": digest(canonical_text)}, "page_index": {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": digest(page_index)}, "normative_pdf": {"path": ".cache/j3-24-007.pdf", "sha256": digest(source_pdf)}},
+    "inputs": {"fixture": {"path": "tests/fixtures/m3-c745-source-backed-v0.json", "sha256": digest(fixture)}, "expected_outcomes": {"path": "tests/fixtures/m3-c745-expected-outcomes-v0.json", "sha256": digest(expected_outcomes)}, "semantic_items": {"path": "tests/fixtures/m3-c745-semantic-items.sx", "sha256": digest(semantic_input)}, "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "sha256": digest(standardir)}, "canonical_text": {"path": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt", "sha256": digest(canonical_text)}, "page_index": {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": digest(page_index)}, "normative_pdf": {"path": ".cache/j3-24-007.pdf", "sha256": digest(source_pdf)}},
     "toolchain": {"fo": {"path": str(Path(fo_path).resolve()), "version": fo_version, "sha256": fo_sha256}, "python": identity("python3", ["python3", "--version"]), "sha256sum": identity("sha256sum", ["sha256sum", "--version"]), "git": identity("git", ["git", "--version"]), "compiler": version(["gfortran", "--version"]), "poppler": version(["pdftotext", "-v"]), "oracle_sha256": digest(validator)},
     "environment": {"os": platform.system(), "os_release": platform.release(), "architecture": platform.machine(), "python_version": platform.python_version(), "python_path": sys.executable, "locale": {"LANG": "C", "LC_ALL": "C"}},
     "commands": ["M3_C745_EXPECTED_CENTRAL_COMMIT=<pinned-central-revision> tests/e2e/run-m3-c745.sh --fresh", "scripts/check_pins.sh", "scripts/check-contracts.sh", "scripts/check-contracts.sh --self-test", "scripts/fetch.sh j3-24-007", "(cd standard-new && fo clean)", "(cd standard-new && fo)", "(cd standard-new && fo exec --no-build sxsemantic tests/fixtures/m3-c745-semantic-items.sx <run-dir>/semantic-items.canonical.sx)", "python3 tests/e2e/validate_m3_c745.py --self-test", "python3 tests/e2e/validate_m3_c745.py ..."],
