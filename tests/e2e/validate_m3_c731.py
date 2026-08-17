@@ -171,7 +171,7 @@ def validate_contract(doc: dict[str, Any], root: Path) -> None:
         "(enum outcome accepted rejected unresolved)",
         "(enum c731-length-form-state constant-expression non-constant-expression unknown)",
         "(enum c731-context-state character-statement-function statement-function-dummy-argument other unknown)",
-        "(record character-length-constant-use)", "(record semantic-candidate)",
+        "(record character-length-constant-use", "(record semantic-candidate",
     ):
         require(fragment in schema, f"contract schema lacks {fragment}")
     witness = (root / doc["contract"]["fixture"]).read_text(encoding="utf-8")

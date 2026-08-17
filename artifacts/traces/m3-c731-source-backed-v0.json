@@ -1,0 +1,211 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "context": "character-statement-function",
+      "expected": "ACCEPTED",
+      "id": "accepted-constant-character-statement-function",
+      "kind": "positive",
+      "length_form": "constant-expression"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "statement-function-dummy-argument",
+      "expected": "ACCEPTED",
+      "id": "accepted-constant-statement-function-dummy",
+      "kind": "positive",
+      "length_form": "constant-expression"
+    },
+    {
+      "computed": "REJECTED",
+      "context": "character-statement-function",
+      "expected": "REJECTED",
+      "id": "rejected-nonconstant-character-statement-function",
+      "kind": "negative",
+      "length_form": "non-constant-expression"
+    },
+    {
+      "computed": "REJECTED",
+      "context": "statement-function-dummy-argument",
+      "expected": "REJECTED",
+      "id": "rejected-nonconstant-statement-function-dummy",
+      "kind": "negative",
+      "length_form": "non-constant-expression"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "character-statement-function",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-character-statement-function",
+      "kind": "unresolved",
+      "length_form": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "statement-function-dummy-argument",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-statement-function-dummy",
+      "kind": "unresolved",
+      "length_form": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-constant-other",
+      "kind": "unresolved",
+      "length_form": "constant-expression"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-nonconstant-other",
+      "kind": "unresolved",
+      "length_form": "non-constant-expression"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-other",
+      "kind": "unresolved",
+      "length_form": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-constant-unknown-context",
+      "kind": "unresolved",
+      "length_form": "constant-expression"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-nonconstant-unknown-context",
+      "kind": "unresolved",
+      "length_form": "non-constant-expression"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-context",
+      "kind": "unresolved",
+      "length_form": "unknown"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c731-constant-expression-oracle-v0.sx",
+    "fixture_sha256": "4207f8a8e2ecc15b99588d4dd4b1cf6c16333cbe578f0356867ba54f2e57f51e",
+    "schema": "contracts/m3-c731-constant-expression-oracle-v0.sxs",
+    "schema_sha256": "adb310fa2c0fd9ee8cfc3ded558cf224ef8e2ecbb2bd091ffc3a83674010f314",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c731-source-backed-v0.json",
+  "fixture_sha256": "3d725aeea8785c72a45dde00c9abe0a215dc3d1af63dc1857a166cd5d6490214",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-span-start",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-span-length",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-boundary",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-property-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c731.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 2,
+    "UNRESOLVED": 8
+  },
+  "property": "character-statement-function-length-constant-expression",
+  "schema_version": "m3-c731-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "3c120b4eddaca7c58b5d3c886b36920d3ff3ff5dfc5d7961785034a7f762113f",
+    "input": "tests/fixtures/m3-c731-semantic-items.sx",
+    "input_sha256": "3c120b4eddaca7c58b5d3c886b36920d3ff3ff5dfc5d7961785034a7f762113f"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3469,
+      3470
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "pages": [
+        {
+          "length": 3925,
+          "page": 85,
+          "start": 218135
+        }
+      ],
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 85,
+    "rule": "C731",
+    "source_span": {
+      "byte_length": 167,
+      "byte_start": 219036,
+      "page_end": 85,
+      "page_start": 85
+    },
+    "standardir_rules": [
+      "R721"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}
