@@ -55,6 +55,13 @@ E0221/R000606 then selects C752@1 as the next bounded property at canonical
 lines 3842--3844, byte span `241335:223`, over R702/R703/R704/R737/R739. The
 named module-defined type identities are not direct StandardIR rows; unknown
 type identity must remain unresolved.
+E0222/R000615 passes the corrected C752 replay with 6 `ACCEPTED`, 3 `REJECTED`,
+6 `UNRESOLVED`, thirteen rejected mutations, zero model calls and zero semantic
+promotions. Focused review/evidence gate R000616 passes with two independent
+reviewers, so C752 is promoted only as the thirty-second bounded oracle leaf;
+full Core 0 remains open. E0223/R000617 then selects C754@1 as the next bounded
+property at canonical lines 3847--3848, byte span `241715:150`, over existing
+R737/R738/R739/R740 witnesses.
 
 ## Component pins
 
@@ -192,7 +199,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-c752-forbidden-coarray-type-oracle`.
+Current fixture: `T-M3-c754-component-array-spec-oracle`.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
 Clean replay R000527 and focused review R000528 pass. The replay binds C735
 line 3620, page 88, byte span `229534:101`, to existing StandardIR R727/R728;
@@ -242,21 +249,19 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-c752-forbidden-coarray-type-oracle` — implement the bounded C752
-coarray/type-identity oracle. C751 is closed only as a bounded leaf by
-E0220/R000601/R000602; E0221/R000606 selects C752@1.
+ID: `T-M3-c754-component-array-spec-oracle` — implement the bounded C754
+component-array-spec oracle. C752 is closed only as the thirty-second bounded
+leaf by E0222/R000615/R000616; E0223/R000617 selects C754@1.
 
-Verifier: `tests/e2e/run-m3-c752.sh --fresh`. It must consume C752's exact
-source span `241335:223` (canonical lines 3842--3844, printed page 79,
-page-index record 93) and existing StandardIR R702/R703/R704/R737/R739
-witnesses. Its 15-state typed product crosses coarray-spec
-(`absent`, `present`, `unknown`) with component type (`C_PTR`, `C_FUNPTR`,
-`TEAM_TYPE`, `other`, `named-module-type-unknown`). It accepts absent
-coarray-spec for every type and present coarray-spec with other type, rejects
-the three forbidden types when present, and returns `UNRESOLVED` for present
-named-module-type-unknown and all unknown coarray-spec states. D0164 makes the
-named module-defined boundary explicit. It must validate the fixture PDF hash,
-must not parse Fortran, inspect C753/C754, run a model or promote a fact.
+Verifier: `tests/e2e/run-m3-c754.sh --fresh`. It must consume C754's exact
+source span `241715:150` (canonical lines 3847--3848, printed page 79,
+page-index record 93) and existing StandardIR R737/R738/R739/R740 witnesses.
+Its 27-state typed product crosses pointer attribute, allocatable attribute
+and component-array-spec shape, each `absent`, `present` or `unknown`; it must
+preserve unknown states, reject only the selected C754 violation, validate
+source/PDF/page/identity mutations, and record zero model calls and semantic
+promotions. It must not parse Fortran, inspect C753/C755 or broaden the
+property.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -352,9 +357,9 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Implement the selected C752 bounded source-backed property. The exact verifier
-is `tests/e2e/run-m3-c752.sh --fresh`; preserve unresolved named-type identity,
-do not run a model, restart E0172, parse general Fortran, inspect C753/C754 or
+Implement the selected C754 bounded source-backed property. The exact verifier
+is `tests/e2e/run-m3-c754.sh --fresh`; preserve unknown attribute/shape states,
+do not run a model, restart E0172, parse general Fortran, inspect C753/C755 or
 close full M3 by implication.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:

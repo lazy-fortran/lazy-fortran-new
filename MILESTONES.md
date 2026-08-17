@@ -905,16 +905,27 @@ open.
 Regenerate the partition with the `jq` command recorded in
 `artifacts/reports/M3/m3-core0-next-property-selection-v21.md`.
 
-## M3 — next bounded C752 forbidden coarray-type oracle
+## M3 — bounded C752 forbidden coarray-type oracle
 
-The active task is `T-M3-c752-forbidden-coarray-type-oracle`; its exact
-verifier is `tests/e2e/run-m3-c752.sh --fresh`. It will implement the 15-state
+The completed task was `T-M3-c752-forbidden-coarray-type-oracle`; its exact
+verifier was `tests/e2e/run-m3-c752.sh --fresh`. It implemented the 15-state
 product of coarray-spec `absent|present|unknown` and component type
 `C_PTR|C_FUNPTR|TEAM_TYPE|other|named-module-type-unknown`: absent and
 present/other are accepted, present with a forbidden type is rejected, and
 present named-module-type-unknown or unknown coarray-spec states are unresolved.
 This bounded slice does not parse arbitrary Fortran, inspect C753/C754 or
-close full M3 by implication.
+close full M3 by implication. E0222/R000615 and focused review/evidence gate
+R000616 pass, promoting only the bounded C752 leaf.
+
+## M3 — selected C754 component-array-spec relation
+
+Selection status: `PASS`. E0223/R000617 leaves 139 residual rows (81
+`disputed`, 58 `unwitnessed`) and selects C754@1. The source is J3-24-007
+clause 7, canonical lines 3847--3848, printed page 79, byte span `241715:150`,
+over page-index record 93 and existing StandardIR R737/R738/R739/R740. No
+model ran, no semantic fact was promoted, and full M3 remains open.
+Regenerate the partition with the `jq` command in
+`artifacts/reports/M3/m3-core0-next-property-selection-v22.md`.
 
 ## M3 — bounded C601 semantic-oracle successor
 

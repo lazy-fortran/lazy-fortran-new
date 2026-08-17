@@ -699,10 +699,10 @@ TEAM_TYPE are not direct StandardIR rows; D0164 requires an explicit
 is present. This is selection evidence only: no model ran, no semantic fact
 was promoted, and full M3 remains open.
 
-## M3 — next bounded C752 forbidden coarray-type oracle
+## M3 — bounded C752 forbidden coarray-type oracle
 
-The active task is `T-M3-c752-forbidden-coarray-type-oracle`. Its exact
-verifier is `tests/e2e/run-m3-c752.sh --fresh`. The typed candidate crosses
+The completed task was `T-M3-c752-forbidden-coarray-type-oracle`. Its exact
+verifier was `tests/e2e/run-m3-c752.sh --fresh`. The typed candidate crossed
 coarray-spec `absent|present|unknown` with component type
 `C_PTR|C_FUNPTR|TEAM_TYPE|other|named-module-type-unknown`, giving 15 states.
 The oracle must accept absent coarray-spec and present/other, reject present
@@ -710,7 +710,27 @@ with the three forbidden types, and leave present named-module-type-unknown
 and all unknown coarray-spec states unresolved. It must include source, page,
 PDF and identity mutation controls, zero model calls and zero semantic
 promotions. It must not parse general Fortran, inspect C753/C754 or broaden
-the property.
+the property. E0222/R000615 and focused review/evidence gate R000616 pass, so
+C752 is promoted only as the thirty-second bounded oracle leaf; full M3
+remains open.
+
+## M3 — selected C754 component-array-spec relation
+
+Selection status: `PASS`. E0223/R000617 leaves 139 residual rows (81
+`disputed`, 58 `unwitnessed`) and selects C754@1. The source is J3-24-007
+clause 7, canonical lines 3847--3848, printed page 79, byte span
+`241715:150`, contained by page-index record 93. Existing StandardIR supplies
+R737/R738/R739/R740. The selection is source evidence only; no model ran and
+no semantic fact was promoted.
+Regenerate the partition with the `jq` command in
+`artifacts/reports/M3/m3-core0-next-property-selection-v22.md`.
+
+## M3 — next C754 implementation slice
+
+The active task is `T-M3-c754-component-array-spec-oracle`. Its exact verifier
+will be `tests/e2e/run-m3-c754.sh --fresh`. Do not infer attribute presence or
+array shape from model output, parse general Fortran, inspect C753/C755 or close
+full M3 by implication.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
