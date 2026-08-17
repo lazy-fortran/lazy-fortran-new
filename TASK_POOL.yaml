@@ -2360,7 +2360,7 @@ tasks:
       E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
       E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
       E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis
-      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the/analyse.sh
+      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
     output: artifact
     final_observable: >-
       an exact retained Core 0 ledger audit that records the remaining hard,
@@ -2385,7 +2385,7 @@ tasks:
       E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
       E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
       E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis
-      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the/analyse.sh
+      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
     evidence_paths:
       - research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the/manifest.yaml
       - artifacts/reports/M3/m3-core0-closure-audit-v1.md
