@@ -61,8 +61,8 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through the promoted C1106, C702, C601, C603, C721, C725, C718, C723, C729,
-C719 and C738 contracts; D0135/E0186 is the current promoted bounded slice.
+through fifteen bounded contracts, including C717 and C720. The current
+bounded implementation task is C722.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -81,7 +81,7 @@ R000480 and focused review R000481 pass after the R000479 central-revision
 durability failure. C717 is promoted as a bounded slice. C720 clean replay
 R000486 and focused review R000487 pass with an explicit
 expected central worktree revision. C720 is promoted as a bounded slice, and
-`T-M3-core0-next-bounded-property-selection-after-c720` is the active task.
+`T-M3-c722-kind-param-approximation-oracle` is the active task.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -388,14 +388,21 @@ canonical line 3298, page 80 and StandardIR R708. The implementation gate is
 R000486 and R000487 pass. This promotes only the bounded C720 oracle, not a
 full C720 semantic fact.
 
+The next selected contract is D0142/E0191: C722 states that a `kind-param`
+value shall specify an approximation method that exists on the processor. Its
+typed state is `approximation_method = absent | present | unknown`, bound to
+canonical line 3356, page 82 and StandardIR R714. The implementation gate is
+`tests/e2e/run-m3-c722.sh --fresh`; selection replay R000489 passes and no C722
+semantic fact is promoted.
+
 The post-promotion E0181 audit `R000074` passes its deterministic
 merge, validation and witness checks. Reconciliation `R000076` maps the
 pre-C717 set; `R000482` maps fourteen promoted IDs and leaves 157
 outside-promoted rows (90 disputed and 67 unwitnessed). Clean selection replay
 `R000483` selects C720@1; review `R000487` then promotes the bounded slice.
 Post-C720 reconciliation `R000488` leaves 156 outside-promoted rows (89
-disputed and 67 unwitnessed). The next executable task is
-`T-M3-core0-next-bounded-property-selection-after-c720`; the residual inventory remains
+disputed and 67 unwitnessed). Selection replay `R000489` selects C722@1. The
+next executable task is `T-M3-c722-kind-param-approximation-oracle`; the residual inventory remains
 available through
 this exact verifier:
 
@@ -1853,11 +1860,11 @@ D0126/E0176, C601 in D0127/E0177, C603 in D0128/E0178, C721 in D0129/E0179,
 C725 in D0130/E0180, C718 in D0131/E0182, C723 in D0132/E0183 and C729 in
 D0133/E0184, and C719 in D0134/E0185. D0135/E0186 is the promoted C738
 slice, D0136/D0137/E0187 is the promoted C1579 slice, and D0138/E0188 is the
-promoted C1586 slice and bounded C717 slice; fourteen bounded slices are
+promoted C1586 slice and bounded C717 slice; fifteen bounded slices are
 promoted. The E0181 Core 0 audit, pre-C717 reconciliation and post-promotion
-reconciliation are recorded as R000074 through R000076 and R000482; 157
-outside-promoted witness rows remain. Full M3 remains open. The next task
-selects one bounded property from that residual.
+reconciliations are recorded as R000074 through R000076, R000482 and R000488;
+156 outside-promoted witness rows remain. Full M3 remains open. The next task
+implements one bounded property from that residual.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

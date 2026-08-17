@@ -2,7 +2,7 @@
 
 ## Active milestone
 
-M3 — thirteen bounded semantic-oracle slices promoted; full Core 0 remains
+M3 — fifteen bounded semantic-oracle slices promoted; full Core 0 remains
 pending
 
 ## Central goal
@@ -22,8 +22,8 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 is now open through the promoted C1106, C702, C601, C603, C721,
-C725, C718, C723, C729, C719, C738, C1579, C1586 and bounded C717 contracts.
+review. M3 is now open through fifteen bounded contracts, including C717 and
+C720.
 The full Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
@@ -147,24 +147,24 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-core0-next-bounded-property-selection-after-c720`.
-D0141/E0190 selected and promoted the bounded C720 representation-method
-relation over StandardIR R708. Its source binding is canonical line 3298 on
-page 80, with the page-index span and R708 metadata pinned. The typed candidate carries
-`representation_method = absent | present | unknown`; the next gate must return
-ACCEPTED, REJECTED or UNRESOLVED without processor introspection. C717 is
-promoted as a bounded slice and C720 is now a second bounded promoted slice.
-Full M3 remains open; do not resume E0172 or start broad semantic work.
+Current fixture: `T-M3-c722-kind-param-approximation-oracle`. D0142/E0191
+selects the C722 approximation-method relation over StandardIR R714. Its
+source binding is canonical line 3356 on page 82, with the page-index span and
+R714 metadata pinned. The typed candidate carries
+`approximation_method = absent | present | unknown`; the next gate must return
+ACCEPTED, REJECTED or UNRESOLVED without processor introspection. C717 and
+C720 are promoted as bounded slices. Full M3 remains open; do not resume E0172
+or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c720` — select the next
-bounded property after C720 promotion. Full M3 remains open.
+ID: `T-M3-c722-kind-param-approximation-oracle` — verify the bounded C722
+kind-param approximation-method oracle. Full M3 remains open.
 
-Verifier: the exact promoted-contract residual partition in
-`TASK_POOL.yaml`, with C720 included in the promoted set. It must select one
-next represented property or report one precise blocker. It may not start
-broad semantic work or another model experiment.
+Verifier: `tests/e2e/run-m3-c722.sh --fresh` from clean central and standard-new
+checkouts. It must bind C722 line 3356 to R714, reject source and identity
+mutations, and observe zero model calls or semantic promotions. It may not
+evaluate kind expressions, inspect processor capabilities or parse Fortran.
 
 ## Current blocker
 
@@ -211,13 +211,11 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run the next bounded-property selection. Its exact central verifier is:
-
-Post-C720 reconciliation `R000488` records 156 outside-promoted rows: 89
-disputed and 67 unwitnessed.
+Run and record `T-M3-c722-kind-param-approximation-oracle`. The exact central
+verifier is:
 
 ```text
-jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+tests/e2e/run-m3-c722.sh --fresh
 ```
 
 ## Last verified central command

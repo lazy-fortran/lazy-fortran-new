@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c720
+active_task: T-M3-c722-kind-param-approximation-oracle
 
 milestones:
   - id: L0
@@ -2965,15 +2965,16 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c720
     milestone: M3
     title: Select the next bounded property after C720 promotion
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c720-focused-review
     inputs:
       - path: research/runs/2026-08.jsonl#R000487
       - path: research/runs/2026-08.jsonl#R000488
+      - path: research/runs/2026-08.jsonl#R000489
       - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
         sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
       - path: research/decisions/D0141-fifteenth-m3-c720-kind-param-representation-oracle.md
@@ -3029,7 +3030,89 @@ tasks:
     evidence_paths:
       - research/runs/2026-08.jsonl#R000487
       - research/runs/2026-08.jsonl#R000488
+      - research/runs/2026-08.jsonl#R000489
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+
+  - id: T-M3-c722-kind-param-approximation-oracle
+    milestone: M3
+    title: Verify the bounded C722 kind-param approximation-method oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection-after-c720
+    inputs:
+      - path: research/decisions/D0142-sixteenth-m3-c722-kind-param-approximation-oracle.md
+      - path: research/experiments/E0191-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - path: contracts/m3-c722-kind-param-approximation-oracle-v0.sxs
+      - path: contracts/fixtures/m3-c722-kind-param-approximation-oracle-v0.sx
+      - path: tests/fixtures/m3-c722-semantic-items.sx
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v3.md
+      - path: research/runs/2026-08.jsonl#R000489
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - path: artifacts/standards/j3-24-007.toml
+        sha256: becec69a4e43c168e0706efd712eda90a2cabacc29e900a7d3dc4fa4c0f1d7ec
+    writes:
+      - contracts/registry.sx
+      - tests/fixtures/m3-c722-*
+      - tests/golden/m3-c722-*
+      - tests/e2e/run-m3-c722.sh
+      - tests/e2e/validate_m3_c722.py
+      - artifacts/traces/m3-c722-source-backed-v0.json
+      - research/experiments/E0191-can-a-deterministic-source-backed-oracle/**
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      run tests/e2e/run-m3-c722.sh --fresh from clean central and standard-new
+      checkouts; require C722 canonical line 3356 on page 82, R714 metadata,
+      typed present/absent/unknown outcomes, source and identity mutation
+      failures, exact trace comparison and zero model calls or semantic
+      promotions. Do not evaluate kind expressions, inspect processor
+      capabilities, parse Fortran or broaden C722 semantics.
+    output: artifact
+    final_observable: >-
+      a replayable source-backed C722 approximation-method oracle with
+      ACCEPTED, REJECTED and UNRESOLVED outcomes; this does not promote full
+      C722 or M3 Core 0 semantics
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/registry.sx
+        - contracts/m3-c722-kind-param-approximation-oracle-v0.sxs
+        - contracts/fixtures/m3-c722-kind-param-approximation-oracle-v0.sx
+        - tests/fixtures/m3-c722-*
+        - tests/golden/m3-c722-*
+        - tests/e2e/run-m3-c722.sh
+        - tests/e2e/validate_m3_c722.py
+        - artifacts/traces/m3-c722-source-backed-v0.json
+        - research/experiments/E0191-can-a-deterministic-source-backed-oracle/**
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c720]
+    verifier_command: tests/e2e/run-m3-c722.sh --fresh
+    evidence_paths:
+      - research/decisions/D0142-sixteenth-m3-c722-kind-param-approximation-oracle.md
+      - research/experiments/E0191-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v3.md
+      - research/runs/2026-08.jsonl#R000489
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "ba33a89f34ef89c2a1f7787988b95a340a2773ff"
+  lazy-fortran-new: "0c6d2e5fc33bb1d5a22811193f2b4c7f7fb1dfac"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -23,12 +23,16 @@ inputs:
   standardir_source: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
   standardir_source_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
   selection_report: artifacts/reports/M3/m3-core0-next-property-selection-v3.md
+  selection_report_sha256: a53fa59cce3e21bec46bf2d487dcb7cef4d6b844f03731f244b594ca44e41aec
   selected_row: .cache/runs/E0181/R000002/analysis/merged/selected-rows.jsonl
   selected_row_key: C722@1
   selected_row_sha256: aeb56a60f57a7edfe926fc9e8f2d1b84a87a52c3b91d8e6971423f7bc1f99fe5
   contract_schema: contracts/m3-c722-kind-param-approximation-oracle-v0.sxs
+  contract_schema_sha256: 7413686a9f22c62bf7e975147b2398f260bb0a85fbd8e38d037da064219435e0
   contract_fixture: contracts/fixtures/m3-c722-kind-param-approximation-oracle-v0.sx
+  contract_fixture_sha256: 29ba0b8a4229898c044510332b116017b5ce1ec4cf62d22066510382c48f401a
   semantic_items: tests/fixtures/m3-c722-semantic-items.sx
+  semantic_items_sha256: 0f9720237b4e30e78cf4b647e3cc34d0509cf270c10ca69b979d6d8bd91aa2a3
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
