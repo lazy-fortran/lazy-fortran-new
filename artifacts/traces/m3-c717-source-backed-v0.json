@@ -3,15 +3,7 @@
     {
       "computed": "ACCEPTED",
       "expected": "ACCEPTED",
-      "id": "positive-nonnegative-supported",
-      "kind": "positive",
-      "kind_value": "nonnegative",
-      "representation_method": "present"
-    },
-    {
-      "computed": "ACCEPTED",
-      "expected": "ACCEPTED",
-      "id": "positive-zero-supported",
+      "id": "accepted-nonnegative-supported",
       "kind": "positive",
       "kind_value": "nonnegative",
       "representation_method": "present"
@@ -19,7 +11,23 @@
     {
       "computed": "REJECTED",
       "expected": "REJECTED",
-      "id": "negative-negative-value",
+      "id": "rejected-missing-method",
+      "kind": "negative",
+      "kind_value": "nonnegative",
+      "representation_method": "absent"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-missing-method-state",
+      "kind": "unresolved",
+      "kind_value": "nonnegative",
+      "representation_method": "unknown"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-negative-value",
       "kind": "negative",
       "kind_value": "negative",
       "representation_method": "present"
@@ -27,10 +35,18 @@
     {
       "computed": "REJECTED",
       "expected": "REJECTED",
-      "id": "negative-missing-method",
+      "id": "rejected-negative-and-absent",
       "kind": "negative",
-      "kind_value": "nonnegative",
+      "kind_value": "negative",
       "representation_method": "absent"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-negative-known-before-unknown",
+      "kind": "negative",
+      "kind_value": "negative",
+      "representation_method": "unknown"
     },
     {
       "computed": "UNRESOLVED",
@@ -41,23 +57,31 @@
       "representation_method": "present"
     },
     {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-unknown-kind-known-absent",
+      "kind": "negative",
+      "kind_value": "unknown",
+      "representation_method": "absent"
+    },
+    {
       "computed": "UNRESOLVED",
       "expected": "UNRESOLVED",
-      "id": "unresolved-representation-method",
+      "id": "unresolved-both-states",
       "kind": "unresolved",
-      "kind_value": "nonnegative",
+      "kind_value": "unknown",
       "representation_method": "unknown"
     }
   ],
   "contract": {
     "fixture": "contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx",
-    "fixture_sha256": "7d18f8b14dc8eaf9bbc3195449df65712a31a018e7061a97508b00bf3693091a",
+    "fixture_sha256": "3a7a5df6d1fb592c461ac680d4714a9c2a0177f7a53fa0342a7ad8d629f5f064",
     "schema": "contracts/m3-c717-kind-selector-oracle-v0.sxs",
-    "schema_sha256": "cb5e09f38c4b1819e2e0795080dc66d91e1d4c0daca54b6492e56d42208b486f",
+    "schema_sha256": "6cba1d26eba9620adda32adc85a231224913dd5b00ea89d9d8bd71ee0a248e7a",
     "version": 0
   },
   "fixture": "tests/fixtures/m3-c717-source-backed-v0.json",
-  "fixture_sha256": "ad99bef01ded46fd129fcd74d171b5d410203395648bf7af6094355a0e12ac23",
+  "fixture_sha256": "b6de5d280248cc5ed3f329b497fae0b1c1d907024f9f33e72ea4d414d116dbf2",
   "milestone": "M3",
   "model_calls": 0,
   "mutation_controls": [
@@ -88,14 +112,18 @@
     {
       "id": "page-index-identity",
       "result": "REJECTED"
+    },
+    {
+      "id": "precedence-policy",
+      "result": "REJECTED"
     }
   ],
   "oracle": "tests/e2e/validate_m3_c717.py",
   "origin": "MECHANICAL",
   "outcome_counts": {
-    "ACCEPTED": 2,
-    "REJECTED": 2,
-    "UNRESOLVED": 2
+    "ACCEPTED": 1,
+    "REJECTED": 5,
+    "UNRESOLVED": 3
   },
   "property": "kind-selector-legality",
   "schema_version": "m3-c717-source-backed-v0",

@@ -2,6 +2,7 @@
   "schema_version": "m3-c717-source-backed-v0",
   "origin": "HUMAN",
   "property": "kind-selector-legality",
+  "precedence": "known-violation-before-unknown",
   "contract": {
     "schema": "contracts/m3-c717-kind-selector-oracle-v0.sxs",
     "fixture": "contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx",
@@ -50,28 +51,40 @@
   },
   "cases": [
     {
-      "id": "positive-nonnegative-supported",
+      "id": "accepted-nonnegative-supported",
       "kind": "positive",
       "expected": "ACCEPTED",
       "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "present"}
     },
     {
-      "id": "positive-zero-supported",
-      "kind": "positive",
-      "expected": "ACCEPTED",
-      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "present"}
+      "id": "rejected-missing-method",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "absent"}
     },
     {
-      "id": "negative-negative-value",
+      "id": "unresolved-missing-method-state",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "unknown"}
+    },
+    {
+      "id": "rejected-negative-value",
       "kind": "negative",
       "expected": "REJECTED",
       "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "negative", "representation_method": "present"}
     },
     {
-      "id": "negative-missing-method",
+      "id": "rejected-negative-and-absent",
       "kind": "negative",
       "expected": "REJECTED",
-      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "absent"}
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "negative", "representation_method": "absent"}
+    },
+    {
+      "id": "rejected-negative-known-before-unknown",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "negative", "representation_method": "unknown"}
     },
     {
       "id": "unresolved-kind-value",
@@ -80,10 +93,16 @@
       "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "unknown", "representation_method": "present"}
     },
     {
-      "id": "unresolved-representation-method",
+      "id": "rejected-unknown-kind-known-absent",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "unknown", "representation_method": "absent"}
+    },
+    {
+      "id": "unresolved-both-states",
       "kind": "unresolved",
       "expected": "UNRESOLVED",
-      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "unknown"}
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "unknown", "representation_method": "unknown"}
     }
   ],
   "mutations": [
@@ -93,6 +112,7 @@
     {"id": "canonical-source-line", "path": ["source", "canonical_lines", 1, "text"], "value": "method that exists on the processor shall not."},
     {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C718"},
     {"id": "contract-property-identity", "path": ["property"], "value": "other-property"},
-    {"id": "page-index-identity", "path": ["source", "page_index", "start"], "value": 204807}
+    {"id": "page-index-identity", "path": ["source", "page_index", "start"], "value": 204807},
+    {"id": "precedence-policy", "path": ["precedence"], "value": "unknown-before-known"}
   ]
 }

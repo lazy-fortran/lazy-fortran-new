@@ -54,6 +54,8 @@ def c717_oracle(candidate: dict[str, Any]) -> str:
 
     kind_value = candidate["kind_value"]
     representation_method = candidate["representation_method"]
+    if kind_value == "negative" or representation_method == "absent":
+        return "REJECTED"
     if kind_value == "unknown" or representation_method == "unknown":
         return "UNRESOLVED"
     if kind_value == "nonnegative" and representation_method == "present":
@@ -144,21 +146,22 @@ def validate_semantic_item(doc: dict[str, Any], root: Path, semantic_input: Path
 
 def validate_contract_schema(doc: dict[str, Any], root: Path) -> None:
     schema = (root / doc["contract"]["schema"]).read_text(encoding="utf-8")
-    for fragment in ("(record kind-selector-value-use", "(kind-value kind-value-state)", "(representation-method representation-method-state)", "(record semantic-candidate"):
+    for fragment in ("(enum precedence known-violation-before-unknown)", "(record kind-selector-value-use", "(kind-value kind-value-state)", "(representation-method representation-method-state)", "(record semantic-candidate"):
         require(fragment in schema, f"contract schema lacks {fragment}")
 
 
 def validate_contract_fixture(doc: dict[str, Any], root: Path) -> None:
     text = (root / doc["contract"]["fixture"]).read_text(encoding="utf-8")
-    for fragment in ("(contract m3-c717-kind-selector-oracle)", "(property kind-selector-legality)", "(document J3-24-007)", "(clause 7)", "(rule C717)", "(page 80)", "(source-hash " + SOURCE_SHA256 + ")"):
+    for fragment in ("(contract m3-c717-kind-selector-oracle)", "(property kind-selector-legality)", "(precedence known-violation-before-unknown)", "(document J3-24-007)", "(clause 7)", "(rule C717)", "(page 80)", "(source-hash " + SOURCE_SHA256 + ")"):
         require(fragment in text, f"contract fixture lacks {fragment}")
 
 
 def validate_source_binding(doc: dict[str, Any], root: Path, source_pdf: Path, canonical_path: Path, page_index_path: Path, standardir_path: Path, semantic_input: Path) -> None:
-    exact_keys(doc, {"schema_version", "origin", "property", "contract", "source", "semantic_item", "cases", "mutations"}, "fixture")
+    exact_keys(doc, {"schema_version", "origin", "property", "precedence", "contract", "source", "semantic_item", "cases", "mutations"}, "fixture")
     require(doc["schema_version"] == "m3-c717-source-backed-v0", "fixture schema version differs")
     require(doc["origin"] == "HUMAN", "fixture origin is not HUMAN")
     require(doc["property"] == PROPERTY, "fixture property differs")
+    require(doc["precedence"] == "known-violation-before-unknown", "fixture precedence differs")
     validate_contract_schema(doc, root)
     validate_contract_fixture(doc, root)
     source = doc["source"]
@@ -195,7 +198,7 @@ def set_path(document: dict[str, Any], path: list[Any], value: Any) -> None:
 
 
 def validate_fixture_shape(doc: dict[str, Any]) -> None:
-    require(isinstance(doc["cases"], list) and len(doc["cases"]) == 6, "fixture case count differs")
+    require(isinstance(doc["cases"], list) and len(doc["cases"]) == 9, "fixture case count differs")
     ids: set[str] = set()
     results = []
     for case in doc["cases"]:
@@ -204,10 +207,23 @@ def validate_fixture_shape(doc: dict[str, Any]) -> None:
         ids.add(result["id"])
         results.append(result)
     require({item["kind"] for item in results} == {"positive", "negative", "unresolved"}, "fixture witness kinds are incomplete")
-    require(sum(item["kind"] == "positive" for item in results) == 2, "positive witness count differs")
-    require(sum(item["kind"] == "negative" for item in results) == 2, "negative witness count differs")
-    require(sum(item["kind"] == "unresolved" for item in results) == 2, "unresolved witness count differs")
-    require(len(doc["mutations"]) == 7, "mutation control count differs")
+    require(sum(item["kind"] == "positive" for item in results) == 1, "positive witness count differs")
+    require(sum(item["kind"] == "negative" for item in results) == 5, "negative witness count differs")
+    require(sum(item["kind"] == "unresolved" for item in results) == 3, "unresolved witness count differs")
+    expected_table = {
+        ("nonnegative", "present"): "ACCEPTED",
+        ("nonnegative", "absent"): "REJECTED",
+        ("nonnegative", "unknown"): "UNRESOLVED",
+        ("negative", "present"): "REJECTED",
+        ("negative", "absent"): "REJECTED",
+        ("negative", "unknown"): "REJECTED",
+        ("unknown", "present"): "UNRESOLVED",
+        ("unknown", "absent"): "REJECTED",
+        ("unknown", "unknown"): "UNRESOLVED",
+    }
+    observed_table = {(item["kind_value"], item["representation_method"]): item["computed"] for item in results}
+    require(observed_table == expected_table, "fixture does not cover the complete C717 truth table")
+    require(len(doc["mutations"]) == 8, "mutation control count differs")
     for mutation in doc["mutations"]:
         exact_keys(mutation, {"id", "path", "value"}, f"mutation {mutation.get('id', '<missing>')}")
         require(isinstance(mutation["path"], list) and mutation["path"], "mutation path is invalid")
@@ -252,10 +268,14 @@ def build_result(fixture_path: Path, fixture: dict[str, Any], root: Path, source
 def self_test() -> None:
     cases = [
         ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "present"}, "ACCEPTED"),
-        ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "negative", "representation_method": "present"}, "REJECTED"),
         ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "absent"}, "REJECTED"),
-        ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "unknown", "representation_method": "present"}, "UNRESOLVED"),
         ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "unknown"}, "UNRESOLVED"),
+        ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "negative", "representation_method": "present"}, "REJECTED"),
+        ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "negative", "representation_method": "absent"}, "REJECTED"),
+        ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "negative", "representation_method": "unknown"}, "REJECTED"),
+        ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "unknown", "representation_method": "present"}, "UNRESOLVED"),
+        ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "unknown", "representation_method": "absent"}, "REJECTED"),
+        ({"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "unknown", "representation_method": "unknown"}, "UNRESOLVED"),
     ]
     for candidate, expected in cases:
         require(c717_oracle(candidate) == expected, f"self-test outcome differs: {expected}")

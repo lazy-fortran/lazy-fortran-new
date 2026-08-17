@@ -352,7 +352,8 @@ Runs recorded: 528
 | [D0136](decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md) | superseded by D0137 |  | Twelfth M3 slice uses C1579 RESULT entry-name exclusion |
 | [D0137](decisions/D0137-c1579-printed-page-correction.md) | accepted | Supersedes D0136 | Correct C1579 printed-page binding |
 | [D0138](decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md) | accepted |  | Thirteenth M3 slice uses C1586 statement-function self-name exclusion |
-| [D0139](decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md) | accepted |  | Fourteenth M3 slice uses C717 kind-selector legality |
+| [D0139](decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md) | amended by D0140 |  | Fourteenth M3 slice uses C717 kind-selector legality |
+| [D0140](decisions/D0140-c717-known-violation-precedence.md) | accepted | Amends D0139 | Complete the C717 oracle truth table with known-violation precedence |
 
 ### Proposed decisions
 

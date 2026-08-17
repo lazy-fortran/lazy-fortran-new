@@ -1,5 +1,6 @@
 (schema m3-c717-kind-selector-oracle-v0
   (primitive name)
+  (enum precedence known-violation-before-unknown)
   (enum outcome accepted rejected unresolved)
   (enum kind-value-state nonnegative negative unknown)
   (enum representation-method-state absent present unknown)
