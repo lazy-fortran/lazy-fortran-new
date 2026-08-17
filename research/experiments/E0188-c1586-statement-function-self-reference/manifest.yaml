@@ -4,12 +4,12 @@ question: >
   Can a deterministic source-backed oracle enforce the C1586 prohibition on a
   statement function referring to itself, using only the represented R1547
   statement-function shape and typed name-relation facts?
-status: draft         # draft | running | reported | abandoned
+status: running      # draft | running | reported | abandoned
 opened: "2026-08-17"
 
 # Every commit the experiment depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "2b4d3e49df2d66a4ef595f29c28c391c54c4f7ae"
+  lazy-fortran-new: "e3599a4e46391d50800d7da0afd5964beb961b00"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
