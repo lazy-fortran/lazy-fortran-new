@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-central-source-executable-replay
+  - T-L3-focused-review
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-central-source-executable-replay
+active_task: T-L3-focused-review
 
 milestones:
   - id: L0
@@ -7032,10 +7032,11 @@ tasks:
       - component: fortback-new
         commit: c578904a8d18e9d5410934f5489a21d5dadfad05
       - path: research/experiments/E0233-can-the-first-raw-source-program-reach-t/manifest.yaml
-        sha256: a02239c5d62b7400279843e6d56f8461e74bdaff4eed2c00b8b96d8f14dca403
+        sha256: fc40718f13f733531dfe5d5517062dff41507a01b59c85b2ab0510a89154bc85
       - path: artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
-        sha256: 8a49b80a3435b122b7490cf4de24ce97f770350ab28c91ecdf36e27ad5e976d8
+        sha256: c6e9bdaeff462091de11ca57c0afe96c78406e90931183561e5922a1a76893c0
       - path: research/runs/2026-08.jsonl#R000645
+      - path: research/runs/2026-08.jsonl#R000646
     output: clean L3 source-to-executable trace R000645
     integration: controller-only
     estimated_cost: medium
@@ -7048,6 +7049,55 @@ tasks:
       trace, and record zero model calls and zero semantic promotions.
     verifier_command: tests/e2e/run-l3.sh --fresh
     final_observable: executable exit status zero and stable rejected diagnostic; review pending
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+  - id: T-L3-focused-review
+    milestone: L3
+    title: Focused independent review of the raw-source executable slice
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-L3-central-source-executable-replay]
+    inputs:
+      - research/decisions/D0173-pivot-to-raw-source-executable-slice.md
+      - research/experiments/E0233-can-the-first-raw-source-program-reach-t/manifest.yaml
+      - artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
+      - artifacts/traces/l3-raw-program-v0.json
+      - research/runs/2026-08.jsonl#R000646
+      - tests/e2e/run-l3.sh
+      - tests/e2e/validate_l3.py
+      - component: fortfront-new
+        commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
+      - component: ffc-new
+        commit: bcaadcb58c24af613204aa398541c0d2e35abf91
+      - component: fortback-new
+        commit: c578904a8d18e9d5410934f5489a21d5dadfad05
+    output: two independent medium-depth Luna review reports
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: l3-focused-review
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - artifacts/reports/L3/l3-focused-review-*.md
+        - research/runs/2026-08.jsonl
+        - TASK_POOL.yaml
+        - STATUS.md
+        - MILESTONES.md
+    verifier: >-
+      two independent medium-depth Luna reviewers inspect the frozen central
+      revision 7a3dbb3a963bbcb4f3b3d5aa4c9bccb83340d420 and the pinned
+      component revisions for scope, source/contract lineage, independent
+      oracle, negative control, reproducibility and promotion safety. They
+      must return PASS or the first fatal issue. No reviewer may edit or
+      promote the claim.
+    verifier_command: >-
+      L3_EXPECTED_CENTRAL_COMMIT=7a3dbb3a963bbcb4f3b3d5aa4c9bccb83340d420
+      tests/e2e/run-l3.sh --fresh
+    final_observable: focused review PASS or one precise fatal blocker
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 integration_cycle:

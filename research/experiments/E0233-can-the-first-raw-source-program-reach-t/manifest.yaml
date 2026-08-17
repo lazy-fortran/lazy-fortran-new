@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "9eb04cc00892d4bda6b5e79b58ebfb03d7e24d07"
+  lazy-fortran-new: "7a3dbb3a963bbcb4f3b3d5aa4c9bccb83340d420"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
   fortfront-new: "89b470760745cc4fd02c142bcb3e44f90a688a93"
   ffc-new: "bcaadcb58c24af613204aa398541c0d2e35abf91"
@@ -97,7 +97,7 @@ analysis: >-
   tests/e2e/run-l3.sh --fresh
 
 result:
-  technical_run: research/runs/2026-08.jsonl#R000645
+  technical_run: research/runs/2026-08.jsonl#R000646
   technical_status: PASS
   promotion_status: PENDING-REVIEW
   report: artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md

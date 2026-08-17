@@ -30,7 +30,7 @@ those observations with the command above; the committed trace is
 `artifacts/traces/l3-raw-program-v0.json` with SHA-256
 `aacc3581d9b35667af56318bb9d9fc96d587803551d7965ede9d4877d80ac3a2`.
 
-The replay used central revision `9eb04cc00892d4bda6b5e79b58ebfb03d7e24d07`,
+The replay used central revision `7a3dbb3e0a7ad88d67303ab8b7a1c29727583a94`,
 `fortfront-new` revision `89b470760745cc4fd02c142bcb3e44f90a688a93`,
 `ffc-new` revision `bcaadcb58c24af613204aa398541c0d2e35abf91`, and
 `fortback-new` revision `c578904a8d18e9d5410934f5489a21d5dadfad05`.
