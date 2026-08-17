@@ -2,11 +2,13 @@ id: "E0185"
 title: "Deterministic C719 kind-param nonnegative oracle"
 question: >
   Can a deterministic oracle enforce C719 kind-param nonnegative legality
-status: running        # draft | running | reported | abandoned
+status: reported       # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 candidate_run: R000004
 candidate_runs: [R000001, R000002, R000003, R000004]
+reported_run: R000004
+reported_runs: [R000004, R000051, R000052]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
