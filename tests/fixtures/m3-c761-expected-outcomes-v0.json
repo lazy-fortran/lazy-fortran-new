@@ -1,0 +1,1 @@
+{"origin":"MECHANICAL","outcomes":{"pointer-absent":"REJECTED","pointer-present":"ACCEPTED","pointer-unknown":"UNRESOLVED"},"property":"pointer-presence","schema_version":"m3-c761-expected-outcomes-v0","source_rule":"C761"}

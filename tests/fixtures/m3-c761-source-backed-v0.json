@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {"pointer_presence": "present"},
+        "id": "pointer-present",
+        "property": "pointer-presence",
+        "source": {"clause": "7", "document": "J3-24-007", "page": 79, "rule": "C761", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"},
+        "span": {"byte_length": 74, "byte_start": 242981, "page_end": 93, "page_start": 93}
+      },
+      "expected": "ACCEPTED", "id": "pointer-present", "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "REJECTED",
+        "fact": {"pointer_presence": "absent"},
+        "id": "pointer-absent",
+        "property": "pointer-presence",
+        "source": {"clause": "7", "document": "J3-24-007", "page": 79, "rule": "C761", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"},
+        "span": {"byte_length": 74, "byte_start": 242981, "page_end": 93, "page_start": 93}
+      },
+      "expected": "REJECTED", "id": "pointer-absent", "kind": "negative"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {"pointer_presence": "unknown"},
+        "id": "pointer-unknown",
+        "property": "pointer-presence",
+        "source": {"clause": "7", "document": "J3-24-007", "page": 79, "rule": "C761", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"},
+        "span": {"byte_length": 74, "byte_start": 242981, "page_end": 93, "page_start": 93}
+      },
+      "expected": "UNRESOLVED", "id": "pointer-unknown", "kind": "unresolved"
+    }
+  ],
+  "contract": {"fixture": "contracts/fixtures/m3-c761-pointer-presence-v0.sx", "schema": "contracts/m3-c761-pointer-presence-v0.sxs", "version": 0},
+  "mutation_controls": ["source-rule", "printed-page", "pdf-page", "ledger-page", "canonical-hash", "page-index-hash", "standardir-hash", "standardir-ref", "contract-version", "fixture-case", "semantic-item-hash"],
+  "origin": "LLM",
+  "property": "pointer-presence",
+  "schema_version": "m3-c761-source-backed-v0",
+  "semantic_item": {"clause": "7", "document": "J3-24-007", "id": "S-C761", "origin": "llm", "page": 79, "path": "tests/fixtures/m3-c761-semantic-items.sx", "resolution": "disputed", "rule": "C761", "sha256": "125d83e3a56b58b284e27f8bc75f78d1366f01e9867dc948ed183a55633d969d", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e", "subject": "pointer-presence"},
+  "source": {
+    "canonical_lines": [{"line": 3871, "text": "9 C761 (R741) POINTER shall appear in each proc-component-attr-spec-list."}],
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7", "document": "J3-24-007", "ledger_page": 93,
+    "page_index": {"pages": [{"length": 2451, "page": 93, "start": 239957}], "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"},
+    "pdf_page": 94, "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2", "printed_page": 79, "rule": "C761",
+    "source_span": {"byte_length": 74, "byte_start": 242981, "page_end": 93, "page_start": 93}, "standard_rule": "R741",
+    "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "rows": [{"byte_length": 118, "byte_start": 242577, "lhs": "proc-component-def-stmt", "occurrence": 91, "page": 94, "rule": "R741"}, {"byte_length": 96, "byte_start": 242765, "lhs": "proc-component-attr-spec", "occurrence": 92, "page": 94, "rule": "R742"}], "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"}
+  }
+}
