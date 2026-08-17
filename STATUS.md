@@ -140,7 +140,7 @@ Last promoted fixture: `T-M3-c729-semantic-oracle` — replay `R000003` and
 focused review `R000044` pass. C729 is promoted as a bounded slice; full M3
 remains open.
 
-Active candidate: `T-M3-c719-semantic-oracle` — first replay `R000047` passes;
+Active candidate: `T-M3-c719-semantic-oracle` — replay `R000048` passes;
 two focused reviews remain before bounded promotion. It binds C719 line 3297
 to R709 and uses typed kind-param presence/value states. It must not resume
 E0172 or start broad semantic work.
@@ -152,7 +152,7 @@ nonnegative semantic oracle. The C729 predecessor is promoted; full M3
 remains open.
 
 Verifier: `tests/e2e/run-m3-c719.sh --fresh` from clean central and component
-checkouts. The first authoritative replay is R000047; it includes the pinned
+checkouts. The authoritative replay is R000048; it includes the pinned
 source and StandardIR gates, independent oracle, five mutation controls,
 exact trace comparison and zero model/promotion counters. Focused review is
 pending.
@@ -182,7 +182,7 @@ unresolved rows, 94 disputed rows and 69 unwitnessed rows across the retained
 287-row ledger. The corrected C718 replay and focused reviews are green. The
 C723 replay and focused review are green. The C729 replay and focused review
 are green; R000043 retains the earlier reproducibility failure. C719 replay
-R000047 is green and focused review is pending. The nine promoted slices and
+R000048 is green and focused review is pending. The nine promoted slices and
 the C719 candidate cannot close the complete ledger gate. A green bounded
 slice alone does not close full M3.
 Regenerate the E0181 counts with:
@@ -193,7 +193,7 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run two focused independent reviews of C719 against R000047. If both pass,
+Run two focused independent reviews of C719 against R000048. If both pass,
 promote only this bounded slice; then reassess the E0181 residual. Do not
 resume E0172, start broad parsing/semantic work, or promote a model fact.
 
@@ -221,7 +221,7 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   `PASS`. C729 replay `tests/e2e/run-m3-c729.sh --fresh` is `PASS` in R000042
   and final clean-checkout replay R000045 is `PASS`; focused review R000044
   is `PASS`. C719 replay `tests/e2e/run-m3-c719.sh --fresh` is `PASS` in
-  R000047 and awaits focused review; nine bounded slices are promoted and
+  R000048 and awaits focused review; nine bounded slices are promoted and
   full M3 remains open.
 ```
 
