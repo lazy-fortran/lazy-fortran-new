@@ -2,13 +2,13 @@ id: "E0189"
 title: "Deterministic C717 kind-selector legality oracle"
 question: >
   Can a deterministic source-backed oracle enforce C717 kind-selector legality
-status: reported        # draft | running | reported | abandoned
+status: running         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: "2026-08-17"
+closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "c41be6af260aefdab28ec411b2e3a33698e5aa8a"
+  lazy-fortran-new: "fe6790d488b825216d072d3e3b2c685078e1a2c1"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -92,7 +92,11 @@ result:
   selection_run: research/runs/2026-08.jsonl#R000076
   selected_row_key: C717@1
   selection_status: PASS
-  implementation_status: CENTRAL_REPLAY_PASS_BOUNDED_ONLY
-  replay_run: research/runs/2026-08.jsonl#R000077
-  result_sha256: ead5ee195bc51063f9278d59e88f9367cae6541085a5b305d82c765f7dc17b5a
-  review_status: PENDING
+  implementation_status: CORRECTION_PENDING_AFTER_REVIEW
+  failed_review_packet: .cache/runs/E0189/R000001
+  failed_review_reports:
+    - artifacts/reports/M3/c717-semantic-review-v0.md
+    - artifacts/reports/M3/c717-reproducibility-review-v0.md
+  correction_decision: research/decisions/D0140-c717-known-violation-precedence.md
+  corrected_replay_run: PENDING_UNIQUE_RUN_ID
+  review_status: NEEDS_FIX
