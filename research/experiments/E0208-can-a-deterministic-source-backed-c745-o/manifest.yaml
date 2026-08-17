@@ -2,7 +2,7 @@ id: "E0208"
 title: "Bounded C745 SEQUENCE component-presence oracle"
 question: >
   Can a deterministic source-backed C745 oracle enforce the SEQUENCE component-presence obligation?
-status: draft            # draft | running | reported | abandoned
+status: running         # draft | running | reported | abandoned
 opened: "2026-08-17"
 closed: ""
 
@@ -83,3 +83,19 @@ gate: >-
 analysis: >-
   Controller-owned bounded C745 replay report
   artifacts/reports/M3/m3-c745-source-backed-v0.md
+
+result:
+  replay_run: research/runs/2026-08.jsonl#R000547
+  central_revision: ed172bad35dc758cd5490c7440a9039a93f115d5
+  functional_revision: 06b4382072f8af49f16368c7cb57631accec8f1e
+  standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
+  trace: artifacts/traces/m3-c745-source-backed-v0.json
+  trace_sha256: 06f2c26c5c051d24229e09215b8a31dffe481a06c41bd57c542a282de3e0247f
+  run_environment: .cache/runs/E0208/R000005/run-environment.json
+  run_environment_sha256: b6c52f18a80da351c1927a1668f4d0cacf9fbec1d5ce30e30a5db31e6ac831a4
+  outcome_counts: {accepted: 4, rejected: 1, unresolved: 22}
+  mutation_controls: 12
+  model_calls: 0
+  semantic_promotions: 0
+  focused_review: artifacts/reports/M3/m3-c745-focused-review-v0.md
+  status: REPLAY-PASS-REVIEW-PENDING

@@ -92,7 +92,9 @@ as its bounded END TYPE name relation oracle. The post-C744 partition has 147
 residual rows (84 disputed and 63 unwitnessed), with C745@1 first. E0207/R000542
 binds C745 to canonical lines 3665--3667, page 89, byte span `232141:276`,
 over R726/R731/R735. The active task implements the bounded SEQUENCE
-component-presence relation.
+component-presence relation. E0208/R000547 now passes the clean replay with a
+human-authored independent expected-outcome table; focused review remains
+pending and C745 is not yet promoted.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -583,8 +585,11 @@ promotions. C744 is promoted only as this bounded oracle; post-C744
 reconciliation leaves 147 residual rows (84 disputed and 63 unwitnessed), with
 C745@1 first. E0207/R000542 selects the first C745 obligation over R726/R731/R735
 at canonical lines 3665--3667, page 89, byte span `232141:276`. D0151 defines
-the typed SEQUENCE component-presence relation; the next bounded task
-implements it without parsing, real component counting or semantic promotion.
+the typed SEQUENCE component-presence relation. E0208/R000547 passes the
+corrected clean replay with 4 `ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve
+rejected mutations, zero model calls and zero semantic promotions. The focused
+review is the remaining gate; this slice does not parse, count real components
+or promote a semantic fact.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

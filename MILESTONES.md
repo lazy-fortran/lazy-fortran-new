@@ -690,6 +690,33 @@ Evidence: `research/decisions/D0151-c745-sequence-component-presence-relation.md
 `R000541` and corrected `R000542`. The next task implements this bounded
 oracle only.
 
+## M3 — bounded C745 SEQUENCE component-presence oracle implementation
+
+Implementation replay status: `PASS`; focused review is pending. Full M3
+remains `OPEN` and C745 is not yet promoted.
+
+The implementation binds C745 to canonical lines 3665--3667, page 89 and byte
+span `232141:276`, over StandardIR R726/R731/R735. Its typed product varies
+SEQUENCE presence, component presence and context across 27 states. A
+human-authored expected-outcome table is consumed as the independent behavioral
+oracle. The corrected replay records 4 `ACCEPTED`, 1 `REJECTED`, 22
+`UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
+promotions. It does not parse definitions, count real components, evaluate
+the other C745 obligations or claim full M3.
+
+Regenerate the replay with:
+
+```text
+M3_C745_EXPECTED_CENTRAL_COMMIT=ed172bad35dc758cd5490c7440a9039a93f115d5 tests/e2e/run-m3-c745.sh --fresh
+```
+
+Evidence: `research/experiments/E0208-can-a-deterministic-source-backed-c745-o/manifest.yaml`,
+`tests/fixtures/m3-c745-expected-outcomes-v0.json`,
+`artifacts/traces/m3-c745-source-backed-v0.json`,
+`artifacts/reports/M3/m3-c745-source-backed-v0.md`, retained replay and review
+runs `R000543`--`R000550`, and retained failed-review report
+`artifacts/reports/M3/m3-c745-focused-review-v0.md`.
+
 ## M3 — bounded C601 semantic-oracle successor
 
 Bounded-slice status: `PASS`; central replay `R000003` and focused review
