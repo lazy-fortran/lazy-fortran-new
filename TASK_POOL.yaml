@@ -6613,7 +6613,7 @@ tasks:
       - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
         sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c0
       - path: research/experiments/E0229-which-residual-source-occurrence-should-/manifest.yaml
-        sha256: 7765acafd7166e66f29f61d21a5db2bc69ac14111aef2246e1f03c14e360bc98
+        sha256: f83b573b6823990546db72834613ede2727f5db29179c5a285216b728af59c91
       - path: research/decisions/D0170-thirty-eighth-m3-c762-selection.md
         sha256: f62c7003ab1e7ea047622a2dd83418cb925ff214313db71cee28764d8c3d16c8
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v26.md
@@ -6655,7 +6655,7 @@ tasks:
     depends_on: [T-M3-core0-next-bounded-property-selection-after-c761]
     inputs:
       - path: research/experiments/E0229-which-residual-source-occurrence-should-/manifest.yaml
-        sha256: 7765acafd7166e66f29f61d21a5db2bc69ac14111aef2246e1f03c14e360bc98
+        sha256: f83b573b6823990546db72834613ede2727f5db29179c5a285216b728af59c91
       - path: research/decisions/D0170-thirty-eighth-m3-c762-selection.md
         sha256: f62c7003ab1e7ea047622a2dd83418cb925ff214313db71cee28764d8c3d16c8
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v26.md
