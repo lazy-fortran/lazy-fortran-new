@@ -92,7 +92,7 @@ result:
   selection_run: research/runs/2026-08.jsonl#R000076
   selected_row_key: C717@1
   selection_status: PASS
-  implementation_status: CORRECTION_PENDING_AFTER_REVIEW
+  implementation_status: DURABLE_PIN_REPLAY_PASS_BOUNDED_ONLY
   failed_review_packet: .cache/runs/E0189/R000001
   failed_review_reports:
     - artifacts/reports/M3/c717-semantic-review-v0.md
@@ -101,6 +101,9 @@ result:
   corrected_replay_run: research/runs/2026-08.jsonl#R000478
   corrected_result_sha256: f4b52f8f48f8069c0001d8db617589968b695c416b4ba4cb4c9318b2e38bbd00
   corrected_fixture_sha256: b6de5d280248cc5ed3f329b497fae0b1c1d907024f9f33e72ea4d414d116dbf2
+  durable_pin_replay_run: research/runs/2026-08.jsonl#R000480
+  durable_pin_worktree_commit: 05324b3870d980347e5194ddc8edeab3762cda11
+  durable_pin_result_sha256: f4b52f8f48f8069c0001d8db617589968b695c416b4ba4cb4c9318b2e38bbd00
   latest_review_failure_run: research/runs/2026-08.jsonl#R000479
   latest_review_failure_report: artifacts/reports/M3/c717-reproducibility-review-v1.md
-  review_status: NEEDS_FIX
+  review_status: PENDING_AFTER_DURABLE_REPLAY

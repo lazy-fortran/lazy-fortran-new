@@ -2635,6 +2635,7 @@ tasks:
       - tests/e2e/validate_m3_c717.py
       - artifacts/traces/m3-c717-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000478
+      - research/runs/2026-08.jsonl#R000480
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
@@ -2654,6 +2655,7 @@ tasks:
       - artifacts/reports/M3/m3-core0-next-property-selection-v1.md
       - artifacts/traces/m3-c717-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000478
+      - research/runs/2026-08.jsonl#R000480
       - tests/e2e/run-m3-c717.sh
       - tests/e2e/validate_m3_c717.py
     writes:
@@ -2668,7 +2670,7 @@ tasks:
       - TASK_POOL.yaml
     mode: exclusive
     verifier: >-
-      Use the focused independent evidence gate on the frozen R000478 packet.
+      Use the focused independent evidence gate on the frozen R000480 packet.
       The semantic lane must check that D0139's C717 property, source lines,
       typed state table and explicit nonclaims match the committed oracle. The
       reproducibility lane must check clean pushed parity, exact pins,
@@ -2677,7 +2679,7 @@ tasks:
       full M3.
     output: review
     final_observable: >-
-      two independent focused review results for R000478, either promotion of
+      two independent focused review results for R000480, either promotion of
       the bounded C717 slice or one precise review blocker
     integration: controller-only
     estimated_cost: small
@@ -2694,13 +2696,17 @@ tasks:
         - ROADMAP.md
         - TASK_POOL.yaml
     prerequisites: [T-M3-c717-kind-selector-oracle]
-    verifier_command: focused independent review of the frozen R000478 evidence packet
+    verifier_command: focused independent review of the frozen R000480 evidence packet
     evidence_paths:
       - artifacts/reports/M3/c717-semantic-review-v0.md
       - artifacts/reports/M3/c717-reproducibility-review-v0.md
       - artifacts/reports/M3/c717-semantic-review-v1.md
       - artifacts/reports/M3/c717-reproducibility-review-v1.md
       - research/runs/2026-08.jsonl#R000478
+      - research/runs/2026-08.jsonl#R000479
+      - research/runs/2026-08.jsonl#R000480
+      - research/runs/2026-08.jsonl#R000480
+      - research/runs/2026-08.jsonl#R000480
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

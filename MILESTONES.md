@@ -18,9 +18,9 @@ The bounded C719 slice is promoted by replay `R000051` and focused review
 review `R000055`. The bounded C1579 slice is promoted by replay `R000062` and
 focused review `R000064`. The bounded C1586 slice is promoted by replay
 `R000067` and focused review `R000072`. Full M3 remains open.
-The C717 contract and corrected clean central replay `R000478` pass. Focused
-review `R000479` retains a reproducibility failure about the central revision
-boundary, so C717 is not promoted.
+The C717 contract and durable-pin clean central replay `R000480` pass. Focused
+review `R000479` retains the repaired central-revision failure; final focused
+review of `R000480` is pending, so C717 is not promoted.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -349,9 +349,10 @@ remains open.
 
 ## M3 — bounded C717 kind-selector legality semantic-oracle slice
 
-Bounded-slice status: `CENTRAL REPLAY PASS`; focused review `R000479` is
-`NEEDS_FIX`, so this is not yet promoted. Full Core 0 semantics remain open
-and are not claimed.
+Bounded-slice status: `CENTRAL REPLAY PASS`; the durable-pin replay is
+`R000480`, while final focused review is pending after the retained `R000479`
+failure. This is not yet promoted. Full Core 0 semantics remain open and are
+not claimed.
 
 D0139/E0189 selects the fourteenth bounded delivery contract. It binds
 J3-24-007 C717, canonical lines 3263--3264 on printed/page-index page 80, to
@@ -362,7 +363,7 @@ oracle returns `ACCEPTED` for `(nonnegative, present)`, `REJECTED` for either
 known violation and `UNRESOLVED` for either unknown state. It does not evaluate
 expressions, inspect processor capabilities, parse Fortran or consume model
 output. Eight source, page-index, StandardIR, semantic-item, contract and
-precedence mutations must fail closed. Corrected clean replay `R000478` has
+precedence mutations must fail closed. Durable-pin clean replay `R000480` has
 one accepted, five rejected, three unresolved, eight mutation failures and zero
 model calls or semantic promotions. D0140 makes known violations take
 precedence over unknown state and requires the complete nine-row table.
@@ -377,8 +378,8 @@ Evidence: `research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md`,
 `research/experiments/E0189-can-a-deterministic-source-backed-oracle/manifest.yaml`,
 the C717 contract, fixtures, validator, trace and
 `artifacts/reports/M3/m3-core0-next-property-selection-v1.md`, D0140, the
-retained failed review reports, and `research/runs/2026-08.jsonl#R000478` and
-`#R000479`.
+retained failed review reports, and `research/runs/2026-08.jsonl#R000478` through
+`#R000480`.
 
 ## M3 — Core 0 closure audit
 
