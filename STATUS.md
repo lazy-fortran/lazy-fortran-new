@@ -302,7 +302,16 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c762` — OPEN. The
+ID: `T-M3-c763-pass-arg-name-oracle` — OPEN. Selection R000635 passes for
+`T-M3-core0-next-bounded-property-selection-after-c762`. The exact residual
+command is recorded in `TASK_POOL.yaml`; it yields 133 rows, 77 `disputed` and
+56 `unwitnessed`, with C763@1 first. The source audit binds C763/R741 to
+canonical lines 3874--3875, byte span `243182:139`, printed page 79, PDF page
+94, ledger page 94, page-index record `94:242409:2660`, and existing StandardIR
+R741/R742 plus R603/R1534 name-shape witnesses. D0171 defines the bounded
+conditional-name target; no semantic fact is promoted.
+
+The
 bounded C761 implementation passes its pushed clean replay and focused review
 gate in R000630; post-promotion regression R000631 reproduces it. Selection
 R000629 bound C761/R741 to J3-24-007 canonical line
@@ -323,8 +332,12 @@ R000632 selected C762@1 from 134 residual rows (78 `disputed`, 56
 and focused review in R000633, with post-promotion regression R000634, with 4 `ACCEPTED`, 1 `REJECTED`, 4 `UNRESOLVED`,
 twelve rejected mutations, zero model calls and zero semantic promotions. The
 next controller-exclusive selection leaves 133 rows (77 `disputed`, 56
-`unwitnessed`) with C763@1 first; regenerate it with the exact `jq` command in
-`TASK_POOL.yaml`. The completed C761 verifier was
+`unwitnessed`) with C763@1 first; R000635 records the independent source
+selection. The implementation contract is the 3-by-3 typed product
+`pass_argument_state = present|absent|unknown` crossed with
+`dummy_name_relation = matching|nonmatching|unknown`, with deterministic
+`ACCEPTED`/`REJECTED`/`UNRESOLVED` outcomes, negative neighbours, mutation
+controls and zero model-driven promotion. The completed C761 verifier was
 `tests/e2e/run-m3-c761.sh --fresh`. The completed C759 verifier remains
 `tests/e2e/run-m3-c759.sh --fresh`; its pushed clean regression is R000628 at
 central `c7041685dc0a0a35394cc2b37b34616b2a626929`.
@@ -428,18 +441,21 @@ Regenerate the E0181 counts with:
 E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000002/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
 ```
 
-Current M3 state: C757 is closed as a bounded oracle leaf. Its replay and
-two-review evidence gate pass; the remaining blocker is the scope itself—full
-M3 still lacks a complete semantic verifier and does not parse arbitrary
-Fortran. The next bounded residual selection is C759@1, with 136 rows
-remaining (79 `disputed`, 57 `unwitnessed`).
+Current M3 state: C762 is closed as a bounded oracle leaf. Its replay,
+two-review evidence gate and post-promotion regression pass. The remaining
+blocker is the scope itself—full M3 still lacks a complete semantic verifier
+and does not parse arbitrary Fortran. The next implementation is the bounded
+C763 PASS-argument-name oracle; its source selection is closed in R000635 and
+the implementation task is `T-M3-c763-pass-arg-name-oracle`.
 
 ## Next executable task
 
-Select and source-bind the next bounded C759 property using the deterministic
-residual command in `ROADMAP.md`. Do not run a model, restart E0172, parse
-general Fortran, or promote a semantic fact. The next implementation task is
-not registered until that source selection passes.
+Implement and centrally verify the bounded C763 PASS-argument-name oracle.
+Use the exact contract and verifier in `TASK_POOL.yaml`. Do not run a model,
+restart E0172, parse general Fortran, infer interfaces or scopes, or promote a
+semantic fact. The implementation must remain in an isolated medium Luna
+worktree; only the controller may integrate, review, promote the bounded leaf,
+and push central evidence.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

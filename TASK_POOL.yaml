@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-M3-core0-next-bounded-property-selection-after-c762
+  - T-M3-c763-pass-arg-name-oracle
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c762
+active_task: T-M3-c763-pass-arg-name-oracle
 
 milestones:
   - id: L0
@@ -6713,15 +6713,22 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c762
     milestone: M3
     title: Select the next bounded source-backed property after C762
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on: [T-M3-c762-conditional-nopass-oracle]
     inputs:
       - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
         sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c0
-      - path: research/runs/2026-08.jsonl#R000633
+      - path: research/experiments/E0230-which-residual-source-occurrence-should-/manifest.yaml
+        sha256: 6d1a535a835c9800b23cfaf75e7956d6c9089a182931e2b7803430e9a3db91e4
+      - path: research/decisions/D0171-thirty-ninth-m3-c763-selection.md
+        sha256: cf71d42e1ed96d56d958564ca0f65204cf174b625c3ee099fe4aa91e2d3fd796
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v27.md
+        sha256: 5c915fb9520332e6f47780021ed8b1514bf42d435a722f93aac4666fb1587183
+      - path: research/runs/2026-08.jsonl#R000635
+      - path: research/runs/2026-08.jsonl#R000634
       - path: artifacts/reports/M3/m3-c762-focused-review-v1.md
         sha256: c62a3e3a9f2c34572501bf0120769a33a6f045fd8e4091ef7bb8398e7735f8b5
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
@@ -6747,6 +6754,49 @@ tasks:
     final_observable: one exact next source-backed C763 property with no semantic promotion
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-M3-c763-pass-arg-name-oracle
+    milestone: M3
+    title: Implement the bounded C763 PASS-argument-name oracle
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-M3-core0-next-bounded-property-selection-after-c762]
+    inputs:
+      - path: research/experiments/E0230-which-residual-source-occurrence-should-/manifest.yaml
+        sha256: 6d1a535a835c9800b23cfaf75e7956d6c9089a182931e2b7803430e9a3db91e4
+      - path: research/decisions/D0171-thirty-ninth-m3-c763-selection.md
+        sha256: cf71d42e1ed96d56d958564ca0f65204cf174b625c3ee099fe4aa91e2d3fd796
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v27.md
+        sha256: 5c915fb9520332e6f47780021ed8b1514bf42d435a722f93aac4666fb1587183
+      - path: research/runs/2026-08.jsonl#R000635
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+    output: implementation-commit-and-central-fixtures
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: m3-c763-medium
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c762]
+    verifier: >-
+      deliver and replay a typed C763 oracle over pass-argument state
+      present|absent|unknown crossed with dummy-name relation
+      matching|nonmatching|unknown. The independent oracle must classify the
+      finite table, reject declared source/provenance/schema/fixture mutations,
+      reproduce its committed trace from a clean checkout, and record zero
+      model calls and zero semantic promotions. Do not parse Fortran or infer
+      interfaces, scopes or names.
+    verifier_command: >-
+      M3_C763_EXPECTED_CENTRAL_COMMIT=<central-revision>
+      C763_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new
+      STANDARD_NEW_ROOT=/home/ert/code/standard-new
+      tests/e2e/run-m3-c763.sh --fresh
+    final_observable: committed C763 trace with independent three-outcome oracle
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4

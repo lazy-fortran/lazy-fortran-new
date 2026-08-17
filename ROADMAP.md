@@ -857,9 +857,16 @@ post-promotion regression R000634 reproduces the same result from pushed
 central `43f4487b82c1a3ae9d80ac9648170c801bf003dd`. It may not parse procedure
 interfaces or promote a semantic fact.
 
-The next controller-exclusive selection leaves 133 rows (77 `disputed`, 56
-`unwitnessed`) with C763@1 first. Regenerate it with the exact `jq` command in
-`TASK_POOL.yaml`; the selection must source-bind C763 before implementation.
+R000635 closes the next controller-exclusive selection: the exact command in
+`TASK_POOL.yaml` leaves 133 rows (77 `disputed`, 56 `unwitnessed`) with C763@1
+first. It binds C763/R741 to canonical lines 3874--3875, byte span
+`243182:139`, printed page 79, PDF page 94, ledger page 94, page-index record
+`94:242409:2660`, and existing StandardIR R741/R742 plus R603/R1534
+name-shape witnesses. D0171 selects a bounded typed implication over
+`pass_argument_state` and `dummy_name_relation`; the implementation task is
+`T-M3-c763-pass-arg-name-oracle`. It must remain a deterministic oracle slice,
+with negative neighbours, mutation controls and zero model-driven promotion;
+it does not parse procedure interfaces, infer names or close full M3.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
