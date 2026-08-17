@@ -122,6 +122,8 @@ not current promotion evidence.
   final replay R000051 and focused review R000052 pass. The bounded C719
   slice is promoted; D0135 selects C738 and corrected replay R000053 plus
   focused review R000055 pass.
+  D0136 selects C1579; corrected replay R000001 is recorded as R000056 for
+  E0187 and the focused review is pending.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -141,23 +143,20 @@ Last promoted fixture: `T-M3-c738-semantic-oracle` — replay `R000005` is
 recorded centrally as `R000053` and focused review `R000055` pass. C738 is
 promoted as a bounded slice; full M3 remains open.
 
-Active candidate: `T-M3-e0181-next-residual-selection-2` — select the next
-bounded source-backed property from the retained E0181 residual ledger. Do not
-resume E0172 or start broad semantic work.
+Active candidate: `T-M3-c1579-semantic-oracle` — corrected replay `E0187/R000001`
+passes with three accepted, one rejected, two unresolved and six mutation
+failures; focused review is pending. It binds C1579 lines 15386--15387 to
+StandardIR R1532/R1544. Do not resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-e0181-next-residual-selection-2` — select the next bounded property
-from the retained E0181 residual ledger after bounded C738 promotion. Full M3
-remains open.
+ID: `T-M3-c1579-semantic-oracle` — verify the bounded C1579 RESULT entry-name
+exclusion oracle selected by the retained E0181 ledger. Full M3 remains open.
 
-Verifier: `E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
-E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
-E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis
-research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh`.
-It must select one already represented StandardIR/syntax shape and define the
-next bounded contract, or record one precise blocker and its executable
-successor. It must not revive E0172 or promote a model fact.
+Verifier: `tests/e2e/run-m3-c1579.sh --fresh` from clean central and component
+checkouts. Replay `E0187/R000001` is recorded centrally as `R000056` with
+three accepted, one rejected, two unresolved and six mutation failures;
+focused review is pending. It must not revive E0172 or promote a model fact.
 
 The prior E0181 selection audit that selected C738 was rerun with:
 
@@ -186,7 +185,8 @@ C723 replay and focused review are green. The C729 replay and focused review
 are green; R000043 retains the earlier reproducibility failure. C719 replay
 R000051 and focused review R000052 are green. C738 replay R000053 and focused
 review R000055 are green. The eleven promoted slices cannot close the complete
-ledger gate. A green bounded slice alone does not close full M3.
+ledger gate. C1579 replay R000001 is green and focused review is pending. A
+green bounded slice alone does not close full M3.
 Regenerate the E0181 counts with:
 
 ```text
@@ -195,10 +195,10 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Rerun the retained E0181 residual-selection audit and select the next
-source-backed bounded property, or record one precise blocker and its next
-executable task. Do not resume E0172, start broad parsing/semantic work, or
-promote a model fact.
+Run two focused independent reviews of C1579 against `E0187/R000001` and
+`R000056`. If both pass, promote only this bounded slice; full M3 remains open.
+Do not resume E0172, start broad parsing/semantic work, or promote a model
+fact.
 
 ## Last verified central command
 
@@ -227,8 +227,9 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   R000051 and focused review R000052 is `PASS`; ten bounded slices are
   promoted. C738 replay `tests/e2e/run-m3-c738.sh --fresh` is `PASS` in
   R000053 and focused review R000055 is `PASS`; eleven bounded slices are
-  promoted and full M3 remains open. The next verifier is the retained E0181
-  residual-selection audit shown above.
+  promoted. C1579 replay `tests/e2e/run-m3-c1579.sh --fresh` is `PASS` in
+  `E0187/R000001`, recorded centrally as `R000056`, and awaits focused review;
+  full M3 remains open.
 ```
 
 ## Blacklisted pseudo-progress

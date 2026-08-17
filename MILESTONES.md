@@ -285,6 +285,30 @@ retained failed review `#R000054`, focused review `#R000055`, and reports under
 `artifacts/reports/M3/`. Promotion is bounded to this slice; full M3 remains
 open. The next task is the retained E0181 residual-selection audit.
 
+## M3 — bounded C1579 RESULT entry-name semantic-oracle candidate
+
+Bounded-slice status: `CANDIDATE`; clean central replay `E0187/R000001` is
+recorded as `R000056` and passes; focused review is pending. Full Core 0
+semantics remain open and are not claimed.
+
+The slice binds J3-24-007 C1579 at canonical-text lines 15386--15387 and
+printed page 356 to the already represented StandardIR R1532/R1544 shapes. Its
+typed candidate carries RESULT-presence and entry-name declaration states. A
+missing RESULT or missing declaration is `ACCEPTED`, both present is
+`REJECTED`, and unknown state is `UNRESOLVED`. The oracle does not parse
+statements, resolve scopes, infer declaration state or consume model output.
+Regenerate the replay with:
+
+```text
+tests/e2e/run-m3-c1579.sh --fresh
+```
+
+Evidence: `research/decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md`,
+`research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml`,
+the C1579 contract, validator, fixtures and trace, `research/runs/2026-08.jsonl#R000056`,
+and the retained E0181 selection evidence. Promotion remains bounded to this
+slice and requires the two focused reviews.
+
 ## M3 — Core 0 closure audit
 
 Audit status: `NEEDS EVIDENCE`. E0181/R000032 reproducibly replays the retained
