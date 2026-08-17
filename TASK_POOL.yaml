@@ -6546,6 +6546,7 @@ tasks:
     depends_on: [T-M3-core0-next-bounded-property-selection-after-c759]
     inputs:
       - path: research/experiments/E0228-can-a-bounded-source-backed-oracle-class/manifest.yaml
+        sha256: a1cd6513d46ca33793c5cf9a7d7fdaced914fe80f63a941a23752c5a95ea2c75
       - path: research/decisions/D0169-thirty-seventh-m3-c761-selection.md
         sha256: 15c500c3f02f7972ee16a3b26e8e8f8c009734fd54c822a65ff2d5901b6c2d4b
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v25.md
