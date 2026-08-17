@@ -4689,6 +4689,7 @@ tasks:
       - artifacts/reports/M3/m3-c745-focused-review-v0.md
       - artifacts/reports/M3/m3-c745-focused-review-v1.md
       - artifacts/reports/M3/m3-c745-source-backed-v1.md
+      - artifacts/reports/M3/m3-c745-source-backed-v2.md
       - STATUS.md
       - MILESTONES.md
       - ROADMAP.md
@@ -4755,12 +4756,16 @@ tasks:
       - research/runs/2026-08.jsonl#R000551
       - research/runs/2026-08.jsonl#R000552
       - research/runs/2026-08.jsonl#R000553
+      - research/runs/2026-08.jsonl#R000554
+      - research/runs/2026-08.jsonl#R000555
+      - research/runs/2026-08.jsonl#R000556
       - tests/fixtures/m3-c745-expected-outcomes-v0.json
       - artifacts/traces/m3-c745-source-backed-v0.json
       - artifacts/reports/M3/m3-c745-source-backed-v0.md
       - artifacts/reports/M3/m3-c745-focused-review-v0.md
       - artifacts/reports/M3/m3-c745-source-backed-v1.md
       - artifacts/reports/M3/m3-c745-focused-review-v1.md
+      - artifacts/reports/M3/m3-c745-source-backed-v2.md
       - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - .cache/runs/E0001/R000003/j3-24-007.pages.index
       - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
