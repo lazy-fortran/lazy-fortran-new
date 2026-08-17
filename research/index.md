@@ -184,6 +184,7 @@ Runs recorded: 503
 | E0183 | reported | 2 | Can a deterministic oracle enforce C723 complex named-constant legality |
 | E0184 | reported | 7 | Can a deterministic oracle enforce C729 optional-comma legality |
 | E0185 | reported | 7 | Can a deterministic oracle enforce C719 kind-param nonnegative legality |
+| E0186 | running | 0 | Can a deterministic oracle enforce C738 abstract requirement for deferred type-bound procedures |
 
 ## Run status
 
@@ -344,6 +345,7 @@ Runs recorded: 503
 | [D0132](decisions/D0132-seventh-m3-c723-complex-named-constant-oracle.md) | accepted |  | Eighth M3 slice uses C723 complex named-constant legality |
 | [D0133](decisions/D0133-ninth-m3-c729-optional-comma-oracle.md) | accepted |  | Ninth M3 slice uses C729 optional-comma legality |
 | [D0134](decisions/D0134-tenth-m3-c719-kind-param-nonnegative-oracle.md) | accepted |  | Tenth M3 slice uses C719 kind-parameter nonnegative legality |
+| [D0135](decisions/D0135-eleventh-m3-c738-abstract-deferred-binding-oracle.md) | accepted |  | Eleventh M3 slice uses C738 abstract requirement |
 
 ### Proposed decisions
 

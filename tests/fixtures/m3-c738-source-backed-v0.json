@@ -1,0 +1,87 @@
+{
+  "schema_version": "m3-c738-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "abstract-required-for-deferred-binding",
+  "contract": {
+    "schema": "contracts/m3-c738-abstract-deferred-binding-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c738-abstract-deferred-binding-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C738",
+    "printed_page": 87,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3623, "text": "C738 (R726) If the type definition contains or inherits (7.5.7.2) a deferred type-bound procedure (7.5.5), AB-"},
+      {"line": 3624, "text": "STRACT shall appear."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R726", "lhs": "derived-type-def", "page": 88, "byte_start": 229000, "byte_length": 177, "occurrence": 76},
+        {"rule": "R728", "lhs": "type-attr-spec", "page": 88, "byte_start": 229287, "byte_length": 102, "occurrence": 78},
+        {"rule": "R746", "lhs": "type-bound-procedure-part", "page": 99, "byte_start": 257854, "byte_length": 113, "occurrence": 96},
+        {"rule": "R752", "lhs": "binding-attr", "page": 100, "byte_start": 260364, "byte_length": 111, "occurrence": 102}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c738-semantic-items.sx",
+    "sha256": "3bdc39746167fcd9da02cb1e698c04e132eb7b1e1be10a5e45a48b0f0b1f9e7a",
+    "id": "S-C738",
+    "subject": "abstract-required-for-deferred-binding",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C738",
+    "page": 87,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-contains-deferred-abstract",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "contains", "abstract": "present"}
+    },
+    {
+      "id": "positive-inherits-deferred-abstract",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "inherits", "abstract": "present"}
+    },
+    {
+      "id": "positive-no-deferred-no-abstract",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "none", "abstract": "absent"}
+    },
+    {
+      "id": "negative-deferred-without-abstract",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "contains", "abstract": "absent"}
+    },
+    {
+      "id": "unresolved-deferred-binding",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "deferred-binding-use", "source_rule": "C738", "deferred_binding": "unknown", "abstract": "present"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3624},
+    {"id": "canonical-source-line-text", "path": ["source", "canonical_lines", 1, "text"], "value": "STRACT shall not appear."},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R725"},
+    {"id": "standardir-row-metadata", "path": ["source", "standardir", "rows", 1, "byte_start"], "value": 229288},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C739"}
+  ]
+}

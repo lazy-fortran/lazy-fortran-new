@@ -1,0 +1,21 @@
+(schema m3-c738-abstract-deferred-binding-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum deferred-binding-state none contains inherits unknown)
+  (enum abstract-state absent present unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record deferred-binding-use
+    (deferred-binding deferred-binding-state)
+    (abstract abstract-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact deferred-binding-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
