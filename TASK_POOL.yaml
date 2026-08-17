@@ -6766,19 +6766,20 @@ tasks:
       - path: research/experiments/E0230-which-residual-source-occurrence-should-/manifest.yaml
         sha256: 6d1a535a835c9800b23cfaf75e7956d6c9089a182931e2b7803430e9a3db91e4
       - path: research/experiments/E0231-can-the-bounded-source-backed-c763-pass-/manifest.yaml
-        sha256: 668a32b00df5623ea4933ccd605b199d148577d7551230f6d6292a51fb1d89f3
+        sha256: 35fa4e0ef2a3d5d9f47f439506ca7e46b653ab83da67910c027b5b0863c24c51
       - path: research/decisions/D0171-thirty-ninth-m3-c763-selection.md
         sha256: cf71d42e1ed96d56d958564ca0f65204cf174b625c3ee099fe4aa91e2d3fd796
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v27.md
         sha256: 5c915fb9520332e6f47780021ed8b1514bf42d435a722f93aac4666fb1587183
       - path: research/runs/2026-08.jsonl#R000635
       - path: research/runs/2026-08.jsonl#R000636
+      - path: research/runs/2026-08.jsonl#R000637
       - path: artifacts/traces/m3-c763-source-backed-v0.json
         sha256: 110fadb92abcf50a28fb0248c8d1636009bbf0f36b833fc3a1efc760d7fe8223
-      - path: artifacts/reports/M3/m3-c763-source-backed-v0.md
-        sha256: 93db86d5f33150892143d2fa7b9f7a19ee68709a8213f91fe4b7a26412f8e8ee
+      - path: artifacts/reports/M3/m3-c763-source-backed-v1.md
+        sha256: 252b7e39ba1f1b63623ef6613ef9ece28f296bfa79e7c9cfba4ddcfa1b5b0b00
       - component: lazy-fortran-new
-        commit: be7872b4f57c8f3bd18a585914ef172984105e3c
+        commit: 7d93cd1e46105a62ea759071c10c7c083d7ed551
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
         sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index

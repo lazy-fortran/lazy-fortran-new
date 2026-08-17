@@ -92,23 +92,23 @@ gate: >-
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: >-
-  M3_C763_EXPECTED_CENTRAL_COMMIT=be7872b4f57c8f3bd18a585914ef172984105e3c
+  M3_C763_EXPECTED_CENTRAL_COMMIT=7d93cd1e46105a62ea759071c10c7c083d7ed551
   C763_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new
   STANDARD_NEW_ROOT=/home/ert/code/standard-new
   tests/e2e/run-m3-c763.sh --fresh
 
 result:
-  technical_run: research/runs/2026-08.jsonl#R000636
-  technical_status: PASS
+  technical_run: research/runs/2026-08.jsonl#R000637
+  technical_status: PASS-CORRECTED
   promotion_status: PENDING-REVIEW
-  report: artifacts/reports/M3/m3-c763-source-backed-v0.md
-  result: .cache/runs/E0231/R000002/result.json
+  report: artifacts/reports/M3/m3-c763-source-backed-v1.md
+  result: .cache/runs/E0231/R000004/result.json
   result_sha256: 110fadb92abcf50a28fb0248c8d1636009bbf0f36b833fc3a1efc760d7fe8223
   trace: artifacts/traces/m3-c763-source-backed-v0.json
   trace_sha256: 110fadb92abcf50a28fb0248c8d1636009bbf0f36b833fc3a1efc760d7fe8223
-  run_environment: .cache/runs/E0231/R000002/run-environment.json
-  run_environment_sha256: 212b1c91df27c9d96d02f629027fa7cadec966ab0a05d7c8f1e5b07407bab627
-  validator_sha256: 7ced479104ef9852fcc3d4654a4d38b9a89f0407862e930f0421f130c532f8e4
+  run_environment: .cache/runs/E0231/R000004/run-environment.json
+  run_environment_sha256: 5aaaabdec5f10d6b2436e9174759900011cd92672f15a1a8470a25790c5cdc9e
+  validator_sha256: de90ca0d373dccaec7da851e4001fa6143d344d142909998473fa8da15e84d65
   outcomes: {ACCEPTED: 4, REJECTED: 1, UNRESOLVED: 4}
   state_count: 9
   mutation_controls: 15
