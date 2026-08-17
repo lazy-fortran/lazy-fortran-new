@@ -25,8 +25,8 @@ The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. Full Core 0 semantics remain open and no semantic fact is promoted.
-C761 is the latest bounded leaf, verified by its pushed clean replay and
-focused review/evidence gate recorded in R000630. C759 is the preceding
+C762 is the latest bounded leaf, verified by its pushed clean replay and
+focused review/evidence gate recorded in R000633. C761 is the preceding
 implemented leaf and C760 is the preceding harvested leaf, recorded in R000623.
 The provisional harvest contains
 110 packets with readiness counts `READY=17`, `NEEDS_REVIEW=7` and
@@ -301,8 +301,7 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-c762-conditional-nopass-oracle` — OPEN. Selection R000632 passes
-and the next implementation contract is now ready. The
+ID: `T-M3-core0-next-bounded-property-selection-after-c762` — OPEN. The
 bounded C761 implementation passes its pushed clean replay and focused review
 gate in R000630; post-promotion regression R000631 reproduces it. Selection
 R000629 bound C761/R741 to J3-24-007 canonical line
@@ -319,10 +318,13 @@ exact claim is closed only as a bounded oracle leaf; no Fortran parser,
 model-driven promotion or full M3 claim is in scope.
 
 R000632 selected C762@1 from 134 residual rows (78 `disputed`, 56
-`unwitnessed`). The active implementation types the supplied conditional
-NOPASS state as explicit trigger state × NOPASS state and must preserve
-`UNRESOLVED` whenever those inputs do not determine the rule. The completed
-C761 verifier was `tests/e2e/run-m3-c761.sh --fresh`. The completed C759 verifier remains
+`unwitnessed`). The C762 implementation then passed its pushed clean replay
+and focused review in R000633 with 4 `ACCEPTED`, 1 `REJECTED`, 4 `UNRESOLVED`,
+twelve rejected mutations, zero model calls and zero semantic promotions. The
+next controller-exclusive selection leaves 133 rows (77 `disputed`, 56
+`unwitnessed`) with C763@1 first; regenerate it with the exact `jq` command in
+`TASK_POOL.yaml`. The completed C761 verifier was
+`tests/e2e/run-m3-c761.sh --fresh`. The completed C759 verifier remains
 `tests/e2e/run-m3-c759.sh --fresh`; its pushed clean regression is R000628 at
 central `c7041685dc0a0a35394cc2b37b34616b2a626929`.
 

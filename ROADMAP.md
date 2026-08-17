@@ -849,9 +849,15 @@ The next controller-exclusive selection left 134 rows (78 `disputed`, 56
 canonical lines 3872--3873, byte span `243055:127`, printed page 79, ledger
 page 93, PDF page 94, page-index record `93:239957:2451`, and existing
 StandardIR R741/R742. D0170 selects the bounded conditional-NOPASS target;
-the active implementation task is `T-M3-c762-conditional-nopass-oracle`.
-It may not parse procedure interfaces or promote a semantic fact. Regenerate
-the selection with the exact `jq` command in `TASK_POOL.yaml`.
+the implementation task was `T-M3-c762-conditional-nopass-oracle`. Its pushed
+clean replay and focused review pass are recorded in R000633: 4 `ACCEPTED`, 1
+`REJECTED`, 4 `UNRESOLVED`, twelve rejected mutations, zero model calls and
+zero semantic promotions. C762 is closed only as a bounded oracle leaf; it may
+not parse procedure interfaces or promote a semantic fact.
+
+The next controller-exclusive selection leaves 133 rows (77 `disputed`, 56
+`unwitnessed`) with C763@1 first. Regenerate it with the exact `jq` command in
+`TASK_POOL.yaml`; the selection must source-bind C763 before implementation.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 
