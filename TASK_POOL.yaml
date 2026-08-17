@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c717-focused-review
+active_task: T-M3-c720-focused-review
 
 milestones:
   - id: L0
@@ -2892,6 +2892,71 @@ tasks:
       - research/runs/2026-08.jsonl#R000483
       - research/runs/2026-08.jsonl#R000485
       - research/runs/2026-08.jsonl#R000486
+
+  - id: T-M3-c720-focused-review
+    milestone: M3
+    title: Focused independent review of the corrected C720 packet
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c720-kind-param-representation-oracle
+    inputs:
+      - path: research/experiments/E0190-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - path: research/runs/2026-08.jsonl#R000485
+      - path: research/runs/2026-08.jsonl#R000486
+      - path: .cache/runs/E0190/R000003/result.json
+        sha256: 523f4207d06e89f0a5d17993cf25dab843f4a07c3054b4e764ec143905e89925
+      - path: .cache/runs/E0190/R000003/run-environment.json
+        sha256: 3e91ebffb0442cdefc5cf5596f73cd7d815bd27950028b2dbdb77bfd9c1f268e
+      - path: tests/e2e/run-m3-c720.sh
+        sha256: 1cfa79c239d4c3bf5f1fbaf2bd59e6018fb1c35dfc66df92f3b02c3da615ee3a
+      - path: tests/e2e/validate_m3_c720.py
+        sha256: cf9f38c3283b3cd9d702383d10f7d6d75c92ad492198be521400cf577b24851a
+      - path: artifacts/traces/m3-c720-source-backed-v0.json
+        sha256: 523f4207d06e89f0a5d17993cf25dab843f4a07c3054b4e764ec143905e89925
+    writes:
+      - artifacts/reports/M3/c720-*-review-v*.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      Two fresh focused independent reviews of the frozen R000486 packet must
+      both return PASS: one checks C720 oracle scope/counterexamples and the
+      other checks revision separation, provenance and reproducibility. A
+      review cannot promote semantic facts or broaden the contract.
+    output: evidence
+    final_observable: >-
+      two durable focused PASS reports for the corrected bounded C720 packet,
+      or one precise retained review failure and its minimal correction
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - artifacts/reports/M3/c720-*-review-v*.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c720-kind-param-representation-oracle]
+    verifier_command: focused independent review of the frozen R000486 evidence packet
+    evidence_paths:
+      - research/experiments/E0190-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - research/runs/2026-08.jsonl#R000485
+      - research/runs/2026-08.jsonl#R000486
+      - .cache/runs/E0190/R000003/result.json
+      - .cache/runs/E0190/R000003/run-environment.json
+      - artifacts/reports/M3/c720-semantic-review-v0.md
+      - artifacts/reports/M3/c720-reproducibility-review-v0.md
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2
