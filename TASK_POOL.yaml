@@ -7032,12 +7032,13 @@ tasks:
       - component: fortback-new
         commit: c578904a8d18e9d5410934f5489a21d5dadfad05
       - path: research/experiments/E0233-can-the-first-raw-source-program-reach-t/manifest.yaml
-        sha256: fc40718f13f733531dfe5d5517062dff41507a01b59c85b2ab0510a89154bc85
+        sha256: 89c22446f2c103b9aef0c3f7b47910a79a4015d15c158714927bb1292abb72fe
       - path: artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
-        sha256: c6e9bdaeff462091de11ca57c0afe96c78406e90931183561e5922a1a76893c0
+        sha256: bb9bd84f778e8d2176383ea0504982528c2ab0bb5df57cf47acbaacdcfe79890
       - path: research/runs/2026-08.jsonl#R000645
       - path: research/runs/2026-08.jsonl#R000646
-    output: clean L3 source-to-executable trace R000645
+      - path: research/runs/2026-08.jsonl#R000647
+    output: clean L3 source-to-executable trace R000647
     integration: controller-only
     estimated_cost: medium
     parallel_group: controller-exclusive
@@ -7047,7 +7048,9 @@ tasks:
       existing fortback executable path; require exit status zero, reject the
       mismatched-end neighbour, compare the independent oracle and committed
       trace, and record zero model calls and zero semantic promotions.
-    verifier_command: tests/e2e/run-l3.sh --fresh
+    verifier_command: >-
+      L3_EXPECTED_CENTRAL_COMMIT=ca65df604bf30335b6566fb9142459427f806404
+      tests/e2e/run-l3.sh --fresh
     final_observable: executable exit status zero and stable rejected diagnostic; review pending
     retry_count: 0
     integration_cycle_trigger: milestone_pass
@@ -7065,6 +7068,7 @@ tasks:
       - artifacts/reports/L3/l3-raw-program-v0-source-to-executable-v0.md
       - artifacts/traces/l3-raw-program-v0.json
       - research/runs/2026-08.jsonl#R000646
+      - research/runs/2026-08.jsonl#R000647
       - tests/e2e/run-l3.sh
       - tests/e2e/validate_l3.py
       - component: fortfront-new
@@ -7089,13 +7093,13 @@ tasks:
         - MILESTONES.md
     verifier: >-
       two independent medium-depth Luna reviewers inspect the frozen central
-      revision a7b6af113706b3bf934ffb378e1c184f1a37f431 and the pinned
+      revision ca65df604bf30335b6566fb9142459427f806404 and the pinned
       component revisions for scope, source/contract lineage, independent
       oracle, negative control, reproducibility and promotion safety. They
       must return PASS or the first fatal issue. No reviewer may edit or
       promote the claim.
     verifier_command: >-
-      L3_EXPECTED_CENTRAL_COMMIT=a7b6af113706b3bf934ffb378e1c184f1a37f431
+      L3_EXPECTED_CENTRAL_COMMIT=ca65df604bf30335b6566fb9142459427f806404
       tests/e2e/run-l3.sh --fresh
     final_observable: focused review PASS or one precise fatal blocker
     retry_count: 0
