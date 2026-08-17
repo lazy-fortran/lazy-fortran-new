@@ -8,7 +8,7 @@ Status: proposed
 
 Accept this bounded C750 leaf only after the fresh replay and focused
 independent review both pass with the control-plane evidence recorded by
-E0218/R000001 and its successor review run.
+E0218/R000004 and its successor review run.
 
 ## Context
 
@@ -46,10 +46,10 @@ reproducibility defect, or if an independent mutation control is accepted.
 ## Evidence
 
 * `research/runs/2026-08.jsonl#R000594` records the C750 selection.
-* `research/runs/2026-08.jsonl#R000595` records the clean C750 replay.
+* `research/runs/2026-08.jsonl#R000596` records the clean C750 replay.
 * `artifacts/reports/M3/m3-c750-source-backed-v0.md` records the bounded
   result and non-claims.
-* `.cache/runs/E0218/R000001/result.json` and its run-environment record pin
+* `.cache/runs/E0218/R000004/result.json` and its run-environment record pin
   the replay outputs and toolchain.
 
 <!--
