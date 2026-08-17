@@ -21,10 +21,12 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 has thirty-three bounded oracle leaves promoted; full Core 0
-semantics remain open and no semantic fact is promoted. C754 is the latest
-bounded leaf, verified by E0224/R000618 and focused review/evidence gate
-R000620.
+review. Full Core 0 semantics remain open and no semantic fact is promoted.
+C760 is the latest bounded leaf, verified by its clean replay and focused
+review/evidence gate recorded in R000623. The provisional harvest contains
+110 packets with readiness counts `READY=17`, `NEEDS_REVIEW=7` and
+`NOT_READY=86`; regenerate those values with
+`jq -c '{packet_count,readiness_counts}' artifacts/staging/m3-harvest-v0.json`.
 Selection R000568 passes for C747 at canonical lines 3766--3767, printed page
 77, over existing StandardIR R727/R732/R733. The corrected C747 replay R000574
 and focused review R000575 pass; C747 is promoted only as a bounded oracle
@@ -69,7 +71,17 @@ model calls and zero semantic promotions. Two independent focused reviewers
 and the evidence gate pass in R000620; pushed-revision regression R000622 also
 passes, so C754 is promoted only as the thirty-third bounded oracle leaf. The
 post-C754 residual is 138 rows (81
-`disputed`, 57 `unwitnessed`), with C757@1 first.
+`disputed`, 57 `unwitnessed`), with C757@1 first. The separate provisional
+harvest is retained as intake material; it does not change this residual
+selection or promote a semantic fact.
+
+E0225/R000623 closes the first harvested bounded slice, C760/R741, for the
+at-most-once occurrence of `proc-component-attr-spec` in a
+`proc-component-def-stmt`. The clean replay has 2 `ACCEPTED`, 1 `REJECTED`
+and 1 `UNRESOLVED` case, rejects ten mutation controls, and records zero model
+calls and zero semantic promotions. Two independent focused reviewers pass;
+the evidence gate passes for the bounded leaf only. C760 is therefore closed
+as a bounded oracle claim, while full M3 remains open.
 
 ## Component pins
 
@@ -258,9 +270,11 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 ## Active task
 
 ID: `T-M3-c757-contiguous-pointer-oracle` — implement the bounded C757
-CONTIGUOUS/POINTER oracle. The preceding C754 task is PASS:
-its oracle is promoted only as the thirty-third bounded leaf by E0224/R000618
-and R000620. E0223/R000617 supplied the preceding C754 source selection.
+CONTIGUOUS/POINTER oracle. C760 is now PASS as the latest harvested bounded
+leaf; its evidence is recorded by E0225/R000623 and
+`artifacts/reports/M3/m3-c760-focused-review-v1.md`. E0223/R000617 supplied
+the preceding C754 source selection. The harvest remains provisional and is
+not a semantic promotion queue.
 
 Verifier: `tests/e2e/run-m3-c757.sh --fresh`. It must consume C757's exact
 source span `242052:120` (canonical lines 3851--3852, printed page 79,

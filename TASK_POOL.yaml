@@ -6261,6 +6261,59 @@ tasks:
     retry_count: 0
     integration_cycle_trigger: next_implementation
 
+  - id: T-M3-c760-harvested-oracle
+    milestone: M3
+    title: Implement the harvested C760 procedure-component-attribute uniqueness oracle
+    status: PASS
+    verification: PASS
+    review_state: PASS
+    priority: 100
+    depends_on: [T-M3-core0-next-bounded-property-selection-after-c754]
+    inputs:
+      - path: artifacts/staging/m3-harvest-v0.json
+        sha256: 794c97d9cbe67707aa1fd2a02ccf4886346ea4df5235a81a81efc3e7287e357c
+      - path: artifacts/staging/m3-harvest-v0.jsonl
+      - path: research/experiments/E0225-select-the-next-bounded-source-backed-property-after-c754/manifest.yaml
+      - path: contracts/m3-c760-proc-component-attr-uniqueness-v0.sxs
+      - path: contracts/fixtures/m3-c760-proc-component-attr-uniqueness-v0.sx
+      - path: tests/fixtures/m3-c760-source-backed-v0.json
+      - path: tests/fixtures/m3-c760-expected-outcomes-v0.json
+      - path: artifacts/reports/M3/m3-c760-focused-review-v1.md
+      - path: research/runs/2026-08.jsonl#R000623
+    output: bounded-oracle
+    final_observable: one replayable C760 source-backed oracle with no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c754]
+    verifier: >-
+      execute a clean source-backed C760 replay over canonical lines 3869--3870,
+      byte span 242862:119, printed page 93 and page-index record 93, using
+      StandardIR R741. Require the four typed occurrence states zero, one,
+      duplicate and unknown, deterministic ACCEPTED/REJECTED/UNRESOLVED
+      outcomes, ten rejected source/provenance/identity mutation controls,
+      zero model calls, zero semantic promotions, pinned standard-new and
+      toolchain revisions, and a clean checkout. Do not parse Fortran or
+      broaden the property.
+    verifier_command: >-
+      C760_EXPECTED_CENTRAL_COMMIT=1a4bf3ad1a1b1aeb2ae85e5fc0b5c084893a68d5
+      C760_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new
+      STANDARD_NEW_ROOT=/home/ert/code/standard-new
+      tests/e2e/run-m3-c760.sh --fresh
+    evidence_paths:
+      - artifacts/staging/m3-harvest-v0.json
+      - contracts/m3-c760-proc-component-attr-uniqueness-v0.sxs
+      - contracts/fixtures/m3-c760-proc-component-attr-uniqueness-v0.sx
+      - tests/fixtures/m3-c760-source-backed-v0.json
+      - tests/fixtures/m3-c760-expected-outcomes-v0.json
+      - tests/e2e/validate_m3_c760.py
+      - tests/e2e/run-m3-c760.sh
+      - artifacts/traces/m3-c760-source-backed-v0.json
+      - artifacts/reports/M3/m3-c760-focused-review-v1.md
+      - research/runs/2026-08.jsonl#R000623
+    retry_count: 0
+    integration_cycle_trigger: post_promotion_selection
+
   - id: T-M3-c757-contiguous-pointer-oracle
     milestone: M3
     title: Implement the bounded C757 contiguous-pointer oracle
