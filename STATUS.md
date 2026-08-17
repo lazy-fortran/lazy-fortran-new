@@ -134,7 +134,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f94c4c51b51fce22b533b7eeda08741970320913` | normative source → StandardIR | clean main; full `fo` recorded in E0174/R000010 |
-| fortfront-new | lazy-fortran/fortfront-new | `b51aff12c158da1f6a3643e76abb524e1d01fc7c` | frontend | clean main; L3 raw-source and integer-declaration entrypoint |
+| fortfront-new | lazy-fortran/fortfront-new | `394f34da390fb7540da5676cbc4e6f89a84553c1` | frontend | clean main; L3 raw-source, declaration and typed AST v1 entrypoints |
 | ffc-new | lazy-fortran/ffc-new | `bcaadcb58c24af613204aa398541c0d2e35abf91` | compiler driver and middle end | clean main; registered L2 MIR trace |
 | fortback-new | lazy-fortran/fortback-new | `c578904a8d18e9d5410934f5489a21d5dadfad05` | backend | clean main; registered L2 executable trace |
 
@@ -467,7 +467,7 @@ Current M3 state: C763 is promoted only as a bounded oracle leaf after its
 pin-aligned replay and two-review evidence gate. The remaining blocker is the
 scope itself—full M3 still lacks a complete semantic verifier and does not
 parse arbitrary Fortran. The post-promotion regression R000643 passes. The
-the declaration implementation is now committed as fortfront revision
+declaration implementation is now committed as fortfront revision
 `b51aff1`; focused production tests pass. Clean central replay R000651 accepts
 exactly one named main program with `integer :: x`, rejects `integer ::`, and
 preserves the existing frontend-v0/MIR-v0 observable. The active task is
@@ -482,7 +482,9 @@ The L3 declaration contract is frozen by D0174 and passes
 `scripts/check-contracts.sh`. The implementation, technical replay and focused
 review pass; the bounded successor is promoted. The typed declaration contract
 D0175 is now frozen and passes `scripts/check-contracts.sh`; the active task is
-the isolated fortfront AST v1 implementation. This remains outside full M3.
+the isolated fortfront AST v1 implementation. The producer is now pinned at
+`394f34d`; the active gate is its clean central replay. This remains outside
+full M3.
 Do not resume E0172 or start broad semantic work. The C768 worker result
 remains parked and is not promoted by this pivot.
 

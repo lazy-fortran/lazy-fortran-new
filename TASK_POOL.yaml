@@ -7300,7 +7300,7 @@ tasks:
       - path: contracts/fixtures/frontend-ast-v1.sx
         sha256: 2d73502ed1dbdc0a29cdd2938e71c4de7b841d50fa9598aeed976345c0d2daec
       - path: tests/fixtures/frontend-ast-v1.toml
-        sha256: 8001850174268d87e7676780806419351ff6babb04049de51fc30012d2dd5f6f
+        sha256: f663013468bc6d88ae39893ba22fcaaae14fa65e45ea7e734890c0cc12ed1411
       - path: tests/fixtures/l3-declaration-v0.f90
         sha256: 13a37b087a056a5f64f26a3a29145bbab71967bf2a3a8efab505c056ffdd13f6
       - component: fortfront-new
@@ -7362,6 +7362,7 @@ tasks:
         - tools/regenerate_generated_ast_v1.sh
         - tools/test_generated_ast_v1.py
         - test/test_frontend_typed_declaration_v1.f90
+        - app/fortfront_source_ast_v1.f90
         - fpm.toml
         - README.md
     verifier: >-
