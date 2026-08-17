@@ -14,7 +14,10 @@ the command that regenerates it.
 unbounded research-frontier loop to one centrally controlled, independently
 verified vertical slice. D0173 now makes that slice a raw-source executable
 path: `program p` / `end program p` through `fortfront-new`, `ffc-new` and the
-existing `fortback-new` path. `lazy-fortran-new` is the sole Goal Mode control
+existing `fortback-new` path. The next bounded successor is the exact source
+shape with one `integer :: x` declaration; its contract is D0174 and its
+implementation task is `T-L3-fortfront-integer-declaration-source`.
+`lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
 project-management loops.

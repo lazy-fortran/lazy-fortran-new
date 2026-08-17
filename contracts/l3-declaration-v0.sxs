@@ -1,0 +1,27 @@
+(schema l3-declaration-v0
+  (primitive name)
+  (primitive int)
+  (enum result accepted rejected)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-sha256 name))
+  (record source-case
+    (id name)
+    (path name)
+    (sha256 name)
+    (expected result))
+  (record source-evidence
+    (document name)
+    (pdf-sha256 name)
+    (standardir-path name)
+    (standardir-sha256 name)
+    (rules name)
+    (pages int))
+  (record declaration-contract
+    (property name)
+    (positive source-case)
+    (negative source-case)
+    (evidence source-evidence)))

@@ -431,6 +431,7 @@ Runs recorded: 701
 | [D0171](decisions/D0171-thirty-ninth-m3-c763-selection.md) | accepted |  | Select C763 as the next bounded property |
 | [D0172](decisions/D0172-fortieth-m3-c768-selection.md) | accepted |  | Select C768 as the next bounded property |
 | [D0173](decisions/D0173-pivot-to-raw-source-executable-slice.md) | accepted |  | Pivot from residual CXXX intake to a raw-source executable slice |
+| [D0174](decisions/D0174-l3-integer-declaration-successor.md) | accepted |  | Bound the L3 integer-declaration successor |
 
 ### Proposed decisions
 

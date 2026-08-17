@@ -1142,6 +1142,12 @@ regression R000650 pass. The exact regression command is
 `L3_EXPECTED_CENTRAL_COMMIT=51e867b79c8f6d46322304f688697576a226fa7a
 tests/e2e/run-l3.sh --fresh`. The next declaration successor can now start.
 
+The declaration successor is frozen by D0174 and the central contract task
+passes `scripts/check-contracts.sh`. Its positive is exactly one `integer :: x`
+line in the named main program; its malformed neighbour is `integer ::`. The
+production implementation must preserve the existing frontend-v0/MIR-v0
+observable and does not yet expose a typed variable declaration.
+
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 
 Next after: L2

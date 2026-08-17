@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-next-declaration-contract
+  - T-L3-fortfront-integer-declaration-source
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-next-declaration-contract
+active_task: T-L3-fortfront-integer-declaration-source
 
 milestones:
   - id: L0
@@ -180,6 +180,7 @@ milestones:
       - artifacts/reports/L3/l3-focused-review-v1.md
       - research/runs/2026-08.jsonl#R000647
       - research/runs/2026-08.jsonl#R000648
+      - research/runs/2026-08.jsonl#R000650
     final_observable: executable exit status zero from raw Fortran source
   - id: M3
     title: Source-backed Core 0 semantics
@@ -7113,22 +7114,28 @@ tasks:
   - id: T-L3-next-declaration-contract
     milestone: L3
     title: Define the next raw-source slice with one integer declaration
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 90
     depends_on: [T-L3-focused-review]
     inputs:
       - research/decisions/D0173-pivot-to-raw-source-executable-slice.md
+      - research/decisions/D0174-l3-integer-declaration-successor.md
       - contracts/l3-raw-program-v0.sxs
+      - contracts/l3-declaration-v0.sxs
+      - contracts/fixtures/l3-declaration-v0.sx
       - tests/fixtures/l3-raw-program-v0.f90
+      - tests/fixtures/l3-declaration-v0.f90
+      - tests/negative/l3-declaration-v0-missing-entity.f90
+      - tests/fixtures/l3-declaration-v0.toml
       - component: fortfront-new
         commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
       - component: ffc-new
         commit: bcaadcb58c24af613204aa398541c0d2e35abf91
       - component: fortback-new
         commit: c578904a8d18e9d5410934f5489a21d5dadfad05
-    output: one frozen declaration source contract and executable successor task
+    output: frozen declaration source contract and executable successor task
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -7156,6 +7163,57 @@ tasks:
     final_observable: exact next source-backed declaration contract
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-L3-fortfront-integer-declaration-source
+    milestone: L3
+    title: Accept one integer declaration in the raw-source frontend slice
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 90
+    depends_on: [T-L3-next-declaration-contract]
+    inputs:
+      - research/decisions/D0174-l3-integer-declaration-successor.md
+      - contracts/l3-declaration-v0.sxs
+      - contracts/fixtures/l3-declaration-v0.sx
+      - path: tests/fixtures/l3-declaration-v0.f90
+        sha256: 13a37b087a056a5f64f26a3a29145bbab71967bf2a3a8efab505c056ffdd13f6
+      - path: tests/negative/l3-declaration-v0-missing-entity.f90
+        sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
+      - component: fortfront-new
+        commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
+      - component: ffc-new
+        commit: bcaadcb58c24af613204aa398541c0d2e35abf91
+      - component: fortback-new
+        commit: c578904a8d18e9d5410934f5489a21d5dadfad05
+    output: raw-source frontend acceptance for the exact integer declaration shape
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: l3-production
+    ownership:
+      component: fortfront-new
+      worktree: /home/ert/code/fortfront-new-l3-declaration-medium
+      owner: controller
+      allowed_paths:
+        - src/fortfront_frontend.f90
+        - test/test_frontend_source_v0.f90
+        - test/test_frontend_source_v0.sh
+        - test/test_frontend_generated_program_unit.f90
+        - fpm.toml
+        - README.md
+    verifier: >-
+      extend the existing raw-source frontend entrypoint to accept exactly one
+      named main program containing the line integer :: x and no executable
+      statements; reject the missing-entity neighbour with invalid-program;
+      preserve the byte-identical frontend-v0 result and all downstream
+      contracts. Do not add a declaration AST, semantic analysis, parser
+      generator, research ledger or model call.
+    verifier_command: >-
+      (cd /home/ert/code/fortfront-new && fo clean && fo && fo test
+      --target test_frontend_source_v0 && fo test
+      --target test_frontend_generated_program_unit)
+    final_observable: accepted exact positive and rejected malformed declaration
+    retry_count: 0
+    integration_cycle_trigger: interface_change
 integration_cycle:
   triggers:
     verified_deltas: 4
