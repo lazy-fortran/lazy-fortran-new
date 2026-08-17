@@ -34,7 +34,7 @@ MUTATIONS = [
     ("contract-version", ("contract", "version"), 1),
 ]
 SOURCE_FIXTURE_SHA256 = "5524a5142e6e2178c9084379bf7261117574b336eb102ed96208a9b0deaa73d8"
-EXPECTED_OUTCOMES_SHA256 = "83bbbaddb8424853775638b4c29b6e7471b0411fa8a0ec4d56e5e5fee36d928d"
+EXPECTED_OUTCOMES_SHA256 = "cf841419a2eb2f2e71d833357902c9d679f6b4c414b6527e428d232b9faeef46"
 SEMANTIC_ITEM_SHA256 = "464664eb9452260656628512774907730a0eebd05b9f555b165b185b48307ddd"
 
 class ContractError(Exception):
@@ -102,7 +102,7 @@ def validate_binding(document: dict, root: Path, pdf: Path, canonical: Path, pag
 
 def validate_expected(document: dict, path: Path, ids: list[str]) -> dict[str, str]:
     exact_keys(document, {"schema_version", "origin", "property", "source_rule", "outcomes"}, "expected outcomes")
-    require(digest(path) == EXPECTED_OUTCOMES_SHA256 and document["schema_version"] == "m3-c759-expected-outcomes-v0" and document["origin"] == "LLM" and document["property"] == PROPERTY and document["source_rule"] == "C759", "expected identity differs")
+    require(digest(path) == EXPECTED_OUTCOMES_SHA256 and document["schema_version"] == "m3-c759-expected-outcomes-v0" and document["origin"] == "MECHANICAL" and document["property"] == PROPERTY and document["source_rule"] == "C759", "expected identity differs")
     require(set(document["outcomes"]) == set(ids) and all(value in OUTCOMES for value in document["outcomes"].values()), "expected outcomes differ")
     return document["outcomes"]
 
