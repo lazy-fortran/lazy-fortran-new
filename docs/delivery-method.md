@@ -54,3 +54,23 @@ interesting.
 production repositories carry only their permanent rules, delivery status,
 milestone definitions, reproducibility/oracle instructions and implementation
 tests. They do not acquire research ledgers or independent roadmaps.
+
+## M3 throughput lane
+
+M3 uses bounded waves. A harvest wave freezes its source ledger, StandardIR
+inputs, contract schema and output schema before dispatch. Luna workers split
+the frozen rows across disjoint worktrees and return batch JSONL. Their
+semantic packets carry origin `LLM`. Source envelopes are checked and, when
+needed, mechanically rebound by the controller against the pinned ledger.
+
+The controller records one intake result for the wave. It separates ready,
+review and rejected packets and retains malformed output as a failure. A ready
+packet is still a candidate, not a semantic fact.
+
+After intake, implementation workers may process independent ready candidates
+in parallel. Each candidate must cross the same source-backed contract,
+independent oracle, mutation and clean-replay gates. The controller integrates
+central state in one wave commit and pushes it once. This is the throughput
+unit for M3. Per-packet decision records and review reports are created only
+when a candidate is selected for implementation or reaches a promotion
+boundary.

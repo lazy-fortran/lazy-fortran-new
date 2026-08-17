@@ -230,6 +230,9 @@ checks that the assigned checkout or worktree is clean, on the expected branch,
 and at the recorded base. Two agents never share a mutable worktree.
 
 Use native Codex subagents with GPT-5.6 Luna for parallel production slices.
+Use reasoning effort `medium` by default. Low effort is not permitted for
+semantic fixture generation or review. A higher effort requires a task-specific
+blocker recorded by the coordinator.
 Give each subagent the absolute assigned checkout path, branch, exact base
 commit, file scope and test command; for example, `/home/ert/code/standard-new`
 or `/home/ert/code/fortback-new`.
@@ -268,6 +271,27 @@ Every wave launch therefore has two explicit scopes: the production slices
 assigned to native Luna agents and the coordinator's independent laboratory
 slice. The coordinator integrates production results only after their reports
 arrive and the normal review gates pass.
+
+### Fast fixture harvest waves
+
+For a fixture harvest, freeze the source ledger, StandardIR inputs, contract
+schema and batch output schema before dispatch. Partition source rows across
+disjoint worktrees or report scopes. Workers return provisional JSONL batches
+with semantic packet origin `LLM`. They do not edit central metadata, commit,
+push or promote semantic facts.
+
+The controller performs one batch intake pass for shape, duplicate keys,
+source identity and hashes. It may mechanically rebind source envelopes to the
+pinned ledger, but it does not rewrite semantic packet fields. Malformed
+packets remain retained failures. The controller records one ready/review/
+rejected result for the wave.
+
+Implementation begins after the current harvest batch passes structural intake.
+Independent ready candidates may then be implemented in parallel while later
+harvest continues. Each selected candidate still requires its own contract,
+independent oracle, mutation controls and clean replay. Central metadata is
+updated once per wave. Provisional packets do not receive per-case decision
+records or review reports until selected for implementation or promotion.
 
 ### Contracts, waves and cleanup
 

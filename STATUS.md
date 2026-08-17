@@ -4,6 +4,9 @@
 
 M3 — bounded semantic-oracle slices promoted; full Core 0 remains pending
 
+Fast M3 dispatch policy: D0167. Use medium-depth Luna waves with controller-
+owned batch intake and per-candidate promotion gates.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

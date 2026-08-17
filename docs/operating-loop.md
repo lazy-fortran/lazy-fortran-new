@@ -38,6 +38,35 @@ Every durable commit is pushed to its configured upstream and remotely
 verified before it is called integrated. Scratch work and ordinary
 `NO_PROGRESS` remain ephemeral.
 
+## Fast M3 waves
+
+The governing decision is D0167.
+M3 fixture production uses a harvest-first wave when the active task exposes a
+frozen source ledger and a batch output schema. Native Luna workers use
+`gpt-5.6-luna` at reasoning effort `medium`. Low effort is excluded from
+semantic fixture generation and review.
+
+Workers receive disjoint source rows, immutable inputs, an isolated worktree
+or report scope, and one batch report schema. They return provisional JSONL
+packets labelled `LLM`. They do not edit central metadata, commit or push
+central state, or promote semantic facts.
+
+The controller performs one mechanical intake pass for the wave. It checks
+shape, source identity, hashes and duplicate keys, and may rebind source
+envelopes to the pinned ledger. It does not rewrite semantic packet fields.
+Malformed packets remain retained failures. The controller publishes one wave
+intake result with ready, review and rejected partitions.
+
+Implementation starts after the current harvest batch passes structural intake.
+The controller may then dispatch independent ready candidates in parallel while
+the next harvest continues. Every selected candidate still needs its own
+typed contract, independent oracle, negative or unresolved neighbours,
+mutation controls and clean replay. Batch intake never promotes semantic facts.
+
+Central metadata is updated once per wave. A focused review is reserved for a
+reusable artifact or milestone boundary. Ordinary workers use the smallest
+declared verifier and an optional micro-review.
+
 ## Integration cycle
 
 Enter integration after four verified deltas, three no-progress cycles, a

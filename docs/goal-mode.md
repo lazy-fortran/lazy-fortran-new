@@ -27,3 +27,14 @@ commit component changes first, then update the central pin and run the
 central verifier. A durable state change is pushed and remotely verified.
 Do not start L2 or a second fixture family while the preceding replay gate is
 open. A blocked leaf changes the active task; it does not end the mission.
+
+## Fast-wave rule
+
+The governing decision is D0167.
+When the active task is a fixture harvest, the controller may dispatch
+independent Luna workers from frozen source partitions. Use `gpt-5.6-luna`
+with reasoning effort `medium`. Workers return provisional batch artifacts and
+never edit central state. The controller performs one intake pass, then
+dispatches independent ready implementation candidates while later harvest
+continues. The exact candidate verifier and independent oracle remain the
+promotion authority.

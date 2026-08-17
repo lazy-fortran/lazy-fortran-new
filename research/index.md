@@ -416,6 +416,7 @@ Runs recorded: 674
 | [D0164](decisions/D0164-c752-explicit-named-module-type-state.md) | accepted | Amends D0163 | Make unresolved C752 module-defined type identity explicit |
 | [D0165](decisions/D0165-thirty-fourth-m3-c754-selection.md) | accepted |  | Select C754 as the next bounded property |
 | [D0166](decisions/D0166-thirty-fifth-m3-c757-selection.md) | accepted |  | Select C757 as the next bounded property |
+| [D0167](decisions/D0167-fast-m3-fixture-waves.md) | accepted |  | Fast M3 fixture waves |
 
 ### Proposed decisions
 

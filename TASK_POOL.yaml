@@ -6378,5 +6378,13 @@ integration_cycle:
 operating_defaults:
   blocked_leaf: switch_to_independent_open_task
   ordinary_luna: micro_ephemeral
+  fast_wave:
+    model: gpt-5.6-luna
+    reasoning_effort: medium
+    worker_mode: frozen-batch
+    harvest_gate: structural-intake-before-implementation
+    central_metadata: one-update-per-wave
+    per_packet_decision: selected-candidate-only
+    low_reasoning_semantic_fixture: forbidden
   focused_luna: [milestone_promotion, cross_component_interface, major_reusable_artifact, release_claim]
   ordinary_reading_debugging_experiments_no_progress: no_governance_note_or_mandatory_commit

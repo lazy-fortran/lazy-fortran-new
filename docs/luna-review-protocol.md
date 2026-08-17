@@ -5,6 +5,18 @@ the installed `parallel-luna` skill with the same immutable packet, exact
 claim and assigned scope. Reviewers must not see another reviewer's prompt,
 draft, verdict or conclusions before issuing their own verdict.
 
+## Fast-wave model policy
+
+Native Luna workers used for M3 fixture generation and implementation default
+to `gpt-5.6-luna` with reasoning effort `medium`. Low effort is reserved for
+non-semantic mechanical tasks and is not a fixture-generation setting. A
+higher effort requires a task-specific blocker and is recorded with the wave.
+
+Harvest review is batch-oriented. The controller first checks the batch
+schema, source envelopes, hashes and duplicate keys. A worker packet remains
+provisional until that intake passes. The controller does not turn a worker's
+semantic proposal into an accepted fact during intake.
+
 ## Review levels
 
 ### Micro (default)
@@ -42,6 +54,11 @@ Required correction: [one minimal corrective action]
 
 The coordinator promotes only if every selected reviewer passes. A valid
 fatal issue is not removed by majority vote.
+
+For a fast wave, focused review covers the reusable contract, intake boundary
+or milestone claim. It does not require a separate review report for every
+provisional packet. A selected implementation candidate still needs its own
+independent oracle and verifier before it can enter the focused packet.
 
 ### Full
 

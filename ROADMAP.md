@@ -754,6 +754,7 @@ bounded contract only, not a Fortran parser or full semantic layer.
 ## M3 — harvested C760 procedure-component-attribute uniqueness oracle
 
 `T-M3-c760-harvested-oracle` is `PASS` and its bounded claim is `CLOSED`.
+The fast-wave operating policy is recorded in D0167.
 The source-backed property is C760/R741: the same
 `proc-component-attr-spec` occurs at most once in a
 `proc-component-def-stmt`. The exact normative binding is J3-24-007, clause
