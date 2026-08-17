@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-M3-core0-next-bounded-property-selection-after-c763
+  - T-M3-c768-component-init-attribute-oracle
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c763
+active_task: T-M3-c768-component-init-attribute-oracle
 
 milestones:
   - id: L0
@@ -6820,9 +6820,9 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c763
     milestone: M3
     title: Select the next bounded source-backed property after C763
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on: [T-M3-c763-pass-arg-name-oracle]
     inputs:
@@ -6859,6 +6859,61 @@ tasks:
     final_observable: one exact next source-backed C768 property with no semantic promotion
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-M3-c768-component-init-attribute-oracle
+    milestone: M3
+    title: Implement the bounded C768 component-initialization attribute oracle
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-M3-core0-next-bounded-property-selection-after-c763]
+    inputs:
+      - path: research/experiments/E0232-which-residual-source-occurrence-should-/manifest.yaml
+        sha256: 6f73f2844a100c5e976ade42fb48db5164a38eb03c28df65842a994dead4ec35
+      - path: research/decisions/D0172-fortieth-m3-c768-selection.md
+        sha256: bdb21a2dddb4f388ec654af139a918a8f950aad0994cdbdf32677dd376256559
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v28.md
+        sha256: e5f376afbce9f7e34428ce0ed1937eaf9765dcfef4afff5d7127788aae4930c7
+      - path: research/runs/2026-08.jsonl#R000644
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+    output: implementation-commit-and-central-fixtures
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: m3-c768-medium
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new-c768-medium
+      owner: controller
+      allowed_paths:
+        - contracts/m3-c768-*
+        - contracts/fixtures/m3-c768-*
+        - tests/fixtures/m3-c768-*
+        - tests/e2e/run-m3-c768.sh
+        - tests/e2e/validate_m3_c768.py
+        - artifacts/traces/m3-c768-*
+        - artifacts/reports/M3/m3-c768-*
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c763]
+    verifier: >-
+      deliver and replay a typed C768 oracle over initialization operator
+      equals|pointer-assign|unknown crossed with POINTER and ALLOCATABLE
+      present|absent|unknown states. The independent oracle must classify the
+      complete finite table, reject declared source/provenance/schema/fixture
+      mutations, reproduce its committed trace from a clean checkout, and
+      record zero model calls and zero semantic promotions. Do not parse
+      Fortran or infer declarations, types or names.
+    verifier_command: >-
+      M3_C768_EXPECTED_CENTRAL_COMMIT=<central-revision>
+      C768_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new
+      STANDARD_NEW_ROOT=/home/ert/code/standard-new
+      tests/e2e/run-m3-c768.sh --fresh
+    final_observable: committed C768 trace with independent three-outcome oracle
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4
