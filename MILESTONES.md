@@ -318,7 +318,9 @@ open.
 ## M3 — selected C1586 statement-function self-reference contract
 
 Selection status: `PASS`; the exact E0181 residual-selection replay is recorded
-as `R000065`. This is not yet a promoted slice.
+as `R000065`. Candidate replay `R000067` passes; the earlier trace-gate
+failure is retained as `R000066`. Focused review remains pending, so this is
+not yet a promoted slice.
 
 D0138/E0188 select only the C1586 prohibition on a statement-function
 reference having the same name as the statement function being defined. The
@@ -337,7 +339,9 @@ tests/e2e/run-m3-c1586-self-reference.sh --fresh
 
 Evidence: `research/decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md`,
 `research/experiments/E0188-c1586-statement-function-self-reference/manifest.yaml`,
-and `research/runs/2026-08.jsonl#R000065`. Full M3 remains open.
+the C1586 contract, validator, fixtures and trace, and
+`research/runs/2026-08.jsonl#R000065`, `#R000066` and `#R000067`. Full M3
+remains open.
 
 ## M3 — Core 0 closure audit
 

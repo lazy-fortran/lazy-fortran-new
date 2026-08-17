@@ -341,8 +341,10 @@ C1586 conditions. The implementation gate is:
 tests/e2e/run-m3-c1586-self-reference.sh --fresh
 ```
 
-This is selected contract evidence, not a promoted slice; full M3 remains
-open.
+The first replay retained a trace-format failure as `R000066`; the corrected
+candidate replay `R000067` passes the clean central gate. Focused independent
+review is pending, so this remains selected contract evidence rather than a
+promoted slice; full M3 remains open.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

@@ -2201,7 +2201,7 @@ tasks:
     milestone: M3
     title: Verify the bounded C1586 statement-function self-reference oracle
     status: OPEN
-    verification: NOT_STARTED
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on:
@@ -2218,6 +2218,8 @@ tasks:
       - component: standard-new
         commit: f94c4c51b51fce22b533b7eeda08741970320913
       - path: research/runs/2026-08.jsonl#R000065
+      - path: research/runs/2026-08.jsonl#R000066
+      - path: research/runs/2026-08.jsonl#R000067
     writes:
       - contracts/registry.sx
       - contracts/m3-c1586-statement-function-self-reference-oracle-v0.sxs
@@ -2228,6 +2230,8 @@ tasks:
       - tests/e2e/run-m3-c1586-self-reference.sh
       - tests/e2e/validate_m3_c1586_self_reference.py
       - artifacts/traces/m3-c1586-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000066
+      - research/runs/2026-08.jsonl#R000067
       - research/experiments/E0188-c1586-statement-function-self-reference/**
       - research/runs/2026-08.jsonl
       - STATUS.md

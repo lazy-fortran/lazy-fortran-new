@@ -4,7 +4,7 @@ question: >
   Can a deterministic source-backed oracle enforce the C1586 prohibition on a
   statement function referring to itself, using only the represented R1547
   statement-function shape and typed name-relation facts?
-status: running      # draft | running | reported | abandoned
+status: reported    # draft | running | reported | abandoned
 opened: "2026-08-17"
 
 # Every commit the experiment depends on. Exact, not "main".
@@ -73,3 +73,11 @@ gate: >
 
 analysis: tests/e2e/validate_m3_c1586_self_reference.py
 run: tests/e2e/run-m3-c1586-self-reference.sh --fresh
+
+result:
+  replay_run: research/runs/2026-08.jsonl#R000067
+  replay_directory: .cache/runs/E0188/R000002
+  replay_result_sha256: ef3688718d261f8a1dcccf0a29d229948dd87ce947c4950685399b3f5e573261
+  replay_trace_sha256: ef3688718d261f8a1dcccf0a29d229948dd87ce947c4950685399b3f5e573261
+  retained_failure: research/runs/2026-08.jsonl#R000066
+  review_state: pending

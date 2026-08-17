@@ -128,7 +128,10 @@ not current promotion evidence.
   earlier review or replay failures. C1579 is promoted as a bounded slice;
   full M3 remains open. The exact E0181 residual-selection audit passes again
   in R000065; D0138 selects the bounded C1586 statement-function self-name
-  projection over the existing R1547 shape. No model fact is promoted.
+  projection over the existing R1547 shape. The first candidate replay is
+  retained as `R000066`; corrected replay `R000067` passes with eight mutation
+  failures and zero model calls or semantic promotions. Focused review remains
+  pending; no model fact is promoted and full M3 remains open.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -237,8 +240,10 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   `E0187/R000004`, recorded centrally as `R000062`, and focused review
   `R000064` is `PASS`; twelve bounded slices are promoted and full M3 remains
   open. E0181 residual selection is `PASS` in `R000065`; D0138/E0188 select
-  the bounded C1586 self-name projection. The next verifier is the C1586
-  replay command shown above.
+  the bounded C1586 self-name projection. The first C1586 replay is retained
+  as `R000066`; corrected replay `R000067` passes, with focused review still
+  pending. The next review must use the pushed clean state and the replay
+  command shown above.
 ```
 
 ## Blacklisted pseudo-progress
