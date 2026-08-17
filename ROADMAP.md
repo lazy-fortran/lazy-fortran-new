@@ -737,19 +737,32 @@ oracle leaf; full M3 remains open. Do not infer attribute presence or array
 shape from model output, parse general Fortran, inspect C753/C755 or close full
 M3 by implication.
 
-## M3 — next bounded residual after C754
+## M3 — bounded C757 contiguous-pointer oracle
 
-The post-C754 residual partition has 138 rows (81 `disputed`, 57 `unwitnessed`)
-and selects C757@1 as the next source occurrence. The next task is to source-
-bind that occurrence and define one bounded contract; it is not yet evidence
-for a C757 semantic fact. Regenerate the partition with the `jq` command in
-the next task record in `TASK_POOL.yaml`.
+`T-M3-c757-contiguous-pointer-oracle` is `PASS` and its bounded claim is
+`CLOSED`. The source-backed property is J3-24-007 C757/R737: when
+`CONTIGUOUS` is specified, the component is an array with `POINTER`. The exact
+binding is canonical lines 3851--3852, byte span `242052:120`, printed page
+79, page-index record `93:239957:2451`, and StandardIR R737/R738/R739.
 
-The active implementation task is `T-M3-c757-contiguous-pointer-oracle`. Its
-verifier will be `tests/e2e/run-m3-c757.sh --fresh`; it must use a typed
-CONTIGUOUS × POINTER × component-array product with explicit unknown states and
-must leave model calls and semantic promotions at zero. This is the next
-bounded contract only, not a Fortran parser or full semantic layer.
+The clean replay produces 11 `ACCEPTED`, 5 `REJECTED` and 11 `UNRESOLVED`
+states, rejects fifteen mutation controls, and records zero model calls and
+zero semantic promotions. The expected outcome table is controller-derived
+and labelled `MECHANICAL`; the candidate semantic packet remains `LLM` and
+disputed. Two independent medium-depth focused reviewers pass and the
+evidence gate passes. See
+`artifacts/reports/M3/m3-c757-focused-review-v1.md` and
+`research/runs/2026-08.jsonl#R000624`.
+
+The next residual selection after C757 leaves 136 rows (79 `disputed`, 57
+`unwitnessed`) and identifies C759@1. Regenerate it with:
+
+```text
+jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746","C747","C748","C749","C750","C751","C752","C754","C757","C760"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+```
+
+This closes only the bounded C757 oracle; it does not parse arbitrary Fortran,
+promote a semantic fact or close full M3.
 
 ## M3 — harvested C760 procedure-component-attribute uniqueness oracle
 
@@ -2292,6 +2305,24 @@ R000511 and focused review R000510 verify the typed C731 oracle with two
 accepted, two rejected and eight unresolved states, twelve rejected mutations,
 and zero model calls or semantic promotions. No semantic fact is promoted;
 full M3 remains open.
+The bounded C757 oracle is now closed by clean replay and focused review. Its
+27-state CONTIGUOUS/POINTER/component-array product produces 11 `ACCEPTED`, 5
+`REJECTED` and 11 `UNRESOLVED` outcomes, rejects fifteen mutation controls,
+and records zero model calls and zero semantic promotions. Regenerate the
+replay with:
+
+```text
+M3_C757_EXPECTED_CENTRAL_COMMIT=6be913c3e6c7702a6dc64d186427f6d09e2fa247 C757_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new STANDARD_NEW_ROOT=/home/ert/code/standard-new tests/e2e/run-m3-c757.sh --fresh
+```
+
+The expected table is controller-derived and labelled `MECHANICAL`; the
+candidate semantic packet remains `LLM` and disputed. The focused review and
+evidence gate are recorded in
+`artifacts/reports/M3/m3-c757-focused-review-v1.md` and
+`research/runs/2026-08.jsonl#R000624`. This closes only the bounded C757 leaf.
+The next operation is a fresh residual selection after C757; full M3 remains
+open.
+
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

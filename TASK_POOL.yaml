@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c757-contiguous-pointer-oracle
+active_task: T-M3-core0-next-bounded-property-selection-after-c757
 
 milestones:
   - id: L0
@@ -6317,9 +6317,9 @@ tasks:
   - id: T-M3-c757-contiguous-pointer-oracle
     milestone: M3
     title: Implement the bounded C757 contiguous-pointer oracle
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on: [T-M3-core0-next-bounded-property-selection-after-c754]
     inputs:
@@ -6327,6 +6327,21 @@ tasks:
       - path: research/decisions/D0166-thirty-fifth-m3-c757-selection.md
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v23.md
       - path: research/runs/2026-08.jsonl#R000621
+      - path: contracts/m3-c757-contiguous-pointer-v0.sxs
+      - path: contracts/fixtures/m3-c757-contiguous-pointer-v0.sx
+      - path: tests/fixtures/m3-c757-source-backed-v0.json
+        sha256: 9466c1c48aad8412ae6861aa13faeda20cb1485755bb4348a9418395d14ce0fb
+      - path: tests/fixtures/m3-c757-expected-outcomes-v0.json
+        sha256: c35a0e17aa81e45dccf78bd26c6261e9de31af60ef260d0d96e019d3c2f11c6b
+      - path: tests/fixtures/m3-c757-semantic-items.sx
+        sha256: 551eaf2b0488954f59bde152cdf9e59c72bd43a58375ab68e4ddd5f72fafd0ca
+      - path: tests/e2e/validate_m3_c757.py
+      - path: tests/e2e/run-m3-c757.sh
+      - path: artifacts/traces/m3-c757-source-backed-v0.json
+        sha256: 6c84586c6e142bc31b3e6e7c78ccc0c892793b1acff3c9c1971432a9bb709843
+      - path: artifacts/reports/M3/m3-c757-focused-review-v1.md
+        sha256: 8b602de8c87aab4769dc53429478c3c9c16b3de2b38f7fac1417a7a47b0ff13d
+      - path: research/runs/2026-08.jsonl#R000624
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
         sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
@@ -6347,7 +6362,11 @@ tasks:
       explicit unknown handling, source/page/PDF/identity mutations, zero
       model calls and zero semantic promotions. Do not parse Fortran, inspect
       C755/C756/C758 or broaden the property.
-    verifier_command: tests/e2e/run-m3-c757.sh --fresh
+    verifier_command: >-
+      M3_C757_EXPECTED_CENTRAL_COMMIT=6be913c3e6c7702a6dc64d186427f6d09e2fa247
+      C757_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new
+      STANDARD_NEW_ROOT=/home/ert/code/standard-new
+      tests/e2e/run-m3-c757.sh --fresh
     final_observable: >-
       a replayable C757 source-backed oracle with an independent expected-
       outcome table, deterministic ACCEPTED/REJECTED/UNRESOLVED decisions,
@@ -6358,7 +6377,47 @@ tasks:
       - artifacts/reports/M3/m3-core0-next-property-selection-v23.md
       - research/runs/2026-08.jsonl#R000621
     retry_count: 0
-    integration_cycle_trigger: milestone_pass
+    integration_cycle_trigger: post_promotion_selection
+
+  - id: T-M3-core0-next-bounded-property-selection-after-c757
+    milestone: M3
+    title: Select the next bounded source-backed property after C757
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-M3-c757-contiguous-pointer-oracle]
+    inputs:
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+        sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c0
+      - path: research/runs/2026-08.jsonl#R000624
+      - path: artifacts/reports/M3/m3-c757-focused-review-v1.md
+        sha256: 8b602de8c87aab4769dc53429478c3c9c16b3de2b38f7fac1417a7a47b0ff13d
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+    output: contract
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    prerequisites: [T-M3-c757-contiguous-pointer-oracle]
+    verifier: >-
+      recompute the retained disputed/unwitnessed partition after excluding
+      the bounded contracts through C757 and harvested C760; independently
+      bind the first remaining C759 occurrence to J3-24-007 canonical
+      lines 3854--3855, source span 242269:124, printed page 79, ledger page
+      92, page-index record 93, and StandardIR R736. Inspect whether one
+      bounded source-backed property can be defined without general parsing,
+      a model call or semantic promotion. Do not implement the property in
+      this selection task.
+    verifier_command: >-
+      jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746","C747","C748","C749","C750","C751","C752","C754","C757","C760"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    final_observable: one exact next source-backed C759 property with no semantic promotion
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
 integration_cycle:
   triggers:
     verified_deltas: 4
