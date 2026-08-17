@@ -29,7 +29,7 @@ inputs:
   standardir_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
   normative_pdf_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
   expected_outcomes: tests/fixtures/m3-c749-expected-outcomes-v0.json
-  expected_outcomes_sha256: 7e21ca9ab12c2fc7595f4510ffe8dc2246f5867192809da8cff1412c56318d68
+  expected_outcomes_sha256: d06f0aa7ecfa2097e0daf5d1c03c2ed36160c7aa17d4c83c1d849185b6e855b1
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
