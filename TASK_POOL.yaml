@@ -5886,7 +5886,7 @@ tasks:
     depends_on:
       - T-M3-c750-component-array-spec-deferred-shape-oracle
     inputs:
-      - path: .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
         sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
@@ -5929,10 +5929,10 @@ tasks:
         - TASK_POOL.yaml
     prerequisites: [T-M3-c750-component-array-spec-deferred-shape-oracle]
     verifier_command: >-
-      jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746","C747","C748","C749","C750"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+      jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746","C747","C748","C749","C750"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     evidence_paths:
       - research/runs/2026-08.jsonl#R000597
-      - .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+      - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     retry_count: 0
     integration_cycle_trigger: next_implementation
 
