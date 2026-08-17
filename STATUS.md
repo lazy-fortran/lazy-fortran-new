@@ -303,7 +303,8 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ID: `T-M3-core0-next-bounded-property-selection-after-c761` — OPEN. The
 bounded C761 implementation passes its pushed clean replay and focused review
-gate in R000630. Selection R000629 bound C761/R741 to J3-24-007 canonical line
+gate in R000630; post-promotion regression R000631 reproduces it. Selection
+R000629 bound C761/R741 to J3-24-007 canonical line
 3871, source span `242981:74`, printed page 79, PDF page 94, ledger page 93,
 page-index record 93 and StandardIR occurrence R741@91. The pre-C761 residual
 was 135 rows: 79 `disputed` and 56 `unwitnessed`.
