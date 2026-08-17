@@ -1,0 +1,80 @@
+{
+  "schema_version": "m3-c720-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "kind-param-representation-method-legality",
+  "contract": {
+    "schema": "contracts/m3-c720-kind-param-representation-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c720-kind-param-representation-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C720",
+    "printed_page": 80,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "page": 80,
+      "start": 204806,
+      "length": 2920
+    },
+    "canonical_lines": [
+      {"line": 3298, "text": "C720 (R708) The value of kind-param shall specify a representation method that exists on the processor."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R708", "lhs": "int-literal-constant", "page": 80, "byte_start": 207585, "byte_length": 61, "occurrence": 58}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c720-semantic-items.sx",
+    "sha256": "3410a0f65f1aaf20a21efffd01f1a2ca6d5d2cb9c630ff12ab45ac827ca32508",
+    "id": "S-C720",
+    "subject": "kind-param-representation-method-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C720",
+    "page": 80,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "accepted-present-representation-method",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "kind-param-representation-method-use", "source_rule": "C720", "representation_method": "present"}
+    },
+    {
+      "id": "rejected-absent-representation-method",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "kind-param-representation-method-use", "source_rule": "C720", "representation_method": "absent"}
+    },
+    {
+      "id": "unresolved-unknown-representation-method",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "kind-param-representation-method-use", "source_rule": "C720", "representation_method": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3299},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C720 (R708) The value of kind-param shall specify a representation method that does not exist on the processor."},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R709"},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C719"},
+    {"id": "contract-property-identity", "path": ["property"], "value": "other-property"},
+    {"id": "page-index-identity", "path": ["source", "page_index", "start"], "value": 204807},
+    {"id": "source-rule-identity", "path": ["source", "rule"], "value": "C719"}
+  ]
+}
