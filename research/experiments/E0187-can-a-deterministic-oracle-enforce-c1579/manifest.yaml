@@ -2,11 +2,13 @@ id: "E0187"
 title: "Deterministic C1579 RESULT entry-name exclusion oracle"
 question: >
   Can a deterministic oracle enforce C1579 RESULT entry-name exclusion
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 candidate_run: R000004
 candidate_runs: [R000004]
+reported_run: R000004
+reported_runs: [R000004, R000058, R000059, R000060, R000061, R000062, R000063, R000064]
 
 # Every commit the result depends on. Exact, not "main".
 repos:

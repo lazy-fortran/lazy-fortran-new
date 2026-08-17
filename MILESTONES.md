@@ -15,7 +15,8 @@ The bounded C723 slice is promoted by replay `R000037` and focused review
 review `R000044`; failed review `R000043` is retained. Full M3 remains open.
 The bounded C719 slice is promoted by replay `R000051` and focused review
 `R000052`. The bounded C738 slice is promoted by replay `R000053` and focused
-review `R000055`. Full M3 remains open; C1579 is the current candidate.
+review `R000055`. The bounded C1579 slice is promoted by replay `R000062` and
+focused review `R000064`. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -286,12 +287,12 @@ retained failed review `#R000054`, focused review `#R000055`, and reports under
 `artifacts/reports/M3/`. Promotion is bounded to this slice; full M3 remains
 open. The next task is the retained E0181 residual-selection audit.
 
-## M3 — bounded C1579 RESULT entry-name semantic-oracle candidate
+## M3 — bounded C1579 RESULT entry-name semantic-oracle slice
 
-Bounded-slice status: `CANDIDATE`; clean central replay `E0187/R000004` is
-recorded as `R000062` and passes; R000058, R000059, R000061 and R000063 retain
-earlier review or replay failures; focused review is pending. Full Core 0 semantics
-remain open and are not claimed.
+Bounded-slice status: `PASS`; clean central replay `E0187/R000004` is recorded
+as `R000062` and focused review `R000064` passes. R000058, R000059, R000061 and
+R000063 retain earlier review or replay failures. Full Core 0 semantics remain
+open and are not claimed.
 
 The slice binds J3-24-007 C1579 at canonical-text lines 15386--15387 and
 printed page 357 to the already represented StandardIR R1532/R1544 shapes. Its
@@ -309,9 +310,10 @@ Evidence: `research/decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md
 `research/decisions/D0137-c1579-printed-page-correction.md`,
 `research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml`,
 the C1579 contract, validator, fixtures and trace, `research/runs/2026-08.jsonl#R000062`,
-retained failures `#R000058`, `#R000059`, `#R000061` and `#R000063`, and the retained E0181 selection
-evidence. Promotion remains bounded to this slice and requires the two focused
-reviews.
+retained failures `#R000058`, `#R000059`, `#R000061` and `#R000063`, focused
+review `#R000064` and reports under `artifacts/reports/M3/`, plus the retained
+E0181 selection evidence. Promotion is bounded to this slice; full M3 remains
+open.
 
 ## M3 — Core 0 closure audit
 

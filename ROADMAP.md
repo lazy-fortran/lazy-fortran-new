@@ -67,8 +67,8 @@ The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
 and focused review R000055 pass.
-D0136/D0137/E0187 is the current C1579 candidate; corrected replay
-E0187/R000004 is green in R000062 and focused review is pending.
+D0136/D0137/E0187 is the promoted C1579 bounded slice; replay E0187/R000004
+is green in R000062 and focused review R000064 passes.
 The E0181 Core 0 closure audit remains open, while broad semantic and model
 work remains closed until each later bounded contract is explicitly defined.
 
@@ -301,7 +301,7 @@ bounded C738 slice; it does not close full M3. E0172 remains abandoned and no
 model output can promote a semantic fact. The next executable task is the
 retained E0181 residual-selection audit.
 
-**Current M3 successor.** D0136, corrected by D0137, defines the twelfth
+**Current M3 bounded slice.** D0136, corrected by D0137, defines the twelfth
 bounded delivery contract:
 J3-24-007 C1579 forbids an ENTRY `entry-name` from appearing in a
 specification or type declaration when RESULT appears. E0187 binds the
@@ -318,9 +318,8 @@ tests/e2e/run-m3-c1579.sh --fresh
 ```
 
 Replay E0187/R000004, recorded as R000062, produces three accepted, one
-rejected, five unresolved and seven mutation failures; R000061 retains the
-page-citation review failure; focused review is pending.
-This is a candidate bounded slice only; it does not close full M3. E0172
+rejected, five unresolved and seven mutation failures; focused review R000064
+passes. This is a bounded slice only; it does not close full M3. E0172
 remains abandoned and no model output can promote a semantic fact.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
@@ -1771,9 +1770,9 @@ The first promoted M3 contract is the deterministic C1106 slice described
 above and in D0124/E0175. The subsequent promoted slices are C702 in
 D0126/E0176, C601 in D0127/E0177, C603 in D0128/E0178, C721 in D0129/E0179,
 C725 in D0130/E0180, C718 in D0131/E0182, C723 in D0132/E0183 and C729 in
-D0133/E0184, and C719 in D0134/E0185. The eleven bounded slices are promoted;
-D0135/E0186 is the C738 slice and D0136/E0187 is the current C1579 candidate.
-The E0181 Core 0 audit remains open.
+D0133/E0184, and C719 in D0134/E0185. D0135/E0186 is the promoted C738
+slice and D0136/D0137/E0187 is the promoted C1579 slice; twelve bounded
+slices are promoted. The E0181 Core 0 audit remains open.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

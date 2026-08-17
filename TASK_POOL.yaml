@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c1579-semantic-oracle
+active_task: T-M3-e0181-next-residual-selection-3
 
 milestones:
   - id: L0
@@ -166,7 +166,11 @@ milestones:
     verification: PASS
     review_state: PENDING
     prerequisites: [M1-M2]
-    verifier_command: tests/e2e/run-m3-c1579.sh --fresh
+    verifier_command: >-
+      E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
+      E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
+      E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis
+      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
     evidence_paths:
       - ROADMAP.md
       - research/decisions/D0124-first-m3-associate-name-oracle.md
@@ -180,6 +184,12 @@ milestones:
       - research/runs/2026-08.jsonl#R000475
       - research/runs/2026-08.jsonl#R000476
       - artifacts/reports/M3/c1106-semantic-review-v1.md
+      - research/decisions/D0137-c1579-printed-page-correction.md
+      - research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml
+      - research/runs/2026-08.jsonl#R000062
+      - research/runs/2026-08.jsonl#R000064
+      - artifacts/reports/M3/c1579-semantic-review-v3.md
+      - artifacts/reports/M3/c1579-reproducibility-review-v3.md
       - artifacts/reports/M3/c1106-reproducibility-review-v1.md
       - research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md
       - research/experiments/E0176-can-a-deterministic-oracle-enforce-c702-/
@@ -371,25 +381,27 @@ milestones:
       - tests/e2e/validate_m3_c1579.py
       - tests/fixtures/m3-c1579-source-backed-v0.json
       - artifacts/traces/m3-c1579-source-backed-v0.json
-      - tests/e2e/run-m3-c1579.sh
       - research/runs/2026-08.jsonl#R000062
       - research/runs/2026-08.jsonl#R000058
       - research/runs/2026-08.jsonl#R000059
       - research/runs/2026-08.jsonl#R000061
       - research/runs/2026-08.jsonl#R000063
+      - research/runs/2026-08.jsonl#R000064
       - artifacts/reports/M3/c1579-semantic-review-v0.md
       - artifacts/reports/M3/c1579-reproducibility-review-v0.md
       - artifacts/reports/M3/c1579-semantic-review-v1.md
       - artifacts/reports/M3/c1579-reproducibility-review-v1.md
       - artifacts/reports/M3/c1579-semantic-review-v2.md
       - artifacts/reports/M3/c1579-reproducibility-review-v2.md
+      - artifacts/reports/M3/c1579-semantic-review-v3.md
+      - artifacts/reports/M3/c1579-reproducibility-review-v3.md
     notes: >-
       The bounded C1106, C702, C601, C603, C721, C725, C718, C723, C729 and
       C719 slices are promoted; C719 replay R000051 and focused review
-      R000052 pass. C738 is the eleventh bounded slice. D0136 selects C1579;
-      replay R000004 is recorded as R000062 and focused review is pending.
-      R000058, R000059, R000061 and R000063 retain review, pin-order, page-citation
-      failures. The
+      R000052 pass. C738 is the eleventh bounded slice. C1579 is the twelfth;
+      replay R000004 is recorded as R000062 and focused review R000064 passes.
+      R000058, R000059, R000061 and R000063 retain review, pin-order and
+      page-citation failures. The
       audit retains 4 hard failures, 2 unresolved, 94 disputed and 69
       unwitnessed rows; full Core 0 semantics remain unpromoted.
   - id: M4-M6
@@ -1997,9 +2009,9 @@ tasks:
   - id: T-M3-c1579-semantic-oracle
     milestone: M3
     title: Verify the bounded C1579 RESULT entry-name semantic oracle
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-e0181-next-residual-selection-2
@@ -2082,6 +2094,7 @@ tasks:
     verifier_command: tests/e2e/run-m3-c1579.sh --fresh
     evidence_paths:
       - research/decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md
+      - research/decisions/D0137-c1579-printed-page-correction.md
       - research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml
       - contracts/m3-c1579-result-entry-name-oracle-v0.sxs
       - contracts/fixtures/m3-c1579-result-entry-name-oracle-v0.sx
@@ -2096,12 +2109,85 @@ tasks:
       - research/runs/2026-08.jsonl#R000059
       - research/runs/2026-08.jsonl#R000061
       - research/runs/2026-08.jsonl#R000063
+      - research/runs/2026-08.jsonl#R000064
       - artifacts/reports/M3/c1579-semantic-review-v0.md
       - artifacts/reports/M3/c1579-reproducibility-review-v0.md
       - artifacts/reports/M3/c1579-semantic-review-v1.md
       - artifacts/reports/M3/c1579-reproducibility-review-v1.md
       - artifacts/reports/M3/c1579-semantic-review-v2.md
       - artifacts/reports/M3/c1579-reproducibility-review-v2.md
+      - artifacts/reports/M3/c1579-semantic-review-v3.md
+      - artifacts/reports/M3/c1579-reproducibility-review-v3.md
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+
+  - id: T-M3-e0181-next-residual-selection-3
+    milestone: M3
+    title: Select the next bounded property from the E0181 residual ledger after C1579 promotion
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c1579-semantic-oracle
+    inputs:
+      - path: research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/manifest.yaml
+      - path: .cache/runs/E0123/R000001/rows.jsonl
+      - path: .cache/runs/E0123/R000001/trajectory.jsonl
+      - path: artifacts/reports/M3/m3-core0-closure-audit-v1.md
+      - path: research/runs/2026-08.jsonl#R000056
+      - path: research/decisions/D0137-c1579-printed-page-correction.md
+      - path: research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml
+      - path: research/runs/2026-08.jsonl#R000062
+      - path: research/runs/2026-08.jsonl#R000064
+    writes:
+      - research/decisions/D0138-*.md
+      - research/experiments/E0188-*/manifest.yaml
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      rerun the retained E0181 residual-selection audit with its exact pinned
+      rows and trajectory; select one already represented StandardIR/syntax
+      shape and define the next bounded source-backed contract, or record one
+      precise blocker and its executable successor. Do not resume E0172,
+      start broad semantic/parser work or promote model output.
+    output: contract
+    final_observable: >-
+      one next bounded M3 delivery contract or one precise, reproducible
+      blocker with an executable successor task
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0138-*.md
+        - research/experiments/E0188-*/manifest.yaml
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c1579-semantic-oracle]
+    verifier_command: >-
+      E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
+      E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
+      E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis
+      research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
+    evidence_paths:
+      - research/experiments/E0181-does-the-retained-core-0-ledger-satisfy-/manifest.yaml
+      - artifacts/reports/M3/m3-core0-closure-audit-v1.md
+      - research/runs/2026-08.jsonl#R000056
+      - research/decisions/D0137-c1579-printed-page-correction.md
+      - research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml
+      - research/runs/2026-08.jsonl#R000062
+      - research/runs/2026-08.jsonl#R000064
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
