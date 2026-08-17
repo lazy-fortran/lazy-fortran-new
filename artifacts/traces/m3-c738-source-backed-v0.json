@@ -25,6 +25,14 @@
       "kind": "positive"
     },
     {
+      "abstract": "present",
+      "computed": "ACCEPTED",
+      "deferred_binding": "none",
+      "expected": "ACCEPTED",
+      "id": "positive-no-deferred-abstract",
+      "kind": "positive"
+    },
+    {
       "abstract": "absent",
       "computed": "REJECTED",
       "deferred_binding": "contains",
@@ -33,11 +41,27 @@
       "kind": "negative"
     },
     {
+      "abstract": "absent",
+      "computed": "REJECTED",
+      "deferred_binding": "inherits",
+      "expected": "REJECTED",
+      "id": "negative-inherited-deferred-without-abstract",
+      "kind": "negative"
+    },
+    {
       "abstract": "present",
       "computed": "UNRESOLVED",
       "deferred_binding": "unknown",
       "expected": "UNRESOLVED",
       "id": "unresolved-deferred-binding",
+      "kind": "unresolved"
+    },
+    {
+      "abstract": "unknown",
+      "computed": "UNRESOLVED",
+      "deferred_binding": "contains",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-abstract-attribute",
       "kind": "unresolved"
     }
   ],
@@ -49,7 +73,7 @@
     "version": 0
   },
   "fixture": "tests/fixtures/m3-c738-source-backed-v0.json",
-  "fixture_sha256": "793ec206d7035da111b49a8e0c538ea23a96dd6ae06ed0759fd21288d9bc121b",
+  "fixture_sha256": "0fd4f1573ba7e3484ee34802a8884b11c5dffe0905922e5a158b8e5c22c9ca56",
   "milestone": "M3",
   "model_calls": 0,
   "mutation_controls": [
@@ -81,9 +105,9 @@
   "oracle": "tests/e2e/validate_m3_c738.py",
   "origin": "MECHANICAL",
   "outcome_counts": {
-    "ACCEPTED": 3,
-    "REJECTED": 1,
-    "UNRESOLVED": 1
+    "ACCEPTED": 4,
+    "REJECTED": 2,
+    "UNRESOLVED": 2
   },
   "property": "abstract-required-for-deferred-binding",
   "schema_version": "m3-c738-source-backed-v0",
