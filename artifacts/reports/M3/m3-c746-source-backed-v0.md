@@ -43,14 +43,14 @@ The clean central verifier is:
 tests/e2e/run-m3-c746.sh --fresh
 ```
 
-It passed in E0210/R000001 at control-plane revision
-`b8cfd836c6d383e7a9c85d34c676cf79f372954c`, with the functional implementation
+It passed in E0210/R000002 at control-plane revision
+`6f9bb1653b862a24fb97a477950bf264a8f78253`, with the functional implementation
 at `eafe398` and `standard-new` at
 `f94c4c51b51fce22b533b7eeda08741970320913`. The recorded result and committed
 trace both have SHA-256
 `caad123d7aa0a3f30b5d6962e0b15928b8032fba2207fa23cf06105953aa6f66`; the run
 environment has SHA-256
-`cbc3b705412465dee60b484d9cf1068e3007967422b634caed9aec102f581044`.
+`cfee8a4161f9e3be25a4b2b82c7e1d64ff392323a1fbdcae1e56a9113cf648df`.
 
 The validator has SHA-256
 `6b7fd1171c0c798c84476574214f354c6b8587cde56a88e067e75865ee91cc66`; the
@@ -58,6 +58,12 @@ source fixture has SHA-256
 `28fb8bd236b71fdc3b958cd6329d17599492623aefb8b5e479b2ecec359fc402`.
 The normative PDF, canonical text, page index and StandardIR hashes are
 recorded in the committed trace and run environment.
+
+The final focused review has two passing independent scopes in
+`artifacts/reports/M3/m3-c746-focused-review-v0.md`. The post-C746 residual
+partition is 145 rows, 84 disputed and 61 unwitnessed, with C747@1 first; its
+selection is the next task. Regenerate that partition with the promoted list
+in `TASK_POOL.yaml`.
 
 ## Non-claims
 

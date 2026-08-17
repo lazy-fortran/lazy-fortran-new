@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c746-type-parameter-name-membership-oracle
+active_task: T-M3-core0-next-bounded-property-selection-after-c746
 
 milestones:
   - id: L0
@@ -4856,9 +4856,9 @@ tasks:
   - id: T-M3-c746-type-parameter-name-membership-oracle
     milestone: M3
     title: Define and implement the bounded C746 type-parameter-name membership oracle
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-core0-next-bounded-property-selection-after-c745
@@ -4935,9 +4935,89 @@ tasks:
       - research/experiments/E0209-select-the-next-bounded-source-backed-pr/manifest.yaml
       - artifacts/reports/M3/m3-core0-next-property-selection-v15.md
       - research/runs/2026-08.jsonl#R000564
+      - research/experiments/E0210-can-a-deterministic-source-backed-c746-o/manifest.yaml
+      - artifacts/reports/M3/m3-c746-source-backed-v0.md
+      - artifacts/reports/M3/m3-c746-focused-review-v0.md
+      - artifacts/traces/m3-c746-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000566
+      - research/runs/2026-08.jsonl#R000567
+      - .cache/runs/E0210/R000002/result.json
+      - .cache/runs/E0210/R000002/environment.json
+      - tests/fixtures/m3-c746-expected-outcomes-v0.json
+      - contracts/m3-c746-derived-type-type-parameter-name-membership-v0.sxs
       - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - .cache/runs/E0001/R000003/j3-24-007.pages.index
       - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+
+  - id: T-M3-core0-next-bounded-property-selection-after-c746
+    milestone: M3
+    title: Select the next bounded property after C746 promotion
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-c746-type-parameter-name-membership-oracle
+    inputs:
+      - path: research/experiments/E0210-can-a-deterministic-source-backed-c746-o/manifest.yaml
+      - path: artifacts/reports/M3/m3-c746-source-backed-v0.md
+      - path: artifacts/reports/M3/m3-c746-focused-review-v0.md
+      - path: research/runs/2026-08.jsonl#R000566
+      - path: research/runs/2026-08.jsonl#R000567
+      - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+        sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    writes:
+      - research/experiments/E0211-*/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v16.md
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      recompute the exact post-C746 partition from the pinned E0181 witness
+      JSONL after excluding exactly the twenty-six already promoted bounded
+      contracts; confirm 145 residual rows, 84 disputed, 61 unwitnessed and
+      C747@1 first; inspect that row's pinned canonical source and existing
+      StandardIR shape; select exactly one source-backed bounded property or
+      record that no eligible row is available. Do not run a model, promote a
+      semantic fact, resume E0172 or start general parsing.
+    output: contract
+    final_observable: >-
+      one exact next M3 source-backed residual property after C746 bounded
+      promotion, with source identity and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/experiments/E0211-*
+        - artifacts/reports/M3/m3-core0-next-property-selection-v16.md
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-c746-type-parameter-name-membership-oracle]
+    verifier_command: >-
+      jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+    evidence_paths:
+      - research/experiments/E0211-*/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v16.md
+      - research/runs/2026-08.jsonl
+      - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+      - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

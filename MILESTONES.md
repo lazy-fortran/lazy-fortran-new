@@ -705,13 +705,12 @@ promotions. C745 is promoted only as this bounded oracle leaf. It does not
 parse definitions, count real components, evaluate the other C745 obligations
 or claim full M3. Corrected selection R000564 binds C746 to canonical lines
 3764--3765, printed page 77, byte span `237401:171`, and existing StandardIR
-R727/R732/R733. D0152 records the next typed membership contract; its
-implementation is the active task.
+R727/R732/R733. D0152 records the next typed membership contract.
 
 Regenerate the replay with:
 
 ```text
-scripts/verify_active_milestone.sh
+tests/e2e/run-m3-c745.sh --fresh
 ```
 
 Evidence: `research/experiments/E0208-can-a-deterministic-source-backed-c745-o/manifest.yaml`,
@@ -726,6 +725,39 @@ runs `R000543`--`R000564`, and retained review reports
 selection serialization is preserved in
 `research/runs/archive/2026-08.jsonl.raw`; correction runs `R000558` and
 `R000559` establish the parseable canonical ledger.
+
+## M3 — bounded C746 type-parameter-name membership oracle implementation
+
+Bounded-slice status: `PASS`; replay R000566 and focused review R000567 pass.
+C746 is promoted only as this bounded oracle leaf. Full M3 remains `OPEN`.
+
+The implementation binds C746 to J3-24-007 canonical lines 3764--3765,
+printed page 77, byte span `237401:171`, over StandardIR R727/R732/R733. Its
+typed product varies definition-name presence, declared-name membership and
+derived-type-definition context across 27 states. The independent expected
+outcome table and deterministic oracle record 4 `ACCEPTED`, 1 `REJECTED`, 22
+`UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
+promotions. The slice does not parse derived-type definitions, compare real
+identifier spellings, check C747 cardinality or claim full M3.
+
+Regenerate the replay with:
+
+```text
+tests/e2e/run-m3-c746.sh --fresh
+```
+
+Evidence: `research/experiments/E0210-can-a-deterministic-source-backed-c746-o/manifest.yaml`,
+`contracts/m3-c746-derived-type-type-parameter-name-membership-v0.sxs`,
+`tests/fixtures/m3-c746-expected-outcomes-v0.json`,
+`artifacts/traces/m3-c746-source-backed-v0.json`,
+`artifacts/reports/M3/m3-c746-source-backed-v0.md`,
+`artifacts/reports/M3/m3-c746-focused-review-v0.md`, and runs `R000566` and
+`R000567`.
+
+The post-C746 residual partition has 145 rows (84 `disputed` and 61
+`unwitnessed`) with C747@1 first. The active task selects the next bounded
+source-backed property. Regenerate that partition with the exact command in
+`TASK_POOL.yaml`.
 
 ## M3 — bounded C601 semantic-oracle successor
 

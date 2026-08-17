@@ -21,9 +21,10 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 is now open through twenty-five bounded contracts; regenerate the
-exact promoted set and residual partition with the post-C745 command in
-`TASK_POOL.yaml`. The full Core 0 semantic milestone remains unpromoted.
+review. M3 is now open through twenty-six bounded contracts; C746 is promoted
+only as a bounded oracle leaf by E0210/R000566 and focused review R000567.
+Regenerate the post-C746 residual partition with the active selection command
+in `TASK_POOL.yaml`. The full Core 0 semantic milestone remains unpromoted.
 
 ## Component pins
 
@@ -87,7 +88,7 @@ not current promotion evidence.
 - E0172 remains abandoned before its model cell: R000456 found that the
   endpoint exposed Qwen 3.8 27B while the experiment declared Qwen 3.6
   35B-A3B. No model output was accepted. E0174 is closed.
-- M3 is `OPEN` through twenty-four promoted bounded slices, including C717,
+- M3 is `OPEN` through twenty-six promoted bounded slices, including C717,
   C720, C722, C724, C726, C731, C732, C733, C735, C743 and C744; full Core 0 remains open.
   D0126 selects
   C702's type-parameter colon legality over the already represented R701, R832
@@ -161,7 +162,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-c746-type-parameter-name-membership-oracle`.
+Current fixture: `T-M3-core0-next-bounded-property-selection-after-c746`.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
 Clean replay R000527 and focused review R000528 pass. The replay binds C735
 line 3620, page 88, byte span `229534:101`, to existing StandardIR R727/R728;
@@ -185,23 +186,23 @@ canonical lines 3665--3667, byte span `232141:276`, page 89. E0208/R000556
 and focused review R000560 pass; C745 is promoted only as this bounded oracle
 leaf. Full M3 remains open. The post-C745 correction R000564 leaves C746@1
 first and binds it to canonical lines 3764--3765, page 77, and existing
-StandardIR R727/R732/R733. The active task is the bounded C746 membership
-oracle.
+StandardIR R727/R732/R733. E0210/R000566 and focused review R000567 pass for
+C746, which is promoted only as a bounded typed membership oracle. The
+post-C746 partition leaves 145 outside-promoted rows (84 disputed and 61
+unwitnessed), with C747@1 first. The active task selects the next bounded
+source-backed property.
 
 ## Active task
 
-ID: `T-M3-c746-type-parameter-name-membership-oracle` — implement the bounded
-C746 type-parameter-name membership oracle selected after the C745 leaf.
+ID: `T-M3-core0-next-bounded-property-selection-after-c746` — select the next
+bounded source-backed property after the C746 leaf.
 
-Verifier: from a clean checkout, run `tests/e2e/run-m3-c746.sh --fresh`.
-The oracle must classify the complete 3-by-3-by-3 typed product of definition
-name presence (`absent`, `present`, `unknown`), declared-name relation
-(`member`, `not-member`, `unknown`) and context (`derived-type-def`, `other`,
-`unknown`) as `ACCEPTED`/`REJECTED`/`UNRESOLVED`, bind C746 lines
-3764--3765/page 77 to R727/R732/R733, reject source/page/rule/identity
-mutations, and record zero model calls and zero semantic-fact promotions. It
-must not parse derived-type definitions, compare real identifier spellings,
-check C747 cardinality or perform general semantic analysis.
+Verifier: recompute the exact post-C746 partition with the command in
+`TASK_POOL.yaml`. It must reproduce 145 residual rows, 84 `disputed`, 61
+`unwitnessed`, with C747@1 first, inspect that row's pinned canonical source
+and existing StandardIR shape, and select exactly one bounded property or
+record that no eligible row is available. Do not run a model, promote a
+semantic fact, restart E0172, start general parsing or close full M3.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -249,14 +250,18 @@ review R000491 pass. C724 replay R000494 and focused review R000495 pass, and
   R000532 pass, making twenty-three bounded slices promoted only as bounded
   oracle leaves.
   C744 replay R000538 and focused review R000539 pass, making twenty-four
-  bounded slices promoted only as bounded oracle leaves.
+  bounded slices promoted only as bounded oracle leaves. C745 replay R000556
+  and focused review R000560 pass, and C746 replay R000566 with focused review
+  R000567 also pass. The current bounded total is twenty-six. C746 records
+  4 `ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve rejected mutations,
+  zero model calls and zero semantic promotions.
   The audit residual
 identities are C601@1, C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1;
 the first four are hard failures, C704@2 is reference-only, and the last two
 are unresolved. These residual states do not close the complete ledger gate.
 The current blocker is witness closure outside the bounded slices: the
-post-C745 partition records 146 residual rows (84 disputed and 62 unwitnessed),
-with C746@1 first. Regenerate it with the exact command in `TASK_POOL.yaml`.
+  post-C746 partition records 145 residual rows (84 disputed and 61 unwitnessed),
+  with C747@1 first. Regenerate it with the exact command in `TASK_POOL.yaml`.
 C744 is now promoted only as a bounded typed oracle leaf by E0206/R000538 and
 focused review R000539. E0207/R000542 selects C745's first component-presence
 obligation. The corrected implementation replay E0208/R000556 and focused
@@ -278,13 +283,13 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Implement the bounded C746 source-backed type-parameter-name membership
-oracle. The exact contract is D0152, selected by corrected E0209/R000564 and
-reported in `artifacts/reports/M3/m3-core0-next-property-selection-v15.md`.
-The source binding is J3-24-007 canonical lines 3764--3765, page 77, over
-existing StandardIR R727/R732/R733. The verifier is
-`tests/e2e/run-m3-c746.sh --fresh`. It must not restart E0172, parse general
-Fortran, check C747 cardinality or close full M3.
+Select the next bounded source-backed property after the C746 leaf. The exact
+selection verifier is the post-C746 partition command in `TASK_POOL.yaml`.
+It must reproduce 145 residual rows, 84 `disputed`, 61 `unwitnessed`, with
+C747@1 first, inspect the pinned C747 source and existing StandardIR shape,
+and select one property or record that no eligible row is available. It must
+not run a model, promote a semantic fact, restart E0172, start general parsing
+or close full M3.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
