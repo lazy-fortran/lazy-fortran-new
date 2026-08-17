@@ -300,19 +300,24 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-c759-type-param-value-oracle` — PASS. The corrected implementation,
-clean replay and focused review gate pass in E0226/R000627. The preceding
-selection task passes in E0226/R000626. C757 is the prior passing leaf with
-evidence in E0225/R000625; C760 is the preceding harvested leaf, recorded in
-R000623. The harvest remains provisional and is not a semantic promotion
-queue.
+ID: `T-M3-c761-pointer-presence-oracle` — OPEN. Selection R000629 passes and
+binds C761/R741 to J3-24-007 canonical line 3871, source span `242981:74`,
+printed page 79, PDF page 94, ledger page 93, page-index record 93 and
+StandardIR occurrence R741@91. The residual before this selection was 135
+rows: 79 `disputed` and 56 `unwitnessed`.
 
-Verifier: `tests/e2e/run-m3-c759.sh --fresh`. It must independently bind C759
-to canonical lines 3854--3855, source span `242269:126`, printed page 79,
-ledger page 92, page-index record 93 and StandardIR R736, then classify the
-opaque finite value-kind inputs `colon`, `component-specification`, `other`
-and `unknown` without parsing Fortran, running a model or promoting a
-semantic fact.
+The implementation target is the smallest bounded C761 property: a typed
+`proc-component-attr-spec-list` state of `pointer-present`, `pointer-absent`
+or `unknown`, with deterministic `ACCEPTED`, `REJECTED` or `UNRESOLVED`
+outcomes. The worker may generate labelled intake fixtures, but the independent
+expected table, source/provenance checks, mutation controls, replay and
+promotion decision remain controller-gated. No Fortran parser, model-driven
+promotion or full M3 claim is in scope.
+
+Verifier after implementation: `tests/e2e/run-m3-c761.sh --fresh`. The
+completed C759 verifier remains `tests/e2e/run-m3-c759.sh --fresh`; its pushed
+clean regression is R000628 at central
+`c7041685dc0a0a35394cc2b37b34616b2a626929`.
 
 The completed C754 verifier was `tests/e2e/run-m3-c754.sh --fresh`. Its
 27-state typed product crosses pointer attribute, allocatable attribute and

@@ -778,6 +778,11 @@ mismatch; the controller repaired it, reran the clean gate, and obtained two
 fresh focused `PASS` reviews. C759 is promoted only as a bounded oracle leaf;
 full M3 remains open.
 
+Pushed-revision regression R000628 reproduces the C759 result and trace from a
+clean detached checkout at central
+`c7041685dc0a0a35394cc2b37b34616b2a626929`; this is the durable replay gate
+for the promoted bounded leaf.
+
 ## M3 — harvested C760 procedure-component-attribute uniqueness oracle
 
 `T-M3-c760-harvested-oracle` is `PASS` and its bounded claim is `CLOSED`.
@@ -811,6 +816,27 @@ Those packets are intake material only: each future bounded property still
 needs its own typed candidate, independent oracle, negative neighbours,
 mutation controls and clean replay. Full M3 remains `OPEN`; this slice does
 not parse arbitrary Fortran or promote a semantic fact.
+
+## M3 — selected C761 pointer-presence property
+
+Selection R000629 passes for `T-M3-core0-next-bounded-property-selection-after-c759`.
+After excluding the bounded contracts through C759 and harvested C760, the
+retained residual is 135 rows: 79 `disputed` and 56 `unwitnessed`, with C761@1
+first. Regenerate that selection with:
+
+```text
+jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746","C747","C748","C749","C750","C751","C752","C754","C757","C759","C760"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+```
+
+The selection independently binds C761/R741 to J3-24-007 canonical line
+3871, byte span `242981:74`, printed page 79, ledger page 93, page-index
+record 93, PDF page 94 and StandardIR occurrence R741@91. D0169 selects the
+bounded target as the typed state of a supplied
+`proc-component-attr-spec-list`: `pointer-present`, `pointer-absent` or
+`unknown`, mapping to `ACCEPTED`, `REJECTED` and `UNRESOLVED`. The active
+implementation task is `T-M3-c761-pointer-presence-oracle`. It may not parse
+Fortran or promote a semantic fact; the Luna fixture packet remains labelled
+intake only.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 

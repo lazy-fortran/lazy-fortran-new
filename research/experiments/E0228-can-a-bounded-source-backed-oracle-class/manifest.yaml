@@ -1,0 +1,76 @@
+id: "E0228"
+title: "Can a bounded source-backed oracle classify C761 pointer-presence states?"
+question: >
+  Can a bounded source-backed oracle classify C761 pointer-presence states?
+status: running          # draft | running | reported | abandoned
+opened: "2026-08-17"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "c7041685dc0a0a35394cc2b37b34616b2a626929"
+  standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: m3-c761-pointer-presence-v0
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  pointer_presence: "pointer-present | pointer-absent | unknown"
+  mutation_controls: "source, page, identity, schema, fixture and semantic-item mutations"
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: >-
+  One medium-depth gpt-5.6-luna worker may generate labelled intake fixtures;
+  replay and promotion use no model and no model output can promote a fact.
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - deterministic ACCEPTED/REJECTED/UNRESOLVED outcome counts
+  - rejected mutation-control count
+  - source, schema and fixture correspondence
+  - model calls and semantic promotions
+  - result, trace, validator and environment hashes
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >-
+  The complete checked-in positive, negative-neighbour and unknown candidate
+  set plus every declared source, page, identity, schema, fixture and
+  semantic-item mutation control.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >-
+  Controller-derived expected outcomes for the finite pointer-presence axis,
+  independently checked against C761/R741, R742 and the pinned canonical text,
+  page index, PDF and StandardIR. The Luna candidate packet is labelled LLM
+  and is not an oracle.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >-
+  Any valid state receives the wrong outcome, a declared mutation is accepted,
+  schema and fixture fields disagree, a model call occurs during replay, or a
+  semantic fact is promoted.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >-
+  PASS only if a fresh central replay binds C761/R741 and R742, independently
+  validates schema-to-fixture correspondence, classifies all checked-in states
+  deterministically, rejects every declared mutation, records zero model calls
+  and zero semantic promotions, and reproduces its trace from the pinned
+  revision.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: >-
+  M3_C761_EXPECTED_CENTRAL_COMMIT=<central-revision> C761_EVIDENCE_ROOT=<repo>
+  STANDARD_NEW_ROOT=/home/ert/code/standard-new tests/e2e/run-m3-c761.sh --fresh
