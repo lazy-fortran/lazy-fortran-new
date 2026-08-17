@@ -1,0 +1,9 @@
+(contract-witness
+  (contract m3-c759-type-param-value)
+  (version 0)
+  (origin llm)
+  (resolution disputed)
+  (property type-param-value-kind)
+  (source (source-ref (document J3-24-007) (clause 7) (rule C759) (page 79) (source-hash 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)))
+  (span (source-span (byte-start 242269) (byte-length 126) (page-start 93) (page-end 93)))
+  (outcomes accepted rejected unresolved))

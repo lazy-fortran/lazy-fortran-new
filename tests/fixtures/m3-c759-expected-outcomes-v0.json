@@ -1,0 +1,7 @@
+{
+  "origin": "LLM",
+  "outcomes": {"colon": "ACCEPTED", "component-specification": "ACCEPTED", "other": "REJECTED", "unknown": "UNRESOLVED"},
+  "property": "type-param-value-kind",
+  "schema_version": "m3-c759-expected-outcomes-v0",
+  "source_rule": "C759"
+}

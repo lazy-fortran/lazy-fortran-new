@@ -1,0 +1,68 @@
+{
+  "cases": [
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {"value_kind": "colon"},
+        "id": "colon",
+        "property": "type-param-value-kind",
+        "source": {"clause": "7", "document": "J3-24-007", "page": 79, "rule": "C759", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"},
+        "span": {"byte_length": 126, "byte_start": 242269, "page_end": 93, "page_start": 93}
+      },
+      "expected": "ACCEPTED", "id": "colon", "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "ACCEPTED",
+        "fact": {"value_kind": "component-specification"},
+        "id": "component-specification",
+        "property": "type-param-value-kind",
+        "source": {"clause": "7", "document": "J3-24-007", "page": 79, "rule": "C759", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"},
+        "span": {"byte_length": 126, "byte_start": 242269, "page_end": 93, "page_start": 93}
+      },
+      "expected": "ACCEPTED", "id": "component-specification", "kind": "positive"
+    },
+    {
+      "candidate": {
+        "expected": "REJECTED",
+        "fact": {"value_kind": "other"},
+        "id": "other",
+        "property": "type-param-value-kind",
+        "source": {"clause": "7", "document": "J3-24-007", "page": 79, "rule": "C759", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"},
+        "span": {"byte_length": 126, "byte_start": 242269, "page_end": 93, "page_start": 93}
+      },
+      "expected": "REJECTED", "id": "other", "kind": "negative"
+    },
+    {
+      "candidate": {
+        "expected": "UNRESOLVED",
+        "fact": {"value_kind": "unknown"},
+        "id": "unknown",
+        "property": "type-param-value-kind",
+        "source": {"clause": "7", "document": "J3-24-007", "page": 79, "rule": "C759", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"},
+        "span": {"byte_length": 126, "byte_start": 242269, "page_end": 93, "page_start": 93}
+      },
+      "expected": "UNRESOLVED", "id": "unknown", "kind": "unresolved"
+    }
+  ],
+  "contract": {"fixture": "contracts/fixtures/m3-c759-type-param-value-v0.sx", "schema": "contracts/m3-c759-type-param-value-v0.sxs", "version": 0},
+  "mutation_controls": ["source-rule", "printed-page", "ledger-page", "span-start", "span-length", "canonical-line", "page-index-hash", "page-index-start", "pdf-hash", "canonical-hash", "standardir-hash", "standardir-rule", "ledger-text", "semantic-item-hash", "contract-version"],
+  "origin": "LLM",
+  "property": "type-param-value-kind",
+  "schema_version": "m3-c759-source-backed-v0",
+  "semantic_item": {"clause": "7", "document": "J3-24-007", "id": "S-C759", "origin": "llm", "page": 79, "path": "tests/fixtures/m3-c759-semantic-items.sx", "resolution": "disputed", "rule": "C759", "sha256": "464664eb9452260656628512774907730a0eebd05b9f555b165b185b48307ddd", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e", "subject": "type-param-value-kind"},
+  "source": {
+    "canonical_lines": [{"line": 3854, "text": "40 C759 (R736) Each type-param-value within a component-def-stmt shall be a colon or a component specification"}, {"line": 3855, "text": "41 expression."}],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "constraint_span": {"canonical_line": 3854, "ledger_page": 92, "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2", "rule": "R736", "text": "40 C759 (R736) Each type-param-value within a component-def-stmt shall be a colon or a component specification"},
+    "document": "J3-24-007",
+    "page_index": {"pages": [{"length": 2451, "page": 93, "start": 239957}], "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"},
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 79,
+    "rule": "C759",
+    "source_span": {"byte_length": 126, "byte_start": 242269, "page_end": 93, "page_start": 93},
+    "standard_rule": "R736",
+    "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "rows": [{"byte_length": 81, "byte_start": 240100, "lhs": "component-def-stmt", "occurrence": 86, "page": 93, "rule": "R736"}], "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2", "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"}
+  }
+}
