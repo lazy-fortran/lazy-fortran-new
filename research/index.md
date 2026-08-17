@@ -231,6 +231,7 @@ Runs recorded: 695
 | E0230 | reported | 1 | Which residual source occurrence should follow C762? |
 | E0231 | reported | 8 | Can the bounded source-backed C763 PASS-argument-name property be replayed deterministically? |
 | E0232 | reported | 1 | Which residual source occurrence should follow promoted C763? |
+| E0233 | draft | 0 | Can the first raw source program reach the existing executable path |
 
 ## Run status
 

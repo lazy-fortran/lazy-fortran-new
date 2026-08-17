@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-fortfront-raw-program-source
+  - T-L3-central-source-executable-replay
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-fortfront-raw-program-source
+active_task: T-L3-central-source-executable-replay
 
 milestones:
   - id: L0
@@ -6972,8 +6972,8 @@ tasks:
   - id: T-L3-fortfront-raw-program-source
     milestone: L3
     title: Add the bounded raw-source main-program frontend path
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on: [T-L3-central-raw-program-contract]
@@ -6984,7 +6984,7 @@ tasks:
         sha256: 9bcb7c1e6147f8d7f50603cf892cc6288d27fb60b02842573d02558fe7ef1de9
       - component: fortfront-new
         commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
-    output: raw-source frontend-v0 producer commit
+    output: raw-source frontend-v0 producer commit 89b470760745cc4fd02c142bcb3e44f90a688a93
     integration: controller-only
     estimated_cost: medium
     parallel_group: l3-production
@@ -7006,7 +7006,7 @@ tasks:
       Reuse existing frontend contracts and diagnostics; do not add a parser
       generator, research ledger, semantic subsystem or model call.
     verifier_command: >-
-      (cd /home/ert/code/fortfront-new-l3-medium && fo clean && fo &&
+      (cd /home/ert/code/fortfront-new && fo clean && fo &&
       fo test --target test_frontend_source_v0 && fo exec
       fortfront-source-v0 /tmp/l3-positive.f90 /tmp/l3-positive.sx)
     final_observable: deterministic frontend-v0 result from raw source
@@ -7026,7 +7026,7 @@ tasks:
       - path: tests/negative/l3-raw-program-v0-mismatched-end.f90
         sha256: 90446d079554077bd950cf3552de094b177865a0d870c797a5d6766b16784f1c
       - component: fortfront-new
-        commit: pinned-after-worker-integration
+        commit: 89b470760745cc4fd02c142bcb3e44f90a688a93
       - component: ffc-new
         commit: bcaadcb58c24af613204aa398541c0d2e35abf91
       - component: fortback-new
