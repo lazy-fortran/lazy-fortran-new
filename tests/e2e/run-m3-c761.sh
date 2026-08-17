@@ -34,6 +34,8 @@ C761_EVIDENCE_ROOT="$EVIDENCE_ROOT" python3 "$ROOT/tests/e2e/validate_m3_c761.py
   "$RUN_DIR/semantic-items.canonical.sx" "$EVIDENCE_ROOT/.cache/runs/E0171/R000433-provenance-replay/standardir.sx" \
   "$EVIDENCE_ROOT/.cache/runs/E0001/R000003/j3-24-007.canonical.txt" "$EVIDENCE_ROOT/.cache/runs/E0001/R000003/j3-24-007.pages.index" \
   "$EVIDENCE_ROOT/.cache/j3-24-007.pdf" "$ROOT/tests/fixtures/m3-c761-semantic-items.sx" "$RUN_DIR/result.json" >"$RUN_DIR/oracle.log"
+[ -f "$ROOT/artifacts/traces/m3-c761-source-backed-v0.json" ]
+cmp "$RUN_DIR/result.json" "$ROOT/artifacts/traces/m3-c761-source-backed-v0.json"
 python3 - "$RUN_DIR/run-environment.json" "$central_commit" "$standard_commit" "$ROOT/tests/e2e/validate_m3_c761.py" <<'PY'
 import hashlib, json, platform, subprocess, sys
 from pathlib import Path
