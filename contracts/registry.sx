@@ -25,4 +25,5 @@
   (contract m3-c1586-statement-function-self-reference-oracle 0 lazy-fortran-new)
   (contract m3-c729-optional-comma-oracle 0 lazy-fortran-new)
   (contract m3-c717-kind-selector-oracle 0 lazy-fortran-new)
-  (contract m3-c720-kind-param-representation-oracle 0 lazy-fortran-new))
+  (contract m3-c720-kind-param-representation-oracle 0 lazy-fortran-new)
+  (contract m3-c722-kind-param-approximation-oracle 0 lazy-fortran-new))

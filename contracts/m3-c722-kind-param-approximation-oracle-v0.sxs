@@ -1,0 +1,19 @@
+(schema m3-c722-kind-param-approximation-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum approximation-method-state absent present unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record kind-param-approximation-method-use
+    (approximation-method approximation-method-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact kind-param-approximation-method-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
