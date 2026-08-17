@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "0c6d2e5fc33bb1d5a22811193f2b4c7f7fb1dfac"
+  lazy-fortran-new: "88dd4d507cc99c75692ecf12ee0dcb5908200a8c"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -33,6 +33,16 @@ inputs:
   contract_fixture_sha256: 29ba0b8a4229898c044510332b116017b5ce1ec4cf62d22066510382c48f401a
   semantic_items: tests/fixtures/m3-c722-semantic-items.sx
   semantic_items_sha256: 0f9720237b4e30e78cf4b647e3cc34d0509cf270c10ca69b979d6d8bd91aa2a3
+  source_fixture: tests/fixtures/m3-c722-source-backed-v0.json
+  source_fixture_sha256: 55d636aa3869ae0a165a7c2b4993932333d4e53775c1b19dd2417caa22c25148
+  semantic_golden: tests/golden/m3-c722-semantic-items.sx
+  semantic_golden_sha256: 0f9720237b4e30e78cf4b647e3cc34d0509cf270c10ca69b979d6d8bd91aa2a3
+  validator: tests/e2e/validate_m3_c722.py
+  validator_sha256: 6247d4d7ca81f9060b7404abd4b7e7579ea18c704a83c3bbcd6455afcf235329
+  runner: tests/e2e/run-m3-c722.sh
+  runner_sha256: 37b5af2f72f9124e9fb9da93d49d220373ed0b5e25c245ef5201fadaf4582e8e
+  trace: artifacts/traces/m3-c722-source-backed-v0.json
+  trace_sha256: caad5692bf40f286143deddd565b7dc93c62b9a9bacb80de4c8cded2a8583ca6
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
