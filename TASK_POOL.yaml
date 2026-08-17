@@ -2287,6 +2287,8 @@ tasks:
       - tests/e2e/validate_m3_c1586_self_reference.py
       - artifacts/traces/m3-c1586-source-backed-v0.json
       - research/runs/2026-08.jsonl#R000065
+      - research/runs/2026-08.jsonl#R000066
+      - research/runs/2026-08.jsonl#R000067
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 
