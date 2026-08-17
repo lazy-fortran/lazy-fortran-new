@@ -82,22 +82,22 @@ gate: >-
 # Script that turns runs into the tables and figures in report.md.
 analysis: >-
   Controller-owned bounded C745 replay report
-  artifacts/reports/M3/m3-c745-source-backed-v0.md
+  artifacts/reports/M3/m3-c745-source-backed-v1.md
 
 result:
-  replay_run: research/runs/2026-08.jsonl#R000547
+  replay_run: research/runs/2026-08.jsonl#R000552
   final_handoff_run: research/runs/2026-08.jsonl#R000552
   final_handoff_revision: 9ec8bccd8ac738a40d23c1412570fe36a80f56ab
-  central_revision: ed172bad35dc758cd5490c7440a9039a93f115d5
+  central_revision: 9ec8bccd8ac738a40d23c1412570fe36a80f56ab
   functional_revision: 06b4382072f8af49f16368c7cb57631accec8f1e
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
   trace: artifacts/traces/m3-c745-source-backed-v0.json
   trace_sha256: 06f2c26c5c051d24229e09215b8a31dffe481a06c41bd57c542a282de3e0247f
-  run_environment: .cache/runs/E0208/R000005/run-environment.json
-  run_environment_sha256: b6c52f18a80da351c1927a1668f4d0cacf9fbec1d5ce30e30a5db31e6ac831a4
+  run_environment: .cache/runs/E0208/R000007/run-environment.json
+  run_environment_sha256: 91eb7bb9937c7b8475be58acfea7aba3dd1de8fee8ed3c902e54a6964a56ccca
   outcome_counts: {accepted: 4, rejected: 1, unresolved: 22}
   mutation_controls: 12
   model_calls: 0
   semantic_promotions: 0
-  focused_review: artifacts/reports/M3/m3-c745-focused-review-v0.md
+  focused_review: artifacts/reports/M3/m3-c745-focused-review-v1.md
   status: REPLAY-PASS-REVIEW-PENDING

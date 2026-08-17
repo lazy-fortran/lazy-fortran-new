@@ -707,15 +707,16 @@ the other C745 obligations or claim full M3.
 Regenerate the replay with:
 
 ```text
-M3_C745_EXPECTED_CENTRAL_COMMIT=ed172bad35dc758cd5490c7440a9039a93f115d5 tests/e2e/run-m3-c745.sh --fresh
+M3_C745_EXPECTED_CENTRAL_COMMIT=9ec8bccd8ac738a40d23c1412570fe36a80f56ab tests/e2e/run-m3-c745.sh --fresh
 ```
 
 Evidence: `research/experiments/E0208-can-a-deterministic-source-backed-c745-o/manifest.yaml`,
 `tests/fixtures/m3-c745-expected-outcomes-v0.json`,
 `artifacts/traces/m3-c745-source-backed-v0.json`,
-`artifacts/reports/M3/m3-c745-source-backed-v0.md`, retained replay and review
-runs `R000543`--`R000552`, and retained failed-review report
-`artifacts/reports/M3/m3-c745-focused-review-v0.md`.
+`artifacts/reports/M3/m3-c745-source-backed-v1.md`, retained replay and review
+runs `R000543`--`R000552`, and retained failed-review reports
+`artifacts/reports/M3/m3-c745-focused-review-v0.md` and
+`artifacts/reports/M3/m3-c745-focused-review-v1.md`.
 
 ## M3 — bounded C601 semantic-oracle successor
 

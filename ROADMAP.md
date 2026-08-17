@@ -92,7 +92,7 @@ as its bounded END TYPE name relation oracle. The post-C744 partition has 147
 residual rows (84 disputed and 63 unwitnessed), with C745@1 first. E0207/R000542
 binds C745 to canonical lines 3665--3667, page 89, byte span `232141:276`,
 over R726/R731/R735. The active task implements the bounded SEQUENCE
-component-presence relation. E0208/R000547 now passes the clean replay with a
+component-presence relation. E0208/R000552 now passes the active-milestone replay with a
 human-authored independent expected-outcome table; focused review remains
 pending and C745 is not yet promoted.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
@@ -585,7 +585,7 @@ promotions. C744 is promoted only as this bounded oracle; post-C744
 reconciliation leaves 147 residual rows (84 disputed and 63 unwitnessed), with
 C745@1 first. E0207/R000542 selects the first C745 obligation over R726/R731/R735
 at canonical lines 3665--3667, page 89, byte span `232141:276`. D0151 defines
-the typed SEQUENCE component-presence relation. E0208/R000547 passes the
+the typed SEQUENCE component-presence relation. E0208/R000552 passes the
 corrected clean replay with 4 `ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve
 rejected mutations, zero model calls and zero semantic promotions. The focused
 review is the remaining gate; this slice does not parse, count real components
