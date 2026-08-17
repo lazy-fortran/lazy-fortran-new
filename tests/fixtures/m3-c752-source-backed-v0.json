@@ -1,0 +1,77 @@
+{
+  "schema_version": "m3-c752-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "component-c752-forbidden-coarray-type",
+  "contract": {
+    "schema": "contracts/m3-c752-forbidden-coarray-type-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c752-forbidden-coarray-type-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C752",
+    "printed_page": 79,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3842, "text": "C752 (R737) If a coarray-spec appears, the component shall not be of type C_PTR or C_FUNPTR from"},
+      {"line": 3843, "text": "the intrinsic module ISO_C_BINDING (18.2), or of type TEAM_TYPE from the intrinsic module"},
+      {"line": 3844, "text": "ISO_FORTRAN_ENV (16.10.2)."}
+    ],
+    "source_span": {"byte_start": 241335, "byte_length": 223, "page_start": 93, "page_end": 93},
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [{"page": 93, "start": 239957, "length": 2451}]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R702", "lhs": "type-spec", "page": 77, "byte_start": 196903, "byte_length": 113, "occurrence": 52},
+        {"rule": "R703", "lhs": "declaration-type-spec", "page": 77, "byte_start": 197098, "byte_length": 309, "occurrence": 53},
+        {"rule": "R704", "lhs": "intrinsic-type-spec", "page": 80, "byte_start": 205210, "byte_length": 195, "occurrence": 54},
+        {"rule": "R737", "lhs": "data-component-def-stmt", "page": 93, "byte_start": 240182, "byte_length": 115, "occurrence": 87},
+        {"rule": "R739", "lhs": "component-decl", "page": 93, "byte_start": 240478, "byte_length": 157, "occurrence": 89}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c752-semantic-items.sx",
+    "sha256": "b64aeab421960c9f8d62090a7402793fe6ad2b0aa13919f2939263f1c3e9e316",
+    "id": "S-C752",
+    "subject": "component-c752-forbidden-coarray-type",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C752",
+    "page": 79,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "unwitnessed"
+  },
+  "cases": [
+    {"id":"accepted-absent-C_PTR","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"C_PTR"}},
+    {"id":"accepted-absent-C_FUNPTR","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"C_FUNPTR"}},
+    {"id":"accepted-absent-TEAM_TYPE","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"TEAM_TYPE"}},
+    {"id":"accepted-absent-other","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"other"}},
+    {"id":"accepted-absent-unknown","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"absent","component_type":"unknown"}},
+    {"id":"accepted-present-other","kind":"positive","expected":"ACCEPTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"other"}},
+    {"id":"rejected-present-C_PTR","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"C_PTR"}},
+    {"id":"rejected-present-C_FUNPTR","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"C_FUNPTR"}},
+    {"id":"rejected-present-TEAM_TYPE","kind":"negative","expected":"REJECTED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"TEAM_TYPE"}},
+    {"id":"unresolved-present-unknown","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"present","component_type":"unknown"}},
+    {"id":"unresolved-unknown-C_PTR","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"C_PTR"}},
+    {"id":"unresolved-unknown-C_FUNPTR","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"C_FUNPTR"}},
+    {"id":"unresolved-unknown-TEAM_TYPE","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"TEAM_TYPE"}},
+    {"id":"unresolved-unknown-other","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"other"}},
+    {"id":"unresolved-unknown-unknown","kind":"unresolved","expected":"UNRESOLVED","candidate":{"fact":"component-c752-forbidden-coarray-type","source_rule":"C752","coarray_spec":"unknown","component_type":"unknown"}}
+  ],
+  "mutation_controls": [
+    "source-rule", "printed-page", "canonical-hash", "span-start", "span-length",
+    "canonical-line", "page-index-hash", "page-index-start", "standardir-hash",
+    "standardir-rule", "semantic-item-hash", "contract-version"
+  ]
+}

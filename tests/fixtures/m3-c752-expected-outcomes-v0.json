@@ -1,0 +1,23 @@
+{
+  "schema_version": "m3-c752-expected-outcomes-v0",
+  "origin": "HUMAN",
+  "property": "component-c752-forbidden-coarray-type",
+  "source_rule": "C752",
+  "outcomes": {
+    "accepted-absent-C_PTR": "ACCEPTED",
+    "accepted-absent-C_FUNPTR": "ACCEPTED",
+    "accepted-absent-TEAM_TYPE": "ACCEPTED",
+    "accepted-absent-other": "ACCEPTED",
+    "accepted-absent-unknown": "ACCEPTED",
+    "accepted-present-other": "ACCEPTED",
+    "rejected-present-C_PTR": "REJECTED",
+    "rejected-present-C_FUNPTR": "REJECTED",
+    "rejected-present-TEAM_TYPE": "REJECTED",
+    "unresolved-present-unknown": "UNRESOLVED",
+    "unresolved-unknown-C_PTR": "UNRESOLVED",
+    "unresolved-unknown-C_FUNPTR": "UNRESOLVED",
+    "unresolved-unknown-TEAM_TYPE": "UNRESOLVED",
+    "unresolved-unknown-other": "UNRESOLVED",
+    "unresolved-unknown-unknown": "UNRESOLVED"
+  }
+}

@@ -1,0 +1,27 @@
+(schema m3-c752-forbidden-coarray-type-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum c752-coarray-spec absent present unknown)
+  (enum c752-component-type C_PTR C_FUNPTR TEAM_TYPE other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record c752-compliance
+    (coarray-spec c752-coarray-spec)
+    (component-type c752-component-type))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact c752-compliance)
+    (expected outcome))
+  (list candidates semantic-candidate))
