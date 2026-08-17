@@ -428,9 +428,14 @@ only as its bounded type-param-value star-context oracle: replay R000504 and
 focused review R000505 pass with 17 `ACCEPTED`, 1 `REJECTED`, 3 `UNRESOLVED`,
 twelve mutation failures and zero model calls or semantic promotions.
 Post-C726 reconciliation R000506 leaves 153 residual rows (88 disputed and 65
-unwitnessed), with C731@1 first. The next executable task is
-`T-M3-c731-constant-expression-oracle` after selection R000507; the C731
-source binding is recorded in the selection report.
+unwitnessed), with C731@1 first. The bounded C731 contract is now promoted
+only as a typed-state oracle; the next executable task is residual selection
+after C731. The source binding is recorded in the selection report and the
+replay is reproducible with:
+
+```text
+M3_C731_EXPECTED_CENTRAL_COMMIT=9309dd737022caafba08303eb01c600d7d13db3a tests/e2e/run-m3-c731.sh --fresh
+```
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
@@ -447,16 +452,16 @@ checks the full 21-state typed relation and twelve mutations: 17 `ACCEPTED`,
 This is a bounded oracle only; it does not parse Fortran, infer context or
 close full C726/M3. R000506 is the post-promotion residual reconciliation.
 
-## M3 — bounded C731 constant-expression oracle (next)
+## M3 — bounded C731 constant-expression oracle
 
 Selection status: `PASS` in R000507. C731@1 binds canonical lines 3469--3470,
-byte span `219036:167` on page 85, to existing StandardIR R721. The selected
-property is that the length specified for a character statement function or a
-statement-function dummy argument of type CHARACTER shall be a constant
-expression. The retained model proposal is input only; the next task must
-define a typed candidate, deterministic oracle, negative neighbours and
-source/provenance mutations. It must not evaluate arbitrary Fortran
-expressions, infer names or promote a semantic fact.
+byte span `219036:167` on page 85, to existing StandardIR R721. D0145/E0196
+define a typed `length_form × context` relation over the complete 12-state
+product. Replay R000508 and focused review R000510 pass with 2 `ACCEPTED`, 2
+`REJECTED`, 8 `UNRESOLVED`, twelve rejected mutations and zero model calls or
+semantic promotions. The retained model proposal is input only. The oracle
+does not evaluate arbitrary Fortran expressions, infer names, parse context or
+claim full C731/M3 semantics.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
@@ -1910,15 +1915,19 @@ D0133/E0184, and C719 in D0134/E0185. D0135/E0186 is the promoted C738
 slice, D0136/D0137/E0187 is the promoted C1579 slice, and D0138/E0188 is the
 promoted C1586 slice and bounded C717 slice; C720 and C722 are also promoted
 bounded slices. D0143/E0192 adds the seventeenth bounded C724 oracle, and
-D0144/E0194 adds the eighteenth bounded C726 oracle. The E0181
+D0144/E0194 adds the eighteenth bounded C726 oracle, and D0145/E0196 adds the
+nineteenth bounded C731 oracle. The E0181
 Core 0 audit, pre-C717 reconciliation and post-promotion reconciliations are
 recorded as R000074 through R000076, R000482, R000488, R000492, R000496 and
 R000506; 153 outside-promoted witness rows remain (88 disputed and 65
 unwitnessed). Full M3 remains open. R000504/R000505 verify the bounded C726
 source-backed oracle over the page-84/page-85 span. Selection R000507 chooses
 C731@1, whose source-backed property is that a character statement-function
-or statement-function dummy-argument length is a constant expression. The
-next task implements one bounded C731 oracle; no semantic fact is promoted.
+or statement-function dummy-argument length is a constant expression. Replay
+R000508 and focused review R000510 verify the typed C731 oracle with two
+accepted, two rejected and eight unresolved states, twelve rejected mutations,
+and zero model calls or semantic promotions. No semantic fact is promoted;
+full M3 remains open.
 The M3 model lane
 remains frozen by
 D0084; E0172 remains abandoned, and E0174 correspondence evidence is closed.

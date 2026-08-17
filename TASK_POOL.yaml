@@ -3722,7 +3722,7 @@ tasks:
     milestone: M3
     title: Define and implement the bounded C731 constant-expression oracle
     status: OPEN
-    verification: NOT_STARTED
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on:
@@ -3731,6 +3731,11 @@ tasks:
       - path: research/experiments/E0195-can-the-post-c726-residual-select-one-so/manifest.yaml
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v6.md
       - path: research/runs/2026-08.jsonl#R000507
+      - path: research/runs/2026-08.jsonl#R000508
+      - path: .cache/runs/E0196/R000001/result.json
+        sha256: f4a35ba70aed8235e5aed932adc4b71a4ebf8ef85369dcf0b9cfa20b507c7f8b
+      - path: .cache/runs/E0196/R000001/run-environment.json
+        sha256: a9d8761df3d542de4f4f687785e58eb527312fb10a59eaf09cefc578083fd421
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
       - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
@@ -3739,6 +3744,7 @@ tasks:
       - research/experiments/E0196-can-a-deterministic-source-backed-c731-oracle/manifest.yaml
       - contracts/m3-c731-constant-expression-oracle-v0.sxs
       - contracts/fixtures/m3-c731-constant-expression-oracle-v0.sx
+      - contracts/registry.sx
       - tests/fixtures/m3-c731-source-backed-v0.json
       - tests/fixtures/m3-c731-semantic-items.sx
       - tests/golden/m3-c731-semantic-items.sx
@@ -3794,6 +3800,15 @@ tasks:
       - research/experiments/E0195-can-the-post-c726-residual-select-one-so/manifest.yaml
       - artifacts/reports/M3/m3-core0-next-property-selection-v6.md
       - research/runs/2026-08.jsonl#R000507
+      - research/runs/2026-08.jsonl#R000508
+      - contracts/m3-c731-constant-expression-oracle-v0.sxs
+      - contracts/fixtures/m3-c731-constant-expression-oracle-v0.sx
+      - tests/fixtures/m3-c731-source-backed-v0.json
+      - tests/fixtures/m3-c731-semantic-items.sx
+      - tests/golden/m3-c731-semantic-items.sx
+      - tests/e2e/run-m3-c731.sh
+      - tests/e2e/validate_m3_c731.py
+      - artifacts/traces/m3-c731-source-backed-v0.json
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

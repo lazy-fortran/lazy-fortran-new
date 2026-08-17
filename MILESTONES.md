@@ -8,7 +8,7 @@ milestone ledger.
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
 replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603, C721,
-C725 and C726 slices are promoted by their central verifiers and focused
+C725, C726 and C731 slices are promoted by their central verifiers and focused
 reviews.
 The bounded C718 slice is promoted by its corrected replay and focused reviews.
 The bounded C723 slice is promoted by replay `R000037` and focused review
@@ -481,8 +481,16 @@ does not parse Fortran, infer context, claim full C726 semantics or close M3.
 The post-C726 reconciliation `R000506` reports 153 outside-promoted rows (88
 disputed and 65 unwitnessed), with C731@1 first. Selection `R000507` binds
 C731 to canonical lines 3469--3470 on page 85 and existing StandardIR R721.
-The next task defines the bounded C731 constant-expression oracle; full M3
-remains open.
+The bounded C731 replay `R000508` and focused review `R000510` pass. D0145/E0196
+bind the typed 12-state constant-expression/context oracle to that source span;
+the result is bounded-only with zero model calls and semantic promotions. Full
+M3 remains open.
+
+Regenerate the C731 result with:
+
+```text
+M3_C731_EXPECTED_CENTRAL_COMMIT=9309dd737022caafba08303eb01c600d7d13db3a tests/e2e/run-m3-c731.sh --fresh
+```
 
 ## M3 — bounded C601 semantic-oracle successor
 
