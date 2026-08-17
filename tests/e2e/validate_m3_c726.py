@@ -30,7 +30,7 @@ PDF_SHA256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 PAGE_INDEX_SHA256 = "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
 STANDARDIR_SHA256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
 PROPERTY = "type-param-value-star-context-legality"
-SOURCE_SPAN = {"byte_start": 217828, "byte_length": 422, "page_start": 84, "page_end": 85}
+SOURCE_SPAN = {"byte_start": 217828, "byte_length": 518, "page_start": 84, "page_end": 85}
 EXPECTED_CANONICAL_LINES = [
     {"line": 3453, "text": "C726 (R721 R722 R723) A type-param-value of * shall be used only"},
     {"line": 3454, "text": "• to declare a dummy argument,"},
@@ -157,7 +157,10 @@ def validate_page_index(source: dict[str, Any], page_index_path: Path) -> None:
         fragment = f"page {page['page']} start {page['start']} length {page['length']}"
         require(fragment in text, f"page index span differs: {fragment}")
     require(source["source_span"]["page_start"] == 84 and source["source_span"]["page_end"] == 85, "source span page boundary differs")
-    require(source["source_span"]["byte_start"] + source["source_span"]["byte_length"] == 218250, "source span endpoint differs")
+    require(source["source_span"]["byte_start"] + source["source_span"]["byte_length"] == 218346, "source span endpoint differs")
+    canonical_bytes = page_index_path.parent / "j3-24-007.canonical.txt"
+    source_bytes = canonical_bytes.read_bytes()
+    require(source_bytes[217828:218346].decode("utf-8").endswith("function result."), "source span does not cover cited line 3461")
 
 
 def validate_semantic_item(doc: dict[str, Any], root: Path, semantic_input: Path) -> None:
@@ -200,7 +203,7 @@ def validate_contract(doc: dict[str, Any], root: Path) -> None:
         "(rule C726)",
         "(page 84)",
         "(byte-start 217828)",
-        "(byte-length 422)",
+        "(byte-length 518)",
         "(page-start 84)",
         "(page-end 85)",
         "(source-hash " + SOURCE_SHA256 + ")",

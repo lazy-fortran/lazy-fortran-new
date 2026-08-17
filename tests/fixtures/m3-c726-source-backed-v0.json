@@ -24,7 +24,7 @@
       {"line": 3460, "text": "• in the type-spec or derived-type-spec of a type guard statement (11.1.11), or"},
       {"line": 3461, "text": "• in an external function, to declare the character length parameter of the function result."}
     ],
-    "source_span": {"byte_start": 217828, "byte_length": 422, "page_start": 84, "page_end": 85},
+    "source_span": {"byte_start": 217828, "byte_length": 518, "page_start": 84, "page_end": 85},
     "page_index": {
       "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
       "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
@@ -92,6 +92,6 @@
     {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C725"},
     {"id": "contract-property-identity", "path": ["property"], "value": "other-property"},
     {"id": "source-rule-identity", "path": ["source", "rule"], "value": "C725"},
-    {"id": "source-span-boundary", "path": ["source", "source_span", "byte_length"], "value": 421}
+    {"id": "source-span-boundary", "path": ["source", "source_span", "byte_length"], "value": 517}
   ]
 }

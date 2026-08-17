@@ -10,7 +10,10 @@ Post-C724 selection replay `R000497` identifies C726@1 as the first residual
 row. C726 states that a `type-param-value` of `*` shall be used only in five
 source-named contexts. Its source occurrence begins on canonical line 3453,
 continues through lines 3453--3457 and 3460--3461, and crosses the pinned
-page-84/page-85 boundary. The already represented grammar shapes are
+page-84/page-85 boundary. The retained model proposal records only the
+partial span 217828:422, which ends before line 3461; this contract uses the
+complete cited source text through the content of line 3461, span 217828:518.
+The already represented grammar shapes are
 StandardIR R721 `char-selector`, R722 `length-selector` and R723 `char-length`.
 
 The previous C729 decision correctly rejected selecting C726 as a context
@@ -59,7 +62,8 @@ and contract-identity mutations must fail closed. No model output can promote
 a semantic fact.
 
 The exact source binding is J3-24-007 C726, clause 7, canonical byte span
-217828:422, canonical lines 3453--3457 and 3460--3461, pages 84--85, with
+217828:518 through the content of line 3461, canonical lines 3453--3457 and
+3460--3461, pages 84--85, with
 StandardIR R721/R722/R723. The normative PDF, canonical text, page index and
 StandardIR source remain pinned to the existing hashes.
 

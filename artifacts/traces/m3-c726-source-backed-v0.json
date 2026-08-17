@@ -172,13 +172,13 @@
   ],
   "contract": {
     "fixture": "contracts/fixtures/m3-c726-type-param-star-context-oracle-v0.sx",
-    "fixture_sha256": "322500c16a670946822f905b86feebc2ed0f5c59d3f75b6f1a3fc59e60c03676",
+    "fixture_sha256": "229285e88969426bfc901ca494116f3eee6f4047f0813dab4e0955da9228ecc6",
     "schema": "contracts/m3-c726-type-param-star-context-oracle-v0.sxs",
     "schema_sha256": "87ce77ab9d14cd94fccf6a2dd2d6f8dacaeddc6fcb99f48478947e6aa8e91811",
     "version": 0
   },
   "fixture": "tests/fixtures/m3-c726-source-backed-v0.json",
-  "fixture_sha256": "678c6cecd363e06a789594d6927380d75f0b4365726a71a58d2c81cac30bf356",
+  "fixture_sha256": "22560e83a77a24dec6bc092487ed64cf9f93a340bc2154641e94544b57214aeb",
   "full_m3": "OPEN",
   "milestone": "M3",
   "model_calls": 0,
@@ -282,7 +282,7 @@
     "printed_page": 84,
     "rule": "C726",
     "source_span": {
-      "byte_length": 422,
+      "byte_length": 518,
       "byte_start": 217828,
       "page_end": 85,
       "page_start": 84
