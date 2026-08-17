@@ -62,7 +62,7 @@ coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
 through sixteen bounded contracts, including C717, C720 and C722. The current
-task is the post-C722 residual selection.
+task is the bounded C724 oracle selected from the post-C722 residual.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -81,8 +81,9 @@ R000480 and focused review R000481 pass after the R000479 central-revision
 durability failure. C717 is promoted as a bounded slice. C720 clean replay
 R000486 and focused review R000487 pass with an explicit
 expected central worktree revision. C720 is promoted as a bounded slice.
-C722 replay R000490 and focused review R000491 also pass; the active task is
-`T-M3-core0-next-bounded-property-selection-after-c722`.
+C722 replay R000490 and focused review R000491 also pass. Selection replay
+R000493 selects C724@1; the active task is
+`T-M3-c724-scalar-int-constant-expr-oracle`.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -406,8 +407,8 @@ Post-C720 reconciliation `R000488` leaves 156 outside-promoted rows (89
 disputed and 67 unwitnessed). Selection replay `R000489` selects C722@1;
 replay `R000490` and focused review `R000491` promote the bounded C722 oracle.
 Post-C722 reconciliation `R000492` leaves 155 outside-promoted rows (88
-disputed and 67 unwitnessed). The next executable task is
-`T-M3-core0-next-bounded-property-selection-after-c722`; the residual inventory remains
+disputed and 67 unwitnessed). Selection replay `R000493` selects C724@1. The
+next executable task is `T-M3-c724-scalar-int-constant-expr-oracle`; the residual inventory remains
 available through
 this exact verifier:
 

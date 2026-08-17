@@ -148,21 +148,20 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-core0-next-bounded-property-selection-after-c722`.
-C722 is promoted only as a bounded approximation-method oracle: D0142/E0191
-binds canonical line 3356 on page 82 to StandardIR R714, and R000490/R000491
-pass. The next selection gate partitions the retained ledger with C722
-included; its first residual row is C724@1. Full M3 remains open; do not
-resume E0172 or start broad semantic work.
+Current fixture: `T-M3-c724-scalar-int-constant-expr-oracle`. C724 is selected
+by R000493 after the C722 bounded promotion. Its source binding is canonical
+lines 3450--3451 on page 83 to existing StandardIR R721 on page 84. Full M3
+remains open; do not resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c722` — select the next
-bounded property after C722 promotion. Full M3 remains open.
+ID: `T-M3-c724-scalar-int-constant-expr-oracle` — verify the bounded C724
+scalar-int-constant-expr legality oracle. Full M3 remains open.
 
-Verifier: the exact promoted-contract partition in `TASK_POOL.yaml`, recorded
-as R000492 and the active selection task. It must report 155 residual rows,
-including first row C724@1, without semantic promotion or model execution.
+Verifier: `tests/e2e/run-m3-c724.sh --fresh` from clean central and standard-new
+checkouts. It must bind C724 lines 3450--3451 to R721, cover the complete
+nine-state typed table, reject source and identity mutations, and observe zero
+model calls or semantic promotions.
 
 ## Current blocker
 
@@ -209,12 +208,16 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-core0-next-bounded-property-selection-after-c722`. The
-exact verifier is the promoted-contract partition recorded in
-`research/runs/2026-08.jsonl#R000492`, with C722 included. It must report 155
-outside-promoted rows, 88 disputed and 67 unwitnessed, and select C724@1 as
-the first residual row. This is a selection contract only; it does not
-implement C724 or promote a semantic fact.
+Run and record `T-M3-c724-scalar-int-constant-expr-oracle`. The exact central
+verifier is:
+
+```text
+tests/e2e/run-m3-c724.sh --fresh
+```
+
+The selected decision is D0143/E0192. The oracle may classify only typed
+negative/nonnegative/unknown value-sign and absent/present/unknown method
+states; it may not evaluate expressions or inspect processors.
 
 ## Last verified central command
 

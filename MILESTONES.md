@@ -446,9 +446,17 @@ only as this bounded oracle slice. It does not evaluate kind expressions,
 inspect processor capabilities, parse Fortran or close full M3.
 
 The post-promotion reconciliation `R000492` reports 155 outside-promoted rows
-(88 disputed and 67 unwitnessed). The next task is
-`T-M3-core0-next-bounded-property-selection-after-c722`; its exact verifier
-and first residual row are recorded in `TASK_POOL.yaml`.
+(88 disputed and 67 unwitnessed). Selection replay `R000493` selects C724@1;
+the next task verifies the bounded C724 oracle.
+
+## M3 — selected C724 scalar-int-constant-expr legality oracle
+
+Selection status: `PASS`; implementation task
+`T-M3-c724-scalar-int-constant-expr-oracle` is `OPEN`. D0143/E0192 binds
+canonical lines 3450--3451 on page 83 to existing StandardIR R721 on page 84.
+The typed candidate has `value_sign = negative | nonnegative | unknown` and
+`representation_method = absent | present | unknown`. The implementation
+gate is `tests/e2e/run-m3-c724.sh --fresh`; C724 is not promoted.
 
 ## M3 — bounded C601 semantic-oracle successor
 
