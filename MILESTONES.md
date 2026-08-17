@@ -11,8 +11,8 @@ replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603, C721
 and C725 slices are promoted by their central verifiers and focused reviews.
 The bounded C718 slice is promoted by its corrected replay and focused reviews.
 The bounded C723 slice is promoted by replay `R000037` and focused review
-`R000038`. The C729 replay passes and awaits focused review. Full M3 remains
-open.
+`R000038`. The bounded C729 slice is promoted by replay `R000042` and focused
+review `R000044`; failed review `R000043` is retained. Full M3 remains open.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -202,10 +202,10 @@ Evidence: `research/decisions/D0132-seventh-m3-c723-complex-named-constant-oracl
 `research/runs/2026-08.jsonl#R000038` and reports under `artifacts/reports/M3/`.
 This promotes only the bounded C723 slice; full M3 remains open.
 
-## M3 — bounded C729 optional-comma semantic-oracle candidate
+## M3 — bounded C729 optional-comma semantic-oracle slice
 
-Bounded-slice status: `CANDIDATE`; central replay `R000042` passes; focused
-review is pending. Full Core 0 semantics remain open and are not claimed.
+Bounded-slice status: `PASS`; central replay `R000042` and focused review
+`R000044` pass. Full Core 0 semantics remain open and are not claimed.
 
 The slice binds J3-24-007 C729 at canonical-text line 3466 and printed page
 84 to StandardIR R722, R703 and R801. Its typed candidate carries comma and
@@ -226,8 +226,10 @@ Evidence: `research/decisions/D0133-ninth-m3-c729-optional-comma-oracle.md`,
 `contracts/m3-c729-optional-comma-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c729.py`,
 `artifacts/traces/m3-c729-source-backed-v0.json`, and
-`research/runs/2026-08.jsonl#R000042`. Promotion remains bounded to this
-slice and requires the two focused reviews.
+`research/runs/2026-08.jsonl#R000042`, retained failed review
+`#R000043`, successful focused review `#R000044`, and reports under
+`artifacts/reports/M3/`. This promotes only the bounded C729 slice; full M3
+remains open.
 
 ## M3 — Core 0 closure audit
 

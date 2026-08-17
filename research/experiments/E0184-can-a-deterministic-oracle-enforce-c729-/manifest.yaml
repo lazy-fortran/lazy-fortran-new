@@ -2,11 +2,13 @@ id: "E0184"
 title: "Deterministic C729 optional-comma oracle"
 question: >
   Can a deterministic oracle enforce C729 optional-comma legality
-status: running        # draft | running | reported | abandoned
+status: reported       # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: ""
+closed: "2026-08-17"
 candidate_run: R000003
 candidate_runs: [R000001, R000002, R000003]
+reported_run: R000003
+reported_runs: [R000003, R000042, R000043, R000044]
 
 # Every commit the result depends on. Exact, not "main".
 repos:
