@@ -44,4 +44,6 @@
   (contract m3-c750-component-array-spec-deferred-shape 0 lazy-fortran-new)
   (contract m3-c751-coarray-allocatable 0 lazy-fortran-new)
   (contract m3-c752-forbidden-coarray-type 0 lazy-fortran-new)
-  (contract m3-c754-component-array-spec 0 lazy-fortran-new))
+  (contract m3-c754-component-array-spec 0 lazy-fortran-new)
+  (contract m3-c760-proc-component-attr-uniqueness 0 lazy-fortran-new)
+  (contract m3-c757-contiguous-pointer 0 lazy-fortran-new))
