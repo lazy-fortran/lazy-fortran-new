@@ -506,8 +506,35 @@ twelve rejected mutation controls, zero model calls and zero semantic
 promotions. Focused review R000519 passes. Post-C733 reconciliation R000520
 leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1 first.
 Corrected selection `R000522` binds C735 canonical line 3620, page 88, byte
-span `229534:101`, to existing StandardIR R727/R728. The next task is
-`T-M3-c735-derived-type-attr-uniqueness-oracle`; full M3 remains open.
+span `229534:101`, to existing StandardIR R727/R728. C735 replay `R000527`
+and focused review `R000528` pass, so C735 is promoted only as its bounded
+typed uniqueness oracle. Reconciliation `R000529` records the post-C735
+selection: 149 residual rows (85 disputed and 64 unwitnessed), with C743@1
+first; full M3 remains open.
+
+## M3 — bounded C735 derived-type attribute uniqueness oracle
+
+Bounded-slice status: `PASS`; E0202 replay `R000527` and focused review
+`R000528` pass. D0148 binds C735 canonical line 3620, page 88, byte span
+`229534:101`, to existing StandardIR R727/R728. The typed oracle covers
+`none`, `distinct`, `duplicate` and `unknown` attribute-occurrence states in
+the derived-type-stmt context: 2 `ACCEPTED`, 1 `REJECTED`, and 9 `UNRESOLVED`.
+Twelve source, page, identity and contract mutations reject. This is a
+bounded oracle only; it does not parse derived-type statements, resolve
+attribute names, promote a C735 semantic fact, or close full M3. The exact
+functional revision is
+`579767e1ce69fcff99b12dee6ec8c1efa5b82ac4`, and the final replay command is:
+
+```text
+M3_C735_EXPECTED_CENTRAL_COMMIT=ffdda31c289531d4b6ac4b0a32ce6db6fb6bb1de tests/e2e/run-m3-c735.sh --fresh
+```
+
+The next controller task selects one bounded property after C735. Its
+post-C735 partition is regenerated with:
+
+```text
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+```
 
 Regenerate the C735 selection evidence with:
 
@@ -536,10 +563,16 @@ Regenerate the C733 result with:
 M3_C733_EXPECTED_CENTRAL_COMMIT=5716db592fed41799e4ef8e7000a56cf37a8c1bd tests/e2e/run-m3-c733.sh --fresh
 ```
 
-Regenerate the post-C733 residual partition with:
+The retained post-C733 residual partition command is kept above for history.
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+```
+
+Regenerate the current post-C735 residual partition with:
+
+```text
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
 ```
 
 ## M3 — bounded C601 semantic-oracle successor

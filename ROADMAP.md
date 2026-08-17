@@ -61,8 +61,8 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through twenty-one bounded contracts, including C717, C720, C722, C724, C726,
-C731, C732 and C733.
+through twenty-two bounded contracts, including C717, C720, C722, C724, C726,
+C731, C732, C733 and C735.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -76,8 +76,11 @@ after C732. C733 replay R000518 and focused review R000519 pass, so C733 is
 promoted only as its bounded oracle slice. Post-C733 reconciliation R000520
 leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1 first;
 corrected selection R000522 binds C735 canonical line 3620, page 88, byte span
-`229534:101`, to existing StandardIR R727/R728; the active task now implements
-the bounded C735 type-attribute uniqueness oracle.
+`229534:101`, to existing StandardIR R727/R728. C735 replay R000527 and
+focused review R000528 pass, so C735 is promoted only as its bounded typed
+uniqueness oracle. Reconciliation R000529 records the post-C735 selection:
+149 residual rows (85 disputed and 64 unwitnessed), with C743@1 first; the
+active task selects the next bounded source-backed property.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -126,8 +129,11 @@ semantic analysis. Clean central replay R000518 passes with 1 `ACCEPTED`, 1
 calls and zero semantic promotions. Focused independent review R000519 passes;
 C733 is promoted only as this bounded oracle slice. Post-C733 reconciliation
 R000520 leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1
-first. The active task is
-`T-M3-c735-derived-type-attr-uniqueness-oracle`; full M3 remains open.
+first. C735 replay R000527 and focused review R000528 pass, so C735 is
+promoted only as its bounded typed uniqueness oracle. The post-C735 partition
+leaves 149 residual rows (85 disputed and 64 unwitnessed), with C743@1 first.
+The active task selects the next bounded source-backed property; full M3
+remains open.
 
 Regenerate the bounded C733 replay with:
 
@@ -485,13 +491,23 @@ R000514 and focused review R000515 pass; C732 is promoted only as its typed
 state oracle. Post-C732 reconciliation R000516 leaves 151 outside-promoted
 rows (87 disputed and 64 unwitnessed), with C733@1 first. C733 replay R000518
 and focused review R000519 pass. Post-C733 reconciliation R000520 leaves 150
-outside-promoted rows (86 disputed and 64 unwitnessed), with C735@1 first. The
+outside-promoted rows (86 disputed and 64 unwitnessed), with C735@1 first.
+C735 replay R000527 and focused review R000528 pass, so C735 is promoted only
+as its bounded typed uniqueness oracle. Post-C735 selection leaves 149
+outside-promoted rows (85 disputed and 64 unwitnessed), with C743@1 first. The
 next selection task must recompute this partition from the exact promoted set
-before defining another bounded oracle. The current partition is regenerated
+before defining another bounded oracle. The current post-C735 partition is
+regenerated
 with:
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
+```
+
+Current post-C735 partition command:
+
+```text
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witnesses.jsonl
 ```
 
 The following command is the superseded pre-C733 selection command:
@@ -521,6 +537,19 @@ product. Replay R000511 and focused review R000510 pass with 2 `ACCEPTED`, 2
 semantic promotions. The retained model proposal is input only. The oracle
 does not evaluate arbitrary Fortran expressions, infer names, parse context or
 claim full C731/M3 semantics.
+
+## M3 — bounded C735 derived-type attribute uniqueness oracle
+
+Selection `R000522` binds C735 canonical line 3620, page 88, byte span
+`229534:101`, to existing StandardIR R727/R728. D0148/E0202 define the typed
+`attribute-occurrence × context` relation. Replay `R000527` and focused review
+`R000528` pass with 2 `ACCEPTED`, 1 `REJECTED`, 9 `UNRESOLVED`, twelve rejected
+mutations, zero model calls and zero semantic promotions. The exact functional
+revision is `579767e1ce69fcff99b12dee6ec8c1efa5b82ac4`; this bounded oracle does
+not parse derived-type statements, resolve names, promote a C735 semantic fact,
+or close full M3. Post-C735 selection leaves 149 residual rows (85 disputed
+and 64 unwitnessed), with C743@1 first. The active task selects the next
+bounded source-backed property.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
