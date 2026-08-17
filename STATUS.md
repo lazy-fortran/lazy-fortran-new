@@ -66,8 +66,9 @@ property at canonical lines 3847--3848, byte span `241715:150`, over existing
 R737/R738/R739/R740 witnesses. E0224/R000618 passes the C754 replay with 19
 `ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`, thirteen rejected mutations, zero
 model calls and zero semantic promotions. Two independent focused reviewers
-and the evidence gate pass in R000620, so C754 is promoted only as the
-thirty-third bounded oracle leaf. The post-C754 residual is 138 rows (81
+and the evidence gate pass in R000620; pushed-revision regression R000622 also
+passes, so C754 is promoted only as the thirty-third bounded oracle leaf. The
+post-C754 residual is 138 rows (81
 `disputed`, 57 `unwitnessed`), with C757@1 first.
 
 ## Component pins

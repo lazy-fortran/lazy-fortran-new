@@ -71,6 +71,7 @@ analysis: >-
 
 result:
   technical_run: research/runs/2026-08.jsonl#R000618
+  regression_run: research/runs/2026-08.jsonl#R000622
   review_run: research/runs/2026-08.jsonl#R000620
   technical_status: PASS
   promotion_status: PASS-BOUNDED-ONLY

@@ -728,7 +728,8 @@ Regenerate the partition with the `jq` command in
 ## M3 — next C754 implementation slice
 
 The completed task was `T-M3-c754-component-array-spec-oracle`. Its exact
-verifier was `tests/e2e/run-m3-c754.sh --fresh`. E0224/R000618 passes with 19
+verifier was `tests/e2e/run-m3-c754.sh --fresh`. E0224/R000618 and pushed-
+revision regression R000622 pass with 19
 `ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`, thirteen rejected mutations, zero
 model calls and zero semantic promotions. Focused review/evidence gate R000620
 passes with two independent reviewers. C754 is promoted only as a bounded

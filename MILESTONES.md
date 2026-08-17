@@ -929,9 +929,9 @@ Regenerate the partition with the `jq` command in
 
 ## M3 — bounded C754 component-array-spec oracle
 
-Bounded-slice status: `PASS`; clean central replay `R000618` and focused
-review/evidence gate `R000620` pass. Full Core 0 semantics remain open and are
-not claimed.
+Bounded-slice status: `PASS`; clean central replay `R000618`, pushed-revision
+regression `R000622` and focused review/evidence gate `R000620` pass. Full Core
+0 semantics remain open and are not claimed.
 
 The slice binds J3-24-007 C754 at canonical lines 3847--3848, printed page 79
 and byte span `241715:150` to StandardIR R737/R738/R739/R740. Its typed
