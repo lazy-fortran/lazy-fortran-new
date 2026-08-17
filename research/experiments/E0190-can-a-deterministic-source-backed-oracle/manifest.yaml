@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "dafc0f6e96b3cabe12a919847dd113f61fe251c3"
+  lazy-fortran-new: "40c536b9ca593213820cd921a50ec0588388409f"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
@@ -24,6 +24,7 @@ inputs:
   standardir_source_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
   selection_report: artifacts/reports/M3/m3-core0-next-property-selection-v2.md
   selection_report_sha256: a56a4537e9645233d05b362ed9400c242397fdbff50a69741e4513dbdd2ac10b
+  selection_run: research/runs/2026-08.jsonl#R000483
   selected_row: .cache/runs/E0181/R000002/analysis/merged/selected-rows.jsonl
   selected_row_key: C720@1
   selected_row_sha256: 7dc2593a8df0e58a754fd98b04c06cfcaeef877d745b2c77fa7612d5d6f58145

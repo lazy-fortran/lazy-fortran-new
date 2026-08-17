@@ -255,7 +255,8 @@ precedence and truth-table defect; corrected clean replay `R000478` passes with
 the exact source binding, nine typed outcomes, eight mutation failures and
 zero model calls or semantic promotions. Durable replay `R000480` and focused
 review `R000481` pass. C717 is a bounded promoted slice and C720 is the
-selected next contract; the active task is
+selected next contract. Clean selection replay `R000483` reproduces the
+157-row partition and selects C720@1; the active task is
 `T-M3-c720-kind-param-representation-oracle`.
 ```
 

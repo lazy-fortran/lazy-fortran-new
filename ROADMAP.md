@@ -73,7 +73,8 @@ promoted C1586 bounded slice; replay R000067 and focused review R000072 pass.
 The E0181 Core 0 closure audit is recorded as an audit-only pass in R000074;
 clean pushed replay R000075 reproduces it. Reconciliation R000076 covers the
 pre-C717 set; post-promotion reconciliation R000482 leaves 157
-outside-promoted rows. Full M3 remains open
+outside-promoted rows, and clean selection replay R000483 selects C720@1.
+Full M3 remains open
 because witness coverage is incomplete. Broad semantic and model work remains
 closed; D0139/D0140/E0189 define the bounded C717 contract, durable-pin replay
 R000480 and focused review R000481 pass after the R000479 central-revision
@@ -387,7 +388,8 @@ promoted.
 The post-promotion E0181 audit `R000074` passes its deterministic
 merge, validation and witness checks. Reconciliation `R000076` maps the
 pre-C717 set; `R000482` maps fourteen promoted IDs and leaves 157
-outside-promoted rows (90 disputed and 67 unwitnessed). The next executable task
+outside-promoted rows (90 disputed and 67 unwitnessed). Clean selection replay
+`R000483` selects C720@1. The next executable task
 is `T-M3-c720-kind-param-representation-oracle`; the residual inventory remains
 available through
 this exact verifier:

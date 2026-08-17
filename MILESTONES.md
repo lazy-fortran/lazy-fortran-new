@@ -419,7 +419,7 @@ canonical line 3298 on page 80 to StandardIR R708. The typed candidate has
 `ACCEPTED`, `REJECTED` and `UNRESOLVED`. The selection report is
 `artifacts/reports/M3/m3-core0-next-property-selection-v2.md`; the exact
 selection verifier is the promoted-contract partition recorded in
-`research/runs/2026-08.jsonl#R000482`.
+`research/runs/2026-08.jsonl#R000483`.
 
 ## M3 — bounded C601 semantic-oracle successor
 
