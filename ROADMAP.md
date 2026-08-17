@@ -69,7 +69,10 @@ R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
 leaves 153 residual rows. Selection R000507 selects C731@1; replay R000511 and
 focused review R000510 promote that bounded oracle. Post-C731 reconciliation
 R000512 leaves 152 residual rows with C732@1 first; the current task selects
-the next bounded source-backed property.
+the next bounded source-backed property. C732 replay R000514 and focused
+review R000515 pass. Post-C732 reconciliation R000516 leaves 151 residual
+rows with C733@1 first; the active task selects the next bounded property
+after C732.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053

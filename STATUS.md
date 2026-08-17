@@ -162,28 +162,22 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-c731-constant-expression-oracle`.
-C726 is promoted only as a bounded type-param-value star-context oracle:
-R000504/R000505 pass and bind canonical lines 3453--3457 and 3460--3461
-across pages 84--85 to existing StandardIR R721/R722/R723. The post-C726
-reconciliation R000506 leaves 153 outside-promoted rows, with C731@1 first.
-Selection R000507 binds C731 to canonical lines 3469--3470 on page 85 and
-existing StandardIR R721. Replay R000511 and focused review R000510 promote
-only the bounded typed-state oracle. Full M3 remains open; do not resume E0172
-or start broad semantic work. Reproduce it with:
-
-```text
-M3_C731_EXPECTED_CENTRAL_COMMIT=2855a9e3e9e65875eacbd4199ddfe84cca32f5c6 tests/e2e/run-m3-c731.sh --fresh
-```
+Current fixture: `T-M3-core0-next-bounded-property-selection-after-c732`.
+C732 is promoted only as a bounded kind-parameter representation-method
+oracle. Post-C732 reconciliation R000516 leaves 151 outside-promoted rows,
+with C733@1 first. E0199/R000517 binds C733 line 3564, page 87, byte span
+`226248:107`, to existing StandardIR R725 (`logical-literal-constant`). Full
+M3 remains open; do not resume E0172 or start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-c731-constant-expression-oracle` — bounded C731 constant-expression
-oracle promoted. Full M3 remains open.
+ID: `T-M3-core0-next-bounded-property-selection-after-c732` — select exactly
+one source-backed property after C732 promotion.
 
-Verifier: `tests/e2e/run-m3-c731.sh --fresh`. It binds C731 lines 3469--3470
-on page 85 to existing R721, uses typed constant-expression/context states and
-observes zero model calls or semantic promotions.
+Verifier: the exact twenty-contract `jq` partition in TASK_POOL.yaml. It must
+confirm 151 residual rows, 87 disputed, 64 unwitnessed and C733@1 first, then
+bind the source and StandardIR shape without model execution or semantic
+promotion.
 
 ## Current blocker
 
