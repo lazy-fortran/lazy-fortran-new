@@ -44,6 +44,10 @@ standard="$(resolve_repo standard-new)"
 
 central_commit="$(git -C "$ROOT" rev-parse HEAD)"
 standard_commit="$(git -C "$standard" rev-parse HEAD)"
+expected_central_commit="${M3_C720_EXPECTED_CENTRAL_COMMIT:-}"
+if [ -n "$expected_central_commit" ] && [ "$central_commit" != "$expected_central_commit" ]; then
+    die "central worktree commit $central_commit differs from expected replay commit $expected_central_commit"
+fi
 central_pin="$(python3 - "$manifest" <<'PY'
 import re
 import sys
@@ -99,7 +103,7 @@ python3 "$validator" "$fixture" "$run_dir/semantic-items.canonical.sx" "$standar
 [ -f "$ROOT/artifacts/traces/m3-c720-source-backed-v0.json" ] || die "missing committed C720 trace"
 cmp "$run_dir/result.json" "$ROOT/artifacts/traces/m3-c720-source-backed-v0.json"
 
-python3 - "$run_dir/run-environment.json" "$central_pin" "$central_commit" "$standard" "$standard_commit" "$fo_path" "$fo_version" "$fo_sha256" "$validator" "$fixture" "$semantic_input" "$standardir" "$canonical_text" "$page_index" "$source_pdf" <<'PY'
+python3 - "$run_dir/run-environment.json" "$central_pin" "$central_commit" "$expected_central_commit" "$standard" "$standard_commit" "$fo_path" "$fo_version" "$fo_sha256" "$validator" "$fixture" "$semantic_input" "$standardir" "$canonical_text" "$page_index" "$source_pdf" <<'PY'
 import hashlib
 import json
 import platform
@@ -108,7 +112,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-output, central_pin, central_commit, standard, standard_commit, fo_path, fo_version, fo_sha256, validator, fixture, semantic_input, standardir, canonical_text, page_index, source_pdf = sys.argv[1:]
+output, central_pin, central_commit, expected_central_commit, standard, standard_commit, fo_path, fo_version, fo_sha256, validator, fixture, semantic_input, standardir, canonical_text, page_index, source_pdf = sys.argv[1:]
 
 def digest(path: str) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -125,7 +129,7 @@ def identity(name: str, command: list[str]) -> dict[str, str]:
     return {"path": resolved, "version": version(command), "sha256": digest(resolved)}
 
 record = {
-    "central": {"repository": "lazy-fortran-new", "revision_pin": central_pin, "worktree_commit": central_commit, "state": "clean", "functional_tree_matches_pin": True},
+    "central": {"repository": "lazy-fortran-new", "revision_pin": central_pin, "worktree_commit": central_commit, "expected_worktree_commit": expected_central_commit or None, "state": "clean", "functional_tree_matches_pin": True},
     "standard_new": {"repository": standard, "commit": standard_commit, "state": "clean", "build_tree_after": "absent"},
     "inputs": {
         "fixture": {"path": "tests/fixtures/m3-c720-source-backed-v0.json", "sha256": digest(fixture)},
@@ -137,7 +141,7 @@ record = {
     },
     "toolchain": {"fo": {"path": str(Path(fo_path).resolve()), "version": fo_version, "sha256": fo_sha256}, "python": identity("python3", ["python3", "--version"]), "sha256sum": identity("sha256sum", ["sha256sum", "--version"]), "git": identity("git", ["git", "--version"]), "compiler": version(["gfortran", "--version"]), "poppler": version(["pdftotext", "-v"]), "oracle_sha256": digest(validator)},
     "environment": {"os": platform.system(), "os_release": platform.release(), "architecture": platform.machine(), "python_version": platform.python_version(), "python_path": sys.executable, "locale": {"LANG": "C", "LC_ALL": "C"}},
-    "commands": ["scripts/check_pins.sh", "scripts/check-contracts.sh", "scripts/check-contracts.sh --self-test", "scripts/fetch.sh j3-24-007", "(cd standard-new && fo clean)", "(cd standard-new && fo)", "(cd standard-new && fo exec --no-build sxsemantic tests/fixtures/m3-c720-semantic-items.sx <run-dir>/semantic-items.canonical.sx)", "python3 tests/e2e/validate_m3_c720.py --self-test", "python3 tests/e2e/validate_m3_c720.py ..."],
+    "commands": ["M3_C720_EXPECTED_CENTRAL_COMMIT=<pinned-central-revision> tests/e2e/run-m3-c720.sh --fresh", "scripts/check_pins.sh", "scripts/check-contracts.sh", "scripts/check-contracts.sh --self-test", "scripts/fetch.sh j3-24-007", "(cd standard-new && fo clean)", "(cd standard-new && fo)", "(cd standard-new && fo exec --no-build sxsemantic tests/fixtures/m3-c720-semantic-items.sx <run-dir>/semantic-items.canonical.sx)", "python3 tests/e2e/validate_m3_c720.py --self-test", "python3 tests/e2e/validate_m3_c720.py ..."],
     "origin": "MECHANICAL",
 }
 Path(output).write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")

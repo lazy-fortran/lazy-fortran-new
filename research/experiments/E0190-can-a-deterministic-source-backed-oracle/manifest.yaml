@@ -43,6 +43,12 @@ inputs:
   trace: artifacts/traces/m3-c720-source-backed-v0.json
   trace_sha256: 523f4207d06e89f0a5d17993cf25dab843f4a07c3054b4e764ec143905e89925
 
+replay:
+  run: research/runs/2026-08.jsonl#R000484
+  central_worktree_commit: 50f78cc37ec3401ccdd335a94ca3193aa10fccf6
+  result_sha256: 523f4207d06e89f0a5d17993cf25dab843f4a07c3054b4e764ec143905e89925
+  run_environment_sha256: a9b5cf6da45055b754487a9f5ce13f2f3393bb1baade581fa930c1200b7659bd
+
 # The axes being varied. Omit the key if there is only one condition.
 variables:
   representation_method: [absent, present, unknown]
