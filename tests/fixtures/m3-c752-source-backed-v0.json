@@ -41,7 +41,7 @@
   },
   "semantic_item": {
     "path": "tests/fixtures/m3-c752-semantic-items.sx",
-    "sha256": "b64aeab421960c9f8d62090a7402793fe6ad2b0aa13919f2939263f1c3e9e316",
+    "sha256": "43136c6316c272eafeef984a6a2026bdc3abc315f122fc1135de18c2f8db24fd",
     "id": "S-C752",
     "subject": "component-c752-forbidden-coarray-type",
     "document": "J3-24-007",
