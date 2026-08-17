@@ -1,7 +1,7 @@
 # D0155. Twenty-eighth M3 slice uses C748 component-attribute exact-once
 
 Date: 2026-08-17
-Status: accepted
+Status: amended by D0156
 <!-- proposed | accepted | superseded by D#### | amended by D#### | retracted -->
 
 ## Context

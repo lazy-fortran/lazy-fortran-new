@@ -21,9 +21,9 @@ SOURCE_SHA256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9
 PDF_SHA256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 PAGE_INDEX_SHA256 = "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
 STANDARDIR_SHA256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
-EXPECTED_OUTCOMES_SHA256 = "f8505cbe46fa7e0fc937a170d99a6db4e1c39fc36210f686041188990cbf90d3"
-EXPECTED_OUTCOMES_PATH = "tests/fixtures/m3-c748-expected-outcomes-v0.json"
-PROPERTY = "component-def-stmt-component-attr-spec-exact-once"
+EXPECTED_OUTCOMES_SHA256 = "8d1122edfad7bcf600f9729c4d2625ed3fb319b1cf2868036aa033bac171997f"
+EXPECTED_OUTCOMES_PATH = "tests/fixtures/m3-c748-expected-outcomes-v1.json"
+PROPERTY = "component-def-stmt-component-attr-spec-at-most-once"
 SOURCE_SPAN = {"byte_start": 240727, "byte_length": 97, "page_start": 93, "page_end": 93}
 CANONICAL_LINES = [
     {"line": 3834, "text": "C748 (R737) No component-attr-spec shall appear more than once in a given component-def-stmt."},
@@ -36,13 +36,13 @@ SOURCE_BYTES = (
     b"20 C748 (R737) No component-attr-spec shall appear more than once in a given component-def-stmt.\n"
 )
 CONTRACT = {
-    "schema": "contracts/m3-c748-component-attr-spec-exact-once-v0.sxs",
-    "fixture": "contracts/fixtures/m3-c748-component-attr-spec-exact-once-v0.sx",
-    "version": 0,
+    "schema": "contracts/m3-c748-component-attr-spec-at-most-once-v1.sxs",
+    "fixture": "contracts/fixtures/m3-c748-component-attr-spec-at-most-once-v1.sx",
+    "version": 1,
 }
 SEMANTIC_ITEM = {
-    "path": "tests/fixtures/m3-c748-semantic-items.sx",
-    "sha256": "04a8e719deef6ab03cbd245566d9d9afde855e9e03c5815a80f29a2487776e5e",
+    "path": "tests/fixtures/m3-c748-semantic-items-v1.sx",
+    "sha256": "00835d33b235953735bad59d4762c7aac146d88fd978c10da6f7ecb364f0008f",
     "id": "S-C748",
     "subject": PROPERTY,
     "document": "J3-24-007",
@@ -75,7 +75,7 @@ def exact_keys(value: dict[str, Any], expected: set[str], label: str) -> None:
 def validate_expected_outcomes(doc: dict[str, Any], path: Path, case_ids: list[str]) -> dict[str, str]:
     exact_keys(doc, {"schema_version", "origin", "property", "source_rule", "outcomes"}, "expected outcomes")
     require(digest(path) == EXPECTED_OUTCOMES_SHA256, "expected outcomes hash differs")
-    require(doc["schema_version"] == "m3-c748-expected-outcomes-v0", "expected outcomes schema differs")
+    require(doc["schema_version"] == "m3-c748-expected-outcomes-v1", "expected outcomes schema differs")
     require(doc["origin"] == "HUMAN", "expected outcomes origin differs")
     require(doc["property"] == PROPERTY and doc["source_rule"] == "C748", "expected outcomes identity differs")
     outcomes = doc["outcomes"]
@@ -91,9 +91,9 @@ def oracle(candidate: dict[str, str]) -> str:
         return "UNRESOLVED"
     if candidate["attribute_name_presence"] == "absent":
         return "ACCEPTED"
-    if candidate["attribute_name_presence"] == "present" and candidate["definition_occurrence_cardinality"] == "one":
+    if candidate["attribute_name_presence"] == "present" and candidate["definition_occurrence_cardinality"] in {"zero", "one"}:
         return "ACCEPTED"
-    if candidate["attribute_name_presence"] == "present" and candidate["definition_occurrence_cardinality"] in {"zero", "many"}:
+    if candidate["attribute_name_presence"] == "present" and candidate["definition_occurrence_cardinality"] == "many":
         return "REJECTED"
     return "UNRESOLVED"
 
@@ -154,7 +154,7 @@ def validate_standardir(source: dict[str, Any], path: Path) -> None:
 
 def validate_binding(doc: dict[str, Any], root: Path, pdf: Path, canonical: Path, page_index: Path, standardir: Path, semantic: Path) -> None:
     exact_keys(doc, {"schema_version", "origin", "property", "contract", "source", "semantic_item", "cases", "mutations"}, "fixture")
-    require(doc["schema_version"] == "m3-c748-source-backed-v0" and doc["origin"] == "HUMAN" and doc["property"] == PROPERTY, "fixture identity differs")
+    require(doc["schema_version"] == "m3-c748-source-backed-v1" and doc["origin"] == "HUMAN" and doc["property"] == PROPERTY, "fixture identity differs")
     require(doc["contract"] == CONTRACT, "contract identity differs")
     source = doc["source"]
     require(source["document"] == "J3-24-007" and source["clause"] == "7" and source["rule"] == "C748" and source["printed_page"] == 79, "source identity differs")
@@ -184,10 +184,10 @@ def validate_binding(doc: dict[str, Any], root: Path, pdf: Path, canonical: Path
     for fragment in ("(id S-C748)", "(subject " + PROPERTY + ")", "(origin human)", "(resolution disputed)"):
         require(fragment in text, f"semantic item lacks {fragment}")
     schema = (root / CONTRACT["schema"]).read_text(encoding="utf-8")
-    for fragment in ("(enum c748-attribute-name-presence absent present unknown)", "(enum c748-definition-occurrence-cardinality zero one many unknown)", "(record component-attr-spec-exact-once"):
+    for fragment in ("(enum c748-attribute-name-presence absent present unknown)", "(enum c748-definition-occurrence-cardinality zero one many unknown)", "(record component-attr-spec-at-most-once"):
         require(fragment in schema, f"contract schema lacks {fragment}")
     witness = (root / CONTRACT["fixture"]).read_text(encoding="utf-8")
-    for fragment in ("(contract m3-c748-component-attr-spec-exact-once)", "(property " + PROPERTY + ")", "(rule C748)", "(page 79)", "(byte-start 240727)", "(byte-length 97)", "(page-start 93)", "(page-end 93)", "(source-hash " + SOURCE_SHA256 + ")"):
+    for fragment in ("(contract m3-c748-component-attr-spec-at-most-once)", "(property " + PROPERTY + ")", "(rule C748)", "(page 79)", "(byte-start 240727)", "(byte-length 97)", "(page-start 93)", "(page-end 93)", "(source-hash " + SOURCE_SHA256 + ")"):
         require(fragment in witness, f"contract fixture lacks {fragment}")
 
 
@@ -203,7 +203,7 @@ def build_result(fixture_path: Path, expected_path: Path, fixture: dict[str, Any
     expected_outcomes = validate_expected_outcomes(expected_doc, expected_path, [case["id"] for case in fixture["cases"]])
     cases = [validate_case(case, expected_outcomes) for case in fixture["cases"]]
     require({(case["attribute_name_presence"], case["definition_occurrence_cardinality"], case["context"]) for case in cases} == {(attribute_name_presence, definition_occurrence_cardinality, context) for attribute_name_presence in ATTRIBUTE_NAME_PRESENCES for definition_occurrence_cardinality in DEFINITION_OCCURRENCE_CARDINALITIES for context in CONTEXTS}, "36-state table incomplete")
-    require(sum(case["kind"] == "positive" for case in cases) == 5 and sum(case["kind"] == "negative" for case in cases) == 2 and sum(case["kind"] == "unresolved" for case in cases) == 29, "witness kind counts differ")
+    require(sum(case["kind"] == "positive" for case in cases) == 6 and sum(case["kind"] == "negative" for case in cases) == 1 and sum(case["kind"] == "unresolved" for case in cases) == 29, "witness kind counts differ")
     require(len(fixture["mutations"]) == 12, "mutation count differs")
     validate_binding(fixture, root, pdf, canonical, page_index, standardir, root / SEMANTIC_ITEM["path"])
     require(semantic_output.read_bytes() == (root / SEMANTIC_ITEM["path"]).read_bytes() == golden.read_bytes(), "semantic canonicalization differs")
@@ -221,7 +221,7 @@ def build_result(fixture_path: Path, expected_path: Path, fixture: dict[str, Any
         "schema_version": fixture["schema_version"], "milestone": "M3", "property": PROPERTY,
         "fixture": str(fixture_path.relative_to(root)), "fixture_sha256": digest(fixture_path),
         "expected_outcomes": {"path": str(expected_path.relative_to(root)), "sha256": digest(expected_path), "origin": expected_doc["origin"], "comparison": "PASS"},
-        "contract": {"schema": CONTRACT["schema"], "schema_sha256": digest(root / CONTRACT["schema"]), "fixture": CONTRACT["fixture"], "fixture_sha256": digest(root / CONTRACT["fixture"]), "version": 0},
+        "contract": {"schema": CONTRACT["schema"], "schema_sha256": digest(root / CONTRACT["schema"]), "fixture": CONTRACT["fixture"], "fixture_sha256": digest(root / CONTRACT["fixture"]), "version": 1},
         "source": {"document": "J3-24-007", "clause": "7", "rule": "C748", "printed_page": 79, "pdf_sha256": digest(pdf), "canonical_text_sha256": digest(canonical), "page_index_sha256": digest(page_index), "standardir_sha256": digest(standardir), "canonical_lines": [3834], "source_span": SOURCE_SPAN, "page_index": {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": PAGE_INDEX_SHA256, "pages": [PAGE]}, "standardir_rules": ["R737"]},
         "semantic_items": {"input": SEMANTIC_ITEM["path"], "input_sha256": digest(root / SEMANTIC_ITEM["path"]), "canonical_output_sha256": digest(semantic_output), "canonical_output": "PASS"},
         "cases": cases, "outcome_counts": {outcome: sum(case["computed"] == outcome for case in cases) for outcome in sorted(OUTCOMES)}, "mutation_controls": mutations,
@@ -232,7 +232,7 @@ def build_result(fixture_path: Path, expected_path: Path, fixture: dict[str, Any
 
 
 def self_test(root: Path) -> None:
-    fixture_path = root / "tests/fixtures/m3-c748-source-backed-v0.json"
+    fixture_path = root / "tests/fixtures/m3-c748-source-backed-v1.json"
     expected_path = root / EXPECTED_OUTCOMES_PATH
     fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
     expected_doc = json.loads(expected_path.read_text(encoding="utf-8"))

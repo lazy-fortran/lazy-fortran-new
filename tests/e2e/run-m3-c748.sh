@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run the bounded M3 C748 component-attribute exact-once contract.
+# Run the bounded M3 C748 component-attribute at-most-once contract.
 
 set -euo pipefail
 source "$(dirname "$0")/../../scripts/lib.sh"
@@ -31,15 +31,15 @@ fi
 [ ! -e "$run_dir" ] || die "run directory already exists: $run_dir"
 mkdir -p -- "$run_dir"
 
-fixture="$ROOT/tests/fixtures/m3-c748-source-backed-v0.json"
-expected_outcomes="$ROOT/tests/fixtures/m3-c748-expected-outcomes-v0.json"
-semantic_input="$ROOT/tests/fixtures/m3-c748-semantic-items.sx"
+fixture="$ROOT/tests/fixtures/m3-c748-source-backed-v1.json"
+expected_outcomes="$ROOT/tests/fixtures/m3-c748-expected-outcomes-v1.json"
+semantic_input="$ROOT/tests/fixtures/m3-c748-semantic-items-v1.sx"
 canonical_text="$ROOT/.cache/runs/E0001/R000003/j3-24-007.canonical.txt"
 page_index="$ROOT/.cache/runs/E0001/R000003/j3-24-007.pages.index"
 standardir="$ROOT/.cache/runs/E0171/R000433-provenance-replay/standardir.sx"
 source_pdf="$ROOT/.cache/j3-24-007.pdf"
-golden="$ROOT/tests/golden/m3-c748-semantic-items.sx"
-trace="$ROOT/artifacts/traces/m3-c748-source-backed-v0.json"
+golden="$ROOT/tests/golden/m3-c748-semantic-items-v1.sx"
+trace="$ROOT/artifacts/traces/m3-c748-source-backed-v1.json"
 validator="$ROOT/tests/e2e/validate_m3_c748.py"
 manifest="$ROOT/research/experiments/E0214-deterministic-source-backed-c748-exact-o/manifest.yaml"
 standard="$(resolve_repo standard-new)"
@@ -63,15 +63,15 @@ PY
 )"
 [ "$(git -C "$ROOT" cat-file -t "${central_pin}^{commit}" 2>/dev/null || true)" = "commit" ] || die "manifest central pin does not resolve: $central_pin"
 functional_paths=(
-    contracts/m3-c748-component-attr-spec-exact-once-v0.sxs
-    contracts/fixtures/m3-c748-component-attr-spec-exact-once-v0.sx
+    contracts/m3-c748-component-attr-spec-at-most-once-v1.sxs
+    contracts/fixtures/m3-c748-component-attr-spec-at-most-once-v1.sx
     contracts/registry.sx
     tests/e2e/run-m3-c748.sh
     tests/e2e/validate_m3_c748.py
-    tests/fixtures/m3-c748-expected-outcomes-v0.json
-    tests/fixtures/m3-c748-semantic-items.sx
-    tests/fixtures/m3-c748-source-backed-v0.json
-    tests/golden/m3-c748-semantic-items.sx
+    tests/fixtures/m3-c748-expected-outcomes-v1.json
+    tests/fixtures/m3-c748-semantic-items-v1.sx
+    tests/fixtures/m3-c748-source-backed-v1.json
+    tests/golden/m3-c748-semantic-items-v1.sx
 )
 git -C "$ROOT" diff --quiet "$central_pin" -- "${functional_paths[@]}" || die "functional C748 files differ from manifest central pin $central_pin"
 [ "$standard_commit" = "f94c4c51b51fce22b533b7eeda08741970320913" ] || die "standard-new checkout is not the pinned M3 revision"
@@ -132,10 +132,10 @@ def identity(name: str, command: list[str]) -> dict[str, str]:
 record = {
     "central": {"repository": "lazy-fortran-new", "revision_pin": central_pin, "worktree_commit": central_commit, "expected_worktree_commit": expected_central_commit or None, "state": "clean", "functional_tree_matches_pin": True},
     "standard_new": {"repository": standard, "commit": standard_commit, "state": "clean", "build_tree_after": "absent"},
-    "inputs": {"fixture": {"path": "tests/fixtures/m3-c748-source-backed-v0.json", "sha256": digest(fixture)}, "expected_outcomes": {"path": "tests/fixtures/m3-c748-expected-outcomes-v0.json", "sha256": digest(expected_outcomes)}, "semantic_items": {"path": "tests/fixtures/m3-c748-semantic-items.sx", "sha256": digest(semantic_input)}, "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "sha256": digest(standardir)}, "canonical_text": {"path": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt", "sha256": digest(canonical_text)}, "page_index": {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": digest(page_index)}, "normative_pdf": {"path": ".cache/j3-24-007.pdf", "sha256": digest(source_pdf)}},
+    "inputs": {"fixture": {"path": "tests/fixtures/m3-c748-source-backed-v1.json", "sha256": digest(fixture)}, "expected_outcomes": {"path": "tests/fixtures/m3-c748-expected-outcomes-v1.json", "sha256": digest(expected_outcomes)}, "semantic_items": {"path": "tests/fixtures/m3-c748-semantic-items-v1.sx", "sha256": digest(semantic_input)}, "standardir": {"path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "sha256": digest(standardir)}, "canonical_text": {"path": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt", "sha256": digest(canonical_text)}, "page_index": {"path": ".cache/runs/E0001/R000003/j3-24-007.pages.index", "sha256": digest(page_index)}, "normative_pdf": {"path": ".cache/j3-24-007.pdf", "sha256": digest(source_pdf)}},
     "toolchain": {"fo": {"path": str(Path(fo_path).resolve()), "version": fo_version, "sha256": fo_sha256}, "python": identity("python3", ["python3", "--version"]), "sha256sum": identity("sha256sum", ["sha256sum", "--version"]), "git": identity("git", ["git", "--version"]), "compiler": version(["gfortran", "--version"]), "poppler": version(["pdftotext", "-v"]), "oracle_sha256": digest(validator)},
     "environment": {"os": platform.system(), "os_release": platform.release(), "architecture": platform.machine(), "python_version": platform.python_version(), "python_path": sys.executable, "locale": {"LANG": "C", "LC_ALL": "C"}},
-    "commands": ["M3_C748_EXPECTED_CENTRAL_COMMIT=<pinned-central-revision> tests/e2e/run-m3-c748.sh --fresh", "scripts/check_pins.sh", "scripts/check-contracts.sh", "scripts/check-contracts.sh --self-test", "scripts/fetch.sh j3-24-007", "(cd standard-new && fo clean)", "(cd standard-new && fo)", "(cd standard-new && fo exec --no-build sxsemantic tests/fixtures/m3-c748-semantic-items.sx <run-dir>/semantic-items.canonical.sx)", "python3 tests/e2e/validate_m3_c748.py --self-test", "python3 tests/e2e/validate_m3_c748.py ..."],
+    "commands": ["M3_C748_EXPECTED_CENTRAL_COMMIT=<pinned-central-revision> tests/e2e/run-m3-c748.sh --fresh", "scripts/check_pins.sh", "scripts/check-contracts.sh", "scripts/check-contracts.sh --self-test", "scripts/fetch.sh j3-24-007", "(cd standard-new && fo clean)", "(cd standard-new && fo)", "(cd standard-new && fo exec --no-build sxsemantic tests/fixtures/m3-c748-semantic-items-v1.sx <run-dir>/semantic-items.canonical.sx)", "python3 tests/e2e/validate_m3_c748.py --self-test", "python3 tests/e2e/validate_m3_c748.py ..."],
     "origin": "MECHANICAL",
 }
 Path(output).write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")

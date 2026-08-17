@@ -1,0 +1,615 @@
+{
+  "schema_version": "m3-c748-source-backed-v1",
+  "origin": "HUMAN",
+  "property": "component-def-stmt-component-attr-spec-at-most-once",
+  "contract": {
+    "schema": "contracts/m3-c748-component-attr-spec-at-most-once-v1.sxs",
+    "fixture": "contracts/fixtures/m3-c748-component-attr-spec-at-most-once-v1.sx",
+    "version": 1
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C748",
+    "printed_page": 79,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {
+        "line": 3834,
+        "text": "C748 (R737) No component-attr-spec shall appear more than once in a given component-def-stmt."
+      }
+    ],
+    "source_span": {
+      "byte_start": 240727,
+      "byte_length": 97,
+      "page_start": 93,
+      "page_end": 93
+    },
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [
+        {
+          "page": 93,
+          "start": 239957,
+          "length": 2451
+        }
+      ]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {
+          "rule": "R737",
+          "lhs": "data-component-def-stmt",
+          "page": 93,
+          "byte_start": 240182,
+          "byte_length": 115,
+          "occurrence": 87
+        }
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c748-semantic-items-v1.sx",
+    "sha256": "00835d33b235953735bad59d4762c7aac146d88fd978c10da6f7ecb364f0008f",
+    "id": "S-C748",
+    "subject": "component-def-stmt-component-attr-spec-at-most-once",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C748",
+    "page": 79,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-absent-zero-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "zero",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-one-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "one",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-one-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "one",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-one-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "one",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-many-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "many",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-many-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "many",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-many-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "many",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-absent-unknown-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "absent",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-present-zero-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "zero",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "positive-present-one-component-def-stmt",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "one",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-one-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "one",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-one-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "one",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "negative-present-many-component-def-stmt",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "many",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-many-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "many",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-many-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "many",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "present",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "zero",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "zero",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-zero-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "zero",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "one",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "one",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-one-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "one",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-many-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "many",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-many-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "many",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-many-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "many",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-component-def-stmt",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "component-def-stmt"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "component-def-stmt-component-attr-spec-at-most-once",
+        "source_rule": "C748",
+        "attribute_name_presence": "unknown",
+        "definition_occurrence_cardinality": "unknown",
+        "context": "unknown"
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "id": "source-rule-mutation",
+      "path": [
+        "source",
+        "rule"
+      ],
+      "value": "C747"
+    },
+    {
+      "id": "source-page-mutation",
+      "path": [
+        "source",
+        "printed_page"
+      ],
+      "value": 80
+    },
+    {
+      "id": "source-hash-mutation",
+      "path": [
+        "source",
+        "canonical_text_sha256"
+      ],
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "source-byte-start-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "byte_start"
+      ],
+      "value": 240728
+    },
+    {
+      "id": "source-byte-length-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "byte_length"
+      ],
+      "value": 96
+    },
+    {
+      "id": "source-page-start-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "page_start"
+      ],
+      "value": 92
+    },
+    {
+      "id": "source-page-end-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "page_end"
+      ],
+      "value": 94
+    },
+    {
+      "id": "page-index-mutation",
+      "path": [
+        "source",
+        "page_index",
+        "pages",
+        0,
+        "page"
+      ],
+          "value": 92
+    },
+    {
+      "id": "standardir-rule-mutation",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+          0,
+          "rule"
+      ],
+      "value": "R736"
+    },
+    {
+      "id": "standardir-shape-mutation",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+          0,
+          "lhs"
+      ],
+      "value": "component-decl-list"
+    },
+    {
+      "id": "contract-version-mutation",
+      "path": [
+        "contract",
+        "version"
+      ],
+      "value": 0
+    },
+    {
+      "id": "semantic-rule-mutation",
+      "path": [
+        "semantic_item",
+        "rule"
+      ],
+      "value": "C747"
+    }
+  ]
+}
