@@ -61,8 +61,8 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through nineteen bounded contracts, including C717, C720, C722, C724, C726 and
-C731.
+through twenty bounded contracts, including C717, C720, C722, C724, C726,
+C731 and C732.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -103,8 +103,11 @@ context, rejects a processor-unsupported value there, and returns
 processor capabilities, parse literals or perform general semantic analysis.
 Clean central replay R000514 passes with 1 `ACCEPTED`, 1 `REJECTED`, 7
 `UNRESOLVED`, twelve rejected mutation controls, zero model calls and zero
-semantic promotions. The focused independent review and remote-parity check
-are pending; C732 is not yet counted as a promoted slice. Full M3 remains
+semantic promotions. Focused review R000515 passes and remote parity is
+verified at `8e4fbe47`; C732 is promoted only as this bounded oracle slice.
+Post-C732 reconciliation R000516 leaves 151 residual rows (87 disputed, 64
+unwitnessed), with C733@1 first. The active task is
+`T-M3-core0-next-bounded-property-selection-after-c732`. Full M3 remains
 open.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
@@ -452,12 +455,15 @@ M3_C731_EXPECTED_CENTRAL_COMMIT=2855a9e3e9e65875eacbd4199ddfe84cca32f5c6 tests/e
 ```
 
 Post-C731 reconciliation R000512 leaves 152 outside-promoted rows (88
-disputed and 64 unwitnessed), with C732@1 first. The next selection task must
-recompute this partition from the exact promoted set before defining another
-bounded oracle.
+disputed and 64 unwitnessed), with C732@1 first. The bounded C732 replay
+R000514 and focused review R000515 pass; C732 is promoted only as its typed
+state oracle. Post-C732 reconciliation R000516 leaves 151 outside-promoted
+rows (87 disputed and 64 unwitnessed), with C733@1 first. The next selection
+task must recompute this partition from the exact promoted set before defining
+another bounded oracle.
 
 ```text
-jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
 ## M3 — bounded C726 type-param-value star-context oracle

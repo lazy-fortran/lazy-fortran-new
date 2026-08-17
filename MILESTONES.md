@@ -8,8 +8,8 @@ milestone ledger.
 
 The historical evidence below is preserved. L0, L1, L2 and M1-M2 corrected
 replays and focused reviews pass. The bounded M3 C1106, C702, C601, C603, C721,
-C725, C726 and C731 slices are promoted by their central verifiers and focused
-reviews.
+C725, C726, C731 and C732 slices are promoted by their central verifiers and
+focused reviews.
 The bounded C718 slice is promoted by its corrected replay and focused reviews.
 The bounded C723 slice is promoted by replay `R000037` and focused review
 `R000038`. The bounded C729 slice is promoted by replay `R000042` and focused
@@ -494,13 +494,21 @@ StandardIR R724 (`char-literal-constant`). The next task is the bounded C732
 kind-parameter representation-method oracle. Central replay `R000514` passes
 with 1 `ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`, twelve rejected mutation
 controls, zero model calls and zero semantic promotions. Focused review and
-remote parity remain pending, so C732 is not yet counted as promoted; full M3
-remains open.
+remote parity pass in `R000515` and the pushed `8e4fbe47` revision, so C732 is
+promoted only as this bounded oracle slice. Post-C732 reconciliation `R000516`
+leaves 151 residual rows (87 disputed, 64 unwitnessed), with C733@1 first. The
+next task is bounded-property selection after C732; full M3 remains open.
 
 Regenerate the C731 result with:
 
 ```text
 M3_C731_EXPECTED_CENTRAL_COMMIT=2855a9e3e9e65875eacbd4199ddfe84cca32f5c6 tests/e2e/run-m3-c731.sh --fresh
+```
+
+Regenerate the C732 result with:
+
+```text
+M3_C732_EXPECTED_CENTRAL_COMMIT=40bad4f842a87000ceddb68449a801c2282e2b60 tests/e2e/run-m3-c732.sh --fresh
 ```
 
 ## M3 — bounded C601 semantic-oracle successor

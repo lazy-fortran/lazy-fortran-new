@@ -122,4 +122,9 @@ result:
   model_calls: 0
   semantic_promotions: 0
   full_m3: OPEN
-  focused_review: PENDING
+  focused_review: research/runs/2026-08.jsonl#R000515
+  focused_review_status: PASS
+  semantic_review: artifacts/reports/M3/c732-semantic-review-v1.md
+  semantic_review_sha256: 9338f62a7e5ded99e3c2dacb4b530ae97829c16b700516d1c951731c73f83ad7
+  reproducibility_review: artifacts/reports/M3/c732-reproducibility-review-v1.md
+  reproducibility_review_sha256: 33a76958399aae6b25a4985b4a1d5ca1da1f7766af871f78b75f1dfced31da31
