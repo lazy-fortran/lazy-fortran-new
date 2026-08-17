@@ -259,8 +259,9 @@ focused review R000539. E0207/R000542 selects C745's first component-presence
 obligation. The corrected implementation replay E0208/R000556 passes with the
 independent human-authored expected-outcome table, 4 `ACCEPTED`, 1 `REJECTED`,
 22 `UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
-promotions. R000543--R000546 and R000548--R000550 retain the failed replay and
-review evidence. The focused review must pass before bounded C745 promotion.
+promotions. R000543--R000546, R000548--R000550 and R000557 retain the failed
+replay and review evidence; R000558/R000559 record the parseable-ledger
+correction. The focused review must pass before bounded C745 promotion.
 A
   green bounded slice alone does not close full M3. The C717, C720, C722, C724
   and C726 replays, durable pins and focused reviews pass only their bounded

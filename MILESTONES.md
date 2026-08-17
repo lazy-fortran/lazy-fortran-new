@@ -714,9 +714,13 @@ Evidence: `research/experiments/E0208-can-a-deterministic-source-backed-c745-o/m
 `tests/fixtures/m3-c745-expected-outcomes-v0.json`,
 `artifacts/traces/m3-c745-source-backed-v0.json`,
 `artifacts/reports/M3/m3-c745-source-backed-v2.md`, retained replay and review
-runs `R000543`--`R000556`, and retained failed-review reports
+runs `R000543`--`R000559`, and retained failed-review reports
 `artifacts/reports/M3/m3-c745-focused-review-v0.md` and
-`artifacts/reports/M3/m3-c745-focused-review-v1.md`.
+`artifacts/reports/M3/m3-c745-focused-review-v1.md` and
+`artifacts/reports/M3/m3-c745-focused-review-v2.md`. The malformed historical
+selection serialization is preserved in
+`research/runs/archive/2026-08.jsonl.raw`; correction runs `R000558` and
+`R000559` establish the parseable canonical ledger.
 
 ## M3 — bounded C601 semantic-oracle successor
 
