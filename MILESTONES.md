@@ -703,9 +703,10 @@ oracle. The corrected replay records 4 `ACCEPTED`, 1 `REJECTED`, 22
 `UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
 promotions. C745 is promoted only as this bounded oracle leaf. It does not
 parse definitions, count real components, evaluate the other C745 obligations
-or claim full M3. Post-C745 reconciliation R000561 records 146 residual rows
-(84 disputed and 62 unwitnessed), with C746@1 first; the next selection task
-must establish its source binding.
+or claim full M3. Corrected selection R000564 binds C746 to canonical lines
+3764--3765, printed page 77, byte span `237401:171`, and existing StandardIR
+R727/R732/R733. D0152 records the next typed membership contract; its
+implementation is the active task.
 
 Regenerate the replay with:
 
@@ -717,7 +718,7 @@ Evidence: `research/experiments/E0208-can-a-deterministic-source-backed-c745-o/m
 `tests/fixtures/m3-c745-expected-outcomes-v0.json`,
 `artifacts/traces/m3-c745-source-backed-v0.json`,
 `artifacts/reports/M3/m3-c745-source-backed-v3.md`, retained replay and review
-runs `R000543`--`R000561`, and retained review reports
+runs `R000543`--`R000564`, and retained review reports
 `artifacts/reports/M3/m3-c745-focused-review-v0.md` and
 `artifacts/reports/M3/m3-c745-focused-review-v1.md` and
 `artifacts/reports/M3/m3-c745-focused-review-v2.md` and

@@ -15,6 +15,10 @@ inputs:
   standard: j3-24-007
   profile: "m3-post-c745-residual-bounded-property-selection"
   predecessor: research/runs/2026-08.jsonl#R000560
+  decision: research/decisions/D0152-twenty-sixth-m3-c746-type-parameter-name-membership.md
+  source_page: 77
+  source_span: "237401:171"
+  standardir_rules: [R727, R732, R733]
   witnesses: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
   canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
   pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
@@ -72,17 +76,21 @@ gate: >-
 # Script that turns runs into the tables and figures in report.md.
 analysis: >-
   Controller-owned post-C745 residual selection report
-  artifacts/reports/M3/m3-core0-next-property-selection-v13.md
+  artifacts/reports/M3/m3-core0-next-property-selection-v15.md
 
 result:
-  run: research/runs/2026-08.jsonl#R000561
+  run: research/runs/2026-08.jsonl#R000564
   central_revision: 6c1d2ab0e4529b136c6e0f2deb8accb2ee9ab9dc
-  report: artifacts/reports/M3/m3-core0-next-property-selection-v13.md
+  report: artifacts/reports/M3/m3-core0-next-property-selection-v15.md
   residual_rows: 146
   disputed_rows: 84
   unwitnessed_rows: 62
   first_row: C746@1
   first_constraint: C746
+  selected_property: derived-type-def-type-parameter-name-membership
+  source_binding: PASS
+  page_binding: PASS
+  standardir_binding: PASS
   model_calls: 0
   semantic_promotions: 0
   status: PASS-SELECTION-ONLY

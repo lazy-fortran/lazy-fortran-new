@@ -61,8 +61,9 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through twenty-four bounded contracts, including C717, C720, C722, C724, C726,
-C731, C732, C733, C735, C743 and C744.
+through twenty-five bounded contracts; regenerate the exact promoted set and
+residual partition with the post-C745 command in `TASK_POOL.yaml`. Full M3
+remains open.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -93,9 +94,12 @@ residual rows (84 disputed and 63 unwitnessed), with C745@1 first. E0207/R000542
 binds C745 to canonical lines 3665--3667, page 89, byte span `232141:276`,
 over R726/R731/R735. The active task implements the bounded SEQUENCE
 component-presence relation. E0208/R000556 and focused review R000560 pass;
-C745 is promoted only as this bounded oracle leaf. Full M3 remains open, and
-the post-C745 reconciliation R000561 leaves C746@1 first for the next
-selection task.
+C745 is promoted only as this bounded oracle leaf. Full M3 remains open. The
+corrected post-C745 selection R000564 records 146 residual rows (84 disputed
+and 62 unwitnessed), with C746@1 first. It binds C746 to canonical lines
+3764--3765, printed page 77, byte span `237401:171`, and existing StandardIR
+R727/R732/R733. The active task is to implement that bounded deterministic
+membership oracle; the retained model row is not evidence.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -590,9 +594,11 @@ the typed SEQUENCE component-presence relation. E0208/R000556 and focused
 review R000560 pass with 4 `ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve
 rejected mutations, zero model calls and zero semantic promotions. C745 is
 promoted only as this bounded oracle leaf; it does not parse, count real
-components or close full M3. Post-C745 reconciliation R000561 records 146
-residual rows (84 disputed and 62 unwitnessed), with C746@1 first; its source
-binding remains the next task.
+components or close full M3. Corrected selection R000564 binds C746 to
+canonical lines 3764--3765, page 77, byte span `237401:171`, over existing
+StandardIR R727/R732/R733. D0152 defines the next typed membership contract;
+the active implementation must provide its independent oracle and replayable
+mutation controls.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
