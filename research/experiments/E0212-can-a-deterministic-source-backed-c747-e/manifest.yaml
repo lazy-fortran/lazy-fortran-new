@@ -82,16 +82,16 @@ analysis: >-
   artifacts/reports/M3/m3-c747-source-backed-v0.md
 
 result:
-  run: research/runs/2026-08.jsonl#R000570
-  central_revision: cb2e8f1d240a69938d0d7e90b814ccef5d5d6a2f
-  functional_revision: 749f438fe5e11c83ffab21f4b0d2a2486ed284f6
+  run: research/runs/2026-08.jsonl#R000572
+  central_revision: 4aaf3cf315afc2693a8b3691582353d2eead47b4
+  functional_revision: bffd7c208956bb8a231712ead6e1fef243ec3887
   standard_new_revision: f94c4c51b51fce22b533b7eeda08741970320913
   report: artifacts/reports/M3/m3-c747-source-backed-v0.md
-  report_sha256: ab23f025a2c1681de77fe38412a4cab46e7af36aef0d1441ba0770a684323aeb
+  report_sha256: ff8ea7a7c80511ab01009cba2d7751cb0c0ca045aa8dda4c14af1465b9ae29ae
   trace: artifacts/traces/m3-c747-source-backed-v0.json
-  trace_sha256: acd7bafed6987a65655c3af32a2836619164e754b029e0f8dc53c5a7922c5e30
-  run_environment: .cache/runs/E0212/R000002/run-environment.json
-  run_environment_sha256: c9d76f3ca9842075416e5713c81814af349b47cefb1a02f93d30948d8cd25a80
+  trace_sha256: eb9a72073eb3cf4a5a1b5e81574d6257c683af4d6dce41db245ac4b0fe2283c1
+  run_environment: .cache/runs/E0212/R000004/run-environment.json
+  run_environment_sha256: 42048b88cce8ebb6c1df3ff0d071a95b143b85bf728c33b6b75bad10badd6205
   outcome_counts: {accepted: 5, rejected: 2, unresolved: 29}
   mutation_controls: 12
   model_calls: 0

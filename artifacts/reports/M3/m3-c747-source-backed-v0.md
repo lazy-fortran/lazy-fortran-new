@@ -7,11 +7,14 @@ name resolver or complete semantic analyzer.
 ## Source contract
 
 The contract is D0153. It binds J3-24-007 clause 7, C747, canonical lines
-3766--3767, printed page 77, UTF-8 byte span `237572:183`, to StandardIR
-R727 (`derived-type-stmt`), R732 (`type-param-def-stmt`) and R733
+3766--3767, printed page 77, UTF-8 byte span `237572:183`, and canonical
+page-index record 91 (`start 235554`, `length 2214`) to StandardIR R727
+(`derived-type-stmt`), R732 (`type-param-def-stmt`) and R733
 (`type-param-decl`). The normative source text says that each type-param-name
 in the derived-type-stmt of a derived-type-def shall appear exactly once in a
-type-param-def-stmt in that derived-type-def.
+type-param-def-stmt in that derived-type-def. The validator independently
+requires the byte span to be contained by that page-index record; printed page
+77 and canonical page-index page 91 are recorded separately.
 
 The typed candidate fields are:
 
@@ -32,23 +35,24 @@ derived-type definition.
 The clean central verifier is:
 
 ```text
-tests/e2e/run-m3-c747.sh --fresh
+M3_C747_EXPECTED_CENTRAL_COMMIT=<current-commit> tests/e2e/run-m3-c747.sh --fresh
 ```
 
-It passed in E0212/R000002 with central worktree revision
-`cb2e8f1d240a69938d0d7e90b814ccef5d5d6a2f`, functional tree pinned at
-`749f438fe5e11c83ffab21f4b0d2a2486ed284f6`, and `standard-new` at
+It passed in E0212/R000004 with central worktree revision
+`4aaf3cf315afc2693a8b3691582353d2eead47b4`, functional tree pinned at
+`bffd7c208956bb8a231712ead6e1fef243ec3887`, and `standard-new` at
 `f94c4c51b51fce22b533b7eeda08741970320913`. The recorded result and committed
 trace both have SHA-256
-`acd7bafed6987a65655c3af32a2836619164e754b029e0f8dc53c5a7922c5e30`.
+`eb9a72073eb3cf4a5a1b5e81574d6257c683af4d6dce41db245ac4b0fe2283c1`.
 The run environment has SHA-256
-`c9d76f3ca9842075416e5713c81814af349b47cefb1a02f93d30948d8cd25a80`.
+`42048b88cce8ebb6c1df3ff0d071a95b143b85bf728c33b6b75bad10badd6205`.
 
 The independent validator has SHA-256
-`432c9b64618e5c899d1df09b7fc7a606abc88c83517ddbe681d7a02123297acc`. The
+`78caf3130cd0f12d87b4d7d328bb846ccab1656069863ae875d69676016d446c`. The
 36-state typed product has 5 `ACCEPTED`, 2 `REJECTED` and 29 `UNRESOLVED`
-outcomes. Twelve source, StandardIR, contract and semantic-identity mutation
-controls are rejected. Model calls and semantic promotions are both zero.
+outcomes. Twelve source, page-index, StandardIR, contract and semantic-identity
+mutation controls are rejected. Model calls and semantic promotions are both
+zero.
 
 ## Evidence
 
@@ -57,7 +61,7 @@ The independent expected-outcome table is
 `fc2d31361b99e523dd4e2ec32de91e528ec40f41aac5244e3611f9571c5a34ce`. The
 source-backed fixture is
 `tests/fixtures/m3-c747-source-backed-v0.json` with SHA-256
-`5f8102f757d4e1ec7f0a53579c7cfd7053b43bebe1bc7cd64d2ec04e605f5dc1`.
+`fb29976c5155f23ba0fbab0c516bfaf99b0a2bbe7888070279427ae97b76ef1a`.
 The committed trace is `artifacts/traces/m3-c747-source-backed-v0.json`.
 
 ## Non-claims
