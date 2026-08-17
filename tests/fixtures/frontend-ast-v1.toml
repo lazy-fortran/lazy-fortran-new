@@ -1,0 +1,17 @@
+id = "frontend-ast-v1"
+milestone = "L3"
+boundary = "raw-source-to-typed-frontend-ast-v1"
+contract_schema = "contracts/frontend-ast-v1.sxs"
+contract_witness = "contracts/fixtures/frontend-ast-v1.sx"
+contract_schema_sha256 = "0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274"
+contract_witness_sha256 = "2d73502ed1dbdc0a29cdd2938e71c4de7b841d50fa9598aeed976345c0d2daec"
+source = "tests/fixtures/l3-declaration-v0.f90"
+source_sha256 = "13a37b087a056a5f64f26a3a29145bbab71967bf2a3a8efab505c056ffdd13f6"
+expected_root_name = "p"
+expected_variable_type = "integer"
+expected_variable_name = "x"
+expected_variable_start_byte = 10
+expected_variable_end_byte = 24
+model_calls = 0
+semantic_promotions = 0
+origin = "MECHANICAL"

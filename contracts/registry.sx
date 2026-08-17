@@ -8,6 +8,7 @@
   (contract lexical-layout 2 standard-new parser-targets)
   (contract frontend 0 fortfront-new ffc-new tools)
   (contract frontend-ast 0 fortfront-new ffc-new)
+  (contract frontend-ast 1 fortfront-new ffc-new)
   (contract mir 0 ffc-new fortback-new)
   (contract targetir 0 fortback-new backend-generators)
   (contract emission 0 fortback-new ffc-new driver)

@@ -433,6 +433,7 @@ Runs recorded: 704
 | [D0172](decisions/D0172-fortieth-m3-c768-selection.md) | accepted |  | Select C768 as the next bounded property |
 | [D0173](decisions/D0173-pivot-to-raw-source-executable-slice.md) | accepted |  | Pivot from residual CXXX intake to a raw-source executable slice |
 | [D0174](decisions/D0174-l3-integer-declaration-successor.md) | accepted |  | Bound the L3 integer-declaration successor |
+| [D0175](decisions/D0175-l3-typed-variable-declaration-contract.md) | accepted |  | Add a typed variable declaration AST boundary |
 
 ### Proposed decisions
 

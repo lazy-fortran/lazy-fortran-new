@@ -480,10 +480,11 @@ and is not promoted by this pivot.
 
 The L3 declaration contract is frozen by D0174 and passes
 `scripts/check-contracts.sh`. The implementation, technical replay and focused
-review pass; the bounded successor is promoted. The next action is a
-controller-owned typed declaration contract, still outside full M3. Do not
-resume E0172 or start broad semantic work. The C768 worker result remains
-parked and is not promoted by this pivot.
+review pass; the bounded successor is promoted. The typed declaration contract
+D0175 is now frozen and passes `scripts/check-contracts.sh`; the active task is
+the isolated fortfront AST v1 implementation. This remains outside full M3.
+Do not resume E0172 or start broad semantic work. The C768 worker result
+remains parked and is not promoted by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

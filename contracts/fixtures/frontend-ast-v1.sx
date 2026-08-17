@@ -1,0 +1,18 @@
+(contract-witness
+  (contract frontend-ast)
+  (version 1)
+  (origin mechanical)
+  (resolution resolved)
+  (source tests/fixtures/l3-declaration-v0.f90)
+  (source-sha256 13a37b087a056a5f64f26a3a29145bbab71967bf2a3a8efab505c056ffdd13f6)
+  (root-name p)
+  (program-declaration-count 1)
+  (program-declaration-kind program)
+  (variable-declaration-count 1)
+  (variable-type-spec integer)
+  (variable-name x)
+  (variable-span
+    (file tests/fixtures/l3-declaration-v0.f90)
+    (start-byte 10)
+    (end-byte 24)
+    (source-hash l3-raw-program-v0)))

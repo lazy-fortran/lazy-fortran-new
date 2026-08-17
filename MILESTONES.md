@@ -1150,8 +1150,9 @@ observable and does not yet expose a typed variable declaration.
 
 The declaration technical replay R000651, post-technical regression R000652
 and focused review R000653 pass. The successor is promoted only as the exact
-source-shape claim; typed declaration representation remains the next bounded
-contract and full M3 remains open.
+source-shape claim. D0175 and the `frontend-ast-v1` contract now pass the
+central contract gate; the next task is the isolated fortfront generator/
+producer slice. Full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 
