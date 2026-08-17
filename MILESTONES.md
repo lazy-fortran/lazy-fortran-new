@@ -427,6 +427,8 @@ gate with one outcome in each of ACCEPTED, REJECTED and UNRESOLVED, eight
 mutation failures and zero model calls or semantic promotions. Focused review
 `R000487` passes. C720 is promoted as a bounded oracle slice only. The next
 task is `T-M3-core0-next-bounded-property-selection-after-c720`.
+Post-C720 reconciliation `R000488` records 156 outside-promoted rows, with
+89 disputed and 67 unwitnessed. Full M3 remains open.
 
 ## M3 — bounded C601 semantic-oracle successor
 

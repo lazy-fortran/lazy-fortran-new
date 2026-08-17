@@ -393,7 +393,8 @@ merge, validation and witness checks. Reconciliation `R000076` maps the
 pre-C717 set; `R000482` maps fourteen promoted IDs and leaves 157
 outside-promoted rows (90 disputed and 67 unwitnessed). Clean selection replay
 `R000483` selects C720@1; review `R000487` then promotes the bounded slice.
-The next executable task is
+Post-C720 reconciliation `R000488` leaves 156 outside-promoted rows (89
+disputed and 67 unwitnessed). The next executable task is
 `T-M3-core0-next-bounded-property-selection-after-c720`; the residual inventory remains
 available through
 this exact verifier:

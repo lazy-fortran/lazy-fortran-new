@@ -2973,6 +2973,7 @@ tasks:
       - T-M3-c720-focused-review
     inputs:
       - path: research/runs/2026-08.jsonl#R000487
+      - path: research/runs/2026-08.jsonl#R000488
       - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
         sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
       - path: research/decisions/D0141-fifteenth-m3-c720-kind-param-representation-oracle.md
@@ -3027,6 +3028,7 @@ tasks:
       jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     evidence_paths:
       - research/runs/2026-08.jsonl#R000487
+      - research/runs/2026-08.jsonl#R000488
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 
   - id: T-M2-candidate-evidence-coalescing
