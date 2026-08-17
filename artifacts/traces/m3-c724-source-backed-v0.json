@@ -1,0 +1,161 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "accepted-nonnegative-present",
+      "kind": "positive",
+      "representation_method": "present",
+      "value_sign": "nonnegative"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-negative-present",
+      "kind": "negative",
+      "representation_method": "present",
+      "value_sign": "negative"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-negative-absent",
+      "kind": "negative",
+      "representation_method": "absent",
+      "value_sign": "negative"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-nonnegative-absent",
+      "kind": "negative",
+      "representation_method": "absent",
+      "value_sign": "nonnegative"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-unknown-absent",
+      "kind": "negative",
+      "representation_method": "absent",
+      "value_sign": "unknown"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-negative-unknown",
+      "kind": "negative",
+      "representation_method": "unknown",
+      "value_sign": "negative"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-nonnegative-unknown",
+      "kind": "unresolved",
+      "representation_method": "unknown",
+      "value_sign": "nonnegative"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-present",
+      "kind": "unresolved",
+      "representation_method": "present",
+      "value_sign": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown",
+      "kind": "unresolved",
+      "representation_method": "unknown",
+      "value_sign": "unknown"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c724-scalar-int-constant-expr-oracle-v0.sx",
+    "fixture_sha256": "fa2ceb289782b6a632c66318ed83f95b602fceef5040ccea94ae6648de273091",
+    "schema": "contracts/m3-c724-scalar-int-constant-expr-oracle-v0.sxs",
+    "schema_sha256": "75d40c95146b662b4894ce7e056430e1cc5b8b515453838ea957022e612f6096",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c724-source-backed-v0.json",
+  "fixture_sha256": "4dd5d5b383e914aa4e9e6f8946caf057f1dab9792d39d59872c492cc61d9a83e",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-property-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-rule-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c724.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 1,
+    "REJECTED": 5,
+    "UNRESOLVED": 3
+  },
+  "property": "scalar-int-constant-expr-legality",
+  "schema_version": "m3-c724-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "fe7399db1d12a3cc09e9c00bf532052bcfe3317555fa8b2775857e679a56ca75",
+    "input": "tests/fixtures/m3-c724-semantic-items.sx",
+    "input_sha256": "fe7399db1d12a3cc09e9c00bf532052bcfe3317555fa8b2775857e679a56ca75"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3450,
+      3451
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "length": 2632,
+      "page": 83,
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "start": 212364
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 83,
+    "rule": "C724",
+    "standardir_rules": [
+      "R721"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

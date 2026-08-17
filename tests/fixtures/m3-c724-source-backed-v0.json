@@ -1,0 +1,72 @@
+{
+  "schema_version": "m3-c724-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "scalar-int-constant-expr-legality",
+  "contract": {
+    "schema": "contracts/m3-c724-scalar-int-constant-expr-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c724-scalar-int-constant-expr-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C724",
+    "printed_page": 83,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "page": 83,
+      "start": 212364,
+      "length": 2632
+    },
+    "canonical_lines": [
+      {"line": 3450, "text": "C724 (R721) The value of scalar-int-constant-expr shall be nonnegative and shall specify a representation"},
+      {"line": 3451, "text": "method that exists on the processor."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R721", "lhs": "char-selector", "page": 84, "byte_start": 217200, "byte_length": 251, "occurrence": 71}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c724-semantic-items.sx",
+    "sha256": "fe7399db1d12a3cc09e9c00bf532052bcfe3317555fa8b2775857e679a56ca75",
+    "id": "S-C724",
+    "subject": "scalar-int-constant-expr-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C724",
+    "page": 83,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {"id": "accepted-nonnegative-present", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "nonnegative", "representation_method": "present"}},
+    {"id": "rejected-negative-present", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "negative", "representation_method": "present"}},
+    {"id": "rejected-negative-absent", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "negative", "representation_method": "absent"}},
+    {"id": "rejected-nonnegative-absent", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "nonnegative", "representation_method": "absent"}},
+    {"id": "rejected-unknown-absent", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "unknown", "representation_method": "absent"}},
+    {"id": "rejected-negative-unknown", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "negative", "representation_method": "unknown"}},
+    {"id": "unresolved-nonnegative-unknown", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "nonnegative", "representation_method": "unknown"}},
+    {"id": "unresolved-unknown-present", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "unknown", "representation_method": "present"}},
+    {"id": "unresolved-unknown-unknown", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "scalar-int-constant-expr-legality", "source_rule": "C724", "value_sign": "unknown", "representation_method": "unknown"}}
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3451},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 1, "text"], "value": "method that does not exist on the processor."},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R722"},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C725"},
+    {"id": "contract-property-identity", "path": ["property"], "value": "other-property"},
+    {"id": "page-index-identity", "path": ["source", "page_index", "start"], "value": 212365},
+    {"id": "source-rule-identity", "path": ["source", "rule"], "value": "C725"}
+  ]
+}

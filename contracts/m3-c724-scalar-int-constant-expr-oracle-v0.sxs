@@ -1,0 +1,21 @@
+(schema m3-c724-scalar-int-constant-expr-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum value-sign-state negative nonnegative unknown)
+  (enum representation-method-state absent present unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record scalar-int-constant-expr-legality
+    (value-sign value-sign-state)
+    (representation-method representation-method-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact scalar-int-constant-expr-legality)
+    (expected outcome))
+  (list candidates semantic-candidate))
