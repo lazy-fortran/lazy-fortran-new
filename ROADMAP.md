@@ -428,9 +428,9 @@ only as its bounded type-param-value star-context oracle: replay R000504 and
 focused review R000505 pass with 17 `ACCEPTED`, 1 `REJECTED`, 3 `UNRESOLVED`,
 twelve mutation failures and zero model calls or semantic promotions.
 Post-C726 reconciliation R000506 leaves 153 residual rows (88 disputed and 65
-unwitnessed), with C731@1 first. The bounded C731 contract is verified as a
-typed-state oracle and awaits focused review; the next executable task is
-residual selection after C731. The source binding is recorded in the selection report and the
+unwitnessed), with C731@1 first. The bounded C731 contract is promoted only
+as a typed-state oracle; the next executable task is residual selection after
+C731. The source binding is recorded in the selection report and the
 replay is reproducible with:
 
 ```text
@@ -452,15 +452,14 @@ checks the full 21-state typed relation and twelve mutations: 17 `ACCEPTED`,
 This is a bounded oracle only; it does not parse Fortran, infer context or
 close full C726/M3. R000506 is the post-promotion residual reconciliation.
 
-## M3 — bounded C731 constant-expression oracle (review pending)
+## M3 — bounded C731 constant-expression oracle
 
 Selection status: `PASS` in R000507. C731@1 binds canonical lines 3469--3470,
 byte span `219036:167` on page 85, to existing StandardIR R721. D0145/E0196
 define a typed `length_form × context` relation over the complete 12-state
-product. Replay R000509 passes with 2 `ACCEPTED`, 2 `REJECTED`, 8
-`UNRESOLVED`, twelve rejected mutations and zero model calls or semantic
-promotions. Focused review is pending. The retained model proposal is input
-only. The oracle
+product. Replay R000509 and focused review R000510 pass with 2 `ACCEPTED`, 2
+`REJECTED`, 8 `UNRESOLVED`, twelve rejected mutations and zero model calls or
+semantic promotions. The retained model proposal is input only. The oracle
 does not evaluate arbitrary Fortran expressions, infer names, parse context or
 claim full C731/M3 semantics.
 
@@ -1916,9 +1915,8 @@ D0133/E0184, and C719 in D0134/E0185. D0135/E0186 is the promoted C738
 slice, D0136/D0137/E0187 is the promoted C1579 slice, and D0138/E0188 is the
 promoted C1586 slice and bounded C717 slice; C720 and C722 are also promoted
 bounded slices. D0143/E0192 adds the seventeenth bounded C724 oracle, and
-D0144/E0194 adds the eighteenth bounded C726 oracle. D0145/E0196 defines the
-candidate nineteenth C731 oracle; its central replay is verified and its
-focused review is pending. The E0181
+D0144/E0194 adds the eighteenth bounded C726 oracle, and D0145/E0196 adds the
+nineteenth bounded C731 oracle. The E0181
 Core 0 audit, pre-C717 reconciliation and post-promotion reconciliations are
 recorded as R000074 through R000076, R000482, R000488, R000492, R000496 and
 R000506; 153 outside-promoted witness rows remain (88 disputed and 65
@@ -1926,9 +1924,9 @@ unwitnessed). Full M3 remains open. R000504/R000505 verify the bounded C726
 source-backed oracle over the page-84/page-85 span. Selection R000507 chooses
 C731@1, whose source-backed property is that a character statement-function
 or statement-function dummy-argument length is a constant expression. Replay
-R000509 verifies the typed C731 oracle with two accepted, two rejected and
-eight unresolved states, twelve rejected mutations, and zero model calls or
-semantic promotions. Focused review is pending. No semantic fact is promoted;
+R000509 and focused review R000510 verify the typed C731 oracle with two
+accepted, two rejected and eight unresolved states, twelve rejected mutations,
+and zero model calls or semantic promotions. No semantic fact is promoted;
 full M3 remains open.
 The M3 model lane
 remains frozen by
