@@ -4,7 +4,8 @@ MAX_PARALLEL_WORKERS: 4
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier: []
+ready_frontier:
+  - T-M3-c759-type-param-value-oracle
 
 controller_ownership:
   owner: controller
@@ -63,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c757
+active_task: T-M3-c759-type-param-value-oracle
 
 milestones:
   - id: L0
@@ -6383,9 +6384,9 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c757
     milestone: M3
     title: Select the next bounded source-backed property after C757
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on: [T-M3-c757-contiguous-pointer-oracle]
     inputs:
@@ -6394,6 +6395,12 @@ tasks:
       - path: research/runs/2026-08.jsonl#R000624
       - path: artifacts/reports/M3/m3-c757-focused-review-v1.md
         sha256: 8b602de8c87aab4769dc53429478c3c9c16b3de2b38f7fac1417a7a47b0ff13d
+      - path: research/experiments/E0226-can-a-bounded-source-backed-oracle-class/manifest.yaml
+        sha256: ec2a8af9b5ce208398080556fc047674311f89cae4dc963b0a0c6ba0bf294419
+      - path: research/decisions/D0168-thirty-sixth-m3-c759-selection.md
+        sha256: e4384c107498d55952e6c2cff1545fe307890a30409a14f79c6d06825365c653
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v24.md
+        sha256: b4d71d024f2b7d69bbb345203e661288732fcc17c4bbdc10f487179c17ccddfe
       - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
         sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
       - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
@@ -6409,7 +6416,7 @@ tasks:
       recompute the retained disputed/unwitnessed partition after excluding
       the bounded contracts through C757 and harvested C760; independently
       bind the first remaining C759 occurrence to J3-24-007 canonical
-      lines 3854--3855, source span 242269:124, printed page 79, ledger page
+      lines 3854--3855, source span 242269:126, printed page 79, ledger page
       92, page-index record 93, and StandardIR R736. Inspect whether one
       bounded source-backed property can be defined without general parsing,
       a model call or semantic promotion. Do not implement the property in
@@ -6419,6 +6426,51 @@ tasks:
     final_observable: one exact next source-backed C759 property with no semantic promotion
     retry_count: 0
     integration_cycle_trigger: next_implementation
+
+  - id: T-M3-c759-type-param-value-oracle
+    milestone: M3
+    title: Implement the bounded C759 type-param-value oracle
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-M3-core0-next-bounded-property-selection-after-c757]
+    inputs:
+      - path: research/experiments/E0226-can-a-bounded-source-backed-oracle-class/manifest.yaml
+        sha256: ec2a8af9b5ce208398080556fc047674311f89cae4dc963b0a0c6ba0bf294419
+      - path: research/decisions/D0168-thirty-sixth-m3-c759-selection.md
+        sha256: e4384c107498d55952e6c2cff1545fe307890a30409a14f79c6d06825365c653
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v24.md
+        sha256: b4d71d024f2b7d69bbb345203e661288732fcc17c4bbdc10f487179c17ccddfe
+      - path: research/runs/2026-08.jsonl#R000625
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+    output: bounded-oracle
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c757]
+    verifier: >-
+      implement and execute a fresh source-backed C759 replay over canonical
+      lines 3854--3855, byte span 242269:126, printed page 79, ledger page
+      92 and page-index record 93, using StandardIR R736. Type the finite
+      value-kind product as colon, component-specification, other and unknown;
+      require deterministic ACCEPTED/REJECTED/UNRESOLVED outcomes, explicit
+      unknown handling, source/page/PDF/identity mutations, zero model calls
+      and zero semantic promotions. The component-specification category must
+      remain an opaque bounded input unless independently source-backed. Do not
+      parse Fortran, inspect adjacent C758/C760 or broaden the property.
+    verifier_command: tests/e2e/run-m3-c759.sh --fresh
+    final_observable: >-
+      a replayable C759 source-backed oracle with an independent expected-
+      outcome table, deterministic three-outcome decisions, rejected mutation
+      controls and no semantic promotion
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4

@@ -761,8 +761,14 @@ The next residual selection after C757 leaves 136 rows (79 `disputed`, 57
 jq -s -c 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744","C745","C746","C747","C748","C749","C750","C751","C752","C754","C757","C760"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id, first_status: .[0].status}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
-This closes only the bounded C757 oracle; it does not parse arbitrary Fortran,
-promote a semantic fact or close full M3.
+E0226/R000626 independently binds C759/R736 to canonical lines 3854--3855,
+byte span `242269:126`, printed page 79, ledger page 92 and page-index record
+93. The harvest's incomplete one-line binding is not source authority. The
+next implementation task is `T-M3-c759-type-param-value-oracle`; its opaque
+value-kind contract must keep `component-specification` bounded and explicitly
+unresolved until its representation is independently checked. This closes
+only the bounded C757 oracle and selects C759; it does not parse arbitrary
+Fortran, promote a semantic fact or close full M3.
 
 ## M3 — harvested C760 procedure-component-attribute uniqueness oracle
 

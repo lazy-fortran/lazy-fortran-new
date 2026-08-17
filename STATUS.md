@@ -98,6 +98,14 @@ for this bounded leaf only. Pushed-revision regression R000625 reproduces the
 same result and trace from central `360eb5303ace29863c756358080d19088332e15a`.
 Full M3 remains open.
 
+E0226/R000626 selects C759@1 as the next bounded source-backed property.
+The residual is 136 rows: 79 `disputed` and 57 `unwitnessed`. Independent
+source audit binds C759/R736 to canonical lines 3854--3855, byte span
+`242269:126`, printed page 79, ledger page 92, PDF/page-index record 93 and
+StandardIR occurrence R736@86. The harvest's incomplete one-line binding is
+not reused. This is selection evidence only; no model call or semantic
+promotion occurred.
+
 ## Component pins
 
 These are the clean component revisions currently pinned by the control plane.
@@ -284,20 +292,19 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c757` — select the next
-bounded source-backed property. C757 is the latest passing leaf; its evidence
-is recorded by E0225/R000624 and
-`artifacts/reports/M3/m3-c757-focused-review-v1.md`. The deterministic
-residual has 136 rows and selects C759@1. C760 is the preceding harvested
-leaf, recorded in R000623. The harvest remains provisional and is not a
-semantic promotion queue.
+ID: `T-M3-c759-type-param-value-oracle` — implement the bounded C759
+type-param-value oracle. The preceding selection task passes in E0226/R000626;
+C757 is the latest passing leaf with evidence in E0225/R000625 and
+`artifacts/reports/M3/m3-c757-focused-review-v1.md`. C760 is the preceding
+harvested leaf, recorded in R000623. The harvest remains provisional and is
+not a semantic promotion queue.
 
-Verifier: the residual-selection `jq` command in `ROADMAP.md` and
-`TASK_POOL.yaml`. It must independently bind C759 to canonical lines
-3854--3855, source span `242269:124`, printed page 79, ledger page 92,
-page-index record 93 and StandardIR R736, then define at most one bounded
-property without parsing Fortran, running a model or promoting a semantic
-fact.
+Verifier: `tests/e2e/run-m3-c759.sh --fresh`. It must independently bind C759
+to canonical lines 3854--3855, source span `242269:126`, printed page 79,
+ledger page 92, page-index record 93 and StandardIR R736, then classify the
+opaque finite value-kind inputs `colon`, `component-specification`, `other`
+and `unknown` without parsing Fortran, running a model or promoting a
+semantic fact.
 
 The completed C754 verifier was `tests/e2e/run-m3-c754.sh --fresh`. Its
 27-state typed product crosses pointer attribute, allocatable attribute and
