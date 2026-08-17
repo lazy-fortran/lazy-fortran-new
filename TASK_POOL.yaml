@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-e0181-next-residual-selection-3
+active_task: T-M3-c1586-statement-function-self-reference-oracle
 
 milestones:
   - id: L0
@@ -191,6 +191,9 @@ milestones:
       - artifacts/reports/M3/c1579-semantic-review-v3.md
       - artifacts/reports/M3/c1579-reproducibility-review-v3.md
       - artifacts/reports/M3/c1106-reproducibility-review-v1.md
+      - research/decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md
+      - research/experiments/E0188-c1586-statement-function-self-reference/manifest.yaml
+      - research/runs/2026-08.jsonl#R000065
       - research/decisions/D0126-second-m3-c702-type-param-colon-oracle.md
       - research/experiments/E0176-can-a-deterministic-oracle-enforce-c702-/
       - contracts/m3-c702-semantic-oracle-v0.sxs
@@ -2124,9 +2127,9 @@ tasks:
   - id: T-M3-e0181-next-residual-selection-3
     milestone: M3
     title: Select the next bounded property from the E0181 residual ledger after C1579 promotion
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c1579-semantic-oracle
@@ -2188,6 +2191,96 @@ tasks:
       - research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml
       - research/runs/2026-08.jsonl#R000062
       - research/runs/2026-08.jsonl#R000064
+      - research/decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md
+      - research/experiments/E0188-c1586-statement-function-self-reference/manifest.yaml
+      - research/runs/2026-08.jsonl#R000065
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
+
+  - id: T-M3-c1586-statement-function-self-reference-oracle
+    milestone: M3
+    title: Verify the bounded C1586 statement-function self-reference oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-e0181-next-residual-selection-3
+    inputs:
+      - path: research/decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md
+      - path: research/experiments/E0188-c1586-statement-function-self-reference/manifest.yaml
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - component: standard-new
+        commit: f94c4c51b51fce22b533b7eeda08741970320913
+      - path: research/runs/2026-08.jsonl#R000065
+    writes:
+      - contracts/m3-c1586-statement-function-self-reference-oracle-v0.sxs
+      - contracts/fixtures/m3-c1586-statement-function-self-reference-oracle-v0.sx
+      - tests/fixtures/m3-c1586-source-backed-v0.json
+      - tests/fixtures/m3-c1586-semantic-items.sx
+      - tests/golden/m3-c1586-semantic-items.sx
+      - tests/e2e/run-m3-c1586-self-reference.sh
+      - tests/e2e/validate_m3_c1586_self_reference.py
+      - artifacts/traces/m3-c1586-source-backed-v0.json
+      - research/experiments/E0188-c1586-statement-function-self-reference/**
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      run tests/e2e/run-m3-c1586-self-reference.sh --fresh from clean central
+      and standard-new checkouts; require exact C1586 lines 15468--15469 on
+      PDF/page-index page 358, R1547 metadata, typed absent/present and
+      same/different/unknown witness outcomes, source/rule mutation failures,
+      exact trace comparison and zero model calls or semantic promotions, then
+      require two focused independent reviews before bounded promotion
+    output: artifact
+    final_observable: >-
+      a replayable source-backed C1586 self-name oracle with ACCEPTED,
+      REJECTED and UNRESOLVED outcomes; this promotes only the bounded
+      self-reference projection and not full C1586 or M3 Core 0 semantics
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/m3-c1586-statement-function-self-reference-oracle-v0.sxs
+        - contracts/fixtures/m3-c1586-statement-function-self-reference-oracle-v0.sx
+        - tests/fixtures/m3-c1586-*
+        - tests/golden/m3-c1586-*
+        - tests/e2e/run-m3-c1586-self-reference.sh
+        - tests/e2e/validate_m3_c1586_self_reference.py
+        - artifacts/traces/m3-c1586-source-backed-v0.json
+        - research/experiments/E0188-c1586-statement-function-self-reference/**
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-e0181-next-residual-selection-3]
+    verifier_command: tests/e2e/run-m3-c1586-self-reference.sh --fresh
+    evidence_paths:
+      - research/decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md
+      - research/experiments/E0188-c1586-statement-function-self-reference/manifest.yaml
+      - contracts/m3-c1586-statement-function-self-reference-oracle-v0.sxs
+      - contracts/fixtures/m3-c1586-statement-function-self-reference-oracle-v0.sx
+      - tests/fixtures/m3-c1586-source-backed-v0.json
+      - tests/fixtures/m3-c1586-semantic-items.sx
+      - tests/golden/m3-c1586-semantic-items.sx
+      - tests/e2e/run-m3-c1586-self-reference.sh
+      - tests/e2e/validate_m3_c1586_self_reference.py
+      - artifacts/traces/m3-c1586-source-backed-v0.json
+      - research/runs/2026-08.jsonl#R000065
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

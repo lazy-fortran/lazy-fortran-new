@@ -126,7 +126,9 @@ not current promotion evidence.
   D0136/D0137 correct C1579; replay R000004 is recorded as R000062 and final
   focused review R000064 passes. R000058, R000059, R000061 and R000063 retain
   earlier review or replay failures. C1579 is promoted as a bounded slice;
-  full M3 remains open.
+  full M3 remains open. The exact E0181 residual-selection audit passes again
+  in R000065; D0138 selects the bounded C1586 statement-function self-name
+  projection over the existing R1547 shape. No model fact is promoted.
 
 The L0 runner currently consumes `standard-new/specs/lexical-facts-v0.sx`
 and the component's `specs/schema-v0.sxs` generator fixture. It is now
@@ -153,7 +155,8 @@ start broad semantic work.
 
 ID: `T-M3-e0181-next-residual-selection-3` — select the next bounded property
 from the retained E0181 residual ledger after C1579 promotion. Full M3 remains
-open.
+open. The task passes in `R000065`; its selected successor is the bounded
+C1586 statement-function self-reference oracle.
 
 Verifier: `E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl
 E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl
@@ -169,7 +172,8 @@ The prior E0181 selection audit that selected C738 was rerun with:
 E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.cache/runs/E0123/R000001/trajectory.jsonl E0123_ANALYSIS_OUTDIR=.cache/runs/E0181/R000001/analysis research/experiments/E0123-can-a-bounded-fresh-retry-resolve-the-re/analyse.sh
 ```
 
-No model experiment or broad semantic/parser work is in scope.
+No model experiment or broad semantic/parser work is in scope. The next
+implementation command is `tests/e2e/run-m3-c1586-self-reference.sh --fresh`.
 
 ## Current blocker
 
@@ -201,10 +205,15 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Rerun the retained E0181 residual-selection audit with its exact pinned rows
-and trajectory. Select the next bounded source-backed property or record one
-precise blocker and its executable successor. Do not resume E0172, start broad
-parsing/semantic work, or promote a model fact.
+Implement and verify `T-M3-c1586-statement-function-self-reference-oracle`.
+The selected contract checks only the C1586 self-name prohibition at canonical
+lines 15468--15469 on page 358 over StandardIR R1547. It must not parse
+expressions, resolve names, decide definition ordering, resume E0172 or promote
+a model fact. Its exact command is:
+
+```text
+tests/e2e/run-m3-c1586-self-reference.sh --fresh
+```
 
 ## Last verified central command
 
@@ -236,8 +245,9 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   promoted. C1579 replay `tests/e2e/run-m3-c1579.sh --fresh` is `PASS` in
   `E0187/R000004`, recorded centrally as `R000062`, and focused review
   `R000064` is `PASS`; twelve bounded slices are promoted and full M3 remains
-  open. The next verifier is the retained E0181 residual-selection audit
-  shown above.
+  open. E0181 residual selection is `PASS` in `R000065`; D0138/E0188 select
+  the bounded C1586 self-name projection. The next verifier is the C1586
+  replay command shown above.
 ```
 
 ## Blacklisted pseudo-progress

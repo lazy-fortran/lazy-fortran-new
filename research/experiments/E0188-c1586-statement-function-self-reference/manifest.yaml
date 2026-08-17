@@ -1,0 +1,75 @@
+id: "E0188"
+title: "Deterministic C1586 statement-function self-reference oracle"
+question: >
+  Can a deterministic source-backed oracle enforce the C1586 prohibition on a
+  statement function referring to itself, using only the represented R1547
+  statement-function shape and typed name-relation facts?
+status: draft         # draft | running | reported | abandoned
+opened: "2026-08-17"
+
+# Every commit the experiment depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "2b4d3e49df2d66a4ef595f29c28c391c54c4f7ae"
+  standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: "m3-c1586-statement-function-self-reference-v0"
+  normative_source_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  canonical_pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  canonical_pages_index_sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+  standardir_source: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_source_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  selection_report: .cache/runs/E0181/R000001/analysis/report.json
+  selection_report_sha256: 95aeb1c96a4b864160535517725384e000975d5472f9248ceb76c320b5e71813
+  selected_row: .cache/runs/E0181/R000001/analysis/merged/selected-rows.jsonl
+  selected_row_key: C1586@1
+  semantic_items: tests/fixtures/m3-c1586-semantic-items.sx
+
+variables:
+  reference_presence: [absent, present, unknown]
+  name_relation: [not-applicable, same, different, unknown]
+  outcomes: [ACCEPTED, REJECTED, UNRESOLVED]
+
+model_selection: "No model calls. Candidate facts are human-authored fixtures; the oracle is mechanical."
+
+metrics:
+  - case_outcomes
+  - source_binding
+  - semantic_canonicalization
+  - mutation_controls
+  - model_calls
+  - semantic_promotions
+
+denominator: >
+  The complete typed witness table for the bounded C1586 self-name
+  projection: absent reference, present reference with a different name,
+  present reference with the same name, and unknown reference or relation
+  controls. Source-binding mutations are a separate denominator.
+
+independent_oracle: >
+  tests/e2e/validate_m3_c1586_self_reference.py independently computes the
+  outcome from the typed reference-presence and name-relation fields. It does
+  not parse Fortran, infer references, resolve names or consume model output.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  Any source hash, page boundary, canonical-line, rule identity or R1547
+  metadata mutation is accepted; same-name is accepted; different-name is
+  rejected; an unknown relevant state is not UNRESOLVED; or any model call or
+  semantic promotion is observed.
+
+gate: >
+  tests/e2e/run-m3-c1586-self-reference.sh --fresh must pass from clean
+  central and standard-new checkouts, including source/page-index/StandardIR
+  binding, typed witness outcomes, mutation rejection, exact trace comparison
+  and zero model calls or semantic promotions.
+
+analysis: tests/e2e/validate_m3_c1586_self_reference.py
+run: tests/e2e/run-m3-c1586-self-reference.sh --fresh

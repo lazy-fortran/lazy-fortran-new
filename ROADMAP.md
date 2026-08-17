@@ -69,8 +69,11 @@ is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
 and focused review R000055 pass.
 D0136/D0137/E0187 is the promoted C1579 bounded slice; replay E0187/R000004
 is green in R000062 and focused review R000064 passes.
-The E0181 Core 0 closure audit remains open, while broad semantic and model
-work remains closed until each later bounded contract is explicitly defined.
+The E0181 Core 0 closure audit remains open. Its exact residual-selection
+replay passes in R000065; D0138/E0188 select a bounded C1586
+statement-function self-name projection over StandardIR R1547. Broad semantic
+and model work remains closed until each later bounded contract is explicitly
+defined.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -321,6 +324,24 @@ Replay E0187/R000004, recorded as R000062, produces three accepted, one
 rejected, five unresolved and seven mutation failures; focused review R000064
 passes. This is a bounded slice only; it does not close full M3. E0172
 remains abandoned and no model output can promote a semantic fact.
+
+**Next M3 contract.** D0138/E0188 select the smallest executable projection
+of unresolved C1586: a statement-function reference may not have the same name
+as the statement function being defined. The source binding is canonical-text
+lines 15468--15469 on PDF/page-index page 358, with the already represented
+StandardIR R1547 `stmt-function-stmt` production. The typed candidate carries
+reference presence and name-relation states; the planned oracle returns
+`ACCEPTED` for absent or different-name references, `REJECTED` for a same-name
+reference and `UNRESOLVED` for unknown relevant state. It does not parse
+expressions, resolve names, decide definition ordering or cover the other
+C1586 conditions. The implementation gate is:
+
+```text
+tests/e2e/run-m3-c1586-self-reference.sh --fresh
+```
+
+This is selected contract evidence, not a promoted slice; full M3 remains
+open.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
