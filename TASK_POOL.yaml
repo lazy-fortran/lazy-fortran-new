@@ -7225,25 +7225,33 @@ tasks:
   - id: T-L3-declaration-source-executable-replay
     milestone: L3
     title: Replay the integer declaration through the executable path
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 90
     depends_on: [T-L3-fortfront-integer-declaration-source]
     inputs:
       - research/decisions/D0174-l3-integer-declaration-successor.md
       - path: tests/fixtures/l3-declaration-v0.toml
         sha256: 19c70ea7ca352ddafa4c26635d0dfb09c1ef8a924eb5f73feb79e4034a76516c
+      - research/experiments/E0234-l3-integer-declaration-source/manifest.yaml
+        sha256: c9f87534bb9336f6c1d83e36eca36cda5a2c4f83b809858dc2f4a0ab565e80c2
+      - artifacts/reports/L3/l3-declaration-v0-source-to-executable-v0.md
+        sha256: 8a72a4eccbc56d70021e780d3d76864b7c8afa3c08f37fced817223b5fea28bc
+      - artifacts/reports/L3/l3-declaration-focused-review-v1.md
+        sha256: 56bf54dcdb494f2e72ab0cdf9978fb696f8eb448ea0ba73397269921c58a8b8c
       - tests/e2e/run-l3-declaration.sh
       - tests/e2e/validate_l3_declaration.py
       - research/runs/2026-08.jsonl#R000651
+      - research/runs/2026-08.jsonl#R000652
+      - research/runs/2026-08.jsonl#R000653
       - component: fortfront-new
         commit: b51aff12c158da1f6a3643e76abb524e1d01fc7c
       - component: ffc-new
         commit: bcaadcb58c24af613204aa398541c0d2e35abf91
       - component: fortback-new
         commit: c578904a8d18e9d5410934f5489a21d5dadfad05
-    output: clean declaration source-to-executable trace and regression entry R000651
+    output: clean declaration source-to-executable trace R000651, regression R000652 and review R000653
     integration: controller-only
     estimated_cost: medium
     parallel_group: controller-exclusive
@@ -7271,9 +7279,9 @@ tasks:
       rejection, independent source/output/runtime oracle, stable trace,
       zero model calls and zero semantic promotions.
     verifier_command: >-
-      L3_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+      L3_EXPECTED_CENTRAL_COMMIT=503ddd0ffff2ea7f7c94c41e86606e9b42ec4149
       tests/e2e/run-l3-declaration.sh --fresh
-    final_observable: executable exit status zero with rejected malformed declaration
+    final_observable: executable exit status zero with rejected malformed declaration; review PASS
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 integration_cycle:

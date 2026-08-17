@@ -471,17 +471,19 @@ the declaration implementation is now committed as fortfront revision
 `b51aff1`; focused production tests pass. Clean central replay R000651 accepts
 exactly one named main program with `integer :: x`, rejects `integer ::`, and
 preserves the existing frontend-v0/MIR-v0 observable. The active task is
-`T-L3-declaration-source-executable-replay`; focused review is still required
-before promoting this successor. The C768 implementation result is parked and
-is not promoted by this pivot.
+`T-L3-declaration-source-executable-replay`; focused review R000653 passes and
+the successor is promoted only as a bounded L3 claim. The next step is to
+define a typed declaration contract; the C768 implementation result is parked
+and is not promoted by this pivot.
 
 ## Next executable task
 
 The L3 declaration contract is frozen by D0174 and passes
-`scripts/check-contracts.sh`. The implementation and technical replay pass;
-the next action is the focused review of R000651. Do not resume E0172 or start
-broad semantic work. The C768 worker result remains parked and is not promoted
-by this pivot.
+`scripts/check-contracts.sh`. The implementation, technical replay and focused
+review pass; the bounded successor is promoted. The next action is a
+controller-owned typed declaration contract, still outside full M3. Do not
+resume E0172 or start broad semantic work. The C768 worker result remains
+parked and is not promoted by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

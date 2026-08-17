@@ -1,6 +1,6 @@
 # L3 integer-declaration source-to-executable replay
 
-Status: technical replay `PASS`; promotion pending focused review.
+Status: bounded promotion `PASS`; full M3 remains open.
 
 The exact positive source is:
 
@@ -37,3 +37,9 @@ malformed neighbour, returned runtime exit status zero, and recorded zero model
 calls and zero semantic promotions. Regenerate these observations with the
 command above. The bootstrap run remains retained in the ignored run cache;
 R000651 is the promotion input.
+
+Focused review R000653 passes two independent medium-depth Luna reviews. The
+post-technical regression R000652 also reproduces the trace from pushed
+central revision `554a74291f492ded9a0d809b67035c08415e2ca2`. This promotes only
+the exact source shape and leaves typed declaration representation and general
+declaration parsing open.

@@ -82,11 +82,14 @@ analysis: >-
 result:
   technical_run: research/runs/2026-08.jsonl#R000651
   technical_status: PASS
-  promotion_status: PENDING-FOCUSED-REVIEW
+  promotion_status: PASS-BOUNDED-ONLY
   report: artifacts/reports/L3/l3-declaration-v0-source-to-executable-v0.md
   trace: artifacts/traces/l3-declaration-v0.json
   trace_sha256: 24c4a6fcb525d4f6dc5dd48359b7f0dd2d2ee0c245584566c2494dfc4779e94d
   validator_sha256: d151ca9ae0e092a05e172b28859424648acbd9f35dbb2fdb445f53256157b3ce
+  regression_run: research/runs/2026-08.jsonl#R000652
+  review_run: research/runs/2026-08.jsonl#R000653
+  review_report: artifacts/reports/L3/l3-declaration-focused-review-v1.md
   outcomes: {accepted: 1, rejected: 1, runtime_exit_status: 0}
   model_calls: 0
   semantic_promotions: 0
