@@ -192,6 +192,7 @@ Runs recorded: 549
 | E0191 | reported | 4 | Can a deterministic source-backed oracle enforce C722 kind-param approximation-method legality |
 | E0192 | reported | 2 | Can a deterministic source-backed oracle enforce C724 scalar-int-constant-expr legality |
 | E0193 | reported | 1 | Can the post-C724 residual select one source-backed bounded property without semantic promotion? |
+| E0194 | draft | 0 | Can a deterministic source-backed oracle classify C726 type-param-value star use from explicit typed context states? |
 
 ## Run status
 
@@ -361,6 +362,7 @@ Runs recorded: 549
 | [D0141](decisions/D0141-fifteenth-m3-c720-kind-param-representation-oracle.md) | accepted |  | Fifteenth M3 slice uses C720 kind-param representation legality |
 | [D0142](decisions/D0142-sixteenth-m3-c722-kind-param-approximation-oracle.md) | accepted |  | Sixteenth M3 slice uses C722 approximation-method legality |
 | [D0143](decisions/D0143-seventeenth-m3-c724-scalar-int-constant-expr-oracle.md) | accepted |  | Seventeenth M3 slice uses C724 scalar-int-constant-expr legality |
+| [D0144](decisions/D0144-eighteenth-m3-c726-type-param-star-context-oracle.md) | accepted |  | Eighteenth M3 slice uses C726 type-param-value star-context legality |
 
 ### Proposed decisions
 

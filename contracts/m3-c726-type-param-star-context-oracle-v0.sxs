@@ -1,0 +1,27 @@
+(schema m3-c726-type-param-star-context-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum type-param-value-state star explicit unknown)
+  (enum c726-context-state dummy-argument named-constant allocate-assumed-length-character type-guard external-function-character-result other unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record source-span
+    (byte-start int)
+    (byte-length int)
+    (page-start int)
+    (page-end int))
+  (record type-param-star-use
+    (type-param-value type-param-value-state)
+    (context c726-context-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (span source-span)
+    (fact type-param-star-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

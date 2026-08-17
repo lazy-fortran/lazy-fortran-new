@@ -1,0 +1,97 @@
+{
+  "schema_version": "m3-c726-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "type-param-value-star-context-legality",
+  "contract": {
+    "schema": "contracts/m3-c726-type-param-star-context-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c726-type-param-star-context-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C726",
+    "printed_page": 84,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3453, "text": "C726 (R721 R722 R723) A type-param-value of * shall be used only"},
+      {"line": 3454, "text": "• to declare a dummy argument,"},
+      {"line": 3455, "text": "• to declare a named constant,"},
+      {"line": 3456, "text": "• in the type-spec of an ALLOCATE statement wherein each allocate-object is a dummy argument of"},
+      {"line": 3457, "text": "type CHARACTER with an assumed character length,"},
+      {"line": 3460, "text": "• in the type-spec or derived-type-spec of a type guard statement (11.1.11), or"},
+      {"line": 3461, "text": "• in an external function, to declare the character length parameter of the function result."}
+    ],
+    "source_span": {"byte_start": 217828, "byte_length": 422, "page_start": 84, "page_end": 85},
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [
+        {"page": 84, "start": 214997, "length": 3137},
+        {"page": 85, "start": 218135, "length": 3925}
+      ]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R721", "lhs": "char-selector", "page": 84, "byte_start": 217200, "byte_length": 251, "occurrence": 71},
+        {"rule": "R722", "lhs": "length-selector", "page": 84, "byte_start": 217452, "byte_length": 83, "occurrence": 72},
+        {"rule": "R723", "lhs": "char-length", "page": 84, "byte_start": 217536, "byte_length": 70, "occurrence": 73}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c726-semantic-items.sx",
+    "sha256": "de70b3f3028c91af4f559d4f389fae6669711dbc39cae8b2ec6eb3d97e118b7a",
+    "id": "S-C726",
+    "subject": "type-param-value-star-context-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C726",
+    "page": 84,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {"id": "accepted-star-dummy-argument", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "star", "context": "dummy-argument"}},
+    {"id": "accepted-star-named-constant", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "star", "context": "named-constant"}},
+    {"id": "accepted-star-allocate-assumed-length-character", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "star", "context": "allocate-assumed-length-character"}},
+    {"id": "accepted-star-type-guard", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "star", "context": "type-guard"}},
+    {"id": "accepted-star-external-function-character-result", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "star", "context": "external-function-character-result"}},
+    {"id": "rejected-star-other", "kind": "negative", "expected": "REJECTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "star", "context": "other"}},
+    {"id": "unresolved-star-unknown", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "star", "context": "unknown"}},
+    {"id": "accepted-explicit-dummy-argument", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "explicit", "context": "dummy-argument"}},
+    {"id": "accepted-explicit-named-constant", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "explicit", "context": "named-constant"}},
+    {"id": "accepted-explicit-allocate-assumed-length-character", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "explicit", "context": "allocate-assumed-length-character"}},
+    {"id": "accepted-explicit-type-guard", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "explicit", "context": "type-guard"}},
+    {"id": "accepted-explicit-external-function-character-result", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "explicit", "context": "external-function-character-result"}},
+    {"id": "accepted-explicit-other", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "explicit", "context": "other"}},
+    {"id": "accepted-explicit-unknown", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "explicit", "context": "unknown"}},
+    {"id": "accepted-unknown-dummy-argument", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "unknown", "context": "dummy-argument"}},
+    {"id": "accepted-unknown-named-constant", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "unknown", "context": "named-constant"}},
+    {"id": "accepted-unknown-allocate-assumed-length-character", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "unknown", "context": "allocate-assumed-length-character"}},
+    {"id": "accepted-unknown-type-guard", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "unknown", "context": "type-guard"}},
+    {"id": "accepted-unknown-external-function-character-result", "kind": "positive", "expected": "ACCEPTED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "unknown", "context": "external-function-character-result"}},
+    {"id": "unresolved-unknown-other", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "unknown", "context": "other"}},
+    {"id": "unresolved-unknown-unknown", "kind": "unresolved", "expected": "UNRESOLVED", "candidate": {"fact": "type-param-value-star-context-legality", "source_rule": "C726", "type_param_value": "unknown", "context": "unknown"}}
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3454},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 6, "text"], "value": "• in an external function, to declare a different result."},
+    {"id": "page-boundary-start", "path": ["source", "source_span", "page_start"], "value": 83},
+    {"id": "page-boundary-end", "path": ["source", "source_span", "page_end"], "value": 84},
+    {"id": "page-index-identity", "path": ["source", "page_index", "pages", 1, "start"], "value": 218136},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R722"},
+    {"id": "standardir-r722-identity", "path": ["source", "standardir", "rows", 1, "rule"], "value": "R721"},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C725"},
+    {"id": "contract-property-identity", "path": ["property"], "value": "other-property"},
+    {"id": "source-rule-identity", "path": ["source", "rule"], "value": "C725"},
+    {"id": "source-span-boundary", "path": ["source", "source_span", "byte_length"], "value": 421}
+  ]
+}

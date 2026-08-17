@@ -1,0 +1,9 @@
+(contract-witness
+  (contract m3-c726-type-param-star-context-oracle)
+  (version 0)
+  (origin human)
+  (resolution disputed)
+  (property type-param-value-star-context-legality)
+  (source (source-ref (document J3-24-007) (clause 7) (rule C726) (page 84) (source-hash 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)))
+  (span (source-span (byte-start 217828) (byte-length 422) (page-start 84) (page-end 85)))
+  (outcomes accepted rejected unresolved))

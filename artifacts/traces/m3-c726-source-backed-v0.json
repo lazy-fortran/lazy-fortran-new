@@ -1,0 +1,297 @@
+{
+  "candidate_promotion": "BOUNDED_ONLY",
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "context": "dummy-argument",
+      "expected": "ACCEPTED",
+      "id": "accepted-star-dummy-argument",
+      "kind": "positive",
+      "type_param_value": "star"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "named-constant",
+      "expected": "ACCEPTED",
+      "id": "accepted-star-named-constant",
+      "kind": "positive",
+      "type_param_value": "star"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "allocate-assumed-length-character",
+      "expected": "ACCEPTED",
+      "id": "accepted-star-allocate-assumed-length-character",
+      "kind": "positive",
+      "type_param_value": "star"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "type-guard",
+      "expected": "ACCEPTED",
+      "id": "accepted-star-type-guard",
+      "kind": "positive",
+      "type_param_value": "star"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "external-function-character-result",
+      "expected": "ACCEPTED",
+      "id": "accepted-star-external-function-character-result",
+      "kind": "positive",
+      "type_param_value": "star"
+    },
+    {
+      "computed": "REJECTED",
+      "context": "other",
+      "expected": "REJECTED",
+      "id": "rejected-star-other",
+      "kind": "negative",
+      "type_param_value": "star"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-star-unknown",
+      "kind": "unresolved",
+      "type_param_value": "star"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "dummy-argument",
+      "expected": "ACCEPTED",
+      "id": "accepted-explicit-dummy-argument",
+      "kind": "positive",
+      "type_param_value": "explicit"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "named-constant",
+      "expected": "ACCEPTED",
+      "id": "accepted-explicit-named-constant",
+      "kind": "positive",
+      "type_param_value": "explicit"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "allocate-assumed-length-character",
+      "expected": "ACCEPTED",
+      "id": "accepted-explicit-allocate-assumed-length-character",
+      "kind": "positive",
+      "type_param_value": "explicit"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "type-guard",
+      "expected": "ACCEPTED",
+      "id": "accepted-explicit-type-guard",
+      "kind": "positive",
+      "type_param_value": "explicit"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "external-function-character-result",
+      "expected": "ACCEPTED",
+      "id": "accepted-explicit-external-function-character-result",
+      "kind": "positive",
+      "type_param_value": "explicit"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "other",
+      "expected": "ACCEPTED",
+      "id": "accepted-explicit-other",
+      "kind": "positive",
+      "type_param_value": "explicit"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "unknown",
+      "expected": "ACCEPTED",
+      "id": "accepted-explicit-unknown",
+      "kind": "positive",
+      "type_param_value": "explicit"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "dummy-argument",
+      "expected": "ACCEPTED",
+      "id": "accepted-unknown-dummy-argument",
+      "kind": "positive",
+      "type_param_value": "unknown"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "named-constant",
+      "expected": "ACCEPTED",
+      "id": "accepted-unknown-named-constant",
+      "kind": "positive",
+      "type_param_value": "unknown"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "allocate-assumed-length-character",
+      "expected": "ACCEPTED",
+      "id": "accepted-unknown-allocate-assumed-length-character",
+      "kind": "positive",
+      "type_param_value": "unknown"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "type-guard",
+      "expected": "ACCEPTED",
+      "id": "accepted-unknown-type-guard",
+      "kind": "positive",
+      "type_param_value": "unknown"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "external-function-character-result",
+      "expected": "ACCEPTED",
+      "id": "accepted-unknown-external-function-character-result",
+      "kind": "positive",
+      "type_param_value": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-other",
+      "kind": "unresolved",
+      "type_param_value": "unknown"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown",
+      "kind": "unresolved",
+      "type_param_value": "unknown"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c726-type-param-star-context-oracle-v0.sx",
+    "fixture_sha256": "322500c16a670946822f905b86feebc2ed0f5c59d3f75b6f1a3fc59e60c03676",
+    "schema": "contracts/m3-c726-type-param-star-context-oracle-v0.sxs",
+    "schema_sha256": "87ce77ab9d14cd94fccf6a2dd2d6f8dacaeddc6fcb99f48478947e6aa8e91811",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c726-source-backed-v0.json",
+  "fixture_sha256": "678c6cecd363e06a789594d6927380d75f0b4365726a71a58d2c81cac30bf356",
+  "full_m3": "OPEN",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-boundary-start",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-boundary-end",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-r722-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-property-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-span-boundary",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c726.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 17,
+    "REJECTED": 1,
+    "UNRESOLVED": 3
+  },
+  "property": "type-param-value-star-context-legality",
+  "schema_version": "m3-c726-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "de70b3f3028c91af4f559d4f389fae6669711dbc39cae8b2ec6eb3d97e118b7a",
+    "input": "tests/fixtures/m3-c726-semantic-items.sx",
+    "input_sha256": "de70b3f3028c91af4f559d4f389fae6669711dbc39cae8b2ec6eb3d97e118b7a"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3453,
+      3454,
+      3455,
+      3456,
+      3457,
+      3460,
+      3461
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "pages": [
+        {
+          "length": 3137,
+          "page": 84,
+          "start": 214997
+        },
+        {
+          "length": 3925,
+          "page": 85,
+          "start": 218135
+        }
+      ],
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 84,
+    "rule": "C726",
+    "source_span": {
+      "byte_length": 422,
+      "byte_start": 217828,
+      "page_end": 85,
+      "page_start": 84
+    },
+    "standardir_rules": [
+      "R721",
+      "R722",
+      "R723"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}
