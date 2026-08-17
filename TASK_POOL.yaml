@@ -4683,6 +4683,7 @@ tasks:
       - tests/golden/m3-c745-semantic-items.sx
       - tests/e2e/run-m3-c745.sh
       - tests/e2e/validate_m3_c745.py
+      - scripts/verify_active_milestone.sh
       - artifacts/traces/m3-c745-source-backed-v0.json
       - artifacts/reports/M3/m3-c745-source-backed-v0.md
       - artifacts/reports/M3/m3-c745-focused-review-v0.md
@@ -4726,6 +4727,7 @@ tasks:
         - tests/golden/m3-c745-*
         - tests/e2e/run-m3-c745.sh
         - tests/e2e/validate_m3_c745.py
+        - scripts/verify_active_milestone.sh
         - artifacts/traces/m3-c745-source-backed-v0.json
         - artifacts/reports/M3/m3-c745-*.md
         - STATUS.md
