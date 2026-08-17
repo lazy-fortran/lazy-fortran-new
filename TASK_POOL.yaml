@@ -206,6 +206,7 @@ milestones:
       - research/runs/2026-08.jsonl#R000070
       - research/runs/2026-08.jsonl#R000071
       - research/runs/2026-08.jsonl#R000072
+      - research/runs/2026-08.jsonl#R000073
       - artifacts/reports/M3/c1586-semantic-review-v0.md
       - artifacts/reports/M3/c1586-reproducibility-review-v0.md
       - artifacts/reports/M3/c1586-reproducibility-review-v1.md
@@ -2329,6 +2330,7 @@ tasks:
       - artifacts/reports/M3/c1586-reproducibility-review-v2.md
       - artifacts/reports/M3/c1586-reproducibility-review-v3.md
       - artifacts/reports/M3/c1586-reproducibility-review-v4.md
+      - research/runs/2026-08.jsonl#R000073
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

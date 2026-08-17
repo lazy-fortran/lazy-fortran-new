@@ -341,7 +341,7 @@ Evidence: `research/decisions/D0138-thirteenth-m3-c1586-statement-function-self-
 `research/experiments/E0188-c1586-statement-function-self-reference/manifest.yaml`,
 the C1586 contract, validator, fixtures and trace, the focused review reports
 under `artifacts/reports/M3/`, and `research/runs/2026-08.jsonl#R000065`
-through `#R000072`. This promotes only the bounded C1586 projection; full M3
+through `#R000073`. This promotes only the bounded C1586 projection; full M3
 remains open.
 
 ## M3 — Core 0 closure audit

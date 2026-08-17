@@ -82,3 +82,4 @@ result:
   retained_failure: research/runs/2026-08.jsonl#R000066
   review_run: research/runs/2026-08.jsonl#R000072
   review_state: pass
+  post_promotion_replay: research/runs/2026-08.jsonl#R000073

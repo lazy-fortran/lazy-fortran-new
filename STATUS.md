@@ -234,9 +234,10 @@ review `R000015` are `PASS`; the C601 central replay `R000003` and focused
   `E0187/R000004`, recorded centrally as `R000062`, and focused review
   `R000064` is `PASS`; twelve bounded slices are promoted and full M3 remains
   open. E0181 residual selection is `PASS` in `R000065`; D0138/E0188 bounded
-  C1586 replay `R000067` and focused review `R000072` pass. The retained
-  closure blocker is the remaining E0181 ledger; the next task is the exact
-  closure audit shown above.
+  C1586 replay `R000067` and focused review `R000072` pass; post-promotion
+  regression replay `R000073` also passes. The retained closure blocker is
+  the remaining E0181 ledger; the next task is the exact closure audit shown
+  above.
 ```
 
 ## Blacklisted pseudo-progress

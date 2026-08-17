@@ -341,7 +341,8 @@ tests/e2e/run-m3-c1586-self-reference.sh --fresh
 ```
 
 The first replay retained a trace-format failure as `R000066`; corrected replay
-`R000067` and focused review `R000072` pass. This promotes only the bounded
+`R000067`, focused review `R000072` and post-promotion regression replay
+`R000073` pass. This promotes only the bounded
 C1586 projection; full M3 remains open. The next executable task is
 `T-M3-core0-closure-audit-after-c1586`, using the retained E0181 command:
 
