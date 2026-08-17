@@ -48,8 +48,9 @@ the C751 coarray/ALLOCATABLE relation at canonical lines 3840--3841, byte span
 candidate; no semantic fact is promoted. E0220/R000599 passes the technical
 C751 replay with 4 `ACCEPTED`, 4 `REJECTED`, 4 `UNRESOLVED`, twelve rejected
 mutations, zero model calls and zero semantic promotions. The focused review
-attempt R000600 returns `NEEDS EVIDENCE` because the configured reviewer
-runner produced no review text; C751 is therefore not promoted yet.
+passes in R000601 with two independent reviewers, and the integrated clean
+replay R000602 passes. C751 is promoted only as the thirty-first bounded
+oracle leaf; full Core 0 remains open.
 
 ## Component pins
 
@@ -237,10 +238,11 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-M3-c751-coarray-allocatable-oracle` — technically verified, promotion
-pending focused review. C750's technical replay is E0218/R000596 and focused
-review/evidence gate R000597 passes; E0219/R000598 selects C751@1; E0220/R000599
-passes the C751 verifier and R000600 records the review-infrastructure blocker.
+The C751 task `T-M3-c751-coarray-allocatable-oracle` is `PASS` and its bounded
+claim is closed. E0220/R000601 records two focused reviewer passes and
+R000602 records the integrated clean replay. C750's technical replay is
+E0218/R000596 and focused review/evidence gate R000597 passes; full M3 remains
+open.
 
 Verifier: `tests/e2e/run-m3-c751.sh --fresh`. It must consume C751's exact
 source span `241193:142` (canonical lines 3840--3841, printed page 79,

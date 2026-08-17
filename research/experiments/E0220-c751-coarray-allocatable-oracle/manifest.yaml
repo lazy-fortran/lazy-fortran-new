@@ -67,10 +67,10 @@ analysis: >-
   artifacts/reports/M3/m3-c751-source-backed-v0.md
 
 result:
-  technical_run: research/runs/2026-08.jsonl#R000599
-  review_run: research/runs/2026-08.jsonl#R000600
+  technical_run: research/runs/2026-08.jsonl#R000602
+  review_run: research/runs/2026-08.jsonl#R000601
   technical_status: PASS
-  promotion_status: NEEDS_EVIDENCE
+  promotion_status: PASS-BOUNDED-ONLY
   result: artifacts/traces/m3-c751-source-backed-v0.json
   report: artifacts/reports/M3/m3-c751-source-backed-v0.md
-  review_report: artifacts/reports/M3/m3-c751-focused-review-v1.md
+  review_report: artifacts/reports/M3/m3-c751-focused-review-v2.md

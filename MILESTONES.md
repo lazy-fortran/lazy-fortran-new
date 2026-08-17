@@ -881,14 +881,14 @@ over existing StandardIR R737/R739/R809/R810/R811. D0161 defines the bounded
 
 ## M3 — next bounded C751 coarray-allocatable oracle
 
-The technical verifier `tests/e2e/run-m3-c751.sh --fresh` passes in E0220/R000599
+The technical verifier `tests/e2e/run-m3-c751.sh --fresh` passes in E0220/R000602
 with 4 `ACCEPTED`, 4 `REJECTED`, 4 `UNRESOLVED`, twelve rejected mutations,
-zero model calls and zero semantic promotions. The bounded contract accepts an
-absent coarray-spec and a deferred-coshape with ALLOCATABLE present, rejects a
-deferred-coshape without ALLOCATABLE and every explicit-coshape, and leaves
-unknown states unresolved. Focused review R000600 is `NEEDS EVIDENCE` because
-the configured reviewer runner returned no review text; promotion is pending
-that review. It does not parse arbitrary Fortran or close full M3.
+zero model calls and zero semantic promotions. Focused review R000601 passes
+with two independent reviewers, so C751 is promoted only as a bounded oracle
+leaf. The bounded contract accepts an absent coarray-spec and a
+deferred-coshape with ALLOCATABLE present, rejects a deferred-coshape without
+ALLOCATABLE and every explicit-coshape, and leaves unknown states unresolved.
+It does not parse arbitrary Fortran or close full M3.
 
 ## M3 — bounded C601 semantic-oracle successor
 

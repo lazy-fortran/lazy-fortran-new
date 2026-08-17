@@ -1,8 +1,8 @@
 # M3 C751 bounded replay
 
-Technical replay status: `PASS` in `.cache/runs/E0220/R000002` from the clean
+Technical replay status: `PASS` in `.cache/runs/E0220/R000005` from the clean
 revision recorded by `tests/e2e/run-m3-c751.sh --fresh`. Promotion status:
-`PENDING` independent focused review.
+`PASS` for the bounded leaf after focused review `R000601`.
 
 The slice checks J3-24-007 C751 against the existing StandardIR component and
 coarray shapes. Its typed denominator is twelve states: coarray-spec absent,
@@ -26,6 +26,7 @@ Regenerate the complete technical replay with:
 tests/e2e/run-m3-c751.sh --fresh
 ```
 
-The focused-review attempt is recorded separately in
-`artifacts/reports/M3/m3-c751-focused-review-v1.md`; its external reviewer
-runner returned no review result, so this report does not promote the leaf.
+The focused review is recorded in
+`artifacts/reports/M3/m3-c751-focused-review-v2.md`. The earlier unavailable
+review attempt remains retained as `R000600`; it did not affect the final
+promotion decision.
