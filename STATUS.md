@@ -22,8 +22,8 @@ The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. M3 is now open through the promoted C1106, C702, C601, C603, C721,
-C725, C718, C723 and C729 contracts. The full Core 0 semantic milestone
-remains unpromoted.
+C725, C718, C723, C729 and C719 contracts. The full Core 0 semantic
+milestone remains unpromoted.
 
 ## Component pins
 
