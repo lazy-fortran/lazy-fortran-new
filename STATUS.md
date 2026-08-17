@@ -134,7 +134,7 @@ not current promotion evidence.
   pass with eight mutation failures and zero model calls or semantic
   promotions. C1586 is promoted as a bounded slice; full M3 remains open.
   D0145/E0196 define the C731 character-length constant-expression oracle.
-  Clean replay R000508 and focused review R000510 pass with 2 `ACCEPTED`, 2
+  Clean replay R000509 and focused review R000510 pass with 2 `ACCEPTED`, 2
   `REJECTED`, 8 `UNRESOLVED`, twelve mutation failures and zero model calls or
   semantic promotions. C731 is promoted only as this bounded oracle slice;
   full M3 remains open.
@@ -159,12 +159,12 @@ R000504/R000505 pass and bind canonical lines 3453--3457 and 3460--3461
 across pages 84--85 to existing StandardIR R721/R722/R723. The post-C726
 reconciliation R000506 leaves 153 outside-promoted rows, with C731@1 first.
 Selection R000507 binds C731 to canonical lines 3469--3470 on page 85 and
-existing StandardIR R721. Replay R000508 and focused review R000510 promote
+existing StandardIR R721. Replay R000509 and focused review R000510 promote
 only the bounded typed-state oracle. Full M3 remains open; do not resume E0172
 or start broad semantic work. Reproduce it with:
 
 ```text
-M3_C731_EXPECTED_CENTRAL_COMMIT=9309dd737022caafba08303eb01c600d7d13db3a tests/e2e/run-m3-c731.sh --fresh
+M3_C731_EXPECTED_CENTRAL_COMMIT=94c71ec785ece8927a98a34a17e02aa452df1528 tests/e2e/run-m3-c731.sh --fresh
 ```
 
 ## Active task
@@ -204,7 +204,7 @@ focused review R000064 passes; C1586 replay R000067 and focused review
 R000072 also pass, and C717 replay R000480 and review R000481 pass. C720 replay
 R000486 and focused review R000487 pass. C722 replay R000490 and focused
 review R000491 pass. C724 replay R000494 and focused review R000495 pass, and
-  C726 replay R000504 with focused review R000505 passes. C731 replay R000508
+  C726 replay R000504 with focused review R000505 passes. C731 replay R000509
   and focused review R000510 pass, so nineteen bounded slices are promoted.
   The audit residual
 identities are C601@1, C603@1, C719@1, C738@1, C704@2, C1579@1 and C1586@1;

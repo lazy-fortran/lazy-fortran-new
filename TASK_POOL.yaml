@@ -3732,6 +3732,7 @@ tasks:
       - path: artifacts/reports/M3/m3-core0-next-property-selection-v6.md
       - path: research/runs/2026-08.jsonl#R000507
       - path: research/runs/2026-08.jsonl#R000508
+      - path: research/runs/2026-08.jsonl#R000509
       - path: .cache/runs/E0196/R000001/result.json
         sha256: f4a35ba70aed8235e5aed932adc4b71a4ebf8ef85369dcf0b9cfa20b507c7f8b
       - path: .cache/runs/E0196/R000001/run-environment.json
@@ -3801,6 +3802,7 @@ tasks:
       - artifacts/reports/M3/m3-core0-next-property-selection-v6.md
       - research/runs/2026-08.jsonl#R000507
       - research/runs/2026-08.jsonl#R000508
+      - research/runs/2026-08.jsonl#R000509
       - contracts/m3-c731-constant-expression-oracle-v0.sxs
       - contracts/fixtures/m3-c731-constant-expression-oracle-v0.sx
       - tests/fixtures/m3-c731-source-backed-v0.json

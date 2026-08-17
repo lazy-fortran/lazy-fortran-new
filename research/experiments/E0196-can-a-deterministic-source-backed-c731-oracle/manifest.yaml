@@ -106,15 +106,15 @@ analysis: tests/e2e/validate_m3_c731.py
 run: tests/e2e/run-m3-c731.sh --fresh
 
 replay:
-  run: research/runs/2026-08.jsonl#R000508
+  run: research/runs/2026-08.jsonl#R000509
   functional_revision: 5ff9c47c121cea7819bbb46f466fe3242e58d036
-  central_worktree_commit: 9309dd737022caafba08303eb01c600d7d13db3a
-  expected_central_commit: 9309dd737022caafba08303eb01c600d7d13db3a
+  central_worktree_commit: 94c71ec785ece8927a98a34a17e02aa452df1528
+  expected_central_commit: 94c71ec785ece8927a98a34a17e02aa452df1528
   result_sha256: f4a35ba70aed8235e5aed932adc4b71a4ebf8ef85369dcf0b9cfa20b507c7f8b
-  run_environment_sha256: a9d8761df3d542de4f4f687785e58eb527312fb10a59eaf09cefc578083fd421
+  run_environment_sha256: 101aca1a16f823d827197bf2a109befd97f773bef04f3a4a37cbf04fd618f4be
 
 result:
-  replay_run: research/runs/2026-08.jsonl#R000508
+  replay_run: research/runs/2026-08.jsonl#R000509
   candidate_promotion: BOUNDED_ONLY
   outcomes: {ACCEPTED: 2, REJECTED: 2, UNRESOLVED: 8}
   mutation_controls: 12
