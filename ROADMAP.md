@@ -61,7 +61,7 @@ manifests after the cold replay; the source-boundary mapper and evidence
 coalescer still rerun. E0172 was abandoned before model inference because its
 declared historical model did not match the externally managed Qwen 3.8
 endpoint; its failure is retained as R000456. E0174 is closed. M3 is now open
-through twenty-seven bounded contracts. E0210 replay R000566 and focused review
+through twenty-eight bounded contracts. E0210 replay R000566 and focused review
 R000567 pass for C746, which is promoted only as a bounded typed membership
 oracle. The post-C746 residual partition has 145 rows, 84 disputed and 61
 unwitnessed, with C747@1 first. R000568 selects C747's bounded occurrence-
@@ -69,8 +69,9 @@ cardinality relation; R000574 and R000575 pass, promoting only that bounded
 oracle. R000576 selects C748@1 over line 3834 and R737. The v0 implementation
 replay R000577 was rejected by focused review R000578 because it encoded
 exact-once instead of C748's at-most-once rule. D0156 corrects the contract;
-replay R000579 passes with the deterministic at-most-once oracle, and the
-active task is the second focused review. Full M3 remains open.
+replay R000579 and focused review R000580 pass with the deterministic
+at-most-once oracle. C748 is promoted only as a bounded leaf; the active task
+selects the next residual property. Full M3 remains open.
 C724 is promoted only as its bounded scalar-int-constant-expr oracle. C726 is
 promoted only as its bounded type-param-value star-context oracle; replay
 R000504 and focused review R000505 pass, and post-C726 reconciliation R000506
@@ -109,7 +110,9 @@ R727/R732/R733. The C746 implementation and replay pass with zero model calls
 and zero semantic promotions. R000568 then selects C747 over canonical lines
 3766--3767, page 77, byte span `237572:183`, using the same StandardIR
 witnesses. C747 replay R000574 and focused review R000575 pass, promoting only
-that bounded exact-once oracle. R000576 selects C748@1 as the next active task;
+that bounded exact-once oracle. R000576 selects C748@1; its corrected replay
+R000579 and focused review R000580 pass, promoting only the bounded C748
+at-most-once oracle. The next active task is the post-C748 residual selection;
 the retained model row is not evidence.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
@@ -613,7 +616,9 @@ R000568 binds C747 to canonical lines 3766--3767, printed page 77, byte span
 `237572:183`, and canonical page-index record 91, over the same StandardIR
 witnesses. D0153 as amended by D0154 defines the bounded exact-once relation;
 corrected replay R000574 and focused review R000575 pass, promoting only this
-bounded leaf. R000576 selects C748@1, whose next implementation is now active.
+bounded leaf. R000576 selects C748@1; corrected replay R000579 and focused
+review R000580 promote it only as a bounded at-most-once leaf. The next active
+task is `T-M3-core0-next-bounded-property-selection-after-c748`.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described

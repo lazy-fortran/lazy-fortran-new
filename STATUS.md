@@ -21,14 +21,17 @@ normative source fact
 The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
-review. M3 is now open through twenty-seven bounded contracts; C746 is promoted
+review. M3 is now open through twenty-eight bounded contracts; C746 is promoted
 only as a bounded oracle leaf by E0210/R000566 and focused review R000567.
 Selection R000568 passes for C747 at canonical lines 3766--3767, printed page
 77, over existing StandardIR R727/R732/R733. The corrected C747 replay R000574
 and focused review R000575 pass; C747 is promoted only as a bounded oracle
 leaf. D0154 amends D0153 to record the two page coordinate systems separately.
-Post-C747 selection R000576 identifies C748@1 as the next residual. The full
-Core 0 semantic milestone remains unpromoted.
+Post-C747 selection R000576 identifies C748@1 as the next residual. C748's
+corrected at-most-once replay R000579 and focused review R000580 pass, so it is
+promoted only as the twenty-eighth bounded oracle leaf. The next active task is
+the deterministic post-C748 residual selection; the full Core 0 semantic
+milestone remains unpromoted.
 
 ## Component pins
 
@@ -92,7 +95,7 @@ not current promotion evidence.
 - E0172 remains abandoned before its model cell: R000456 found that the
   endpoint exposed Qwen 3.8 27B while the experiment declared Qwen 3.6
   35B-A3B. No model output was accepted. E0174 is closed.
-- M3 is `OPEN` through twenty-seven promoted bounded slices, including C717,
+- M3 is `OPEN` through twenty-eight promoted bounded slices, including C717,
   C720, C722, C724, C726, C731, C732, C733, C735, C743 and C744; full Core 0 remains open.
   D0126 selects
   C702's type-parameter colon legality over the already represented R701, R832
@@ -166,8 +169,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-c748-component-attr-spec-exact-once-oracle` (corrected
-as the at-most-once v1 contract by D0156).
+Current fixture: `T-M3-core0-next-bounded-property-selection-after-c748`.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
 Clean replay R000527 and focused review R000528 pass. The replay binds C735
 line 3620, page 88, byte span `229534:101`, to existing StandardIR R727/R728;
@@ -201,27 +203,22 @@ with C748@1 first. R000576 binds C748 line 3834, printed page 79, byte span
 `240727:97` to canonical page-index record 93 and StandardIR R737. The first
 C748 replay R000577 is retained but not promotable: focused review R000578
 found that its exact-once oracle rejected valid zero-occurrence states. D0156
-corrects the contract to at-most-once; replay R000579 passes with 6 `ACCEPTED`,
-1 `REJECTED`, 29 `UNRESOLVED`, twelve rejected mutations, zero model calls and
-zero semantic promotions. The complete replay command is
+corrects the contract to at-most-once; replay R000579 and focused review
+R000580 pass with 6 `ACCEPTED`, 1 `REJECTED`, 29 `UNRESOLVED`, twelve rejected
+mutations, zero model calls and zero semantic promotions. The complete replay command is
 `M3_C748_EXPECTED_CENTRAL_COMMIT=b3abc202c9e0b82058feccfc1c06099715b589c9 tests/e2e/run-m3-c748.sh --fresh`.
 
 ## Active task
 
-ID: `T-M3-c748-component-attr-spec-exact-once-oracle` — complete review of the
-corrected bounded C748 component-attribute at-most-once oracle selected after
-C747.
+ID: `T-M3-core0-next-bounded-property-selection-after-c748` — select the next
+bounded source-backed property after C748 promotion.
 
-Verifier: from a clean checkout, run `tests/e2e/run-m3-c748.sh --fresh`.
-The oracle must classify typed attribute-name presence (`absent`, `present`,
-`unknown`), occurrence cardinality (`zero`, `one`, `many`, `unknown`) and
-context (`component-def-stmt`, `other`, `unknown`) as
-`ACCEPTED`/`REJECTED`/`UNRESOLVED`; in component-def-stmt context it accepts
-absent and present/zero or present/one and rejects present/many. It binds C748
-line 3834/page 79 to canonical page-index record 93 and R737, rejects
-source/page/rule/identity mutations, and records zero model calls and zero
-semantic-fact promotions. It must not parse component definitions, resolve
-attribute names, check C749 through C751, or perform general semantic analysis.
+Verifier: run the pinned jq partition command in `TASK_POOL.yaml` over the
+retained E0181 witness JSONL, excluding the twenty-eight promoted contracts;
+inspect the first remaining source occurrence against the canonical text,
+page index and StandardIR witness; select exactly one source-backed bounded
+property or record that no eligible row is available. Do not run a model,
+promote a semantic fact, resume E0172 or start general parsing.
 
 The completed C744 verifier was `tests/e2e/run-m3-c744.sh --fresh`. Its
 oracle must classify the complete 3-by-3-by-3 typed product of END TYPE name
@@ -272,7 +269,7 @@ review R000491 pass. C724 replay R000494 and focused review R000495 pass, and
   bounded slices promoted only as bounded oracle leaves. C745 replay R000556
   and focused review R000560 pass, and C746 replay R000566 with focused review
   R000567 also pass. C747 replay R000574 and focused review R000575 pass,
-  making twenty-seven bounded slices promoted only as bounded oracle leaves.
+  making twenty-eight bounded slices promoted only as bounded oracle leaves.
   C746 records
   4 `ACCEPTED`, 1 `REJECTED`, 22 `UNRESOLVED`, twelve rejected mutations,
   zero model calls and zero semantic promotions.
@@ -285,9 +282,10 @@ The current blocker is witness closure outside the bounded slices: the
   with C747@1 first. R000568 binds that row to the C747 exactly-once contract;
   R000571 retains the failed provenance review, while R000574 and R000575
   record the corrected replay and focused review. R000576 then selects C748@1.
-  C748 implementation replay R000579 passes after the exact-once semantic
-  defect in R000578; the remaining blocker is the second focused independent
-  review of the corrected at-most-once packet.
+  C748 implementation replay R000579 and focused review R000580 pass after the
+  exact-once semantic defect in R000578; C748 is promoted only as a bounded
+  at-most-once oracle. The remaining blocker is selection of the next
+  source-backed bounded property after C748.
 C744 is now promoted only as a bounded typed oracle leaf by E0206/R000538 and
 focused review R000539. E0207/R000542 selects C745's first component-presence
 obligation. The corrected implementation replay E0208/R000556 and focused
@@ -309,16 +307,13 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Complete the focused independent review of the corrected bounded C748
-source-backed component-attribute at-most-once oracle. The exact contract is
-D0156, selected by R000576 and corrected after R000578; the source binding is
-J3-24-007 canonical line 3834, printed page 79, with canonical page-index
-record 93 containing byte span `240727:97`, over existing StandardIR R737. The
-verifier is `tests/e2e/run-m3-c748.sh --fresh`. R000579 is the passing
-implementation replay; its complete product is 6 `ACCEPTED`, 1 `REJECTED`,
-29 `UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
-promotions. It must not restart E0172, parse general Fortran, check C749
-through C751 or close full M3.
+Select the next bounded source-backed property after C748 promotion. The
+active task is `T-M3-core0-next-bounded-property-selection-after-c748`; its
+verifier is the pinned jq partition command in `TASK_POOL.yaml`, excluding the
+twenty-eight promoted contracts and inspecting the first remaining source and
+StandardIR witness. It must select exactly one property or record that no
+eligible row is source-backed. It must not run a model, promote a semantic
+fact, restart E0172, parse general Fortran or close full M3.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
@@ -412,9 +407,8 @@ replay command is:
 The C746 replay `tests/e2e/run-m3-c746.sh --fresh` is `PASS` in R000566 and
 focused review R000567 passes. Post-C746 selection `R000568` is `PASS` with
 145 residual rows, 84 disputed and 61 unwitnessed, and C747@1 first. The
-the current active task is the corrected C748 at-most-once oracle and its
-focused review; its historical ID remains
-`T-M3-c748-component-attr-spec-exact-once-oracle`.
+the current active task is the post-C748 residual selection:
+`T-M3-core0-next-bounded-property-selection-after-c748`.
 ```
 
 ## Blacklisted pseudo-progress

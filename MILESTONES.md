@@ -759,7 +759,7 @@ The post-C746 residual partition has 145 rows (84 `disputed` and 61
 type-parameter-name occurrence-cardinality relation. R000574 and R000575 pass,
 so C747 is promoted only as a bounded oracle leaf. Post-C747 selection R000576
 leaves 144 rows (83 `disputed`, 61 `unwitnessed`) with C748@1 first; the active
-task reviews that next bounded oracle.
+task selects the next bounded property after C748.
 
 ## M3 — selected C747 type-parameter-name exact-once relation
 
@@ -794,9 +794,10 @@ review R000578 because zero occurrences are valid under “no more than once”.
 D0156 corrects the typed relation to at-most-once. The corrected replay R000579
 passes `tests/e2e/run-m3-c748.sh --fresh` with 6 `ACCEPTED`, 1 `REJECTED`, 29
 `UNRESOLVED`, twelve rejected mutations, zero model calls and zero semantic
-promotions. The leaf remains pending its second focused independent review;
-it does not parse component definitions, resolve names, check C749--C751 or
-close full M3.
+promotions. Focused review R000580 passes with no findings, so C748 is promoted
+only as this bounded oracle leaf. The next task is
+`T-M3-core0-next-bounded-property-selection-after-c748`; it does not parse
+component definitions, resolve names, check C749--C751 or close full M3.
 
 ## M3 — bounded C601 semantic-oracle successor
 
