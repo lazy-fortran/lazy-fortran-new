@@ -376,16 +376,19 @@ milestones:
       - research/runs/2026-08.jsonl#R000058
       - research/runs/2026-08.jsonl#R000059
       - research/runs/2026-08.jsonl#R000061
+      - research/runs/2026-08.jsonl#R000063
       - artifacts/reports/M3/c1579-semantic-review-v0.md
       - artifacts/reports/M3/c1579-reproducibility-review-v0.md
       - artifacts/reports/M3/c1579-semantic-review-v1.md
       - artifacts/reports/M3/c1579-reproducibility-review-v1.md
+      - artifacts/reports/M3/c1579-semantic-review-v2.md
+      - artifacts/reports/M3/c1579-reproducibility-review-v2.md
     notes: >-
       The bounded C1106, C702, C601, C603, C721, C725, C718, C723, C729 and
       C719 slices are promoted; C719 replay R000051 and focused review
       R000052 pass. C738 is the eleventh bounded slice. D0136 selects C1579;
       replay R000004 is recorded as R000062 and focused review is pending.
-      R000058, R000059 and R000061 retain review, pin-order and page-citation
+      R000058, R000059, R000061 and R000063 retain review, pin-order, page-citation
       failures. The
       audit retains 4 hard failures, 2 unresolved, 94 disputed and 69
       unwitnessed rows; full Core 0 semantics remain unpromoted.
@@ -2092,10 +2095,13 @@ tasks:
       - research/runs/2026-08.jsonl#R000058
       - research/runs/2026-08.jsonl#R000059
       - research/runs/2026-08.jsonl#R000061
+      - research/runs/2026-08.jsonl#R000063
       - artifacts/reports/M3/c1579-semantic-review-v0.md
       - artifacts/reports/M3/c1579-reproducibility-review-v0.md
       - artifacts/reports/M3/c1579-semantic-review-v1.md
       - artifacts/reports/M3/c1579-reproducibility-review-v1.md
+      - artifacts/reports/M3/c1579-semantic-review-v2.md
+      - artifacts/reports/M3/c1579-reproducibility-review-v2.md
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

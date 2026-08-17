@@ -289,8 +289,8 @@ open. The next task is the retained E0181 residual-selection audit.
 ## M3 — bounded C1579 RESULT entry-name semantic-oracle candidate
 
 Bounded-slice status: `CANDIDATE`; clean central replay `E0187/R000004` is
-recorded as `R000062` and passes; R000058, R000059 and R000061 retain earlier
-review or replay failures; focused review is pending. Full Core 0 semantics
+recorded as `R000062` and passes; R000058, R000059, R000061 and R000063 retain
+earlier review or replay failures; focused review is pending. Full Core 0 semantics
 remain open and are not claimed.
 
 The slice binds J3-24-007 C1579 at canonical-text lines 15386--15387 and
@@ -309,7 +309,7 @@ Evidence: `research/decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md
 `research/decisions/D0137-c1579-printed-page-correction.md`,
 `research/experiments/E0187-can-a-deterministic-oracle-enforce-c1579/manifest.yaml`,
 the C1579 contract, validator, fixtures and trace, `research/runs/2026-08.jsonl#R000062`,
-retained failures `#R000058`, `#R000059` and `#R000061`, and the retained E0181 selection
+retained failures `#R000058`, `#R000059`, `#R000061` and `#R000063`, and the retained E0181 selection
 evidence. Promotion remains bounded to this slice and requires the two focused
 reviews.
 
