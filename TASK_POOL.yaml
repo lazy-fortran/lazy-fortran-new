@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c743
+active_task: T-M3-c744-derived-type-end-type-name-relation-oracle
 
 milestones:
   - id: L0
@@ -4428,9 +4428,9 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c743
     milestone: M3
     title: Select the next bounded property after C743 promotion
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c743-derived-type-private-or-sequence-uniqueness-oracle
@@ -4470,6 +4470,7 @@ tasks:
       owner: controller
       allowed_paths:
         - research/experiments/E0205-*
+        - research/decisions/D0150-twenty-fourth-m3-c744-end-type-name-relation-oracle.md
         - artifacts/reports/M3/m3-core0-next-property-selection-v11.md
         - research/runs/2026-08.jsonl
         - STATUS.md
@@ -4482,7 +4483,98 @@ tasks:
     evidence_paths:
       - research/experiments/E0205-can-the-post-c743-residual-select-one-so/manifest.yaml
       - research/runs/2026-08.jsonl#R000534
+      - research/runs/2026-08.jsonl#R000537
+      - research/experiments/E0205-can-the-post-c743-residual-select-one-so/manifest.yaml
+      - research/decisions/D0150-twenty-fourth-m3-c744-end-type-name-relation-oracle.md
+      - artifacts/reports/M3/m3-core0-next-property-selection-v11.md
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+
+  - id: T-M3-c744-derived-type-end-type-name-relation-oracle
+    milestone: M3
+    title: Define and implement the bounded C744 END TYPE name relation oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection-after-c743
+    inputs:
+      - path: research/decisions/D0150-twenty-fourth-m3-c744-end-type-name-relation-oracle.md
+      - path: research/experiments/E0205-can-the-post-c743-residual-select-one-so/manifest.yaml
+      - path: research/experiments/E0206-can-a-deterministic-source-backed-c744-o/manifest.yaml
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v11.md
+      - path: research/runs/2026-08.jsonl#R000537
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    writes:
+      - research/experiments/E0206-can-a-deterministic-source-backed-c744-o/manifest.yaml
+      - contracts/m3-c744-derived-type-end-type-name-relation-v0.sxs
+      - contracts/fixtures/m3-c744-derived-type-end-type-name-relation-v0.sx
+      - contracts/registry.sx
+      - tests/fixtures/m3-c744-source-backed-v0.json
+      - tests/fixtures/m3-c744-semantic-items.sx
+      - tests/golden/m3-c744-semantic-items.sx
+      - tests/e2e/run-m3-c744.sh
+      - tests/e2e/validate_m3_c744.py
+      - artifacts/traces/m3-c744-source-backed-v0.json
+      - artifacts/reports/M3/m3-c744-source-backed-v0.md
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - research/runs/2026-08.jsonl
+    mode: exclusive
+    verifier: >-
+      define one source-backed C744 contract over canonical lines 3639--3640,
+      printed page 89 and existing StandardIR R727/R730; implement a
+      deterministic ACCEPTED/REJECTED/UNRESOLVED oracle over typed absent,
+      present and unknown END TYPE name presence, same/different/unknown name
+      relation and derived-type-def/other/unknown context; include the two
+      positive neighbours, a different-name negative neighbour, unresolved
+      controls and source/page/rule/identity mutations; run the clean central
+      gate; require zero model calls and zero semantic-fact promotions. Do
+      not parse derived-type definitions, compare real identifier spellings,
+      perform name resolution or broaden C744/M3.
+    output: artifact
+    final_observable: >-
+      a replayable bounded C744 source-backed END TYPE name relation oracle
+      with independent validation and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0150-twenty-fourth-m3-c744-end-type-name-relation-oracle.md
+        - research/experiments/E0205-*
+        - research/experiments/E0206-*
+        - contracts/m3-c744-*
+        - contracts/fixtures/m3-c744-*
+        - tests/fixtures/m3-c744-*
+        - tests/golden/m3-c744-*
+        - tests/e2e/run-m3-c744.sh
+        - tests/e2e/validate_m3_c744.py
+        - artifacts/traces/m3-c744-source-backed-v0.json
+        - artifacts/reports/M3/m3-c744-source-backed-v0.md
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c743]
+    verifier_command: tests/e2e/run-m3-c744.sh --fresh
+    evidence_paths:
+      - research/decisions/D0150-twenty-fourth-m3-c744-end-type-name-relation-oracle.md
+      - research/experiments/E0205-can-the-post-c743-residual-select-one-so/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v11.md
+      - research/runs/2026-08.jsonl#R000537
+      - research/experiments/E0206-can-a-deterministic-source-backed-c744-o/manifest.yaml
+      - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

@@ -84,8 +84,10 @@ E0203/R000530 binds C743 to canonical line 3637, page 89, byte span
 `230736:105`, and existing StandardIR R726/R729. E0204 replay R000531 and
 focused review R000532 pass, so C743 is promoted only as its bounded
 private-or-sequence uniqueness oracle. The post-C743 residual is 148 rows
-(85 disputed and 63 unwitnessed), with C744@1 first; the active task selects
-the next bounded source-backed property.
+(85 disputed and 63 unwitnessed), with C744@1 first. E0205/R000537 selects
+C744 at canonical lines 3639--3640, page 89, byte span `230888:137`, over
+R727/R730. The active task implements the bounded END TYPE name relation
+oracle.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -140,8 +142,10 @@ leaves 149 residual rows (85 disputed and 64 unwitnessed), with C743@1 first.
 E0203/R000530 selects the C743 private-or-sequence uniqueness relation over
 R726/R729. E0204 replay R000531 and focused review R000532 pass, so C743 is
 promoted only as this bounded oracle leaf. Post-C743 reconciliation R000534
-leaves 148 residual rows (85 disputed and 63 unwitnessed), with C744@1 first;
-full M3 remains open and the active task selects the next bounded property.
+leaves 148 residual rows (85 disputed and 63 unwitnessed), with C744@1 first.
+E0205/R000537 selects C744 at canonical lines 3639--3640, page 89, byte span
+`230888:137`, over R727/R730. The active task implements its bounded typed
+END TYPE name relation oracle; full M3 remains open.
 
 Regenerate the bounded C733 replay with:
 
@@ -559,6 +563,12 @@ or close full M3. Post-C735 selection leaves 149 residual rows (85 disputed
 and 64 unwitnessed), with C743@1 first. E0203/R000530 selects C743 over
 R726/R729; E0204/R000531 and R000532 pass, and the post-C743 residual now
 has 148 rows (85 disputed and 63 unwitnessed), with C744@1 first.
+
+E0205/R000537 binds C744 to canonical lines 3639--3640, page 89, byte span
+`230888:137`, and StandardIR R727/R730. D0150 selects the typed relation over
+END TYPE name presence, name relation and derived-type-def context. The next
+bounded task implements this relation without parsing, name resolution or
+semantic promotion.
 
 After L0, L1 adds the first frontend contract path and L2 adds the first
 compiled execution path. The full source-validity and grammar gates described
