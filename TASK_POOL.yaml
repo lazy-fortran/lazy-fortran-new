@@ -3552,7 +3552,7 @@ tasks:
     milestone: M3
     title: Define and implement the bounded C726 type-param-value star-context oracle
     status: OPEN
-    verification: NOT_STARTED
+    verification: PASS
     review_state: PENDING
     priority: 100
     depends_on:
@@ -3633,10 +3633,16 @@ tasks:
       - research/runs/2026-08.jsonl#R000500
       - research/runs/2026-08.jsonl#R000501
       - research/runs/2026-08.jsonl#R000502
+      - research/runs/2026-08.jsonl#R000503
+      - research/runs/2026-08.jsonl#R000504
       - .cache/runs/E0194/R000004/result.json
         sha256: 36c742c9c53fcd57f35597ea473c6b249abea54af13ed1ebf85e496f25e0b4b6
       - .cache/runs/E0194/R000004/run-environment.json
         sha256: 41b831dcbb203995e9a5ec9a3550d724a5856f60007fe91f60626435616a279c
+      - .cache/runs/E0194/R000005/result.json
+        sha256: 36c742c9c53fcd57f35597ea473c6b249abea54af13ed1ebf85e496f25e0b4b6
+      - .cache/runs/E0194/R000005/run-environment.json
+        sha256: 1b487258f551aa66b038e9e273fddc3e97ac398aa400cfbf40200cbd9ebba811
       - artifacts/traces/m3-c726-source-backed-v0.json
         sha256: 36c742c9c53fcd57f35597ea473c6b249abea54af13ed1ebf85e496f25e0b4b6
       - artifacts/reports/M3/c726-semantic-review-v1.md
