@@ -1,0 +1,109 @@
+{
+  "cases": [
+    {
+      "approximation_method": "present",
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "accepted-present-approximation-method",
+      "kind": "positive"
+    },
+    {
+      "approximation_method": "absent",
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "rejected-absent-approximation-method",
+      "kind": "negative"
+    },
+    {
+      "approximation_method": "unknown",
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-unknown-approximation-method",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c722-kind-param-approximation-oracle-v0.sx",
+    "fixture_sha256": "29ba0b8a4229898c044510332b116017b5ce1ec4cf62d22066510382c48f401a",
+    "schema": "contracts/m3-c722-kind-param-approximation-oracle-v0.sxs",
+    "schema_sha256": "7413686a9f22c62bf7e975147b2398f260bb0a85fbd8e38d037da064219435e0",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c722-source-backed-v0.json",
+  "fixture_sha256": "55d636aa3869ae0a165a7c2b4993932333d4e53775c1b19dd2417caa22c25148",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-property-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-rule-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c722.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 1,
+    "REJECTED": 1,
+    "UNRESOLVED": 1
+  },
+  "property": "kind-param-approximation-method-legality",
+  "schema_version": "m3-c722-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "0f9720237b4e30e78cf4b647e3cc34d0509cf270c10ca69b979d6d8bd91aa2a3",
+    "input": "tests/fixtures/m3-c722-semantic-items.sx",
+    "input_sha256": "0f9720237b4e30e78cf4b647e3cc34d0509cf270c10ca69b979d6d8bd91aa2a3"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3356
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "length": 2554,
+      "page": 82,
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "start": 209809
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 82,
+    "rule": "C722",
+    "standardir_rules": [
+      "R714"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}
