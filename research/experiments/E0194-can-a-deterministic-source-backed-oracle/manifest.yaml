@@ -2,9 +2,9 @@ id: "E0194"
 title: "Deterministic C726 type-param-value star-context oracle"
 question: >
   Can a deterministic source-backed oracle classify C726 type-param-value star use from explicit typed context states?
-status: reported        # draft | running | reported | abandoned
+status: running         # draft | running | reported | abandoned
 opened: "2026-08-17"
-closed: "2026-08-17"
+closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -107,21 +107,24 @@ analysis: tests/e2e/validate_m3_c726.py
 run: tests/e2e/run-m3-c726.sh --fresh
 
 replay:
-  run: research/runs/2026-08.jsonl#R000499
-  preflight_failure: research/runs/2026-08.jsonl#R000498
-  functional_revision: db397fa98b60032fd76d3caa294c054641e068ce
-  central_worktree_commit: 8f4aeb616624f66b8aa33de42be1006c2ae74018
-  expected_central_commit: 8f4aeb616624f66b8aa33de42be1006c2ae74018
-  result_sha256: c16ab1a103f4de63cec3612c51070e6d1874ff5637eaac226daeb88ae6662044
-  run_environment_sha256: cb9804d9401b104201ecff0a310cde7ab3be335ef564d69b9b3b052f3efa2c56
+  run: research/runs/2026-08.jsonl#R000502
+  superseded_replay: research/runs/2026-08.jsonl#R000499
+  preflight_failures: [research/runs/2026-08.jsonl#R000498, research/runs/2026-08.jsonl#R000501]
+  functional_revision: 800f9ecccad20b5af312929d319a29aed3135ac9
+  central_worktree_commit: 78a65ca546f3b668d9c25cc850771d6d0077418a
+  expected_central_commit: 78a65ca546f3b668d9c25cc850771d6d0077418a
+  result_sha256: 36c742c9c53fcd57f35597ea473c6b249abea54af13ed1ebf85e496f25e0b4b6
+  run_environment_sha256: 41b831dcbb203995e9a5ec9a3550d724a5856f60007fe91f60626435616a279c
 
 result:
-  replay_run: research/runs/2026-08.jsonl#R000499
-  preflight_failure: research/runs/2026-08.jsonl#R000498
+  replay_run: research/runs/2026-08.jsonl#R000502
+  superseded_replay: research/runs/2026-08.jsonl#R000499
+  preflight_failures: [research/runs/2026-08.jsonl#R000498, research/runs/2026-08.jsonl#R000501]
   candidate_promotion: BOUNDED_ONLY
   outcomes: {ACCEPTED: 17, REJECTED: 1, UNRESOLVED: 3}
   mutation_controls: 12
   page_boundary_binding: PASS
+  source_span: 217828:518
   model_calls: 0
   semantic_promotions: 0
   full_m3: OPEN
