@@ -1,0 +1,1 @@
+{"schema_version":"m3-c760-expected-outcomes-v0","origin":"LLM","property":"procedure-attribute-occurrence","source_rule":"C760","outcomes":{"zero":"ACCEPTED","one":"ACCEPTED","duplicate":"REJECTED","unknown":"UNRESOLVED"}}
