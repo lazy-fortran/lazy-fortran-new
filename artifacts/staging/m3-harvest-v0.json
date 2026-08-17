@@ -1,0 +1,42 @@
+{
+  "base_commit": "3300fd12571533433bb3925e5b165393c2874c19",
+  "batches": [
+    "02",
+    "03",
+    "04",
+    "05"
+  ],
+  "excluded_batches": [
+    {
+      "batch": "01",
+      "reason": "worker output was not valid JSONL"
+    }
+  ],
+  "inputs": {
+    "canonical_text": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+      "sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+    },
+    "constraint_spans": {
+      "path": ".cache/runs/E0081/R000001/constraint-spans.tsv"
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+    }
+  },
+  "non_claims": [
+    "provisional fixture harvest only",
+    "no semantic promotion",
+    "no general Fortran implementation"
+  ],
+  "origin": "MECHANICAL",
+  "packet_count": 110,
+  "readiness_counts": {
+    "NEEDS_REVIEW": 7,
+    "NOT_READY": 86,
+    "READY": 17
+  },
+  "schema_version": "m3-harvest-v0",
+  "semantic_packet_origin": "LLM"
+}
