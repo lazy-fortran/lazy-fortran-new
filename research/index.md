@@ -188,6 +188,7 @@ Runs recorded: 534
 | E0187 | reported | 8 | Can a deterministic oracle enforce C1579 RESULT entry-name exclusion |
 | E0188 | reported | 8 | Can a deterministic source-backed oracle enforce the C1586 prohibition on a |
 | E0189 | reported | 6 | Can a deterministic source-backed oracle enforce C717 kind-selector legality |
+| E0190 | running | 0 | Can a deterministic source-backed oracle enforce C720 kind-param representation-method legality |
 
 ## Run status
 
@@ -354,6 +355,7 @@ Runs recorded: 534
 | [D0138](decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md) | accepted |  | Thirteenth M3 slice uses C1586 statement-function self-name exclusion |
 | [D0139](decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md) | amended by D0140 |  | Fourteenth M3 slice uses C717 kind-selector legality |
 | [D0140](decisions/D0140-c717-known-violation-precedence.md) | accepted | Amends D0139 | Complete the C717 oracle truth table with known-violation precedence |
+| [D0141](decisions/D0141-fifteenth-m3-c720-kind-param-representation-oracle.md) | accepted |  | Fifteenth M3 slice uses C720 kind-param representation legality |
 
 ### Proposed decisions
 

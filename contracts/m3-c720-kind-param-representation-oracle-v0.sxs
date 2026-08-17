@@ -1,0 +1,19 @@
+(schema m3-c720-kind-param-representation-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum representation-method-state absent present unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record kind-param-representation-method-use
+    (representation-method representation-method-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact kind-param-representation-method-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

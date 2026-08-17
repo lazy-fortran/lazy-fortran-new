@@ -384,7 +384,7 @@ retained failed review reports, and `research/runs/2026-08.jsonl#R000478` throug
 
 Audit and reconciliation status: `PASS` for coverage accounting only; full M3
 status remains `NEEDS EVIDENCE`. The next task is
-`T-M3-core0-next-bounded-property-selection-after-c717`. E0181/R000074 and clean pushed
+`T-M3-c720-kind-param-representation-oracle`. E0181/R000074 and clean pushed
 replay R000075 reproduce the retained 287-row ledger: 4 hard failures, 2
 unresolved rows, 1 reference-only row, 117 self-consistent rows, 94
 disputed rows, 69 unwitnessed rows, 7
@@ -409,6 +409,17 @@ blocker is the 157-row partition above. These counts keep full M3 open and do
 not authorize semantic promotion. The coverage report is
 `artifacts/reports/M3/m3-core0-witness-coverage-v1.md` and
 `artifacts/reports/M3/m3-core0-witness-coverage-v2.md`.
+
+## M3 — selected C720 kind-param representation-method oracle
+
+Selection status: `PASS`; implementation task
+`T-M3-c720-kind-param-representation-oracle` is `OPEN`. D0141/E0190 binds
+canonical line 3298 on page 80 to StandardIR R708. The typed candidate has
+`representation_method = absent | present | unknown`, with outcomes
+`ACCEPTED`, `REJECTED` and `UNRESOLVED`. The selection report is
+`artifacts/reports/M3/m3-core0-next-property-selection-v2.md`; the exact
+selection verifier is the promoted-contract partition recorded in
+`research/runs/2026-08.jsonl#R000482`.
 
 ## M3 — bounded C601 semantic-oracle successor
 

@@ -147,24 +147,24 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-c717-kind-selector-oracle`. D0139/E0189 selects the
-bounded C717 kind-selector legality property over StandardIR R706. The source
-binding is canonical lines 3263--3264 on page 80, with the page-index span and
-R706 metadata pinned. Durable-pin clean replay R000480 passes one accepted, five
-rejected, three unresolved and eight mutation controls with zero model calls
-and semantic promotions. Replay `R000479` found and `R000480` repairs a
-central-revision durability defect; focused review `R000481` passes. C717 is
+Current fixture: `T-M3-c720-kind-param-representation-oracle`. D0141/E0190
+selects the C720 representation-method relation over StandardIR R708. The
+source binding is canonical line 3298 on page 80, with the page-index span and
+R708 metadata pinned. The typed candidate carries
+`representation_method = absent | present | unknown`; the next gate must return
+ACCEPTED, REJECTED or UNRESOLVED without processor introspection. C717 is
 promoted as a bounded slice only. Full M3 remains open; do not resume E0172 or
 start broad semantic work.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c717` — select the next
-bounded property from the outside-promoted residual. Full M3 remains open.
+ID: `T-M3-c720-kind-param-representation-oracle` — verify the bounded C720
+kind-param representation-method oracle. Full M3 remains open.
 
-Verifier: the exact promoted-contract residual partition in R000482. It must
-select one already represented StandardIR/syntax shape or record one precise
-blocker; it may not start broad semantic/parser work or promote model output.
+Verifier: `tests/e2e/run-m3-c720.sh --fresh` from clean central and standard-new
+checkouts. It must bind C720 line 3298 to R708, reject source and identity
+mutations, and observe zero model calls or semantic promotions. It may not
+evaluate kind expressions, inspect processor capabilities or parse Fortran.
 
 ## Current blocker
 
@@ -209,12 +209,11 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-core0-next-bounded-property-selection-after-c717`. The
-outside-promoted residual remains the full-M3 blocker. Its exact inventory
+Run and record `T-M3-c720-kind-param-representation-oracle`. The exact central
 verifier is:
 
 ```text
-jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+tests/e2e/run-m3-c720.sh --fresh
 ```
 
 ## Last verified central command
@@ -255,8 +254,9 @@ focused review is retained as `R000477` with `NEEDS_FIX`. D0140 repairs the
 precedence and truth-table defect; corrected clean replay `R000478` passes with
 the exact source binding, nine typed outcomes, eight mutation failures and
 zero model calls or semantic promotions. Durable replay `R000480` and focused
-review `R000481` pass. C717 is now a bounded promoted slice;
-the active task is `T-M3-core0-next-bounded-property-selection-after-c717`.
+review `R000481` pass. C717 is a bounded promoted slice and C720 is the
+selected next contract; the active task is
+`T-M3-c720-kind-param-representation-oracle`.
 ```
 
 ## Blacklisted pseudo-progress

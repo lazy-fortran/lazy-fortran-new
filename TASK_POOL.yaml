@@ -2718,15 +2718,20 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c717
     milestone: M3
     title: Select the next bounded property after C717 promotion
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c717-focused-review
     inputs:
       - path: artifacts/reports/M3/m3-core0-witness-coverage-v2.md
       - path: research/runs/2026-08.jsonl#R000482
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v2.md
+      - path: research/decisions/D0141-fifteenth-m3-c720-kind-param-representation-oracle.md
+      - path: research/experiments/E0190-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - path: contracts/m3-c720-kind-param-representation-oracle-v0.sxs
+      - path: contracts/fixtures/m3-c720-kind-param-representation-oracle-v0.sx
       - path: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
         sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
       - research/runs/2026-08.jsonl#R000481
@@ -2793,6 +2798,92 @@ tasks:
       .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     evidence_paths:
       - artifacts/reports/M3/m3-core0-witness-coverage-v2.md
+      - research/runs/2026-08.jsonl#R000482
+      - artifacts/reports/M3/m3-core0-next-property-selection-v2.md
+      - research/decisions/D0141-fifteenth-m3-c720-kind-param-representation-oracle.md
+      - research/experiments/E0190-can-a-deterministic-source-backed-oracle/manifest.yaml
+
+  - id: T-M3-c720-kind-param-representation-oracle
+    milestone: M3
+    title: Verify the bounded C720 kind-param representation-method oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection-after-c717
+    inputs:
+      - path: research/decisions/D0141-fifteenth-m3-c720-kind-param-representation-oracle.md
+      - path: research/experiments/E0190-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - path: contracts/m3-c720-kind-param-representation-oracle-v0.sxs
+      - path: contracts/fixtures/m3-c720-kind-param-representation-oracle-v0.sx
+      - path: tests/fixtures/m3-c720-semantic-items.sx
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v2.md
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - path: artifacts/standards/j3-24-007.toml
+        sha256: becec69a4e43c168e0706efd712eda90a2cabacc29e900a7d3dc4fa4c0f1d7ec
+    writes:
+      - contracts/registry.sx
+      - tests/fixtures/m3-c720-*
+      - tests/golden/m3-c720-*
+      - tests/e2e/run-m3-c720.sh
+      - tests/e2e/validate_m3_c720.py
+      - artifacts/traces/m3-c720-source-backed-v0.json
+      - research/experiments/E0190-can-a-deterministic-source-backed-oracle/**
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      run tests/e2e/run-m3-c720.sh --fresh from clean central and standard-new
+      checkouts; require C720 canonical line 3298 on page 80, R708 metadata,
+      typed present/absent/unknown outcomes, source and identity mutation
+      failures, exact trace comparison and zero model calls or semantic
+      promotions. Do not evaluate kind expressions, inspect processor
+      capabilities, parse Fortran or broaden C720 semantics.
+    output: artifact
+    final_observable: >-
+      a replayable source-backed C720 representation-method oracle with
+      ACCEPTED, REJECTED and UNRESOLVED outcomes; this does not promote full
+      C720 or M3 Core 0 semantics
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/registry.sx
+        - contracts/m3-c720-kind-param-representation-oracle-v0.sxs
+        - contracts/fixtures/m3-c720-kind-param-representation-oracle-v0.sx
+        - tests/fixtures/m3-c720-*
+        - tests/golden/m3-c720-*
+        - tests/e2e/run-m3-c720.sh
+        - tests/e2e/validate_m3_c720.py
+        - artifacts/traces/m3-c720-source-backed-v0.json
+        - research/experiments/E0190-can-a-deterministic-source-backed-oracle/**
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c717]
+    verifier_command: tests/e2e/run-m3-c720.sh --fresh
+    evidence_paths:
+      - research/decisions/D0141-fifteenth-m3-c720-kind-param-representation-oracle.md
+      - research/experiments/E0190-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - contracts/m3-c720-kind-param-representation-oracle-v0.sxs
+      - contracts/fixtures/m3-c720-kind-param-representation-oracle-v0.sx
+      - tests/fixtures/m3-c720-semantic-items.sx
+      - artifacts/reports/M3/m3-core0-next-property-selection-v2.md
       - research/runs/2026-08.jsonl#R000482
 
   - id: T-M2-candidate-evidence-coalescing
