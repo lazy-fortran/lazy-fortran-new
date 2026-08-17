@@ -255,8 +255,8 @@ Evidence: `research/decisions/D0134-tenth-m3-c719-kind-param-nonnegative-oracle.
 `contracts/m3-c719-kind-param-nonnegative-oracle-v0.sxs`,
 `tests/e2e/validate_m3_c719.py`,
 `artifacts/traces/m3-c719-source-backed-v0.json`, and
-`research/runs/2026-08.jsonl#R000046`, corrected replay `#R000047`, and
-authoritative replay `#R000048` and repair replay `#R000050`. Promotion remains bounded to this slice and
+`research/runs/2026-08.jsonl#R000046`, corrected replay `#R000047`, prior
+replay `#R000048`, and repair replay `#R000050`. Promotion remains bounded to this slice and
 requires the two focused reviews.
 
 ## M3 — Core 0 closure audit
