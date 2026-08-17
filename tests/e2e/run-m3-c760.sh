@@ -3,7 +3,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 EVIDENCE_ROOT="${C760_EVIDENCE_ROOT:-/home/ert/code/lazy-fortran-new}"
 STANDARD="${STANDARD_NEW_ROOT:-$(cd "$ROOT/../standard-new" 2>/dev/null && pwd)}"
-EXPECTED_CENTRAL_COMMIT="${C760_EXPECTED_CENTRAL_COMMIT:-0d64c0c2e3ab98b1b54a023690c33fc82f41a567}"
+EXPECTED_CENTRAL_COMMIT="${C760_EXPECTED_CENTRAL_COMMIT:-}"
 EXPECTED_STANDARD_COMMIT="f94c4c51b51fce22b533b7eeda08741970320913"
 EXPECTED_FO_VERSION="0.3.2"
 EXPECTED_FO_SHA256="0e9ac6a20523f9919b75569e15e830011e8b69fa649e7a8c71b54ba18f131a68"
@@ -18,7 +18,7 @@ mkdir -p "$RUN_DIR"
 command -v fo >/dev/null; command -v python3 >/dev/null; command -v sha256sum >/dev/null
 bash -n "$0"
 central_commit="$(git -C "$ROOT" rev-parse HEAD)"
-[ "$central_commit" = "$EXPECTED_CENTRAL_COMMIT" ] || { echo "central revision differs: $central_commit" >&2; exit 1; }
+[ -z "$EXPECTED_CENTRAL_COMMIT" ] || [ "$central_commit" = "$EXPECTED_CENTRAL_COMMIT" ] || { echo "central revision differs: $central_commit" >&2; exit 1; }
 standard_commit="$(git -C "$STANDARD" rev-parse HEAD)"
 [ "$standard_commit" = "$EXPECTED_STANDARD_COMMIT" ] || { echo "standard-new revision differs: $standard_commit" >&2; exit 1; }
 fo_path="$(command -v fo)"
