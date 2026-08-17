@@ -9,7 +9,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "71089f6d9418b8ff9878a88f3a9817ca25e20102"
+  lazy-fortran-new: "579767e"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
 
 inputs:

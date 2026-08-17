@@ -505,8 +505,18 @@ central replay R000518 passes with 1 `ACCEPTED`, 1 `REJECTED`, 7 `UNRESOLVED`,
 twelve rejected mutation controls, zero model calls and zero semantic
 promotions. Focused review R000519 passes. Post-C733 reconciliation R000520
 leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1 first.
-The next task is `T-M3-core0-next-bounded-property-selection-after-c733`; full
-M3 remains open.
+Corrected selection `R000522` binds C735 canonical line 3620, page 88, byte
+span `229534:101`, to existing StandardIR R727/R728. The next task is
+`T-M3-c735-derived-type-attr-uniqueness-oracle`; full M3 remains open.
+
+Regenerate the C735 selection evidence with:
+
+```text
+jq -c 'select(.row_key == "C735@1")' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+nl -ba .cache/runs/E0001/R000003/j3-24-007.canonical.txt | sed -n '3620p'
+sed -n '93p' .cache/runs/E0001/R000003/j3-24-007.pages.index
+sed -n '78,79p' .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+```
 
 Regenerate the C731 result with:
 

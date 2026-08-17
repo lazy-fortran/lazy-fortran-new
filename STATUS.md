@@ -162,24 +162,26 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-M3-core0-next-bounded-property-selection-after-c733`.
+Current fixture: `T-M3-c735-derived-type-attr-uniqueness-oracle`.
 C733 is promoted only as a bounded kind-parameter representation-method
 oracle. Its clean replay R000518 and focused review R000519 pass. Post-C733
 reconciliation R000520 leaves 150 outside-promoted rows (86 disputed and 64
-unwitnessed), with C735@1 first. Full M3 remains open; do not resume E0172 or
-start broad semantic work. The next selection must inspect only the pinned
-canonical source and existing StandardIR shape, with zero model calls and zero
-semantic promotions.
+unwitnessed), with C735@1 first. Corrected selection replay R000522 binds C735
+line 3620, page 88, byte span `229534:101`, to existing StandardIR R727/R728.
+Full M3
+remains open; do not resume E0172 or start broad semantic work. The next
+contract is only the typed type-attribute uniqueness relation, with zero model
+calls and zero semantic promotions.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection-after-c733` — select one
-bounded source-backed property from the post-C733 residual.
+ID: `T-M3-c735-derived-type-attr-uniqueness-oracle` — define and implement the
+bounded C735 source-backed type-attribute uniqueness oracle.
 
-Verifier: the exact twenty-one-contract partition command in `TASK_POOL.yaml`.
-It must report 150 rows, 86 disputed, 64 unwitnessed and C735@1 first, then
-bind that row to pinned canonical source and an existing StandardIR shape.
-Selection must observe zero model calls and zero semantic promotions.
+Verifier: the clean central gate declared in `TASK_POOL.yaml`, after the
+selection evidence in E0201/R000521. It must bind C735 line 3620 on page 88 to
+R727/R728, validate the typed uniqueness relation and its mutation controls,
+and observe zero model calls or semantic promotions.
 
 ## Current blocker
 
@@ -233,11 +235,11 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record the next bounded property selection after C733. The retained
-150-row witness ledger remains open; do not restart E0172 or broaden semantic
-work. The post-C733 reconciliation R000520 leaves 86 disputed and 64
-unwitnessed rows, with C735@1 first. C733 selection, replay and focused review
-are recorded in E0199/E0200 and R000517--R000519. No broader semantic work is
+Implement the bounded C735 property selected from the post-C733 residual. The
+retained 150-row witness ledger remains open; do not restart E0172 or broaden
+semantic work. Selection R000521 records the C735 source and StandardIR
+binding; the next oracle must remain smaller than parsing derived-type
+statements or resolving attribute names. No broader semantic work is
 authorized.
 
 The current post-C733 partition is regenerated with:

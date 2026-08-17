@@ -75,7 +75,9 @@ rows with C733@1 first; the active task implements the next bounded property
 after C732. C733 replay R000518 and focused review R000519 pass, so C733 is
 promoted only as its bounded oracle slice. Post-C733 reconciliation R000520
 leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1 first;
-the active task now selects the next bounded property after C733.
+corrected selection R000522 binds C735 canonical line 3620, page 88, byte span
+`229534:101`, to existing StandardIR R727/R728; the active task now implements
+the bounded C735 type-attribute uniqueness oracle.
 The E0181 residual selection then chose D0134/E0185 as the promoted C719
 slice; replay R000051 and focused review R000052 pass, so the bounded slice
 is promoted. D0135/E0186 is the promoted C738 slice; corrected replay R000053
@@ -125,7 +127,7 @@ calls and zero semantic promotions. Focused independent review R000519 passes;
 C733 is promoted only as this bounded oracle slice. Post-C733 reconciliation
 R000520 leaves 150 residual rows (86 disputed and 64 unwitnessed), with C735@1
 first. The active task is
-`T-M3-core0-next-bounded-property-selection-after-c733`; full M3 remains open.
+`T-M3-c735-derived-type-attr-uniqueness-oracle`; full M3 remains open.
 
 Regenerate the bounded C733 replay with:
 
