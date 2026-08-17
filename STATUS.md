@@ -2,10 +2,13 @@
 
 ## Active milestone
 
-M3 — bounded semantic-oracle slices promoted; full Core 0 remains pending
+L3 — first raw-source-to-executable Fortran slice
 
-Fast M3 dispatch policy: D0167. Use medium-depth Luna waves with controller-
-owned batch intake and per-candidate promotion gates.
+M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
+pending. D0173 retires residual CXXX intake as the default frontier. The active
+path is one free-form named main program, `program p` / `end program p`, through
+the existing frontend-v0, MIR-v0 and backend contracts to process exit status
+zero. Its required negative neighbour mismatches the end name.
 
 ## Central goal
 
@@ -25,10 +28,12 @@ The result must have an independent oracle. This remains a bounded delivery
 target, not a claim that the complete standard or compiler is implemented. L2
 is promoted; M1-M2 is promoted by its corrected central replay and focused
 review. Full Core 0 semantics remain open and no semantic fact is promoted.
-C762 is the latest bounded leaf, verified by its pushed clean replay and
-focused review/evidence gate recorded in R000633; post-promotion regression
-R000634 reproduces it. C761 is the preceding
-implemented leaf and C760 is the preceding harvested leaf, recorded in R000623.
+C763 is the latest promoted bounded leaf, verified by its pushed clean replay
+and focused review/evidence gate recorded in R000642; post-promotion
+regression R000643 reproduces it. C762 is the preceding implemented leaf and
+C760 is the preceding harvested leaf, recorded in R000623. The C768 worker
+result is retained as parked local evidence and is not centrally integrated or
+promoted.
 The provisional harvest contains
 110 packets with readiness counts `READY=17`, `NEEDS_REVIEW=7` and
 `NOT_READY=86`; regenerate those values with
@@ -458,16 +463,17 @@ Current M3 state: C763 is promoted only as a bounded oracle leaf after its
 pin-aligned replay and two-review evidence gate. The remaining blocker is the
 scope itself—full M3 still lacks a complete semantic verifier and does not
 parse arbitrary Fortran. The post-promotion regression R000643 passes. The
-next executable action is the controller-exclusive C768 source-selection
-task `T-M3-core0-next-bounded-property-selection-after-c763`.
+next executable action is the L3 raw-source contract and frontend task
+`T-L3-fortfront-raw-program-source`; the C768 implementation result is parked
+and is not promoted by this pivot.
 
 ## Next executable task
 
-The next task is the C768 source-selection contract. Use the exact residual
-command and pinned evidence in `TASK_POOL.yaml`; do not run a model, restart
-E0172, parse general Fortran, infer declarations or names, or promote a
-semantic fact. The next implementation task is not registered until this
-selection passes.
+The next task is the L3 raw-source contract and central fixture. It must pin
+the exact positive and negative source files, the reused frontend-v0/MIR-v0
+contracts, the component revisions and the independent process oracle before
+implementation. Do not resume E0172 or start broad semantic work. The C768
+worker result remains parked and is not promoted by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

@@ -1099,13 +1099,44 @@ TargetIR and ELF emission structures remain internal to this bounded slice.
 - [x] Malformed and out-of-scope MIR inputs are rejected without artifacts.
 - [x] A complete stage trace and clean-checkout command pass.
 
-Do not define L3 until L2 passes.
-
 The initial execution gate was superseded by corrected run `R000441`. The
 failed reviews `R000442` and `R000443` remain retained evidence. The corrected
 runner and oracle are pinned by the current clean checkout; focused review
 `R000444` passes three valid scopes at the exact snapshot. The active boundary
 is recorded in `research/decisions/D0122-narrow-l2-boundary.md`.
+
+## L3 — First raw-source-to-executable Fortran slice
+
+Next after: L2 and M1-M2
+
+Current status: `OPEN`.
+
+Active source fixture: `tests/fixtures/l3-raw-program-v0.f90`.
+
+The first positive source is exactly one free-form named main program:
+
+```fortran
+program p
+end program p
+```
+
+The central path is:
+
+```text
+raw source file
+→ fortfront-new source parser
+→ frontend-v0 result
+→ ffc-new MIR-v0 lowering
+→ fortback-new executable
+→ process exit status 0
+```
+
+The required negative neighbour mismatches the end name. The slice does not
+claim declarations, expressions, I/O, modules, procedures, fixed-form source,
+or general Fortran parsing. Its independent oracle checks the accepted and
+rejected result, the emitted executable's exit status, and the complete stage
+trace from a clean checkout. The exact command is
+`tests/e2e/run-l3.sh --fresh`.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

@@ -1,0 +1,15 @@
+(contract-witness
+  (contract l3-raw-program)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (source-standard
+    (document J3-24-007)
+    (clause 5)
+    (rule R501)
+    (page 53)
+    (source-sha256 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9))
+  (standardir
+    (path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R501 R502)))

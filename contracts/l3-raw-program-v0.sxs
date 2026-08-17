@@ -1,0 +1,23 @@
+(schema l3-raw-program-v0
+  (primitive name)
+  (primitive int)
+  (enum result accepted rejected)
+  (record source-case
+    (id name)
+    (path name)
+    (sha256 name)
+    (expected result))
+  (record stage
+    (component name)
+    (contract name)
+    (commit name)
+    (input-sha256 name)
+    (output-sha256 name))
+  (record executable-observable
+    (exit-status int)
+    (stdout-sha256 name)
+    (stderr-sha256 name))
+  (record l3-trace
+    (source source-case)
+    (stages stage)
+    (executable executable-observable)))

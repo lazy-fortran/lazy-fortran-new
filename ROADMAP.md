@@ -12,7 +12,9 @@ the command that regenerates it.
 
 **Active delivery path.** D0120 changes the optimization target from an
 unbounded research-frontier loop to one centrally controlled, independently
-verified vertical slice. `lazy-fortran-new` is the sole Goal Mode control
+verified vertical slice. D0173 now makes that slice a raw-source executable
+path: `program p` / `end program p` through `fortfront-new`, `ffc-new` and the
+existing `fortback-new` path. `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
 project-management loops.
@@ -49,6 +51,10 @@ scripts/verify_active_milestone.sh
 Component-local `fo` gates remain necessary. They are not central milestone
 evidence. No new provenance, correspondence, schema, semantic, model or
 backend work is allowed unless the active central acceptance test consumes it.
+The residual CXXX inventory is retained as evidence material and is not the
+active implementation queue. The first L3 gate must consume raw source,
+produce frontend-v0, lower to MIR-v0, emit an executable and verify exit status
+zero, while rejecting a mismatched end name.
 The bounded D0122 L2 backend slice is complete and does not claim the broad
 normative backend or source-validity gates in the historical phase checklist.
 M1-M2 is promoted as the bounded central fixture. The immediate deterministic
@@ -872,12 +878,11 @@ passes the pin-aligned clean replay with 4 `ACCEPTED`, 1 `REJECTED`, 4
 promotions. Focused review R000642 passes with two independent reviewers.
 C763 is promoted only as this bounded oracle leaf; the required
 post-promotion regression R000643 passes from pushed central
-`834c90b7c66bc64cbbe033f56e98f5b26d729fa1`. R000644 then leaves 132 residual
-rows (76 `disputed`, 56 `unwitnessed`) with C768@1 first. It binds C768/R737
-to canonical lines 3977--3979, byte span `249918:239`, printed page 82,
-PDF/ledger page 96, page-index `96:247480:3187`, and existing StandardIR
-R737/R738/R739/R743. D0172 selects a bounded initialization-attribute target;
-the next task is the controller-exclusive C768 source selection.
+`834c90b7c66bc64cbbe033f56e98f5b26d729fa1`. R000644 leaves the residual CXXX
+corpus retained for evidence; D0172's C768 implementation result is parked
+after the D0173 pivot. The next active task is the L3 raw-source contract and
+the `program p` / `end program p` path through the existing frontend-v0,
+MIR-v0 and executable stages.
 
 ## M3 — bounded C735 derived-type attribute uniqueness oracle
 

@@ -429,6 +429,7 @@ Runs recorded: 695
 | [D0170](decisions/D0170-thirty-eighth-m3-c762-selection.md) | accepted |  | Select C762 as the next bounded property |
 | [D0171](decisions/D0171-thirty-ninth-m3-c763-selection.md) | accepted |  | Select C763 as the next bounded property |
 | [D0172](decisions/D0172-fortieth-m3-c768-selection.md) | accepted |  | Select C768 as the next bounded property |
+| [D0173](decisions/D0173-pivot-to-raw-source-executable-slice.md) | accepted |  | Pivot from residual CXXX intake to a raw-source executable slice |
 
 ### Proposed decisions
 

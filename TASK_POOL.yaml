@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-M3-c768-component-init-attribute-oracle
+  - T-L3-fortfront-raw-program-source
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-c768-component-init-attribute-oracle
+active_task: T-L3-fortfront-raw-program-source
 
 milestones:
   - id: L0
@@ -161,6 +161,22 @@ milestones:
       - research/runs/2026-08.jsonl#R000453
       - research/runs/2026-08.jsonl#R000454
       - research/runs/2026-08.jsonl#R000455
+  - id: L3
+    title: First raw-source-to-executable Fortran slice
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    prerequisites: [L2, M1-M2]
+    verifier_command: tests/e2e/run-l3.sh --fresh
+    evidence_paths:
+      - contracts/l3-raw-program-v0.sxs
+      - contracts/fixtures/l3-raw-program-v0.sx
+      - tests/fixtures/l3-raw-program-v0.f90
+      - tests/negative/l3-raw-program-v0-mismatched-end.f90
+      - tests/e2e/run-l3.sh
+      - tests/e2e/validate_l3.py
+      - artifacts/traces/l3-raw-program-v0.json
+    final_observable: executable exit status zero from raw Fortran source
   - id: M3
     title: Source-backed Core 0 semantics
     status: OPEN
@@ -6862,7 +6878,7 @@ tasks:
   - id: T-M3-c768-component-init-attribute-oracle
     milestone: M3
     title: Implement the bounded C768 component-initialization attribute oracle
-    status: OPEN
+    status: RETIRED
     verification: PENDING
     review_state: PENDING
     priority: 100
@@ -6911,7 +6927,122 @@ tasks:
       C768_EVIDENCE_ROOT=/home/ert/code/lazy-fortran-new
       STANDARD_NEW_ROOT=/home/ert/code/standard-new
       tests/e2e/run-m3-c768.sh --fresh
-    final_observable: committed C768 trace with independent three-outcome oracle
+    final_observable: parked worker result; not integrated or promoted after D0173 pivot
+    retry_count: 0
+    integration_cycle_trigger: none
+    notes: >-
+      Worker commit f7a9e5d79bf4b7d535fd3f65e85e20e150d01117 passed its local
+      validator and replay, but the controller retired this lane before central
+      integration so the delivery path could pivot to raw source.
+  - id: T-L3-central-raw-program-contract
+    milestone: L3
+    title: Freeze the raw-program source contract and central fixtures
+    status: PASS
+    verification: PASS
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-L2-vertical-slice, T-M1M2-source-backed-fixture]
+    inputs:
+      - path: contracts/l3-raw-program-v0.sxs
+        sha256: 7cb1c5f4f8245580ebc48c91828df036a3e9db382a360b9f1a439530784fdf42
+      - path: contracts/fixtures/l3-raw-program-v0.sx
+        sha256: 9bcb7c1e6147f8d7f50603cf892cc6288d27fb60b02842573d02558fe7ef1de9
+      - path: tests/fixtures/l3-raw-program-v0.f90
+        sha256: 16ac467a3658a1097a501edab18e043e14c7099f0a08217bb92f480120381b02
+      - path: tests/negative/l3-raw-program-v0-mismatched-end.f90
+        sha256: 90446d079554077bd950cf3552de094b177865a0d870c797a5d6766b16784f1c
+      - path: research/decisions/D0173-pivot-to-raw-source-executable-slice.md
+    output: frozen L3 source and contract inputs
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    verifier: >-
+      validate every L3 contract and fixture, verify the exact positive and
+      negative source bytes and hashes, and confirm that the contract declares
+      the raw-source → frontend-v0 → MIR-v0 → executable path. No model call,
+      CXXX selection or semantic promotion is permitted.
+    verifier_command: >-
+      scripts/check-contracts.sh && sha256sum
+      tests/fixtures/l3-raw-program-v0.f90
+      tests/negative/l3-raw-program-v0-mismatched-end.f90
+      contracts/l3-raw-program-v0.sxs contracts/fixtures/l3-raw-program-v0.sx
+    final_observable: exact positive/negative source fixtures and frozen contract
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
+  - id: T-L3-fortfront-raw-program-source
+    milestone: L3
+    title: Add the bounded raw-source main-program frontend path
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-L3-central-raw-program-contract]
+    inputs:
+      - path: contracts/l3-raw-program-v0.sxs
+        sha256: 7cb1c5f4f8245580ebc48c91828df036a3e9db382a360b9f1a439530784fdf42
+      - path: contracts/fixtures/l3-raw-program-v0.sx
+        sha256: 9bcb7c1e6147f8d7f50603cf892cc6288d27fb60b02842573d02558fe7ef1de9
+      - component: fortfront-new
+        commit: 73cf2af7a1ee7c13bae302868dc1595aa4ed0a79
+    output: raw-source frontend-v0 producer commit
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: l3-production
+    ownership:
+      component: fortfront-new
+      worktree: /home/ert/code/fortfront-new-l3-medium
+      owner: controller
+      allowed_paths:
+        - src/fortfront_frontend.f90
+        - app/fortfront-source-v0.f90
+        - test/test_frontend_source_v0.f90
+        - test/test_frontend_source_v0.sh
+        - fpm.toml
+        - README.md
+    verifier: >-
+      add a production-only source entrypoint that reads one raw free-form
+      named main program, returns the existing frontend-v0 accepted result,
+      and rejects a mismatched end name without writing an accepted output.
+      Reuse existing frontend contracts and diagnostics; do not add a parser
+      generator, research ledger, semantic subsystem or model call.
+    verifier_command: >-
+      (cd /home/ert/code/fortfront-new-l3-medium && fo clean && fo &&
+      fo test --target test_frontend_source_v0 && fo exec
+      fortfront-source-v0 /tmp/l3-positive.f90 /tmp/l3-positive.sx)
+    final_observable: deterministic frontend-v0 result from raw source
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+  - id: T-L3-central-source-executable-replay
+    milestone: L3
+    title: Replay raw source through frontend, MIR and executable
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-L3-fortfront-raw-program-source]
+    inputs:
+      - path: tests/fixtures/l3-raw-program-v0.f90
+        sha256: 16ac467a3658a1097a501edab18e043e14c7099f0a08217bb92f480120381b02
+      - path: tests/negative/l3-raw-program-v0-mismatched-end.f90
+        sha256: 90446d079554077bd950cf3552de094b177865a0d870c797a5d6766b16784f1c
+      - component: fortfront-new
+        commit: pinned-after-worker-integration
+      - component: ffc-new
+        commit: bcaadcb58c24af613204aa398541c0d2e35abf91
+      - component: fortback-new
+        commit: c578904a8d18e9d5410934f5489a21d5dadfad05
+    output: clean L3 source-to-executable trace
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: controller-exclusive
+    verifier: >-
+      from a clean checkout, run the raw positive source through the pinned
+      fortfront source entrypoint, existing ffc frontend-v0 lowering and
+      existing fortback executable path; require exit status zero, reject the
+      mismatched-end neighbour, compare the independent oracle and committed
+      trace, and record zero model calls and zero semantic promotions.
+    verifier_command: tests/e2e/run-l3.sh --fresh
+    final_observable: executable exit status zero and stable rejected diagnostic
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 integration_cycle:
