@@ -13,6 +13,7 @@ The bounded C718 slice is promoted by its corrected replay and focused reviews.
 The bounded C723 slice is promoted by replay `R000037` and focused review
 `R000038`. The bounded C729 slice is promoted by replay `R000042` and focused
 review `R000044`; failed review `R000043` is retained. Full M3 remains open.
+The C719 replay passes in `R000047` and awaits focused review.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -230,6 +231,33 @@ Evidence: `research/decisions/D0133-ninth-m3-c729-optional-comma-oracle.md`,
 `#R000043`, successful focused review `#R000044`, and reports under
 `artifacts/reports/M3/`. This promotes only the bounded C729 slice; full M3
 remains open.
+
+## M3 — bounded C719 kind-param nonnegative semantic-oracle candidate
+
+Bounded-slice status: `CANDIDATE`; central replay `R000047` passes; focused
+review is pending. Full Core 0 semantics remain open and are not claimed.
+
+The slice binds J3-24-007 C719 at canonical-text line 3297 and printed page
+80 to the already represented StandardIR R709 `kind-param` production. Its
+typed candidate carries kind-parameter presence and value states. An absent
+kind parameter or a present nonnegative value is `ACCEPTED`, a present
+negative value is `REJECTED`, and unknown state is `UNRESOLVED`. The oracle
+does not parse numeric literals, evaluate constant expressions, inspect
+processor representation methods or consume model output. Regenerate the
+replay with:
+
+```text
+tests/e2e/run-m3-c719.sh --fresh
+```
+
+Evidence: `research/decisions/D0134-tenth-m3-c719-kind-param-nonnegative-oracle.md`,
+`research/experiments/E0185-can-a-deterministic-oracle-enforce-c719-/manifest.yaml`,
+`contracts/m3-c719-kind-param-nonnegative-oracle-v0.sxs`,
+`tests/e2e/validate_m3_c719.py`,
+`artifacts/traces/m3-c719-source-backed-v0.json`, and
+`research/runs/2026-08.jsonl#R000046`, corrected replay
+`#R000047`. Promotion remains bounded to this slice and requires the two
+focused reviews.
 
 ## M3 — Core 0 closure audit
 
