@@ -13,7 +13,7 @@ The bounded C718 slice is promoted by its corrected replay and focused reviews.
 The bounded C723 slice is promoted by replay `R000037` and focused review
 `R000038`. The bounded C729 slice is promoted by replay `R000042` and focused
 review `R000044`; failed review `R000043` is retained. Full M3 remains open.
-The C719 replay passes in `R000050` and awaits focused review.
+The C719 replay passes in `R000051` and awaits focused review.
 
 ## M3 — bounded C1106 semantic-oracle slice
 
@@ -234,7 +234,7 @@ remains open.
 
 ## M3 — bounded C719 kind-param nonnegative semantic-oracle candidate
 
-Bounded-slice status: `CANDIDATE`; central replay `R000050` passes; focused
+Bounded-slice status: `CANDIDATE`; central replay `R000051` passes; focused
 review is pending. Full Core 0 semantics remain open and are not claimed.
 
 The slice binds J3-24-007 C719 at canonical-text line 3297 and printed page
@@ -256,7 +256,8 @@ Evidence: `research/decisions/D0134-tenth-m3-c719-kind-param-nonnegative-oracle.
 `tests/e2e/validate_m3_c719.py`,
 `artifacts/traces/m3-c719-source-backed-v0.json`, and
 `research/runs/2026-08.jsonl#R000046`, corrected replay `#R000047`, prior
-replay `#R000048`, and repair replay `#R000050`. Promotion remains bounded to this slice and
+replay `#R000048`, repair replay `#R000050`, and final replay `#R000051`.
+Promotion remains bounded to this slice and
 requires the two focused reviews.
 
 ## M3 — Core 0 closure audit
