@@ -668,8 +668,27 @@ with C745@1 first. Regenerate it with:
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
 ```
 
-The next controller task selects one bounded source-backed property from that
-partition; it does not restart E0172, broaden semantic work or claim full M3.
+## M3 — selected C745 SEQUENCE component-presence relation
+
+Selection status: `PASS`; E0207/R000542 corrects the append-only selection
+record and binds C745 to canonical lines 3665--3667, printed page 89, byte
+span `232141:276`, over existing StandardIR R726/R731/R735.
+
+D0151 selects only the first C745 obligation: SEQUENCE present in a
+derived-type-def requires one or more components. The typed candidate is
+`sequence-presence × component-presence × context`, with values
+`absent|present|unknown × zero|one-or-more|unknown ×
+derived-type-def|other|unknown`. The next oracle accepts vacuous absence and
+the satisfied one-or-more case, rejects present/zero, and returns
+`UNRESOLVED` otherwise. It does not parse definitions, count real components,
+classify component types, inspect type parameters or type-bound procedures,
+restart E0172 or claim full M3.
+
+Evidence: `research/decisions/D0151-c745-sequence-component-presence-relation.md`,
+`research/experiments/E0207-can-the-post-c744-residual-select-one-so/`,
+`artifacts/reports/M3/m3-core0-next-property-selection-v12.md`, and runs
+`R000541` and corrected `R000542`. The next task implements this bounded
+oracle only.
 
 ## M3 — bounded C601 semantic-oracle successor
 

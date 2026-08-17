@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection-after-c744
+active_task: T-M3-c745-sequence-component-presence-oracle
 
 milestones:
   - id: L0
@@ -4585,13 +4585,18 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection-after-c744
     milestone: M3
     title: Select the next bounded property after C744 promotion
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-c744-derived-type-end-type-name-relation-oracle
     inputs:
+      - path: research/decisions/D0151-c745-sequence-component-presence-relation.md
+      - path: research/experiments/E0207-can-the-post-c744-residual-select-one-so/manifest.yaml
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v12.md
+      - path: research/runs/2026-08.jsonl#R000541
+      - path: research/runs/2026-08.jsonl#R000542
       - path: research/experiments/E0206-can-a-deterministic-source-backed-c744-o/manifest.yaml
       - path: research/runs/2026-08.jsonl#R000538
       - path: research/runs/2026-08.jsonl#R000539
@@ -4638,11 +4643,104 @@ tasks:
     verifier_command: >-
       jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586","C717","C720","C722","C724","C726","C731","C732","C733","C735","C743","C744"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), first_row: .[0].row_key, first_constraint: .[0].constraint_id}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
     evidence_paths:
+      - research/decisions/D0151-c745-sequence-component-presence-relation.md
+      - research/experiments/E0207-can-the-post-c744-residual-select-one-so/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v12.md
+      - research/runs/2026-08.jsonl#R000541
+      - research/runs/2026-08.jsonl#R000542
       - research/experiments/E0206-can-a-deterministic-source-backed-c744-o/manifest.yaml
       - research/runs/2026-08.jsonl#R000538
       - research/runs/2026-08.jsonl#R000539
       - research/runs/2026-08.jsonl#R000540
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+
++  - id: T-M3-c745-sequence-component-presence-oracle
+    milestone: M3
+    title: Define and implement the bounded C745 SEQUENCE component-presence oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection-after-c744
+    inputs:
+      - path: research/decisions/D0151-c745-sequence-component-presence-relation.md
+      - path: research/experiments/E0207-can-the-post-c744-residual-select-one-so/manifest.yaml
+      - path: research/experiments/E0208-can-a-deterministic-source-backed-c745-o/manifest.yaml
+      - path: artifacts/reports/M3/m3-core0-next-property-selection-v12.md
+      - path: research/runs/2026-08.jsonl#R000542
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+    writes:
+      - research/experiments/E0208-can-a-deterministic-source-backed-c745-o/manifest.yaml
+      - contracts/m3-c745-derived-type-sequence-component-presence-v0.sxs
+      - contracts/fixtures/m3-c745-derived-type-sequence-component-presence-v0.sx
+      - contracts/registry.sx
+      - tests/fixtures/m3-c745-source-backed-v0.json
+      - tests/fixtures/m3-c745-semantic-items.sx
+      - tests/golden/m3-c745-semantic-items.sx
+      - tests/e2e/run-m3-c745.sh
+      - tests/e2e/validate_m3_c745.py
+      - artifacts/traces/m3-c745-source-backed-v0.json
+      - artifacts/reports/M3/m3-c745-source-backed-v0.md
+      - artifacts/reports/M3/m3-c745-focused-review-v1.md
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - research/runs/2026-08.jsonl
+    mode: exclusive
+    verifier: >-
+      define one source-backed C745 contract over canonical lines 3665--3667,
+      printed page 89 and existing StandardIR R726/R731/R735; implement a
+      deterministic ACCEPTED/REJECTED/UNRESOLVED oracle over typed absent,
+      present and unknown SEQUENCE presence, zero/one-or-more/unknown
+      component presence and derived-type-def/other/unknown context; include
+      vacuous and satisfied positive witnesses, a present/zero negative
+      neighbour, unresolved controls and source/page/rule/identity mutations;
+      run the clean central gate; require zero model calls and zero semantic
+      fact promotions. Do not parse derived-type definitions, count real
+      components or evaluate the other C745 obligations.
+    output: artifact
+    final_observable: >-
+      a replayable bounded C745 source-backed SEQUENCE component-presence
+      oracle with independent validation and no semantic promotion
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0151-c745-sequence-component-presence-relation.md
+        - research/experiments/E0207-*
+        - research/experiments/E0208-*
+        - contracts/m3-c745-*
+        - contracts/fixtures/m3-c745-*
+        - tests/fixtures/m3-c745-*
+        - tests/golden/m3-c745-*
+        - tests/e2e/run-m3-c745.sh
+        - tests/e2e/validate_m3_c745.py
+        - artifacts/traces/m3-c745-source-backed-v0.json
+        - artifacts/reports/M3/m3-c745-*.md
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - research/runs/2026-08.jsonl
+    prerequisites: [T-M3-core0-next-bounded-property-selection-after-c744]
+    verifier_command: tests/e2e/run-m3-c745.sh --fresh
+    evidence_paths:
+      - research/decisions/D0151-c745-sequence-component-presence-relation.md
+      - research/experiments/E0207-can-the-post-c744-residual-select-one-so/manifest.yaml
+      - research/experiments/E0208-can-a-deterministic-source-backed-c745-o/manifest.yaml
+      - artifacts/reports/M3/m3-core0-next-property-selection-v12.md
+      - research/runs/2026-08.jsonl#R000542
+      - .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+      - .cache/runs/E0001/R000003/j3-24-007.pages.index
+      - .cache/runs/E0171/R000433-provenance-replay/standardir.sx
 
   - id: T-M2-candidate-evidence-coalescing
     milestone: M1-M2

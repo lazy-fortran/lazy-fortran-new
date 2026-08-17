@@ -1,0 +1,107 @@
+id: "E0207"
+title: "Post-C744 residual bounded-property selection"
+question: >
+  Can the post-C744 residual select one source-backed bounded property?
+status: reported        # draft | running | reported | abandoned
+opened: "2026-08-17"
+closed: "2026-08-17"
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "59556cebfa31f9e0d65374e3112f048bd01696ec"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: "m3-core0-post-c744-residual-selection"
+  witnesses: .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+  witnesses_sha256: 77c6758a8b0fe5ffbdbe599b8f417b34e8e708ca495ce69b0753454cb144b20c
+  predecessor: research/runs/2026-08.jsonl#R000540
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  pages_index_sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+  standardir: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  normative_pdf_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  promoted_contract_set: [C1106, C702, C601, C603, C721, C725, C718, C723, C729, C719, C738, C1579, C1586, C717, C720, C722, C724, C726, C731, C732, C733, C735, C743, C744]
+  residual_status: [disputed, unwitnessed]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model execution; retained model-origin rows are input only."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - residual row count
+  - disputed and unwitnessed counts
+  - first residual row and constraint
+  - selected source, page and StandardIR bindings
+  - model calls
+  - semantic promotions
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >-
+  Every disputed or unwitnessed row in the pinned E0181 witness ledger after
+  the exact twenty-four-contract promoted set is excluded.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >-
+  The jq partition command independently recomputes the residual inventory
+  from the pinned JSONL; no model-origin observation is an oracle.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >-
+  The experiment fails if the partition is not 147 rows with 84 disputed and
+  63 unwitnessed, C745@1 is not first, or the selected C745 source and
+  StandardIR bindings cannot be verified without model execution or semantic
+  promotion.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >-
+  Run the exact jq verifier in TASK_POOL.yaml on the pinned witness ledger;
+  inspect C745@1's canonical source and R726/R731/R735 StandardIR rows; record
+  one bounded property with exact source identity and zero model calls or
+  semantic promotions. Do not broaden semantic work.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: >-
+  Controller-owned selection report
+  artifacts/reports/M3/m3-core0-next-property-selection-v12.md
+
+result:
+  selection_run: research/runs/2026-08.jsonl#R000542
+  central_revision: 59556cebfa31f9e0d65374e3112f048bd01696ec
+  promoted_contracts: 24
+  residual_rows: 147
+  disputed_rows: 84
+  unwitnessed_rows: 63
+  first_row: C745@1
+  first_constraint: C745
+  partition_result_sha256: 31bc085283e7a85f2fab7a9bdad8aea00e8880e0b9d2a6083fef2f373ee519b9
+  report: artifacts/reports/M3/m3-core0-next-property-selection-v12.md
+  report_sha256: 9992eef28543b4a3c39e5772c31a841b1f726406922a1c9f4c2a2f2f0b8e2ac6
+  selected_row: C745@1
+  selected_constraint: C745
+  selected_property: derived-type-def-sequence-component-presence
+  canonical_lines: [3665, 3666, 3667]
+  source_page: 89
+  source_span: "232141:276"
+  standardir_rules: [R726, R731, R735]
+  source_binding: PASS
+  page_binding: PASS
+  standardir_binding: PASS
+  model_calls: 0
+  semantic_promotions: 0
+  selection: C745@1
