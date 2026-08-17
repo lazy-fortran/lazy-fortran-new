@@ -1,0 +1,393 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "declared_name_relation": "member",
+      "definition_name_presence": "absent",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-absent-member-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "absent",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-absent-not-member-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "absent",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-absent-unknown-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "ACCEPTED",
+      "context": "derived-type-def",
+      "declared_name_relation": "member",
+      "definition_name_presence": "present",
+      "expected": "ACCEPTED",
+      "fixture_expected": "ACCEPTED",
+      "id": "positive-present-member-derived-type-def",
+      "kind": "positive"
+    },
+    {
+      "computed": "REJECTED",
+      "context": "derived-type-def",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "present",
+      "expected": "REJECTED",
+      "fixture_expected": "REJECTED",
+      "id": "negative-present-not-member-derived-type-def",
+      "kind": "negative"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-unknown-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "declared_name_relation": "member",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-member-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-not-member-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "derived-type-def",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-derived-type-def",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "member",
+      "definition_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-member-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-not-member-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-unknown-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "member",
+      "definition_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-member-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-not-member-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-unknown-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "member",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-member-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-not-member-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "other",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-other",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "member",
+      "definition_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-member-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-not-member-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "absent",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-absent-unknown-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "member",
+      "definition_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-member-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-not-member-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "present",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-present-unknown-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "member",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-member-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "not-member",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-not-member-unknown",
+      "kind": "unresolved"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "context": "unknown",
+      "declared_name_relation": "unknown",
+      "definition_name_presence": "unknown",
+      "expected": "UNRESOLVED",
+      "fixture_expected": "UNRESOLVED",
+      "id": "unresolved-unknown-unknown-unknown",
+      "kind": "unresolved"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c746-derived-type-type-parameter-name-membership-v0.sx",
+    "fixture_sha256": "8f5116a87edf3af6ada52bd6d29545ba21ef48871c247f90289f2356611f0599",
+    "schema": "contracts/m3-c746-derived-type-type-parameter-name-membership-v0.sxs",
+    "schema_sha256": "8af2b8f0cdd6fb8bcf73e8c92461cef88564d8912a0215cd01ad98f6885a1c0e",
+    "version": 0
+  },
+  "expected_outcomes": {
+    "comparison": "PASS",
+    "origin": "HUMAN",
+    "path": "tests/fixtures/m3-c746-expected-outcomes-v0.json",
+    "sha256": "b755d1d52fee369dda6e57cf26d0ae1c676f233207c8611911342d5f218dd581"
+  },
+  "fixture": "tests/fixtures/m3-c746-source-backed-v0.json",
+  "fixture_sha256": "28fb8bd236b71fdc3b958cd6329d17599492623aefb8b5e479b2ecec359fc402",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "source-rule-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-hash-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-byte-start-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-byte-length-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-start-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "source-page-end-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-rule-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-shape-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-version-mutation",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-mutation",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c746.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 4,
+    "REJECTED": 1,
+    "UNRESOLVED": 22
+  },
+  "property": "derived-type-def-type-parameter-name-membership",
+  "schema_version": "m3-c746-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "40ec3df4ac6df3dbafc602ae015dc8e3879753166df604ae288e669b24e6f265",
+    "input": "tests/fixtures/m3-c746-semantic-items.sx",
+    "input_sha256": "40ec3df4ac6df3dbafc602ae015dc8e3879753166df604ae288e669b24e6f265"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3764,
+      3765
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "pages": [
+        {
+          "length": 2519,
+          "page": 77,
+          "start": 195782
+        }
+      ],
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929"
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 77,
+    "rule": "C746",
+    "source_span": {
+      "byte_length": 171,
+      "byte_start": 237401,
+      "page_end": 77,
+      "page_start": 77
+    },
+    "standardir_rules": [
+      "R727",
+      "R732",
+      "R733"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

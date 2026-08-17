@@ -19,6 +19,6 @@ case "$active" in
     L1\ *) "$ROOT/tests/e2e/run-l1.sh" "$@" ;;
     L2\ *) "$ROOT/tests/e2e/run-l2.sh" "$@" ;;
     M1-M2\ *) "$ROOT/tests/e2e/run-m1m2.sh" "$@" ;;
-    M3\ *) "$ROOT/tests/e2e/run-m3-c745.sh" --fresh ;;
+    M3\ *) "$ROOT/tests/e2e/run-m3-c746.sh" --fresh ;;
     *) die "no central runner is implemented for active milestone: $active" ;;
 esac

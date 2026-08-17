@@ -1,0 +1,86 @@
+id: "E0210"
+title: "Bounded C746 type-parameter-name membership oracle"
+question: >
+  Can a deterministic source-backed C746 oracle enforce derived-type type-parameter-name membership?
+status: draft            # draft | running | reported | abandoned
+opened: "2026-08-17"
+closed: ""
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "c0b20dfe7726fb2df2f0209f65ce88a657873168"
+  standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: "m3-c746-derived-type-type-parameter-name-membership"
+  decision: research/decisions/D0152-twenty-sixth-m3-c746-type-parameter-name-membership.md
+  selection_report: artifacts/reports/M3/m3-core0-next-property-selection-v15.md
+  selection_run: research/runs/2026-08.jsonl#R000564
+  expected_outcomes: tests/fixtures/m3-c746-expected-outcomes-v0.json
+  expected_outcomes_sha256: b755d1d52fee369dda6e57cf26d0ae1c676f233207c8611911342d5f218dd581
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  pages_index: .cache/runs/E0001/R000003/j3-24-007.pages.index
+  pages_index_sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+  standardir: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  source_span: "237401:171"
+  normative_pdf_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+
+# The axes being varied. Omit the key if there is only one condition.
+variables:
+  definition_name_presence: [absent, present, unknown]
+  declared_name_relation: [member, not-member, unknown]
+  context: [derived-type-def, other, unknown]
+
+# Explain whether model names form a controlled family ladder or separate
+# controls. Pin revisions and runtime settings before the first run.
+model_selection: "No model execution; retained model-origin rows are input only."
+
+# Name these before running anything. Choosing a metric after seeing the data
+# is how an experiment becomes a demonstration.
+metrics:
+  - complete typed state inventory
+  - ACCEPTED, REJECTED and UNRESOLVED outcomes
+  - rejected source, page, rule, StandardIR and contract-identity mutations
+  - model calls
+  - semantic promotions
+
+# State the complete eligible set and exclusions before the first run. A rate
+# over the successful subset is reported alongside the strict rate.
+denominator: >-
+  The complete 3-by-3-by-3 product of typed definition-name presence,
+  declared-name relation and context states, with witnesses declared before
+  replay.
+
+# State the independent behavioral or structural oracle. Self-consistency is
+# not an oracle.
+independent_oracle: >-
+  A separately authored HUMAN expected-outcome table is the independent
+  behavioral oracle. The validator compares its typed-state computation
+  against that table, while independently checking pinned source bytes, page
+  index, StandardIR R727/R732/R733 bindings, fail-closed mutation controls and
+  exact outcome counts. It consumes no model output.
+
+# Record versions needed to reproduce each run.
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+# What result would disappoint you? If nothing would, this is not an experiment.
+falsifiable_by: >-
+  Any missing typed state, incorrect outcome, accepted mutation, source/page/
+  StandardIR mismatch, model call or semantic promotion fails the experiment.
+
+# The condition that closes the experiment and the evidence it must report.
+gate: >-
+  From a clean checkout, run tests/e2e/run-m3-c746.sh --fresh and compare its
+  result with the committed trace and the HUMAN expected-outcome table.
+  Promote only the bounded oracle leaf; full M3 remains explicitly open.
+
+# Script that turns runs into the tables and figures in report.md.
+analysis: >-
+  Controller-owned bounded C746 replay report
+  artifacts/reports/M3/m3-c746-source-backed-v0.md

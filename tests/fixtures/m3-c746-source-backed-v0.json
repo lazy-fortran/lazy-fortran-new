@@ -1,0 +1,527 @@
+{
+  "schema_version": "m3-c746-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "derived-type-def-type-parameter-name-membership",
+  "contract": {
+    "schema": "contracts/m3-c746-derived-type-type-parameter-name-membership-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c746-derived-type-type-parameter-name-membership-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C746",
+    "printed_page": 77,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {
+        "line": 3764,
+        "text": "C746 (R732) A type-param-name in a type-param-def-stmt in a derived-type-def shall be one of the type-param-"
+      },
+      {
+        "line": 3765,
+        "text": "names in the derived-type-stmt of that derived-type-def ."
+      }
+    ],
+    "source_span": {
+      "byte_start": 237401,
+      "byte_length": 171,
+      "page_start": 77,
+      "page_end": 77
+    },
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "pages": [
+        {
+          "page": 77,
+          "start": 195782,
+          "length": 2519
+        }
+      ]
+    },
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {
+          "rule": "R727",
+          "lhs": "derived-type-stmt",
+          "page": 88,
+          "byte_start": 229178,
+          "byte_length": 108,
+          "occurrence": 77
+        },
+        {
+          "rule": "R732",
+          "lhs": "type-param-def-stmt",
+          "page": 91,
+          "byte_start": 237232,
+          "byte_length": 95,
+          "occurrence": 82
+        },
+        {
+          "rule": "R733",
+          "lhs": "type-param-decl",
+          "page": 91,
+          "byte_start": 237328,
+          "byte_length": 72,
+          "occurrence": 83
+        }
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c746-semantic-items.sx",
+    "sha256": "40ec3df4ac6df3dbafc602ae015dc8e3879753166df604ae288e669b24e6f265",
+    "id": "S-C746",
+    "subject": "derived-type-def-type-parameter-name-membership",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C746",
+    "page": 77,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-absent-member-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "member",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "positive-absent-not-member-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "not-member",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "positive-absent-unknown-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "positive-present-member-derived-type-def",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "member",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "negative-present-not-member-derived-type-def",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "not-member",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-member-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "member",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-not-member-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "not-member",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-derived-type-def",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "unknown",
+        "context": "derived-type-def"
+      }
+    },
+    {
+      "id": "unresolved-absent-member-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "member",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-not-member-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "not-member",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-member-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "member",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-not-member-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "not-member",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-member-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "member",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-not-member-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "not-member",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-other",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "unknown",
+        "context": "other"
+      }
+    },
+    {
+      "id": "unresolved-absent-member-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "member",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-absent-not-member-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "not-member",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-absent-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "absent",
+        "declared_name_relation": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-member-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "member",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-not-member-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "not-member",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-present-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "present",
+        "declared_name_relation": "unknown",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-member-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "member",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-not-member-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "not-member",
+        "context": "unknown"
+      }
+    },
+    {
+      "id": "unresolved-unknown-unknown-unknown",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {
+        "fact": "derived-type-def-type-parameter-name-membership",
+        "source_rule": "C746",
+        "definition_name_presence": "unknown",
+        "declared_name_relation": "unknown",
+        "context": "unknown"
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "id": "source-rule-mutation",
+      "path": [
+        "source",
+        "rule"
+      ],
+      "value": "C747"
+    },
+    {
+      "id": "source-page-mutation",
+      "path": [
+        "source",
+        "printed_page"
+      ],
+      "value": 78
+    },
+    {
+      "id": "source-hash-mutation",
+      "path": [
+        "source",
+        "canonical_text_sha256"
+      ],
+      "value": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "source-byte-start-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "byte_start"
+      ],
+      "value": 237402
+    },
+    {
+      "id": "source-byte-length-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "byte_length"
+      ],
+      "value": 170
+    },
+    {
+      "id": "source-page-start-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "page_start"
+      ],
+      "value": 76
+    },
+    {
+      "id": "source-page-end-mutation",
+      "path": [
+        "source",
+        "source_span",
+        "page_end"
+      ],
+      "value": 78
+    },
+    {
+      "id": "page-index-mutation",
+      "path": [
+        "source",
+        "page_index",
+        "pages",
+        0,
+        "page"
+      ],
+      "value": 78
+    },
+    {
+      "id": "standardir-rule-mutation",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        0,
+        "rule"
+      ],
+      "value": "R728"
+    },
+    {
+      "id": "standardir-shape-mutation",
+      "path": [
+        "source",
+        "standardir",
+        "rows",
+        1,
+        "lhs"
+      ],
+      "value": "type-param-decl"
+    },
+    {
+      "id": "contract-version-mutation",
+      "path": [
+        "contract",
+        "version"
+      ],
+      "value": 1
+    },
+    {
+      "id": "semantic-rule-mutation",
+      "path": [
+        "semantic_item",
+        "rule"
+      ],
+      "value": "C747"
+    }
+  ]
+}
