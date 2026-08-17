@@ -72,7 +72,7 @@
   },
   "semantic_item": {
     "path": "tests/fixtures/m3-c749-semantic-items.sx",
-    "sha256": "70838c6a2d651a02f57689d7ccff315fc3c106ee8166d8d0cbf4c90b9d73cacd",
+    "sha256": "7442059031f387458ff05336c4b543398fad702de2cb2dbe0b206bf041cdb672",
     "id": "S-C749",
     "subject": "component-def-stmt-component-type-eligibility",
     "document": "J3-24-007",
