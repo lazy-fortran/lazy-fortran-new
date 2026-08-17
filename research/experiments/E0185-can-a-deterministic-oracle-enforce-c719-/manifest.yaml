@@ -1,0 +1,73 @@
+id: "E0185"
+title: "Deterministic C719 kind-param nonnegative oracle"
+question: >
+  Can a deterministic oracle enforce C719 kind-param nonnegative legality
+status: running        # draft | running | reported | abandoned
+opened: "2026-08-17"
+closed: ""
+candidate_run: R000001
+candidate_runs: [R000001]
+
+# Every commit the result depends on. Exact, not "main".
+repos:
+  lazy-fortran-new: "3820ac9f8191f0131f5e7b285e48c7627d62f9ee"
+  standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
+
+# What goes in. Pinned artifacts by manifest name; profiles by ID.
+inputs:
+  standard: j3-24-007
+  profile: m3-c719-source-backed-v0
+  normative_source_sha256: 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2
+  canonical_text: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+  canonical_text_sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+  standardir_source: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+  standardir_source_sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+  semantic_items: tests/fixtures/m3-c719-semantic-items.sx
+
+variables:
+  property: kind-param-nonnegative-legality
+  outcomes: [ACCEPTED, REJECTED, UNRESOLVED]
+
+model_selection: "No model calls. Candidate facts are human-authored fixtures; the oracle is mechanical."
+
+metrics:
+  - case_outcomes
+  - source_binding
+  - semantic_canonicalization
+  - mutation_controls
+  - model_calls
+  - semantic_promotions
+
+denominator: >
+  Every case in tests/fixtures/m3-c719-source-backed-v0.json: one accepted
+  absent-kind-param witness, one accepted nonnegative witness, one rejected
+  negative neighbour and one unknown-value unresolved control. Mutation
+  controls are a separate source-binding denominator.
+
+independent_oracle: >
+  tests/e2e/validate_m3_c719.py computes C719 from typed kind-param presence
+  and value states independently of expected labels. It checks only the
+  bounded nonnegative restriction over the R709 kind-param shape; it does not
+  parse numeric literals, evaluate constant expressions or consume model
+  output.
+
+toolchain:
+  record_in_run: true
+  fields: [compiler, fo, poppler, oracle_versions]
+
+falsifiable_by: >
+  Any source hash, source span, rule identity or semantic-item provenance
+  mutation is accepted; the canonical semantic-items output changes; an
+  absent kind-param is rejected; a present nonnegative value is rejected; a
+  present negative value is accepted; an unknown state is classified other
+  than UNRESOLVED; or any model call or semantic promotion is observed.
+
+gate: >
+  tests/e2e/run-m3-c719.sh --fresh must pass from clean central and
+  standard-new checkouts, including standard-new sxsemantic canonicalization,
+  normative PDF/canonical-text/StandardIR hash and witness checks, four
+  independently computed outcomes, five observed mutation failures, exact
+  committed trace comparison and zero model calls or semantic promotions.
+
+analysis: tests/e2e/validate_m3_c719.py
+run: tests/e2e/run-m3-c719.sh --fresh

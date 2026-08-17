@@ -1,0 +1,76 @@
+{
+  "schema_version": "m3-c719-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "kind-param-nonnegative-legality",
+  "contract": {
+    "schema": "contracts/m3-c719-kind-param-nonnegative-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c719-kind-param-nonnegative-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C719",
+    "printed_page": 80,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "canonical_lines": [
+      {"line": 3297, "text": "C719 (R709) The value of kind-param shall be nonnegative."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R709", "lhs": "kind-param", "page": 80, "byte_start": 207647, "byte_length": 65, "occurrence": 59}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c719-semantic-items.sx",
+    "sha256": "fd1003348757ea197569a48ce15841aca26667b1303de0e8de85cc7a4f5160ea",
+    "id": "S-C719",
+    "subject": "kind-param-nonnegative-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C719",
+    "page": 80,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-absent-kind-param",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "kind-param-value-use", "source_rule": "C719", "kind_param": "absent", "value": "not-applicable"}
+    },
+    {
+      "id": "positive-nonnegative-kind-param",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "kind-param-value-use", "source_rule": "C719", "kind_param": "present", "value": "nonnegative"}
+    },
+    {
+      "id": "negative-negative-kind-param",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "kind-param-value-use", "source_rule": "C719", "kind_param": "present", "value": "negative"}
+    },
+    {
+      "id": "unresolved-kind-param-value",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "kind-param-value-use", "source_rule": "C719", "kind_param": "present", "value": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3298},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R708"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 0, "text"], "value": "C719 (R709) The value of kind-param shall be negative."},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C720"}
+  ]
+}

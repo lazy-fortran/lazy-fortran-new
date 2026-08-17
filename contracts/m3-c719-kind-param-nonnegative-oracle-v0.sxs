@@ -1,0 +1,21 @@
+(schema m3-c719-kind-param-nonnegative-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum kind-param-state absent present unknown)
+  (enum kind-param-value-state nonnegative negative not-applicable unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record kind-param-value-use
+    (kind-param kind-param-state)
+    (value kind-param-value-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact kind-param-value-use)
+    (expected outcome))
+  (list candidates semantic-candidate))
