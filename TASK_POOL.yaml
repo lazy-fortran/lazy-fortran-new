@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-M3-core0-next-bounded-property-selection
+active_task: T-M3-c717-kind-selector-oracle
 
 milestones:
   - id: L0
@@ -2467,9 +2467,9 @@ tasks:
   - id: T-M3-core0-next-bounded-property-selection
     milestone: M3
     title: Select the next bounded property from the outside-promoted E0181 residual
-    status: OPEN
-    verification: NOT_STARTED
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 100
     depends_on:
       - T-M3-core0-witness-coverage-reconciliation
@@ -2543,6 +2543,100 @@ tasks:
       - artifacts/reports/M3/m3-core0-witness-coverage-v1.md
       - research/runs/2026-08.jsonl#R000076
       - .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl
+      - artifacts/reports/M3/m3-core0-next-property-selection-v1.md
+      - research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md
+      - research/experiments/E0189-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - contracts/m3-c717-kind-selector-oracle-v0.sxs
+      - contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx
+      - tests/fixtures/m3-c717-source-backed-v0.json
+      - tests/fixtures/m3-c717-semantic-items.sx
+      - tests/golden/m3-c717-semantic-items.sx
+      - tests/e2e/run-m3-c717.sh
+      - tests/e2e/validate_m3_c717.py
+      - artifacts/traces/m3-c717-source-backed-v0.json
+
+  - id: T-M3-c717-kind-selector-oracle
+    milestone: M3
+    title: Verify the bounded C717 kind-selector legality oracle
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: PENDING
+    priority: 100
+    depends_on:
+      - T-M3-core0-next-bounded-property-selection
+    inputs:
+      - path: research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md
+      - path: research/experiments/E0189-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - path: contracts/m3-c717-kind-selector-oracle-v0.sxs
+      - path: contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx
+      - path: .cache/runs/E0001/R000003/j3-24-007.canonical.txt
+        sha256: 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e
+      - path: .cache/runs/E0001/R000003/j3-24-007.pages.index
+        sha256: 49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - path: artifacts/standards/j3-24-007.toml
+        sha256: becec69a4e43c168e0706efd712eda90a2cabacc29e900a7d3dc4fa4c0f1d7ec
+    writes:
+      - contracts/registry.sx
+      - tests/fixtures/m3-c717-*
+      - tests/golden/m3-c717-*
+      - tests/e2e/run-m3-c717.sh
+      - tests/e2e/validate_m3_c717.py
+      - artifacts/traces/m3-c717-source-backed-v0.json
+      - research/runs/2026-08.jsonl
+      - STATUS.md
+      - MILESTONES.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+    mode: exclusive
+    verifier: >-
+      run tests/e2e/run-m3-c717.sh --fresh from clean central and standard-new
+      checkouts; require exact C717 lines 3263--3264 on page 80, page-index
+      span, R706 metadata, typed witness outcomes, seven source/identity
+      mutation failures, exact trace comparison and zero model calls or
+      semantic promotions. Do not evaluate expressions, inspect processor
+      capabilities, parse Fortran or broaden C717 semantics.
+    output: artifact
+    final_observable: >-
+      a replayable source-backed C717 kind-selector oracle with ACCEPTED,
+      REJECTED and UNRESOLVED outcomes; this does not promote full C717 or
+      M3 Core 0 semantics
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/registry.sx
+        - contracts/m3-c717-kind-selector-oracle-v0.sxs
+        - contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx
+        - tests/fixtures/m3-c717-*
+        - tests/golden/m3-c717-*
+        - tests/e2e/run-m3-c717.sh
+        - tests/e2e/validate_m3_c717.py
+        - artifacts/traces/m3-c717-source-backed-v0.json
+        - research/experiments/E0189-can-a-deterministic-source-backed-oracle/**
+        - research/runs/2026-08.jsonl
+        - STATUS.md
+        - MILESTONES.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+    prerequisites: [T-M3-core0-next-bounded-property-selection]
+    verifier_command: tests/e2e/run-m3-c717.sh --fresh
+    evidence_paths:
+      - research/decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md
+      - research/experiments/E0189-can-a-deterministic-source-backed-oracle/manifest.yaml
+      - contracts/m3-c717-kind-selector-oracle-v0.sxs
+      - contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx
+      - tests/fixtures/m3-c717-source-backed-v0.json
+      - tests/fixtures/m3-c717-semantic-items.sx
+      - tests/golden/m3-c717-semantic-items.sx
+      - tests/e2e/run-m3-c717.sh
+      - tests/e2e/validate_m3_c717.py
+      - artifacts/traces/m3-c717-source-backed-v0.json
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 

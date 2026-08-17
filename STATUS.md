@@ -147,24 +147,24 @@ emission contract interchange.
 
 ## Active fixture
 
-Last promoted fixture: `T-M3-c1586-statement-function-self-reference-oracle` —
-replay `E0188/R000002` is recorded centrally as `R000067` and focused review
-`R000072` passes. C1586 is promoted as a bounded slice: two accepted, one
-rejected, three unresolved and eight mutation failures. It binds canonical
-lines 15464--15469 on page 358 to StandardIR R1547. Full M3 remains open; do
-not resume E0172 or start broad semantic work.
+Current fixture: `T-M3-c717-kind-selector-oracle`. D0139/E0189 selects the
+bounded C717 kind-selector legality property over StandardIR R706. The source
+binding is canonical lines 3263--3264 on page 80, with the page-index span and
+R706 metadata pinned. The manual independent validator passes two accepted,
+two rejected, two unresolved and seven mutation controls; the clean central
+replay is the next gate. Full M3 remains open; do not resume E0172 or start
+broad semantic work.
 
 ## Active task
 
-ID: `T-M3-core0-next-bounded-property-selection` — select one next
-source-backed property from the outside-promoted E0181 residual. Full M3
-remains open.
+ID: `T-M3-c717-kind-selector-oracle` — verify the selected bounded C717
+source-backed semantic oracle from clean central and `standard-new` checkouts.
+Full M3 remains open.
 
-Verifier: the exact deterministic outside-residual command below. It must
-reproduce the 158 rows not covered by an already promoted bounded contract and
-then define one bounded source-backed property over an already represented
-StandardIR/syntax shape. It must not broaden semantic work, resume E0172 or
-promote a model fact.
+Verifier: `tests/e2e/run-m3-c717.sh --fresh`. It must bind C717 lines
+3263--3264, page-index page 80 and StandardIR R706, replay the typed
+ACCEPTED/REJECTED/UNRESOLVED cases, reject seven source/identity mutations,
+and record zero model calls and zero semantic promotions.
 
 ## Current blocker
 
@@ -197,7 +197,9 @@ are unresolved. These residual states do not close the complete ledger gate.
 The current blocker is witness closure outside the bounded slices: 158 rows
 (91 disputed and 67 unwitnessed) remain after the five residual rows attached
 to promoted contracts are separated. A green bounded slice alone does not
-close full M3.
+close full M3. The selected C717 contract is defined and its manual oracle
+passes; its clean central replay is pending. That replay may establish only
+the bounded C717 observable, not semantic promotion of the retained ledger.
 Regenerate the E0181 counts with:
 
 ```text
@@ -206,9 +208,15 @@ E0123_RETRY_ROWS=.cache/runs/E0123/R000001/rows.jsonl E0123_RETRY_TRAJECTORY=.ca
 
 ## Next executable task
 
-Run and record `T-M3-core0-next-bounded-property-selection`. The preceding
-reconciliation is PASS for coverage accounting only; the remaining blocker is
-the outside-promoted residual. Its exact verifier is:
+Run and record `T-M3-c717-kind-selector-oracle`. The exact central gate is:
+
+```text
+tests/e2e/run-m3-c717.sh --fresh
+```
+
+The preceding reconciliation remains PASS for coverage accounting only; the
+outside-promoted residual remains the full-M3 blocker. Its exact inventory
+verifier is:
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl

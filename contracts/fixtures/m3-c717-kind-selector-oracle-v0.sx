@@ -1,0 +1,8 @@
+(contract-witness
+  (contract m3-c717-kind-selector-oracle)
+  (version 0)
+  (origin human)
+  (resolution disputed)
+  (property kind-selector-legality)
+  (source (source-ref (document J3-24-007) (clause 7) (rule C717) (page 80) (source-hash 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)))
+  (outcomes accepted rejected unresolved))

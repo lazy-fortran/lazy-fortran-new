@@ -187,6 +187,7 @@ Runs recorded: 527
 | E0186 | reported | 3 | Can a deterministic oracle enforce C738 abstract requirement for deferred type-bound procedures |
 | E0187 | reported | 8 | Can a deterministic oracle enforce C1579 RESULT entry-name exclusion |
 | E0188 | reported | 8 | Can a deterministic source-backed oracle enforce the C1586 prohibition on a |
+| E0189 | running | 0 | Can a deterministic source-backed oracle enforce C717 kind-selector legality |
 
 ## Run status
 
@@ -351,6 +352,7 @@ Runs recorded: 527
 | [D0136](decisions/D0136-twelfth-m3-c1579-result-entry-name-oracle.md) | superseded by D0137 |  | Twelfth M3 slice uses C1579 RESULT entry-name exclusion |
 | [D0137](decisions/D0137-c1579-printed-page-correction.md) | accepted | Supersedes D0136 | Correct C1579 printed-page binding |
 | [D0138](decisions/D0138-thirteenth-m3-c1586-statement-function-self-reference-oracle.md) | accepted |  | Thirteenth M3 slice uses C1586 statement-function self-name exclusion |
+| [D0139](decisions/D0139-fourteenth-m3-c717-kind-selector-oracle.md) | accepted |  | Fourteenth M3 slice uses C717 kind-selector legality |
 
 ### Proposed decisions
 

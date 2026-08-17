@@ -1,0 +1,21 @@
+(schema m3-c717-kind-selector-oracle-v0
+  (primitive name)
+  (enum outcome accepted rejected unresolved)
+  (enum kind-value-state nonnegative negative unknown)
+  (enum representation-method-state absent present unknown)
+  (record source-ref
+    (document name)
+    (clause name)
+    (rule name)
+    (page int)
+    (source-hash name))
+  (record kind-selector-value-use
+    (kind-value kind-value-state)
+    (representation-method representation-method-state))
+  (record semantic-candidate
+    (id name)
+    (property name)
+    (source source-ref)
+    (fact kind-selector-value-use)
+    (expected outcome))
+  (list candidates semantic-candidate))

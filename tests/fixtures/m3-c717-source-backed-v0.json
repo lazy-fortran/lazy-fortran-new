@@ -1,0 +1,98 @@
+{
+  "schema_version": "m3-c717-source-backed-v0",
+  "origin": "HUMAN",
+  "property": "kind-selector-legality",
+  "contract": {
+    "schema": "contracts/m3-c717-kind-selector-oracle-v0.sxs",
+    "fixture": "contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx",
+    "version": 0
+  },
+  "source": {
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C717",
+    "printed_page": 80,
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "canonical_text": ".cache/runs/E0001/R000003/j3-24-007.canonical.txt",
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "page_index": {
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "page": 80,
+      "start": 204806,
+      "length": 2920
+    },
+    "canonical_lines": [
+      {"line": 3263, "text": "C717 (R706) The value of scalar-int-constant-expr shall be nonnegative and shall specify a representation"},
+      {"line": 3264, "text": "method that exists on the processor."}
+    ],
+    "standardir": {
+      "path": ".cache/runs/E0171/R000433-provenance-replay/standardir.sx",
+      "sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
+      "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+      "rows": [
+        {"rule": "R706", "lhs": "kind-selector", "page": 80, "byte_start": 205461, "byte_length": 64, "occurrence": 56}
+      ]
+    }
+  },
+  "semantic_item": {
+    "path": "tests/fixtures/m3-c717-semantic-items.sx",
+      "sha256": "3858bf84b782a288396f55e51c1fd4474868acbc3c767c1565c483da27ea3df2",
+    "id": "S-C717",
+    "subject": "kind-selector-legality",
+    "document": "J3-24-007",
+    "clause": "7",
+    "rule": "C717",
+    "page": 80,
+    "source_hash": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "origin": "human",
+    "resolution": "disputed"
+  },
+  "cases": [
+    {
+      "id": "positive-nonnegative-supported",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "present"}
+    },
+    {
+      "id": "positive-zero-supported",
+      "kind": "positive",
+      "expected": "ACCEPTED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "present"}
+    },
+    {
+      "id": "negative-negative-value",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "negative", "representation_method": "present"}
+    },
+    {
+      "id": "negative-missing-method",
+      "kind": "negative",
+      "expected": "REJECTED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "absent"}
+    },
+    {
+      "id": "unresolved-kind-value",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "unknown", "representation_method": "present"}
+    },
+    {
+      "id": "unresolved-representation-method",
+      "kind": "unresolved",
+      "expected": "UNRESOLVED",
+      "candidate": {"fact": "kind-selector-value-use", "source_rule": "C717", "kind_value": "nonnegative", "representation_method": "unknown"}
+    }
+  ],
+  "mutations": [
+    {"id": "normative-pdf-hash", "path": ["source", "pdf_sha256"], "value": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "canonical-source-line-identity", "path": ["source", "canonical_lines", 0, "line"], "value": 3265},
+    {"id": "standardir-row-identity", "path": ["source", "standardir", "rows", 0, "rule"], "value": "R707"},
+    {"id": "canonical-source-line", "path": ["source", "canonical_lines", 1, "text"], "value": "method that exists on the processor shall not."},
+    {"id": "semantic-rule-identity", "path": ["semantic_item", "rule"], "value": "C718"},
+    {"id": "contract-property-identity", "path": ["property"], "value": "other-property"},
+    {"id": "page-index-identity", "path": ["source", "page_index", "start"], "value": 204807}
+  ]
+}

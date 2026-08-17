@@ -1,0 +1,133 @@
+{
+  "cases": [
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-nonnegative-supported",
+      "kind": "positive",
+      "kind_value": "nonnegative",
+      "representation_method": "present"
+    },
+    {
+      "computed": "ACCEPTED",
+      "expected": "ACCEPTED",
+      "id": "positive-zero-supported",
+      "kind": "positive",
+      "kind_value": "nonnegative",
+      "representation_method": "present"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "negative-negative-value",
+      "kind": "negative",
+      "kind_value": "negative",
+      "representation_method": "present"
+    },
+    {
+      "computed": "REJECTED",
+      "expected": "REJECTED",
+      "id": "negative-missing-method",
+      "kind": "negative",
+      "kind_value": "nonnegative",
+      "representation_method": "absent"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-kind-value",
+      "kind": "unresolved",
+      "kind_value": "unknown",
+      "representation_method": "present"
+    },
+    {
+      "computed": "UNRESOLVED",
+      "expected": "UNRESOLVED",
+      "id": "unresolved-representation-method",
+      "kind": "unresolved",
+      "kind_value": "nonnegative",
+      "representation_method": "unknown"
+    }
+  ],
+  "contract": {
+    "fixture": "contracts/fixtures/m3-c717-kind-selector-oracle-v0.sx",
+    "fixture_sha256": "7d18f8b14dc8eaf9bbc3195449df65712a31a018e7061a97508b00bf3693091a",
+    "schema": "contracts/m3-c717-kind-selector-oracle-v0.sxs",
+    "schema_sha256": "cb5e09f38c4b1819e2e0795080dc66d91e1d4c0daca54b6492e56d42208b486f",
+    "version": 0
+  },
+  "fixture": "tests/fixtures/m3-c717-source-backed-v0.json",
+  "fixture_sha256": "ad99bef01ded46fd129fcd74d171b5d410203395648bf7af6094355a0e12ac23",
+  "milestone": "M3",
+  "model_calls": 0,
+  "mutation_controls": [
+    {
+      "id": "normative-pdf-hash",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "standardir-row-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "canonical-source-line",
+      "result": "REJECTED"
+    },
+    {
+      "id": "semantic-rule-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "contract-property-identity",
+      "result": "REJECTED"
+    },
+    {
+      "id": "page-index-identity",
+      "result": "REJECTED"
+    }
+  ],
+  "oracle": "tests/e2e/validate_m3_c717.py",
+  "origin": "MECHANICAL",
+  "outcome_counts": {
+    "ACCEPTED": 2,
+    "REJECTED": 2,
+    "UNRESOLVED": 2
+  },
+  "property": "kind-selector-legality",
+  "schema_version": "m3-c717-source-backed-v0",
+  "semantic_items": {
+    "canonical_output": "PASS",
+    "canonical_output_sha256": "3858bf84b782a288396f55e51c1fd4474868acbc3c767c1565c483da27ea3df2",
+    "input": "tests/fixtures/m3-c717-semantic-items.sx",
+    "input_sha256": "3858bf84b782a288396f55e51c1fd4474868acbc3c767c1565c483da27ea3df2"
+  },
+  "semantic_promotions": 0,
+  "source": {
+    "canonical_lines": [
+      3263,
+      3264
+    ],
+    "canonical_text_sha256": "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e",
+    "clause": "7",
+    "document": "J3-24-007",
+    "page_index": {
+      "length": 2920,
+      "page": 80,
+      "path": ".cache/runs/E0001/R000003/j3-24-007.pages.index",
+      "sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+      "start": 204806
+    },
+    "page_index_sha256": "49406a5aecf423555662643f07f6c2bdf72dd3df3954862231afa31505e18929",
+    "pdf_sha256": "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
+    "printed_page": 80,
+    "rule": "C717",
+    "standardir_rules": [
+      "R706"
+    ],
+    "standardir_sha256": "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+  }
+}

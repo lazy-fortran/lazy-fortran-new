@@ -74,7 +74,8 @@ The E0181 Core 0 closure audit is recorded as an audit-only pass in R000074;
 clean pushed replay R000075 reproduces it. Reconciliation R000076 passes
 coverage accounting and leaves 158 outside-promoted rows. Full M3 remains open
 because witness coverage is incomplete. Broad semantic and model work remains
-closed; the next task selects one bounded property from that residual.
+closed; D0139/E0189 now defines the next bounded C717 contract and
+`T-M3-c717-kind-selector-oracle` is the active replay task.
 
 **Current M3 bounded slice.** D0124 selects the smallest currently represented
 semantic relation: J3/24-007 C1106 requires an ASSOCIATE opening and closing
@@ -345,12 +346,36 @@ tests/e2e/run-m3-c1586-self-reference.sh --fresh
 The first replay retained a trace-format failure as `R000066`; corrected replay
 `R000067`, focused review `R000072` and post-promotion regression replay
 `R000073` pass. This promotes only the bounded C1586 projection; full M3
-remains open. The post-promotion E0181 audit `R000074` passes its deterministic
+remains open.
+
+**Current M3 bounded contract.** D0139/E0189 selects the fourteenth bounded
+delivery contract: J3-24-007 C717 requires the value of
+`scalar-int-constant-expr` in a kind-selector to be nonnegative and to specify
+a representation method that exists on the processor. The selected projection
+does not evaluate the expression or inspect processor capabilities; those are
+typed candidate inputs. Its states are `negative | nonnegative | unknown` and
+`absent | present | unknown`. The oracle returns `ACCEPTED` for
+`(nonnegative, present)`, `REJECTED` for either known violation, and
+`UNRESOLVED` for either unknown state. It binds canonical lines 3263--3264 on
+page 80, page-index span 204806/2920, and StandardIR R706
+(`kind-selector`, occurrence 56). Seven source, page-index, StandardIR,
+semantic-item and contract mutations must fail closed. The central gate is:
+
+```text
+tests/e2e/run-m3-c717.sh --fresh
+```
+
+The manual validator passes; the clean central replay is pending. This is a
+bounded C717 observable, not full C717, arbitrary Fortran parsing, semantic
+analysis, processor inference, model work or full M3 promotion. E0172 remains
+abandoned.
+
+The post-promotion E0181 audit `R000074` passes its deterministic
 merge, validation and witness checks. Reconciliation `R000076` maps all
 thirteen promoted IDs and leaves 158 outside-promoted rows (91 disputed and 67
 unwitnessed). The next executable task is
-`T-M3-core0-next-bounded-property-selection`, using this exact residual
-inventory:
+`T-M3-c717-kind-selector-oracle`; the residual inventory remains available
+through this exact verifier:
 
 ```text
 jq -s 'def promoted: ["C1106","C702","C601","C603","C721","C725","C718","C723","C729","C719","C738","C1579","C1586"]; def is_promoted($id): any(promoted[]; . == $id); map(select((.status == "disputed" or .status == "unwitnessed") and (is_promoted(.constraint_id) | not))) | {rows: length, by_status: (group_by(.status) | map({status: .[0].status, count: length})), row_keys: map(.row_key)}' .cache/runs/E0181/R000002/analysis/witness/witnesses.jsonl

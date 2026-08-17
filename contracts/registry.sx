@@ -23,4 +23,5 @@
   (contract m3-c738-abstract-deferred-binding-oracle 0 lazy-fortran-new)
   (contract m3-c1579-result-entry-name-oracle 0 lazy-fortran-new)
   (contract m3-c1586-statement-function-self-reference-oracle 0 lazy-fortran-new)
-  (contract m3-c729-optional-comma-oracle 0 lazy-fortran-new))
+  (contract m3-c729-optional-comma-oracle 0 lazy-fortran-new)
+  (contract m3-c717-kind-selector-oracle 0 lazy-fortran-new))
