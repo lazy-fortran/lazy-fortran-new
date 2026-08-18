@@ -1,0 +1,61 @@
+id = "frontend-ast-v1-complex-type"
+milestone = "L3"
+boundary = "raw-source-to-typed-frontend-ast-v1-source-derived-complex-type-spec"
+property = "source-derived-complex-type-spec"
+representation_decision = "research/decisions/D0189-next-bounded-complex-type-spec.md"
+representation_decision_sha256 = "4070890e5f9cc35a2e2d7e6c5479fa6140a71246116c6561ec035d3fb3ffd65c"
+origin = "LLM"
+contract_schema = "contracts/frontend-ast-v1.sxs"
+contract_witness = "contracts/fixtures/frontend-ast-v1-complex-type.sx"
+contract_schema_sha256 = "0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274"
+contract_witness_sha256 = "f5a4e5ea6c7f8e0b12876df3c8db18b122fc38fc6e1fd56e8e20bdbaa0cdebae"
+source_evidence_document = "J3-24-007"
+source_evidence_pdf_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+source_evidence_standardir = ".cache/runs/E0171/R000433-provenance-replay/standardir.sx"
+source_evidence_standardir_sha256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+source_evidence_source_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+source_evidence_canonical_text = ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"
+source_evidence_canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+source_evidence_rules = ["R501", "R1401", "R1402", "R1403", "C1401", "R601", "R603", "R702", "R703", "R704", "R801"]
+source_evidence_pages = [53, 54, 68, 77, 80, 117, 317]
+source_evidence_canonical_lines = [3135, 3140, 3255, 3256, 3257, 3258, 3259, 3260, 4869, 13669, 13670]
+source_evidence_canonical_line_text = [
+  "15 R702 type-spec is intrinsic-type-spec",
+  "20 R703 declaration-type-spec is intrinsic-type-spec",
+  "7 R704 intrinsic-type-spec is integer-type-spec",
+  "8 or REAL [ kind-selector ]",
+  "9 or DOUBLE PRECISION",
+  "10 or COMPLEX [ kind-selector ]",
+  "11 or CHARACTER [ char-selector ]",
+  "12 or LOGICAL [ kind-selector ]",
+  "13 R801 type-declaration-stmt is declaration-type-spec [ [ , attr-spec ] ... :: ] entity-decl-list",
+  "12 C1401 (R1401) The program-name shall not be included in the end-program-stmt unless the optional program-",
+  "13 stmt is used. If included, it shall be identical to the program-name specified in the program-stmt."
+]
+expected_oracle = "tests/golden/frontend-ast-v1-complex-type.oracle.toml"
+expected_oracle_sha256 = "2d7c7468bbeae77064a048c6f5ef77ff7c7f2590a14438b0538f24bbe4877cc2"
+negative = "tests/negative/l3-ast-program-complex-type-missing-entity-v1.f90"
+negative_sha256 = "d3e38be29db09756ab7a4b692af4958e1b3ec108a2f4fc45328d0fd7ef1cfbef"
+model_calls = 0
+semantic_promotions = 0
+
+[[case]]
+id = "complex"
+source = "tests/fixtures/l3-ast-program-complex-type-main-v1.f90"
+source_sha256 = "aa6e14f1b7a47f795391b67f1b56e895b1ae3cdb46c8a0d18ac504049a784312"
+expected_outcome = "ACCEPTED"
+expected_root_name = "main"
+expected_program_declaration_name = "main"
+expected_source_type_spec = "complex"
+expected_variable_type = "complex"
+expected_variable_name = "x"
+
+[[case]]
+id = "real-control"
+source = "tests/fixtures/l3-ast-program-real-type-main-v1.f90"
+source_sha256 = "c102d7dff1a068fbd977acea1283fbec3bbd78a200b60f7758bf782c972eaf76"
+expected_outcome = "ACCEPTED"
+expected_root_name = "main"
+expected_program_declaration_name = "main"
+expected_variable_type = "real"
+expected_variable_name = "x"
