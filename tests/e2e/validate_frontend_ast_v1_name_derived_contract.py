@@ -48,7 +48,19 @@ def main() -> int:
     require(digest(witness) == manifest["contract_witness_sha256"], "witness hash differs")
     require(digest(oracle_path) == manifest["expected_oracle_sha256"], "oracle hash differs")
     require(manifest["source_evidence_document"] == "J3-24-007", "source document differs")
+    require(manifest["source_evidence_pdf_sha256"] == "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2", "PDF evidence hash differs")
+    require(manifest["source_evidence_standardir"] == ".cache/runs/E0171/R000433-provenance-replay/standardir.sx", "StandardIR evidence path differs")
+    require(manifest["source_evidence_standardir_sha256"] == "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2", "StandardIR evidence hash differs")
+    require(manifest["source_evidence_source_sha256"] == "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e", "source evidence hash differs")
+    require(manifest["source_evidence_pages"] == [53, 54, 67, 68, 80, 117, 150], "source evidence pages differ")
     require(manifest["source_evidence_rules"] == RULES, "source rules differ")
+    witness_text = witness.read_text(encoding="utf-8")
+    require(f"(property {manifest['property']})" in witness_text, "witness property differs")
+    require(f"(schema-sha256 {manifest['contract_schema_sha256']})" in witness_text, "witness schema hash differs")
+    require("(pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" in witness_text, "witness PDF hash differs")
+    require("(standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)" in witness_text, "witness StandardIR hash differs")
+    require("(source-sha256 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)" in witness_text, "witness source hash differs")
+    require("(rules R501 R1401 R504 R507 R508 R601 R602 R603 R704 R705 R801 R903)" in witness_text, "witness rules differ")
     require(oracle["origin"] == "LLM", "oracle origin differs")
     require(oracle["property"] == manifest["property"], "oracle property differs")
     require(oracle["source_rules"] == ["R601", "R602", "R603", "R903"], "oracle source rules differ")
@@ -73,6 +85,12 @@ def main() -> int:
         end = case["expected_variable_end_byte"]
         require((start, end) == (10, len(POSITIVE_PREFIX + name)), f"{case['id']} span is not source-derived")
         require(source[start:end] == b"  integer :: " + name, f"{case['id']} declaration span differs")
+        require(f"(id {case['id']})" in witness_text, f"{case['id']} witness case missing")
+        require(f"(source {case['source']})" in witness_text, f"{case['id']} witness source differs")
+        require(f"(source-sha256 {case['source_sha256']})" in witness_text, f"{case['id']} witness hash differs")
+        require(f"(variable-name {case['expected_variable_name']})" in witness_text, f"{case['id']} witness name differs")
+        require(f"(start-byte {case['expected_variable_start_byte']})" in witness_text, f"{case['id']} witness start differs")
+        require(f"(end-byte {case['expected_variable_end_byte']})" in witness_text, f"{case['id']} witness end differs")
         expected_oracle = oracle_cases[case["id"]]
         oracle_fields = {
             "expected_outcome": "expected_outcome",
