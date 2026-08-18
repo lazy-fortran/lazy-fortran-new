@@ -7935,7 +7935,7 @@ tasks:
     milestone: L3
     title: Select the next source-derived identifier boundary contract
     status: OPEN
-    verification: PENDING
+    verification: PASS
     review_state: PENDING
     priority: 90
     depends_on: [T-L3-frontend-ast-v1-name-multichar-replay]
@@ -7960,6 +7960,7 @@ tasks:
       - research/runs/2026-08.jsonl#R000682
       - research/runs/2026-08.jsonl#R000687
       - research/runs/2026-08.jsonl#R000688
+      - research/runs/2026-08.jsonl#R000693
     output: one independently verifiable identifier-boundary contract or one precise blocker
     integration: controller-only
     estimated_cost: small
@@ -7994,7 +7995,7 @@ tasks:
     milestone: L3
     title: Implement the source-derived typed-name boundary
     status: OPEN
-    verification: PENDING
+    verification: PASS
     review_state: PENDING
     priority: 90
     depends_on: [T-L3-frontend-identifier-boundary-contract]
@@ -8021,6 +8022,7 @@ tasks:
         sha256: 101ea02fd0cdb9a5c3b5a9d3f16806d396686181274e670c62eccc26b530b369
       - component: fortfront-new
         commit: 157236b11540d6a55676e159062e6f9423577a0d
+      - research/runs/2026-08.jsonl#R000693
     output: one fortfront producer commit plus central replay evidence for beta, q7 and theta_2
     integration: controller-only
     estimated_cost: small
