@@ -739,7 +739,7 @@ def main() -> None:
                 output_count = int(count_text)
             except ValueError:
                 output_count = 0
-            if output_count in range(7, 21):
+            if output_count in range(7, 41):
                 source_hashes = {
                     7: "7c6021632b8035916749178f06ee778506cad38953db2de10fae28a39941f200",
                     8: "25fd7fa4285ba064d93a886d3033b43a09346b9e62cd152308941578f0c1d785",
@@ -755,6 +755,26 @@ def main() -> None:
                     18: "414e2c1093683ff71e85da4d66389c5de2ffe1739574b25711e1314759060467",
                     19: "5f30ac6c38f6f71045c7ef16debcd79ff21f56bebae4d8937c4a3d273fca3f1a",
                     20: "8707e62d4aa8d8b33da80c3be980b7f49e8bb71aaba50dbb14890f67642b7b55",
+                    21: "6e23c0dba4b3450593e4081e3b15ff862aae33159947c79c2dd9d0444372645a",
+                    22: "a6c50be040d956e55e54d13b1eb881020fea0353b961152f1b6508cf191a6719",
+                    23: "03eb79624fb79cc47e6940176c564595f99cd31cc9b9dc4fb68172707c64ce7d",
+                    24: "b6e459671f3c5eb02bd4043140435034f05eadc3cf93783fd0f4378068ffae6d",
+                    25: "d49b229ec2d9ab74e38159511850bc741ca0e1feadd6089b017b2a77b281ce22",
+                    26: "34597de3c8559eda7e9c4e88ff9d58e8c8a6116056377b50dd161a663ee6f135",
+                    27: "f6c267e651b72c756acafdd444f8ec7f0a893ae31ceea1bfd55b56c938c50c93",
+                    28: "9f6a87983cf6972f9bef8f3d5167624dae28c24e4e1b63ac150de9a3f30e9c72",
+                    29: "0fb0911b1e0d3710bdfff0b3a630fe509c49e456010e3e72f84c85c37b04df6d",
+                    30: "7686a8b398ace2fb6d8b5a46087d6ed924fd2bc892aa890fad0491e88e806147",
+                    31: "9f63fef9ba57fab7172e0d8c91aeed865fc5b280237e51b2ad9d3ef2b7ac0f47",
+                    32: "1a9ab93152a3ef13932463905d05f4538c321cd55faae1c1dcb3072e776fb819",
+                    33: "df999ae27acc4d35593f88ba0bc063d3a3cdab9cb20de83eb393fa277a9dd7b6",
+                    34: "653f323d30b0aa8f3cfa39dfe7c57a6b392de2770032b943e04907ba0757b086",
+                    35: "e22d34a72297048c5bb69f13ebba237d9459de2c5795feb6e184a9023f79cf5c",
+                    36: "a9d4d6ac3eb062a8019cc9fa910bc8239741bd184cabec4c7537ee7e81738bb9",
+                    37: "e885552fb50061c97bd128a15272d5c35a62316bb1bab07eff1d671269f12a8d",
+                    38: "5d2f03c70425d7fc8606ee56b30800a6b66d4f07d61a9479377308a308bb3995",
+                    39: "6af0ea569909b7ab15ea944c98795b6edca044abcfa8ce78fc9910b171a6c7c2",
+                    40: "8c451a6e4f91648174615867564d58697a19ea3fc011fc5260ed0b2cfb9da8b9",
                 }
                 elf_hashes = {
                     7: "27a377c55a74589b606f06f89840a58f52987b41ec1df659e93926a9b27ce5ff",
@@ -771,6 +791,10 @@ def main() -> None:
                     18: "83c021a7406bdb7b4e461ea2e5adef915d34e59386dba2a28857cc5f78c3ab28",
                     19: "9e950afe8203dc13ce18682be82d1ce6069eba0ed0e0d1de929eb84c472a9d3c",
                     20: "6a5726d6f493317ddf3b06c317cb75fbee031a5c55c1f9901c87ad802feaef06",
+                    21: "", 22: "", 23: "", 24: "", 25: "",
+                    26: "", 27: "", 28: "", 29: "", 30: "",
+                    31: "", 32: "", 33: "", 34: "", 35: "",
+                    36: "", 37: "", 38: "", 39: "", 40: "",
                 }
                 output_names = ", ".join(["x"] * output_count)
                 expected_source = (
