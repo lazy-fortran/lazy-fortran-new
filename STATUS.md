@@ -79,6 +79,10 @@ negative neighbor is the still-out-of-scope `x ** 2` form. This remains one
 bounded division expression item, not general operator parsing or semantic
 promotion.
 
+The next active L3 slice `T-L3-generic-print-expression-power` is prepared
+with source-backed R1008 evidence and an independent oracle for `x ** 2` as
+one generic PRINT item. Its component implementation wave is next.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

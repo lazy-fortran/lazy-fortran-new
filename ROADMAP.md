@@ -318,6 +318,10 @@ The next executable slice is prepared as `l3-print-expression-divide-v0`:
 the generic PRINT expression item uses source-backed integer division `x / 2`,
 with an independent AST/MIR/qemu oracle. It is not implemented or promoted
 yet.
+The next executable slice is prepared as `l3-print-expression-power-v0`:
+the generic PRINT expression item uses source-backed integer power `x ** 2`,
+with R1008 evidence and an independent AST/MIR/qemu oracle. It is not
+implemented or promoted yet.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,

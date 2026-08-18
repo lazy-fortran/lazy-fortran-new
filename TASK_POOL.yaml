@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  []
+  - T-L3-generic-print-expression-power
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-L3-generic-print-expression-power
 
 milestones:
   - id: L0
@@ -11658,6 +11658,74 @@ tasks:
       bash tests/e2e/check-generated-print-expression-divide.sh
     final_observable: central generic-print-expression-divide PASS with prior expression and generic PRINT routes preserved
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
+  - id: T-L3-generic-print-expression-power
+    milestone: L3
+    title: Add a generated integer power expression item to the generic PRINT list
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 148
+    depends_on: [T-L3-generic-print-expression-divide]
+    inputs:
+      - contract: contracts/l3-print-expression-power-v0.sxs
+      - contract-witness: contracts/fixtures/l3-print-expression-power-v0.sx
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 4da73c95fdd04bb4473212d2a807415a8c61cb8c
+      - component: ffc-new
+        commit: 1682ab8b87edb371182e937b686d7fc301db79f3
+      - component: fortback-new
+        commit: ee35285b2acbbdbb496ee9056a5afd43924e1f12
+      - normative-source: J3-24-007
+        rules: [R901, R1006, R1008, R1009, R1212, R1215, R1217]
+        printed-pages: [155, 169, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-expression-power-v0.f90
+          - tests/fixtures/l3-print-expression-power-wide-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-expression-power-v0-missing-operand.f90
+          - tests/negative/l3-print-expression-power-v0-wrong-value.f90
+          - tests/negative/l3-print-expression-power-v0-write.f90
+          - tests/negative/l3-print-expression-power-v0-wrong-name.f90
+    output: >-
+      central PASS for one generated output-list expression item with the
+      fixed AST shape `(kind integer-expression) (operator **) (left x)
+      (right 2)`, typed MIR load/const/pow/output lowering, and RISC-V/qemu
+      execution; preserve prior expression and integer-list routes and reject
+      the four listed source neighbours
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-expression-power
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - contracts/l3-print-expression-power-v0.sxs
+        - contracts/fixtures/l3-print-expression-power-v0.sx
+        - tests/e2e/check-generated-print-expression-power.sh
+        - tests/e2e/oracle_generated_print_expression_power.py
+        - tests/fixtures/l3-print-expression-power-*
+        - tests/negative/l3-print-expression-power-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve the generic PRINT-list, x+1, x+x, x*2 and x/2 expression
+      routes; accept both positive x**2 sources using the fixed expression
+      item AST shape; reject missing operand, x**3 wrong-value, WRITE, and
+      undeclared-name neighbors; check source provenance, MIR
+      load/const/pow/output order, exact stdout, and AST/MIR/ELF mutations.
+      No general expressions, formatted I/O, arrays, non-integer output, or
+      semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-expression-power.sh
+    final_observable: central generic-print-expression-power PASS with prior expression and generic PRINT routes preserved
+    evidence: contract and independent oracle prepared; implementation wave not yet replayed
     retry_count: 0
     integration_cycle_trigger: interface_change
 
