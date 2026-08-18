@@ -65,7 +65,9 @@ The bounded generated chain now passes
 frontend AST-v1, then MIR-v0, then a RISC-V ELF, with an independent oracle
 checking the correspondence and output class, and executes it under
 `qemu-riscv64` with exit status zero. This is still one exact
-`program p` / `integer :: x` witness, not arbitrary Fortran or full M3.
+`integer :: x` declaration through both source-derived program-name witnesses,
+not arbitrary Fortran or full M3. The latest wave also moved the program
+grammar and frontend/MIR bridge source-rule policies into generated artifacts.
 The post-integration component gates and central COMPLEX replay also pass.
 The next implementation step is to broaden the generated interfaces only
 when another bounded source shape and its downstream oracle are ready.
