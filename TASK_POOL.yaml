@@ -10249,11 +10249,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 7a7d9d4c8542795ac814f870de18fa1e5e818112
+        commit: c3b988df46d50ff802d2ae36d1681e20c5e556cf
       - component: ffc-new
-        commit: da4c78d8a9a21964fe4c57f4506ccd830b63fffc
+        commit: 9c253009a148356c694866ea1fb059672be6ef65
       - component: fortback-new
-        commit: 1f8b243734801164f7daae1c8b4cc2b1ca082d61
+        commit: 91a617071fa46c7abe5b0ba34ca3328a44a5bf5e
       - normative-source: J3-24-007
         rules: [R704, R901, R1008, R1033, R1212, R1215, R1217]
         printed-pages: [155, 183, 205, 242, 244, 248]
@@ -10297,8 +10297,8 @@ tasks:
   - id: T-L3-generated-print-variable-three-item-batch
     milestone: L3
     title: Generate and execute PRINT of a stored variable three times
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 106
     depends_on: [T-L3-generated-print-variable-two-item-batch]
@@ -10306,11 +10306,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 7a7d9d4c8542795ac814f870de18fa1e5e818112
+        commit: c3b988df46d50ff802d2ae36d1681e20c5e556cf
       - component: ffc-new
-        commit: da4c78d8a9a21964fe4c57f4506ccd830b63fffc
+        commit: 9c253009a148356c694866ea1fb059672be6ef65
       - component: fortback-new
-        commit: 1f8b243734801164f7daae1c8b4cc2b1ca082d61
+        commit: 91a617071fa46c7abe5b0ba34ca3328a44a5bf5e
       - normative-source: J3-24-007
         rules: [R704, R901, R1008, R1033, R1212, R1215, R1217]
         printed-pages: [155, 183, 205, 242, 244, 248]
@@ -10349,6 +10349,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for PRINT of a stored variable three times; regenerate with bash tests/e2e/check-generated-chain.sh
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:
