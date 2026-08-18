@@ -36,6 +36,7 @@ print_source_file="$ROOT/tests/fixtures/l3-ast-program-print-7-v1.f90"
 print_two_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-two-item-v1.f90"
 print_three_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-three-item-v1.f90"
 print_four_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-four-item-v1.f90"
+print_five_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-five-item-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -110,6 +111,11 @@ negative_print_four_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-four-item-missing-fourth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-four-item-wrong-fourth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-four-item-v1.f90"
+)
+negative_print_five_item_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-five-item-missing-fifth-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-five-item-wrong-fifth-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-five-item-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -757,6 +763,30 @@ qemu-riscv64 "$print_four_item_elf_file" > "$print_four_item_output_file"
 printf '7\n8\n9\n10\n' | cmp -s - "$print_four_item_output_file"
 python3 "$oracle" "$print_four_item_ast_file" "$print_four_item_mir_file" \
     "$print_four_item_elf_file" p integer print-7-8-9-10
+
+print_five_item_ast_file="$run_dir/print-five-item.frontend.ast.sx"
+print_five_item_mir_file="$run_dir/print-five-item.mir.sx"
+print_five_item_elf_file="$run_dir/print-five-item.program.elf"
+print_five_item_output_file="$run_dir/print-five-item.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_five_item_source_file" \
+        "$print_five_item_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_five_item_ast_file" \
+        "$print_five_item_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$print_five_item_mir_file" \
+        "$print_five_item_elf_file") > /dev/null 2>&1
+for negative_print_five_item in "${negative_print_five_item_files[@]}"; do
+    rm -f "$run_dir/negative-print-five-item.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_five_item" \
+            "$run_dir/negative-print-five-item.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid five-item PRINT mutation was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-print-five-item.ast.sx" ]
+done
+qemu-riscv64 "$print_five_item_elf_file" > "$print_five_item_output_file"
+printf '7\n8\n9\n10\n11\n' | cmp -s - "$print_five_item_output_file"
+python3 "$oracle" "$print_five_item_ast_file" "$print_five_item_mir_file" \
+    "$print_five_item_elf_file" p integer print-7-8-9-10-11
 
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"

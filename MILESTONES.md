@@ -1185,11 +1185,11 @@ canonical AST-v1 atom `double-precision`; R000721/R000722 pass the correction.
 E0243/R000726 plus R000727/R000728 promote the exact producer/replay leaf at
 pushed fortfront `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`; R000724 remains
 retained stale metadata. The generated storage/sequence successor and the
-source-backed STOP 7, PRINT 7, PRINT 7,8, PRINT 7,8,9 and PRINT 7,8,9,10
-successors are now integrated; the central command
-`bash tests/e2e/check-generated-chain.sh` passes 32 routes, including qemu
-status 7, exact PRINT stdout `7\n8\n9\n10\n`, and all STOP/PRINT mutation
-controls. The next bounded successor is a five-item PRINT output list; general
+source-backed STOP 7, PRINT 7, PRINT 7,8, PRINT 7,8,9, PRINT 7,8,9,10 and
+PRINT 7,8,9,10,11 successors are now integrated; the central command
+`bash tests/e2e/check-generated-chain.sh` passes 33 routes, including qemu
+status 7, exact PRINT stdout `7\n8\n9\n10\n11\n`, and all STOP/PRINT mutation
+controls. The next bounded successor is a six-item PRINT output list; general
 I/O remains out of scope.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
