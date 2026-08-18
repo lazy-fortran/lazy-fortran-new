@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generic-integer-print-list
+  []
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-integer-print-list
+active_task: null
 
 milestones:
   - id: L0
@@ -7996,9 +7996,9 @@ tasks:
   - id: T-L3-generic-integer-print-list
     milestone: L3
     title: Replace PRINT item-count routes with a generic integer output list
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: CLOSED
+    verification: PASS
+    review_state: PASS
     priority: 143
     depends_on: [T-L3-generated-print-variable-eighty-one-one-hundred-batch]
     inputs:
@@ -8055,7 +8055,10 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-list.sh
     final_observable: central generic-print-list PASS with the prior generated-chain replay preserved
-    evidence: implementation repairs integrated; central replay and focused review pending
+    evidence: >-
+      central replay PASS; bounded-only promotion; focused review PASS from
+      artifacts/reports/L3/generic-integer-print-list-focused-review-v1.md;
+      evidence gate PASS
     retry_count: 0
     integration_cycle_trigger: interface_change
 

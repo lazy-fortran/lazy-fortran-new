@@ -42,7 +42,9 @@ arbitrary Fortran, implement general I/O controls or formats, or promote M3
 semantics. The generic integer PRINT-list successor now passes
 `bash tests/e2e/check-generated-print-list.sh` for mixed three-item and
 five-item lists, four rejected source neighbours, exact qemu output and the
-preserved 146-route replay. It replaces item-numbered fields for this new
+preserved 146-route replay; its focused promotion review is retained at
+`artifacts/reports/L3/generic-integer-print-list-focused-review-v1.md`. It
+replaces item-numbered fields for this new
 source shape but does not yet provide general I/O, formatted output, arrays,
 non-integer output or corpus breadth.
 
