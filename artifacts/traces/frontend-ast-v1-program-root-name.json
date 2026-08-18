@@ -1,0 +1,37 @@
+{
+  "boundary": "raw-source-to-typed-frontend-ast-v1-source-derived-program-root-name",
+  "cases": [
+    {
+      "ast_sha256": "7df19708c8aa8dc893b619bd65b3db15f3028ee8f37d79ddd9fc42462406a23d",
+      "id": "main",
+      "source": {
+        "path": "tests/fixtures/l3-ast-program-root-name-main-v1.f90",
+        "sha256": "80be862de3aa64e45bb7e5c921037eb4aae482cd10ea4e70eac23fdcb9e941fe"
+      }
+    },
+    {
+      "ast_sha256": "dd4af21e1e3517b63a7c15c224fb3f07d1adaf143b0ef33a2b8d838042c7bdf6",
+      "id": "unit",
+      "source": {
+        "path": "tests/fixtures/l3-ast-program-root-name-unit-v1.f90",
+        "sha256": "6b659c15a4fcac80a20a3ecae518597694fb458a3198061a7499f119c445ded7"
+      }
+    }
+  ],
+  "components": {
+    "fortfront-new": "04ca10b9d191366f328a39d0133375fd6aa62e4e"
+  },
+  "fixture": "frontend-ast-v1-program-root-name",
+  "milestone": "L3",
+  "model_calls": 0,
+  "negative": {
+    "expected_outcome": "REJECTED",
+    "id": "mismatched-end",
+    "rejection_marker": "typed frontend rejected source:"
+  },
+  "semantic_promotions": 0,
+  "toolchain": {
+    "fo": "fo 0.3.2",
+    "python": "Python 3.14.6"
+  }
+}

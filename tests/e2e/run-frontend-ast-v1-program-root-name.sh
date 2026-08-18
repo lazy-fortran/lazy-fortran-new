@@ -53,6 +53,10 @@ if manifest["validator"] != "tests/e2e/validate_frontend_ast_v1_program_root_nam
     raise SystemExit("validator path is not the frozen validator")
 if manifest["trace_writer"] != "tests/e2e/write_frontend_ast_v1_program_root_name_trace.py":
     raise SystemExit("trace-writer path is not the frozen trace writer")
+trace = root / manifest["trace"]
+if trace.is_file() and manifest.get("trace_sha256"):
+    if hashlib.sha256(trace.read_bytes()).hexdigest() != manifest["trace_sha256"]:
+        raise SystemExit("committed trace hash differs")
 contract = tomllib.loads((root / manifest["contract_manifest"]).read_text(encoding="utf-8"))
 for case in contract["case"]:
     path = root / case["source"]
