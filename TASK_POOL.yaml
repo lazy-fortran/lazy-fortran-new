@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-real-type-implementation
+  - T-L3-next-bounded-boundary-selection-after-real-type
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-real-type-implementation
+active_task: T-L3-next-bounded-boundary-selection-after-real-type
 
 milestones:
   - id: L0
@@ -8274,7 +8274,7 @@ tasks:
       - component: fortfront-new
         commit: 04ca10b9d191366f328a39d0133375fd6aa62e4e
       - path: research/experiments/E0242-can-a-bounded-ast-v1-real-type-spec-be-d/manifest.yaml
-        sha256: f2dc1b5c06ec51cee28ae50efb9c4a62d5778cfd9f996bd1bd46f678c3be99e0
+        sha256: 869e0a3ea8ea45077d17b3d71270ca324d22bc45196912b739375aceb276ec25
       - path: artifacts/reports/L3/frontend-ast-v1-real-type-contract-focused-review-v1.md
         sha256: a09700ffef2eed4cd778a8b288dbbe425dfeb84c24351f8e06abaae3aef4f2ea
       - research/runs/2026-08.jsonl#R000701
@@ -8318,14 +8318,14 @@ tasks:
   - id: T-L3-frontend-real-type-implementation
     milestone: L3
     title: Implement the bounded source-derived REAL type-spec boundary
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-frontend-real-type-contract]
     inputs:
       - path: research/experiments/E0242-can-a-bounded-ast-v1-real-type-spec-be-d/manifest.yaml
-        sha256: f2dc1b5c06ec51cee28ae50efb9c4a62d5778cfd9f996bd1bd46f678c3be99e0
+        sha256: 869e0a3ea8ea45077d17b3d71270ca324d22bc45196912b739375aceb276ec25
       - path: contracts/fixtures/frontend-ast-v1-real-type.sx
         sha256: 8850ef627ec8fc94d89cd31defed00a7d2dbea118b9b6523c6e8a8f6f2432d38
       - path: tests/fixtures/frontend-ast-v1-real-type-contract.toml
@@ -8350,9 +8350,16 @@ tasks:
         sha256: a09700ffef2eed4cd778a8b288dbbe425dfeb84c24351f8e06abaae3aef4f2ea
       - research/runs/2026-08.jsonl#R000705
       - research/runs/2026-08.jsonl#R000706
+      - path: artifacts/reports/L3/frontend-ast-v1-real-type-focused-review-v1.md
+        sha256: 390587e1685de57254c6c239b032c80f655a1d762388cbe98f36f3517de85f32
+      - research/runs/2026-08.jsonl#R000707
+      - research/runs/2026-08.jsonl#R000708
+      - research/runs/2026-08.jsonl#R000709
+      - research/runs/2026-08.jsonl#R000710
+      - research/runs/2026-08.jsonl#R000711
       - component: fortfront-new
         commit: c91595db71aa353564ec5a7f8c2a61b80e82b389
-    output: one pushed fortfront implementation commit plus central REAL replay, or one precise blocker
+    output: PASS-BOUNDED-ONLY pushed fortfront implementation and central REAL replay
     integration: component worker then controller replay
     estimated_cost: small
     parallel_group: fortfront-exclusive
@@ -8371,9 +8378,55 @@ tasks:
     verifier_command: >-
       fo clean && fo && fo test && tools/regenerate_generated_ast_v1.sh &&
       python3 tools/test_generated_ast_v1.py
-    final_observable: pushed component commit passing its gate and ready for central REAL replay
+    final_observable: R000709 replay plus focused reviews R000710/R000711
     retry_count: 0
     integration_cycle_trigger: next_central_replay
+  - id: T-L3-next-bounded-boundary-selection-after-real-type
+    milestone: L3
+    title: Select the next bounded source-backed frontend boundary after REAL
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-real-type-implementation]
+    inputs:
+      - path: research/experiments/E0242-can-a-bounded-ast-v1-real-type-spec-be-d/manifest.yaml
+        sha256: 869e0a3ea8ea45077d17b3d71270ca324d22bc45196912b739375aceb276ec25
+      - path: research/decisions/D0186-next-bounded-intrinsic-type-spec.md
+        sha256: 51319e66e54e96e9a082c8cd051e91128fde09205ae918de475f4ccd7d47e613
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - path: artifacts/reports/L3/frontend-ast-v1-real-type-focused-review-v1.md
+        sha256: 390587e1685de57254c6c239b032c80f655a1d762388cbe98f36f3517de85f32
+      - research/runs/2026-08.jsonl#R000709
+      - research/runs/2026-08.jsonl#R000710
+      - research/runs/2026-08.jsonl#R000711
+      - component: fortfront-new
+        commit: c91595db71aa353564ec5a7f8c2a61b80e82b389
+    output: one accepted next-boundary decision or one precise blocker
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0187-*.md
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+        - MILESTONES.md
+    verifier: >-
+      inspect the current source-backed StandardIR evidence and the existing
+      frontend AST v1 shape, then select one next bounded case with exact
+      evidence and explicit exclusions. Do not implement it, broaden intrinsic
+      type parsing, resume E0172, or start general semantic work.
+    verifier_command: >-
+      scripts/check-decisions.sh && scripts/check-contracts.sh && git diff --check
+    final_observable: accepted D0187 next-boundary decision or one precise blocker
+    retry_count: 0
+    integration_cycle_trigger: next_contract
 integration_cycle:
   triggers:
     verified_deltas: 4

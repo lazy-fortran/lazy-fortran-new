@@ -1175,11 +1175,11 @@ PROGRAM contract, including C1401. E0241/R000698 passes the clean
 no-bootstrap replay at pushed fortfront
 `04ca10b9d191366f328a39d0133375fd6aa62e4e`; focused reviews R000699/R000700
 promote this exact leaf as PASS-BOUNDED-ONLY. Full M3 remains open. D0186 now
-selects the no-kind-selector REAL type-spec contract; E0242 freezes it at
-central `24674d4`, and focused reviews R000705/R000706 pass. The active task is
-the isolated fortfront implementation; R000701/R000703 remain retained oracle
-failures. No general type parsing or semantic promotion follows from this
-bounded handoff.
+selects the no-kind-selector REAL type-spec contract. E0242/R000709 and focused
+reviews R000710/R000711 promote the exact REAL producer/replay leaf as
+PASS-BOUNDED-ONLY. R000701, R000703 and R000707 remain retained caught
+failures. The active task is the next bounded-boundary selection. No general
+type parsing or semantic promotion follows from this bounded handoff.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

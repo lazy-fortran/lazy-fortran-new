@@ -40,10 +40,11 @@ and matching END PROGRAM contract, including C1401. E0241/R000698 passes the
 clean no-bootstrap producer replay at pushed fortfront
 `04ca10b9d191366f328a39d0133375fd6aa62e4e`; focused reviews R000699/R000700
 promote this exact leaf as PASS-BOUNDED-ONLY. D0186 selects the no-kind-selector
-REAL type-spec boundary. E0242 freezes the contract at central `24674d4`;
-focused reviews R000705/R000706 pass, while R000701/R000703 remain retained
-oracle failures. The active task is the isolated fortfront implementation;
-the path still does not parse arbitrary Fortran or close full M3.
+REAL type-spec boundary. E0242/R000709 plus focused reviews R000710/R000711
+promote the exact REAL producer/replay leaf as PASS-BOUNDED-ONLY. R000701,
+R000703 and R000707 remain retained caught failures. The active task is the
+next bounded-boundary selection; the path still does not parse arbitrary
+Fortran or close full M3.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
