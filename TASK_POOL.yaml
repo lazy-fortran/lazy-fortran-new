@@ -8862,6 +8862,52 @@ tasks:
     final_observable: central generated chain PASS with the four-assignment execution witness
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-generated-five-assignment-sequence-wave
+    milestone: L3
+    title: Extend generated storage transport to five ordered assignments
+    status: PASS
+    verification: PASS
+    review_state: PENDING
+    priority: 95
+    depends_on: [T-L3-generated-four-assignment-sequence-wave]
+    inputs:
+      - component: fortfront-new
+        commit: ea93d73b38f8e9ff95fc582d3bf3b5fb7dc5e618
+      - component: ffc-new
+        commit: ebb9e5ed677d0975f75827179a438ac829ff6928
+      - component: fortback-new
+        commit: ef37e80fb7e48ce0ff0bcdb1b614fb3f4c5a053a
+      - path: tests/fixtures/l3-ast-program-integer-five-assignment-v1.f90
+      - path: tests/negative/l3-ast-program-integer-five-assignment-wrong-operator-v1.f90
+      - path: tests/negative/l3-ast-program-integer-five-assignment-missing-fifth-v1.f90
+      - path: tests/negative/l3-ast-program-integer-five-assignment-wrong-variable-v1.f90
+    output: >-
+      central replay PASS for the exact ordered x = 7; x = x + 1 repeated
+      four times, generated nineteen-instruction MIR and qemu exit 11
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-sequence-5
+    ownership:
+      component: fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all existing central routes and reject wrong-operator,
+      missing-fifth and wrong-variable neighbours. Require the exact
+      nineteen-opcode generated MIR, storage-key x on loads and stores, matching
+      backend stack slot and qemu exit 11. No general statement list, name
+      resolution or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with the five-assignment execution witness
+    retry_count: 0
+    integration_cycle_trigger: next_replay
   - id: T-L3-generated-program-execution-envelope-wave
     milestone: L3
     title: Connect the declaration and execution-part envelope to MIR and TargetIR
@@ -8869,16 +8915,16 @@ tasks:
     verification: PASS
     review_state: PENDING
     priority: 100
-    depends_on: [T-L3-generated-four-assignment-sequence-wave]
+    depends_on: [T-L3-generated-five-assignment-sequence-wave]
     inputs:
       - component: standard-new
         commit: f23943b8badf4b8971b65dafe36a9915e6c5b5d4
       - component: fortfront-new
-        commit: ac6fa6c8023b51f18c97ae40f18a9e3297236ef7
+        commit: ea93d73b38f8e9ff95fc582d3bf3b5fb7dc5e618
       - component: ffc-new
-        commit: 69f2a4695973bdfbe717ea99aff4a29c91162bcf
+        commit: ebb9e5ed677d0975f75827179a438ac829ff6928
       - component: fortback-new
-        commit: bf8de6739e68e48c1d81084962c973cdffff3ac1
+        commit: ef37e80fb7e48ce0ff0bcdb1b614fb3f4c5a053a
       - path: tests/fixtures/l3-ast-program-integer-two-assignment-v1.f90
     output: >-
       central PASS for one additive program-unit-v2 envelope carrying the
@@ -8898,7 +8944,7 @@ tasks:
         - STATUS.md
         - ROADMAP.md
     verifier: >-
-      preserve all 19 existing routes and reject wrong root, declaration, type,
+      preserve all 20 existing routes and reject wrong root, declaration, type,
       operator and execution order. Require the additive envelope, the seven
       storage MIR operations with frontend-ast-v2/execution-part provenance,
       matching backend stack slot and qemu exit 8. No general program parser,
