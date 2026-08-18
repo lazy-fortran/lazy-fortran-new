@@ -33,18 +33,35 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
 
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "envelope") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "envelope", "envelope-5") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "envelope") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "envelope", "envelope-5") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "envelope") and ast.count("(variable (variable-declaration ") != 1:
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "envelope", "envelope-5") and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "envelope") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "envelope", "envelope-5") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
         fail("MIR-v0 function witness is wrong")
-    if mode == "envelope":
+    if mode == "envelope-5":
+        if not ast.startswith("(program-unit-v2 ") or \
+                "(declaration-count 1)" not in ast or \
+                "(variable-count 1)" not in ast or \
+                "(variable (variable-declaration (type-spec integer) (name x)" not in ast or \
+                "(execution-part (assignment-sequence (assignment-count 5)" not in ast or \
+                ast.count("(assignment (assignment-stmt ") != 5:
+            fail("AST-v2 five-assignment execution envelope witness is wrong")
+        if mir.count("(opcode const)") != 5 or \
+                mir.count("(opcode store)") != 5 or \
+                mir.count("(opcode load)") != 4 or \
+                mir.count("(opcode add)") != 4 or \
+                mir.count("(opcode return)") != 1 or \
+                mir.count("(storage-key x)") != 9 or \
+                mir.count("(source-rule frontend-ast-v2/execution-part-5)") != 19 or \
+                "(literal 7)" not in mir or mir.count("(literal 1)") != 4:
+            fail("MIR-v0 five-assignment execution envelope shape is wrong")
+    elif mode == "envelope":
         if not ast.startswith("(program-unit-v2 ") or \
                 "(declaration-count 1)" not in ast or \
                 "(variable-count 1)" not in ast or \
@@ -202,7 +219,8 @@ def main() -> None:
             fail("MIR-v0 variable storage identity is wrong")
     else:
         fail("unsupported generated chain mode")
-    expected_result_count = 19 if mode == "sequence-5" else \
+    expected_result_count = 19 if mode == "envelope-5" else \
+        19 if mode == "sequence-5" else \
         15 if mode == "sequence-4" else \
         11 if mode == "sequence-3" else \
         7 if mode == "sequence" else \

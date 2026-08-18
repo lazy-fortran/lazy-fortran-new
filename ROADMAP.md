@@ -176,10 +176,13 @@ consumes those facts: `x = x + 1`, the ordered source `x = 7; x = x + 1`, and
 the three-, four- and five-assignment extensions travel through generated frontend
 records, FFC MIR with `(storage-key x)`, and policy-driven fortback stack slots.
 The program-unit-v2 envelope now carries the declaration and source-backed R509
-execution-part into that same generated chain. The central replay passes 20
-routes; regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
+execution-part into that same generated chain. Its five-assignment extension
+uses the distinct generated MIR source rule
+`frontend-ast-v2/execution-part-5`. The central replay passes 21 routes;
+regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four- and five-assignment
-witnesses exit 8, 9, 10 and 11, and the v2 envelope exits 8; all prove matching
+witnesses exit 8, 9, 10 and 11, and the two-/five-assignment v2 envelopes exit 8
+and 11; all prove matching
 `sp + 0` load/store encodings. This is still a bounded sequence, not general
 statement parsing, name resolution, arbitrary storage, or full Fortran runtime
 semantics. The source-backed R509 execution-part fact is now consumed by the

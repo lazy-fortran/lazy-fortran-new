@@ -8954,6 +8954,55 @@ tasks:
     final_observable: central generated chain PASS with the program execution envelope
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-generated-program-execution-envelope-five-wave
+    milestone: L3
+    title: Extend the generated program-unit envelope to five assignments
+    status: PASS
+    verification: PASS
+    review_state: PENDING
+    priority: 98
+    depends_on: [T-L3-generated-program-execution-envelope-wave]
+    inputs:
+      - component: standard-new
+        commit: f23943b8badf4b8971b65dafe36a9915e6c5b5d4
+      - component: fortfront-new
+        commit: a2095bd95d109f90b44c4ecb5f7610cdc3cd9679
+      - component: ffc-new
+        commit: 0de6adf0ffde7f2b1bf3dac07d337b453518beb9
+      - component: fortback-new
+        commit: 44fa43bf9a6bbce6bc5e924d8202826fea6e0c35
+      - path: tests/fixtures/l3-ast-program-integer-five-assignment-v1.f90
+      - path: tests/negative/l3-ast-program-integer-five-assignment-wrong-operator-v1.f90
+      - path: tests/negative/l3-ast-program-integer-five-assignment-missing-fifth-v1.f90
+      - path: tests/negative/l3-ast-program-integer-five-assignment-wrong-variable-v1.f90
+    output: >-
+      central PASS for the additive program-unit-v2 envelope carrying five
+      ordered assignments, generated nineteen-instruction MIR with
+      frontend-ast-v2/execution-part-5 provenance, and qemu exit 11
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-envelope
+    ownership:
+      component: fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 20 existing routes and reject wrong operator, missing fifth
+      assignment and wrong variable neighbours. Require the exact five-
+      assignment program-unit-v2 AST, nineteen-opcode generated MIR,
+      storage-key x on loads and stores, matching backend stack slot and qemu
+      exit 11. No general program parser, name resolution or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with the five-assignment execution envelope
+    retry_count: 0
+    integration_cycle_trigger: next_replay
 integration_cycle:
   triggers:
     verified_deltas: 4
