@@ -33,13 +33,13 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
 
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9") and ast.count("(variable (variable-declaration ") != 1:
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10") and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
@@ -168,6 +168,49 @@ def main() -> None:
                 mir.count("(source-rule frontend-ast-v2/print-stmt)") != 7 or \
                 "(opcode store)" in mir:
             fail("MIR-v0 PRINT 7,8,9 shape is wrong")
+    elif mode == "print-7-8-9-10":
+        if not ast.startswith("(program-unit-v2 ") or \
+                "(root (program-root (name p)" not in ast or \
+                "(declaration-count 0)" not in ast or \
+                "(variable-count 0)" not in ast or \
+                ast.count("(print-stmt ") != 1 or \
+                "(format-kind default-char-expr)" not in ast or \
+                "(format-value *)" not in ast or \
+                "(output-kind integer-literal)" not in ast or \
+                "(output-value 7)" not in ast or \
+                "(output-count 4)" not in ast or \
+                "(output-kind-2 integer-literal)" not in ast or \
+                "(output-value-2 8)" not in ast or \
+                "(output-rule-2 R1217)" not in ast or \
+                "(output-kind-3 integer-literal)" not in ast or \
+                "(output-value-3 9)" not in ast or \
+                "(output-rule-3 R1217)" not in ast or \
+                "(output-kind-4 integer-literal)" not in ast or \
+                "(output-value-4 10)" not in ast or \
+                "(output-rule-4 R1217)" not in ast or \
+                "(statement-rule R1212)" not in ast or \
+                "(format-rule R1215)" not in ast or \
+                "(output-rule R1217)" not in ast or \
+                "(source-document J3-24-007)" not in ast or \
+                "(statement-clause 12.6.1)" not in ast or \
+                "(format-clause 12.6.2.2)" not in ast or \
+                "(output-clause 12.6.3)" not in ast or \
+                "(statement-page 242)" not in ast or \
+                "(format-page 244)" not in ast or \
+                "(output-page 248)" not in ast or \
+                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
+                "(assignment-sequence" in ast:
+            fail("AST-v2 PRINT 7,8,9,10 provenance witness is wrong")
+        if mir.count("(opcode const)") != 4 or \
+                mir.count("(opcode output)") != 4 or \
+                mir.count("(opcode return)") != 1 or \
+                mir.count("(literal 7)") != 1 or \
+                mir.count("(literal 8)") != 1 or \
+                mir.count("(literal 9)") != 1 or \
+                mir.count("(literal 10)") != 1 or \
+                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 9 or \
+                "(opcode store)" in mir:
+            fail("MIR-v0 PRINT 7,8,9,10 shape is wrong")
     elif mode == "envelope-6":
         if not ast.startswith("(program-unit-v2 ") or \
                 "(declaration-count 1)" not in ast or \
@@ -409,6 +452,7 @@ def main() -> None:
         7 if mode == "sequence" else \
         7 if mode == "envelope" else \
         5 if mode in ("expression", "multiplication", "division", "subtraction", "variable-expression") else \
+        9 if mode == "print-7-8-9-10" else \
         7 if mode == "print-7-8-9" else \
         5 if mode == "print-7-8" else \
         3 if mode in ("literal", "literal-boundary", "print-7") else 2
