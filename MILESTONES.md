@@ -1179,8 +1179,10 @@ selects the no-kind-selector REAL type-spec contract. E0242/R000709 and focused
 reviews R000710/R000711 promote the exact REAL producer/replay leaf as
 PASS-BOUNDED-ONLY. R000701, R000703 and R000707 remain retained caught
 failures. D0187/R000712 select the no-kind-selector DOUBLE PRECISION
-alternative as the next bounded contract. No general type parsing or semantic
-promotion follows from this bounded handoff.
+alternative. Its contract is frozen at central revision
+`306952a6ee96f09156f147861e1f8f2ae87dfc11` and focused reviews R000718/R000719
+pass. The active task is the isolated fortfront implementation. No general
+type parsing or semantic promotion follows from this bounded handoff.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

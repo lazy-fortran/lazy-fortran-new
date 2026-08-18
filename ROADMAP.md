@@ -43,9 +43,10 @@ promote this exact leaf as PASS-BOUNDED-ONLY. D0186 selects the no-kind-selector
 REAL type-spec boundary. E0242/R000709 plus focused reviews R000710/R000711
 promote the exact REAL producer/replay leaf as PASS-BOUNDED-ONLY. R000701,
 R000703 and R000707 remain retained caught failures. D0187/R000712 select the
-no-kind-selector DOUBLE PRECISION alternative as the next bounded contract; the
-active task is defining it. The path still does not parse arbitrary Fortran or
-close full M3.
+no-kind-selector DOUBLE PRECISION alternative. Its contract is frozen at
+central revision `306952a6ee96f09156f147861e1f8f2ae87dfc11` and focused reviews
+R000718/R000719 pass; the active task is the isolated fortfront implementation.
+The path still does not parse arbitrary Fortran or close full M3.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

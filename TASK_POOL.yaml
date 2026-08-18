@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-double-precision-contract
+  - T-L3-frontend-double-precision-implementation
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-double-precision-contract
+active_task: T-L3-frontend-double-precision-implementation
 
 milestones:
   - id: L0
@@ -8432,9 +8432,9 @@ tasks:
   - id: T-L3-frontend-double-precision-contract
     milestone: L3
     title: Define the bounded source-derived DOUBLE PRECISION type-spec boundary
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-next-bounded-boundary-selection-after-real-type]
     inputs:
@@ -8460,11 +8460,20 @@ tasks:
         sha256: 013600c36c22a45fa62f72204dd1a1c0ef01cefe4f408bb1ffea57498463831b
       - path: tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
         sha256: 6ede4305cca28c7dcfff8d6cc3fc9d097649ac7e6f00d881644054c31b733002
+      - path: artifacts/reports/L3/frontend-ast-v1-double-precision-contract-focused-review-v1.md
+        sha256: fc5f6fac7a21bec3b1812baccb733c61492d1206509eee0df98021bb43919353
+      - research/runs/2026-08.jsonl#R000713
+      - research/runs/2026-08.jsonl#R000714
+      - research/runs/2026-08.jsonl#R000715
+      - research/runs/2026-08.jsonl#R000716
+      - research/runs/2026-08.jsonl#R000717
+      - research/runs/2026-08.jsonl#R000718
+      - research/runs/2026-08.jsonl#R000719
       - research/runs/2026-08.jsonl#R000710
       - research/runs/2026-08.jsonl#R000711
       - component: fortfront-new
         commit: c91595db71aa353564ec5a7f8c2a61b80e82b389
-    output: one independently verifiable DOUBLE PRECISION type-spec contract or one precise blocker
+    output: PASS-BOUNDED-ONLY DOUBLE PRECISION type-spec contract
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -8490,9 +8499,58 @@ tasks:
       revision or broaden intrinsic-type parsing.
     verifier_command: >-
       scripts/check-contracts.sh && scripts/check-decisions.sh && git diff --check
-    final_observable: frozen DOUBLE PRECISION type-spec contract or one precise blocker
+    final_observable: independently reviewed frozen DOUBLE PRECISION contract
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-L3-frontend-double-precision-implementation
+    milestone: L3
+    title: Implement the bounded source-derived DOUBLE PRECISION type-spec boundary
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-double-precision-contract]
+    inputs:
+      - path: research/decisions/D0187-next-bounded-double-precision-type-spec.md
+        sha256: 6a4dad0f9fa57b9a844d8881ba8cda40e9578951d0918bb01d9a8d78f0c01eb
+      - path: contracts/fixtures/frontend-ast-v1-double-precision.sx
+        sha256: f488b04512c382fc218f403eac8be4f8a6c8ba123c8dbdef3359f60a930d7cd7
+      - path: tests/fixtures/frontend-ast-v1-double-precision-contract.toml
+        sha256: 463246e3272cd5d5654bfc0b69393fcb3b66cc862aa6c0fb2c0225f62e270fac
+      - path: tests/fixtures/l3-ast-program-double-precision-main-v1.f90
+        sha256: 9bc6d9e602f629355e2c4772d5cbf58df2a4e3204945841e93643e6091decb26
+      - path: tests/negative/l3-ast-program-double-precision-missing-entity-v1.f90
+        sha256: 3c4beadfc75dd9f1ac30123e888bbda37e653aabaa83653e679f43b09d7faad1
+      - path: tests/golden/frontend-ast-v1-double-precision.oracle.toml
+        sha256: 013600c36c22a45fa62f72204dd1a1c0ef01cefe4f408bb1ffea57498463831b
+      - path: artifacts/reports/L3/frontend-ast-v1-double-precision-contract-focused-review-v1.md
+        sha256: fc5f6fac7a21bec3b1812baccb733c61492d1206509eee0df98021bb43919353
+      - research/runs/2026-08.jsonl#R000718
+      - research/runs/2026-08.jsonl#R000719
+      - component: fortfront-new
+        commit: c91595db71aa353564ec5a7f8c2a61b80e82b389
+    output: one pushed fortfront implementation commit plus central DOUBLE PRECISION replay, or one precise blocker
+    integration: component worker then controller replay
+    estimated_cost: small
+    parallel_group: fortfront-exclusive
+    ownership:
+      component: fortfront-new
+      worktree: /home/ert/code/fortfront-new-l4-double-precision-medium
+      owner: controller
+      allowed_paths:
+        - src/fortfront_frontend.f90
+    verifier: >-
+      implement only source extraction for program main / double precision :: x /
+      end program main; preserve existing REAL and integer behavior, reject the
+      malformed DOUBLE PRECISION declaration, and keep frontend-v0/MIR-v0.
+      Do not add kind selectors, general type parsing, general program parsing,
+      semantic analysis or schema changes.
+    verifier_command: >-
+      fo clean && fo && fo test && tools/regenerate_generated_ast_v1.sh &&
+      python3 tools/test_generated_ast_v1.py
+    final_observable: pushed component commit passing its gate and ready for central replay
+    retry_count: 0
+    integration_cycle_trigger: next_central_replay
 integration_cycle:
   triggers:
     verified_deltas: 4

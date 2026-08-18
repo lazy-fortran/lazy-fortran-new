@@ -14,9 +14,11 @@ tests/fixtures/frontend-ast-v1-real-type-contract.toml`. Focused reviews
 R000705/R000706 pass, while R000701/R000703 remain retained oracle failures.
 E0242/R000709 plus focused reviews R000710/R000711 promote the exact REAL leaf
 as PASS-BOUNDED-ONLY; R000707 remains the retained runner failure. D0187/R000712
-select the no-kind-selector DOUBLE PRECISION alternative as the next bounded
-contract. The active task is defining that contract. This does not parse
-arbitrary Fortran or promote M3 semantics.
+select the no-kind-selector DOUBLE PRECISION alternative. The contract is now
+frozen and independently reviewed by R000718/R000719 at central revision
+`306952a6ee96f09156f147861e1f8f2ae87dfc11`; the active task is its isolated
+fortfront implementation. This does not parse arbitrary Fortran or promote M3
+semantics.
 
 ## Central goal
 
@@ -513,9 +515,10 @@ REAL type-spec case over the existing AST v1 field. E0242 freezes its contract;
 R000705/R000706 pass the focused review and the contract is verified
 PASS-BOUNDED-ONLY. E0242/R000709 and R000710/R000711 now promote the exact
 REAL producer/replay leaf as PASS-BOUNDED-ONLY; R000707 remains retained.
-D0187/R000712 select the no-kind-selector DOUBLE PRECISION alternative. The
-active task is its contract; the C768 implementation result is parked and is
-not promoted by this pivot.
+D0187/R000712 select the no-kind-selector DOUBLE PRECISION alternative. Its
+contract is frozen and independently reviewed by R000718/R000719; the active
+task is the isolated fortfront implementation. The C768 implementation result
+remains parked and is not promoted by this pivot.
 
 ## Next executable task
 
@@ -541,7 +544,8 @@ R000699/R000700 promote the exact root/declaration-name leaf at fortfront
 REAL type-spec boundary; E0242/R000709 plus R000710/R000711 promote its exact
 producer/replay leaf, while R000701/R000703 and R000707 remain retained caught
 failures. D0187/R000712 select the no-kind-selector DOUBLE PRECISION contract;
-the active task is its contract. This remains outside full M3. Do not resume
+R000718/R000719 pass its final focused review, and the active task is the
+isolated implementation. This remains outside full M3. Do not resume
 E0172 or start broad semantic work. The C768 worker result remains parked and
 is not promoted by this pivot.
 
