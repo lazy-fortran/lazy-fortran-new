@@ -242,9 +242,11 @@ output and three expression-specific artifact mutations. The multiplication
 successor is now integrated as the exact witness
 `x = 23; x = x * 2; PRINT *, x`, with expected output `46\n`, four rejected
 source neighbours and three rejected multiplication-specific artifact
-mutations. The next slice should extend the generated policy in another bounded
-operator/value route; it must preserve the 43-route replay and the same
-independent-oracle boundary.
+mutations. The next prepared batch extends the generated policy with stored
+subtraction `x = x – 2` and integer division `x = x / 2`, with positive outputs
+`21\n` and `12\n` and eight negative neighbours. Three isolated production
+workers are implementing the batch from the promoted pins; the controller will
+add both routes only after the central oracle and clean replay pass.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

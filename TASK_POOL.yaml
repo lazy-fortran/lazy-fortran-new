@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-variable-multiply-expression-wave
+active_task: T-L3-generated-print-variable-arithmetic-batch
 
 milestones:
   - id: L0
@@ -10055,6 +10055,69 @@ tasks:
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for PRINT of a stored multiplication expression; regenerate with bash tests/e2e/check-generated-chain.sh
     evidence: two focused reviews pass; bounded-only promotion
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-variable-arithmetic-batch
+    milestone: L3
+    title: Generate and execute PRINT of stored subtraction and division expressions
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 108
+    depends_on: [T-L3-generated-print-variable-multiply-expression-wave]
+    inputs:
+      - component: standard-new
+        commit: ea8520b9eee662c0e0bda6a70a242903db6d782f
+      - component: fortfront-new
+        commit: 65006dc33fc44d8bd2ca28fdc04cd1cd64047df8
+      - component: ffc-new
+        commit: 3c4f45fe9b474bfd7d965e593cb1b642a28aa8c9
+      - component: fortback-new
+        commit: 151cc6217e470f795292925f0452d217529351f3
+      - normative-source: J3-24-007
+        rules: [R704, R901, R1009, R1033, R1212, R1215]
+        printed-pages: [183, 205, 233, 242, 244, 248]
+      - path: tests/fixtures/l3-ast-program-print-variable-subtract-expression-v1.f90
+      - path: tests/fixtures/l3-ast-program-print-variable-divide-expression-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-subtract-expression-missing-second-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-subtract-expression-wrong-name-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-subtract-expression-wrong-operator-v1.f90
+      - path: tests/negative/l3-ast-program-write-variable-subtract-expression-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-divide-expression-missing-second-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-divide-expression-wrong-name-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-divide-expression-wrong-operator-v1.f90
+      - path: tests/negative/l3-ast-program-write-variable-divide-expression-v1.f90
+    output: >-
+      central PASS for exact source-backed stored subtraction and division
+      witnesses through generated AST-v2, MIR-v0, RISC-V and qemu with exact
+      stdout `21\n` and `12\n`, preserving all 43 earlier routes
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-print-variable-arithmetic-batch
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 43 earlier routes; accept only the exact stored-variable
+      subtraction and division PRINT witnesses; reject the eight listed source
+      neighbours. Check exact source bytes, source-file identity, declaration,
+      expression/PRINT spans and provenance, const/store/load/op/store/load/
+      output/return correspondence for `sub` and `div`, artifact mutation
+      controls for both operators, and exact qemu bytes `21\n` and `12\n`.
+      No general expression evaluation, name resolution, divide-by-zero
+      semantics, runtime library, or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS for stored subtraction and division PRINT expressions; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:
