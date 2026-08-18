@@ -7,30 +7,15 @@ L3 — first raw-source-to-executable Fortran slice
 M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
-derived-name, and program-root-name leaves. The next handoff is the verified
-REAL type-spec contract at central revision `24674d4`; its exact command is
-`python3 tests/e2e/validate_frontend_ast_v1_real_type_contract.py
-tests/fixtures/frontend-ast-v1-real-type-contract.toml`. Focused reviews
-R000705/R000706 pass, while R000701/R000703 remain retained oracle failures.
-E0242/R000709 plus focused reviews R000710/R000711 promote the exact REAL leaf
-as PASS-BOUNDED-ONLY; R000707 remains the retained runner failure. D0187/R000712
-select the no-kind-selector DOUBLE PRECISION alternative. The first producer
-attempt is retained as R000720 because the exact two-word AST atom was rejected
-by the existing serializer. D0188 amends the contract to require exact source
-spelling with canonical AST-v1 atom `double-precision`; R000721/R000722 pass the
-corrected contract review. E0243/R000726 plus R000727/R000728 promote the exact
-DOUBLE PRECISION producer/replay leaf at pushed component
-`c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`. R000724 remains retained stale
-metadata, and R000720 remains the caught implementation-boundary failure. The
-the generated variable-expression wave is now integrated: central commit
-`1cb98bb` with standard-new `c52836f`, fortfront-new `1c2989c`, ffc-new
-`3c3a92a` and fortback-new `02b9dfa` passes 15 routes; regenerate that result
-with `bash tests/e2e/check-generated-chain.sh`. The `x = x + 1` route is
-structural: fortback loads zero and the qemu witness exits 1. Storage,
-initialization, name resolution and full M3 semantics remain open. The next
-executable wave is real storage transport, split across independent source,
-frontend, MIR and backend lanes once its small interface is frozen. This does
-not parse arbitrary Fortran or promote M3 semantics.
+derived-name, program-root-name and intrinsic-type leaves. The generated
+storage wave is integrated; its central replay passes 15 routes and is
+regenerated with `bash tests/e2e/check-generated-chain.sh`. The `x = x + 1`
+route carries `(storage-key x)` through FFC and uses matching backend
+stack-slot encodings; the explicit zero-initialized structural witness exits 1.
+Storage, initialization, name resolution and full M3 semantics remain open. The
+next executable wave connects the prepared two-assignment frontend producer to
+FFC and runtime storage. This does not parse arbitrary Fortran or promote M3
+semantics.
 
 ## Central goal
 
@@ -151,10 +136,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `c52836f037545ced6f88df0dbaa6174ff9a706af` | normative source → StandardIR | generated R708/R901/R902/R903 facts; focused gate passes; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `1c2989c56743c6ecbc5072159ee1983909329bcb` | frontend | generated bounded literal and variable-expression routes; `fo` passes |
-| ffc-new | lazy-fortran/ffc-new | `3c3a92a400cd5e9447e1eaf7cad6de42cbe2030e` | compiler driver and middle end | generated `load`/`const`/`add`/`store`/`return` MIR route; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `02b9dfa095207eb2420379b8a711fe9f30d52785` | backend | generated structural load route; `fo` passes |
+| standard-new | lazy-fortran/standard-new | `f23943b8badf4b8971b65dafe36a9915e6c5b5d4` | normative source → StandardIR | generated R708/R901/R902/R903/R509 facts; focused gate passes; full `fo` retains the known schema declaration-count failure |
+| fortfront-new | lazy-fortran/fortfront-new | `cb9469ff3c4bc9ba62a020eae4ec3d1fa893ec23` | frontend | generated bounded literal, variable-expression and additive two-assignment preparation routes; `fo` passes |
+| ffc-new | lazy-fortran/ffc-new | `6bd4185c410fa7e948201406369e70554f8bf6c2` | compiler driver and middle end | generated variable `(storage-key x)` MIR route; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `b9b4afbea9f108d77840d2f1c0a9aadaf226b0fc` | backend | generated stack-slot load/store route; `fo` passes with two pre-existing array-temporary warnings |
 
 ## Historical milestone evidence
 

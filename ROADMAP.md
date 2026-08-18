@@ -171,16 +171,18 @@ five-instruction MIR shape and exact literals. Broader expression parsing,
 typing, overflow and divide-by-zero semantics remain out of scope. The
 fortfront literal range is now generated from its assignment-policy input, and
 standard-new has prepared source-backed generated R901/R902/R903 designator,
-variable and variable-name facts. The next generated wave consumes those
-facts: `x = x + 1` now travels through the frontend variable-expression
-record, FFC `load`/`const`/`add`/`store`/`return` MIR and the generated fortback
-route. The central replay passes 15 routes; regenerate that count with
-`bash tests/e2e/check-generated-chain.sh`. The current backend load is an
-explicit structural zero-value placeholder and the qemu witness exits 1, so
-this is not yet storage, initialization, name resolution or runtime variable
-semantics. The next parallel slice is real storage transport, with multiple
-assignments or an equivalent source-backed initialization shape. Keep all
-existing generated policy lanes and their independent negative controls.
+variable and variable-name facts. The generated storage wave now consumes
+those facts: `x = x + 1` travels through the frontend variable-expression
+record, FFC `load`/`const`/`add`/`store`/`return` MIR with `(storage-key x)`, and
+the generated fortback stack-slot route. The central replay passes 15 routes;
+regenerate that count with `bash tests/e2e/check-generated-chain.sh`. The
+backend now proves matching `sp + 0` load/store encodings and the qemu witness
+still exits 1 from an explicit zero-initialized structural slot. This is not
+yet Fortran initialization, name resolution, arbitrary storage or runtime
+variable semantics. The same wave prepared an additive two-assignment
+frontend producer and source-backed R509 execution-part fact; the next slice
+must connect that sequence to FFC and runtime storage. Keep all existing
+generated policy lanes and their independent negative controls.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

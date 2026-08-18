@@ -113,6 +113,8 @@ def main() -> None:
                 "(literal 1)" not in mir or "(opcode add)" not in mir or \
                 "(opcode store)" not in mir or "(opcode return)" not in mir:
             fail("MIR-v0 variable expression shape is wrong")
+        if mir.count("(storage-key x)") != 2:
+            fail("MIR-v0 variable storage identity is wrong")
     else:
         fail("unsupported generated chain mode")
     expected_result_count = 5 if mode in ("expression", "multiplication", "division", "subtraction", "variable-expression") else \
