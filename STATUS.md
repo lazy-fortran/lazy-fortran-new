@@ -65,6 +65,10 @@ four source neighbours are rejected. The prior x+1 expression and generic
 PRINT-list replays remain green. This is still one bounded two-variable
 expression item, not general expression parsing or semantic promotion.
 
+The next active L3 slice `T-L3-generic-print-expression-multiply` is prepared
+with source-backed R1006/R1009 evidence and an independent oracle for `x * 2`
+as one generic PRINT item. Its component implementation wave is next.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

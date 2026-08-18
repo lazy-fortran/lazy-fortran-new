@@ -305,6 +305,10 @@ qemu. The central command also preserves the x+1 expression and generic
 integer-list routes. This remains one fixed expression witness; it does not
 claim general expressions, precedence, formatted I/O, arrays, non-integer
 output or semantic promotion.
+The next executable slice is prepared as `l3-print-expression-multiply-v0`:
+the generic PRINT expression item uses source-backed multiplication `x * 2`,
+with R1006/R1009 evidence and an independent AST/MIR/qemu oracle. It is not
+implemented or promoted yet.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

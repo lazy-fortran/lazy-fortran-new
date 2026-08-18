@@ -1,0 +1,49 @@
+(contract-witness
+  (contract l3-print-expression-multiply)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (property generic-integer-multiplication-expression-output)
+  (positive
+    (source-case
+      (id expression-multiply-first)
+      (path tests/fixtures/l3-print-expression-multiply-v0.f90)
+      (sha256 4c66ad36d8f5bf0c1f6876aee2d0728688548782e3d06be1aa80bd7924da49d0)
+      (expected accepted)))
+  (positive-wide
+    (source-case
+      (id expression-multiply-second)
+      (path tests/fixtures/l3-print-expression-multiply-wide-v0.f90)
+      (sha256 2decda1590489fb4b65a26b668624343286901844a3f7daaa6ebb1f0b21b2900)
+      (expected accepted)))
+  (negative-missing-operand
+    (source-case
+      (id missing-operand)
+      (path tests/negative/l3-print-expression-multiply-v0-missing-operand.f90)
+      (sha256 1e3755b45265b4fbd0d071e8e97efd6bed08e89a46d1ce422df33fbf7e118fdb)
+      (expected rejected)))
+  (negative-wrong-operator
+    (source-case
+      (id wrong-operator)
+      (path tests/negative/l3-print-expression-multiply-v0-wrong-operator.f90)
+      (sha256 0ab173dd37348ac60ab3a02deb8d1120d756cdf807f4fbbb6e55c1c775b7d1aa)
+      (expected rejected)))
+  (negative-write
+    (source-case
+      (id write-not-print)
+      (path tests/negative/l3-print-expression-multiply-v0-write.f90)
+      (sha256 3c0f74b75245defbdd15a5ed69ed564e334257d276346e3a5e5d21a47edf5077)
+      (expected rejected)))
+  (negative-name
+    (source-case
+      (id undeclared-name)
+      (path tests/negative/l3-print-expression-multiply-v0-wrong-name.f90)
+      (sha256 2cef1c98a3f89feb548d8c552ed64ad383c051afc0ede81edf6a47d408bc07ea)
+      (expected rejected)))
+  (source-evidence
+    (document J3-24-007)
+    (pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)
+    (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R901 R1006 R1009 R1212 R1215 R1217)
+    (pages 155 169 242 244 248)))

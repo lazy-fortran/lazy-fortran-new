@@ -1,0 +1,25 @@
+(schema l3-print-expression-multiply-v0
+  (primitive name)
+  (primitive int)
+  (enum result accepted rejected)
+  (record source-case
+    (id name)
+    (path name)
+    (sha256 name)
+    (expected result))
+  (record source-evidence
+    (document name)
+    (pdf-sha256 name)
+    (standardir-path name)
+    (standardir-sha256 name)
+    (rules name)
+    (pages int))
+  (record print-expression-multiply-contract
+    (property name)
+    (positive source-case)
+    (positive-wide source-case)
+    (negative-missing-operand source-case)
+    (negative-wrong-operator source-case)
+    (negative-write source-case)
+    (negative-name source-case)
+    (evidence source-evidence)))
