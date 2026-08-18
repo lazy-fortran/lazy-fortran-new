@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generated-print-variable-eighty-one-one-hundred-batch
+  - T-L3-generic-integer-print-list
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-variable-eighty-one-one-hundred-batch
+active_task: T-L3-generic-integer-print-list
 
 milestones:
   - id: L0
@@ -7843,9 +7843,9 @@ tasks:
   - id: T-L3-generated-print-variable-eighty-one-one-hundred-batch
     milestone: L3
     title: Generate and execute PRINT of a stored variable eighty-one through one hundred times
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
     priority: 142
     depends_on: [T-L3-generated-print-variable-sixty-one-eighty-batch]
     inputs:
@@ -7989,9 +7989,75 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS with route count 146; regenerate with bash tests/e2e/check-generated-chain.sh
-    evidence: central replay PENDING; bounded-only promotion; focused review skipped for this ordinary batch
+    evidence: central replay PASS at 146 routes; bounded-only promotion; focused review skipped for this ordinary batch
     retry_count: 0
     integration_cycle_trigger: next_replay
+
+  - id: T-L3-generic-integer-print-list
+    milestone: L3
+    title: Replace PRINT item-count routes with a generic integer output list
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 143
+    depends_on: [T-L3-generated-print-variable-eighty-one-one-hundred-batch]
+    inputs:
+      - contract: contracts/l3-print-list-v0.sxs
+      - contract-witness: contracts/fixtures/l3-print-list-v0.sx
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: c5207ad0ab8bffcf6c4cba7a6837fc0a441a1c58
+      - component: ffc-new
+        commit: 3d07c1f45dc244c8ea8702ca1567edae5413ea87
+      - component: fortback-new
+        commit: ba5ec51518fab819a3d1c2d2b2cc7512d90b1ce4
+      - normative-source: J3-24-007
+        rules: [R901, R1212, R1215, R1217]
+        printed-pages: [155, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-list-v0.f90
+          - tests/fixtures/l3-print-list-wide-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-list-v0-empty.f90
+          - tests/negative/l3-print-list-v0-missing-item.f90
+          - tests/negative/l3-print-list-v0-write.f90
+          - tests/negative/l3-print-list-v0-wrong-name.f90
+    output: >-
+      central PASS for one generated output-list representation carrying
+      integer literals and stored integer variables through AST, MIR and
+      RISC-V execution; preserve all earlier routes and reject the four
+      listed source neighbours
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-integer-print-list
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - contracts/l3-print-list-v0.sxs
+        - contracts/fixtures/l3-print-list-v0.sx
+        - tests/e2e/check-generated-print-list.sh
+        - tests/e2e/oracle_generated_print_list.py
+        - tests/fixtures/l3-print-list-*
+        - tests/negative/l3-print-list-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve the 146-route generated-chain replay; accept both positive
+      source files using one generic output-list path; reject the empty list,
+      trailing comma, WRITE statement and undeclared-name neighbours. Check
+      repeated R1217 item provenance, mixed literal/variable item kinds, MIR
+      output-item order, exact stdout and three artifact mutations. No
+      formatted I/O, WRITE, arrays, non-integer output or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-list.sh
+    final_observable: central generic-print-list PASS with the prior generated-chain replay preserved
+    evidence: central replay PENDING; bounded-only promotion; focused review required at interface change
+    retry_count: 0
+    integration_cycle_trigger: interface_change
 
   - id: T-L3-frontend-ast-v1-replay
     milestone: L3
