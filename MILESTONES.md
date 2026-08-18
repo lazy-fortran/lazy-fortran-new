@@ -1163,7 +1163,8 @@ component gate, and E0236/R000670/R000671/R000672 promote the exact y leaf
 only. D0178/R000673 freeze the changed-name `z` contract; R000674 passes the
 producer at fortfront `a657f36`, and E0237/R000678/R000681/R000682 promote the
 exact z leaf only. D0179 freezes the next multi-character name/span contract;
-R000683 passes it and the next producer starts from fortfront `a657f36`.
+R000683 passes it, R000684 passes the producer at fortfront `1019652`, and
+the next task is the central alpha replay.
 Full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
