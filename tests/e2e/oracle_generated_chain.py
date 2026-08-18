@@ -18,7 +18,7 @@ def main() -> None:
     ast = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
     mir = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
     elf = pathlib.Path(sys.argv[3]).read_bytes()
-    program_name = sys.argv[4] if len(sys.argv) == 5 else "p"
+    program_name = sys.argv[4] if len(sys.argv) >= 5 else "p"
     type_spec = sys.argv[5] if len(sys.argv) == 6 else "integer"
     type_shapes = {"integer": ("integer", "i32"), "real": ("real", "f32")}
     if type_spec not in type_shapes:
