@@ -49,6 +49,15 @@ def main() -> int:
     require(manifest["source_evidence_pdf_sha256"] == "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2", "PDF evidence hash differs")
     require(manifest["source_evidence_standardir_sha256"] == "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2", "StandardIR evidence hash differs")
     require(manifest["source_evidence_source_sha256"] == "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e", "source evidence hash differs")
+    canonical = root / manifest["source_evidence_canonical_text"]
+    require(canonical.is_file(), "canonical source text is absent")
+    require(digest(canonical) == manifest["source_evidence_canonical_text_sha256"], "canonical source text hash differs")
+    canonical_lines = canonical.read_text(encoding="utf-8").split("\n")
+    require(
+        [canonical_lines[line - 1] for line in manifest["source_evidence_canonical_lines"]]
+        == manifest["source_evidence_canonical_line_text"],
+        "canonical C1401 text differs",
+    )
     require(manifest["source_evidence_rules"] == RULES, "source rules differ")
     require(manifest["source_evidence_pages"] == [53, 54, 67, 68, 80, 117, 317], "source pages differ")
     require(manifest["source_evidence_canonical_lines"] == [13669, 13670], "canonical constraint lines differ")
@@ -56,6 +65,8 @@ def main() -> int:
     require(f"(property {manifest['property']})" in witness_text, "witness property differs")
     require("(pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" in witness_text, "witness PDF hash differs")
     require("(source-sha256 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)" in witness_text, "witness source hash differs")
+    require("(canonical-text .cache/runs/E0001/R000003/j3-24-007.canonical.txt)" in witness_text, "witness canonical text path differs")
+    require("(canonical-text-sha256 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)" in witness_text, "witness canonical text hash differs")
     require("(rules R501 R1401 R1402 R1403 C1401 R601 R603 R704 R705 R801)" in witness_text, "witness rules differ")
     require("(canonical-lines 13669 13670)" in witness_text, "witness constraint lines differ")
     oracle_cases = {case["id"]: case for case in oracle["case"]}

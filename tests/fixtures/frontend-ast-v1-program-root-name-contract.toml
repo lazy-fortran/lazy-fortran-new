@@ -6,15 +6,21 @@ origin = "LLM"
 contract_schema = "contracts/frontend-ast-v1.sxs"
 contract_witness = "contracts/fixtures/frontend-ast-v1-program-root-name.sx"
 contract_schema_sha256 = "0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274"
-contract_witness_sha256 = "ed1e932509f37d812926d33f0bc670e8740879918e0a3d8dba8186a65132f6b5"
+contract_witness_sha256 = "ee3b45e8666cf9141f97dd3d09ee1ce9cfd49bfd2d0919fbf9a4966ef875cc3c"
 source_evidence_document = "J3-24-007"
 source_evidence_pdf_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 source_evidence_standardir = ".cache/runs/E0171/R000433-provenance-replay/standardir.sx"
 source_evidence_standardir_sha256 = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
 source_evidence_source_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
+source_evidence_canonical_text = ".cache/runs/E0001/R000003/j3-24-007.canonical.txt"
+source_evidence_canonical_text_sha256 = "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e"
 source_evidence_rules = ["R501", "R1401", "R1402", "R1403", "C1401", "R601", "R603", "R704", "R705", "R801"]
 source_evidence_pages = [53, 54, 67, 68, 80, 117, 317]
 source_evidence_canonical_lines = [13669, 13670]
+source_evidence_canonical_line_text = [
+  "12 C1401 (R1401) The program-name shall not be included in the end-program-stmt unless the optional program-",
+  "13 stmt is used. If included, it shall be identical to the program-name specified in the program-stmt."
+]
 expected_oracle = "tests/golden/frontend-ast-v1-program-root-name.oracle.toml"
 expected_oracle_sha256 = "bc51e6b3a3f9370c73d54b4f51b3baeebf46cc5494429599ec11ba2f80b11b90"
 negative = "tests/negative/l3-ast-program-root-name-mismatch-v1.f90"

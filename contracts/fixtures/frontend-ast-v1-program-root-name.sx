@@ -12,6 +12,8 @@
     (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
     (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
     (source-sha256 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)
+    (canonical-text .cache/runs/E0001/R000003/j3-24-007.canonical.txt)
+    (canonical-text-sha256 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)
     (rules R501 R1401 R1402 R1403 C1401 R601 R603 R704 R705 R801)
     (canonical-lines 13669 13670)
     (pages 53 54 67 68 80 117 317))

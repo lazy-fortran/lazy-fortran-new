@@ -17,8 +17,8 @@ need git
 "$ROOT/scripts/check-contracts.sh" >/dev/null
 
 manifest="${AST_MANIFEST:-$ROOT/tests/fixtures/frontend-ast-v1-program-root-name-replay.toml}"
-validator="${AST_VALIDATOR:-$ROOT/tests/e2e/validate_frontend_ast_v1_program_root_name.py}"
-trace_writer="${AST_TRACE_WRITER:-$ROOT/tests/e2e/write_frontend_ast_v1_program_root_name_trace.py}"
+validator="$ROOT/tests/e2e/validate_frontend_ast_v1_program_root_name.py"
+trace_writer="$ROOT/tests/e2e/write_frontend_ast_v1_program_root_name_trace.py"
 frontend="$(resolve_repo fortfront-new)"
 run_root="${AST_RUN_ROOT:-$ROOT/.cache/runs/E0241}"
 mkdir -p "$run_root"
@@ -49,6 +49,10 @@ for field in ("contract_manifest", "runner", "validator", "trace_writer"):
     expected = manifest.get(field + "_sha256")
     if expected and hashlib.sha256(path.read_bytes()).hexdigest() != expected:
         raise SystemExit(f"{field} hash differs")
+if manifest["validator"] != "tests/e2e/validate_frontend_ast_v1_program_root_name.py":
+    raise SystemExit("validator path is not the frozen validator")
+if manifest["trace_writer"] != "tests/e2e/write_frontend_ast_v1_program_root_name_trace.py":
+    raise SystemExit("trace-writer path is not the frozen trace writer")
 contract = tomllib.loads((root / manifest["contract_manifest"]).read_text(encoding="utf-8"))
 for case in contract["case"]:
     path = root / case["source"]
@@ -109,6 +113,10 @@ if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative" "$run_dir/nega
     exit 1
 fi
 [ ! -e "$run_dir/negative.ast.sx" ]
+grep -Fq 'typed frontend rejected source:' "$run_dir/negative.log" || {
+    printf '%s\n' 'negative did not produce the frozen typed-frontend rejection marker' >&2
+    exit 1
+}
 python3 "$validator" "$manifest" "$run_dir" "$actual_frontend"
 python3 "$trace_writer" "$manifest" "$run_dir" "$actual_frontend"
 trace_rel="$(python3 - "$manifest" <<'PY'

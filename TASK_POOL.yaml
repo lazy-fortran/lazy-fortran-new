@@ -8079,17 +8079,17 @@ tasks:
       - path: research/decisions/D0183-authoritative-source-derived-name-replay.md
         sha256: 4cac42d76c1c15529a6ff9975bddb50397d336f3403440f46b1bf41725a7c5ad
       - path: contracts/fixtures/frontend-ast-v1-program-root-name.sx
-        sha256: ed1e932509f37d812926d33f0bc670e8740879918e0a3d8dba8186a65132f6b5
+        sha256: ee3b45e8666cf9141f97dd3d09ee1ce9cfd49bfd2d0919fbf9a4966ef875cc3c
       - path: tests/fixtures/frontend-ast-v1-program-root-name-contract.toml
-        sha256: 9ff7c4e7c0361ea1ec3cef718673da41654c17393d7b3b0b6451703908b6fc67
+        sha256: 4c40744dfc5f85a1828e1ce175676b59a3ffb8901975ae3718feb8d90366b01f
       - path: tests/golden/frontend-ast-v1-program-root-name.oracle.toml
         sha256: bc51e6b3a3f9370c73d54b4f51b3baeebf46cc5494429599ec11ba2f80b11b90
       - path: tests/e2e/validate_frontend_ast_v1_program_root_name_contract.py
-        sha256: 5fde577c0c8174a09b94e7c719d34ab4c5e537803da27f54f1ddab9c26163989
+        sha256: 023b91a5b5023d80614e1025c650419eabd22bec4bb180ee2f2cfa0ef7dc3059
       - path: tests/fixtures/frontend-ast-v1-program-root-name-replay.toml
-        sha256: ec526af9dfbee02794ace9f5cc1739f19e1ff4c1ab0ffa72ea6dd69a080646eb
+        sha256: 23dc7562d5b8b161fd24ce8ab02ad14b226b4680b078d1f78cc021b1f014ca5f
       - path: tests/e2e/run-frontend-ast-v1-program-root-name.sh
-        sha256: dd62a5b30374a13879ba9cf8370d43f83e502a01045f150a584302ff8ebd14fa
+        sha256: b086fce5b13c212a62c768452faf5ef70f326f2363455a86561e7b5b69415345
       - path: tests/e2e/validate_frontend_ast_v1_program_root_name.py
         sha256: 45a774e6b22d52b94b07715d461a6497d57b32ea8c4beb111db7295728f64827
       - path: tests/e2e/write_frontend_ast_v1_program_root_name_trace.py
