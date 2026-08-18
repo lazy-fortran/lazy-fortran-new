@@ -18,10 +18,10 @@ need git
 "$ROOT/scripts/check_pins.sh" >/dev/null
 "$ROOT/scripts/check-contracts.sh" >/dev/null
 
-manifest="$ROOT/tests/fixtures/frontend-ast-v1.toml"
-validator="$ROOT/tests/e2e/validate_frontend_ast_v1.py"
+manifest="${AST_MANIFEST:-$ROOT/tests/fixtures/frontend-ast-v1.toml}"
+validator="${AST_VALIDATOR:-$ROOT/tests/e2e/validate_frontend_ast_v1.py}"
 frontend="$(resolve_repo fortfront-new)"
-run_root="$ROOT/.cache/runs/E0235"
+run_root="${AST_RUN_ROOT:-$ROOT/.cache/runs/E0235}"
 mkdir -p "$run_root"
 run_number=1
 while [ -e "$run_root/R$(printf '%06d' "$run_number")" ]; do

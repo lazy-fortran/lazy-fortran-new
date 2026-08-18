@@ -1,0 +1,8 @@
+boundary = "raw-source-to-typed-frontend-ast-v1-variable-name"
+root_name = "p"
+program_declaration_count = 1
+variable_count = 1
+variable_type_spec = "integer"
+variable_name = "y"
+variable_start_byte = 10
+variable_end_byte = 24
