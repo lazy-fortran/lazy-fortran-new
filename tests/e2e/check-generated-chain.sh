@@ -33,6 +33,7 @@ sequence_nine_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-nine-assi
 sequence_ten_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-ten-assignment-v1.f90"
 stop_source_file="$ROOT/tests/fixtures/l3-ast-program-stop-7-v1.f90"
 print_source_file="$ROOT/tests/fixtures/l3-ast-program-print-7-v1.f90"
+print_two_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-two-item-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -92,6 +93,11 @@ negative_print_files=(
     "$ROOT/tests/negative/l3-ast-program-print-8-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-7-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-missing-item-v1.f90"
+)
+negative_print_two_item_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-two-item-missing-second-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-two-item-wrong-second-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-two-item-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -667,6 +673,30 @@ done
 qemu-riscv64 "$print_elf_file" > "$print_output_file"
 printf '7\n' | cmp -s - "$print_output_file"
 python3 "$oracle" "$print_ast_file" "$print_mir_file" "$print_elf_file" p integer print-7
+
+print_two_item_ast_file="$run_dir/print-two-item.frontend.ast.sx"
+print_two_item_mir_file="$run_dir/print-two-item.mir.sx"
+print_two_item_elf_file="$run_dir/print-two-item.program.elf"
+print_two_item_output_file="$run_dir/print-two-item.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_two_item_source_file" \
+        "$print_two_item_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_two_item_ast_file" \
+        "$print_two_item_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$print_two_item_mir_file" \
+        "$print_two_item_elf_file") > /dev/null 2>&1
+for negative_print_two_item in "${negative_print_two_item_files[@]}"; do
+    rm -f "$run_dir/negative-print-two-item.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_two_item" \
+            "$run_dir/negative-print-two-item.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid two-item PRINT mutation was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-print-two-item.ast.sx" ]
+done
+qemu-riscv64 "$print_two_item_elf_file" > "$print_two_item_output_file"
+printf '7\n8\n' | cmp -s - "$print_two_item_output_file"
+python3 "$oracle" "$print_two_item_ast_file" "$print_two_item_mir_file" \
+    "$print_two_item_elf_file" p integer print-7-8
 
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
