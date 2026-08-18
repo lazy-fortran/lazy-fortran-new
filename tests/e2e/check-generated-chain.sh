@@ -19,6 +19,7 @@ expression_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-a
 multiplication_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-multiply-assignment-v1.f90"
 division_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-divide-assignment-v1.f90"
 subtraction_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-subtract-assignment-v1.f90"
+literal_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-7-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -36,6 +37,8 @@ negative_division_file="$ROOT/tests/negative/l3-ast-program-integer-divide-assig
 negative_division_operator_file="$ROOT/tests/negative/l3-ast-program-integer-divide-assignment-wrong-operator-v1.f90"
 negative_subtraction_file="$ROOT/tests/negative/l3-ast-program-integer-subtract-assignment-missing-operand-v1.f90"
 negative_subtraction_operator_file="$ROOT/tests/negative/l3-ast-program-integer-subtract-assignment-wrong-operator-v1.f90"
+negative_literal_range_file="$ROOT/tests/negative/l3-ast-program-integer-literal-2048-assignment-v1.f90"
+negative_literal_form_file="$ROOT/tests/negative/l3-ast-program-real-literal-assignment-v1.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 (cd "$standard" && fo clean && fo test test_standardir_lexical_generated && \
@@ -282,5 +285,30 @@ for negative_subtraction in "$negative_subtraction_file" "$negative_subtraction_
 done
 qemu-riscv64 "$subtraction_elf_file" > /dev/null
 python3 "$oracle" "$subtraction_ast_file" "$subtraction_mir_file" "$subtraction_elf_file" main integer subtraction
+
+literal_ast_file="$run_dir/literal-assignment.frontend.ast.sx"
+literal_mir_file="$run_dir/literal-assignment.mir.sx"
+literal_elf_file="$run_dir/literal-assignment.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$literal_assignment_source_file" \
+        "$literal_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$literal_ast_file" "$literal_mir_file") \
+    > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$literal_mir_file" "$literal_elf_file") \
+    > /dev/null 2>&1
+for negative_literal in "$negative_literal_range_file" "$negative_literal_form_file"; do
+    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_literal" \
+            "$run_dir/negative-literal.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid integer literal source was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-literal.ast.sx" ]
+done
+if qemu-riscv64 "$literal_elf_file" > /dev/null; then
+    literal_status=0
+else
+    literal_status=$?
+fi
+[ "$literal_status" -eq 7 ]
+python3 "$oracle" "$literal_ast_file" "$literal_mir_file" "$literal_elf_file" main integer literal
 
 printf '%s\n' 'generated compiler chain PASS'

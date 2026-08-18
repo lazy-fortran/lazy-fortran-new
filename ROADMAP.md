@@ -156,8 +156,18 @@ maps MIR opcodes to machine operations through generated policy data. The
 existing central replay remains green after this refactor; adding a future
 source-backed operator is now primarily a generated policy-row change rather
 than four new handwritten dispatch branches.
-The next implementation step is another disjoint generated source shape or
-declaration boundary whose downstream central oracle is ready.
+The next executable slice is integer value transport. Source-backed R708
+integer-literal coverage now accepts the bounded fixture `x = 7` in
+fortfront, lowers it through a generated FFC `const`/`store`/`return` route,
+and emits `addi a0, x0, 7` in fortback; the central replay checks positive,
+non-decimal and out-of-range negatives and qemu exit status 7. The replay
+currently passes 13 routes; regenerate that count with
+`bash tests/e2e/check-generated-chain.sh`. This is still a bounded literal
+contract, not general literal parsing, constant evaluation, or arbitrary
+Fortran execution. Fortback also has an independently tested generated route
+for materialized `1 + 2` and qemu exit status 3; the next integration slice is
+the matching FFC producer and central source fixture. Existing structural
+routes remain deliberately bounded until their operands are materialized.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
