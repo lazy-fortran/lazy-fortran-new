@@ -268,6 +268,10 @@ a sixth `R901` output item with exact output `9\n9\n9\n9\n9\n9\n`, four
 rejected source neighbours and three artifact mutation controls. It is now
 integrated as a bounded six-item route; the central replay passes 52 routes.
 This does not promote general I/O, arbitrary output lists, or full M3 semantics.
+The next prepared batch extends the same source-backed stored-variable route to
+seven, eight, nine and ten `R901` output items in one parallel implementation
+wave. It carries sixteen rejected source neighbors and three artifact mutation
+controls per route; the baseline remains 52 routes until replay passes.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

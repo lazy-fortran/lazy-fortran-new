@@ -1749,6 +1749,101 @@ if python3 "$oracle" "$print_variable_six_item_ast_file" \
     exit 1
 fi
 
+for variable_output_count in 7 8 9 10; do
+    case "$variable_output_count" in
+        7)
+            variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-seven-item-v1.f90"
+            variable_negative_files=(
+                "$ROOT/tests/negative/l3-ast-program-print-variable-seven-item-wrong-second-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-print-variable-seven-item-wrong-seventh-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-write-variable-seven-item-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-print-variable-seven-item-malformed-v1.f90"
+            )
+            variable_expected=$'9\n9\n9\n9\n9\n9\n9\n'
+            ;;
+        8)
+            variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-eight-item-v1.f90"
+            variable_negative_files=(
+                "$ROOT/tests/negative/l3-ast-program-print-variable-eight-item-wrong-second-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-print-variable-eight-item-wrong-eighth-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-write-variable-eight-item-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-print-variable-eight-item-malformed-v1.f90"
+            )
+            variable_expected=$'9\n9\n9\n9\n9\n9\n9\n9\n'
+            ;;
+        9)
+            variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-nine-item-v1.f90"
+            variable_negative_files=(
+                "$ROOT/tests/negative/l3-ast-program-print-variable-nine-item-wrong-second-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-print-variable-nine-item-wrong-ninth-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-write-variable-nine-item-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-print-variable-nine-item-malformed-v1.f90"
+            )
+            variable_expected=$'9\n9\n9\n9\n9\n9\n9\n9\n9\n'
+            ;;
+        10)
+            variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-ten-item-v1.f90"
+            variable_negative_files=(
+                "$ROOT/tests/negative/l3-ast-program-print-variable-ten-item-wrong-second-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-print-variable-ten-item-wrong-tenth-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-write-variable-ten-item-v1.f90"
+                "$ROOT/tests/negative/l3-ast-program-print-variable-ten-item-malformed-v1.f90"
+            )
+            variable_expected=$'9\n9\n9\n9\n9\n9\n9\n9\n9\n9\n'
+            ;;
+    esac
+    variable_mode="print-variable-${variable_output_count}-item"
+    variable_base="$run_dir/$variable_mode"
+    variable_ast_file="$variable_base.frontend.ast.sx"
+    variable_mir_file="$variable_base.mir.sx"
+    variable_elf_file="$variable_base.program.elf"
+    variable_output_file="$variable_base.stdout"
+    (cd "$frontend" && fo exec fortfront-program-unit-v2 "$variable_source_file" \
+            "$variable_ast_file") > /dev/null 2>&1
+    (cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$variable_ast_file" \
+            "$variable_mir_file") > /dev/null 2>&1
+    (cd "$backend" && fo exec fortback-mir-v0 "$variable_mir_file" \
+            "$variable_elf_file") > /dev/null 2>&1
+    for variable_negative_file in "${variable_negative_files[@]}"; do
+        rm -f "$run_dir/$variable_mode.negative.ast.sx"
+        if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$variable_negative_file" \
+                "$run_dir/$variable_mode.negative.ast.sx") > /dev/null 2>&1; then
+            printf 'invalid %s PRINT mutation was accepted\n' "$variable_mode" >&2
+            exit 1
+        fi
+        [ ! -e "$run_dir/$variable_mode.negative.ast.sx" ]
+    done
+    qemu-riscv64 "$variable_elf_file" > "$variable_output_file"
+    printf '%s' "$variable_expected" | cmp -s - "$variable_output_file"
+    python3 "$oracle" "$variable_ast_file" "$variable_mir_file" "$variable_elf_file" \
+        main integer "$variable_mode" "$variable_source_file"
+    variable_mutated_ast_file="$variable_base.mutated-output.ast.sx"
+    sed "s/(output-name-${variable_output_count} x)/(output-name-${variable_output_count} y)/" \
+        "$variable_ast_file" > "$variable_mutated_ast_file"
+    if python3 "$oracle" "$variable_mutated_ast_file" "$variable_mir_file" "$variable_elf_file" \
+            main integer "$variable_mode" "$variable_source_file" > /dev/null 2>&1; then
+        printf 'variable %s AST output mutation was accepted\n' "$variable_mode" >&2
+        exit 1
+    fi
+    variable_mutated_mir_file="$variable_base.mutated-load.mir.sx"
+    sed 's/(opcode load)/(opcode add)/'"$variable_output_count" "$variable_mir_file" \
+        > "$variable_mutated_mir_file"
+    if python3 "$oracle" "$variable_ast_file" "$variable_mutated_mir_file" "$variable_elf_file" \
+            main integer "$variable_mode" "$variable_source_file" > /dev/null 2>&1; then
+        printf 'variable %s MIR load mutation was accepted\n' "$variable_mode" >&2
+        exit 1
+    fi
+    variable_mutated_elf_file="$variable_base.mutated.elf"
+    cp "$variable_elf_file" "$variable_mutated_elf_file"
+    printf '\0' | dd of="$variable_mutated_elf_file" bs=1 seek=0 count=1 conv=notrunc \
+        > /dev/null 2>&1
+    if python3 "$oracle" "$variable_ast_file" "$variable_mir_file" "$variable_mutated_elf_file" \
+            main integer "$variable_mode" "$variable_source_file" > /dev/null 2>&1; then
+        printf 'variable %s ELF mutation was accepted\n' "$variable_mode" >&2
+        exit 1
+    fi
+done
+
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
 envelope_five_elf_file="$run_dir/envelope-five.program.elf"
@@ -1837,8 +1932,8 @@ python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
 oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 52 ]; then
-    printf 'generated chain route count: expected 52, got %s\n' \
+if [ "$oracle_route_count" -ne 56 ]; then
+    printf 'generated chain route count: expected 56, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi

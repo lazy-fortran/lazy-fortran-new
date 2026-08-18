@@ -322,6 +322,9 @@ AST/MIR/ELF mutations; the central replay passes 51 routes. The stored-variable
 six-item witness is now integrated with exact output `9\n9\n9\n9\n9\n9\n`,
 four rejected source neighbours and three rejected AST/MIR/ELF mutations; the
 central replay passes 52 routes.
+The next prepared batch covers stored-variable `PRINT` with seven, eight, nine
+and ten output items; it preserves the 52-route baseline until its replay
+passes.
 The following M3 records are retained historical evidence, not the active
 fixture.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.

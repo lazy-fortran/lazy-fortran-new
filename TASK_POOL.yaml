@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generated-print-variable-six-item-batch
+  - T-L3-generated-print-variable-seven-ten-batch
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-variable-six-item-batch
+active_task: T-L3-generated-print-variable-seven-ten-batch
 
 milestones:
   - id: L0
@@ -10524,6 +10524,81 @@ tasks:
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for PRINT of a stored variable six times; regenerate with bash tests/e2e/check-generated-chain.sh
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-variable-seven-ten-batch
+    milestone: L3
+    title: Generate and execute PRINT of a stored variable seven through ten times
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 110
+    depends_on: [T-L3-generated-print-variable-six-item-batch]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 484f55316615c0678ed77340fad7719e5a973aec
+      - component: ffc-new
+        commit: 979eaf3c2cabdc65f94ea5a83e681930fe8a7015
+      - component: fortback-new
+        commit: 20407d441785b7f0bbfc14998ed87d474d2ecdfe
+      - normative-source: J3-24-007
+        rules: [R704, R901, R1008, R1033, R1212, R1215, R1217]
+        printed-pages: [155, 183, 205, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-ast-program-print-variable-seven-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-eight-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-nine-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-ten-item-v1.f90
+      - negative-paths:
+          - tests/negative/l3-ast-program-print-variable-seven-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-seven-item-wrong-seventh-v1.f90
+          - tests/negative/l3-ast-program-write-variable-seven-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-seven-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-eight-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-eight-item-wrong-eighth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-eight-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-eight-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-nine-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-nine-item-wrong-ninth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-nine-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-nine-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-ten-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-ten-item-wrong-tenth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-ten-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-ten-item-malformed-v1.f90
+    output: >-
+      central PASS for exact source-backed stored-variable PRINT routes with
+      seven, eight, nine and ten `R901` items, exact stdout of seven, eight,
+      nine and ten lines of `9`, preserving all 52 earlier routes
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generated-print-variable-seven-ten-batch
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 52 earlier routes; accept exactly the four prepared
+      stored-variable PRINT sources; reject all sixteen listed source neighbors.
+      Check exact source bytes, source identity, declaration and provenance,
+      seven-through-ten output R901 correspondences, repeated MIR load/output
+      shapes, three AST/MIR/ELF mutations per route, and exact qemu bytes. No
+      general I/O, arbitrary output lists, name resolution, runtime library,
+      or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with route count 56; regenerate with bash tests/e2e/check-generated-chain.sh
+    evidence: central replay PENDING; bounded-only promotion; focused review skipped for this ordinary batch
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:
