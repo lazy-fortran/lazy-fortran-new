@@ -1,7 +1,7 @@
 # D0181. Freeze the source-derived typed-name boundary
 
 Date: 2026-08-18
-Status: accepted
+Status: amended by D0182
 
 ## Context
 
