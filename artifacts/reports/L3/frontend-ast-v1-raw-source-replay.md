@@ -10,7 +10,9 @@ convention.
 
 The independent validator checks the source bytes, negative bytes, contract
 and artifact hashes, expected typed fields, repeat equality and absence of
-negative output. It does not import fortfront implementation code. The first
+negative output. It also parses the pinned v1 schema with a small independent
+SX reader and checks that every record constructor and field in the golden
+belongs to that schema; it does not import fortfront implementation code. The first
 replay exposed a missing closing node in the manually reviewed golden; later
 focused review exposed an absolute-path-dependent trace hash. The corrected
 golden and path-independent trace were then pinned.

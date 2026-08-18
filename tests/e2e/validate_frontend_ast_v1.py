@@ -30,6 +30,54 @@ def normalized(path: Path) -> str:
     return path.read_text(encoding="utf-8").rstrip("\n")
 
 
+def parse_sx(text: str):
+    tokens = text.replace("(", " ( ").replace(")", " ) ").split()
+    stack = [[]]
+    for token in tokens:
+        if token == "(":
+            node = []
+            stack[-1].append(node)
+            stack.append(node)
+        elif token == ")":
+            require(len(stack) > 1, "unbalanced SX")
+            stack.pop()
+        else:
+            stack[-1].append(token)
+    require(len(stack) == 1, "unbalanced SX")
+    require(len(stack[0]) == 1, "SX has multiple roots")
+    return stack[0][0]
+
+
+def schema_records(schema: Path) -> dict[str, tuple[str, ...]]:
+    root = parse_sx(schema.read_text(encoding="utf-8"))
+    require(root[0] == "schema" and root[1] == "frontend-ast-v1",
+            "schema identity differs")
+    records = {}
+    for item in root[2:]:
+        if isinstance(item, list) and item and item[0] == "record":
+            raw_fields = item[2:]
+            require(all(isinstance(field, list) and len(field) == 2
+                        for field in raw_fields),
+                    f"malformed schema record: {item[1]}")
+            fields = tuple(field[0] for field in raw_fields)
+            records[item[1]] = fields
+    require(records, "schema has no records")
+    return records
+
+
+def validate_output_structure(node, records: dict[str, tuple[str, ...]]) -> None:
+    if not isinstance(node, list) or not node:
+        return
+    head = node[0]
+    if head in records:
+        fields = [item[0] for item in node[1:]
+                  if isinstance(item, list) and item]
+        require(tuple(fields) == records[head],
+                f"schema fields differ for {head}")
+    for item in node[1:]:
+        validate_output_structure(item, records)
+
+
 def main() -> int:
     if len(sys.argv) != 4:
         raise ValidationError("usage: validate_frontend_ast_v1.py manifest run-dir frontend")
@@ -39,6 +87,7 @@ def main() -> int:
     root = Path(__file__).resolve().parents[2]
     source = root / manifest["source"]
     negative = root / manifest["negative"]
+    schema = root / manifest["contract_schema"]
     golden = root / manifest["output_golden"]
     oracle_path = root / manifest["oracle"]
     oracle = tomllib.loads(oracle_path.read_text(encoding="utf-8"))
@@ -62,6 +111,8 @@ def main() -> int:
             require(digest(path) == expected, f"{field} hash differs")
     require(frontend == manifest["frontend_component_commit"],
             "frontend component commit differs")
+    records = schema_records(schema)
+    validate_output_structure(parse_sx(normalized(golden)), records)
     require(oracle["root_name"] == "p", "root name differs")
     require(oracle["variable_type_spec"] == "integer", "variable type differs")
     require(oracle["variable_name"] == "x", "variable name differs")

@@ -31,7 +31,7 @@ inputs:
   runner: tests/e2e/run-frontend-ast-v1.sh
   runner_sha256: c6869024d3a37d4651b963ae8b34bf914d9714d613c2e77f5f3a2ee97f2c0272
   validator: tests/e2e/validate_frontend_ast_v1.py
-  validator_sha256: 8357fb800a23cad5e0d9bec16fcfe2b8a6fdea2b35efe590a79c52db90e9d971
+  validator_sha256: f392ea5ffcfeb98582bcb30e11c6a56e717a7d380b6c90772b36d9bf89fa2112
   trace: artifacts/traces/frontend-ast-v1.json
   trace_sha256: 9191daaf2f7f833bc789ff79cb1dea952260453b8692540e54f45ae6c9580d6e
 
@@ -105,7 +105,7 @@ result:
   report: artifacts/reports/L3/frontend-ast-v1-raw-source-replay.md
   trace: artifacts/traces/frontend-ast-v1.json
   trace_sha256: 9191daaf2f7f833bc789ff79cb1dea952260453b8692540e54f45ae6c9580d6e
-  validator_sha256: 8357fb800a23cad5e0d9bec16fcfe2b8a6fdea2b35efe590a79c52db90e9d971
+  validator_sha256: f392ea5ffcfeb98582bcb30e11c6a56e717a7d380b6c90772b36d9bf89fa2112
   regression_run: research/runs/2026-08.jsonl#R000660
   frozen_revision: a3aa8e052bbd325167c55616d9dc244fc9e83544
   review_failures: [research/runs/2026-08.jsonl#R000658, research/runs/2026-08.jsonl#R000659]
