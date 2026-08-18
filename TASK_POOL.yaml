@@ -7300,7 +7300,7 @@ tasks:
       - path: contracts/fixtures/frontend-ast-v1.sx
         sha256: 2d73502ed1dbdc0a29cdd2938e71c4de7b841d50fa9598aeed976345c0d2daec
       - path: tests/fixtures/frontend-ast-v1.toml
-        sha256: f663013468bc6d88ae39893ba22fcaaae14fa65e45ea7e734890c0cc12ed1411
+        sha256: 71ae044d6143802818c621046b2369b24fe3c5a61ea102c4628bf52fd84c5759
       - path: tests/fixtures/l3-declaration-v0.f90
         sha256: 13a37b087a056a5f64f26a3a29145bbab71967bf2a3a8efab505c056ffdd13f6
       - component: fortfront-new
@@ -7388,15 +7388,15 @@ tasks:
       - research/decisions/D0175-l3-typed-variable-declaration-contract.md
       - research/experiments/E0235-can-one-typed-ast-v1-declaration-be-repl/manifest.yaml
       - path: tests/fixtures/frontend-ast-v1.toml
-        sha256: 6b48277d472f72460b07832a722831eb1795204915ee2e0d2fdd505df29de7ff
+        sha256: 71ae044d6143802818c621046b2369b24fe3c5a61ea102c4628bf52fd84c5759
       - path: tests/e2e/run-frontend-ast-v1.sh
-        sha256: 1a5a477466a02e52bd0a82249edbed9bf6caf4dd2646992d844f7c7630f252dd
+        sha256: c6869024d3a37d4651b963ae8b34bf914d9714d613c2e77f5f3a2ee97f2c0272
       - path: tests/e2e/validate_frontend_ast_v1.py
         sha256: 8357fb800a23cad5e0d9bec16fcfe2b8a6fdea2b35efe590a79c52db90e9d971
       - path: tests/golden/frontend-ast-v1.sx
         sha256: 62a9173daacc90587df6830d19a5f092d799b96e403d598e0c4c215f390d8158
       - path: artifacts/traces/frontend-ast-v1.json
-        sha256: 553f11e19a4464865526a11de5c09e63644eb0cc0be4012c48289c7dc44686fe
+        sha256: 9191daaf2f7f833bc789ff79cb1dea952260453b8692540e54f45ae6c9580d6e
       - component: fortfront-new
         commit: 394f34da390fb7540da5676cbc4e6f89a84553c1
     output: clean raw-source-to-typed-AST trace and independent oracle result

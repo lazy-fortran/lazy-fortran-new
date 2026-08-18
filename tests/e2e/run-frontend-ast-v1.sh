@@ -52,7 +52,7 @@ import tomllib
 from pathlib import Path
 manifest = tomllib.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 root = Path(sys.argv[2])
-for field in ("contract_schema", "contract_witness", "source", "negative", "output_golden", "oracle", "validator"):
+for field in ("contract_schema", "contract_witness", "source", "negative", "output_golden", "oracle", "runner", "validator"):
     path = root / manifest[field]
     if not path.is_file():
         raise SystemExit(f"missing AST v1 input: {manifest[field]}")

@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "c3561607250681031096de221dd77a6f08adf4e7"
+  lazy-fortran-new: "51ebbd1a991518f33282d09f1f0245e1780eaf8c"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
   fortfront-new: "394f34da390fb7540da5676cbc4e6f89a84553c1"
 
@@ -29,10 +29,11 @@ inputs:
   oracle: tests/golden/frontend-ast-v1.oracle.toml
   oracle_sha256: 479aa084c1d58dc563caf11b7d169e384d1ca27300a69cfa311933dcc5419742
   runner: tests/e2e/run-frontend-ast-v1.sh
+  runner_sha256: c6869024d3a37d4651b963ae8b34bf914d9714d613c2e77f5f3a2ee97f2c0272
   validator: tests/e2e/validate_frontend_ast_v1.py
   validator_sha256: 8357fb800a23cad5e0d9bec16fcfe2b8a6fdea2b35efe590a79c52db90e9d971
   trace: artifacts/traces/frontend-ast-v1.json
-  trace_sha256: 553f11e19a4464865526a11de5c09e63644eb0cc0be4012c48289c7dc44686fe
+  trace_sha256: 9191daaf2f7f833bc789ff79cb1dea952260453b8692540e54f45ae6c9580d6e
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:

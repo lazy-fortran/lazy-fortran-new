@@ -1,0 +1,19 @@
+{
+  "boundary": "raw-source-to-typed-frontend-ast-v1",
+  "components": {
+    "fortfront-new": "394f34da390fb7540da5676cbc4e6f89a84553c1"
+  },
+  "fixture": "frontend-ast-v1",
+  "milestone": "L3",
+  "model_calls": 0,
+  "positive_ast_sha256": "e935e92eca217f69ec3bd90d86a440f79fc7b461740f2d396319712ead772177",
+  "semantic_promotions": 0,
+  "source": {
+    "path": "tests/fixtures/l3-declaration-v0.f90",
+    "sha256": "13a37b087a056a5f64f26a3a29145bbab71967bf2a3a8efab505c056ffdd13f6"
+  },
+  "toolchain": {
+    "fo": "fo 0.3.2",
+    "python": "Python 3.14.6"
+  }
+}
