@@ -18,6 +18,7 @@ need git
 
 manifest="${AST_MANIFEST:-$ROOT/tests/fixtures/frontend-ast-v1-name-derived-replay.toml}"
 validator="${AST_VALIDATOR:-$ROOT/tests/e2e/validate_frontend_ast_v1_name_derived.py}"
+trace_writer="${AST_TRACE_WRITER:-$ROOT/tests/e2e/write_frontend_ast_v1_name_derived_trace.py}"
 frontend="$(resolve_repo fortfront-new)"
 run_root="${AST_RUN_ROOT:-$ROOT/.cache/runs/E0240}"
 mkdir -p "$run_root"
@@ -50,7 +51,7 @@ import tomllib
 from pathlib import Path
 manifest = tomllib.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 root = Path(sys.argv[2])
-for field in ("contract_manifest", "runner", "validator"):
+for field in ("contract_manifest", "runner", "validator", "trace_writer"):
     path = root / manifest[field]
     if not path.is_file():
         raise SystemExit(f"missing replay input: {manifest[field]}")
@@ -119,4 +120,19 @@ fi
 [ ! -e "$run_dir/negative.ast.sx" ]
 
 python3 "$validator" "$manifest" "$run_dir" "$actual_frontend"
+python3 "$trace_writer" "$manifest" "$run_dir" "$actual_frontend"
+trace_rel="$(python3 - "$manifest" <<'PY'
+import sys
+import tomllib
+from pathlib import Path
+print(tomllib.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))["trace"])
+PY
+)"
+committed_trace="$ROOT/$trace_rel"
+if [ -f "$committed_trace" ]; then
+    cmp "$run_dir/trace.json" "$committed_trace"
+else
+    [ "${AST_BOOTSTRAP_TRACE:-}" = 1 ] || { printf '%s\n' 'missing committed AST v1 trace; use AST_BOOTSTRAP_TRACE=1 once' >&2; exit 1; }
+    cp "$run_dir/trace.json" "$committed_trace"
+fi
 printf 'frontend AST v1 source-derived-name PASS: %s\n' "$run_dir"

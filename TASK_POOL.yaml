@@ -8006,11 +8006,13 @@ tasks:
       - path: tests/golden/frontend-ast-v1-name-derived.oracle.toml
         sha256: aacbf7355ad6cb7cc2b0bcc16253d78ba9380eca98c3287b8ac0aba71af3032b
       - path: tests/fixtures/frontend-ast-v1-name-derived-replay.toml
-        sha256: e336f86a09a8b4e81e7e8f9e20501e1bad05ce4a4619f5ccf21f2723f884dd40
+        sha256: cf31c3cee3a5a6aacf15fdb8e8b3947a434546861ec9d88b4d008d89dc1cd9ec
       - path: tests/e2e/run-frontend-ast-v1-name-derived.sh
-        sha256: f3628063b04c8dcf6d8ef43e0ed6528e4704d92d8464c6d47d187fb46e2b8ebd
+        sha256: 835e9c4900caf9ea4eb285633972746049b541cf15ac7d40467a8d1764d0f8ed
       - path: tests/e2e/validate_frontend_ast_v1_name_derived.py
         sha256: d003a6fa95ff471ea00dbd41c0155aec5092455801e421141580e84c7a8cc371
+      - path: tests/e2e/write_frontend_ast_v1_name_derived_trace.py
+        sha256: 564c784a3e6723a0300ea3239f70dd3286a8fa81f62483046f34c076a399d3ef
       - component: fortfront-new
         commit: 101965227a3583872eb7db22c04cd6ff40738c82
     output: one fortfront producer commit plus central replay evidence for beta, q7 and theta_2
