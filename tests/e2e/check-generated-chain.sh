@@ -32,5 +32,8 @@ if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_file" \
 fi
 [ ! -e "$run_dir/negative.ast.sx" ]
 
+command -v qemu-riscv64 > /dev/null
+qemu-riscv64 "$elf_file" > /dev/null
+
 python3 "$oracle" "$ast_file" "$mir_file" "$elf_file"
 printf '%s\n' 'generated compiler chain PASS'
