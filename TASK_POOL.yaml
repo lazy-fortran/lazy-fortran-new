@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generated-assignment-sequence-batch-7-10
+  - T-L3-generated-stop-7-wave
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-assignment-sequence-batch-7-10
+active_task: T-L3-generated-stop-7-wave
 
 milestones:
   - id: L0
@@ -9153,6 +9153,61 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS with the 7-10 assignment-sequence batch; regenerate with bash tests/e2e/check-generated-chain.sh
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-stop-7-wave
+    milestone: L3
+    title: Generate and execute the bounded STOP 7 statement
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 94
+    depends_on: [T-L3-generated-assignment-sequence-batch-7-10]
+    inputs:
+      - component: standard-new
+        commit: f23943b8badf4b8971b65dafe36a9915e6c5b5d4
+      - component: fortfront-new
+        commit: 26ddfc758ea69e27f3748b9bec9e480ef5825a90
+      - component: ffc-new
+        commit: 9cbfc42023a492cb2170c80d3ec7daf577534723
+      - component: fortback-new
+        commit: 4ccf1254b50665d52cc7ccd4470921cd488fb2f7
+      - normative-source: J3-24-007
+        rules: [R1162, R1164]
+        printed-page: 214
+      - path: tests/fixtures/l3-ast-program-stop-7-v1.f90
+      - path: tests/negative/l3-ast-program-stop-8-v1.f90
+      - path: tests/negative/l3-ast-program-stop-missing-code-v1.f90
+      - path: tests/negative/l3-ast-program-error-stop-7-v1.f90
+    output: >-
+      central PASS for the exact source-backed STOP 7 program through generated
+      AST-v1, MIR-v0 and RISC-V, with qemu exit status 7, or one precise
+      interface blocker
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-stop
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 27 existing routes; accept only the exact STOP 7 positive
+      source; require a typed stop statement with source correspondence for
+      R1162/R1164, a MIR stop/termination witness carrying integer 7, and qemu
+      exit status 7. Reject STOP 8, STOP without a code, and ERROR STOP 7.
+      No general statement parser, character stop-code semantics, QUIET
+      semantics, name resolution or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with the bounded STOP 7 route; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:

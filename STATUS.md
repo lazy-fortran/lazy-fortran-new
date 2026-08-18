@@ -19,9 +19,12 @@ two-assignment, five-assignment and six-assignment envelopes carry
 the source-backed R509 execution-part boundary into FFC and fortback; the
 six-assignment route uses `frontend-ast-v2/execution-part-6`. This remains
 bounded sequence transport, not general statement parsing, name resolution,
-arbitrary storage or full M3 semantics. The next executable wave expands the
-statement grammar around the prepared R509 fact. This does not parse arbitrary
-Fortran or promote M3 semantics.
+arbitrary storage or full M3 semantics. The active parallel wave is the
+source-backed `STOP 7` route: R1162/R1164, typed frontend/MIR termination, and
+qemu exit status 7. Its positive and three mutation-control fixtures are ready;
+four isolated Luna-medium implementation slices are in flight. This does not
+parse arbitrary Fortran, implement character stop codes or QUIET, or promote
+M3 semantics.
 
 ## Central goal
 

@@ -190,9 +190,13 @@ six-assignment v2 envelopes exit 8, 11 and 12; all prove matching
 `sp + 0` load/store encodings. This is still a bounded sequence, not general
 statement parsing, name resolution, arbitrary storage, or full Fortran runtime
 semantics. The source-backed R509 execution-part fact is now consumed by the
-envelope path; the next executable wave expands the statement grammar around
-that boundary. Keep all existing generated policy lanes and their independent
-negative controls.
+envelope path; the active next wave is the bounded `STOP 7` statement. It is
+pinned to R1162 and R1164 on printed page 214 and is being implemented in
+parallel across standard-new, fortfront-new, ffc-new and fortback-new. The
+intended observable is qemu exit status 7, with rejection controls for
+`STOP 8`, bare `STOP` and `ERROR STOP 7`. Keep all existing generated policy
+lanes and their independent negative controls. This wave is not general
+statement parsing or full STOP semantics.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
