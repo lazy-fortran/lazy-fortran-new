@@ -8771,6 +8771,51 @@ tasks:
     final_observable: central generated chain PASS with the two-assignment execution witness
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-generated-three-assignment-sequence-wave
+    milestone: L3
+    title: Extend generated storage transport to three ordered assignments
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 95
+    depends_on: [T-L3-generated-two-assignment-sequence-wave]
+    inputs:
+      - component: fortfront-new
+        commit: cb9469ff3c4bc9ba62a020eae4ec3d1fa893ec23
+      - component: ffc-new
+        commit: b29d63a90327cd1f0ff3c1dbec6924ac47d31e47
+      - component: fortback-new
+        commit: d612f2e67d81e23be6b266c9ee0208cf2ab65a68
+      - path: tests/fixtures/l3-ast-program-integer-three-assignment-v1.f90
+      - path: tests/negative/l3-ast-program-integer-three-assignment-wrong-operator-v1.f90
+      - path: tests/negative/l3-ast-program-integer-three-assignment-missing-third-v1.f90
+    output: >-
+      central PASS for the exact ordered x = 7; x = x + 1; x = x + 1 source,
+      generated eleven-instruction MIR and qemu exit 9, or one exact blocker
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-sequence-3
+    ownership:
+      component: fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all existing central routes and reject the wrong-operator and
+      missing-third neighbours. Require the exact eleven-opcode generated MIR,
+      storage-key x on both loads and all stores, the same backend stack slot,
+      and qemu exit 9. No general statement list, name resolution or semantic
+      promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with the three-assignment execution witness
+    retry_count: 0
+    integration_cycle_trigger: next_replay
 integration_cycle:
   triggers:
     verified_deltas: 4
