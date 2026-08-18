@@ -111,8 +111,14 @@ from pathlib import Path
 trace_path, manifest_path, run_dir, frontend = sys.argv[1:]
 run_dir = Path(run_dir)
 manifest = tomllib.loads(Path(manifest_path).read_text(encoding="utf-8"))
+root = Path(manifest_path).resolve().parents[2]
 def digest(name):
-    return hashlib.sha256((run_dir / name).read_bytes()).hexdigest()
+    path = run_dir / name
+    payload = path.read_text(encoding="utf-8")
+    if name == "positive.ast.sx":
+        source = (root / manifest["source"]).resolve()
+        payload = payload.replace(f"(file {source})", "(file SOURCE)")
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 def tool(command):
     return subprocess.run(command, text=True, capture_output=True, check=False).stdout.splitlines()[0]
 trace = {
