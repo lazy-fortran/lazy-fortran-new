@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage, sequence, STOP and PRINT waves are integrated; its central replay passes 66 routes
+storage, sequence, STOP and PRINT waves are integrated; its central replay passes 86 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -161,9 +161,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `d8e0b015320816c8dac4a0096d62efbb2fccf4e9` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, and stored-variable add/multiply/subtract/divide/power/two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-twenty-item PRINT AST-v2; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `a64a4969e895a155bffd2845e6371b6ed1cb146f` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, stored-variable add/multiply/subtract/divide/power expression and two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-twenty-item PRINT MIR lowering; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `efa364823d1b9fdd80aec13fba1bd3ab7b9ea65b` | backend | generated stack-slot/sequence routes, STOP 7 termination, stored-variable add/multiply/subtract/divide/power expression and two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-twenty-item PRINT RISC-V lowering; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `f26d7bbfb5c4245c804c602035b1dc9ceca8a795` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, and stored-variable add/multiply/subtract/divide/power/two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-forty-item PRINT AST-v2; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `a9e3c0aa36c60461a209bd6778362ab382aff1bf` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, stored-variable add/multiply/subtract/divide/power expression and two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-forty-item PRINT MIR lowering; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `448cdc624c28134a8a41831dd1de3c3dd52e4fbc` | backend | generated stack-slot/sequence routes, STOP 7 termination, stored-variable add/multiply/subtract/divide/power expression and two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-forty-item PRINT RISC-V lowering; `fo` passes |
 
 ## Historical milestone evidence
 
@@ -288,8 +288,8 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-L3-generated-print-variable-eleven-twenty-batch`.
-Its source-bound generated replay passes 66 routes; regenerate that count with
+Current fixture: `T-L3-generated-print-variable-twenty-one-forty-batch`.
+Its source-bound generated replay passes 86 routes; regenerate that count with
 `bash tests/e2e/check-generated-chain.sh`. The exact stored-variable witness
 is bounded to `program main`, `integer :: x`, `x = 17` or `x = 23`, and `PRINT *, x`;
 the multiplication-expression witness is now integrated as a bounded leaf with
@@ -329,6 +329,11 @@ integrated with exact output of eleven through twenty `9` lines, forty rejected
 source neighbours and three rejected AST/MIR/ELF mutations per route; the
 central replay passes 66 routes. It remains a bounded output-cardinality
 family, not general I/O or arbitrary output-list handling.
+The twenty-one-through-forty successor is now integrated with exact output of
+twenty-one through forty `9` lines, eighty rejected source neighbours and
+three rejected AST/MIR/ELF mutations per route; the central replay passes 86
+routes. It remains a bounded output-cardinality family, not general I/O or
+arbitrary output-list handling.
 The following M3 records are retained historical evidence, not the active
 fixture.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.

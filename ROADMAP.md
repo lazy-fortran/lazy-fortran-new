@@ -274,8 +274,11 @@ rejected source neighbors and three artifact mutation controls per route; the
 central replay passes 56 routes. The eleven-through-twenty successor extends
 the same generated frontend, MIR and backend route, with forty rejected source
 neighbors and three artifact mutation controls per route; the central replay
-now passes 66 routes. The next frontier remains another bounded generated
-route, not general parsing, semantics, or full-language support.
+passes 66 routes. The twenty-one-through-forty successor extends the same
+generated route with eighty rejected source neighbors and three artifact
+mutation controls per route; the central replay now passes 86 routes. The next
+frontier remains another bounded generated route, not general parsing,
+semantics, or full-language support.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

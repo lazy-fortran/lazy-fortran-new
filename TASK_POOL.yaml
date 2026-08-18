@@ -7379,20 +7379,20 @@ tasks:
   - id: T-L3-generated-print-variable-twenty-one-forty-batch
     milestone: L3
     title: Generate and execute PRINT of a stored variable twenty-one through forty times
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
     priority: 130
     depends_on: [T-L3-generated-print-variable-eleven-twenty-batch]
     inputs:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: d8e0b015320816c8dac4a0096d62efbb2fccf4e9
+        commit: f26d7bbfb5c4245c804c602035b1dc9ceca8a795
       - component: ffc-new
-        commit: a64a4969e895a155bffd2845e6371b6ed1cb146f
+        commit: a9e3c0aa36c60461a209bd6778362ab382aff1bf
       - component: fortback-new
-        commit: efa364823d1b9fdd80aec13fba1bd3ab7b9ea65b
+        commit: 448cdc624c28134a8a41831dd1de3c3dd52e4fbc
       - normative-source: J3-24-007
         rules: [R704, R901, R1008, R1033, R1212, R1215, R1217]
         printed-pages: [155, 183, 205, 242, 244, 248]
@@ -7528,7 +7528,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS with route count 86; regenerate with bash tests/e2e/check-generated-chain.sh
-    evidence: central replay PENDING; bounded-only promotion; focused review skipped for this ordinary batch
+    evidence: central replay PASS at 86 routes; bounded-only promotion; focused review skipped for this ordinary batch
     retry_count: 0
     integration_cycle_trigger: next_replay
   - id: T-L3-frontend-ast-v1-replay
