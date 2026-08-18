@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generic-print-expression-divide
+  []
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-divide
+active_task: null
 
 milestones:
   - id: L0
@@ -11596,9 +11596,9 @@ tasks:
   - id: T-L3-generic-print-expression-divide
     milestone: L3
     title: Add a generated integer division expression item to the generic PRINT list
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
     priority: 147
     depends_on: [T-L3-generic-print-expression-multiply]
     inputs:
@@ -11607,11 +11607,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 575f531c72ff0127b80dfe8a2190e11916b57441
+        commit: 4da73c95fdd04bb4473212d2a807415a8c61cb8c
       - component: ffc-new
-        commit: ed9273993b6cb9ed67e13134db84cea109f0462e
+        commit: 1682ab8b87edb371182e937b686d7fc301db79f3
       - component: fortback-new
-        commit: 8960e63afbbdbae7c356b0d69382d0bcae8651b9
+        commit: ee35285b2acbbdbb496ee9056a5afd43924e1f12
       - normative-source: J3-24-007
         rules: [R901, R1006, R1009, R1212, R1215, R1217]
         printed-pages: [155, 169, 242, 244, 248]
@@ -11657,7 +11657,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-expression-divide.sh
     final_observable: central generic-print-expression-divide PASS with prior expression and generic PRINT routes preserved
-    evidence: contract and independent oracle prepared; implementation wave not yet replayed
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 
