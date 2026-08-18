@@ -79,6 +79,7 @@ def main() -> int:
     oracle_cases = {case["id"]: case for case in oracle["case"]}
     require(list(expected) == ["real", "integer-control"], "case order differs")
     require(set(expected) == set(oracle_cases), "oracle cases differ")
+    expected_outcomes = {"real": "ACCEPTED", "integer-control": "ACCEPTED"}
     for case_id, case in expected.items():
         source_path = root / case["source"]
         source = source_path.read_bytes()
@@ -87,10 +88,12 @@ def main() -> int:
         require(source == expected_source, f"{case_id} source spelling differs")
         require(case["expected_variable_type"] in {"real", "integer"}, f"{case_id} type differs")
         require(case["expected_variable_name"] == "x", f"{case_id} variable differs")
+        require(case["expected_outcome"] == expected_outcomes[case_id], f"{case_id} outcome differs")
         require(case["expected_root_name"] == "main" and case["expected_program_declaration_name"] == "main", f"{case_id} root differs")
         oracle_case = oracle_cases[case_id]
         for field in ("expected_outcome", "expected_root_name", "expected_program_declaration_name", "expected_variable_type", "expected_variable_name"):
             require(case[field] == oracle_case[field], f"{case_id} oracle field differs: {field}")
+        require(oracle_case["expected_outcome"] == expected_outcomes[case_id], f"{case_id} oracle outcome differs")
         require(f"(id {case_id})" in witness_text, f"{case_id} witness case missing")
         require(f"(source {case['source']})" in witness_text, f"{case_id} witness source differs")
         require(f"(source-sha256 {case['source_sha256']})" in witness_text, f"{case_id} witness hash differs")

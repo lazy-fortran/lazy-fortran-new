@@ -8179,7 +8179,7 @@ tasks:
       - path: tests/golden/frontend-ast-v1-real-type.oracle.toml
         sha256: b34d5c5ca611633b918693bfcdd8fcfb00a273a59220179204c9a0b6ef01014b
       - path: tests/e2e/validate_frontend_ast_v1_real_type_contract.py
-        sha256: ed7cc69fdc846e617590057a72b3c32a46608713a0c006e86147c455f5beddb1
+        sha256: a0c3cd3ad5d5158657e55f240d875d5f1f7dce6ca8d5deedc6747be80ce66204
       - research/runs/2026-08.jsonl#R000698
       - path: artifacts/reports/L3/frontend-ast-v1-program-root-name-focused-review-v1.md
         sha256: 97204506c15cc14e73d3303d94f1bd3cae524d1c5a0745d8d44fd709627aa8df
