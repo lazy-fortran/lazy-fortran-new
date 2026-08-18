@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-variable-arithmetic-batch
+active_task: T-L3-generated-print-variable-power-expression-batch
 
 milestones:
   - id: L0
@@ -10119,6 +10119,63 @@ tasks:
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for stored subtraction and division PRINT expressions; regenerate with bash tests/e2e/check-generated-chain.sh
     evidence: two focused reviews pass; bounded-only promotion
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-variable-power-expression-batch
+    milestone: L3
+    title: Generate and execute PRINT of a stored power expression
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 107
+    depends_on: [T-L3-generated-print-variable-arithmetic-batch]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 10209d9ad934cb259b4496feb168cdf4f4c572fe
+      - component: ffc-new
+        commit: f4113e31c281ecc3b2e9ed298e912301aed3f486
+      - component: fortback-new
+        commit: 6869c19f4200c968c0043b788b1b3034228299a3
+      - normative-source: J3-24-007
+        rules: [R704, R901, R1008, R1033, R1212, R1215]
+        printed-pages: [155, 183, 205, 242, 244, 248]
+      - path: tests/fixtures/l3-ast-program-print-variable-power-expression-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-power-expression-missing-second-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-power-expression-wrong-name-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-power-expression-wrong-operator-v1.f90
+      - path: tests/negative/l3-ast-program-write-variable-power-expression-v1.f90
+    output: >-
+      central PASS for the exact source-backed `x = 2; x = x ** 3; PRINT *, x`
+      witness through generated AST-v2, MIR-v0, RISC-V and qemu with exact
+      stdout `8\n`, preserving all 45 earlier routes
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-print-variable-power-expression-batch
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 45 earlier routes; accept only the exact stored-variable
+      power PRINT witness; reject the four listed source neighbours. Check
+      exact source bytes, source-file identity, declaration, expression/PRINT
+      spans and provenance, const/store/load/const/pow/store/load/output/return
+      correspondence, three power AST/MIR/ELF mutation controls and exact qemu
+      bytes `8\n`. No general power semantics, overflow, name resolution,
+      runtime library, or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS for PRINT of a stored power expression; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:

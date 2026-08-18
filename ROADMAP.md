@@ -245,8 +245,9 @@ source neighbours and three rejected multiplication-specific artifact
 mutations. The arithmetic successor is now integrated as stored subtraction
 `x = x – 2` and integer division `x = x / 2`, with positive outputs `21\n` and
 `12\n`, eight negative neighbours and six rejected artifact mutations. The
-next generated source-backed fact available for a future route is R1008 power
-operator `**`; it is not yet executable compiler behavior.
+next prepared route uses the source-backed R1008 power operator `**` for
+`x = 2; x = x ** 3; PRINT *, x`, with expected output `8\n` and four negative
+neighbours. It is not yet executable compiler behavior.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

@@ -288,7 +288,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-L3-generated-print-variable-arithmetic-batch`.
+Current fixture: `T-L3-generated-print-variable-power-expression-batch`.
 Its source-bound generated replay passes 45 routes; regenerate that count with
 `bash tests/e2e/check-generated-chain.sh`. The exact stored-variable witness
 is bounded to `program main`, `integer :: x`, `x = 17` or `x = 23`, and `PRINT *, x`;
@@ -298,6 +298,9 @@ artifact mutations. It does not promote general variable handling or full M3
 semantics. The arithmetic batch now adds subtraction `x = x – 2` and division
 `x = x / 2`, with exact qemu outputs `21\n` and `12\n`, eight rejected source
 neighbours, and six rejected artifact mutations.
+The next prepared source-backed witness is `x = 2; x = x ** 3; PRINT *, x`,
+with four negative neighbours; three medium Luna implementation agents are
+working from the promoted pins.
 The following M3 records are retained historical evidence, not the active
 fixture.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
@@ -360,6 +363,10 @@ Current task: `T-L3-generated-print-variable-arithmetic-batch` — PASS. The
 central verifier passes 45 routes; two independent focused reviews pass for
 this bounded leaf. This does not promote general arithmetic, expression
 evaluation, divide-by-zero semantics, or full L3/M3 semantics.
+
+Next task: `T-L3-generated-print-variable-power-expression-batch` — OPEN. The
+fixtures are prepared before implementation, and frontend, middle-end and
+backend work is running in isolated production worktrees.
 The following M3 material is retained historical evidence.
 Historical task: `T-M3-c763-pass-arg-name-oracle` — OPEN. Selection R000635 passes for
 `T-M3-core0-next-bounded-property-selection-after-c762`. The exact residual
