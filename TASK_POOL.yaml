@@ -8726,6 +8726,52 @@ tasks:
     final_observable: central generated chain PASS with explicit variable storage witness; sequence preparation retained for next wave
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-generated-two-assignment-sequence-wave
+    milestone: L3
+    title: Lower and execute the bounded two-assignment sequence
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 95
+    depends_on: [T-L3-generated-variable-storage-wave]
+    inputs:
+      - component: fortfront-new
+        commit: cb9469ff3c4bc9ba62a020eae4ec3d1fa893ec23
+      - component: ffc-new
+        commit: 6bd4185c410fa7e948201406369e70554f8bf6c2
+      - component: fortback-new
+        commit: b9b4afbea9f108d77840d2f1c0a9aadaf226b0fc
+      - path: tests/fixtures/l3-ast-program-integer-two-assignment-v1.f90
+      - path: tests/negative/l3-ast-program-integer-two-assignment-swapped-v1.f90
+      - path: tests/negative/l3-ast-program-integer-two-assignment-wrong-variable-v1.f90
+    output: >-
+      central PASS for the exact ordered x = 7; x = x + 1 sequence, with
+      generated seven-instruction MIR and qemu exit 8, or one exact interface
+      blocker
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-sequence
+    ownership:
+      component: fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all existing central routes; accept only the exact ordered two
+      assignment source and reject swapped, missing and wrong-variable
+      neighbours. Require the seven-opcode generated MIR shape, storage-key x
+      on load/store, same backend stack slot and qemu exit 8. No general
+      statement sequence, name resolution or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with the two-assignment execution witness
+    retry_count: 0
+    integration_cycle_trigger: next_replay
 integration_cycle:
   triggers:
     verified_deltas: 4
