@@ -626,7 +626,8 @@ def main() -> None:
                     hashlib.sha256(source_bytes).hexdigest() != \
                     "f8ba31749daad7b6b89dc45ba40986639d8cf77b27c702569b10468486b5b499":
                 fail("stored-variable five-item source fixture bytes changed")
-            if hashlib.sha256(elf).hexdigest() != "":
+            if hashlib.sha256(elf).hexdigest() != \
+                    "4cbdd960fa9b8e2ae81f1f868bafadf6df20b8b8b557c6344befef99dcd54cfd":
                 fail("stored-variable five-item ELF identity changed")
             expected_file_marker = f"(file {source_path})"
             if ast.count("(file ") != 6 or ast.count(expected_file_marker) != 6 or \
