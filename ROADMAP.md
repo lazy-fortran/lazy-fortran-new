@@ -35,9 +35,12 @@ R000685 remains retained as the caught golden mismatch. D0180 stopped the
 exact-name ladder; D0181/D0182/D0183 and E0240/R000693 plus reviews
 R000694/R000695 promote only source-derived `beta`, `q7` and `theta_2` names
 and spans through the same fixed AST-v1 producer. R000689/R000690 remain
-retained failures. D0184 is now the next contract-selection task for a
-source-derived main-program name and matching END PROGRAM name. The path
-still does not parse arbitrary Fortran or close full M3.
+retained failures. D0184/D0185 now freeze the source-derived main-program name
+and matching END PROGRAM contract, including C1401. E0241/R000696 passes the
+clean no-bootstrap producer replay at pushed fortfront
+`04ca10b9d191366f328a39d0133375fd6aa62e4e`; final focused reviews remain
+before bounded promotion. The path still does not parse arbitrary Fortran or
+close full M3.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

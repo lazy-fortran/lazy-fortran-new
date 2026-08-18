@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-program-root-name-contract
+  - T-L3-frontend-program-root-name-implementation
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-program-root-name-contract
+active_task: T-L3-frontend-program-root-name-implementation
 
 milestones:
   - id: L0
@@ -8064,9 +8064,9 @@ tasks:
   - id: T-L3-frontend-program-root-name-contract
     milestone: L3
     title: Define the next source-derived main-program-name boundary
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 90
     depends_on: [T-L3-frontend-identifier-boundary-implementation]
     inputs:
@@ -8137,6 +8137,62 @@ tasks:
     final_observable: frozen program-root-name contract or one precise blocker
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-L3-frontend-program-root-name-implementation
+    milestone: L3
+    title: Implement and replay the bounded source-derived program-root name
+    status: OPEN
+    verification: PASS
+    review_state: PENDING
+    priority: 90
+    depends_on: [T-L3-frontend-program-root-name-contract]
+    inputs:
+      - path: research/decisions/D0184-next-program-root-name-boundary.md
+        sha256: 5857ee09ef62ed3b4557e0ef124724a21ab9dfeece8d5bf2c057ab7edeb04572
+      - path: research/decisions/D0185-correct-program-root-provenance.md
+        sha256: 6f9b5ea62c2e352f5f77da36f932efcdbb0513055b26c4b02ff6f8a4e310784d
+      - path: contracts/fixtures/frontend-ast-v1-program-root-name.sx
+        sha256: ee3b45e8666cf9141f97dd3d09ee1ce9cfd49bfd2d0919fbf9a4966ef875cc3c
+      - path: tests/fixtures/frontend-ast-v1-program-root-name-contract.toml
+        sha256: 4c40744dfc5f85a1828e1ce175676b59a3ffb8901975ae3718feb8d90366b01f
+      - path: tests/fixtures/frontend-ast-v1-program-root-name-replay.toml
+        sha256: acb4f8057b79202abb899acabf4e166d1c73fe26df6feee1d8edcc26650d812c
+      - path: artifacts/traces/frontend-ast-v1-program-root-name.json
+        sha256: e6a072e47d0bd986e7229324c43bbf8bce714aaac7c698197d64d0a18a111207
+      - path: tests/e2e/run-frontend-ast-v1-program-root-name.sh
+        sha256: 9855629d5143cd8647fcc6972948ac4a4330c39e87f3ec1e14011204166a4cf3
+      - path: tests/e2e/validate_frontend_ast_v1_program_root_name.py
+        sha256: 0446be6a0960515f6b774d35477f6494df986f67c2d5e9f65419fd3a8d5d9cca
+      - path: tests/e2e/write_frontend_ast_v1_program_root_name_trace.py
+        sha256: 9c987b6221942e98b83aec4027c9af021ac42ca8d95a65b0e4405c98b774ab40
+      - path: research/experiments/E0241-can-the-bounded-ast-v1-program-root-name/manifest.yaml
+        sha256: a6da5c6b34d152fc42746ecff36cfb71a1ea7e1daf7134ce094c6e3c8125643c
+      - component: fortfront-new
+        commit: 04ca10b9d191366f328a39d0133375fd6aa62e4e
+      - research/runs/2026-08.jsonl#R000696
+    output: PASS-BOUNDED-ONLY producer and central replay for main and unit root names
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: fortfront-exclusive
+    ownership:
+      component: fortfront-new
+      worktree: /home/ert/code/fortfront-new
+      owner: controller
+      allowed_paths:
+        - src/fortfront_frontend.f90
+    verifier: >-
+      implement source extraction and matching END PROGRAM validation for the
+      exact program-name / integer :: x shape, preserve existing AST v1 and
+      frontend-v0/MIR-v0 behavior, run the component gate, then run the
+      independent central replay. Do not claim general identifier parsing,
+      general program-unit parsing or semantic analysis.
+    verifier_command: >-
+      fo clean && fo && fo test && tools/regenerate_generated_ast_v1.sh &&
+      python3 tools/test_generated_ast_v1.py; then run
+      AST_EXPECTED_CENTRAL_COMMIT=<central>
+      tests/e2e/run-frontend-ast-v1-program-root-name.sh --fresh
+    final_observable: central oracle PASS for main and unit with mismatched end rejected
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4

@@ -58,3 +58,12 @@ gate: "AST_EXPECTED_CENTRAL_COMMIT=<central> tests/e2e/run-frontend-ast-v1-progr
 
 # Script that turns runs into the tables and figures in report.md.
 analysis: "The controller records the exact replay and review runs in research/runs/2026-08.jsonl; no successful-subset rate is substituted for the strict gate."
+
+result:
+  technical_run: research/runs/2026-08.jsonl#R000696
+  technical_status: PASS
+  promotion_status: PENDING-FOCUSED-REVIEW
+  evidence_packet_revision: 96558969c07534b3b690bf78fedf2df37b58bbba
+  component_revision: 04ca10b9d191366f328a39d0133375fd6aa62e4e
+  model_calls: 0
+  semantic_promotions: 0

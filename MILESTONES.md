@@ -1169,9 +1169,12 @@ focused reviews R000687/R000688 promote the exact `alpha` witness only.
 R000685 remains retained as the caught golden mismatch. D0180 stopped the
 exact-name ladder. D0181/D0182/D0183 and E0240/R000693 plus focused reviews
 R000694/R000695 promote only the source-derived `beta`, `q7` and `theta_2`
-variable-name/span boundary; R000689/R000690 remain retained failures. D0184
-is the next contract task for a source-derived program-root name and matching
-END PROGRAM name. Full M3 remains open.
+variable-name/span boundary; R000689/R000690 remain retained failures.
+D0184/D0185 freeze the source-derived program-root name and matching END
+PROGRAM contract, including C1401. E0241/R000696 passes the clean
+no-bootstrap replay at pushed fortfront
+`04ca10b9d191366f328a39d0133375fd6aa62e4e`; final focused reviews are pending
+before bounded promotion. Full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 
