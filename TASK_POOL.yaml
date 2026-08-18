@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generated-print-variable-twenty-one-forty-batch
+  - T-L3-generated-print-variable-forty-one-sixty-batch
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-variable-twenty-one-forty-batch
+active_task: T-L3-generated-print-variable-forty-one-sixty-batch
 
 milestones:
   - id: L0
@@ -7531,6 +7531,162 @@ tasks:
     evidence: central replay PASS at 86 routes; bounded-only promotion; focused review skipped for this ordinary batch
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-variable-forty-one-sixty-batch
+    milestone: L3
+    title: Generate and execute PRINT of a stored variable forty-one through sixty times
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 140
+    depends_on: [T-L3-generated-print-variable-twenty-one-forty-batch]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: f26d7bbfb5c4245c804c602035b1dc9ceca8a795
+      - component: ffc-new
+        commit: a9e3c0aa36c60461a209bd6778362ab382aff1bf
+      - component: fortback-new
+        commit: 448cdc624c28134a8a41831dd1de3c3dd52e4fbc
+      - normative-source: J3-24-007
+        rules: [R704, R901, R1008, R1033, R1212, R1215, R1217]
+        printed-pages: [155, 183, 205, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-ast-program-print-variable-forty-one-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-forty-two-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-forty-three-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-forty-four-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-forty-five-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-forty-six-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-forty-seven-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-forty-eight-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-forty-nine-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-one-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-two-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-three-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-four-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-five-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-six-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-seven-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-eight-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifty-nine-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-sixty-item-v1.f90
+      - negative-paths:
+          - tests/negative/l3-ast-program-print-variable-forty-one-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-one-item-wrong-forty-first-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-one-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-one-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-two-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-two-item-wrong-forty-second-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-two-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-two-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-three-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-three-item-wrong-forty-third-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-three-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-three-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-four-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-four-item-wrong-forty-fourth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-four-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-four-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-five-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-five-item-wrong-forty-fifth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-five-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-five-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-six-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-six-item-wrong-forty-sixth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-six-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-six-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-seven-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-seven-item-wrong-forty-seventh-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-seven-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-seven-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-eight-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-eight-item-wrong-forty-eighth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-eight-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-eight-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-nine-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-nine-item-wrong-forty-ninth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-forty-nine-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-forty-nine-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-item-wrong-fiftieth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-one-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-one-item-wrong-fifty-first-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-one-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-one-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-two-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-two-item-wrong-fifty-second-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-two-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-two-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-three-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-three-item-wrong-fifty-third-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-three-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-three-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-four-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-four-item-wrong-fifty-fourth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-four-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-four-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-five-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-five-item-wrong-fifty-fifth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-five-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-five-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-six-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-six-item-wrong-fifty-sixth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-six-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-six-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-seven-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-seven-item-wrong-fifty-seventh-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-seven-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-seven-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-eight-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-eight-item-wrong-fifty-eighth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-eight-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-eight-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-nine-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-nine-item-wrong-fifty-ninth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifty-nine-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifty-nine-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-sixty-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-sixty-item-wrong-sixtieth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-sixty-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-sixty-item-malformed-v1.f90
+    output: >-
+      central PASS for exact source-backed stored-variable PRINT routes with
+      forty-one through sixty R901 items, exact stdout of forty-one through
+      sixty lines of 9, preserving all 86 earlier routes
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generated-print-variable-forty-one-sixty-batch
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 86 earlier routes; accept exactly the twenty prepared
+      stored-variable PRINT sources; reject all eighty listed source neighbors.
+      Check exact source bytes, source identity, declaration and provenance,
+      forty-one-through-sixty output R901 correspondences, repeated MIR
+      load/output shapes, three AST/MIR/ELF mutations per route, and exact qemu
+      bytes. No general I/O, arbitrary output lists, name resolution, runtime
+      library, or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with route count 106; regenerate with bash tests/e2e/check-generated-chain.sh
+    evidence: central replay PENDING; bounded-only promotion; focused review skipped for this ordinary batch
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+
   - id: T-L3-frontend-ast-v1-replay
     milestone: L3
     title: Replay one typed frontend AST v1 declaration from raw source
