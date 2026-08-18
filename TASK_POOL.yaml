@@ -9220,7 +9220,7 @@ tasks:
     depends_on: [T-L3-generated-stop-7-wave]
     inputs:
       - component: standard-new
-        commit: 6b72188c0e11dbdce2e45af4dab418302b913c40
+        commit: ea8520b9eee662c0e0bda6a70a242903db6d782f
       - component: fortfront-new
         commit: 2940763ee41375dc0ae7d89a406d3a2d02c72c67
       - component: ffc-new
@@ -9721,11 +9721,11 @@ tasks:
       - component: standard-new
         commit: 6b72188c0e11dbdce2e45af4dab418302b913c40
       - component: fortfront-new
-        commit: 47565c8fe888a88e2334bb5f916128d07bd6dceb
+        commit: 23d77b78b0e8542583f32525ee79cd9a3751e636
       - component: ffc-new
-        commit: 18c2fbc5d962f453ce92292180201477b7be20e4
+        commit: 5cbbb2d2490a244ee0dc2f0affb9916a0ede000f
       - component: fortback-new
-        commit: 4761ef7c5481884143e95f2785f93949115609d1
+        commit: 4cf28c36b5fdce2b5afabbadd834f7269c0efc98
       - normative-source: J3-24-007
         rules: [R1212, R1215, R1217]
         printed-pages: [242, 244, 248]

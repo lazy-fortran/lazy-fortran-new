@@ -156,10 +156,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `6b72188c0e11dbdce2e45af4dab418302b913c40` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `47565c8fe888a88e2334bb5f916128d07bd6dceb` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7 and PRINT one- through ten-item routes; `fo` passes |
-| ffc-new | lazy-fortran/ffc-new | `18c2fbc5d962f453ce92292180201477b7be20e4` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and typed STOP/PRINT one- through ten-item MIR routes; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `4761ef7c5481884143e95f2785f93949115609d1` | backend | generated stack-slot/sequence routes, STOP 7 termination, and exact PRINT one- through ten-item RISC-V Linux output policies; `fo` passes |
+| standard-new | lazy-fortran/standard-new | `ea8520b9eee662c0e0bda6a70a242903db6d782f` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
+| fortfront-new | lazy-fortran/fortfront-new | `23d77b78b0e8542583f32525ee79cd9a3751e636` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, bounded PRINT routes, and mechanically repeated PRINT item handling; `fo` passes |
+| ffc-new | lazy-fortran/ffc-new | `5cbbb2d2490a244ee0dc2f0affb9916a0ede000f` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and mechanically repeated PRINT item lowering; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `4cf28c36b5fdce2b5afabbadd834f7269c0efc98` | backend | generated stack-slot/sequence routes, STOP 7 termination, and mechanically repeated PRINT item emission; `fo` passes |
 
 ## Historical milestone evidence
 

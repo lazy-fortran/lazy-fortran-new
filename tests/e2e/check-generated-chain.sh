@@ -42,6 +42,7 @@ print_seven_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-seven-it
 print_eight_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-eight-item-v1.f90"
 print_nine_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-nine-item-v1.f90"
 print_ten_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-ten-item-v1.f90"
+print_generic_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-generic-items-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -146,6 +147,11 @@ negative_print_ten_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-ten-item-missing-tenth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-ten-item-wrong-tenth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-ten-item-v1.f90"
+)
+negative_print_generic_item_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-generic-items-missing-third-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-generic-items-wrong-third-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-generic-items-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -937,6 +943,30 @@ qemu-riscv64 "$print_ten_item_elf_file" > "$print_ten_item_output_file"
 printf '7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n' | cmp -s - "$print_ten_item_output_file"
 python3 "$oracle" "$print_ten_item_ast_file" "$print_ten_item_mir_file" \
     "$print_ten_item_elf_file" p integer print-7-8-9-10-11-12-13-14-15-16
+
+print_generic_item_ast_file="$run_dir/print-generic-items.frontend.ast.sx"
+print_generic_item_mir_file="$run_dir/print-generic-items.mir.sx"
+print_generic_item_elf_file="$run_dir/print-generic-items.program.elf"
+print_generic_item_output_file="$run_dir/print-generic-items.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_generic_item_source_file" \
+        "$print_generic_item_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_generic_item_ast_file" \
+        "$print_generic_item_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$print_generic_item_mir_file" \
+        "$print_generic_item_elf_file") > /dev/null 2>&1
+for negative_print_generic_item in "${negative_print_generic_item_files[@]}"; do
+    rm -f "$run_dir/negative-print-generic-items.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_generic_item" \
+            "$run_dir/negative-print-generic-items.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid generic PRINT mutation was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-print-generic-items.ast.sx" ]
+done
+qemu-riscv64 "$print_generic_item_elf_file" > "$print_generic_item_output_file"
+printf '17\n18\n19\n' | cmp -s - "$print_generic_item_output_file"
+python3 "$oracle" "$print_generic_item_ast_file" "$print_generic_item_mir_file" \
+    "$print_generic_item_elf_file" p integer print-generic-items
 
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
