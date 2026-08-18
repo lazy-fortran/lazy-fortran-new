@@ -77,6 +77,19 @@ The practical test when you are unsure where something goes: if it would still
 matter after the component it describes was rewritten from scratch, it belongs
 here.
 
+## Code-first default
+
+Ordinary implementation work is deliberately minimal: edit code or tests, run
+useful checks, make a normal concise commit, and push it. Do not create or
+update runs, decisions, reports, traces, hashes, manifests, task-pool entries,
+or other per-change metadata. Do not put commands or test logs in commit
+messages.
+
+The provenance, replay, and control-plane procedures below apply only when the
+user explicitly requests a research experiment, audit, release, or milestone
+promotion. Historical records are not rewritten. Fast-lane results are called
+implemented or tested, not audited or promoted.
+
 **Nothing is inherited from the old repositories, and nothing is deliberately
 unlearned.** No API contract, module boundary, naming scheme, data structure,
 error convention or test harness from `standard`, `fortfront`, `ffc`, `fortad`

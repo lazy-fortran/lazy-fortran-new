@@ -3,6 +3,11 @@
 Advance the Lazy Fortran compiler program from this repository. It is the
 sole Goal Mode control plane.
 
+Ordinary implementation uses the code-first default in `AGENTS.md`: edit,
+check as useful, make a normal commit, and push. The control-plane procedure
+below is for explicitly requested experiments, audits, releases, and milestone
+promotion.
+
 ## Cycle entry
 
 Read `AGENTS.md`, `STATUS.md`, `TASK_POOL.yaml`, the active task, and its

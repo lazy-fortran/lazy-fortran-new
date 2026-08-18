@@ -5,6 +5,11 @@ queue, `STATUS.md` is the factual handoff, `MILESTONES.md` is the delivery
 ledger, and `ROADMAP.md` is the strategic archive. Components never acquire a
 competing loop.
 
+For ordinary implementation, use the code-first default: edit, check as
+useful, make a normal commit, and push. The evidence loop below is reserved
+for explicitly requested experiments, audits, releases, and milestone
+promotion.
+
 ## Entry point
 
 At fast-cycle entry read `AGENTS.md`, `TASK_POOL.yaml`, `STATUS.md`, the

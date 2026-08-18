@@ -1,5 +1,8 @@
 # Central reproducibility contract
 
+This is the audit and milestone-promotion contract. It does not apply to
+ordinary code-first implementation work, which follows `AGENTS.md`.
+
 Every verified cross-repository run records:
 
 - repository and component commits;
