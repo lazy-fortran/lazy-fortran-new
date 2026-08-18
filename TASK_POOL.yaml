@@ -8816,6 +8816,52 @@ tasks:
     final_observable: central generated chain PASS with the three-assignment execution witness
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-generated-program-execution-envelope-wave
+    milestone: L3
+    title: Connect the declaration and execution-part envelope to MIR and TargetIR
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 100
+    depends_on: [T-L3-generated-three-assignment-sequence-wave]
+    inputs:
+      - component: standard-new
+        commit: f23943b8badf4b8971b65dafe36a9915e6c5b5d4
+      - component: fortfront-new
+        commit: e3a568a7167f5603c75087061dee9d4abc0b5e21
+      - component: ffc-new
+        commit: 0cbc4d0471506c23d797760455da85a81f7443cd
+      - component: fortback-new
+        commit: e7566c5d5bbc5fa35b5e664179606161b9c32de3
+      - path: tests/fixtures/l3-ast-program-integer-two-assignment-v1.f90
+    output: >-
+      central PASS for one additive program-unit-v2 envelope carrying the
+      declaration and ordered execution-part, with generated MIR and qemu exit
+      8, or one exact interface blocker
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-envelope
+    ownership:
+      component: fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 17 existing routes and reject wrong root, declaration, type,
+      operator and execution order. Require the additive envelope, the seven
+      storage MIR operations with frontend-ast-v2/execution-part provenance,
+      matching backend stack slot and qemu exit 8. No general program parser,
+      statement list, name resolution or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with the program execution envelope
+    retry_count: 0
+    integration_cycle_trigger: next_replay
 integration_cycle:
   triggers:
     verified_deltas: 4
