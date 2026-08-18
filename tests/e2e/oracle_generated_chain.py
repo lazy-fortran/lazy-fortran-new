@@ -33,18 +33,38 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
 
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6") and ast.count("(variable (variable-declaration ") != 1:
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7") and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
         fail("MIR-v0 function witness is wrong")
-    if mode == "envelope-6":
+    if mode == "stop-7":
+        if not ast.startswith("(program-unit-v2 ") or \
+                "(root (program-root (name p)" not in ast or \
+                "(declaration-count 0)" not in ast or \
+                "(variable-count 0)" not in ast or \
+                ast.count("(stop-stmt (code 7)") != 1 or \
+                "(source-rule R1162)" not in ast or \
+                "(code-rule R1164)" not in ast or \
+                "(source-document J3-24-007)" not in ast or \
+                "(source-clause 11)" not in ast or \
+                "(source-page 214)" not in ast or \
+                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
+                "(assignment-sequence" in ast:
+            fail("AST-v2 STOP 7 provenance witness is wrong")
+        if mir.count("(opcode const)") != 1 or \
+                mir.count("(opcode return)") != 1 or \
+                mir.count("(literal 7)") != 1 or \
+                mir.count("(source-rule frontend-ast-v2/stop-stmt)") != 2 or \
+                "(opcode store)" in mir:
+            fail("MIR-v0 STOP 7 shape is wrong")
+    elif mode == "envelope-6":
         if not ast.startswith("(program-unit-v2 ") or \
                 "(declaration-count 1)" not in ast or \
                 "(variable-count 1)" not in ast or \

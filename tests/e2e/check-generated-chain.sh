@@ -31,6 +31,7 @@ sequence_seven_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-seven-as
 sequence_eight_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-eight-assignment-v1.f90"
 sequence_nine_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-nine-assignment-v1.f90"
 sequence_ten_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-ten-assignment-v1.f90"
+stop_source_file="$ROOT/tests/fixtures/l3-ast-program-stop-7-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -80,6 +81,11 @@ negative_sequence_ten_files=(
     "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-missing-tenth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-wrong-variable-v1.f90"
+)
+negative_stop_files=(
+    "$ROOT/tests/negative/l3-ast-program-stop-8-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-stop-missing-code-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-error-stop-7-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -606,6 +612,32 @@ run_sequence_batch_route 8 "$sequence_eight_source_file" 14 sequence-8
 run_sequence_batch_route 9 "$sequence_nine_source_file" 15 sequence-9
 run_sequence_batch_route 10 "$sequence_ten_source_file" 16 sequence-10 \
     "${negative_sequence_ten_files[@]}"
+
+stop_ast_file="$run_dir/stop.frontend.ast.sx"
+stop_mir_file="$run_dir/stop.mir.sx"
+stop_elf_file="$run_dir/stop.program.elf"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$stop_source_file" \
+        "$stop_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$stop_ast_file" \
+        "$stop_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$stop_mir_file" \
+        "$stop_elf_file") > /dev/null 2>&1
+for negative_stop in "${negative_stop_files[@]}"; do
+    rm -f "$run_dir/negative-stop.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_stop" \
+            "$run_dir/negative-stop.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid STOP mutation was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-stop.ast.sx" ]
+done
+if qemu-riscv64 "$stop_elf_file" > /dev/null; then
+    stop_status=0
+else
+    stop_status=$?
+fi
+[ "$stop_status" -eq 7 ]
+python3 "$oracle" "$stop_ast_file" "$stop_mir_file" "$stop_elf_file" p integer stop-7
 
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"

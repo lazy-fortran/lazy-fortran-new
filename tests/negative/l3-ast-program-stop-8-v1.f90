@@ -1,3 +1,3 @@
-program main
+program p
   stop 8
-end program main
+end program p
