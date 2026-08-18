@@ -18,9 +18,12 @@ select the no-kind-selector DOUBLE PRECISION alternative. The first producer
 attempt is retained as R000720 because the exact two-word AST atom was rejected
 by the existing serializer. D0188 amends the contract to require exact source
 spelling with canonical AST-v1 atom `double-precision`; R000721/R000722 pass the
-corrected focused review, and the active task is the isolated fortfront
-implementation at pushed component `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`.
-This does not parse arbitrary Fortran or promote M3 semantics.
+corrected contract review. E0243/R000726 plus R000727/R000728 promote the exact
+DOUBLE PRECISION producer/replay leaf at pushed component
+`c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`. R000724 remains retained stale
+metadata, and R000720 remains the caught implementation-boundary failure. The
+active task selects the next bounded source-backed boundary. This does not
+parse arbitrary Fortran or promote M3 semantics.
 
 ## Central goal
 
@@ -520,9 +523,10 @@ REAL producer/replay leaf as PASS-BOUNDED-ONLY; R000707 remains retained.
 D0187/R000712 select the no-kind-selector DOUBLE PRECISION alternative. R000720
 retains the caught AST-v1 representation failure. D0188 amends the contract to
 use canonical atom `double-precision` while pinning the exact source spelling;
-R000721/R000722 pass the correction, and the active task is the isolated
-fortfront implementation at pushed component
-`c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`. Central replay is still pending.
+R000721/R000722 pass the correction, and E0243/R000726 plus R000727/R000728
+promote the exact producer/replay leaf at pushed component
+`c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`. R000724 remains retained stale
+metadata. The active task selects the next bounded source-backed boundary.
 
 ## Next executable task
 
@@ -550,9 +554,10 @@ producer/replay leaf, while R000701/R000703 and R000707 remain retained caught
 failures. D0187/R000712 select the no-kind-selector DOUBLE PRECISION contract;
 R000720 retains the caught AST-v1 atom mismatch, and D0188 amends the contract
 to canonicalize the multi-word term, and R000721/R000722 pass the correction.
-The active task is the isolated implementation at pushed fortfront
-`c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`; central replay remains. This
-remains outside full M3. Do not resume
+E0243/R000726 plus R000727/R000728 promote the exact producer/replay leaf at
+pushed fortfront `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`; R000724 remains
+retained stale metadata. The active task selects the next bounded boundary.
+This remains outside full M3. Do not resume
 E0172 or start broad semantic work. The C768 worker result remains parked and
 is not promoted by this pivot.
 

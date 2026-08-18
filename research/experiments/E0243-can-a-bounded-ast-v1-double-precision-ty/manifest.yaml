@@ -2,13 +2,13 @@ id: "E0243"
 title: "Bounded source-derived AST v1 DOUBLE PRECISION type-spec"
 question: >
   Can a bounded AST v1 DOUBLE PRECISION type-spec be derived from source without broadening the frontend
-status: running          # draft | running | reported | abandoned
+status: reported          # draft | running | reported | abandoned
 opened: "2026-08-18"
-closed: ""
+closed: "2026-08-18"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "4011158c8d0dd50a4cabe47ca3048a50a622f663"
+  lazy-fortran-new: "82bed395cc743e5f3f2a0a8139aa46b05b8d4308"
   fortfront-new: "c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.

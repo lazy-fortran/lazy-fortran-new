@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-double-precision-implementation
+  - T-L3-next-bounded-boundary-selection-after-double-precision
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-double-precision-implementation
+active_task: T-L3-next-bounded-boundary-selection-after-double-precision
 
 milestones:
   - id: L0
@@ -8561,9 +8561,9 @@ tasks:
   - id: T-L3-frontend-double-precision-implementation
     milestone: L3
     title: Implement the bounded source-derived DOUBLE PRECISION type-spec boundary
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-frontend-double-precision-representation-correction]
     inputs:
@@ -8601,6 +8601,10 @@ tasks:
       - research/runs/2026-08.jsonl#R000724
       - research/runs/2026-08.jsonl#R000725
       - research/runs/2026-08.jsonl#R000726
+      - artifacts/reports/L3/frontend-ast-v1-double-precision-implementation-focused-review-v1.md
+        sha256: aa5adef35b113a6a3b8583675670adc782b1a3847e1712c0cead5f67a18dccf0
+      - research/runs/2026-08.jsonl#R000727
+      - research/runs/2026-08.jsonl#R000728
     output: one pushed fortfront implementation commit plus central DOUBLE PRECISION replay, or one precise blocker
     integration: component worker then controller replay
     estimated_cost: small
@@ -8621,9 +8625,56 @@ tasks:
     verifier_command: >-
       fo clean && fo && fo test && tools/regenerate_generated_ast_v1.sh &&
       python3 tools/test_generated_ast_v1.py
-    final_observable: pushed component commit passing its gate and ready for central replay
+    final_observable: R000726 plus R000727/R000728 promote the bounded DOUBLE PRECISION leaf
     retry_count: 0
-    integration_cycle_trigger: next_central_replay
+    integration_cycle_trigger: next_selection
+  - id: T-L3-next-bounded-boundary-selection-after-double-precision
+    milestone: L3
+    title: Select the next bounded source-backed frontend boundary after DOUBLE PRECISION
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-double-precision-implementation]
+    inputs:
+      - path: research/experiments/E0243-can-a-bounded-ast-v1-double-precision-ty/manifest.yaml
+        sha256: 6e7260f55bdb855429d453b5c047fd07b1664a4b4ea151ab1f1cbc041f8e191d
+      - path: research/decisions/D0188-canonicalize-double-precision-ast-atom.md
+        sha256: 2ab2b9e45402ce829474c3dd61ca5a764d6d2678ca707462988879c0e395ac12
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - artifacts/reports/L3/frontend-ast-v1-double-precision-implementation-focused-review-v1.md
+        sha256: aa5adef35b113a6a3b8583675670adc782b1a3847e1712c0cead5f67a18dccf0
+      - research/runs/2026-08.jsonl#R000726
+      - research/runs/2026-08.jsonl#R000727
+      - research/runs/2026-08.jsonl#R000728
+      - component: fortfront-new
+        commit: c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19
+    output: accepted next bounded source-backed boundary decision, or one precise blocker
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0189-*.md
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+        - MILESTONES.md
+    verifier: >-
+      inspect the now-promoted bounded DOUBLE PRECISION leaf, reusable
+      source-backed StandardIR evidence and the existing frontend AST-v1
+      interface; select exactly one next bounded source-derived boundary with
+      explicit exclusions. Do not start broad parsing, semantic work, E0172 or
+      another model experiment.
+    verifier_command: >-
+      scripts/check-decisions.sh && scripts/check-contracts.sh && git diff --check
+    final_observable: accepted next-boundary decision after DOUBLE PRECISION
+    retry_count: 0
+    integration_cycle_trigger: next_contract
 integration_cycle:
   triggers:
     verified_deltas: 4
