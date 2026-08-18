@@ -19,12 +19,12 @@ def main() -> None:
     mir = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
     elf = pathlib.Path(sys.argv[3]).read_bytes()
 
-    if not ast.startswith("(program-unit ") or "(name main)" not in ast:
+    if not ast.startswith("(program-unit ") or "(name p)" not in ast:
         fail("AST-v1 root witness is wrong")
     if "(type-spec integer)" not in ast or "(name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
-    if not mir.startswith("(mir-function (name main) "):
+    if not mir.startswith("(mir-function (name p) "):
         fail("MIR-v0 function witness is wrong")
     if mir.count("source-rule frontend-ast-v1/program") != 2:
         fail("MIR-v0 source correspondence is wrong")
