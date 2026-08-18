@@ -7504,7 +7504,7 @@ tasks:
       - path: tests/negative/l3-declaration-v0-missing-entity.f90
         sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
       - component: fortfront-new
-        commit: 394f34da390fb7540da5676cbc4e6f89a84553c1
+        commit: d20041cc8854cd4bf501e5ac8b890c9782e32204
     output: fortfront producer commit that preserves source variable name `y`
     integration: controller-only
     estimated_cost: medium
