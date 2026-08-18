@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "a0434aa480feb912465c33f501ed6be1ce6ce8d5"
+  lazy-fortran-new: "eaca690504abc1a2c218d86e38fdc188b199540d"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
   fortfront-new: "d20041cc8854cd4bf501e5ac8b890c9782e32204"
 
@@ -95,3 +95,15 @@ gate: >-
 analysis: >-
   AST_EXPECTED_CENTRAL_COMMIT=<pinned-central>
   tests/e2e/run-frontend-ast-v1-name.sh --fresh
+
+result:
+  technical_run: research/runs/2026-08.jsonl#R000667
+  technical_status: PASS
+  promotion_status: PENDING-FOCUSED-REVIEW
+  report: artifacts/reports/L3/frontend-ast-v1-name-raw-source-replay.md
+  trace: artifacts/traces/frontend-ast-v1-name.json
+  trace_sha256: 0f89c638f4f9eb7900989c275d0d810838f99b9c1d1613615c19c17f9c7f64ea
+  validator_sha256: b648ddfc83c0fff6b6aa1a63e22962e4dfd3f6a4d6c3616f5d104bbc1c097417
+  outcomes: {accepted: 1, rejected: 1, variable_name: y, repeat: identical}
+  model_calls: 0
+  semantic_promotions: 0

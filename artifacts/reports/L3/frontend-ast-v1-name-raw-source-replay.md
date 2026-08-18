@@ -12,16 +12,18 @@ check from the promoted AST oracle, then checks the exact y source bytes,
 contract and artifact hashes, expected values, repeat equality and absence of
 negative output. It does not import fortfront implementation code.
 
-The first central replay bootstrapped the trace. The technical command is:
+The first central replay bootstrapped the trace; the frozen no-bootstrap
+technical replay is:
 
 ```text
-AST_EXPECTED_CENTRAL_COMMIT=a0434aa480feb912465c33f501ed6be1ce6ce8d5 \
+AST_EXPECTED_CENTRAL_COMMIT=eaca690504abc1a2c218d86e38fdc188b199540d \
 tests/e2e/run-frontend-ast-v1-name.sh --fresh
 ```
 
 The positive was accepted, y was preserved, the malformed neighbour was
-rejected, repeated output was identical, and model calls and semantic
-promotions were zero. Full review and promotion remain pending.
+rejected, repeated output was identical, trace comparison passed, and model
+calls and semantic promotions were zero. Full review and promotion remain
+pending.
 
 This is a bounded source-name preservation claim only. It does not establish
 general identifier or declaration parsing, symbol resolution, semantic
