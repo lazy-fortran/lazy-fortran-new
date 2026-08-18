@@ -8165,10 +8165,10 @@ tasks:
       - path: tests/e2e/write_frontend_ast_v1_program_root_name_trace.py
         sha256: 9c987b6221942e98b83aec4027c9af021ac42ca8d95a65b0e4405c98b774ab40
       - path: research/experiments/E0241-can-the-bounded-ast-v1-program-root-name/manifest.yaml
-        sha256: b08ce075711f800c324b1659fec64ac07ec24f0869e7e915ca6e03b6398c3274
+        sha256: 10750b7038224a83d9e928f69ebd9f16af2044e6f4af90859490046c3ea4c684
       - component: fortfront-new
         commit: 04ca10b9d191366f328a39d0133375fd6aa62e4e
-      - research/runs/2026-08.jsonl#R000697
+      - research/runs/2026-08.jsonl#R000698
     output: PASS-BOUNDED-ONLY producer and central replay for main and unit root names
     integration: controller-only
     estimated_cost: small

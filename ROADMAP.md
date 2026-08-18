@@ -36,7 +36,7 @@ exact-name ladder; D0181/D0182/D0183 and E0240/R000693 plus reviews
 R000694/R000695 promote only source-derived `beta`, `q7` and `theta_2` names
 and spans through the same fixed AST-v1 producer. R000689/R000690 remain
 retained failures. D0184/D0185 now freeze the source-derived main-program name
-and matching END PROGRAM contract, including C1401. E0241/R000697 passes the
+and matching END PROGRAM contract, including C1401. E0241/R000698 passes the
 clean no-bootstrap producer replay at pushed fortfront
 `04ca10b9d191366f328a39d0133375fd6aa62e4e`; final focused reviews remain
 before bounded promotion. The path still does not parse arbitrary Fortran or

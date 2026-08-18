@@ -60,10 +60,10 @@ gate: "AST_EXPECTED_CENTRAL_COMMIT=<central> tests/e2e/run-frontend-ast-v1-progr
 analysis: "The controller records the exact replay and review runs in research/runs/2026-08.jsonl; no successful-subset rate is substituted for the strict gate."
 
 result:
-  technical_run: research/runs/2026-08.jsonl#R000697
+  technical_run: research/runs/2026-08.jsonl#R000698
   technical_status: PASS
   promotion_status: PENDING-FOCUSED-REVIEW
-  evidence_packet_revision: 6953e2c7b6fc4ff624b6fb744e3ee8919d6e6951
+  evidence_packet_revision: d8d61d8fe9df29cf42593d93a315e9a73727839d
   component_revision: 04ca10b9d191366f328a39d0133375fd6aa62e4e
   model_calls: 0
   semantic_promotions: 0
