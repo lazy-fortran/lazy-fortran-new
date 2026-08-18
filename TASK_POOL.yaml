@@ -8337,13 +8337,15 @@ tasks:
       - path: tests/golden/frontend-ast-v1-real-type.oracle.toml
         sha256: b34d5c5ca611633b918693bfcdd8fcfb00a273a59220179204c9a0b6ef01014b
       - path: tests/fixtures/frontend-ast-v1-real-type-replay.toml
-        sha256: 425338148308017d41d422aebbc1994ba758beb7080369011e9c840b7a97e589
+        sha256: 215c2521dcb2fed30ad67c4b3ba35c929924d7ea1ec85bb2054b52eca8d124d5
       - path: tests/e2e/run-frontend-ast-v1-real-type.sh
         sha256: dffd8f4819c96143142fca2abbdf9212b0c413833ec603c31b3e47ad36873702
       - path: tests/e2e/validate_frontend_ast_v1_real_type.py
         sha256: d061ba6a8e323ee0ebd03c49485ac4681351b563060b7e5401ffe38f55b796cc
       - path: tests/e2e/write_frontend_ast_v1_real_type_trace.py
         sha256: eea83f39034c99ae878e0a4a2d9d7ce3f9a19d0f547524d6a7c54166c867b5eb
+      - path: artifacts/traces/frontend-ast-v1-real-type.json
+        sha256: a97d8469d9ffc92286a8ca76db1f50309cb7bbcde262417ad0225e1619bf7214
       - path: artifacts/reports/L3/frontend-ast-v1-real-type-contract-focused-review-v1.md
         sha256: a09700ffef2eed4cd778a8b288dbbe425dfeb84c24351f8e06abaae3aef4f2ea
       - research/runs/2026-08.jsonl#R000705
