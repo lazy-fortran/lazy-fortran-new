@@ -78,6 +78,10 @@ failure. The following parallel wave also generates the StandardIR lexical
 constructor, typed-AST cardinality policies at the frontend and MIR boundary,
 and the RISC-V Linux ecall emission policy. The central replay now runs the
 generated StandardIR lexical gate before the source-to-executable chain.
+The bounded REAL typed shape now also passes that central replay: the source
+becomes AST-v1 `real`, MIR-v0 `real/f32`, and the same generated RISC-V ELF
+bridge, with qemu execution and an independent typed oracle. This is a
+declaration-only observable; it does not claim REAL arithmetic semantics.
 The next implementation step is to broaden the generated interfaces only
 when another bounded source shape and its downstream oracle are ready.
 `lazy-fortran-new` is the sole Goal Mode control
