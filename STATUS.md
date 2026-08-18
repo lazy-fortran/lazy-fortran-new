@@ -57,6 +57,10 @@ also remains green. This is still one bounded integer-expression item, not
 general expression parsing, formatted I/O, arrays, non-integer output or
 semantic promotion.
 
+The next active L3 slice `T-L3-generic-print-variable-expression` is prepared
+with a pinned contract and independent oracle for `x + x` as one generic PRINT
+item. Its component implementation wave is the next action.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to
