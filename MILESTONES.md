@@ -1160,8 +1160,8 @@ promoted only as a bounded claim. D0176 now freezes the next additive source
 shape `integer :: y` using the same v1 schema and malformed neighbour; D0177
 narrows the claim to that exact y witness. Fortfront `d20041c` passes its
 component gate, and E0236/R000670/R000671/R000672 promote the exact y leaf
-only. D0178 now freezes the changed-name `z` contract before producer work;
-full M3 remains open.
+only. D0178/R000673 freeze the changed-name `z` contract, and the next
+producer task starts from fortfront `d20041c`; full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

@@ -484,8 +484,10 @@ is pinned at fortfront `d20041c`; its central replay is active. D0177 narrows
 the claim to the exact y witness and explicitly refuses general source-name
 derivation. E0236/R000670/R000671/R000672 now promote that exact y leaf only;
 R000668 retains the rejected broader wording. D0178 freezes the changed-name
-`z` contract as the next task. The C768 implementation result is parked and
-is not promoted by this pivot.
+`z` contract as the next task. R000673 passes the contract gate, and the
+active implementation task is now the isolated fortfront z-name producer
+slice. The C768 implementation result is parked and is not promoted by this
+pivot.
 
 ## Next executable task
 
@@ -498,9 +500,9 @@ fortfront `d20041c`; E0235/R000661, focused reviews R000664/R000665 and the
 path-independent/schema-lineage gates pass. D0176/D0177 freeze the exact y
 witness boundary, and the y producer passes its component gate. The active
 task is the central E0236 replay. The replay and two final focused reviews now
-pass for the exact y witness only. The active task is the D0178 changed-name
-contract, which must pass `scripts/check-contracts.sh` before another producer
-implementation. This remains outside full M3. Do not resume E0172 or start
+pass for the exact y witness only. D0178/R000673 freeze the changed-name
+contract; the active task is the isolated fortfront z-name producer slice at
+base `d20041c`. This remains outside full M3. Do not resume E0172 or start
 broad semantic work. The C768 worker result remains parked and is not promoted
 by this pivot.
 

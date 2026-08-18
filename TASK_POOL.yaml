@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-ast-v1-name-mutation-contract
+  - T-L3-fortfront-typed-variable-name-mutation
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-ast-v1-name-mutation-contract
+active_task: T-L3-fortfront-typed-variable-name-mutation
 
 milestones:
   - id: L0
@@ -7599,9 +7599,9 @@ tasks:
   - id: T-L3-frontend-ast-v1-name-mutation-contract
     milestone: L3
     title: Freeze an independent changed-name contract for typed AST v1
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-frontend-ast-v1-name-replay]
     inputs:
@@ -7617,6 +7617,7 @@ tasks:
         sha256: afc8d9b191524061008c3ce5bef6f889c526ffd221591834fe0fe9850e910d8a
       - path: tests/negative/l3-declaration-v0-missing-entity.f90
         sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
+      - research/runs/2026-08.jsonl#R000673
     output: frozen z-name witness, changed-name control and independent-oracle contract
     integration: controller-only
     estimated_cost: small
@@ -7642,6 +7643,60 @@ tasks:
     final_observable: contract gate PASS or one precise evidence blocker
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-L3-fortfront-typed-variable-name-mutation
+    milestone: L3
+    title: Implement the bounded typed AST v1 z-name witness
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-ast-v1-name-mutation-contract]
+    inputs:
+      - path: research/decisions/D0178-l3-name-mutation-contract.md
+        sha256: 6824281ffab31380771d33dbee3231c8e42554dacde0161eea09eda90e1b6df3
+      - path: contracts/frontend-ast-v1.sxs
+        sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+      - path: contracts/fixtures/frontend-ast-v1-name-mutation.sx
+        sha256: ed592f01d9cc6149933c6464794d60a282788af98c7e8cb27609953c8194b11f
+      - path: tests/fixtures/frontend-ast-v1-name-mutation.toml
+        sha256: 702e5e520c062bec102cf3f5d8daa787afdfdf6ce9ce64e7ebfa9d70dd4b3af2
+      - path: tests/fixtures/l3-ast-variable-name-mutation-v1.f90
+        sha256: afc8d9b191524061008c3ce5bef6f889c526ffd221591834fe0fe9850e910d8a
+      - path: tests/negative/l3-declaration-v0-missing-entity.f90
+        sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
+      - path: tests/fixtures/l3-ast-variable-name-v1.f90
+        sha256: 3c0cfb4b399e5e925f29e806b85ffffda7a13d01f5e1b73151bd3aa2056dfcf9
+      - component: fortfront-new
+        commit: d20041cc8854cd4bf501e5ac8b890c9782e32204
+    output: fortfront producer commit that accepts z and preserves x/y behavior
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: l3-production
+    ownership:
+      component: fortfront-new
+      worktree: /home/ert/code/fortfront-new-l3-ast-name-mutation-medium
+      owner: controller
+      allowed_paths:
+        - src/fortfront_frontend.f90
+        - src/generated/frontend_ast_v1_generated.f90
+        - app/fortfront_source_ast_v1.f90
+        - test/test_frontend_typed_variable_name_v1.f90
+        - test/test_frontend_typed_variable_name_mutation_v1.f90
+        - fpm.toml
+        - README.md
+    verifier: >-
+      consume the frozen z source and the existing v1 schema, emit variable
+      name z with span 10..24 and source-hash label
+      l3-raw-program-variable-name-z-v1, preserve exact x/y behavior and
+      reject integer ::. Do not add arbitrary declarations, semantics, MIR or
+      model calls; a producer hard-coded only for z is acceptable only as a
+      bounded implementation detail and does not by itself establish a
+      general identifier claim.
+    verifier_command: >-
+      (cd /home/ert/code/fortfront-new && fo clean && fo && fo test)
+    final_observable: deterministic typed AST v1 output with variable name z
+    retry_count: 0
+    integration_cycle_trigger: next_replay
 integration_cycle:
   triggers:
     verified_deltas: 4
