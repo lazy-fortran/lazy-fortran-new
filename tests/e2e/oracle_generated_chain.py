@@ -577,11 +577,20 @@ def main() -> None:
             b"  print *, x\n"
             b"end program main\n"
         )
+        expected_source_power = (
+            b"program main\n"
+            b"  integer :: x\n"
+            b"  x = 2\n"
+            b"  x = x ** 3\n"
+            b"  print *, x\n"
+            b"end program main\n"
+        )
         is_multiply = source_bytes == expected_source_multiply
         is_subtract = source_bytes == expected_source_subtract
         is_divide = source_bytes == expected_source_divide
+        is_power = source_bytes == expected_source_power
         is_expression = source_bytes == expected_source_expression or is_multiply or \
-            is_subtract or is_divide
+            is_subtract or is_divide or is_power
         if source_bytes == expected_source_17:
             expected_literal = 17
             expected_source_hash = "e30b7f0f50e828d6dea378ed426ae5117691a6943dbfb63da590b074d33730e1"
@@ -589,13 +598,15 @@ def main() -> None:
             expected_literal = 23
             expected_source_hash = "390dbc3f3f29b0bcb1fedcf37aaee26f1e37c6611cdc8d4528a6f81f66c4c24b"
         elif is_expression:
-            expected_literal = 24 if is_divide else 23
+            expected_literal = 24 if is_divide else 2 if is_power else 23
             if is_multiply:
                 expected_source_hash = "5714f3e548f0eafbc1853be1c1ef3bf9a3e685e475ffcc673621ddaf0a2aa53e"
             elif is_subtract:
                 expected_source_hash = "dbe6766fcf84970c11a7a2d0c7680b45aea80ee6628df71af72a6e48a469eac7"
             elif is_divide:
                 expected_source_hash = "701ce2b90e5b8eec3c6a21ccc11b1054a6fabd64b7947204fd2b04ba96a7e02b"
+            elif is_power:
+                expected_source_hash = "3546930be8c713977596159a5ddf5a5a9c3c992f5d4fe0fa46429365c7701926"
             else:
                 expected_source_hash = "57598821b9bf538e1f9781c9d9a1a3f18482ec2f1eae95130400bb9848971f15"
         else:
@@ -613,6 +624,8 @@ def main() -> None:
                 expected_elf_hash = "cec67a413a9e9774cae8c5a5336ebc4b124239e37c0ab989834075f92ccb8605"
             elif is_divide:
                 expected_elf_hash = "bd295eb5eaa9cac3faa6d7312fe2879ef7bf973c2e6970479e2b7177d25edc39"
+            elif is_power:
+                expected_elf_hash = "9c8a5d5c442541ed33cc9e4a598f98ca8ec4a64a1e6e7f4431ba0f490897c20e"
             else:
                 expected_elf_hash = "d57426ffb421821ae2f450d6694c65523fcb9e10fcf91f45a321e87fe19cb6f4"
         if hashlib.sha256(elf).hexdigest() != expected_elf_hash:
@@ -626,11 +639,13 @@ def main() -> None:
             fail("stored-variable AST source-hash identity is wrong")
         if is_expression:
             expression_operator = "*" if is_multiply else \
-                "–" if is_subtract else "/" if is_divide else "+"
-            expression_rhs = 2 if (is_multiply or is_subtract or is_divide) else 1
+                "–" if is_subtract else "/" if is_divide else "**" if is_power else "+"
+            expression_rhs = 3 if is_power else 2 if (is_multiply or is_subtract or is_divide) else 1
             expression_opcode = "mul" if is_multiply else \
-                "sub" if is_subtract else "div" if is_divide else "add"
+                "sub" if is_subtract else "div" if is_divide else "pow" if is_power else "add"
             expression_left = expected_literal
+            expression_start_byte = 36 if is_power else 37
+            expression_end_byte = 46 if is_power else 47
             print_start_byte = 51 if is_subtract else 49
             print_end_byte = 62 if is_subtract else 60
             required_expression = [
@@ -642,7 +657,7 @@ def main() -> None:
                 "(kind binary-expression)", f"(operator {expression_operator})",
                 "(left-operand x)", "(right-operand 1)",
                 "(start-byte 28)", "(end-byte 34)",
-                "(start-byte 37)", "(end-byte 47)",
+                f"(start-byte {expression_start_byte})", f"(end-byte {expression_end_byte})",
                 f"(start-byte {print_start_byte})", f"(end-byte {print_end_byte})",
                 "(output-kind variable)", "(output-name x)",
                 "(statement-rule R1212)", "(format-rule R1215)",
