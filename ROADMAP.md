@@ -173,15 +173,16 @@ fortfront literal range is now generated from its assignment-policy input, and
 standard-new has prepared source-backed generated R901/R902/R903 designator,
 variable and variable-name facts. The generated storage and sequence wave now
 consumes those facts: `x = x + 1`, the ordered source `x = 7; x = x + 1`, and
-the three-, four-, five- and six-assignment extensions travel through generated
+the three- through ten-assignment extensions travel through generated
 frontend records, FFC MIR with `(storage-key x)`, and policy-driven fortback
-stack slots. The six-assignment route uses the distinct generated MIR source
-rule `frontend-ast-v1/storage-sequence-6` and exits 12.
+stack slots. The six- through ten-assignment routes use the distinct generated
+MIR source rules `frontend-ast-v1/storage-sequence-6` through `-10` and exit
+12 through 16.
 The program-unit-v2 envelope now carries the declaration and source-backed R509
 execution-part into that same generated chain. Its five- and six-assignment
 extensions use the distinct generated MIR source rules
 `frontend-ast-v2/execution-part-5` and
-`frontend-ast-v2/execution-part-6`. The central replay passes 23 routes;
+`frontend-ast-v2/execution-part-6`. The central replay passes 27 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
 six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and

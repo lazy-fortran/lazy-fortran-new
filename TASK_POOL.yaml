@@ -9103,8 +9103,8 @@ tasks:
   - id: T-L3-generated-assignment-sequence-batch-7-10
     milestone: L3
     title: Extend generated assignment-sequence transport to counts seven through ten
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 93
     depends_on: [T-L3-generated-program-execution-envelope-six-wave]
@@ -9112,11 +9112,11 @@ tasks:
       - component: standard-new
         commit: f23943b8badf4b8971b65dafe36a9915e6c5b5d4
       - component: fortfront-new
-        commit: 71910d1a7540f07dad8eb7ac5b4b837e499d49fe
+        commit: 26ddfc758ea69e27f3748b9bec9e480ef5825a90
       - component: ffc-new
-        commit: f8422def3e5b64a417dc7cd8cca61a8c92f05cf4
+        commit: 9cbfc42023a492cb2170c80d3ec7daf577534723
       - component: fortback-new
-        commit: 13b92918a66e1c695a207a33409fc874a8204c2c
+        commit: 4ccf1254b50665d52cc7ccd4470921cd488fb2f7
       - path: tests/fixtures/l3-ast-program-integer-seven-assignment-v1.f90
       - path: tests/fixtures/l3-ast-program-integer-eight-assignment-v1.f90
       - path: tests/fixtures/l3-ast-program-integer-nine-assignment-v1.f90
@@ -9144,7 +9144,7 @@ tasks:
         - STATUS.md
         - ROADMAP.md
     verifier: >-
-      preserve all 23 existing routes; accept only the four exact positive
+      preserve all 27 existing routes; accept only the four exact positive
       sources; require assignment-count 7, 8, 9 and 10 with generated MIR
       source rules frontend-ast-v1/storage-sequence-7 through -10, matching
       storage-key x, and qemu exits 13 through 16. Reject promotion of the
@@ -9152,7 +9152,7 @@ tasks:
       envelope, general statement parser, name resolution or semantic promotion.
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
-    final_observable: central generated chain PASS with the 7-10 assignment-sequence batch
+    final_observable: central generated chain PASS with the 7-10 assignment-sequence batch; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:
