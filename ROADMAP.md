@@ -140,6 +140,14 @@ not materialize operands; that is an encoding/execution witness, not a claim
 of division-result semantics. This slice does not claim constant evaluation,
 divide-by-zero diagnostics, precedence closure, or arbitrary executable
 Fortran.
+The following parallel slice adds the source-backed R1010 en-dash alternative:
+generated StandardIR `add-op` projection for U+2013, generated frontend
+binary-expression AST for `5 – 3`, generated MIR `sub`/`store`/`return` with
+source rule `frontend-ast-v1/expression`, and the generated RISC-V bridge now
+pass the positive, missing-operand, unsupported-power, qemu and typed-oracle
+replay. The AST preserves the exact U+2013 spelling. This remains a bounded
+structural subtraction path; it does not claim ASCII-minus normalization,
+constant evaluation, precedence closure, or arbitrary executable Fortran.
 The next implementation step is another disjoint generated source shape or
 declaration boundary whose downstream central oracle is ready.
 `lazy-fortran-new` is the sole Goal Mode control

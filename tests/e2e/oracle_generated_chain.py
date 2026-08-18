@@ -82,9 +82,18 @@ def main() -> None:
         if "(opcode div)" not in mir or "(opcode store)" not in mir or \
                 "(opcode return)" not in mir:
             fail("MIR-v0 division opcode shape is wrong")
+    elif mode == "subtraction":
+        if "(assignment-count 1)" not in ast or \
+                "(assignment-expression (kind binary-expression) (operator –) (left-operand 5) (right-operand 3)" not in ast:
+            fail("AST-v1 subtraction assignment witness is wrong")
+        if mir.count("source-rule frontend-ast-v1/expression") != 3:
+            fail("MIR-v0 subtraction correspondence is wrong")
+        if "(opcode sub)" not in mir or "(opcode store)" not in mir or \
+                "(opcode return)" not in mir:
+            fail("MIR-v0 subtraction opcode shape is wrong")
     else:
         fail("unsupported generated chain mode")
-    expected_result_count = 3 if mode in ("expression", "multiplication", "division") else 2
+    expected_result_count = 3 if mode in ("expression", "multiplication", "division", "subtraction") else 2
     if mir.count(f"(kind {mir_kind}) (type {mir_type})") != expected_result_count:
         fail("MIR-v0 typed result is wrong")
 

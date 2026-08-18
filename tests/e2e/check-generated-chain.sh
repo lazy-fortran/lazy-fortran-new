@@ -18,6 +18,7 @@ assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-assignment-v
 expression_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-add-assignment-v1.f90"
 multiplication_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-multiply-assignment-v1.f90"
 division_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-divide-assignment-v1.f90"
+subtraction_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-subtract-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -33,6 +34,8 @@ negative_multiplication_file="$ROOT/tests/negative/l3-ast-program-integer-multip
 negative_multiplication_operator_file="$ROOT/tests/negative/l3-ast-program-integer-multiply-assignment-wrong-operator-v1.f90"
 negative_division_file="$ROOT/tests/negative/l3-ast-program-integer-divide-assignment-missing-operand-v1.f90"
 negative_division_operator_file="$ROOT/tests/negative/l3-ast-program-integer-divide-assignment-wrong-operator-v1.f90"
+negative_subtraction_file="$ROOT/tests/negative/l3-ast-program-integer-subtract-assignment-missing-operand-v1.f90"
+negative_subtraction_operator_file="$ROOT/tests/negative/l3-ast-program-integer-subtract-assignment-wrong-operator-v1.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 (cd "$standard" && fo clean && fo test test_standardir_lexical_generated && \
@@ -259,5 +262,25 @@ else
     [ "$division_status" -eq 255 ]
 fi
 python3 "$oracle" "$division_ast_file" "$division_mir_file" "$division_elf_file" main integer division
+
+subtraction_ast_file="$run_dir/subtraction-assignment.frontend.ast.sx"
+subtraction_mir_file="$run_dir/subtraction-assignment.mir.sx"
+subtraction_elf_file="$run_dir/subtraction-assignment.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$subtraction_assignment_source_file" \
+        "$subtraction_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$subtraction_ast_file" "$subtraction_mir_file") \
+    > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$subtraction_mir_file" "$subtraction_elf_file") \
+    > /dev/null 2>&1
+for negative_subtraction in "$negative_subtraction_file" "$negative_subtraction_operator_file"; do
+    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_subtraction" \
+            "$run_dir/negative-subtraction.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid subtraction assignment source was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-subtraction.ast.sx" ]
+done
+qemu-riscv64 "$subtraction_elf_file" > /dev/null
+python3 "$oracle" "$subtraction_ast_file" "$subtraction_mir_file" "$subtraction_elf_file" main integer subtraction
 
 printf '%s\n' 'generated compiler chain PASS'
