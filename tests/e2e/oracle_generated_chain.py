@@ -49,15 +49,25 @@ def main() -> None:
             fail("MIR-v0 source correspondence is wrong")
     elif mode == "assignment":
         if "(assignment-count 1)" not in ast or \
-                "(assignment (assignment-stmt (variable x) (expression 1)" not in ast:
+                "(assignment (assignment-stmt (variable x) (expression (assignment-expression (kind integer-literal)" not in ast:
             fail("AST-v1 assignment witness is wrong")
         if mir.count("source-rule frontend-ast-v1/assignment") != 2:
             fail("MIR-v0 assignment correspondence is wrong")
         if "(opcode store)" not in mir or "(opcode return)" not in mir:
             fail("MIR-v0 assignment opcode shape is wrong")
+    elif mode == "expression":
+        if "(assignment-count 1)" not in ast or \
+                "(assignment-expression (kind binary-expression) (operator +) (left-operand 1) (right-operand 2)" not in ast:
+            fail("AST-v1 expression assignment witness is wrong")
+        if mir.count("source-rule frontend-ast-v1/expression") != 3:
+            fail("MIR-v0 expression correspondence is wrong")
+        if "(opcode add)" not in mir or "(opcode store)" not in mir or \
+                "(opcode return)" not in mir:
+            fail("MIR-v0 expression opcode shape is wrong")
     else:
         fail("unsupported generated chain mode")
-    if mir.count(f"(kind {mir_kind}) (type {mir_type})") != 2:
+    expected_result_count = 3 if mode == "expression" else 2
+    if mir.count(f"(kind {mir_kind}) (type {mir_type})") != expected_result_count:
         fail("MIR-v0 typed result is wrong")
 
     if len(elf) < 20 or elf[:4] != b"\x7fELF":
