@@ -56,13 +56,13 @@ arbitrary Fortran or close full M3.
 The selected COMPLEX boundary is now implemented as a bounded typed-AST
 producer and checked centrally with an independent positive, changed-type and
 malformed-source oracle. This remains bootstrap evidence, not a claim of a
-general intrinsic-type parser. In parallel, the compiler-generation wave has
-started across all production levels: StandardIR grammar-fact records,
-frontend type handling, MIR metadata, and RISC-V backend opcode metadata each
-have an independent generator lane. Their component pushes are not yet a
-single end-to-end promotion; the next integration step is to connect the
-generated artifacts through the existing interfaces and remove the remaining
-handwritten rule tables.
+general intrinsic-type parser. In parallel, the generated compiler wave has
+landed in every production repository: StandardIR grammar facts, frontend
+type and program-envelope tables, MIR metadata, and RISC-V opcode/immediate
+metadata are now generated artifacts with component-level behavioral gates.
+These pushes are not yet a single end-to-end promotion; the next integration
+step is to connect the generated artifacts through the existing interfaces
+and remove the remaining handwritten rule tables.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
