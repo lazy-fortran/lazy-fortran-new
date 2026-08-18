@@ -102,6 +102,8 @@ def main() -> int:
     negative = root / manifest["negative"]
     require(digest(negative) == manifest["negative_sha256"], "negative hash differs")
     require(negative.read_bytes() == NEGATIVE_SOURCE, "negative source differs")
+    require(f"(source {manifest['negative']})" in witness_text, "negative witness source differs")
+    require(f"(source-sha256 {manifest['negative_sha256']})" in witness_text, "negative witness hash differs")
     require(oracle["negative"] == [{"id": "missing-entity", "expected_outcome": "REJECTED"}], "negative oracle differs")
     require("(id missing-entity)" in witness_text and "(expected-outcome rejected)" in witness_text, "negative witness differs")
     print("frontend AST v1 REAL type contract oracle PASS: REAL positive, integer changed-type control, malformed negative")
