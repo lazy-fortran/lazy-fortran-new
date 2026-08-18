@@ -1,0 +1,40 @@
+{
+  "boundary": "raw-source-to-typed-frontend-ast-v1-source-derived-variable-name",
+  "cases": [
+    {
+      "ast_sha256": "2e81917a7126552b6cd0abcd93d8dba4ed89d3306f2c237e0b9f8c65c48160fd",
+      "id": "beta",
+      "source": {
+        "path": "tests/fixtures/l3-ast-variable-name-derived-beta-v1.f90",
+        "sha256": "87753d0a61579edccacb7c1489635c9359fbf206b7c401393a34622222f144b9"
+      }
+    },
+    {
+      "ast_sha256": "d39749149c93822243dabe48f025920d65417522ec36c2a329e3faae4ef191bc",
+      "id": "q7",
+      "source": {
+        "path": "tests/fixtures/l3-ast-variable-name-derived-q7-v1.f90",
+        "sha256": "2b851ae02a3dd04426808dc95c5c8282ff58d135ee0fabf070d63ef14c02c469"
+      }
+    },
+    {
+      "ast_sha256": "c584addc3ed2151269ce8cd540962d34e1894de96289d9d26e8bcca467848140",
+      "id": "theta-2",
+      "source": {
+        "path": "tests/fixtures/l3-ast-variable-name-derived-theta-2-v1.f90",
+        "sha256": "5fff027692ebee2927df3ceaf52ff2f4721c78667ff77ab8f98b17020331f115"
+      }
+    }
+  ],
+  "components": {
+    "fortfront-new": "157236b11540d6a55676e159062e6f9423577a0d"
+  },
+  "fixture": "frontend-ast-v1-name-derived",
+  "milestone": "L3",
+  "model_calls": 0,
+  "semantic_promotions": 0,
+  "toolchain": {
+    "fo": "fo 0.3.2",
+    "python": "Python 3.14.6"
+  }
+}
