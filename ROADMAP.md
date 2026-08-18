@@ -182,7 +182,7 @@ The program-unit-v2 envelope now carries the declaration and source-backed R509
 execution-part into that same generated chain. Its five- and six-assignment
 extensions use the distinct generated MIR source rules
 `frontend-ast-v2/execution-part-5` and
-`frontend-ast-v2/execution-part-6`. The central replay passes 45 routes;
+`frontend-ast-v2/execution-part-6`. The central replay passes 46 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
 six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and
@@ -245,9 +245,12 @@ source neighbours and three rejected multiplication-specific artifact
 mutations. The arithmetic successor is now integrated as stored subtraction
 `x = x – 2` and integer division `x = x / 2`, with positive outputs `21\n` and
 `12\n`, eight negative neighbours and six rejected artifact mutations. The
-next prepared route uses the source-backed R1008 power operator `**` for
-`x = 2; x = x ** 3; PRINT *, x`, with expected output `8\n` and four negative
-neighbours. It is not yet executable compiler behavior.
+the source-backed R1008 power operator `**` now carries
+`x = 2; x = x ** 3; PRINT *, x`, with exact output `8\n`, four negative
+neighbours and three rejected artifact mutations. The next prepared slice
+The next prepared slice generalizes the stored power witness to `x = 3; x = x ** 2`
+with expected output `9\n`; it remains a bounded value pair, not a general literal
+or power implementation.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
