@@ -31,7 +31,7 @@ expected_variable_type = "integer"
 expected_variable_name = "beta"
 expected_variable_start_byte = 10
 expected_variable_end_byte = 27
-expected_source_hash = "l3-raw-program-variable-name-derived-beta-v1"
+expected_source_hash = "l3-raw-program-variable-name-v1"
 
 [[case]]
 id = "q7"
@@ -43,7 +43,7 @@ expected_variable_type = "integer"
 expected_variable_name = "q7"
 expected_variable_start_byte = 10
 expected_variable_end_byte = 25
-expected_source_hash = "l3-raw-program-variable-name-derived-q7-v1"
+expected_source_hash = "l3-raw-program-variable-name-v1"
 
 [[case]]
 id = "theta-2"
@@ -55,4 +55,4 @@ expected_variable_type = "integer"
 expected_variable_name = "theta_2"
 expected_variable_start_byte = 10
 expected_variable_end_byte = 30
-expected_source_hash = "l3-raw-program-variable-name-derived-theta-2-v1"
+expected_source_hash = "l3-raw-program-variable-name-v1"

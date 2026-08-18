@@ -7949,7 +7949,7 @@ tasks:
       - path: contracts/fixtures/frontend-ast-v1-name-derived.sx
         sha256: 7aa967e04bb89f495371bd689b1a5fe00ee8457709112951a1b84550fe914871
       - path: tests/fixtures/frontend-ast-v1-name-derived-contract.toml
-        sha256: e3fa4974dcc0f78afce58cd2ccd3c5a515b3028de490b743e7f60d7d474bfa09
+        sha256: 3be693a9c14d1506095a55ef6eb1eb681ffcc9f0baac0f42fac82a51d3fc2bc2
       - path: tests/golden/frontend-ast-v1-name-derived.oracle.toml
         sha256: aacbf7355ad6cb7cc2b0bcc16253d78ba9380eca98c3287b8ac0aba71af3032b
       - path: tests/e2e/validate_frontend_ast_v1_name_derived_contract.py
@@ -8002,7 +8002,7 @@ tasks:
       - path: contracts/fixtures/frontend-ast-v1-name-derived.sx
         sha256: 7aa967e04bb89f495371bd689b1a5fe00ee8457709112951a1b84550fe914871
       - path: tests/fixtures/frontend-ast-v1-name-derived-contract.toml
-        sha256: e3fa4974dcc0f78afce58cd2ccd3c5a515b3028de490b743e7f60d7d474bfa09
+        sha256: 3be693a9c14d1506095a55ef6eb1eb681ffcc9f0baac0f42fac82a51d3fc2bc2
       - path: tests/golden/frontend-ast-v1-name-derived.oracle.toml
         sha256: aacbf7355ad6cb7cc2b0bcc16253d78ba9380eca98c3287b8ac0aba71af3032b
       - path: tests/fixtures/frontend-ast-v1-name-derived-replay.toml
