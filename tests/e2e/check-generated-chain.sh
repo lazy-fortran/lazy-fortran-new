@@ -27,6 +27,10 @@ sequence_three_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-three-as
 sequence_four_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-four-assignment-v1.f90"
 sequence_five_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-five-assignment-v1.f90"
 sequence_six_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-six-assignment-v1.f90"
+sequence_seven_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-seven-assignment-v1.f90"
+sequence_eight_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-eight-assignment-v1.f90"
+sequence_nine_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-nine-assignment-v1.f90"
+sequence_ten_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-ten-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -72,6 +76,11 @@ negative_sequence_six_files=(
     "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-missing-sixth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-wrong-variable-v1.f90"
 )
+negative_sequence_ten_files=(
+    "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-wrong-operator-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-missing-tenth-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-wrong-variable-v1.f90"
+)
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 (cd "$standard" && fo clean && fo test test_standardir_lexical_generated && \
@@ -80,6 +89,43 @@ oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 mkdir -p "$ROOT/.cache/fast-checks"
 run_dir="$(mktemp -d "$ROOT/.cache/fast-checks/generated-chain.XXXXXX")"
 trap 'rm -rf "$run_dir"' EXIT
+
+run_sequence_batch_route() {
+    local count="$1"
+    local source="$2"
+    local expected_status="$3"
+    local mode="$4"
+    shift 4
+    local ast="$run_dir/sequence-${count}.frontend.ast.sx"
+    local mir="$run_dir/sequence-${count}.mir.sx"
+    local elf="$run_dir/sequence-${count}.program.elf"
+    local negative
+    local actual_status
+
+    (cd "$frontend" && fo exec fortfront-source-ast-v1 "$source" "$ast") > /dev/null 2>&1
+    (cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$ast" "$mir") > /dev/null 2>&1
+    (cd "$backend" && fo exec fortback-mir-v0 "$mir" "$elf") > /dev/null 2>&1
+    for negative in "$@"; do
+        rm -f "$run_dir/negative-sequence-${count}.ast.sx"
+        if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative" \
+                "$run_dir/negative-sequence-${count}.ast.sx") > /dev/null 2>&1; then
+            if grep -q '^(assignment-sequence ' "$run_dir/negative-sequence-${count}.ast.sx" && \
+                    grep -q "(assignment-count ${count})" "$run_dir/negative-sequence-${count}.ast.sx"; then
+                printf 'invalid %s-assignment sequence source was promoted\n' "$count" >&2
+                exit 1
+            fi
+        else
+            [ ! -e "$run_dir/negative-sequence-${count}.ast.sx" ]
+        fi
+    done
+    if qemu-riscv64 "$elf" > /dev/null; then
+        actual_status=0
+    else
+        actual_status=$?
+    fi
+    [ "$actual_status" -eq "$expected_status" ]
+    python3 "$oracle" "$ast" "$mir" "$elf" main integer "$mode"
+}
 
 ast_file="$run_dir/frontend.ast.sx"
 mir_file="$run_dir/mir.sx"
@@ -554,6 +600,15 @@ fi
 [ "$sequence_six_status" -eq 12 ]
 python3 "$oracle" "$sequence_six_ast_file" "$sequence_six_mir_file" \
     "$sequence_six_elf_file" main integer sequence-6
+
+run_sequence_batch_route 7 "$sequence_seven_source_file" 13 sequence-7 \
+    "${negative_sequence_ten_files[@]}"
+run_sequence_batch_route 8 "$sequence_eight_source_file" 14 sequence-8 \
+    "${negative_sequence_ten_files[@]}"
+run_sequence_batch_route 9 "$sequence_nine_source_file" 15 sequence-9 \
+    "${negative_sequence_ten_files[@]}"
+run_sequence_batch_route 10 "$sequence_ten_source_file" 16 sequence-10 \
+    "${negative_sequence_ten_files[@]}"
 
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
