@@ -49,8 +49,9 @@ contract to pin exact source spelling and canonical AST-v1 atom
 `double-precision`; R000721/R000722 pass the correction. E0243/R000726 plus
 R000727/R000728 promote the exact producer/replay leaf at pushed component
 `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`. R000724 remains retained stale
-metadata. The active task selects the next bounded source-backed boundary. The
-path still does not parse arbitrary Fortran or close full M3.
+metadata. D0189 selects the adjacent no-kind-selector COMPLEX boundary; its
+bounded producer and central oracle now pass. The path still does not parse
+arbitrary Fortran or close full M3.
 
 The selected COMPLEX boundary is now implemented as a bounded typed-AST
 producer and checked centrally with an independent positive, changed-type and
