@@ -746,7 +746,12 @@ def main() -> None:
                     9: "51b4e620e303d2193d59c74bd2d0141c301a29551732fe775c00f458c2cd142d",
                     10: "1e5cf76546bf0261b2eef495b4e541bb43eb58c0f79fc242733b88215cc77a30",
                 }
-                elf_hashes = {7: "", 8: "", 9: "", 10: ""}
+                elf_hashes = {
+                    7: "27a377c55a74589b606f06f89840a58f52987b41ec1df659e93926a9b27ce5ff",
+                    8: "1ebc4c8c2ef62db1cc426a536c39f8f84f0b60fbd2f665c1817e9cd96e370f31",
+                    9: "9ae93def173c838df96748f87017230fab21201799ac56ad1a59dfe58b6130ef",
+                    10: "359cc425701669913094a69461c5f6d2e6da7848ed75061da89d5b6d462dcb5f",
+                }
                 output_names = ", ".join(["x"] * output_count)
                 expected_source = (
                     "program main\n"
