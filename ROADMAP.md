@@ -81,9 +81,14 @@ generated StandardIR lexical gate before the source-to-executable chain.
 The bounded REAL typed shape now also passes that central replay: the source
 becomes AST-v1 `real`, MIR-v0 `real/f32`, and the same generated RISC-V ELF
 bridge, with qemu execution and an independent typed oracle. This is a
-declaration-only observable; it does not claim REAL arithmetic semantics.
-The next implementation step is to broaden the generated interfaces only
-when another bounded source shape and its downstream oracle are ready.
+declaration-only observable; it does not claim REAL arithmetic semantics. The
+next parallel slice adds `DOUBLE PRECISION`: source-backed R707 lookup,
+generated frontend source-link fields, AST-v1 `double-precision`, MIR-v0
+`real/f64`, and the generated RISC-V bridge now pass the same positive,
+negative, qemu and typed-oracle replay. This remains declaration-only and does
+not claim double arithmetic, general intrinsic-type parsing, or arbitrary
+Fortran support. The next implementation step is another disjoint generated
+source shape or declaration boundary whose downstream central oracle is ready.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

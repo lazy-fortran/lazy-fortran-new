@@ -20,7 +20,11 @@ def main() -> None:
     elf = pathlib.Path(sys.argv[3]).read_bytes()
     program_name = sys.argv[4] if len(sys.argv) >= 5 else "p"
     type_spec = sys.argv[5] if len(sys.argv) == 6 else "integer"
-    type_shapes = {"integer": ("integer", "i32"), "real": ("real", "f32")}
+    type_shapes = {
+        "integer": ("integer", "i32"),
+        "real": ("real", "f32"),
+        "double-precision": ("real", "f64"),
+    }
     if type_spec not in type_shapes:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]

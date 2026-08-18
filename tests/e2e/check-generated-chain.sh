@@ -10,9 +10,11 @@ backend="$(resolve_repo fortback-new)"
 source_file="$ROOT/tests/fixtures/l3-declaration-v0.f90"
 main_source_file="$ROOT/tests/fixtures/l3-ast-program-root-name-main-v1.f90"
 real_source_file="$ROOT/tests/fixtures/l3-ast-program-real-type-main-v1.f90"
+double_source_file="$ROOT/tests/fixtures/l3-ast-program-double-precision-main-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
+negative_double_file="$ROOT/tests/negative/l3-ast-program-double-precision-missing-entity-v1.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 (cd "$standard" && fo clean && fo test test_standardir_lexical_generated) > /dev/null 2>&1
@@ -80,5 +82,23 @@ fi
 [ ! -e "$run_dir/negative-real.ast.sx" ]
 qemu-riscv64 "$real_elf_file" > /dev/null
 python3 "$oracle" "$real_ast_file" "$real_mir_file" "$real_elf_file" main real
+
+double_ast_file="$run_dir/double.frontend.ast.sx"
+double_mir_file="$run_dir/double.mir.sx"
+double_elf_file="$run_dir/double.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$double_source_file" "$double_ast_file") \
+    > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$double_ast_file" "$double_mir_file") \
+    > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$double_mir_file" "$double_elf_file") \
+    > /dev/null 2>&1
+if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_double_file" \
+        "$run_dir/negative-double.ast.sx") > /dev/null 2>&1; then
+    printf '%s\n' 'DOUBLE PRECISION source with missing declaration entity was accepted' >&2
+    exit 1
+fi
+[ ! -e "$run_dir/negative-double.ast.sx" ]
+qemu-riscv64 "$double_elf_file" > /dev/null
+python3 "$oracle" "$double_ast_file" "$double_mir_file" "$double_elf_file" main double-precision
 
 printf '%s\n' 'generated compiler chain PASS'
