@@ -501,7 +501,7 @@ failures. This is PASS-BOUNDED-ONLY: no general identifier or full M3 claim.
 D0184/D0185 now freeze the source-derived program-root-name contract, including
 C1401 and canonical lines 13669--13670. The exact contract oracle passes, and
 the pushed fortfront `04ca10b9d191366f328a39d0133375fd6aa62e4e` passes the
-component gate. E0241/R000696 passes the clean no-bootstrap replay for `main`
+component gate. E0241/R000697 passes the clean no-bootstrap replay for `main`
 and `unit`, preserves `integer :: x`, repeats identically, and rejects the
 mismatched end with the independent oracle. The active task is
 `T-L3-frontend-program-root-name-implementation`; two final focused Luna
@@ -526,7 +526,7 @@ the D0179 contract gate; R000684 passed the pushed alpha producer, and
 R000686/R000687/R000688 promote the exact alpha witness only. E0240/R000693
 and R000694/R000695 now promote the source-derived `beta`, `q7` and `theta_2`
 boundary only; R000689/R000690 remain retained failures. D0184/D0185 freeze the
-next source-derived program-root-name contract, and E0241/R000696 passes the
+next source-derived program-root-name contract, and E0241/R000697 passes the
 producer replay at fortfront `04ca10b9d191366f328a39d0133375fd6aa62e4e`.
 The active task is the final focused review of this bounded leaf. This remains
 outside full M3. Do not resume E0172 or start broad semantic work. The C768
