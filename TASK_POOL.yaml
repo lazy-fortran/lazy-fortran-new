@@ -8339,7 +8339,7 @@ tasks:
       - path: tests/fixtures/frontend-ast-v1-real-type-replay.toml
         sha256: 425338148308017d41d422aebbc1994ba758beb7080369011e9c840b7a97e589
       - path: tests/e2e/run-frontend-ast-v1-real-type.sh
-        sha256: 5f5013babafc5b0911a3b3ce7ef16a0255593bbfbd730654e22941415bec9e3d
+        sha256: dffd8f4819c96143142fca2abbdf9212b0c413833ec603c31b3e47ad36873702
       - path: tests/e2e/validate_frontend_ast_v1_real_type.py
         sha256: d061ba6a8e323ee0ebd03c49485ac4681351b563060b7e5401ffe38f55b796cc
       - path: tests/e2e/write_frontend_ast_v1_real_type_trace.py

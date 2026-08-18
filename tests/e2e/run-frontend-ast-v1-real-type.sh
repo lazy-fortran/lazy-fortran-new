@@ -67,7 +67,7 @@ if not negative.is_file() or hashlib.sha256(negative.read_bytes()).hexdigest() !
     raise SystemExit("negative source hash differs")
 PY
 
-python3 "$contract_validator" "${manifest/$ROOT\//}" >"$run_dir/contract-oracle.log"
+python3 "$contract_validator" tests/fixtures/frontend-ast-v1-real-type-contract.toml >"$run_dir/contract-oracle.log"
 (cd "$frontend" && fo clean) >"$run_dir/fortfront-clean.log" 2>&1
 (cd "$frontend" && fo) >"$run_dir/fortfront-build.log" 2>&1
 actual_frontend="$(git -C "$frontend" rev-parse HEAD)"
