@@ -20,8 +20,9 @@ fortfront `394f34d` emits it, and E0235/R000661 plus focused reviews
 R000664/R000665 pass the independent replay, schema/output lineage and
 path-independent trace gates after retaining failures R000654, R000658,
 R000659 and R000662. The leaf is promoted only as this exact bounded typed-AST
-claim. The next task selects one additive typed-AST contract; it does not parse
-arbitrary Fortran or close full M3.
+claim. D0176 now selects one additive typed-AST source-name contract for
+`integer :: y`; its isolated producer is next. It does not parse arbitrary
+Fortran or close full M3.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

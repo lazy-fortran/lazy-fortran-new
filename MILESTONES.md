@@ -1156,8 +1156,9 @@ central contract gate. The isolated fortfront producer is pinned at
 oracle. Reviews R000658/R000659/R000662 retained stale central lineage,
 absolute-path-dependent trace and schema-lineage failures; corrected replay
 R000661 and focused reviews R000664/R000665 pass. The exact typed-AST leaf is
-promoted only as a bounded claim. The next task selects one additive typed-AST
-contract; full M3 remains open.
+promoted only as a bounded claim. D0176 now freezes the next additive source
+shape `integer :: y` using the same v1 schema and malformed neighbour; the next
+task is its isolated fortfront producer. Full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

@@ -478,9 +478,10 @@ the independent oracle and corrected replay R000655 passes. The active task is
 `T-L3-frontend-ast-v1-replay`; focused reviews R000664/R000665 pass after
 retaining the stale-pin, location-dependent-trace and schema-lineage failures
 R000658/R000659/R000662. The exact typed-AST leaf is promoted only as a
-bounded claim by E0235. The active task selects the next additive typed-AST
-contract. The C768 implementation result is parked and is not promoted by
-this pivot.
+bounded claim by E0235. D0176 now freezes the next additive source shape
+`integer :: y` using the same v1 schema and malformed neighbour; the active
+task is its isolated fortfront producer. The C768 implementation result is
+parked and is not promoted by this pivot.
 
 ## Next executable task
 
@@ -490,8 +491,9 @@ review pass; the bounded successor is promoted. The typed declaration contract
 D0175 is now frozen and passes `scripts/check-contracts.sh`; the active task is
 the isolated fortfront AST v1 implementation, which is complete at pinned
 fortfront `394f34d`; E0235/R000661, focused reviews R000664/R000665 and the
-path-independent/schema-lineage gates pass. The next task is to select one
-additive typed-AST contract. This remains outside full M3.
+path-independent/schema-lineage gates pass. D0176 now freezes the next
+additive source-name contract; the active task is its isolated producer. This
+remains outside full M3.
 Do not resume E0172 or start broad semantic work. The C768 worker result
 remains parked and is not promoted by this pivot.
 

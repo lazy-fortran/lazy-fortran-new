@@ -435,6 +435,7 @@ Runs recorded: 717
 | [D0173](decisions/D0173-pivot-to-raw-source-executable-slice.md) | accepted |  | Pivot from residual CXXX intake to a raw-source executable slice |
 | [D0174](decisions/D0174-l3-integer-declaration-successor.md) | accepted |  | Bound the L3 integer-declaration successor |
 | [D0175](decisions/D0175-l3-typed-variable-declaration-contract.md) | accepted |  | Add a typed variable declaration AST boundary |
+| [D0176](decisions/D0176-l3-typed-variable-name-successor.md) | accepted |  | Bound the typed variable-name successor |
 
 ### Proposed decisions
 
