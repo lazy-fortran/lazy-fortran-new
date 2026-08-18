@@ -549,17 +549,30 @@ def main() -> None:
         if source_path is None:
             fail("stored-variable oracle requires a source fixture")
         source_bytes = source_path.read_bytes()
-        expected_source = (
+        expected_source_17 = (
             b"program main\n"
             b"  integer :: x\n"
             b"  x = 17\n"
             b"  print *, x\n"
             b"end program main\n"
         )
-        if source_bytes != expected_source or \
-                hashlib.sha256(source_bytes).hexdigest() != \
-                "e30b7f0f50e828d6dea378ed426ae5117691a6943dbfb63da590b074d33730e1":
+        expected_source_23 = expected_source_17.replace(b"x = 17", b"x = 23")
+        if source_bytes == expected_source_17:
+            expected_literal = 17
+            expected_source_hash = "e30b7f0f50e828d6dea378ed426ae5117691a6943dbfb63da590b074d33730e1"
+        elif source_bytes == expected_source_23:
+            expected_literal = 23
+            expected_source_hash = "390dbc3f3f29b0bcb1fedcf37aaee26f1e37c6611cdc8d4528a6f81f66c4c24b"
+        else:
             fail("stored-variable source fixture bytes changed")
+        if hashlib.sha256(source_bytes).hexdigest() != expected_source_hash:
+            fail("stored-variable source fixture bytes changed")
+        expected_elf_hash = {
+            17: "7f0355d86cc212318582099617ebea686ff4df43f949b5033ec20859734aa355",
+            23: "10fd1f27538000dc6c1544eb12dea40b7e2341851ceb2bd17b9b29c75ed91238",
+        }[expected_literal]
+        if hashlib.sha256(elf).hexdigest() != expected_elf_hash:
+            fail("stored-variable ELF identity changed")
         expected_file_marker = f"(file {source_path})"
         if ast.count("(file ") != 5 or ast.count(expected_file_marker) != 5:
             fail("stored-variable AST source-file identity is wrong")
@@ -573,7 +586,7 @@ def main() -> None:
             "(assignment-stmt (variable x)",
             "(start-byte 28)", "(end-byte 31)",
             "(source-hash l3-raw-program-v2)",
-            "(kind integer-literal)", "(left-operand 17)",
+            "(kind integer-literal)", f"(left-operand {expected_literal})",
             "(start-byte 34)", "(end-byte 45)",
             "(output-kind variable)", "(output-name x)",
             "(statement-rule R1212)", "(format-rule R1215)",
@@ -592,7 +605,7 @@ def main() -> None:
                 mir.count("(opcode load)") != 1 or \
                 mir.count("(opcode output)") != 1 or \
                 mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 17)") != 1 or \
+                mir.count(f"(literal {expected_literal})") != 1 or \
                 mir.count("(storage-key x)") != 2 or \
                 mir.count("(source-rule frontend-ast-v2/execution-part)") != 2 or \
                 mir.count("(source-rule frontend-ast-v2/print-stmt)") != 3:

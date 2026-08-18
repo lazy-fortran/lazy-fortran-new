@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-variable-wave
+active_task: T-L3-generated-print-variable-value-wave
 
 milestones:
   - id: L0
@@ -9879,6 +9879,63 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for PRINT of a stored integer variable; regenerate with bash tests/e2e/check-generated-chain.sh
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-variable-value-wave
+    milestone: L3
+    title: Generate and execute PRINT of a second stored integer literal
+    status: PASS
+    verification: PASS
+    review_state: PASS
+    priority: 107
+    depends_on: [T-L3-generated-print-variable-wave]
+    inputs:
+      - component: standard-new
+        commit: ea8520b9eee662c0e0bda6a70a242903db6d782f
+      - component: fortfront-new
+        commit: e6e95857fcef4fdd362112bbe7a73de725e606ca
+      - component: ffc-new
+        commit: 1436c5eec9735cc19828f80a036ba214eb773659
+      - component: fortback-new
+        commit: e25da8bdf49065833fa0cc5cc8b24efd15896786
+      - normative-source: J3-24-007
+        rules: [R704, R901, R1033, R1212, R1215]
+        printed-pages: [183, 205, 242, 244, 248]
+      - path: tests/fixtures/l3-ast-program-print-variable-23-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-23-missing-assignment-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-23-wrong-name-v1.f90
+      - path: tests/negative/l3-ast-program-write-variable-23-v1.f90
+    output: >-
+      central PASS for the exact source-backed `x = 23` and `PRINT *, x`
+      witness through generated AST-v2, MIR-v0, RISC-V and qemu with exact
+      stdout `23\n`, preserving all 40 earlier routes
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-print-variable-value
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 40 earlier routes; accept only the source-backed integer
+      declaration/assignment/PRINT variable witness with literal 23; reject
+      missing assignment, wrong variable and WRITE source-level neighbours.
+      Check exact source bytes/hash, source-file identity, declaration,
+      assignment/PRINT spans and provenance, load/store/output/return
+      correspondence, three value-23 AST/MIR/ELF mutation controls and exact
+      qemu bytes `23\n`. No general variable
+      handling, name resolution, runtime library or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS for PRINT of a stored integer literal 23; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:

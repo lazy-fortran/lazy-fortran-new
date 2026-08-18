@@ -44,6 +44,7 @@ print_nine_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-nine-item
 print_ten_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-ten-item-v1.f90"
 print_generic_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-generic-items-v1.f90"
 print_variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-v1.f90"
+print_variable_23_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-23-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -158,6 +159,11 @@ negative_print_variable_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-missing-assignment-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-v1.f90"
+)
+negative_print_variable_23_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-variable-23-missing-assignment-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-variable-23-wrong-name-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-variable-23-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -1046,6 +1052,58 @@ if python3 "$oracle" "$print_variable_ast_file" "$print_variable_mutated_mir_fil
     exit 1
 fi
 
+print_variable_23_ast_file="$run_dir/print-variable-23.frontend.ast.sx"
+print_variable_23_mir_file="$run_dir/print-variable-23.mir.sx"
+print_variable_23_elf_file="$run_dir/print-variable-23.program.elf"
+print_variable_23_output_file="$run_dir/print-variable-23.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_variable_23_source_file" \
+        "$print_variable_23_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_variable_23_ast_file" \
+        "$print_variable_23_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$print_variable_23_mir_file" \
+        "$print_variable_23_elf_file") > /dev/null 2>&1
+for negative_print_variable_23 in "${negative_print_variable_23_files[@]}"; do
+    rm -f "$run_dir/negative-print-variable-23.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_variable_23" \
+            "$run_dir/negative-print-variable-23.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid stored-variable PRINT-23 mutation was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-print-variable-23.ast.sx" ]
+done
+qemu-riscv64 "$print_variable_23_elf_file" > "$print_variable_23_output_file"
+printf '23\n' | cmp -s - "$print_variable_23_output_file"
+python3 "$oracle" "$print_variable_23_ast_file" "$print_variable_23_mir_file" \
+    "$print_variable_23_elf_file" main integer print-variable "$print_variable_23_source_file"
+print_variable_23_mutated_ast_file="$run_dir/print-variable-23.mutated-literal.ast.sx"
+sed 's/(left-operand 23)/(left-operand 24)/' "$print_variable_23_ast_file" \
+    > "$print_variable_23_mutated_ast_file"
+if python3 "$oracle" "$print_variable_23_mutated_ast_file" "$print_variable_23_mir_file" \
+        "$print_variable_23_elf_file" main integer print-variable "$print_variable_23_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'stored-variable-23 AST literal mutation was accepted' >&2
+    exit 1
+fi
+print_variable_23_mutated_mir_file="$run_dir/print-variable-23.mutated-opcode.mir.sx"
+sed 's/(opcode load)/(opcode store)/' "$print_variable_23_mir_file" \
+    > "$print_variable_23_mutated_mir_file"
+if python3 "$oracle" "$print_variable_23_ast_file" "$print_variable_23_mutated_mir_file" \
+        "$print_variable_23_elf_file" main integer print-variable "$print_variable_23_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'stored-variable-23 MIR opcode mutation was accepted' >&2
+    exit 1
+fi
+print_variable_23_mutated_elf_file="$run_dir/print-variable-23.mutated.elf"
+cp "$print_variable_23_elf_file" "$print_variable_23_mutated_elf_file"
+printf '\0' | dd of="$print_variable_23_mutated_elf_file" bs=1 seek=0 count=1 conv=notrunc \
+    > /dev/null 2>&1
+if python3 "$oracle" "$print_variable_23_ast_file" "$print_variable_23_mir_file" \
+        "$print_variable_23_mutated_elf_file" main integer print-variable "$print_variable_23_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'stored-variable-23 ELF mutation was accepted' >&2
+    exit 1
+fi
+
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
 envelope_five_elf_file="$run_dir/envelope-five.program.elf"
@@ -1134,8 +1192,8 @@ python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
 oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 40 ]; then
-    printf 'generated chain route count: expected 40, got %s\n' \
+if [ "$oracle_route_count" -ne 41 ]; then
+    printf 'generated chain route count: expected 41, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi
