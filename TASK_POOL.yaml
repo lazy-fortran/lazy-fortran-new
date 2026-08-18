@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-next-bounded-boundary-selection-after-real-type
+  - T-L3-frontend-double-precision-contract
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-next-bounded-boundary-selection-after-real-type
+active_task: T-L3-frontend-double-precision-contract
 
 milestones:
   - id: L0
@@ -8384,9 +8384,9 @@ tasks:
   - id: T-L3-next-bounded-boundary-selection-after-real-type
     milestone: L3
     title: Select the next bounded source-backed frontend boundary after REAL
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-frontend-real-type-implementation]
     inputs:
@@ -8394,6 +8394,8 @@ tasks:
         sha256: 869e0a3ea8ea45077d17b3d71270ca324d22bc45196912b739375aceb276ec25
       - path: research/decisions/D0186-next-bounded-intrinsic-type-spec.md
         sha256: 51319e66e54e96e9a082c8cd051e91128fde09205ae918de475f4ccd7d47e613
+      - path: research/decisions/D0187-next-bounded-double-precision-type-spec.md
+        sha256: 6a4dad0f9fa57b9a844d8881ba8cda40e9578951d0918bb01d9a8d78f0c01eb
       - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
         sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
       - path: artifacts/reports/L3/frontend-ast-v1-real-type-focused-review-v1.md
@@ -8403,7 +8405,7 @@ tasks:
       - research/runs/2026-08.jsonl#R000711
       - component: fortfront-new
         commit: c91595db71aa353564ec5a7f8c2a61b80e82b389
-    output: one accepted next-boundary decision or one precise blocker
+    output: PASS accepted D0187 next-boundary decision
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -8424,9 +8426,61 @@ tasks:
       type parsing, resume E0172, or start general semantic work.
     verifier_command: >-
       scripts/check-decisions.sh && scripts/check-contracts.sh && git diff --check
-    final_observable: accepted D0187 next-boundary decision or one precise blocker
+    final_observable: accepted D0187 selection of DOUBLE PRECISION
     retry_count: 0
     integration_cycle_trigger: next_contract
+  - id: T-L3-frontend-double-precision-contract
+    milestone: L3
+    title: Define the bounded source-derived DOUBLE PRECISION type-spec boundary
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-next-bounded-boundary-selection-after-real-type]
+    inputs:
+      - path: research/decisions/D0187-next-bounded-double-precision-type-spec.md
+        sha256: 6a4dad0f9fa57b9a844d8881ba8cda40e9578951d0918bb01d9a8d78f0c01eb
+      - path: research/experiments/E0243-can-a-bounded-ast-v1-double-precision-ty/manifest.yaml
+        sha256: d8cbf4d1995e980f59c6f2e917894a107881344e3daefc157ba125fe3d0677fa
+      - path: contracts/frontend-ast-v1.sxs
+        sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+      - path: .cache/runs/E0171/R000433-provenance-replay/standardir.sx
+        sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
+      - path: artifacts/reports/L3/frontend-ast-v1-real-type-focused-review-v1.md
+        sha256: 390587e1685de57254c6c239b032c80f655a1d762388cbe98f36f3517de85f32
+      - research/runs/2026-08.jsonl#R000710
+      - research/runs/2026-08.jsonl#R000711
+      - component: fortfront-new
+        commit: c91595db71aa353564ec5a7f8c2a61b80e82b389
+    output: one independently verifiable DOUBLE PRECISION type-spec contract or one precise blocker
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/fixtures/frontend-ast-v1-*
+        - tests/fixtures/frontend-ast-v1-*
+        - tests/negative/l3-ast-*
+        - tests/golden/frontend-ast-v1-*
+        - tests/e2e/validate_frontend_ast_v1_*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+        - MILESTONES.md
+    verifier: >-
+      define one source-derived DOUBLE PRECISION type-spec case over the
+      existing AST v1 records, retain REAL as a changed-type control, reject
+      the malformed declaration, pin exact R704/R801 evidence, and provide an
+      independent oracle before any producer change. Do not add a schema
+      revision or broaden intrinsic-type parsing.
+    verifier_command: >-
+      scripts/check-contracts.sh && scripts/check-decisions.sh && git diff --check
+    final_observable: frozen DOUBLE PRECISION type-spec contract or one precise blocker
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
 integration_cycle:
   triggers:
     verified_deltas: 4

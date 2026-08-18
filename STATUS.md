@@ -13,8 +13,9 @@ REAL type-spec contract at central revision `24674d4`; its exact command is
 tests/fixtures/frontend-ast-v1-real-type-contract.toml`. Focused reviews
 R000705/R000706 pass, while R000701/R000703 remain retained oracle failures.
 E0242/R000709 plus focused reviews R000710/R000711 promote the exact REAL leaf
-as PASS-BOUNDED-ONLY; R000707 remains the retained runner failure. The active
-task is selecting the next bounded source-backed boundary. This does not parse
+as PASS-BOUNDED-ONLY; R000707 remains the retained runner failure. D0187/R000712
+select the no-kind-selector DOUBLE PRECISION alternative as the next bounded
+contract. The active task is defining that contract. This does not parse
 arbitrary Fortran or promote M3 semantics.
 
 ## Central goal
@@ -511,9 +512,10 @@ promote this exact leaf as PASS-BOUNDED-ONLY. D0186 selects the no-kind-selector
 REAL type-spec case over the existing AST v1 field. E0242 freezes its contract;
 R000705/R000706 pass the focused review and the contract is verified
 PASS-BOUNDED-ONLY. E0242/R000709 and R000710/R000711 now promote the exact
-REAL producer/replay leaf as PASS-BOUNDED-ONLY; R000707 remains retained. The
-active task is the next bounded-boundary selection; the C768 implementation
-result is parked and is not promoted by this pivot.
+REAL producer/replay leaf as PASS-BOUNDED-ONLY; R000707 remains retained.
+D0187/R000712 select the no-kind-selector DOUBLE PRECISION alternative. The
+active task is its contract; the C768 implementation result is parked and is
+not promoted by this pivot.
 
 ## Next executable task
 
@@ -538,9 +540,10 @@ R000699/R000700 promote the exact root/declaration-name leaf at fortfront
 `04ca10b9d191366f328a39d0133375fd6aa62e4e`. D0186 selects the no-kind-selector
 REAL type-spec boundary; E0242/R000709 plus R000710/R000711 promote its exact
 producer/replay leaf, while R000701/R000703 and R000707 remain retained caught
-failures. The active task is the next bounded-boundary selection. This remains
-outside full M3. Do not resume E0172 or start broad semantic work. The C768
-worker result remains parked and is not promoted by this pivot.
+failures. D0187/R000712 select the no-kind-selector DOUBLE PRECISION contract;
+the active task is its contract. This remains outside full M3. Do not resume
+E0172 or start broad semantic work. The C768 worker result remains parked and
+is not promoted by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
