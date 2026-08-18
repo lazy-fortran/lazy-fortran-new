@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-double-precision-representation-correction
+  - T-L3-frontend-double-precision-implementation
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-double-precision-representation-correction
+active_task: T-L3-frontend-double-precision-implementation
 
 milestones:
   - id: L0
@@ -8505,9 +8505,9 @@ tasks:
   - id: T-L3-frontend-double-precision-representation-correction
     milestone: L3
     title: Reconcile DOUBLE PRECISION with the existing AST-v1 atom representation
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-frontend-double-precision-contract]
     inputs:
@@ -8524,6 +8524,10 @@ tasks:
       - path: tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
         sha256: 67fcdaa05eb039d6c60584eade3102bdc7fbc42e8727bea3e9463179698914d6
       - research/runs/2026-08.jsonl#R000720
+      - artifacts/reports/L3/frontend-ast-v1-double-precision-canonical-contract-focused-review-v1.md
+        sha256: eac1ed22067bd80dca5c4b84be7de68bd84bb8c6a03be0014d0c21487a58f4da
+      - research/runs/2026-08.jsonl#R000721
+      - research/runs/2026-08.jsonl#R000722
     output: PASS-BOUNDED-ONLY canonical DOUBLE PRECISION AST-v1 contract
     integration: controller-only
     estimated_cost: small
@@ -8551,7 +8555,7 @@ tasks:
       python3 tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
       tests/fixtures/frontend-ast-v1-double-precision-contract.toml &&
       scripts/check-contracts.sh && scripts/check-decisions.sh && git diff --check
-    final_observable: independently reviewed corrected DOUBLE PRECISION contract
+    final_observable: R000721/R000722 independently reviewed corrected DOUBLE PRECISION contract
     retry_count: 0
     integration_cycle_trigger: next_implementation
   - id: T-L3-frontend-double-precision-implementation
@@ -8578,8 +8582,12 @@ tasks:
       - path: tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
         sha256: 67fcdaa05eb039d6c60584eade3102bdc7fbc42e8727bea3e9463179698914d6
       - research/runs/2026-08.jsonl#R000720
+      - artifacts/reports/L3/frontend-ast-v1-double-precision-canonical-contract-focused-review-v1.md
+        sha256: eac1ed22067bd80dca5c4b84be7de68bd84bb8c6a03be0014d0c21487a58f4da
+      - research/runs/2026-08.jsonl#R000721
+      - research/runs/2026-08.jsonl#R000722
       - component: fortfront-new
-        commit: c91595db71aa353564ec5a7f8c2a61b80e82b389
+        commit: c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19
     output: one pushed fortfront implementation commit plus central DOUBLE PRECISION replay, or one precise blocker
     integration: component worker then controller replay
     estimated_cost: small

@@ -11,6 +11,6 @@ trace_writer = "tests/e2e/write_frontend_ast_v1_double_precision_trace.py"
 trace_writer_sha256 = "0845c34315316159de0d1ff6f17612b1797a7f747a6630ea1ec76d4d7c03e7f0"
 trace = "artifacts/traces/frontend-ast-v1-double-precision.json"
 trace_sha256 = "PLACEHOLDER-trace-sha256"
-frontend_component_commit = "c91595db71aa353564ec5a7f8c2a61b80e82b389"
+frontend_component_commit = "c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19"
 model_calls = 0
 semantic_promotions = 0

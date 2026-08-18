@@ -17,9 +17,10 @@ as PASS-BOUNDED-ONLY; R000707 remains the retained runner failure. D0187/R000712
 select the no-kind-selector DOUBLE PRECISION alternative. The first producer
 attempt is retained as R000720 because the exact two-word AST atom was rejected
 by the existing serializer. D0188 amends the contract to require exact source
-spelling with canonical AST-v1 atom `double-precision`; the active task is the
-independent contract correction. This does not parse arbitrary Fortran or
-promote M3 semantics.
+spelling with canonical AST-v1 atom `double-precision`; R000721/R000722 pass the
+corrected focused review, and the active task is the isolated fortfront
+implementation at pushed component `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`.
+This does not parse arbitrary Fortran or promote M3 semantics.
 
 ## Central goal
 
@@ -141,7 +142,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f94c4c51b51fce22b533b7eeda08741970320913` | normative source → StandardIR | clean main; full `fo` recorded in E0174/R000010 |
-| fortfront-new | lazy-fortran/fortfront-new | `c91595db71aa353564ec5a7f8c2a61b80e82b389` | frontend | clean main; bounded REAL typed-AST v1 producer plus prior L3 leaves |
+| fortfront-new | lazy-fortran/fortfront-new | `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19` | frontend | clean main; bounded REAL and canonical DOUBLE PRECISION typed-AST v1 producer |
 | ffc-new | lazy-fortran/ffc-new | `bcaadcb58c24af613204aa398541c0d2e35abf91` | compiler driver and middle end | clean main; registered L2 MIR trace |
 | fortback-new | lazy-fortran/fortback-new | `c578904a8d18e9d5410934f5489a21d5dadfad05` | backend | clean main; registered L2 executable trace |
 
@@ -519,8 +520,9 @@ REAL producer/replay leaf as PASS-BOUNDED-ONLY; R000707 remains retained.
 D0187/R000712 select the no-kind-selector DOUBLE PRECISION alternative. R000720
 retains the caught AST-v1 representation failure. D0188 amends the contract to
 use canonical atom `double-precision` while pinning the exact source spelling;
-the active task is its independently reviewed contract correction. No producer
-or replay promotion follows yet.
+R000721/R000722 pass the correction, and the active task is the isolated
+fortfront implementation at pushed component
+`c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`. Central replay is still pending.
 
 ## Next executable task
 
@@ -547,8 +549,10 @@ REAL type-spec boundary; E0242/R000709 plus R000710/R000711 promote its exact
 producer/replay leaf, while R000701/R000703 and R000707 remain retained caught
 failures. D0187/R000712 select the no-kind-selector DOUBLE PRECISION contract;
 R000720 retains the caught AST-v1 atom mismatch, and D0188 amends the contract
-to canonicalize the multi-word term. The active task is the corrected contract
-review. This remains outside full M3. Do not resume
+to canonicalize the multi-word term, and R000721/R000722 pass the correction.
+The active task is the isolated implementation at pushed fortfront
+`c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`; central replay remains. This
+remains outside full M3. Do not resume
 E0172 or start broad semantic work. The C768 worker result remains parked and
 is not promoted by this pivot.
 

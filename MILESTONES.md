@@ -1181,9 +1181,10 @@ PASS-BOUNDED-ONLY. R000701, R000703 and R000707 remain retained caught
 failures. D0187/R000712 select the no-kind-selector DOUBLE PRECISION
 alternative. R000720 retains the caught AST-v1 atom mismatch from the first
 producer attempt. D0188 amends the contract to pin exact source spelling and
-canonical AST-v1 atom `double-precision`; the active task is the corrected
-contract review. No general type parsing or semantic promotion follows from
-this bounded handoff.
+canonical AST-v1 atom `double-precision`; R000721/R000722 pass the correction.
+The active task is the isolated implementation at pushed fortfront
+`c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`; central replay is next. No general
+type parsing or semantic promotion follows from this bounded handoff.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 
