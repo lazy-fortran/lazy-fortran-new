@@ -56,6 +56,40 @@ plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
 project-management loops.
 
+**Generated-first rule.** The compiler is not intended to become a collection
+of hand-written Fortran cases. Its normal path is:
+
+```text
+normative source / machine-readable target source
+  → source IR and schema generators
+  → generated lexer/parser/AST artifacts
+  → generated frontend-to-MIR lowering
+  → generated MIR and analyses
+  → generated TargetIR, instruction selection and emitters
+```
+
+Hand-written code is reserved for generic runtimes, generator logic, I/O
+boundaries and deliberately small bootstrap adapters. A bounded hand-written
+fixture such as the current typed-AST path is transitional evidence, not the
+architecture to multiply. Every new compiler capability should either be
+generated from a declared source input or be an explicit temporary bootstrap
+with a replacement path.
+
+**Parallel execution rule.** Once an interface is stable, the source,
+frontend, MIR and backend lanes run independently in separate repositories.
+The controller serializes only shared contract changes and final integration:
+
+```text
+standard-new source/schema generation ─┐
+fortfront generated frontend ──────────┼→ central interface replay
+ffc generated MIR/lowering ────────────┤
+fortback generated TargetIR/emission ───┘
+```
+
+The active next wave therefore includes one independent generator slice in
+each production repository. No lane waits for unrelated frontend, MIR or
+backend work; a lane blocks only on the exact interface it consumes.
+
 The initial delivery setup completed L0 and L1. L2 is now promoted by the
 corrected central replay and focused review `R000444`. The active central
 milestone is the one named by `STATUS.md` and `MILESTONES.md`; the M1-M2
