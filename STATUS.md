@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage, sequence, STOP and PRINT waves are integrated; its central replay passes 35 routes
+storage, sequence, STOP and PRINT waves are integrated; its central replay passes 36 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -21,14 +21,16 @@ six-assignment route uses `frontend-ast-v2/execution-part-6`. This remains
 bounded sequence transport, not general statement parsing, name resolution,
 arbitrary storage or full M3 semantics. The source-backed `STOP 7`, `PRINT *, 7`,
 `PRINT *, 7, 8`, `PRINT *, 7, 8, 9`, `PRINT *, 7, 8, 9, 10` and
-`PRINT *, 7, 8, 9, 10, 11`, `PRINT *, 7, 8, 9, 10, 11, 12` and
-`PRINT *, 7, 8, 9, 10, 11, 12, 13` waves are integrated. The seven-item route preserves
+`PRINT *, 7, 8, 9, 10, 11`, `PRINT *, 7, 8, 9, 10, 11, 12`,
+`PRINT *, 7, 8, 9, 10, 11, 12, 13` and `PRINT *, 7, 8, 9, 10, 11, 12, 13, 14`
+waves are integrated. The eight-item route preserves
 R1212/R1215/R1217 provenance, emits typed MIR
-`const/output` repeated seven times then `return`, rejects three mutation
+`const/output` repeated eight times then `return`, rejects three mutation
 controls, and produces exact stdout `7` plus newline followed by `8` plus
 newline and `9` plus newline and `10` plus newline and `11` plus newline and
 `12` plus newline and `13` plus newline under qemu. The next parallel boundary
-is an eight-item output list; this does not parse
+`14` plus newline under qemu. The next parallel boundary is a nine-item output
+list; this does not parse
 arbitrary Fortran, implement general I/O controls or formats, or promote M3
 semantics.
 
@@ -152,9 +154,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `6b72188c0e11dbdce2e45af4dab418302b913c40` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `6a66efffac01ea71f42573934b99f9c4c993ab41` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7 and PRINT one- through seven-item routes; `fo` passes |
-| ffc-new | lazy-fortran/ffc-new | `966cc056b25d76235b1092bdffb9e2a4529aeb58` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and typed STOP/PRINT one- through seven-item MIR routes; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `e0bee9b59d46f231e9617c2b52989ee85eb001a3` | backend | generated stack-slot/sequence routes, STOP 7 termination, and exact PRINT one- through seven-item RISC-V Linux output policies; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `8dab097b4883d0199c7cad6304da47d35a793b85` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7 and PRINT one- through eight-item routes; `fo` passes |
+| ffc-new | lazy-fortran/ffc-new | `34ed8b1776690550d4e295f71498cf69ecbeb83f` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and typed STOP/PRINT one- through eight-item MIR routes; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `4c31f55b2402721a4670d18240674c3c2c54908d` | backend | generated stack-slot/sequence routes, STOP 7 termination, and exact PRINT one- through eight-item RISC-V Linux output policies; `fo` passes |
 
 ## Historical milestone evidence
 
