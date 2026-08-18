@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generated-print-generic-items-wave
+  - T-L3-generated-print-variable-wave
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-generic-items-wave
+active_task: T-L3-generated-print-variable-wave
 
 milestones:
   - id: L0
@@ -9769,8 +9769,8 @@ tasks:
   - id: T-L3-generated-print-generic-items-wave
     milestone: L3
     title: Generalize generated PRINT output-item list handling
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 105
     depends_on: [T-L3-generated-print-ten-item-wave]
@@ -9820,6 +9820,61 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for the novel generic PRINT item route; regenerate with bash tests/e2e/check-generated-chain.sh
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-variable-wave
+    milestone: L3
+    title: Generate and execute PRINT of a stored integer variable
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 106
+    depends_on: [T-L3-generated-print-generic-items-wave]
+    inputs:
+      - component: standard-new
+        commit: ea8520b9eee662c0e0bda6a70a242903db6d782f
+      - component: fortfront-new
+        commit: 23d77b78b0e8542583f32525ee79cd9a3751e636
+      - component: ffc-new
+        commit: 5cbbb2d2490a244ee0dc2f0affb9916a0ede000f
+      - component: fortback-new
+        commit: 4cf28c36b5fdce2b5afabbadd834f7269c0efc98
+      - normative-source: J3-24-007
+        rules: [R704, R901, R1033, R1212, R1215, R1217]
+        printed-pages: [183, 205, 242, 244, 248]
+      - path: tests/fixtures/l3-ast-program-print-variable-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-missing-assignment-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-wrong-name-v1.f90
+      - path: tests/negative/l3-ast-program-write-variable-v1.f90
+    output: >-
+      central PASS for integer declaration, assignment, and PRINT *, x through
+      generated AST-v2, MIR-v0, RISC-V and qemu, with exact stdout `17\n`, while
+      preserving all 39 existing routes
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generated-print-variable
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 39 existing routes; accept only the source-backed integer
+      declaration/assignment/PRINT variable program; reject missing assignment,
+      wrong variable, WRITE, missing storage, source-rule, opcode and output
+      mutations. Check declaration, assignment, load, output and return
+      correspondence independently and exact qemu bytes `17\n`. No general
+      name resolution, runtime library or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS for PRINT of a stored integer variable; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:

@@ -1188,10 +1188,11 @@ retained stale metadata. The generated storage/sequence successor and the
 source-backed STOP 7, PRINT 7, PRINT 7,8, PRINT 7,8,9, PRINT 7,8,9,10 and
 PRINT 7,8,9,10,11, PRINT 7,8,9,10,11,12 and PRINT 7,8,9,10,11,12,13
 successors are now integrated; the central command
-`bash tests/e2e/check-generated-chain.sh` passes 38 routes, including qemu
+`bash tests/e2e/check-generated-chain.sh` passes 39 routes, including qemu
 status 7, exact PRINT stdout `7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n`, and all
-STOP/PRINT mutation controls. The next slice generalizes repeated generated
-PRINT item handling and tests novel literals; general I/O remains out of scope.
+STOP/PRINT mutation controls. Repeated generated PRINT item handling now also
+passes novel literals; the next slice connects stored-variable transport to
+PRINT output. General I/O remains out of scope.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

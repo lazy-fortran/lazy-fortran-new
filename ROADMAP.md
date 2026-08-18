@@ -182,7 +182,7 @@ The program-unit-v2 envelope now carries the declaration and source-backed R509
 execution-part into that same generated chain. Its five- and six-assignment
 extensions use the distinct generated MIR source rules
 `frontend-ast-v2/execution-part-5` and
-`frontend-ast-v2/execution-part-6`. The central replay passes 38 routes;
+`frontend-ast-v2/execution-part-6`. The central replay passes 39 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
 six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and
@@ -230,7 +230,8 @@ its ordered R1217 witnesses reach the repeated generated `const/output` route,
 three negative controls are rejected, and qemu produces exact
 `7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n`. The next parallel slice generalizes
 the generated repeated-item path and tests novel literals `17, 18, 19` rather
-than adding another cardinality-specific route.
+than adding another cardinality-specific route. The next slice after that
+connects generated storage and variable-expression transport to PRINT output.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

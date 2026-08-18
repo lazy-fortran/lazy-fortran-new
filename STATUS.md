@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage, sequence, STOP and PRINT waves are integrated; its central replay passes 38 routes
+storage, sequence, STOP and PRINT waves are integrated; its central replay passes 39 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -33,7 +33,8 @@ newline and `9` plus newline and `10` plus newline and `11` plus newline and
 `14` plus newline and `15` plus newline under qemu. The next parallel boundary
 is a ten-item output list; the next slice removes the current cardinality/value
 specialization from the generated PRINT item path and checks novel values
-`17, 18, 19`. This does not parse
+`17, 18, 19` route is now mechanically generated. The next slice is stored
+integer-variable output; this does not parse
 arbitrary Fortran, implement general I/O controls or formats, or promote M3
 semantics.
 
@@ -157,7 +158,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `ea8520b9eee662c0e0bda6a70a242903db6d782f` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `23d77b78b0e8542583f32525ee79cd9a3751e636` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, bounded PRINT routes, and mechanically repeated PRINT item handling; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `23d77b78b0e8542583f32525ee79cd9a3751e636` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, and mechanically repeated PRINT item handling; `fo` passes |
 | ffc-new | lazy-fortran/ffc-new | `5cbbb2d2490a244ee0dc2f0affb9916a0ede000f` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and mechanically repeated PRINT item lowering; `fo` passes |
 | fortback-new | lazy-fortran/fortback-new | `4cf28c36b5fdce2b5afabbadd834f7269c0efc98` | backend | generated stack-slot/sequence routes, STOP 7 termination, and mechanically repeated PRINT item emission; `fo` passes |
 
