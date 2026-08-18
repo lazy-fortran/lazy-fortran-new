@@ -8,8 +8,8 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "7e8dfe3f83e4f9b86267be69a1afcd9d9d473e02"
-  fortfront-new: "157236b11540d6a55676e159062e6f9423577a0d"
+  lazy-fortran-new: "35938db2dda3fb075067fae4a163247cc455c2f7"
+  fortfront-new: "04ca10b9d191366f328a39d0133375fd6aa62e4e"
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:

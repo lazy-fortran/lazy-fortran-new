@@ -8087,7 +8087,7 @@ tasks:
       - path: tests/e2e/validate_frontend_ast_v1_program_root_name_contract.py
         sha256: 023b91a5b5023d80614e1025c650419eabd22bec4bb180ee2f2cfa0ef7dc3059
       - path: tests/fixtures/frontend-ast-v1-program-root-name-replay.toml
-        sha256: 23dc7562d5b8b161fd24ce8ab02ad14b226b4680b078d1f78cc021b1f014ca5f
+        sha256: f534f47f1ce5f604f11f3ab844bd777529d9d519682ba1cece85d5b2cdd6fe1e
       - path: tests/e2e/run-frontend-ast-v1-program-root-name.sh
         sha256: b086fce5b13c212a62c768452faf5ef70f326f2363455a86561e7b5b69415345
       - path: tests/e2e/validate_frontend_ast_v1_program_root_name.py
