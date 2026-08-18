@@ -8599,6 +8599,7 @@ tasks:
       - research/runs/2026-08.jsonl#R000722
       - component: fortfront-new
         commit: c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19
+      - research/runs/2026-08.jsonl#R000724
     output: one pushed fortfront implementation commit plus central DOUBLE PRECISION replay, or one precise blocker
     integration: component worker then controller replay
     estimated_cost: small
