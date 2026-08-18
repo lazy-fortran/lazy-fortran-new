@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generated-print-7-wave
+  - T-L3-generated-print-two-item-wave
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-7-wave
+active_task: T-L3-generated-print-two-item-wave
 
 milestones:
   - id: L0
@@ -9213,20 +9213,20 @@ tasks:
   - id: T-L3-generated-print-7-wave
     milestone: L3
     title: Generate and execute the bounded PRINT star 7 statement
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 95
     depends_on: [T-L3-generated-stop-7-wave]
     inputs:
       - component: standard-new
-        commit: 3735c2d2f8ee37597ef597135c32cb61e279bcc3
+        commit: 6b72188c0e11dbdce2e45af4dab418302b913c40
       - component: fortfront-new
-        commit: 97d4e850d46ee616d03853113887435ac2334a1f
+        commit: 2940763ee41375dc0ae7d89a406d3a2d02c72c67
       - component: ffc-new
-        commit: bb2f41d308b93803c1599a1a316b4f02a7d6984a
+        commit: 414a2ac911ab903f0c13130496c10478afd6350f
       - component: fortback-new
-        commit: cc413f873abf2a67cf56591051566555aa28c0d5
+        commit: 548e1c7e3e650d5ebfb55331e6865b89988130e4
       - normative-source: J3-24-007
         rules: [R1212, R1215, R1217]
         printed-pages: [242, 244, 248]
@@ -9263,6 +9263,61 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS with the bounded PRINT *, 7 route; regenerate with bash tests/e2e/check-generated-chain.sh
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-two-item-wave
+    milestone: L3
+    title: Generate and execute a bounded two-item PRINT output list
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 96
+    depends_on: [T-L3-generated-print-7-wave]
+    inputs:
+      - component: standard-new
+        commit: 6b72188c0e11dbdce2e45af4dab418302b913c40
+      - component: fortfront-new
+        commit: 2940763ee41375dc0ae7d89a406d3a2d02c72c67
+      - component: ffc-new
+        commit: 414a2ac911ab903f0c13130496c10478afd6350f
+      - component: fortback-new
+        commit: 548e1c7e3e650d5ebfb55331e6865b89988130e4
+      - normative-source: J3-24-007
+        rules: [R1212, R1215, R1217]
+        printed-pages: [242, 244, 248]
+      - path: tests/fixtures/l3-ast-program-print-two-item-v1.f90
+      - path: tests/negative/l3-ast-program-print-two-item-missing-second-v1.f90
+      - path: tests/negative/l3-ast-program-print-two-item-wrong-second-v1.f90
+      - path: tests/negative/l3-ast-program-write-two-item-v1.f90
+    output: >-
+      central PASS for the exact source-backed PRINT *, 7, 8 program through
+      generated AST-v2, MIR-v0 and RISC-V, with exact stdout `7\n8\n`, or one
+      precise interface blocker
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generated-print-two-item
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 29 existing routes; accept only the exact PRINT *, 7, 8
+      positive source; require two R1217 output-item witnesses, typed MIR
+      const/output/output/return correspondence, and exact stdout bytes
+      `7\n8\n` under qemu. Reject the missing-second-item, wrong-second-item,
+      and WRITE neighbours. No general I/O control lists, formats, character
+      output, runtime library or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with the bounded two-item PRINT route; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:

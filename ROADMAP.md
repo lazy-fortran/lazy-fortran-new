@@ -182,7 +182,7 @@ The program-unit-v2 envelope now carries the declaration and source-backed R509
 execution-part into that same generated chain. Its five- and six-assignment
 extensions use the distinct generated MIR source rules
 `frontend-ast-v2/execution-part-5` and
-`frontend-ast-v2/execution-part-6`. The central replay passes 28 routes;
+`frontend-ast-v2/execution-part-6`. The central replay passes 29 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
 six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and
@@ -192,11 +192,13 @@ statement parsing, name resolution, arbitrary storage, or full Fortran runtime
 semantics. The source-backed R509 execution-part fact is now consumed by the
 envelope path; the bounded `STOP 7` statement is integrated. Its R1162/R1164
 source correspondence, qemu exit status 7 and three mutation controls pass in
-the central replay. The next parallel wave is the bounded `PRINT *, 7`
-statement, pinned to R1212, R1215 and R1217; its target observable is exact
-stdout `7` plus newline. Keep all existing generated policy lanes and their
-independent negative controls. This wave is not general I/O, format processing
-or full STOP semantics.
+the central replay. The bounded `PRINT *, 7` statement is now integrated as
+well: R1212/R1215/R1217 provenance reaches typed MIR `const/output/return`,
+three negative controls are rejected, and qemu produces exact stdout `7` plus
+newline. The next parallel wave extends this same source-backed output list to
+two integer items. Keep all existing generated policy lanes and their
+independent negative controls. This remains bounded I/O, not general format
+processing or full Fortran semantics.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

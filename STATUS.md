@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage and sequence wave is integrated; its central replay passes 28 routes
+storage, sequence and STOP waves are integrated; its central replay passes 29 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -19,13 +19,12 @@ two-assignment, five-assignment and six-assignment envelopes carry
 the source-backed R509 execution-part boundary into FFC and fortback; the
 six-assignment route uses `frontend-ast-v2/execution-part-6`. This remains
 bounded sequence transport, not general statement parsing, name resolution,
-arbitrary storage or full M3 semantics. The active parallel wave is the
-source-backed `STOP 7` route: R1162/R1164, typed frontend/MIR termination, and
-qemu exit status 7. The STOP 7 wave is now integrated and its three
-mutation-control fixtures pass. The next four-way Luna-medium wave is the
-source-backed `PRINT *, 7` boundary (R1212/R1215/R1217), targeting exact stdout
-`7` plus newline. This does not parse arbitrary Fortran, implement character
-stop codes, general I/O controls or formats, or promote M3 semantics.
+arbitrary storage or full M3 semantics. The source-backed `STOP 7` and
+`PRINT *, 7` waves are integrated. The PRINT route preserves R1212/R1215/R1217
+provenance, emits typed MIR `const/output/return`, rejects three mutation
+controls, and produces exact stdout `7` plus newline under qemu. The next
+parallel boundary is a two-item output list; this does not parse arbitrary
+Fortran, implement general I/O controls or formats, or promote M3 semantics.
 
 ## Central goal
 
@@ -146,10 +145,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `3735c2d2f8ee37597ef597135c32cb61e279bcc3` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1162/R1164 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `97d4e850d46ee616d03853113887435ac2334a1f` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, and source-backed STOP 7 route; `fo` passes |
-| ffc-new | lazy-fortran/ffc-new | `bb2f41d308b93803c1599a1a316b4f02a7d6984a` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and typed STOP 7 termination route; focused gate passes; full gate retains two unavailable-binary failures |
-| fortback-new | lazy-fortran/fortback-new | `cc413f873abf2a67cf56591051566555aa28c0d5` | backend | generated stack-slot/sequence routes and exact STOP 7 RISC-V Linux termination policy; `fo` passes |
+| standard-new | lazy-fortran/standard-new | `6b72188c0e11dbdce2e45af4dab418302b913c40` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
+| fortfront-new | lazy-fortran/fortfront-new | `2940763ee41375dc0ae7d89a406d3a2d02c72c67` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, and source-backed STOP 7 and PRINT 7 routes; `fo` passes |
+| ffc-new | lazy-fortran/ffc-new | `414a2ac911ab903f0c13130496c10478afd6350f` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and typed STOP/PRINT MIR routes; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `548e1c7e3e650d5ebfb55331e6865b89988130e4` | backend | generated stack-slot/sequence routes, STOP 7 termination, and exact PRINT 7 RISC-V Linux output policy; `fo` passes |
 
 ## Historical milestone evidence
 

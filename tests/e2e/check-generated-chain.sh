@@ -32,6 +32,7 @@ sequence_eight_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-eight-as
 sequence_nine_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-nine-assignment-v1.f90"
 sequence_ten_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-ten-assignment-v1.f90"
 stop_source_file="$ROOT/tests/fixtures/l3-ast-program-stop-7-v1.f90"
+print_source_file="$ROOT/tests/fixtures/l3-ast-program-print-7-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -86,6 +87,11 @@ negative_stop_files=(
     "$ROOT/tests/negative/l3-ast-program-stop-8-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-stop-missing-code-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-error-stop-7-v1.f90"
+)
+negative_print_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-8-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-7-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-missing-item-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -638,6 +644,29 @@ else
 fi
 [ "$stop_status" -eq 7 ]
 python3 "$oracle" "$stop_ast_file" "$stop_mir_file" "$stop_elf_file" p integer stop-7
+
+print_ast_file="$run_dir/print.frontend.ast.sx"
+print_mir_file="$run_dir/print.mir.sx"
+print_elf_file="$run_dir/print.program.elf"
+print_output_file="$run_dir/print.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_source_file" \
+        "$print_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_ast_file" \
+        "$print_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$print_mir_file" \
+        "$print_elf_file") > /dev/null 2>&1
+for negative_print in "${negative_print_files[@]}"; do
+    rm -f "$run_dir/negative-print.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print" \
+            "$run_dir/negative-print.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid PRINT mutation was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-print.ast.sx" ]
+done
+qemu-riscv64 "$print_elf_file" > "$print_output_file"
+printf '7\n' | cmp -s - "$print_output_file"
+python3 "$oracle" "$print_ast_file" "$print_mir_file" "$print_elf_file" p integer print-7
 
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
