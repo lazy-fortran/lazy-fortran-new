@@ -1,7 +1,7 @@
-# L3 typed frontend AST v1 variable-name replay
+# L3 typed frontend AST v1 exact y witness replay
 
 The bounded successor reuses the generated `frontend-ast-v1` record and
-changes only the source variable name from `x` to `y`:
+checks the exact source witness with variable name `y`:
 `program p / integer :: y / end program p`. The malformed neighbour remains
 `integer ::`. The expected variable declaration is integer `y`, with span bytes
 10 through 24 and source-hash label
@@ -25,6 +25,7 @@ rejected, repeated output was identical, trace comparison passed, and model
 calls and semantic promotions were zero. Full review and promotion remain
 pending.
 
-This is a bounded source-name preservation claim only. It does not establish
-general identifier or declaration parsing, symbol resolution, semantic
+This is an exact y-witness claim only. Because the bridge recognizes a bounded
+set of exact witnesses, it does not establish general source-derived name
+handling, identifier or declaration parsing, symbol resolution, semantic
 analysis, MIR lowering or full M3.

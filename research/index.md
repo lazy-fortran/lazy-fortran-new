@@ -234,7 +234,7 @@ Runs recorded: 718
 | E0233 | reported | 6 | Can the first raw source program reach the existing executable path |
 | E0234 | reported | 3 | Can the exact free-form source shape program p / integer :: x / end program p |
 | E0235 | reported | 13 | Can one typed AST v1 declaration be replayed from raw source |
-| E0236 | running | 1 | Can one source-derived typed variable name survive the AST v1 boundary |
+| E0236 | running | 1 | Can one exact typed AST v1 y witness survive the AST boundary without |
 
 ## Run status
 
@@ -437,6 +437,7 @@ Runs recorded: 718
 | [D0174](decisions/D0174-l3-integer-declaration-successor.md) | accepted |  | Bound the L3 integer-declaration successor |
 | [D0175](decisions/D0175-l3-typed-variable-declaration-contract.md) | accepted |  | Add a typed variable declaration AST boundary |
 | [D0176](decisions/D0176-l3-typed-variable-name-successor.md) | accepted |  | Bound the typed variable-name successor |
+| [D0177](decisions/D0177-l3-y-witness-claim-boundary.md) | accepted | Amends D0176 | Narrow the typed variable-name successor claim |
 
 ### Proposed decisions
 

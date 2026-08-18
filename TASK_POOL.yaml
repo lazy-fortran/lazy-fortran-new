@@ -7492,7 +7492,7 @@ tasks:
     priority: 80
     depends_on: [T-L3-frontend-ast-v1-next-contract]
     inputs:
-      - research/decisions/D0176-l3-typed-variable-name-successor.md
+      - research/decisions/D0177-l3-y-witness-claim-boundary.md
       - path: contracts/frontend-ast-v1.sxs
         sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
       - path: contracts/fixtures/frontend-ast-v1-name.sx
@@ -7534,7 +7534,7 @@ tasks:
     integration_cycle_trigger: next_replay
   - id: T-L3-frontend-ast-v1-name-replay
     milestone: L3
-    title: Replay the typed AST v1 source-derived variable name
+    title: Replay the exact typed AST v1 y witness
     status: OPEN
     verification: PENDING
     review_state: PENDING
@@ -7555,7 +7555,7 @@ tasks:
         sha256: 0f89c638f4f9eb7900989c275d0d810838f99b9c1d1613615c19c17f9c7f64ea
       - component: fortfront-new
         commit: d20041cc8854cd4bf501e5ac8b890c9782e32204
-    output: clean raw-source-to-typed-AST-name trace and independent oracle result
+    output: clean exact-y raw-source-to-typed-AST trace and independent oracle result
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -7577,15 +7577,16 @@ tasks:
         - STATUS.md
         - MILESTONES.md
     verifier: >-
-      from the frozen central revision run exact y source and malformed
+      from the frozen central revision run the exact y source and malformed
       neighbour through fortfront-source-ast-v1; require the independent
       schema-linked typed-field oracle, byte-identical repeat output, no
       negative output, stable trace, zero model calls and zero semantic
-      promotions. This task does not broaden the accepted language.
+      promotions. Promote only this exact y witness, not general source-name
+      derivation or identifier parsing.
     verifier_command: >-
       AST_EXPECTED_CENTRAL_COMMIT=eaca690504abc1a2c218d86e38fdc188b199540d
       tests/e2e/run-frontend-ast-v1-name.sh --fresh
-    final_observable: typed AST v1 oracle PASS with y preserved and malformed neighbour rejected
+    final_observable: typed AST v1 oracle PASS for exact y witness with malformed neighbour rejected
     retry_count: 0
     integration_cycle_trigger: milestone_pass
 integration_cycle:

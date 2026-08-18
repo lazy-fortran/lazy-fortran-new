@@ -1,7 +1,8 @@
 id: "E0236"
-title: "Can one source-derived typed variable name survive the AST v1 boundary"
+title: "Can one exact typed AST v1 y witness survive the AST boundary"
 question: >
-  Can one source-derived typed variable name survive the AST v1 boundary
+  Can one exact typed AST v1 y witness survive the AST boundary without
+  changing the existing x witness?
 status: running         # draft | running | reported | abandoned
 opened: "2026-08-18"
 closed: ""
@@ -14,7 +15,7 @@ repos:
 
 # What goes in. Pinned artifacts by manifest name; profiles by ID.
 inputs:
-  decision: research/decisions/D0176-l3-typed-variable-name-successor.md
+  decision: research/decisions/D0177-l3-y-witness-claim-boundary.md
   contract_schema: contracts/frontend-ast-v1.sxs
   contract_schema_sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
   contract_witness: contracts/fixtures/frontend-ast-v1-name.sx
@@ -37,7 +38,7 @@ inputs:
 
 # The axes being varied. Omit the key if there is only one condition.
 variables:
-  source_case: "one named free-form main program with integer declaration name y"
+  source_case: "one exact named free-form main program with integer declaration name y"
   negative_case: "same source with the integer declaration entity omitted"
   stages: "raw source | typed frontend AST v1"
   model_calls: 0
@@ -53,7 +54,7 @@ model_selection: >-
 # is how an experiment becomes a demonstration.
 metrics:
   - exact positive and negative source hashes
-  - source-derived variable name, type and span
+  - exact y variable name, type and span
   - repeated typed-AST output and path-independent trace hashes
   - component revision, toolchain and clean-checkout state
   - model calls and semantic promotions

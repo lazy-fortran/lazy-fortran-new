@@ -480,8 +480,10 @@ retaining the stale-pin, location-dependent-trace and schema-lineage failures
 R000658/R000659/R000662. The exact typed-AST leaf is promoted only as a
 bounded claim by E0235. D0176 now freezes the next additive source shape
 `integer :: y` using the same v1 schema and malformed neighbour. The producer
-is pinned at fortfront `d20041c`; its central replay is active. The C768
-implementation result is parked and is not promoted by this pivot.
+is pinned at fortfront `d20041c`; its central replay is active. D0177 narrows
+the claim to the exact y witness and explicitly refuses general source-name
+derivation. The C768 implementation result is parked and is not promoted by
+this pivot.
 
 ## Next executable task
 
@@ -491,8 +493,8 @@ review pass; the bounded successor is promoted. The typed declaration contract
 D0175 is now frozen and passes `scripts/check-contracts.sh`; the active task is
 the isolated fortfront AST v1 implementation, which is complete at pinned
 fortfront `d20041c`; E0235/R000661, focused reviews R000664/R000665 and the
-path-independent/schema-lineage gates pass. D0176 freezes the additive
-source-name contract, and the y producer passes its component gate. The active
+path-independent/schema-lineage gates pass. D0176/D0177 freeze the exact y
+witness boundary, and the y producer passes its component gate. The active
 task is the central E0236 replay. This remains outside full M3.
 Do not resume E0172 or start broad semantic work. The C768 worker result
 remains parked and is not promoted by this pivot.

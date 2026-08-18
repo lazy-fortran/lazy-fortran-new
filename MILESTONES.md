@@ -1157,9 +1157,10 @@ oracle. Reviews R000658/R000659/R000662 retained stale central lineage,
 absolute-path-dependent trace and schema-lineage failures; corrected replay
 R000661 and focused reviews R000664/R000665 pass. The exact typed-AST leaf is
 promoted only as a bounded claim. D0176 now freezes the next additive source
-shape `integer :: y` using the same v1 schema and malformed neighbour; fortfront
-`d20041c` passes its component gate and the next task is the central E0236
-replay. Full M3 remains open.
+shape `integer :: y` using the same v1 schema and malformed neighbour; D0177
+narrows the claim to that exact y witness. Fortfront `d20041c` passes its
+component gate and the next task is the central E0236 replay. Full M3 remains
+open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 
