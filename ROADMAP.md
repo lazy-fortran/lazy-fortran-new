@@ -164,11 +164,11 @@ non-decimal and out-of-range negatives and qemu exit status 7. The replay
 currently passes 13 routes; regenerate that count with
 `bash tests/e2e/check-generated-chain.sh`. This is still a bounded literal
 contract, not general literal parsing, constant evaluation, or arbitrary
-Fortran execution. The existing `1 + 2` expression leaf now also materializes
-both operands through FFC, emits RISC-V `add`, and exits 3 under qemu; the
-central oracle checks the five-instruction MIR shape and exact literals.
-Multiplication, division and subtraction remain structural until their
-operands receive the same materialization treatment.
+Fortran execution. The bounded integer expression leaves now materialize both
+operands through FFC, emit generated RISC-V `add`, `mul`, `div` and `sub`, and
+exit 3, 6, 3 and 2 respectively under qemu; the central oracle checks each
+five-instruction MIR shape and exact literals. Broader expression parsing,
+typing, overflow and divide-by-zero semantics remain out of scope.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
