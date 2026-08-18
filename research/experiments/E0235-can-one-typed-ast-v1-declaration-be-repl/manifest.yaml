@@ -2,9 +2,9 @@ id: "E0235"
 title: "Can one typed AST v1 declaration be replayed from raw source"
 question: >
   Can one typed AST v1 declaration be replayed from raw source
-status: running         # draft | running | reported | abandoned
+status: reported       # draft | running | reported | abandoned
 opened: "2026-08-18"
-closed: ""
+closed: "2026-08-18"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -101,14 +101,18 @@ result:
   failed_replay: research/runs/2026-08.jsonl#R000654
   technical_run: research/runs/2026-08.jsonl#R000661
   technical_status: PASS
-  promotion_status: PENDING-FOCUSED-REVIEW
+  promotion_status: PASS-BOUNDED-ONLY
   report: artifacts/reports/L3/frontend-ast-v1-raw-source-replay.md
   trace: artifacts/traces/frontend-ast-v1.json
   trace_sha256: 9191daaf2f7f833bc789ff79cb1dea952260453b8692540e54f45ae6c9580d6e
   validator_sha256: f392ea5ffcfeb98582bcb30e11c6a56e717a7d380b6c90772b36d9bf89fa2112
-  regression_run: research/runs/2026-08.jsonl#R000660
+  regression_run: research/runs/2026-08.jsonl#R000666
+  post_promotion_regression: research/runs/2026-08.jsonl#R000666
   frozen_revision: 2a0c97576adc2fe3e64054cbae8a363a502f024d
   review_failures: [research/runs/2026-08.jsonl#R000658, research/runs/2026-08.jsonl#R000659, research/runs/2026-08.jsonl#R000662]
+  review_runs: [research/runs/2026-08.jsonl#R000664, research/runs/2026-08.jsonl#R000665]
+  review_report: artifacts/reports/L3/frontend-ast-v1-focused-review-v1.md
+  review_report_sha256: 3dfeb2295e12a0b79998bac04d03317565f5b3b965bd75bd13151f2a4e57b5e3
   outcomes: {accepted: 1, rejected: 1, repeat: identical}
   model_calls: 0
   semantic_promotions: 0

@@ -1153,10 +1153,11 @@ and focused review R000653 pass. The successor is promoted only as the exact
 source-shape claim. D0175 and the `frontend-ast-v1` contract now pass the
 central contract gate. The isolated fortfront producer is pinned at
 `394f34d`; E0235/R000654 retains a golden mismatch caught by the independent
-oracle. Reviews R000658/R000659 caught stale central lineage and an
-absolute-path-dependent trace hash; corrected replay R000660 from frozen
-central `a3aa8e0` passes. Focused review of the corrected packet is the next
-gate; full M3 remains open.
+oracle. Reviews R000658/R000659/R000662 retained stale central lineage,
+absolute-path-dependent trace and schema-lineage failures; corrected replay
+R000661 and focused reviews R000664/R000665 pass. The exact typed-AST leaf is
+promoted only as a bounded claim. The next task selects one additive typed-AST
+contract; full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

@@ -32,4 +32,6 @@ is `artifacts/traces/frontend-ast-v1.json`.
 
 This is a bounded typed-AST producer claim only. It does not establish general
 declaration parsing, semantic analysis, MIR lowering, or arbitrary Fortran
-acceptance; full M3 remains open.
+acceptance; full M3 remains open. Focused reviews R000664/R000665 and
+post-promotion regression R000666 pass, so E0235 is promoted only as this
+bounded leaf.

@@ -16,11 +16,12 @@ verified vertical slice. D0173 made that slice a raw-source executable path:
 `program p` / `end program p` through `fortfront-new`, `ffc-new` and the
 existing `fortback-new` path. D0174 then added the exact source shape with one
 `integer :: x` declaration. D0175 now defines one typed frontend AST v1 record;
-fortfront `394f34d` emits it, and E0235/R000660 passes the independent replay
-with a path-independent trace hash after retaining the failed golden and stale-
-pin controls R000654 and R000658/R000659. The next gate is focused review of
-that corrected bounded typed-AST claim. It does not parse arbitrary Fortran or
-close full M3.
+fortfront `394f34d` emits it, and E0235/R000661 plus focused reviews
+R000664/R000665 pass the independent replay, schema/output lineage and
+path-independent trace gates after retaining failures R000654, R000658,
+R000659 and R000662. The leaf is promoted only as this exact bounded typed-AST
+claim. The next task selects one additive typed-AST contract; it does not parse
+arbitrary Fortran or close full M3.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

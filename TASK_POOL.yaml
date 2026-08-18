@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-ast-v1-replay
+  - T-L3-frontend-ast-v1-next-contract
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-ast-v1-replay
+active_task: T-L3-frontend-ast-v1-next-contract
 
 milestones:
   - id: L0
@@ -7379,9 +7379,9 @@ tasks:
   - id: T-L3-frontend-ast-v1-replay
     milestone: L3
     title: Replay one typed frontend AST v1 declaration from raw source
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 85
     depends_on: [T-L3-fortfront-typed-variable-declaration]
     inputs:
@@ -7397,9 +7397,11 @@ tasks:
         sha256: 62a9173daacc90587df6830d19a5f092d799b96e403d598e0c4c215f390d8158
       - path: artifacts/traces/frontend-ast-v1.json
         sha256: 9191daaf2f7f833bc789ff79cb1dea952260453b8692540e54f45ae6c9580d6e
+      - path: artifacts/reports/L3/frontend-ast-v1-focused-review-v1.md
+        sha256: 3dfeb2295e12a0b79998bac04d03317565f5b3b965bd75bd13151f2a4e57b5e3
       - component: fortfront-new
         commit: 394f34da390fb7540da5676cbc4e6f89a84553c1
-    output: clean raw-source-to-typed-AST trace and independent oracle result
+    output: clean raw-source-to-typed-AST trace and independent oracle result; R000661/R000664/R000665
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -7414,6 +7416,7 @@ tasks:
         - tests/golden/frontend-ast-v1.oracle.toml
         - artifacts/traces/frontend-ast-v1.json
         - artifacts/reports/L3/frontend-ast-v1-raw-source-replay.md
+        - artifacts/reports/L3/frontend-ast-v1-focused-review-v1.md
         - research/experiments/E0235-*
         - research/runs/2026-08.jsonl
         - TASK_POOL.yaml
@@ -7422,15 +7425,55 @@ tasks:
     verifier: >-
       from the frozen central revision run the exact positive source and
       malformed neighbour through fortfront-source-ast-v1; require the
-      independent typed-field oracle, byte-identical repeat output, no
-      negative output, stable trace, zero model calls and zero semantic
-      promotions. This task does not broaden the accepted language.
+      independent typed-field oracle, schema/output structural check,
+      byte-identical repeat output, no negative output, stable trace, zero
+      model calls and zero semantic promotions. This task does not broaden the
+      accepted language.
     verifier_command: >-
       AST_EXPECTED_CENTRAL_COMMIT=2a0c97576adc2fe3e64054cbae8a363a502f024d
       tests/e2e/run-frontend-ast-v1.sh --fresh
     final_observable: typed AST v1 oracle PASS with rejected malformed neighbour
     retry_count: 0
     integration_cycle_trigger: milestone_pass
+  - id: T-L3-frontend-ast-v1-next-contract
+    milestone: L3
+    title: Select the next bounded typed frontend AST source contract
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-ast-v1-replay]
+    inputs:
+      - research/decisions/D0175-l3-typed-variable-declaration-contract.md
+      - contracts/frontend-ast-v1.sxs
+      - contracts/fixtures/frontend-ast-v1.sx
+      - tests/fixtures/frontend-ast-v1.toml
+    output: one source-backed additive typed-AST successor contract with exact positive and negative neighbours
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D01*-l3-*
+        - contracts/**
+        - tests/fixtures/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+        - MILESTONES.md
+    verifier: >-
+      choose exactly one source-backed typed-AST successor that reuses existing
+      generated record machinery where possible; pin its normative evidence,
+      exact source bytes, negative neighbour, typed expected fields and
+      independent oracle before any producer implementation. Do not broaden to
+      general declarations, semantics, MIR or another model experiment.
+    verifier_command: scripts/check-contracts.sh
+    final_observable: frozen successor contract or one precise evidence blocker
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
 integration_cycle:
   triggers:
     verified_deltas: 4
