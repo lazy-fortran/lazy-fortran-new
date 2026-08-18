@@ -54,4 +54,5 @@
   (contract m3-c763-pass-arg-name 0 lazy-fortran-new)
   (contract l3-raw-program 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
   (contract l3-declaration 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
-  (contract l3-print-list 0 lazy-fortran-new fortfront-new ffc-new fortback-new))
+  (contract l3-print-list 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
+  (contract l3-print-expression 0 lazy-fortran-new fortfront-new ffc-new fortback-new))

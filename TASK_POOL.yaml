@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  []
+  - T-L3-generic-print-expression
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-L3-generic-print-expression
 
 milestones:
   - id: L0
@@ -11392,6 +11392,73 @@ tasks:
     evidence: central replay PASS at 66 routes; bounded-only promotion; focused review skipped for this ordinary batch
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-generic-print-expression
+    milestone: L3
+    title: Add one generated integer expression item to the generic PRINT list
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 144
+    depends_on: [T-L3-generic-integer-print-list]
+    inputs:
+      - contract: contracts/l3-print-expression-v0.sxs
+      - contract-witness: contracts/fixtures/l3-print-expression-v0.sx
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 67fa5e52ee957e39317e3eddc211ee2df1c42ac3
+      - component: ffc-new
+        commit: fa7799d8f076e5ad7ee6fad3fcfd1bd503cb9c29
+      - component: fortback-new
+        commit: 4bf8db60eb95c8109450fe5b0bf729c1c76a2b6c
+      - normative-source: J3-24-007
+        rules: [R901, R1010, R1212, R1215, R1217]
+        printed-pages: [155, 170, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-expression-v0.f90
+          - tests/fixtures/l3-print-expression-wide-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-expression-v0-missing-operand.f90
+          - tests/negative/l3-print-expression-v0-wrong-operator.f90
+          - tests/negative/l3-print-expression-v0-write.f90
+          - tests/negative/l3-print-expression-v0-wrong-name.f90
+    output: >-
+      central PASS for one generated output-list expression item with the
+      fixed AST shape `(kind integer-expression) (operator +) (left x)
+      (right 1)`, typed MIR load/const/add/output lowering, and RISC-V/qemu
+      execution; preserve the generic literal/variable route and reject the
+      four listed source neighbours
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-expression
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - contracts/l3-print-expression-v0.sxs
+        - contracts/fixtures/l3-print-expression-v0.sx
+        - tests/e2e/check-generated-print-expression.sh
+        - tests/e2e/oracle_generated_print_expression.py
+        - tests/fixtures/l3-print-expression-*
+        - tests/negative/l3-print-expression-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve the generic integer PRINT-list route; accept both positive
+      expression sources using the fixed expression-item AST shape; reject
+      missing operand, wrong operator, WRITE, and undeclared-name neighbours;
+      check source provenance, MIR load/const/add/output order, exact stdout,
+      and AST/MIR/ELF mutations. No general expressions, formatted I/O,
+      arrays, non-integer output, or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-expression.sh
+    final_observable: central generic-print-expression PASS with the prior generic PRINT-list route preserved
+    evidence: implementation wave not yet replayed
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
 integration_cycle:
   triggers:
     verified_deltas: 4

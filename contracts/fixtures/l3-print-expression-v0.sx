@@ -1,0 +1,49 @@
+(contract-witness
+  (contract l3-print-expression)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (property generic-integer-expression-output)
+  (positive
+    (source-case
+      (id expression-first)
+      (path tests/fixtures/l3-print-expression-v0.f90)
+      (sha256 ff090458bf8d0938c6520e4fb67b103a1797224089ffa868027df207f6c41720)
+      (expected accepted)))
+  (positive-wide
+    (source-case
+      (id expression-second)
+      (path tests/fixtures/l3-print-expression-wide-v0.f90)
+      (sha256 ba904f1f349399a91d6c533f31da47fe1abdb4f61e3079c8be3e9aae01ef165e)
+      (expected accepted)))
+  (negative-missing-operand
+    (source-case
+      (id missing-operand)
+      (path tests/negative/l3-print-expression-v0-missing-operand.f90)
+      (sha256 dcce9d12b6c2038dfcf7a0cb6509fbdf562aff6b3cce0f9a8595a72ab9e959c3)
+      (expected rejected)))
+  (negative-wrong-operator
+    (source-case
+      (id wrong-operator)
+      (path tests/negative/l3-print-expression-v0-wrong-operator.f90)
+      (sha256 0a0c17777324ba6010fddd91822cc99a45c529211534248dc1c6c33a0a0c9474)
+      (expected rejected)))
+  (negative-write
+    (source-case
+      (id write-not-print)
+      (path tests/negative/l3-print-expression-v0-write.f90)
+      (sha256 17e6fcb9f2641eea2f8748ccc8810c5abafb166622c28dbfe47ec45637e83ccf)
+      (expected rejected)))
+  (negative-name
+    (source-case
+      (id undeclared-name)
+      (path tests/negative/l3-print-expression-v0-wrong-name.f90)
+      (sha256 cbc9b6bfd7885dcf0ca068bee2c46f6653bb6ca54d9679a88cecd1ed76be64e7)
+      (expected rejected)))
+  (source-evidence
+    (document J3-24-007)
+    (pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)
+    (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R901 R1010 R1212 R1215 R1217)
+    (pages 155 170 242 244 248)))
