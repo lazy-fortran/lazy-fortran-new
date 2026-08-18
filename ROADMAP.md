@@ -25,9 +25,10 @@ claim. D0176 selected one additive typed-AST source-name contract for
 passes its central replay and two final focused reviews, so the y leaf is
 promoted as PASS-BOUNDED-ONLY. Its retained broad-claim failure is the reason
 D0178 now freezes a changed-name `z` contract; R000673 passes its contract
-gate, R000674 passes the isolated producer at fortfront `a657f36`, and the
-next task is the central z replay. The path still does not parse arbitrary
-Fortran or close full M3.
+gate, R000674 passes the isolated producer at fortfront `a657f36`, and
+E0237/R000678/R000681/R000682 promote the exact z witness only. D0179 now
+freezes the next multi-character name/span contract. The path still does not
+parse arbitrary Fortran or close full M3.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

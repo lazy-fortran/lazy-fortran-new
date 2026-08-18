@@ -3,9 +3,9 @@ title: "Can a changed source name survive the typed AST v1 boundary"
 question: >
   Does the pinned typed AST v1 producer accept the changed exact source name z
   while preserving the existing y control and rejecting the malformed neighbour?
-status: running         # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-18"
-closed: ""
+closed: "2026-08-18"
 
 repos:
   lazy-fortran-new: "76306f722235c8f920c46d78096d114245fb1f99"
@@ -93,7 +93,19 @@ analysis: >-
 
 result:
   technical_run: research/runs/2026-08.jsonl#R000678
-  technical_status: PENDING
-  promotion_status: PENDING
+  technical_status: PASS
+  promotion_status: PASS-BOUNDED-ONLY
+  evidence_packet_revision: 1eaa143eb91831734eb6753c97274731de79c37c
+  frozen_executable_revision: e95a811c764a7d7d5792d89b4840c5d2c677d20e
+  review_report: artifacts/reports/L3/frontend-ast-v1-name-mutation-focused-review-v1.md
+  review_report_sha256: e0e70356c3bc99026f3a8ea64dc85154049cdf6ac5d9ca6a66021c10c0435e36
+  review_runs:
+    - research/runs/2026-08.jsonl#R000681
+    - research/runs/2026-08.jsonl#R000682
+  retained_failures:
+    - research/runs/2026-08.jsonl#R000676
+    - research/runs/2026-08.jsonl#R000677
+    - research/runs/2026-08.jsonl#R000679
+    - research/runs/2026-08.jsonl#R000680
   model_calls: 0
   semantic_promotions: 0

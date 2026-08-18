@@ -1,0 +1,18 @@
+(contract-witness
+  (contract frontend-ast)
+  (version 1)
+  (origin llm)
+  (resolution proposed)
+  (source tests/fixtures/l3-ast-variable-name-multichar-v1.f90)
+  (source-sha256 e58243991e715e8f2ed9b8e8ba2d7062727efb5e640ec44faf02541b30c923df)
+  (root-name p)
+  (program-declaration-count 1)
+  (program-declaration-kind program)
+  (variable-declaration-count 1)
+  (variable-type-spec integer)
+  (variable-name alpha)
+  (variable-span
+    (file tests/fixtures/l3-ast-variable-name-multichar-v1.f90)
+    (start-byte 10)
+    (end-byte 28)
+    (source-hash l3-raw-program-variable-name-alpha-v1)))

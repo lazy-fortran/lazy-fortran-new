@@ -486,8 +486,10 @@ derivation. E0236/R000670/R000671/R000672 now promote that exact y leaf only;
 R000668 retains the rejected broader wording. D0178 freezes the changed-name
 `z` contract as the next task. R000673 passes the contract gate; the isolated
 fortfront z-name producer passes its component gate as R000674 at pushed
-revision `a657f36`. The active task is the central z replay. The C768
-implementation result is parked and is not promoted by this pivot.
+revision `a657f36`. E0237/R000678 and focused reviews R000681/R000682 promote
+the exact z witness only. D0179 now freezes the next multi-character name and
+span contract. The C768 implementation result is parked and is not promoted
+by this pivot.
 
 ## Next executable task
 
@@ -501,10 +503,11 @@ path-independent/schema-lineage gates pass. D0176/D0177 freeze the exact y
 witness boundary, and the y producer passes its component gate. The active
 task is the central E0236 replay. The replay and two final focused reviews now
 pass for the exact y witness only. D0178/R000673 freeze the changed-name
-contract, R000674 passes the pushed fortfront component gate, and the active
-task is the central z replay. This remains outside full M3. Do not resume
-E0172 or start broad semantic work. The C768 worker result remains parked and
-is not promoted by this pivot.
+contract, R000674 passes the pushed fortfront component gate, and
+E0237/R000678/R000681/R000682 promote the exact z witness only. The active
+task is the D0179 multi-character name/span contract. This remains outside
+full M3. Do not resume E0172 or start broad semantic work. The C768 worker
+result remains parked and is not promoted by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
