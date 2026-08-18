@@ -20,6 +20,7 @@ multiplication_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integ
 division_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-divide-assignment-v1.f90"
 subtraction_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-subtract-assignment-v1.f90"
 literal_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-7-assignment-v1.f90"
+literal_boundary_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-2047-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -324,5 +325,24 @@ else
 fi
 [ "$literal_status" -eq 7 ]
 python3 "$oracle" "$literal_ast_file" "$literal_mir_file" "$literal_elf_file" main integer literal
+
+literal_boundary_ast_file="$run_dir/literal-boundary.frontend.ast.sx"
+literal_boundary_mir_file="$run_dir/literal-boundary.mir.sx"
+literal_boundary_elf_file="$run_dir/literal-boundary.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$literal_boundary_source_file" \
+        "$literal_boundary_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$literal_boundary_ast_file" \
+        "$literal_boundary_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$literal_boundary_mir_file" \
+        "$literal_boundary_elf_file") > /dev/null 2>&1
+if qemu-riscv64 "$literal_boundary_elf_file" > /dev/null; then
+    literal_boundary_status=0
+else
+    literal_boundary_status=$?
+fi
+# POSIX process exit status exposes only the low byte; MIR/ELF checks retain 2047.
+[ "$literal_boundary_status" -eq 255 ]
+python3 "$oracle" "$literal_boundary_ast_file" "$literal_boundary_mir_file" \
+    "$literal_boundary_elf_file" main integer literal-boundary
 
 printf '%s\n' 'generated compiler chain PASS'

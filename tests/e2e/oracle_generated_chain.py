@@ -95,18 +95,19 @@ def main() -> None:
                 "(literal 3)" not in mir or "(opcode sub)" not in mir or \
                 "(opcode store)" not in mir or "(opcode return)" not in mir:
             fail("MIR-v0 subtraction opcode shape is wrong")
-    elif mode == "literal":
+    elif mode in ("literal", "literal-boundary"):
+        expected_literal = "7" if mode == "literal" else "2047"
         if "(assignment-count 1)" not in ast or \
-                "(assignment-expression (kind integer-literal) (operator ) (left-operand 7) (right-operand ))" not in ast:
+                f"(assignment-expression (kind integer-literal) (operator ) (left-operand {expected_literal}) (right-operand ))" not in ast:
             fail("AST-v1 literal assignment witness is wrong")
-        if "(opcode const)" not in mir or "(literal 7)" not in mir or \
+        if "(opcode const)" not in mir or f"(literal {expected_literal})" not in mir or \
                 "(source-rule frontend-ast-v1/assignment)" not in mir or \
                 "(opcode store)" not in mir or "(opcode return)" not in mir:
             fail("MIR-v0 literal value shape is wrong")
     else:
         fail("unsupported generated chain mode")
     expected_result_count = 5 if mode in ("expression", "multiplication", "division", "subtraction") else \
-        3 if mode == "literal" else 2
+        3 if mode in ("literal", "literal-boundary") else 2
     if mir.count(f"(kind {mir_kind}) (type {mir_type})") != expected_result_count:
         fail("MIR-v0 typed result is wrong")
 
