@@ -446,7 +446,8 @@ Runs recorded: 744
 | [D0179](decisions/D0179-l3-multichar-name-span-contract.md) | accepted |  | Add a bounded multi-character name and span contract |
 | [D0180](decisions/D0180-l3-next-identifier-boundary.md) | accepted |  | Stop the exact-name ladder at the next identifier boundary |
 | [D0181](decisions/D0181-l3-source-derived-name-contract.md) | amended by D0182 |  | Freeze the source-derived typed-name boundary |
-| [D0182](decisions/D0182-correct-source-derived-name-provenance.md) | accepted | Amends D0181 | Correct D0181 source-document provenance |
+| [D0182](decisions/D0182-correct-source-derived-name-provenance.md) | amended by D0183 | Amends D0181 | Correct D0181 source-document provenance |
+| [D0183](decisions/D0183-authoritative-source-derived-name-replay.md) | accepted | Amends D0182 | Identify the authoritative source-derived-name replay |
 
 ### Proposed decisions
 

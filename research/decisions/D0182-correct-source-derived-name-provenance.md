@@ -1,7 +1,7 @@
 # D0182. Correct D0181 source-document provenance
 
 Date: 2026-08-18
-Status: accepted
+Status: amended by D0183
 Amends: D0181
 
 ## Context

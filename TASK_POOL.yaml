@@ -7945,7 +7945,9 @@ tasks:
       - path: research/decisions/D0181-l3-source-derived-name-contract.md
         sha256: cc27c07c52663a7e253948565315cad8b302d4d65e854689c30e1e4c4d999444
       - path: research/decisions/D0182-correct-source-derived-name-provenance.md
-        sha256: 65478f4cd75239dbe38ae986c27940e91e9ec372902a96333c0d201ac6cc8930
+        sha256: 46edca3bc270b17f35e42a2b1d7bc49975a71c546133e9f3d1b9bdd28a4da4ba
+      - path: research/decisions/D0183-authoritative-source-derived-name-replay.md
+        sha256: 4cac42d76c1c15529a6ff9975bddb50397d336f3403440f46b1bf41725a7c5ad
       - path: contracts/frontend-ast-v1.sxs
         sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
       - path: contracts/fixtures/frontend-ast-v1-name-derived.sx
@@ -8003,7 +8005,9 @@ tasks:
       - path: research/decisions/D0181-l3-source-derived-name-contract.md
         sha256: cc27c07c52663a7e253948565315cad8b302d4d65e854689c30e1e4c4d999444
       - path: research/decisions/D0182-correct-source-derived-name-provenance.md
-        sha256: 65478f4cd75239dbe38ae986c27940e91e9ec372902a96333c0d201ac6cc8930
+        sha256: 46edca3bc270b17f35e42a2b1d7bc49975a71c546133e9f3d1b9bdd28a4da4ba
+      - path: research/decisions/D0183-authoritative-source-derived-name-replay.md
+        sha256: 4cac42d76c1c15529a6ff9975bddb50397d336f3403440f46b1bf41725a7c5ad
       - path: contracts/fixtures/frontend-ast-v1-name-derived.sx
         sha256: 7aa967e04bb89f495371bd689b1a5fe00ee8457709112951a1b84550fe914871
       - path: tests/fixtures/frontend-ast-v1-name-derived-contract.toml
