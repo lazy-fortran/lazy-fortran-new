@@ -276,7 +276,11 @@ the same generated frontend, MIR and backend route, with forty rejected source
 neighbors and three artifact mutation controls per route; the central replay
 passes 66 routes. The twenty-one-through-forty successor extends the same
 generated route with eighty rejected source neighbors and three artifact
-mutation controls per route; the central replay now passes 86 routes. The next
+mutation controls per route; the central replay now passes 86 routes. The
+forty-one-through-sixty and sixty-one-through-eighty successors add forty more
+generated routes with four rejected source neighbours and three AST/MIR/ELF
+mutation controls per route. The central replay now passes 126 routes;
+regenerate that count with `bash tests/e2e/check-generated-chain.sh`. The next
 frontier remains another bounded generated route, not general parsing,
 semantics, or full-language support.
 `lazy-fortran-new` is the sole Goal Mode control
