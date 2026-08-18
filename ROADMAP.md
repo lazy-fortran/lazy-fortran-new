@@ -1,6 +1,6 @@
 # Roadmap
 
-Snapshot: 2026-08-18. Live repository state is reported by
+Snapshot: 2026-08-19. Live repository state is reported by
 `scripts/status.sh`. Experiment manifests pin the exact commits used by each
 result. The lab and `standard-new` checkouts are clean and their current
 default-branch CI state is reported separately from those immutable pins.
@@ -290,6 +290,14 @@ four rejected neighbours, exact qemu output and the preserved 146-route replay.
 This is still list-directed integer output only; formatted I/O, WRITE, arrays,
 non-integer output, general expression items and corpus breadth remain outside
 the claim.
+The next bounded successor is integrated: one generated integer expression
+item `x + 1` may occur in the generic PRINT list. The central command
+`bash tests/e2e/check-generated-print-expression.sh` checks two positive source
+programs, exact AST provenance, typed MIR `load/const/add/output`, qemu output,
+AST/MIR/ELF mutations, four rejected source neighbours, and preservation of
+the prior generic PRINT-list route. This remains a fixed expression witness;
+it does not claim general expressions, precedence, formatted I/O, arrays,
+non-integer output or semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

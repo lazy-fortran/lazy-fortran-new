@@ -48,6 +48,15 @@ replaces item-numbered fields for this new
 source shape but does not yet provide general I/O, formatted output, arrays,
 non-integer output or corpus breadth.
 
+The L3 slice `T-L3-generic-print-expression` now passes
+`bash tests/e2e/check-generated-print-expression.sh`: two positive generic
+PRINT sources carry the fixed `x + 1` expression item through typed AST,
+load/const/add/output MIR, RISC-V and qemu, while AST/MIR/ELF mutations and
+four source neighbours are rejected. The prior generic PRINT-list replay
+also remains green. This is still one bounded integer-expression item, not
+general expression parsing, formatted I/O, arrays, non-integer output or
+semantic promotion.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to
@@ -168,9 +177,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `67fa5e52ee957e39317e3eddc211ee2df1c42ac3` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, and generic mixed integer output-list AST-v2 with complete PRINT/item provenance; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `fa7799d8f076e5ad7ee6fad3fcfd1bd503cb9c29` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and generic mixed integer output-list lowering with item provenance validation; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `4bf8db60eb95c8109450fe5b0bf729c1c76a2b6c` | backend | generated stack-slot/sequence routes and generic mixed integer output-list RISC-V lowering; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `efd8c0482b3dab358008c018ed803b687f537ca7` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and generic integer-expression output items; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `794e19d65469f212714bc1ee556c630e34575089` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and typed expression-item load/const/add/output lowering; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `e628d9028913f5464d4c3094f7b7ea572257cd3c` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and generic expression-item arithmetic emission; `fo` passes |
 
 ## Historical milestone evidence
 
