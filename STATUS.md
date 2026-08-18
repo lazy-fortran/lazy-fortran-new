@@ -288,7 +288,7 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-L3-generated-print-variable-power-value-batch`.
+Current fixture: `T-L3-generated-print-variable-two-item-batch`.
 Its source-bound generated replay passes 47 routes; regenerate that count with
 `bash tests/e2e/check-generated-chain.sh`. The exact stored-variable witness
 is bounded to `program main`, `integer :: x`, `x = 17` or `x = 23`, and `PRINT *, x`;
@@ -303,6 +303,9 @@ source neighbours, and three rejected artifact mutations.
 The value-generalization witness is now integrated as `x = 3; x = x ** 2; PRINT *, x`,
 with exact qemu output `9\n`, four negative neighbours and three rejected
 artifact mutations.
+The next prepared witness is `x = 3; x = x ** 2; PRINT *, x, x`, with exact
+expected stdout `9\n9\n` and four negative neighbours; frontend, middle-end
+and backend implementation will run in isolated worktrees.
 The following M3 records are retained historical evidence, not the active
 fixture.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
@@ -378,6 +381,10 @@ Current task: `T-L3-generated-print-variable-power-value-batch` — PASS. The
 central verifier passes 47 routes; two independent focused reviews pass for
 this bounded value pair. This does not promote general value ranges, power
 semantics, arbitrary Fortran, or M3.
+
+Next task: `T-L3-generated-print-variable-two-item-batch` — OPEN. The source
+fixtures are prepared before implementation and the central replay remains the
+promotion gate.
 The following M3 material is retained historical evidence.
 Historical task: `T-M3-c763-pass-arg-name-oracle` — OPEN. Selection R000635 passes for
 `T-M3-core0-next-bounded-property-selection-after-c762`. The exact residual

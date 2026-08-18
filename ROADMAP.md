@@ -251,6 +251,9 @@ neighbours and three rejected artifact mutations. The value-generalization slice
 is now integrated as `x = 3; x = x ** 2` with exact output `9\n`, four negative
 neighbours and three rejected artifact mutations. It remains a bounded value
 pair, not a general literal or power implementation.
+The next prepared source-backed slice carries the stored variable through two
+`R1217` output items, `PRINT *, x, x`, with expected output `9\n9\n`; it remains
+a bounded two-item path, not general I/O or arbitrary output-list handling.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
