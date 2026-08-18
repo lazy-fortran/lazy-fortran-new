@@ -7426,7 +7426,7 @@ tasks:
       negative output, stable trace, zero model calls and zero semantic
       promotions. This task does not broaden the accepted language.
     verifier_command: >-
-      AST_EXPECTED_CENTRAL_COMMIT=153f49bc802deef38de0d0fb51a98d089d289a9d
+      AST_EXPECTED_CENTRAL_COMMIT=a3aa8e052bbd325167c55616d9dc244fc9e83544
       tests/e2e/run-frontend-ast-v1.sh --fresh
     final_observable: typed AST v1 oracle PASS with rejected malformed neighbour
     retry_count: 0

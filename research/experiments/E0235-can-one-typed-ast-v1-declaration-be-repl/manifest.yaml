@@ -8,7 +8,7 @@ closed: ""
 
 # Every commit the result depends on. Exact, not "main".
 repos:
-  lazy-fortran-new: "51ebbd1a991518f33282d09f1f0245e1780eaf8c"
+  lazy-fortran-new: "a3aa8e052bbd325167c55616d9dc244fc9e83544"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
   fortfront-new: "394f34da390fb7540da5676cbc4e6f89a84553c1"
 
@@ -99,15 +99,16 @@ analysis: >-
 
 result:
   failed_replay: research/runs/2026-08.jsonl#R000654
-  technical_run: research/runs/2026-08.jsonl#R000657
+  technical_run: research/runs/2026-08.jsonl#R000660
   technical_status: PASS
   promotion_status: PENDING-FOCUSED-REVIEW
   report: artifacts/reports/L3/frontend-ast-v1-raw-source-replay.md
   trace: artifacts/traces/frontend-ast-v1.json
-  trace_sha256: 553f11e19a4464865526a11de5c09e63644eb0cc0be4012c48289c7dc44686fe
+  trace_sha256: 9191daaf2f7f833bc789ff79cb1dea952260453b8692540e54f45ae6c9580d6e
   validator_sha256: 8357fb800a23cad5e0d9bec16fcfe2b8a6fdea2b35efe590a79c52db90e9d971
-  regression_run: research/runs/2026-08.jsonl#R000656
-  frozen_revision: 153f49bc802deef38de0d0fb51a98d089d289a9d
+  regression_run: research/runs/2026-08.jsonl#R000660
+  frozen_revision: a3aa8e052bbd325167c55616d9dc244fc9e83544
+  review_failures: [research/runs/2026-08.jsonl#R000658, research/runs/2026-08.jsonl#R000659]
   outcomes: {accepted: 1, rejected: 1, repeat: identical}
   model_calls: 0
   semantic_promotions: 0
