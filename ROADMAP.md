@@ -309,6 +309,11 @@ The next executable slice is prepared as `l3-print-expression-multiply-v0`:
 the generic PRINT expression item uses source-backed multiplication `x * 2`,
 with R1006/R1009 evidence and an independent AST/MIR/qemu oracle. It is not
 implemented or promoted yet.
+The multiplication successor is now integrated as a bounded `x * 2` item:
+`bash tests/e2e/check-generated-print-expression-multiply.sh` checks its
+source-backed R1006/R1009 AST, typed MIR `load/const/mul/output`, qemu result,
+four source neighbors and three artifact mutations while preserving the prior
+expression and generic-list routes. General operator parsing remains open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
