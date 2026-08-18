@@ -1,4 +1,4 @@
-program p
+program main
   integer :: x
   print *, x
-end program p
+end program main

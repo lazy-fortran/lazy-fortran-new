@@ -1,5 +1,5 @@
-program p
+program main
   integer :: x
   x = 17
   print *, y
-end program p
+end program main

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import pathlib
 import sys
+import hashlib
 
 
 def fail(message: str) -> None:
@@ -12,15 +13,16 @@ def fail(message: str) -> None:
 
 
 def main() -> None:
-    if len(sys.argv) not in (4, 5, 6, 7):
-        fail("usage: oracle_generated_chain.py AST MIR ELF [PROGRAM_NAME] [TYPE_SPEC] [MODE]")
+    if len(sys.argv) not in (4, 5, 6, 7, 8):
+        fail("usage: oracle_generated_chain.py AST MIR ELF [PROGRAM_NAME] [TYPE_SPEC] [MODE] [SOURCE]")
 
     ast = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
     mir = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
     elf = pathlib.Path(sys.argv[3]).read_bytes()
     program_name = sys.argv[4] if len(sys.argv) >= 5 else "p"
-    type_spec = sys.argv[5] if len(sys.argv) == 6 else "integer"
-    mode = sys.argv[6] if len(sys.argv) == 7 else "declaration"
+    type_spec = sys.argv[5] if len(sys.argv) >= 6 else "integer"
+    mode = sys.argv[6] if len(sys.argv) >= 7 else "declaration"
+    source_path = pathlib.Path(sys.argv[7]) if len(sys.argv) == 8 else None
     type_shapes = {
         "integer": ("integer", "i32"),
         "real": ("real", "f32"),
@@ -33,13 +35,13 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
 
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode != "print-variable" and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode != "print-variable" and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
+    if mode != "print-variable" and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode != "print-variable" and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
@@ -543,6 +545,58 @@ def main() -> None:
                 mir.count("(source-rule frontend-ast-v2/print-stmt)") != 7 or \
                 "(opcode store)" in mir:
             fail("MIR-v0 generic PRINT item shape is wrong")
+    elif mode == "print-variable":
+        if source_path is None:
+            fail("stored-variable oracle requires a source fixture")
+        source_bytes = source_path.read_bytes()
+        expected_source = (
+            b"program main\n"
+            b"  integer :: x\n"
+            b"  x = 17\n"
+            b"  print *, x\n"
+            b"end program main\n"
+        )
+        if source_bytes != expected_source or \
+                hashlib.sha256(source_bytes).hexdigest() != \
+                "e30b7f0f50e828d6dea378ed426ae5117691a6943dbfb63da590b074d33730e1":
+            fail("stored-variable source fixture bytes changed")
+        expected_file_marker = f"(file {source_path})"
+        if ast.count("(file ") != 5 or ast.count(expected_file_marker) != 5:
+            fail("stored-variable AST source-file identity is wrong")
+        if ast.count("(source-hash l3-raw-program-v2)") != 5:
+            fail("stored-variable AST source-hash identity is wrong")
+        required = [
+            "(program-unit-v2 ", "(root (program-root (name main)",
+            "(declaration-count 1)", "(variable-count 1)",
+            "(variable (variable-declaration (type-spec integer) (name x)",
+            "(execution-part (assignment-sequence (assignment-count 1)",
+            "(assignment-stmt (variable x)",
+            "(start-byte 28)", "(end-byte 31)",
+            "(source-hash l3-raw-program-v2)",
+            "(kind integer-literal)", "(left-operand 17)",
+            "(start-byte 34)", "(end-byte 45)",
+            "(output-kind variable)", "(output-name x)",
+            "(statement-rule R1212)", "(format-rule R1215)",
+            "(output-rule R901)", "(source-document J3-24-007)",
+            "(statement-clause 12.6.1)", "(format-clause 12.6.2.2)",
+            "(output-clause 12.6.3)", "(statement-page 242)",
+            "(format-page 244)", "(output-page 248)",
+            "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
+        ]
+        if any(item not in ast for item in required) or \
+                ast.count("(assignment (assignment-stmt ") != 1 or \
+                ast.count("(print-stmt ") != 1:
+            fail("AST-v2 stored-variable PRINT provenance witness is wrong")
+        if mir.count("(opcode const)") != 1 or \
+                mir.count("(opcode store)") != 1 or \
+                mir.count("(opcode load)") != 1 or \
+                mir.count("(opcode output)") != 1 or \
+                mir.count("(opcode return)") != 1 or \
+                mir.count("(literal 17)") != 1 or \
+                mir.count("(storage-key x)") != 2 or \
+                mir.count("(source-rule frontend-ast-v2/execution-part)") != 2 or \
+                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 3:
+            fail("MIR-v0 stored-variable PRINT shape is wrong")
     elif mode == "envelope-6":
         if not ast.startswith("(program-unit-v2 ") or \
                 "(declaration-count 1)" not in ast or \
@@ -783,7 +837,7 @@ def main() -> None:
         11 if mode == "sequence-3" else \
         7 if mode == "sequence" else \
         7 if mode == "envelope" else \
-        5 if mode in ("expression", "multiplication", "division", "subtraction", "variable-expression") else \
+        5 if mode in ("expression", "multiplication", "division", "subtraction", "variable-expression", "print-variable") else \
         7 if mode == "print-generic-items" else \
         21 if mode == "print-7-8-9-10-11-12-13-14-15-16" else \
         19 if mode == "print-7-8-9-10-11-12-13-14-15" else \
