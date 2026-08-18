@@ -28,7 +28,7 @@ inputs:
   negative: tests/negative/l3-declaration-v0-missing-entity.f90
   negative_sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
   output_golden: tests/golden/frontend-ast-v1-name-multichar.sx
-  output_golden_sha256: eaf8b3459166bbeee0e00e83219d797fb09860568c3ef9363151f54e17cd857d
+  output_golden_sha256: 19e1c485c9495c85835984122eb243eb7ebb1cfd0a798a78175fb6853e2f26a1
   oracle: tests/golden/frontend-ast-v1-name-multichar.oracle.toml
   oracle_sha256: b26bc801b8627690c8b80256db032592c5001af5244efeca7172bd5fade31507
   runner: tests/e2e/run-frontend-ast-v1-name-multichar.sh
