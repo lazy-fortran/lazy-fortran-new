@@ -1174,8 +1174,12 @@ D0184/D0185 freeze the source-derived program-root name and matching END
 PROGRAM contract, including C1401. E0241/R000698 passes the clean
 no-bootstrap replay at pushed fortfront
 `04ca10b9d191366f328a39d0133375fd6aa62e4e`; focused reviews R000699/R000700
-promote this exact leaf as PASS-BOUNDED-ONLY. Full M3 remains open; D0186 now
-selects the no-kind-selector REAL type-spec contract as the next bounded task.
+promote this exact leaf as PASS-BOUNDED-ONLY. Full M3 remains open. D0186 now
+selects the no-kind-selector REAL type-spec contract; E0242 freezes it at
+central `24674d4`, and focused reviews R000705/R000706 pass. The active task is
+the isolated fortfront implementation; R000701/R000703 remain retained oracle
+failures. No general type parsing or semantic promotion follows from this
+bounded handoff.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

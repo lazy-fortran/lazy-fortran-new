@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-real-type-contract
+  - T-L3-frontend-real-type-implementation
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-real-type-contract
+active_task: T-L3-frontend-real-type-implementation
 
 milestones:
   - id: L0
@@ -8256,9 +8256,9 @@ tasks:
   - id: T-L3-frontend-real-type-contract
     milestone: L3
     title: Define the bounded source-derived REAL type-spec boundary
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-next-bounded-boundary-selection]
     inputs:
@@ -8273,7 +8273,17 @@ tasks:
       - research/runs/2026-08.jsonl#R000700
       - component: fortfront-new
         commit: 04ca10b9d191366f328a39d0133375fd6aa62e4e
-    output: one independently verifiable REAL type-spec contract or one precise blocker
+      - path: research/experiments/E0242-can-a-bounded-ast-v1-real-type-spec-be-d/manifest.yaml
+        sha256: d1d8de95b064c1c4d84d5ac881772b60ee24ce1c1b78b2dc6023c1b616910524
+      - path: artifacts/reports/L3/frontend-ast-v1-real-type-contract-focused-review-v1.md
+        sha256: a09700ffef2eed4cd778a8b288dbbe425dfeb84c24351f8e06abaae3aef4f2ea
+      - research/runs/2026-08.jsonl#R000701
+      - research/runs/2026-08.jsonl#R000702
+      - research/runs/2026-08.jsonl#R000703
+      - research/runs/2026-08.jsonl#R000704
+      - research/runs/2026-08.jsonl#R000705
+      - research/runs/2026-08.jsonl#R000706
+    output: PASS-BOUNDED-ONLY REAL type-spec contract; implementation remains separate
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -8302,9 +8312,58 @@ tasks:
       python3 tests/e2e/validate_frontend_ast_v1_real_type_contract.py
       tests/fixtures/frontend-ast-v1-real-type-contract.toml &&
       scripts/check-contracts.sh && scripts/check-decisions.sh && git diff --check
-    final_observable: frozen REAL type-spec contract or one precise blocker
+    final_observable: independently reviewed frozen REAL type-spec contract
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-L3-frontend-real-type-implementation
+    milestone: L3
+    title: Implement the bounded source-derived REAL type-spec boundary
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-real-type-contract]
+    inputs:
+      - path: research/experiments/E0242-can-a-bounded-ast-v1-real-type-spec-be-d/manifest.yaml
+        sha256: d1d8de95b064c1c4d84d5ac881772b60ee24ce1c1b78b2dc6023c1b616910524
+      - path: contracts/fixtures/frontend-ast-v1-real-type.sx
+        sha256: 8850ef627ec8fc94d89cd31defed00a7d2dbea118b9b6523c6e8a8f6f2432d38
+      - path: tests/fixtures/frontend-ast-v1-real-type-contract.toml
+        sha256: 2d106af3a40589707682ae7694cca85f319fa259e174240ae52da97103aae887
+      - path: tests/fixtures/l3-ast-program-real-type-main-v1.f90
+        sha256: c102d7dff1a068fbd977acea1283fbec3bbd78a200b60f7758bf782c972eaf76
+      - path: tests/negative/l3-ast-program-real-type-missing-entity-v1.f90
+        sha256: dda994436bfa069d89c39a7a082b138672989357adb9cedbffd6b96413f847f2
+      - path: tests/golden/frontend-ast-v1-real-type.oracle.toml
+        sha256: b34d5c5ca611633b918693bfcdd8fcfb00a273a59220179204c9a0b6ef01014b
+      - path: artifacts/reports/L3/frontend-ast-v1-real-type-contract-focused-review-v1.md
+        sha256: a09700ffef2eed4cd778a8b288dbbe425dfeb84c24351f8e06abaae3aef4f2ea
+      - research/runs/2026-08.jsonl#R000705
+      - research/runs/2026-08.jsonl#R000706
+      - component: fortfront-new
+        commit: 04ca10b9d191366f328a39d0133375fd6aa62e4e
+    output: one pushed fortfront implementation commit plus central REAL replay, or one precise blocker
+    integration: component worker then controller replay
+    estimated_cost: small
+    parallel_group: fortfront-exclusive
+    ownership:
+      component: fortfront-new
+      worktree: /home/ert/code/fortfront-new-l3-real-type-medium
+      owner: controller
+      allowed_paths:
+        - src/fortfront_frontend.f90
+    verifier: >-
+      implement only source extraction for the exact program main / real :: x /
+      end program main shape; preserve existing program-root names and integer
+      control behavior, reject real ::, and keep frontend-v0 and MIR-v0 behavior.
+      Do not add kind selectors, general type parsing, general program parsing,
+      semantic analysis or schema changes.
+    verifier_command: >-
+      fo clean && fo && fo test && tools/regenerate_generated_ast_v1.sh &&
+      python3 tools/test_generated_ast_v1.py
+    final_observable: pushed component commit passing its gate and ready for central REAL replay
+    retry_count: 0
+    integration_cycle_trigger: next_central_replay
 integration_cycle:
   triggers:
     verified_deltas: 4

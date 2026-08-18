@@ -5,14 +5,15 @@
 L3 — first raw-source-to-executable Fortran slice
 
 M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
-pending. D0173 retires residual CXXX intake as the default frontier. The active
-path is one free-form named main program, `program p` / `end program p`, through
-the existing frontend-v0, MIR-v0 and backend contracts to process exit status
-zero. Its required negative neighbour mismatches the end name. The bounded L3
-claim passes technical replay R000647 and focused review R000648;
-post-promotion regression R000650 also passes from pushed central revision
-`51e867b`. Its next successor is one
-integer declaration, not another residual CXXX row.
+pending. D0173 retires residual CXXX intake as the default frontier. The
+bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
+derived-name, and program-root-name leaves. The next handoff is the verified
+REAL type-spec contract at central revision `24674d4`; its exact command is
+`python3 tests/e2e/validate_frontend_ast_v1_real_type_contract.py
+tests/fixtures/frontend-ast-v1-real-type-contract.toml`. Focused reviews
+R000705/R000706 pass, while R000701/R000703 remain retained oracle failures.
+The active task is the isolated fortfront implementation; this remains
+PASS-BOUNDED-ONLY and does not parse arbitrary Fortran or promote M3 semantics.
 
 ## Central goal
 
@@ -504,10 +505,12 @@ the pushed fortfront `04ca10b9d191366f328a39d0133375fd6aa62e4e` passes the
 component gate. E0241/R000698 passes the clean no-bootstrap replay for `main`
 and `unit`, preserves `integer :: x`, repeats identically, and rejects the
 mismatched end with the independent oracle. Focused reviews R000699/R000700
-promote this exact leaf as PASS-BOUNDED-ONLY. The active task is
-`T-L3-frontend-real-type-contract`; D0186 selects the no-kind-selector REAL
-type-spec case over the existing AST v1 field. The C768 implementation result
-is parked and is not promoted by this pivot.
+promote this exact leaf as PASS-BOUNDED-ONLY. D0186 selects the no-kind-selector
+REAL type-spec case over the existing AST v1 field. E0242 freezes its contract;
+R000705/R000706 pass the focused review and the contract is verified
+PASS-BOUNDED-ONLY. The active task is
+`T-L3-frontend-real-type-implementation`; the C768 implementation result is
+parked and is not promoted by this pivot.
 
 ## Next executable task
 
@@ -530,9 +533,11 @@ boundary only; R000689/R000690 remain retained failures. D0184/D0185 freeze the
 next source-derived program-root-name contract, and E0241/R000698 plus
 R000699/R000700 promote the exact root/declaration-name leaf at fortfront
 `04ca10b9d191366f328a39d0133375fd6aa62e4e`. D0186 selects the no-kind-selector
-REAL type-spec boundary; the active task is its independent contract. This
-remains outside full M3. Do not resume E0172 or start broad semantic work. The
-C768 worker result remains parked and is not promoted by this pivot.
+REAL type-spec boundary; E0242/R000705/R000706 verify its contract, with
+R000701/R000703 retained as caught oracle failures. The active task is the
+isolated producer implementation. This remains outside full M3. Do not resume
+E0172 or start broad semantic work. The C768 worker result remains parked and
+is not promoted by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
