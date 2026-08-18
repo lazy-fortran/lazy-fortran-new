@@ -94,8 +94,14 @@ MIR-v0 `complex/c32`, and the generated RISC-V bridge now pass the same
 positive, malformed-negative, qemu and typed-oracle replay. This remains a
 declaration-only transport path; it does not claim complex storage, ABI,
 arithmetic, kind selectors, or general intrinsic-type parsing. The next
-implementation step is another disjoint generated source shape or declaration
-boundary whose downstream central oracle is ready.
+parallel slice adds the R704 `LOGICAL` alternative: generated StandardIR R704,
+generated frontend `logical`, AST-v1 `logical`, MIR-v0 `logical/logical`, and
+the generated RISC-V bridge now pass the same positive, malformed-negative,
+qemu and typed-oracle replay. This remains a declaration-only transport path;
+it does not claim logical width, storage ABI, expressions, arithmetic, or
+runtime logical semantics. The next implementation step is another disjoint
+generated source shape or declaration boundary whose downstream central oracle
+is ready.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
