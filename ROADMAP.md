@@ -74,7 +74,10 @@ grammar and frontend/MIR bridge source-rule policies into generated artifacts.
 The post-integration component gates and central COMPLEX replay also pass. The
 focused StandardIR grammar-fact gate and the central generated chain pass; the
 StandardIR full suite still has the pre-existing schema declaration-count
-failure.
+failure. The following parallel wave also generates the StandardIR lexical
+constructor, typed-AST cardinality policies at the frontend and MIR boundary,
+and the RISC-V Linux ecall emission policy. The central replay now runs the
+generated StandardIR lexical gate before the source-to-executable chain.
 The next implementation step is to broaden the generated interfaces only
 when another bounded source shape and its downstream oracle are ready.
 `lazy-fortran-new` is the sole Goal Mode control
