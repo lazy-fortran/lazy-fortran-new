@@ -34,6 +34,8 @@ def main() -> None:
         mode = "print-variable"
     elif mode == "print-variable-five-item":
         mode = "print-variable"
+    elif mode == "print-variable-six-item":
+        mode = "print-variable"
     type_shapes = {
         "integer": ("integer", "i32"),
         "real": ("real", "f32"),
@@ -668,6 +670,64 @@ def main() -> None:
                     mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
                     mir.count("(source-rule frontend-ast-v2/print-stmt)") != 11:
                 fail("MIR-v0 stored-variable five-item PRINT shape is wrong")
+            print("generated chain oracle: accepted")
+            return
+        if requested_mode == "print-variable-six-item":
+            source_bytes = source_path.read_bytes()
+            expected_source = (
+                b"program main\n"
+                b"  integer :: x\n"
+                b"  x = 3\n"
+                b"  x = x ** 2\n"
+                b"  print *, x, x, x, x, x, x\n"
+                b"end program main\n"
+            )
+            if source_bytes != expected_source or \
+                    hashlib.sha256(source_bytes).hexdigest() != \
+                    "d52841c478e4a791db7c31901b3198aa193eb29879699e2be3234ccf5a7626bb":
+                fail("stored-variable six-item source fixture bytes changed")
+            if hashlib.sha256(elf).hexdigest() != "":
+                fail("stored-variable six-item ELF identity changed")
+            expected_file_marker = f"(file {source_path})"
+            if ast.count("(file ") != 6 or ast.count(expected_file_marker) != 6 or \
+                    ast.count("(source-hash l3-raw-program-two-assignment-v1)") != 6:
+                fail("stored-variable six-item AST source identity is wrong")
+            required_six_item = [
+                "(program-unit-v2 ", "(root (program-root (name main)",
+                "(declaration-count 1)", "(variable-count 1)",
+                "(execution-part (assignment-sequence (assignment-count 2)",
+                "(kind integer-literal)", "(left-operand 3)",
+                "(kind binary-expression)", "(operator **)",
+                "(left-operand x)", "(right-operand 2)",
+                "(output-count 6)", "(output-kind variable)",
+                "(output-name x)", "(output-kind-2 variable)",
+                "(output-name-2 x)", "(output-kind-3 variable)",
+                "(output-name-3 x)", "(output-kind-4 variable)",
+                "(output-name-4 x)", "(output-kind-5 variable)",
+                "(output-name-5 x)", "(output-kind-6 variable)",
+                "(output-name-6 x)", "(statement-rule R1212)",
+                "(format-rule R1215)", "(output-rule R901)",
+                "(output-rule-2 R901)", "(output-rule-3 R901)",
+                "(output-rule-4 R901)", "(output-rule-5 R901)",
+                "(output-rule-6 R901)", "(source-document J3-24-007)",
+                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
+            ]
+            if any(item not in ast for item in required_six_item) or \
+                    ast.count("(assignment (assignment-stmt ") != 2 or \
+                    ast.count("(print-stmt ") != 1:
+                fail("AST-v2 stored-variable six-item PRINT witness is wrong")
+            if mir.count("(instruction-count 19)") != 1 or \
+                    mir.count("(opcode const)") != 2 or \
+                    mir.count("(opcode store)") != 2 or \
+                    mir.count("(opcode load)") != 7 or \
+                    mir.count("(opcode pow)") != 1 or \
+                    mir.count("(opcode output)") != 6 or \
+                    mir.count("(opcode return)") != 1 or \
+                    mir.count("(literal 3)") != 1 or mir.count("(literal 2)") != 1 or \
+                    mir.count("(storage-key x)") != 9 or \
+                    mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
+                    mir.count("(source-rule frontend-ast-v2/print-stmt)") != 13:
+                fail("MIR-v0 stored-variable six-item PRINT shape is wrong")
             print("generated chain oracle: accepted")
             return
         if requested_mode == "print-variable-three-item":

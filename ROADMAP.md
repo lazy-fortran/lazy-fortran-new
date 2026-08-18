@@ -261,10 +261,12 @@ AST/MIR/ELF mutations. It remains a bounded three-item path.
 The stored-variable four-item slice carries four `R901` output items, `PRINT *,
 x, x, x, x`, with exact output `9\n9\n9\n9\n`, four rejected source neighbours
 and three rejected AST/MIR/ELF mutations. It remains a bounded four-item path.
-The next prepared witness adds a fifth `R901` output item with intended exact
-output `9\n9\n9\n9\n9\n`, four rejected source neighbours and three artifact
-mutation controls. It is now integrated as a bounded five-item route; the
-central replay passes 51 routes. It does not promote general I/O, arbitrary
+The stored-variable five-item witness is integrated with exact output
+`9\n9\n9\n9\n9\n`, four rejected source neighbours and three artifact mutation
+controls; the central replay passes 51 routes. The next prepared witness adds
+a sixth `R901` output item with intended exact output `9\n9\n9\n9\n9\n9\n`,
+four rejected source neighbours and three artifact mutation controls. It is the
+active implementation slice and does not promote general I/O, arbitrary
 output lists, or full M3 semantics.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are

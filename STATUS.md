@@ -316,9 +316,11 @@ The stored-variable four-item witness is now integrated as `x = 3; x = x ** 2;
 PRINT *, x, x, x, x`, with exact stdout `9\n9\n9\n9\n`, four rejected source
 neighbours and three rejected AST/MIR/ELF mutations. Focused review was skipped
 for this ordinary bounded slice. It remains a bounded four-item route.
-The next prepared witness adds a fifth `R901` output item with intended exact
-output `9\n9\n9\n9\n9\n`; its implementation wave is active and the central
-route count remains 50 until replay passes.
+The stored-variable five-item witness is now integrated with exact output
+`9\n9\n9\n9\n9\n`, four rejected source neighbours and three rejected
+AST/MIR/ELF mutations; the central replay passes 51 routes. The next prepared
+witness adds a sixth `R901` output item; its implementation wave is active and
+the route count remains 51 until replay passes.
 The following M3 records are retained historical evidence, not the active
 fixture.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
