@@ -234,6 +234,7 @@ Runs recorded: 717
 | E0233 | reported | 6 | Can the first raw source program reach the existing executable path |
 | E0234 | reported | 3 | Can the exact free-form source shape program p / integer :: x / end program p |
 | E0235 | reported | 13 | Can one typed AST v1 declaration be replayed from raw source |
+| E0236 | running | 0 | Can one source-derived typed variable name survive the AST v1 boundary |
 
 ## Run status
 

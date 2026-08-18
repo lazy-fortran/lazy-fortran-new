@@ -1,0 +1,19 @@
+{
+  "boundary": "raw-source-to-typed-frontend-ast-v1-variable-name",
+  "components": {
+    "fortfront-new": "d20041cc8854cd4bf501e5ac8b890c9782e32204"
+  },
+  "fixture": "frontend-ast-v1-name",
+  "milestone": "L3",
+  "model_calls": 0,
+  "positive_ast_sha256": "c2c675cf033fee60d72f6393533bc217d81692fa9ff03df2d059ab0bce445dce",
+  "semantic_promotions": 0,
+  "source": {
+    "path": "tests/fixtures/l3-ast-variable-name-v1.f90",
+    "sha256": "3c0cfb4b399e5e925f29e806b85ffffda7a13d01f5e1b73151bd3aa2056dfcf9"
+  },
+  "toolchain": {
+    "fo": "fo 0.3.2",
+    "python": "Python 3.14.6"
+  }
+}

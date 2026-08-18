@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-fortfront-typed-variable-name
+  - T-L3-frontend-ast-v1-name-replay
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-fortfront-typed-variable-name
+active_task: T-L3-frontend-ast-v1-name-replay
 
 milestones:
   - id: L0
@@ -7486,8 +7486,8 @@ tasks:
   - id: T-L3-fortfront-typed-variable-name
     milestone: L3
     title: Preserve one source-derived typed variable name in frontend AST v1
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 80
     depends_on: [T-L3-frontend-ast-v1-next-contract]
@@ -7505,7 +7505,7 @@ tasks:
         sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
       - component: fortfront-new
         commit: d20041cc8854cd4bf501e5ac8b890c9782e32204
-    output: fortfront producer commit that preserves source variable name `y`
+    output: fortfront producer commit d20041cc8854cd4bf501e5ac8b890c9782e32204 that preserves source variable name `y`
     integration: controller-only
     estimated_cost: medium
     parallel_group: l3-production
@@ -7532,6 +7532,62 @@ tasks:
     final_observable: deterministic typed AST v1 output with variable name y
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-frontend-ast-v1-name-replay
+    milestone: L3
+    title: Replay the typed AST v1 source-derived variable name
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-fortfront-typed-variable-name]
+    inputs:
+      - research/decisions/D0176-l3-typed-variable-name-successor.md
+      - research/experiments/E0236-can-one-source-derived-typed-variable-na/manifest.yaml
+      - path: tests/fixtures/frontend-ast-v1-name-replay.toml
+        sha256: 96039a32b80d33cf11767bcd27d6cfdf6c515913c8f5e2e4559690d640fce019
+      - path: tests/e2e/run-frontend-ast-v1-name.sh
+        sha256: 943d27a39791637c2bdb31f40961bb4ea2d62f2b7d69963e7781161c4af851c3
+      - path: tests/e2e/validate_frontend_ast_v1_name.py
+        sha256: b648ddfc83c0fff6b6aa1a63e22962e4dfd3f6a4d6c3616f5d104bbc1c097417
+      - path: tests/golden/frontend-ast-v1-name.sx
+        sha256: 897296d1419d5c9ea5be34c08b44a3c480b5b12fefd46771310fab9cf3206b0b
+      - path: artifacts/traces/frontend-ast-v1-name.json
+        sha256: 0f89c638f4f9eb7900989c275d0d810838f99b9c1d1613615c19c17f9c7f64ea
+      - component: fortfront-new
+        commit: d20041cc8854cd4bf501e5ac8b890c9782e32204
+    output: clean raw-source-to-typed-AST-name trace and independent oracle result
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - tests/e2e/run-frontend-ast-v1-name.sh
+        - tests/e2e/validate_frontend_ast_v1_name.py
+        - tests/golden/frontend-ast-v1-name.sx
+        - tests/golden/frontend-ast-v1-name.oracle.toml
+        - tests/fixtures/frontend-ast-v1-name-replay.toml
+        - artifacts/traces/frontend-ast-v1-name.json
+        - artifacts/reports/L3/frontend-ast-v1-name-raw-source-replay.md
+        - research/experiments/E0236-*
+        - research/runs/2026-08.jsonl
+        - TASK_POOL.yaml
+        - STATUS.md
+        - MILESTONES.md
+    verifier: >-
+      from the frozen central revision run exact y source and malformed
+      neighbour through fortfront-source-ast-v1; require the independent
+      schema-linked typed-field oracle, byte-identical repeat output, no
+      negative output, stable trace, zero model calls and zero semantic
+      promotions. This task does not broaden the accepted language.
+    verifier_command: >-
+      AST_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+      tests/e2e/run-frontend-ast-v1-name.sh --fresh
+    final_observable: typed AST v1 oracle PASS with y preserved and malformed neighbour rejected
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4
