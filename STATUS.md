@@ -308,6 +308,9 @@ PRINT *, x, x`, with exact stdout `9\n9\n`, three rejected source neighbours
 and three rejected AST/MIR/ELF mutations. Focused review was skipped for this
 ordinary bounded slice. It does not promote general output lists or full M3
 semantics.
+The next prepared witness is `x = 3; x = x ** 2; PRINT *, x, x, x`, with
+expected stdout `9\n9\n9\n`, four source neighbours and the same three artifact
+mutation controls. It remains a bounded three-item route.
 The following M3 records are retained historical evidence, not the active
 fixture.
 C735 is promoted only as a bounded typed type-attribute uniqueness oracle.
@@ -389,6 +392,8 @@ fixtures were prepared before implementation; the central replay passes 48
 routes with exact output `9\n9\n`, three rejected source neighbours and three
 rejected AST/MIR/ELF mutations. This remains a bounded two-item route, not
 general I/O, arbitrary Fortran, or M3 semantics.
+Next task: `T-L3-generated-print-variable-three-item-batch` — OPEN. Its source
+fixtures and central oracle contract are prepared before implementation.
 The following M3 material is retained historical evidence.
 Historical task: `T-M3-c763-pass-arg-name-oracle` — OPEN. Selection R000635 passes for
 `T-M3-core0-next-bounded-property-selection-after-c762`. The exact residual
