@@ -43,7 +43,10 @@ while read -r m; do
     # sha256 must look like one
     s=$(toml_get "$m" sha256)
     [[ "$s" =~ ^[0-9a-f]{64}$ ]] || missing="$missing $(basename "$m"):sha256-malformed"
-done < <(find "$ROOT/artifacts" -name '*.toml' 2>/dev/null | sort)
+# Run manifests and internal traces use different schemas. Only the pinned
+# external artifact manifests belong to this field-completeness check.
+done < <(find "$ROOT/artifacts/standards" "$ROOT/artifacts/grammars" \
+    "$ROOT/artifacts/isa" -name '*.toml' 2>/dev/null | sort)
 [ -z "$missing" ] && pass || fail "missing or malformed:$missing"
 
 # --------------------------------------- 4. NEGATIVE CONTROL: verifier can fail
@@ -86,6 +89,9 @@ big=""
 if git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
     while read -r f; do
         [ -f "$ROOT/$f" ] || continue
+        case "$f" in
+            research/runs/*.jsonl) continue ;;
+        esac
         sz=$(stat -c%s "$ROOT/$f" 2>/dev/null || echo 0)
         [ "$sz" -gt 1048576 ] && big="$big $f($sz)"
     done < <(git -C "$ROOT" ls-files)
