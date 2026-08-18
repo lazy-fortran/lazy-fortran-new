@@ -2,9 +2,9 @@ id: "E0241"
 title: "Bounded source-derived AST v1 program-root name"
 question: >
   Can the bounded AST v1 program-root name be derived from source and matched at END PROGRAM
-status: running          # draft | running | reported | abandoned
+status: reported        # draft | running | reported | abandoned
 opened: "2026-08-18"
-closed: ""
+closed: "2026-08-18"
 
 # Every commit the result depends on. Exact, not "main".
 repos:
@@ -62,8 +62,13 @@ analysis: "The controller records the exact replay and review runs in research/r
 result:
   technical_run: research/runs/2026-08.jsonl#R000698
   technical_status: PASS
-  promotion_status: PENDING-FOCUSED-REVIEW
+  promotion_status: PASS-BOUNDED-ONLY
   evidence_packet_revision: d8d61d8fe9df29cf42593d93a315e9a73727839d
   component_revision: 04ca10b9d191366f328a39d0133375fd6aa62e4e
+  review_report: artifacts/reports/L3/frontend-ast-v1-program-root-name-focused-review-v1.md
+  review_report_sha256: 97204506c15cc14e73d3303d94f1bd3cae524d1c5a0745d8d44fd709627aa8df
+  review_runs:
+    - research/runs/2026-08.jsonl#R000699
+    - research/runs/2026-08.jsonl#R000700
   model_calls: 0
   semantic_promotions: 0

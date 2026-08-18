@@ -1173,8 +1173,9 @@ variable-name/span boundary; R000689/R000690 remain retained failures.
 D0184/D0185 freeze the source-derived program-root name and matching END
 PROGRAM contract, including C1401. E0241/R000698 passes the clean
 no-bootstrap replay at pushed fortfront
-`04ca10b9d191366f328a39d0133375fd6aa62e4e`; final focused reviews are pending
-before bounded promotion. Full M3 remains open.
+`04ca10b9d191366f328a39d0133375fd6aa62e4e`; focused reviews R000699/R000700
+promote this exact leaf as PASS-BOUNDED-ONLY. Full M3 remains open; the next
+task selects another bounded source-backed boundary.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

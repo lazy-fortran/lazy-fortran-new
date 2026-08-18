@@ -38,8 +38,9 @@ and spans through the same fixed AST-v1 producer. R000689/R000690 remain
 retained failures. D0184/D0185 now freeze the source-derived main-program name
 and matching END PROGRAM contract, including C1401. E0241/R000698 passes the
 clean no-bootstrap producer replay at pushed fortfront
-`04ca10b9d191366f328a39d0133375fd6aa62e4e`; final focused reviews remain
-before bounded promotion. The path still does not parse arbitrary Fortran or
+`04ca10b9d191366f328a39d0133375fd6aa62e4e`; focused reviews R000699/R000700
+promote this exact leaf as PASS-BOUNDED-ONLY. The next task selects another
+bounded source-backed boundary. The path still does not parse arbitrary Fortran or
 close full M3.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are

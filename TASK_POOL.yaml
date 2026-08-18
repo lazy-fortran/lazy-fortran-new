@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-program-root-name-implementation
+  - T-L3-next-bounded-boundary-selection
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-program-root-name-implementation
+active_task: T-L3-next-bounded-boundary-selection
 
 milestones:
   - id: L0
@@ -8140,9 +8140,9 @@ tasks:
   - id: T-L3-frontend-program-root-name-implementation
     milestone: L3
     title: Implement and replay the bounded source-derived program-root name
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 90
     depends_on: [T-L3-frontend-program-root-name-contract]
     inputs:
@@ -8165,10 +8165,14 @@ tasks:
       - path: tests/e2e/write_frontend_ast_v1_program_root_name_trace.py
         sha256: 9c987b6221942e98b83aec4027c9af021ac42ca8d95a65b0e4405c98b774ab40
       - path: research/experiments/E0241-can-the-bounded-ast-v1-program-root-name/manifest.yaml
-        sha256: 10750b7038224a83d9e928f69ebd9f16af2044e6f4af90859490046c3ea4c684
+        sha256: c3f05b84f448c5fff3fab339c6940eebcf3132c3492f4c4352de714b7cb3992c
       - component: fortfront-new
         commit: 04ca10b9d191366f328a39d0133375fd6aa62e4e
       - research/runs/2026-08.jsonl#R000698
+      - path: artifacts/reports/L3/frontend-ast-v1-program-root-name-focused-review-v1.md
+        sha256: 97204506c15cc14e73d3303d94f1bd3cae524d1c5a0745d8d44fd709627aa8df
+      - research/runs/2026-08.jsonl#R000699
+      - research/runs/2026-08.jsonl#R000700
     output: PASS-BOUNDED-ONLY producer and central replay for main and unit root names
     integration: controller-only
     estimated_cost: small
@@ -8193,6 +8197,48 @@ tasks:
     final_observable: central oracle PASS for main and unit with mismatched end rejected
     retry_count: 0
     integration_cycle_trigger: milestone_pass
+  - id: T-L3-next-bounded-boundary-selection
+    milestone: L3
+    title: Select the next bounded source-backed frontend boundary
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-program-root-name-implementation]
+    inputs:
+      - path: contracts/frontend-ast-v1.sxs
+        sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+      - path: research/decisions/D0184-next-program-root-name-boundary.md
+        sha256: 5857ee09ef62ed3b4557e0ef124724a21ab9dfeece8d5bf2c057ab7edeb04572
+      - path: artifacts/reports/L3/frontend-ast-v1-program-root-name-focused-review-v1.md
+        sha256: 97204506c15cc14e73d3303d94f1bd3cae524d1c5a0745d8d44fd709627aa8df
+      - research/runs/2026-08.jsonl#R000699
+      - research/runs/2026-08.jsonl#R000700
+    output: one source-backed next-boundary decision or one precise blocker
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0186-*.md
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+        - MILESTONES.md
+    verifier: >-
+      inspect the existing StandardIR/source evidence and current production
+      interfaces; select exactly one next bounded source-backed observable with
+      positive, negative or unresolved controls and an independent oracle
+      plan. Do not implement it, reopen E0172, or broaden to general parsing
+      or semantic analysis.
+    verifier_command: >-
+      scripts/check-decisions.sh && scripts/check-contracts.sh && git diff --check
+    final_observable: accepted next-boundary decision or precise blocker
+    retry_count: 0
+    integration_cycle_trigger: interface_change
 integration_cycle:
   triggers:
     verified_deltas: 4
