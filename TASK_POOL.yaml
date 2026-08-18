@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generated-print-variable-seven-ten-batch
+  - T-L3-generated-print-variable-eleven-twenty-batch
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-variable-seven-ten-batch
+active_task: T-L3-generated-print-variable-eleven-twenty-batch
 
 milestones:
   - id: L0
@@ -10599,6 +10599,111 @@ tasks:
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS with route count 56; regenerate with bash tests/e2e/check-generated-chain.sh
     evidence: central replay PASS at 56 routes; bounded-only promotion; focused review skipped for this ordinary batch
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-variable-eleven-twenty-batch
+    milestone: L3
+    title: Generate and execute PRINT of a stored variable eleven through twenty times
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 120
+    depends_on: [T-L3-generated-print-variable-seven-ten-batch]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 1f3cae13b820dbdda9de684d1e72a0af8cf631ef
+      - component: ffc-new
+        commit: 833d0cdc9d09f7078ebf4251f6df0c66fda7530e
+      - component: fortback-new
+        commit: e6233618d1cc688ec691bff75a27c7f589b554d8
+      - normative-source: J3-24-007
+        rules: [R704, R901, R1008, R1033, R1212, R1215, R1217]
+        printed-pages: [155, 183, 205, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-ast-program-print-variable-eleven-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-twelve-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-thirteen-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fourteen-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-fifteen-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-sixteen-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-seventeen-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-eighteen-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-nineteen-item-v1.f90
+          - tests/fixtures/l3-ast-program-print-variable-twenty-item-v1.f90
+      - negative-paths:
+          - tests/negative/l3-ast-program-print-variable-eleven-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-eleven-item-wrong-eleventh-v1.f90
+          - tests/negative/l3-ast-program-write-variable-eleven-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-eleven-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-twelve-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-twelve-item-wrong-twelfth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-twelve-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-twelve-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-thirteen-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-thirteen-item-wrong-thirteenth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-thirteen-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-thirteen-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fourteen-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fourteen-item-wrong-fourteenth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fourteen-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fourteen-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifteen-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifteen-item-wrong-fifteenth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-fifteen-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-fifteen-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-sixteen-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-sixteen-item-wrong-sixteenth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-sixteen-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-sixteen-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-seventeen-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-seventeen-item-wrong-seventeenth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-seventeen-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-seventeen-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-eighteen-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-eighteen-item-wrong-eighteenth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-eighteen-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-eighteen-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-nineteen-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-nineteen-item-wrong-nineteenth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-nineteen-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-nineteen-item-malformed-v1.f90
+          - tests/negative/l3-ast-program-print-variable-twenty-item-wrong-second-v1.f90
+          - tests/negative/l3-ast-program-print-variable-twenty-item-wrong-twentieth-v1.f90
+          - tests/negative/l3-ast-program-write-variable-twenty-item-v1.f90
+          - tests/negative/l3-ast-program-print-variable-twenty-item-malformed-v1.f90
+    output: >-
+      central PASS for exact source-backed stored-variable PRINT routes with
+      eleven through twenty `R901` items, exact stdout of eleven through twenty
+      lines of `9`, preserving all 56 earlier routes
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generated-print-variable-eleven-twenty-batch
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 56 earlier routes; accept exactly the ten prepared
+      stored-variable PRINT sources; reject all forty listed source neighbors.
+      Check exact source bytes, source identity, declaration and provenance,
+      eleven-through-twenty output R901 correspondences, repeated MIR
+      load/output shapes, three AST/MIR/ELF mutations per route, and exact qemu
+      bytes. No general I/O, arbitrary output lists, name resolution, runtime
+      library, or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with route count 66; regenerate with bash tests/e2e/check-generated-chain.sh
+    evidence: central replay PENDING; bounded-only promotion; focused review skipped for this ordinary batch
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:

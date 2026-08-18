@@ -739,18 +739,30 @@ def main() -> None:
                 output_count = int(count_text)
             except ValueError:
                 output_count = 0
-            if output_count in (7, 8, 9, 10):
+            if output_count in range(7, 21):
                 source_hashes = {
                     7: "7c6021632b8035916749178f06ee778506cad38953db2de10fae28a39941f200",
                     8: "25fd7fa4285ba064d93a886d3033b43a09346b9e62cd152308941578f0c1d785",
                     9: "51b4e620e303d2193d59c74bd2d0141c301a29551732fe775c00f458c2cd142d",
                     10: "1e5cf76546bf0261b2eef495b4e541bb43eb58c0f79fc242733b88215cc77a30",
+                    11: "de1093cc0fe773228042f091e5b5aea2292842c1582e799f53d0e1b04a0d814e",
+                    12: "da6e13a650da17c1ad1b38678cbc9533710a329d851187de1962c1aa5da79e0f",
+                    13: "6860c0bf4c3f64015a9ab1067770f92e90cd00326f37c6bb3454145b9d6db8b6",
+                    14: "d9ab31aaf54935e7e2a8ac67844841170dd02c0cc5c4b8a4777877dd34361fc4",
+                    15: "55a28be2926244b846812ce8ae2d7ac4b5d1aa38cacc47fdea3be9494d1ebe52",
+                    16: "dc85d601610bde5f4fc51e419db2d0169020840aacd6a5e7b9949a824921bf27",
+                    17: "63d8fc87d038f6c89162455ef0a07124532f2d0f7c73e48ac65ae9b0b08873c0",
+                    18: "451ef606959dee49ab145a77bf3d4a55f7d3b81e9b74002616dc96d2b83c1c6d",
+                    19: "265318e329af8db7e2c24e00525227f4bbc5049f4c1ee34d791a780ab02120cd",
+                    20: "bd6565982c0a89ed3776a5dd65b6538a1afa8d4d4ba9737cf525a31e9178ad63",
                 }
                 elf_hashes = {
                     7: "27a377c55a74589b606f06f89840a58f52987b41ec1df659e93926a9b27ce5ff",
                     8: "1ebc4c8c2ef62db1cc426a536c39f8f84f0b60fbd2f665c1817e9cd96e370f31",
                     9: "9ae93def173c838df96748f87017230fab21201799ac56ad1a59dfe58b6130ef",
                     10: "359cc425701669913094a69461c5f6d2e6da7848ed75061da89d5b6d462dcb5f",
+                    11: "", 12: "", 13: "", 14: "", 15: "",
+                    16: "", 17: "", 18: "", 19: "", 20: "",
                 }
                 output_names = ", ".join(["x"] * output_count)
                 expected_source = (

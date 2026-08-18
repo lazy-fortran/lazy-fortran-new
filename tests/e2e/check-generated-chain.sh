@@ -1749,49 +1749,34 @@ if python3 "$oracle" "$print_variable_six_item_ast_file" \
     exit 1
 fi
 
-for variable_output_count in 7 8 9 10; do
+for variable_output_count in 7 8 9 10 11 12 13 14 15 16 17 18 19 20; do
     case "$variable_output_count" in
-        7)
-            variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-seven-item-v1.f90"
-            variable_negative_files=(
-                "$ROOT/tests/negative/l3-ast-program-print-variable-seven-item-wrong-second-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-print-variable-seven-item-wrong-seventh-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-write-variable-seven-item-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-print-variable-seven-item-malformed-v1.f90"
-            )
-            variable_expected=$'9\n9\n9\n9\n9\n9\n9\n'
-            ;;
-        8)
-            variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-eight-item-v1.f90"
-            variable_negative_files=(
-                "$ROOT/tests/negative/l3-ast-program-print-variable-eight-item-wrong-second-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-print-variable-eight-item-wrong-eighth-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-write-variable-eight-item-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-print-variable-eight-item-malformed-v1.f90"
-            )
-            variable_expected=$'9\n9\n9\n9\n9\n9\n9\n9\n'
-            ;;
-        9)
-            variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-nine-item-v1.f90"
-            variable_negative_files=(
-                "$ROOT/tests/negative/l3-ast-program-print-variable-nine-item-wrong-second-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-print-variable-nine-item-wrong-ninth-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-write-variable-nine-item-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-print-variable-nine-item-malformed-v1.f90"
-            )
-            variable_expected=$'9\n9\n9\n9\n9\n9\n9\n9\n9\n'
-            ;;
-        10)
-            variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-ten-item-v1.f90"
-            variable_negative_files=(
-                "$ROOT/tests/negative/l3-ast-program-print-variable-ten-item-wrong-second-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-print-variable-ten-item-wrong-tenth-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-write-variable-ten-item-v1.f90"
-                "$ROOT/tests/negative/l3-ast-program-print-variable-ten-item-malformed-v1.f90"
-            )
-            variable_expected=$'9\n9\n9\n9\n9\n9\n9\n9\n9\n9\n'
-            ;;
+        7) variable_output_word=seven; variable_output_ordinal=seventh ;;
+        8) variable_output_word=eight; variable_output_ordinal=eighth ;;
+        9) variable_output_word=nine; variable_output_ordinal=ninth ;;
+        10) variable_output_word=ten; variable_output_ordinal=tenth ;;
+        11) variable_output_word=eleven; variable_output_ordinal=eleventh ;;
+        12) variable_output_word=twelve; variable_output_ordinal=twelfth ;;
+        13) variable_output_word=thirteen; variable_output_ordinal=thirteenth ;;
+        14) variable_output_word=fourteen; variable_output_ordinal=fourteenth ;;
+        15) variable_output_word=fifteen; variable_output_ordinal=fifteenth ;;
+        16) variable_output_word=sixteen; variable_output_ordinal=sixteenth ;;
+        17) variable_output_word=seventeen; variable_output_ordinal=seventeenth ;;
+        18) variable_output_word=eighteen; variable_output_ordinal=eighteenth ;;
+        19) variable_output_word=nineteen; variable_output_ordinal=nineteenth ;;
+        20) variable_output_word=twenty; variable_output_ordinal=twentieth ;;
     esac
+    variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-${variable_output_word}-item-v1.f90"
+    variable_negative_files=(
+        "$ROOT/tests/negative/l3-ast-program-print-variable-${variable_output_word}-item-wrong-second-v1.f90"
+        "$ROOT/tests/negative/l3-ast-program-print-variable-${variable_output_word}-item-wrong-${variable_output_ordinal}-v1.f90"
+        "$ROOT/tests/negative/l3-ast-program-write-variable-${variable_output_word}-item-v1.f90"
+        "$ROOT/tests/negative/l3-ast-program-print-variable-${variable_output_word}-item-malformed-v1.f90"
+    )
+    variable_expected=''
+    for ((variable_expected_index = 0; variable_expected_index < variable_output_count; variable_expected_index++)); do
+        variable_expected+=$'9\n'
+    done
     variable_mode="print-variable-${variable_output_count}-item"
     variable_base="$run_dir/$variable_mode"
     variable_ast_file="$variable_base.frontend.ast.sx"
@@ -1932,8 +1917,8 @@ python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
 oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 56 ]; then
-    printf 'generated chain route count: expected 56, got %s\n' \
+if [ "$oracle_route_count" -ne 66 ]; then
+    printf 'generated chain route count: expected 66, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi
