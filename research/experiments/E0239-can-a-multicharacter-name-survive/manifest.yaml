@@ -1,0 +1,85 @@
+id: "E0239"
+title: "Can a multi-character name survive the typed AST v1 boundary"
+question: >
+  Does the pinned typed AST v1 producer accept alpha with the changed
+  declaration span while preserving the z control and rejecting integer ::?
+status: running         # draft | running | reported | abandoned
+opened: "2026-08-18"
+closed: ""
+
+repos:
+  lazy-fortran-new: "6694ff2fe5db8249a5a24b04f9baa630555a656c"
+  standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
+  fortfront-new: "a657f367251e0d8e4b638d0ff5362565c4d73685"
+
+inputs:
+  decision: research/decisions/D0179-l3-multichar-name-span-contract.md
+  decision_sha256: 61d8df37f31a48c47743195ab4eec2328e408256d18f12b3fc433c3328f9a291
+  contract_schema: contracts/frontend-ast-v1.sxs
+  contract_schema_sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+  contract_witness: contracts/fixtures/frontend-ast-v1-name-multichar.sx
+  contract_witness_sha256: e0d8d95d0c1e330fdd3505fa28d9d5ea808777a004c2397fdd5439387705b251
+  manifest: tests/fixtures/frontend-ast-v1-name-multichar-replay.toml
+  manifest_sha256: 780e6af142a0b578147877259ee0a92e25653e4d65e91bfb5ef1ec93321fcb85
+  source: tests/fixtures/l3-ast-variable-name-multichar-v1.f90
+  source_sha256: e58243991e715e8f2ed9b8e8ba2d7062727efb5e640ec44faf02541b30c923df
+  changed_name_control: tests/fixtures/l3-ast-variable-name-mutation-v1.f90
+  changed_name_control_sha256: afc8d9b191524061008c3ce5bef6f889c526ffd221591834fe0fe9850e910d8a
+  negative: tests/negative/l3-declaration-v0-missing-entity.f90
+  negative_sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
+  output_golden: tests/golden/frontend-ast-v1-name-multichar.sx
+  output_golden_sha256: eaf8b3459166bbeee0e00e83219d797fb09860568c3ef9363151f54e17cd857d
+  oracle: tests/golden/frontend-ast-v1-name-multichar.oracle.toml
+  oracle_sha256: b26bc801b8627690c8b80256db032592c5001af5244efeca7172bd5fade31507
+  runner: tests/e2e/run-frontend-ast-v1-name-multichar.sh
+  runner_sha256: ce27feb87de6f502e39a3c249d6bf51660458cfc223819d76558a0cf88446c44
+  validator: tests/e2e/validate_frontend_ast_v1_name_multichar.py
+  validator_sha256: 723a33397392d3291d67da383948871eeb2c98af64fcdcd5844edc18bbd80c28
+
+variables:
+  source_case: "one exact free-form main program with integer declaration name alpha"
+  changed_name_control: "the promoted z source witness"
+  negative_case: "same source with the integer declaration entity omitted"
+  stages: "raw source | typed frontend AST v1"
+  model_calls: 0
+  semantic_promotions: 0
+
+model_selection: >-
+  No model call is part of implementation or replay. The producer worker is
+  medium-depth gpt-5.6-luna; the deterministic central oracle is authoritative.
+
+metrics:
+  - exact alpha, z-control and negative source hashes
+  - exact alpha name, type and span
+  - repeated output and path-independent trace hashes
+  - component revision, toolchain and clean-checkout state
+  - model calls and semantic promotions
+
+denominator: >-
+  One exact alpha source, one executed z changed-name control, one malformed
+  integer :: neighbour, two identical alpha executions, the schema-linked
+  golden and the no-output negative control. General identifier/declaration
+  parsing, semantics, MIR and executable behavior are excluded.
+
+independent_oracle: >-
+  tests/e2e/validate_frontend_ast_v1_name_multichar.py checks literal source
+  bytes, the LLM-labelled witness, pinned schema/artifact hashes,
+  schema/output structure, alpha fields, executed z control, repeated output
+  and absence of negative output without importing fortfront.
+
+falsifiable_by: >-
+  Positive rejection, alpha changed to another name, z control mismatch,
+  malformed-neighbour acceptance, changed span/output, repeat mismatch,
+  negative output, pin or trace mismatch, model call or semantic promotion.
+
+gate: >-
+  From a clean checkout run
+  AST_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+  tests/e2e/run-frontend-ast-v1-name-multichar.sh --fresh. Bootstrap the trace
+  once; subsequent replays compare it without bootstrap.
+
+result:
+  technical_status: PENDING
+  promotion_status: PENDING
+  model_calls: 0
+  semantic_promotions: 0
