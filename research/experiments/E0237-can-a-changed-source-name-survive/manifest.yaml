@@ -92,6 +92,7 @@ analysis: >-
   tests/e2e/run-frontend-ast-v1-name-mutation.sh --fresh
 
 result:
+  technical_run: research/runs/2026-08.jsonl#R000678
   technical_status: PENDING
   promotion_status: PENDING
   model_calls: 0
