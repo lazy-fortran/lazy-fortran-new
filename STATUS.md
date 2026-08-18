@@ -492,8 +492,13 @@ contract; R000683 passed its contract gate, R000684 passed the alpha producer
 at pushed fortfront `101965227a3583872eb7db22c04cd6ff40738c82`, and corrected
 replay R000686 plus focused reviews R000687/R000688 promote the exact `alpha`
 witness only. The initial golden mismatch remains retained as R000685. D0180
-now stops the exact-name ladder and opens the next contract task: select a
-source-derived identifier boundary over the existing AST v1 shape. The C768
+stopped the exact-name ladder. D0181/D0182/D0183 freeze and amend the
+source-derived variable-name boundary and its replay lineage. E0240/R000693
+plus focused reviews R000694/R000695 promote `beta`, `q7` and `theta_2` with
+spans 10..27, 10..25 and 10..30 through the same producer at fortfront
+`157236b11540d6a55676e159062e6f9423577a0d`; R000689/R000690 remain retained
+failures. This is PASS-BOUNDED-ONLY: no general identifier or full M3 claim.
+The next task is D0184's program-root-name contract selection. The C768
 implementation result is parked and is not promoted by this pivot.
 
 ## Next executable task
@@ -511,8 +516,10 @@ pass for the exact y witness only. D0178/R000673 freeze the changed-name
 contract, R000674 passes the pushed fortfront component gate, and
 E0237/R000678/R000681/R000682 promote the exact z witness only. R000683 passes
 the D0179 contract gate; R000684 passed the pushed alpha producer, and
-R000686/R000687/R000688 now promote the exact alpha witness only. D0180 opens
-the next source-derived identifier-boundary contract task. This remains
+R000686/R000687/R000688 promote the exact alpha witness only. E0240/R000693
+and R000694/R000695 now promote the source-derived `beta`, `q7` and `theta_2`
+boundary only; R000689/R000690 remain retained failures. D0184 is the next
+contract-selection task for source-derived main-program names. This remains
 outside full M3. Do not resume E0172 or start broad semantic work. The C768
 worker result remains parked and is not promoted by this pivot.
 

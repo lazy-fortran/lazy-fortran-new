@@ -1166,9 +1166,12 @@ exact z leaf only. D0179 froze the next multi-character name/span contract;
 R000683 passed it, R000684 passed the producer at fortfront
 `101965227a3583872eb7db22c04cd6ff40738c82`, and corrected replay R000686 plus
 focused reviews R000687/R000688 promote the exact `alpha` witness only.
-R000685 remains retained as the caught golden mismatch. D0180 stops the
-exact-name ladder; the next task is an independently verifiable
-source-derived identifier-boundary contract. Full M3 remains open.
+R000685 remains retained as the caught golden mismatch. D0180 stopped the
+exact-name ladder. D0181/D0182/D0183 and E0240/R000693 plus focused reviews
+R000694/R000695 promote only the source-derived `beta`, `q7` and `theta_2`
+variable-name/span boundary; R000689/R000690 remain retained failures. D0184
+is the next contract task for a source-derived program-root name and matching
+END PROGRAM name. Full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

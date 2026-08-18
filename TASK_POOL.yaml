@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-identifier-boundary-contract
+  - T-L3-frontend-program-root-name-contract
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-identifier-boundary-contract
+active_task: T-L3-frontend-program-root-name-contract
 
 milestones:
   - id: L0
@@ -7934,9 +7934,9 @@ tasks:
   - id: T-L3-frontend-identifier-boundary-contract
     milestone: L3
     title: Select the next source-derived identifier boundary contract
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 90
     depends_on: [T-L3-frontend-ast-v1-name-multichar-replay]
     inputs:
@@ -7963,7 +7963,11 @@ tasks:
       - research/runs/2026-08.jsonl#R000687
       - research/runs/2026-08.jsonl#R000688
       - research/runs/2026-08.jsonl#R000693
-    output: one independently verifiable identifier-boundary contract or one precise blocker
+      - path: artifacts/reports/L3/frontend-ast-v1-name-derived-focused-review-v1.md
+        sha256: 26790ce576f15be8cd33ea25490037c6dd83c9ce1f9234a7bf036282aa9a67c3
+      - research/runs/2026-08.jsonl#R000694
+      - research/runs/2026-08.jsonl#R000695
+    output: PASS-BOUNDED-ONLY source-derived identifier-boundary contract
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -7996,9 +8000,9 @@ tasks:
   - id: T-L3-frontend-identifier-boundary-implementation
     milestone: L3
     title: Implement the source-derived typed-name boundary
-    status: OPEN
+    status: PASS
     verification: PASS
-    review_state: PENDING
+    review_state: PASS
     priority: 90
     depends_on: [T-L3-frontend-identifier-boundary-contract]
     inputs:
@@ -8024,10 +8028,16 @@ tasks:
         sha256: 564c784a3e6723a0300ea3239f70dd3286a8fa81f62483046f34c076a399d3ef
       - path: artifacts/traces/frontend-ast-v1-name-derived.json
         sha256: 101ea02fd0cdb9a5c3b5a9d3f16806d396686181274e670c62eccc26b530b369
+      - path: research/experiments/E0240-can-the-typed-ast-v1-name-field-be-deriv/manifest.yaml
+        sha256: f7b36f897485994155a6bebe1654b54563d18b4c962025d94f9fabab2f911c8d
       - component: fortfront-new
         commit: 157236b11540d6a55676e159062e6f9423577a0d
       - research/runs/2026-08.jsonl#R000693
-    output: one fortfront producer commit plus central replay evidence for beta, q7 and theta_2
+      - path: artifacts/reports/L3/frontend-ast-v1-name-derived-focused-review-v1.md
+        sha256: 26790ce576f15be8cd33ea25490037c6dd83c9ce1f9234a7bf036282aa9a67c3
+      - research/runs/2026-08.jsonl#R000694
+      - research/runs/2026-08.jsonl#R000695
+    output: PASS-BOUNDED-ONLY producer and central replay evidence for beta, q7 and theta_2
     integration: controller-only
     estimated_cost: small
     parallel_group: fortfront-exclusive
@@ -8051,6 +8061,49 @@ tasks:
     final_observable: central oracle PASS for beta, q7 and theta_2 with malformed neighbour rejected
     retry_count: 0
     integration_cycle_trigger: milestone_pass
+  - id: T-L3-frontend-program-root-name-contract
+    milestone: L3
+    title: Define the next source-derived main-program-name boundary
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 90
+    depends_on: [T-L3-frontend-identifier-boundary-implementation]
+    inputs:
+      - path: research/decisions/D0184-next-program-root-name-boundary.md
+        sha256: 5857ee09ef62ed3b4557e0ef124724a21ab9dfeece8d5bf2c057ab7edeb04572
+      - path: contracts/frontend-ast-v1.sxs
+        sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+      - path: research/decisions/D0183-authoritative-source-derived-name-replay.md
+        sha256: 4cac42d76c1c15529a6ff9975bddb50397d336f3403440f46b1bf41725a7c5ad
+      - research/runs/2026-08.jsonl#R000694
+      - research/runs/2026-08.jsonl#R000695
+    output: one independently verifiable program-root-name contract or one precise blocker
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0184-next-program-root-name-boundary.md
+        - contracts/fixtures/frontend-ast-v1-*
+        - tests/fixtures/frontend-ast-v1-*
+        - tests/golden/frontend-ast-v1-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - MILESTONES.md
+    verifier: >-
+      define one source-derived program-root name and matching END PROGRAM
+      boundary over the existing AST v1 root/declaration fields, with exact
+      source evidence, a changed-name control, a mismatched-end negative and
+      an independent oracle before any producer change. Do not add another
+      variable-name ladder or broaden parsing.
+    verifier_command: scripts/check-contracts.sh
+    final_observable: frozen program-root-name contract or one precise blocker
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
 integration_cycle:
   triggers:
     verified_deltas: 4
