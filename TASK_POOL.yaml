@@ -8581,6 +8581,17 @@ tasks:
         sha256: 093c703d65e1170c5c97b8455838abf883e435570f39ccb0ab31054fec62b482
       - path: tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
         sha256: 67fcdaa05eb039d6c60584eade3102bdc7fbc42e8727bea3e9463179698914d6
+      - path: tests/fixtures/frontend-ast-v1-double-precision-replay.toml
+        sha256: b3d781b5abf654c4d2521e22beff944ffe8c419f8b54fc8cd1788ed6baee39a1
+      - path: tests/e2e/run-frontend-ast-v1-double-precision.sh
+        sha256: 1919ff8e33843d6b877cd783b3d10ab4c3ac1b0bd1513f92ed242e3e14c40bd4
+      - path: tests/e2e/validate_frontend_ast_v1_double_precision.py
+        sha256: 63f081f2f3be807b4144783110fb05206a7eac38a8157fd9e99ccd7e2c6929d3
+      - path: tests/e2e/write_frontend_ast_v1_double_precision_trace.py
+        sha256: 0845c34315316159de0d1ff6f17612b1797a7f747a6630ea1ec76d4d7c03e7f0
+      - path: artifacts/traces/frontend-ast-v1-double-precision.json
+        sha256: 558d0f5ba1bc29f642bd7c439847216831c0454d250c08013cd783447a7f1702
+      - research/runs/2026-08.jsonl#R000723
       - research/runs/2026-08.jsonl#R000720
       - artifacts/reports/L3/frontend-ast-v1-double-precision-canonical-contract-focused-review-v1.md
         sha256: eac1ed22067bd80dca5c4b84be7de68bd84bb8c6a03be0014d0c21487a58f4da

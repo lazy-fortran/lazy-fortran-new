@@ -1,0 +1,39 @@
+{
+  "boundary": "raw-source-to-typed-frontend-ast-v1-source-derived-double-precision-type-spec",
+  "cases": [
+    {
+      "ast_sha256": "8da73c0bd064cdafee0c571d48aed1bd6902d84e47205559c35e96dde079f3cf",
+      "expected_variable_type": "double-precision",
+      "id": "double-precision",
+      "source": {
+        "path": "tests/fixtures/l3-ast-program-double-precision-main-v1.f90",
+        "sha256": "9bc6d9e602f629355e2c4772d5cbf58df2a4e3204945841e93643e6091decb26"
+      }
+    },
+    {
+      "ast_sha256": "c6202f7cdc28ece71fd14b84584f4ecb3adbd8590a9ea3f9453c5861f25b171a",
+      "expected_variable_type": "real",
+      "id": "real-control",
+      "source": {
+        "path": "tests/fixtures/l3-ast-program-real-type-main-v1.f90",
+        "sha256": "c102d7dff1a068fbd977acea1283fbec3bbd78a200b60f7758bf782c972eaf76"
+      }
+    }
+  ],
+  "components": {
+    "fortfront-new": "c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19"
+  },
+  "fixture": "frontend-ast-v1-double-precision",
+  "milestone": "L3",
+  "model_calls": 0,
+  "negative": {
+    "expected_outcome": "REJECTED",
+    "id": "missing-entity",
+    "rejection_marker": "typed frontend rejected source:"
+  },
+  "semantic_promotions": 0,
+  "toolchain": {
+    "fo": "fo 0.3.2",
+    "python": "Python 3.14.6"
+  }
+}
