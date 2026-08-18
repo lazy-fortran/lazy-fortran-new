@@ -567,7 +567,9 @@ def main() -> None:
             b"  print *, x\n"
             b"end program main\n"
         )
-        is_expression = source_bytes == expected_source_expression
+        expected_source_multiply = expected_source_expression.replace(b"x + 1", b"x * 2")
+        is_multiply = source_bytes == expected_source_multiply
+        is_expression = source_bytes == expected_source_expression or is_multiply
         if source_bytes == expected_source_17:
             expected_literal = 17
             expected_source_hash = "e30b7f0f50e828d6dea378ed426ae5117691a6943dbfb63da590b074d33730e1"
@@ -576,7 +578,10 @@ def main() -> None:
             expected_source_hash = "390dbc3f3f29b0bcb1fedcf37aaee26f1e37c6611cdc8d4528a6f81f66c4c24b"
         elif is_expression:
             expected_literal = 23
-            expected_source_hash = "57598821b9bf538e1f9781c9d9a1a3f18482ec2f1eae95130400bb9848971f15"
+            if is_multiply:
+                expected_source_hash = "5714f3e548f0eafbc1853be1c1ef3bf9a3e685e475ffcc673621ddaf0a2aa53e"
+            else:
+                expected_source_hash = "57598821b9bf538e1f9781c9d9a1a3f18482ec2f1eae95130400bb9848971f15"
         else:
             fail("stored-variable source fixture bytes changed")
         if hashlib.sha256(source_bytes).hexdigest() != expected_source_hash:
@@ -586,7 +591,10 @@ def main() -> None:
             23: "10fd1f27538000dc6c1544eb12dea40b7e2341851ceb2bd17b9b29c75ed91238",
         }[expected_literal]
         if is_expression:
-            expected_elf_hash = "d57426ffb421821ae2f450d6694c65523fcb9e10fcf91f45a321e87fe19cb6f4"
+            if is_multiply:
+                expected_elf_hash = "8e1b8646e3b8ec689596d844578ce4ee8579ced6c9c4ce4af3bfd520fa126474"
+            else:
+                expected_elf_hash = "d57426ffb421821ae2f450d6694c65523fcb9e10fcf91f45a321e87fe19cb6f4"
         if hashlib.sha256(elf).hexdigest() != expected_elf_hash:
             fail("stored-variable ELF identity changed")
         expected_file_marker = f"(file {source_path})"
@@ -597,13 +605,16 @@ def main() -> None:
         if ast.count(f"(source-hash {expected_source_hash_marker})") != expected_span_count:
             fail("stored-variable AST source-hash identity is wrong")
         if is_expression:
+            expression_operator = "*" if is_multiply else "+"
+            expression_rhs = 2 if is_multiply else 1
+            expression_opcode = "mul" if is_multiply else "add"
             required_expression = [
                 "(program-unit-v2 ", "(root (program-root (name main)",
                 "(declaration-count 1)", "(variable-count 1)",
                 "(variable (variable-declaration (type-spec integer) (name x)",
                 "(execution-part (assignment-sequence (assignment-count 2)",
                 "(kind integer-literal)", "(left-operand 23)",
-                "(kind binary-expression)", "(operator +)",
+                "(kind binary-expression)", f"(operator {expression_operator})",
                 "(left-operand x)", "(right-operand 1)",
                 "(start-byte 28)", "(end-byte 34)",
                 "(start-byte 37)", "(end-byte 47)",
@@ -616,6 +627,8 @@ def main() -> None:
                 "(format-page 244)", "(output-page 248)",
                 "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
             ]
+            required_expression[required_expression.index("(right-operand 1)")] = \
+                f"(right-operand {expression_rhs})"
             if any(item not in ast for item in required_expression) or \
                     ast.count("(assignment (assignment-stmt ") != 2 or \
                     ast.count("(print-stmt ") != 1:
@@ -624,11 +637,11 @@ def main() -> None:
                     mir.count("(opcode const)") != 2 or \
                     mir.count("(opcode store)") != 2 or \
                     mir.count("(opcode load)") != 2 or \
-                    mir.count("(opcode add)") != 1 or \
+                    mir.count(f"(opcode {expression_opcode})") != 1 or \
                     mir.count("(opcode output)") != 1 or \
                     mir.count("(opcode return)") != 1 or \
                     mir.count("(literal 23)") != 1 or \
-                    mir.count("(literal 1)") != 1 or \
+                    mir.count(f"(literal {expression_rhs})") != 1 or \
                     mir.count("(storage-key x)") != 4 or \
                     mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
                     mir.count("(source-rule frontend-ast-v2/print-stmt)") != 3:

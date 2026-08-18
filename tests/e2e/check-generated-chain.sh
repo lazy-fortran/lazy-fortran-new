@@ -46,6 +46,7 @@ print_generic_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-generi
 print_variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-v1.f90"
 print_variable_23_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-23-v1.f90"
 print_variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-expression-v1.f90"
+print_variable_multiply_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-multiply-expression-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -171,6 +172,12 @@ negative_print_variable_expression_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-expression-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-expression-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-expression-v1.f90"
+)
+negative_print_variable_multiply_expression_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-variable-multiply-expression-missing-second-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-variable-multiply-expression-wrong-name-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-variable-multiply-expression-wrong-operator-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-variable-multiply-expression-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -1167,6 +1174,62 @@ if python3 "$oracle" "$print_variable_expression_ast_file" \
     exit 1
 fi
 
+print_variable_multiply_expression_ast_file="$run_dir/print-variable-multiply-expression.frontend.ast.sx"
+print_variable_multiply_expression_mir_file="$run_dir/print-variable-multiply-expression.mir.sx"
+print_variable_multiply_expression_elf_file="$run_dir/print-variable-multiply-expression.program.elf"
+print_variable_multiply_expression_output_file="$run_dir/print-variable-multiply-expression.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_variable_multiply_expression_source_file" \
+        "$print_variable_multiply_expression_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_variable_multiply_expression_ast_file" \
+        "$print_variable_multiply_expression_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$print_variable_multiply_expression_mir_file" \
+        "$print_variable_multiply_expression_elf_file") > /dev/null 2>&1
+for negative_print_variable_multiply_expression in "${negative_print_variable_multiply_expression_files[@]}"; do
+    rm -f "$run_dir/negative-print-variable-multiply-expression.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_variable_multiply_expression" \
+            "$run_dir/negative-print-variable-multiply-expression.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid variable-multiply-expression PRINT mutation was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-print-variable-multiply-expression.ast.sx" ]
+done
+qemu-riscv64 "$print_variable_multiply_expression_elf_file" > "$print_variable_multiply_expression_output_file"
+printf '46\n' | cmp -s - "$print_variable_multiply_expression_output_file"
+python3 "$oracle" "$print_variable_multiply_expression_ast_file" \
+    "$print_variable_multiply_expression_mir_file" "$print_variable_multiply_expression_elf_file" \
+    main integer print-variable-expression "$print_variable_multiply_expression_source_file"
+print_variable_multiply_expression_mutated_ast_file="$run_dir/print-variable-multiply-expression.mutated-operator.ast.sx"
+sed 's/(operator \*)/(operator +)/' "$print_variable_multiply_expression_ast_file" \
+    > "$print_variable_multiply_expression_mutated_ast_file"
+if python3 "$oracle" "$print_variable_multiply_expression_mutated_ast_file" \
+        "$print_variable_multiply_expression_mir_file" "$print_variable_multiply_expression_elf_file" \
+        main integer print-variable-expression "$print_variable_multiply_expression_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'variable-multiply-expression AST operator mutation was accepted' >&2
+    exit 1
+fi
+print_variable_multiply_expression_mutated_mir_file="$run_dir/print-variable-multiply-expression.mutated-opcode.mir.sx"
+sed 's/(opcode mul)/(opcode add)/' "$print_variable_multiply_expression_mir_file" \
+    > "$print_variable_multiply_expression_mutated_mir_file"
+if python3 "$oracle" "$print_variable_multiply_expression_ast_file" \
+        "$print_variable_multiply_expression_mutated_mir_file" "$print_variable_multiply_expression_elf_file" \
+        main integer print-variable-expression "$print_variable_multiply_expression_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'variable-multiply-expression MIR opcode mutation was accepted' >&2
+    exit 1
+fi
+print_variable_multiply_expression_mutated_elf_file="$run_dir/print-variable-multiply-expression.mutated.elf"
+cp "$print_variable_multiply_expression_elf_file" "$print_variable_multiply_expression_mutated_elf_file"
+printf '\0' | dd of="$print_variable_multiply_expression_mutated_elf_file" bs=1 seek=0 count=1 conv=notrunc \
+    > /dev/null 2>&1
+if python3 "$oracle" "$print_variable_multiply_expression_ast_file" \
+        "$print_variable_multiply_expression_mir_file" "$print_variable_multiply_expression_mutated_elf_file" \
+        main integer print-variable-expression "$print_variable_multiply_expression_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'variable-multiply-expression ELF mutation was accepted' >&2
+    exit 1
+fi
+
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
 envelope_five_elf_file="$run_dir/envelope-five.program.elf"
@@ -1255,8 +1318,8 @@ python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
 oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 42 ]; then
-    printf 'generated chain route count: expected 42, got %s\n' \
+if [ "$oracle_route_count" -ne 43 ]; then
+    printf 'generated chain route count: expected 43, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi

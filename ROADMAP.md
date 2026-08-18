@@ -182,7 +182,7 @@ The program-unit-v2 envelope now carries the declaration and source-backed R509
 execution-part into that same generated chain. Its five- and six-assignment
 extensions use the distinct generated MIR source rules
 `frontend-ast-v2/execution-part-5` and
-`frontend-ast-v2/execution-part-6`. The central replay passes 42 routes;
+`frontend-ast-v2/execution-part-6`. The central replay passes 43 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
 six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and
@@ -237,8 +237,14 @@ neighbours, five artifact mutation controls and exact qemu stdout `17\n`. The
 same generated storage path now also carries the source-backed literal `23`
 with exact qemu stdout `23\n` and three value-specific artifact controls; this remains one bounded value-generalization,
 not general name resolution, arbitrary storage, general expression evaluation
-or full I/O. The bounded variable-expression PRINT slice now checks exact
-`24\n` output and three expression-specific artifact mutations.
+or full I/O. The bounded variable-expression PRINT slice checks exact `24\n`
+output and three expression-specific artifact mutations. The multiplication
+successor is now integrated as the exact witness
+`x = 23; x = x * 2; PRINT *, x`, with expected output `46\n`, four rejected
+source neighbours and three rejected multiplication-specific artifact
+mutations. The next slice should extend the generated policy in another bounded
+operator/value route; it must preserve the 43-route replay and the same
+independent-oracle boundary.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
