@@ -242,7 +242,12 @@ for negative_multiplication in "$negative_multiplication_file" "$negative_multip
     fi
     [ ! -e "$run_dir/negative-multiplication.ast.sx" ]
 done
-qemu-riscv64 "$multiplication_elf_file" > /dev/null
+if qemu-riscv64 "$multiplication_elf_file" > /dev/null; then
+    multiplication_status=0
+else
+    multiplication_status=$?
+fi
+[ "$multiplication_status" -eq 6 ]
 python3 "$oracle" "$multiplication_ast_file" "$multiplication_mir_file" "$multiplication_elf_file" main integer multiplication
 
 division_ast_file="$run_dir/division-assignment.frontend.ast.sx"
@@ -263,12 +268,11 @@ for negative_division in "$negative_division_file" "$negative_division_operator_
     [ ! -e "$run_dir/negative-division.ast.sx" ]
 done
 if qemu-riscv64 "$division_elf_file" > /dev/null; then
-    printf '%s\n' 'division artifact unexpectedly returned zero' >&2
-    exit 1
+    division_status=0
 else
     division_status=$?
-    [ "$division_status" -eq 255 ]
 fi
+[ "$division_status" -eq 3 ]
 python3 "$oracle" "$division_ast_file" "$division_mir_file" "$division_elf_file" main integer division
 
 subtraction_ast_file="$run_dir/subtraction-assignment.frontend.ast.sx"
@@ -288,7 +292,12 @@ for negative_subtraction in "$negative_subtraction_file" "$negative_subtraction_
     fi
     [ ! -e "$run_dir/negative-subtraction.ast.sx" ]
 done
-qemu-riscv64 "$subtraction_elf_file" > /dev/null
+if qemu-riscv64 "$subtraction_elf_file" > /dev/null; then
+    subtraction_status=0
+else
+    subtraction_status=$?
+fi
+[ "$subtraction_status" -eq 2 ]
 python3 "$oracle" "$subtraction_ast_file" "$subtraction_mir_file" "$subtraction_elf_file" main integer subtraction
 
 literal_ast_file="$run_dir/literal-assignment.frontend.ast.sx"
