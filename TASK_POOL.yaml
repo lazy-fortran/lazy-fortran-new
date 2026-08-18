@@ -8006,7 +8006,7 @@ tasks:
       - path: tests/golden/frontend-ast-v1-name-derived.oracle.toml
         sha256: aacbf7355ad6cb7cc2b0bcc16253d78ba9380eca98c3287b8ac0aba71af3032b
       - path: tests/fixtures/frontend-ast-v1-name-derived-replay.toml
-        sha256: cf31c3cee3a5a6aacf15fdb8e8b3947a434546861ec9d88b4d008d89dc1cd9ec
+        sha256: 3954f8eee308f5db461ca440ce8ea0da90300f192a3bd1d0732056efc54893a8
       - path: tests/e2e/run-frontend-ast-v1-name-derived.sh
         sha256: 835e9c4900caf9ea4eb285633972746049b541cf15ac7d40467a8d1764d0f8ed
       - path: tests/e2e/validate_frontend_ast_v1_name_derived.py
