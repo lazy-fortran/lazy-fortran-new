@@ -8632,8 +8632,8 @@ tasks:
   - id: T-L3-next-bounded-boundary-selection-after-double-precision
     milestone: L3
     title: Select the next bounded source-backed frontend boundary after DOUBLE PRECISION
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 80
     depends_on: [T-L3-frontend-double-precision-implementation]
@@ -8651,7 +8651,7 @@ tasks:
       - research/runs/2026-08.jsonl#R000728
       - component: fortfront-new
         commit: c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19
-    output: accepted next bounded source-backed boundary decision, or one precise blocker
+    output: selected bounded storage-transport and two-assignment preparation wave
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -8673,9 +8673,57 @@ tasks:
       another model experiment.
     verifier_command: >-
       scripts/check-decisions.sh && scripts/check-contracts.sh && git diff --check
-    final_observable: accepted next-boundary decision after DOUBLE PRECISION
+    final_observable: selected bounded storage-transport wave after DOUBLE PRECISION
     retry_count: 0
     integration_cycle_trigger: next_contract
+  - id: T-L3-generated-variable-storage-wave
+    milestone: L3
+    title: Implement the bounded generated variable-storage transport wave
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 90
+    depends_on: [T-L3-next-bounded-boundary-selection-after-double-precision]
+    inputs:
+      - component: standard-new
+        commit: c52836f037545ced6f88df0dbaa6174ff9a706af
+      - component: fortfront-new
+        commit: 1c2989c56743c6ecbc5072159ee1983909329bcb
+      - component: ffc-new
+        commit: 3c3a92a400cd5e9447e1eaf7cad6de42cbe2030e
+      - component: fortback-new
+        commit: 02b9dfa095207eb2420379b8a711fe9f30d52785
+      - path: tests/fixtures/l3-ast-program-integer-variable-add-assignment-v1.f90
+      - path: tests/e2e/check-generated-chain.sh
+    output: >-
+      one verified wave that gives the existing x = x + 1 route an explicit
+      generated storage identity and a real backend stack slot, plus an
+      additive bounded frontend two-assignment preparation or one exact
+      interface blocker
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-storage
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 15 existing central routes and independent negative controls;
+      require storage key x on the variable load/store, require both instructions
+      to use the same generated stack slot, and retain qemu exit 1 for the
+      zero-initialized structural witness. No name resolution, general statement
+      lists, unbounded storage or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with explicit variable storage witness
+    retry_count: 0
+    integration_cycle_trigger: next_replay
 integration_cycle:
   triggers:
     verified_deltas: 4
