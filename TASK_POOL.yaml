@@ -7942,8 +7942,18 @@ tasks:
     inputs:
       - path: research/decisions/D0180-l3-next-identifier-boundary.md
         sha256: 3da19b36a2886621d10587f309e283a92186671349f89f4b1dafc71eec7269f1
+      - path: research/decisions/D0181-l3-source-derived-name-contract.md
+        sha256: 2e86b03246120575797a9301c45fba03e4e51939fbbfdb17a0b94e5a8d78d907
       - path: contracts/frontend-ast-v1.sxs
         sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+      - path: contracts/fixtures/frontend-ast-v1-name-derived.sx
+        sha256: 000594036687b2d713e74d27ee301bab888642d74023e23fd5fe48bf72c39a7c
+      - path: tests/fixtures/frontend-ast-v1-name-derived-contract.toml
+        sha256: c113fcf8fd3a0540e32035b467dac0b29874da894b84b98c524dc5d573ac051d
+      - path: tests/golden/frontend-ast-v1-name-derived.oracle.toml
+        sha256: aacbf7355ad6cb7cc2b0bcc16253d78ba9380eca98c3287b8ac0aba71af3032b
+      - path: tests/e2e/validate_frontend_ast_v1_name_derived_contract.py
+        sha256: 02e3940ae0ba142afa27fc5ab43df7b593b8aa163ffa8fae9dbf4440dec58bdf
       - research/runs/2026-08.jsonl#R000681
       - research/runs/2026-08.jsonl#R000682
       - research/runs/2026-08.jsonl#R000687
@@ -7958,9 +7968,11 @@ tasks:
       owner: controller
       allowed_paths:
         - research/decisions/D0180-l3-next-identifier-boundary.md
+        - research/decisions/D0181-l3-source-derived-name-contract.md
         - contracts/fixtures/frontend-ast-v1-*
         - tests/fixtures/frontend-ast-v1-*
         - tests/golden/frontend-ast-v1-*
+        - tests/e2e/validate_frontend_ast_v1_name_derived_contract.py
         - TASK_POOL.yaml
         - STATUS.md
         - MILESTONES.md
@@ -7969,10 +7981,56 @@ tasks:
       shape, pin its exact normative/source evidence and source mutations, and
       provide an independent behavioral oracle before any producer change. Do
       not add another isolated exact-name golden or revive broad semantics.
-    verifier_command: scripts/check-contracts.sh
+    verifier_command: >-
+      scripts/check-contracts.sh && python3
+      tests/e2e/validate_frontend_ast_v1_name_derived_contract.py
+      tests/fixtures/frontend-ast-v1-name-derived-contract.toml
     final_observable: frozen identifier-boundary contract or one precise evidence blocker
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-L3-frontend-identifier-boundary-implementation
+    milestone: L3
+    title: Implement the source-derived typed-name boundary
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 90
+    depends_on: [T-L3-frontend-identifier-boundary-contract]
+    inputs:
+      - path: research/decisions/D0181-l3-source-derived-name-contract.md
+        sha256: 2e86b03246120575797a9301c45fba03e4e51939fbbfdb17a0b94e5a8d78d907
+      - path: contracts/fixtures/frontend-ast-v1-name-derived.sx
+        sha256: 000594036687b2d713e74d27ee301bab888642d74023e23fd5fe48bf72c39a7c
+      - path: tests/fixtures/frontend-ast-v1-name-derived-contract.toml
+        sha256: c113fcf8fd3a0540e32035b467dac0b29874da894b84b98c524dc5d573ac051d
+      - path: tests/golden/frontend-ast-v1-name-derived.oracle.toml
+        sha256: aacbf7355ad6cb7cc2b0bcc16253d78ba9380eca98c3287b8ac0aba71af3032b
+      - component: fortfront-new
+        commit: 101965227a3583872eb7db22c04cd6ff40738c82
+    output: one fortfront producer commit plus central replay evidence for beta, q7 and theta_2
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: fortfront-exclusive
+    ownership:
+      component: fortfront-new
+      worktree: /home/ert/code/fortfront-new
+      owner: controller
+      allowed_paths:
+        - src/fortfront_frontend.f90
+        - tools/test_generated_ast_v1.py
+        - tools/regenerate_generated_ast_v1.sh
+    verifier: >-
+      replace only the exact-name dispatch needed by D0181 with source-derived
+      extraction for the fixed integer declaration shape; preserve existing
+      AST v1 and frontend-v0 behavior, run the component gate, then let the
+      controller run the independent central replay. Do not claim general
+      Fortran identifier parsing or alter downstream MIR.
+    verifier_command: >-
+      fo clean && fo && fo test && tools/regenerate_generated_ast_v1.sh &&
+      python3 tools/test_generated_ast_v1.py
+    final_observable: central oracle PASS for beta, q7 and theta_2 with malformed neighbour rejected
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4

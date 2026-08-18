@@ -444,6 +444,7 @@ Runs recorded: 739
 | [D0178](decisions/D0178-l3-name-mutation-contract.md) | accepted |  | Require a changed-name control before source-name promotion |
 | [D0179](decisions/D0179-l3-multichar-name-span-contract.md) | accepted |  | Add a bounded multi-character name and span contract |
 | [D0180](decisions/D0180-l3-next-identifier-boundary.md) | accepted |  | Stop the exact-name ladder at the next identifier boundary |
+| [D0181](decisions/D0181-l3-source-derived-name-contract.md) | accepted |  | Freeze the source-derived typed-name boundary |
 
 ### Proposed decisions
 
