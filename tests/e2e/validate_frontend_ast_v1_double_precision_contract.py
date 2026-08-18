@@ -62,6 +62,8 @@ def main() -> int:
     require(manifest["source_evidence_document"] == "J3-24-007", "source document differs")
     require(manifest["source_evidence_pdf_sha256"] == "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2", "PDF hash differs")
     require(manifest["source_evidence_standardir_sha256"] == "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2", "StandardIR hash differs")
+    standardir = root / manifest["source_evidence_standardir"]
+    require(standardir.is_file() and digest(standardir) == manifest["source_evidence_standardir_sha256"], "StandardIR path/hash differs")
     require(manifest["source_evidence_source_sha256"] == "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e", "source hash differs")
     require(canonical.is_file() and digest(canonical) == manifest["source_evidence_canonical_text_sha256"], "canonical evidence differs")
     canonical_lines = canonical.read_text(encoding="utf-8").split("\n")
