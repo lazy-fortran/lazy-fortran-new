@@ -31,6 +31,7 @@ inputs:
   runner: tests/e2e/run-frontend-ast-v1.sh
   validator: tests/e2e/validate_frontend_ast_v1.py
   validator_sha256: 8357fb800a23cad5e0d9bec16fcfe2b8a6fdea2b35efe590a79c52db90e9d971
+  regression_run: research/runs/2026-08.jsonl#R000656
   trace: artifacts/traces/frontend-ast-v1.json
   trace_sha256: 553f11e19a4464865526a11de5c09e63644eb0cc0be4012c48289c7dc44686fe
 
