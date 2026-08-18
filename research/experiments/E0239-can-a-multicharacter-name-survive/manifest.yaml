@@ -35,6 +35,8 @@ inputs:
   runner_sha256: ce27feb87de6f502e39a3c249d6bf51660458cfc223819d76558a0cf88446c44
   validator: tests/e2e/validate_frontend_ast_v1_name_multichar.py
   validator_sha256: 723a33397392d3291d67da383948871eeb2c98af64fcdcd5844edc18bbd80c28
+  trace: artifacts/traces/frontend-ast-v1-name-multichar.json
+  trace_sha256: 09bdcd2a3730d5c37f5de778f3dc9ba8d9b4dd57406be91ac74b98fffbca2c63
 
 variables:
   source_case: "one exact free-form main program with integer declaration name alpha"

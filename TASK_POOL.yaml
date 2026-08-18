@@ -7877,9 +7877,9 @@ tasks:
     depends_on: [T-L3-fortfront-typed-variable-name-multichar]
     inputs:
       - path: research/experiments/E0239-can-a-multicharacter-name-survive/manifest.yaml
-        sha256: 868b96f836854be759d249844122d2c47a0051a3ba95d939476b921bd44790b7
+        sha256: 3cc2e719a05880603530b3ad6cb713d4d3aab870403fd89abbaf579f2a4c9a4d
       - path: tests/fixtures/frontend-ast-v1-name-multichar-replay.toml
-        sha256: 29d0c9f4470befc9fb7e62f1b5faf16eeca20289ed593a9979b94317c0c6a3bf
+        sha256: ad874b15eb59e2f07c98a9ee1ccf72c291a65c097f2703f8446f470bac9461f0
       - path: tests/e2e/run-frontend-ast-v1-name-multichar.sh
         sha256: ce27feb87de6f502e39a3c249d6bf51660458cfc223819d76558a0cf88446c44
       - path: tests/e2e/validate_frontend_ast_v1_name_multichar.py
@@ -7888,6 +7888,8 @@ tasks:
         sha256: 19e1c485c9495c85835984122eb243eb7ebb1cfd0a798a78175fb6853e2f26a1
       - path: tests/golden/frontend-ast-v1-name-multichar.oracle.toml
         sha256: b26bc801b8627690c8b80256db032592c5001af5244efeca7172bd5fade31507
+      - path: artifacts/traces/frontend-ast-v1-name-multichar.json
+        sha256: 09bdcd2a3730d5c37f5de778f3dc9ba8d9b4dd57406be91ac74b98fffbca2c63
       - component: fortfront-new
         commit: 101965227a3583872eb7db22c04cd6ff40738c82
     output: clean exact-alpha raw-source-to-typed-AST trace and independent oracle result
