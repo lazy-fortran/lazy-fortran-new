@@ -9006,18 +9006,18 @@ tasks:
   - id: T-L3-generated-six-assignment-sequence-wave
     milestone: L3
     title: Extend generated storage transport to six ordered assignments
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 96
     depends_on: [T-L3-generated-program-execution-envelope-five-wave]
     inputs:
       - component: fortfront-new
-        commit: a2095bd95d109f90b44c4ecb5f7610cdc3cd9679
+        commit: 4c3fe165071e9351a2f66146361532437fec5ec3
       - component: ffc-new
-        commit: 0de6adf0ffde7f2b1bf3dac07d337b453518beb9
+        commit: 9252bf921c6d49bebf90de88a03b3cd9a066018e
       - component: fortback-new
-        commit: 44fa43bf9a6bbce6bc5e924d8202826fea6e0c35
+        commit: d090959a52c2907fbc326cb91ce1401ac4c31312
       - path: tests/fixtures/l3-ast-program-integer-six-assignment-v1.f90
       - path: tests/negative/l3-ast-program-integer-six-assignment-wrong-operator-v1.f90
       - path: tests/negative/l3-ast-program-integer-six-assignment-missing-sixth-v1.f90
