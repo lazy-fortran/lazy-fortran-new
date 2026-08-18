@@ -1,0 +1,26 @@
+schema_version = "frontend-ast-v1-double-precision-oracle-v1"
+origin = "LLM"
+property = "source-derived-double-precision-type-spec"
+source_rules = ["R702", "R703", "R704", "R801"]
+model_calls = 0
+semantic_promotions = 0
+
+[[case]]
+id = "double-precision"
+expected_outcome = "ACCEPTED"
+expected_root_name = "main"
+expected_program_declaration_name = "main"
+expected_variable_type = "double precision"
+expected_variable_name = "x"
+
+[[case]]
+id = "real-control"
+expected_outcome = "ACCEPTED"
+expected_root_name = "main"
+expected_program_declaration_name = "main"
+expected_variable_type = "real"
+expected_variable_name = "x"
+
+[[negative]]
+id = "missing-entity"
+expected_outcome = "REJECTED"

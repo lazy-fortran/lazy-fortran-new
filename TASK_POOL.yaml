@@ -8448,6 +8448,18 @@ tasks:
         sha256: 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2
       - path: artifacts/reports/L3/frontend-ast-v1-real-type-focused-review-v1.md
         sha256: 390587e1685de57254c6c239b032c80f655a1d762388cbe98f36f3517de85f32
+      - path: contracts/fixtures/frontend-ast-v1-double-precision.sx
+        sha256: f488b04512c382fc218f403eac8be4f8a6c8ba123c8dbdef3359f60a930d7cd7
+      - path: tests/fixtures/frontend-ast-v1-double-precision-contract.toml
+        sha256: 463246e3272cd5d5654bfc0b69393fcb3b66cc862aa6c0fb2c0225f62e270fac
+      - path: tests/fixtures/l3-ast-program-double-precision-main-v1.f90
+        sha256: 9bc6d9e602f629355e2c4772d5cbf58df2a4e3204945841e93643e6091decb26
+      - path: tests/negative/l3-ast-program-double-precision-missing-entity-v1.f90
+        sha256: 3c4beadfc75dd9f1ac30123e888bbda37e653aabaa83653e679f43b09d7faad1
+      - path: tests/golden/frontend-ast-v1-double-precision.oracle.toml
+        sha256: 013600c36c22a45fa62f72204dd1a1c0ef01cefe4f408bb1ffea57498463831b
+      - path: tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
+        sha256: 13195377a3a1767eb547b0a29ad77ff0213475bdb9a785fa03ba5497bafe8259
       - research/runs/2026-08.jsonl#R000710
       - research/runs/2026-08.jsonl#R000711
       - component: fortfront-new
