@@ -505,8 +505,9 @@ component gate. E0241/R000698 passes the clean no-bootstrap replay for `main`
 and `unit`, preserves `integer :: x`, repeats identically, and rejects the
 mismatched end with the independent oracle. Focused reviews R000699/R000700
 promote this exact leaf as PASS-BOUNDED-ONLY. The active task is
-`T-L3-next-bounded-boundary-selection`; the C768 implementation result is
-parked and is not promoted by this pivot.
+`T-L3-frontend-real-type-contract`; D0186 selects the no-kind-selector REAL
+type-spec case over the existing AST v1 field. The C768 implementation result
+is parked and is not promoted by this pivot.
 
 ## Next executable task
 
@@ -528,10 +529,10 @@ and R000694/R000695 now promote the source-derived `beta`, `q7` and `theta_2`
 boundary only; R000689/R000690 remain retained failures. D0184/D0185 freeze the
 next source-derived program-root-name contract, and E0241/R000698 plus
 R000699/R000700 promote the exact root/declaration-name leaf at fortfront
-`04ca10b9d191366f328a39d0133375fd6aa62e4e`. The active task is selecting the
-next bounded source-backed boundary. This remains outside full M3. Do not
-resume E0172 or start broad semantic work. The C768 worker result remains
-parked and is not promoted by this pivot.
+`04ca10b9d191366f328a39d0133375fd6aa62e4e`. D0186 selects the no-kind-selector
+REAL type-spec boundary; the active task is its independent contract. This
+remains outside full M3. Do not resume E0172 or start broad semantic work. The
+C768 worker result remains parked and is not promoted by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic
