@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import pathlib
 import re
 import subprocess
@@ -16,6 +17,54 @@ class OracleFailure(Exception):
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise OracleFailure(message)
+
+
+def digest(path: pathlib.Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def check_contract_fixture(root: pathlib.Path) -> None:
+    fixture = root / "contracts/fixtures/l3-print-list-v0.sx"
+    text = fixture.read_text(encoding="utf-8")
+    require("(contract-witness" in text and "(contract l3-print-list)" in text,
+            "PRINT-list contract witness differs")
+    source_cases = {
+        "tests/fixtures/l3-print-list-v0.f90":
+            "a992439011f29067faeef7688206580f7fe9a24cdd914a0486047a3a2d89a3df",
+        "tests/fixtures/l3-print-list-wide-v0.f90":
+            "f3c67e7885f16ef004637180d5cfb4954fa530ed4e28e89b560d72ee21b93057",
+        "tests/negative/l3-print-list-v0-empty.f90":
+            "bb60bb5e0ab7c93c79877b4d733f9171b0c0d88708bc693a4fe6cf2dee47a024",
+        "tests/negative/l3-print-list-v0-missing-item.f90":
+            "490d6f645d43fb25e3a5741ead09f804d97af86e35af9fe37598bf6221bc49ef",
+        "tests/negative/l3-print-list-v0-write.f90":
+            "fdfbd04d044941311fd32d2155f99f2fcc5c74bc304c7fc09301832e17dd92ec",
+        "tests/negative/l3-print-list-v0-wrong-name.f90":
+            "a497e9a410ba5476284b88e06b231491db3053c78efc0c7e7e224a1cc67e55c0",
+    }
+    for relative, expected in source_cases.items():
+        source = root / relative
+        require(f"(path {relative})" in text and f"(sha256 {expected})" in text,
+                f"contract source case differs: {relative}")
+        require(digest(source) == expected, f"source hash differs: {relative}")
+
+    pdf_hash = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
+    standardir_hash = "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2"
+    standardir = root / ".cache/runs/E0171/R000433-provenance-replay/standardir.sx"
+    pdf = root / ".cache/j3-24-007.pdf"
+    require(f"(pdf-sha256 {pdf_hash})" in text and digest(pdf) == pdf_hash,
+            "normative PDF hash differs")
+    require(f"(standardir-sha256 {standardir_hash})" in text and
+            digest(standardir) == standardir_hash,
+            "StandardIR artifact hash differs")
+    require("(source-sha256 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)" in
+            standardir.read_text(encoding="utf-8").splitlines()[0],
+            "StandardIR source hash differs")
+    require("(standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)" in text,
+            "StandardIR path differs")
+    require("(rules R901 R1212 R1215 R1217)" in text and
+            "(pages 155 242 244 248)" in text,
+            "normative rule/page set differs")
 
 
 def groups(text: str, marker: str) -> list[str]:
@@ -115,6 +164,7 @@ def main() -> int:
     if len(sys.argv) != 5:
         raise OracleFailure("usage: oracle_generated_print_list.py AST MIR ELF SOURCE")
     ast_path, mir_path, elf_path, source_path = map(pathlib.Path, sys.argv[1:])
+    check_contract_fixture(pathlib.Path(__file__).resolve().parents[2])
     source = pathlib.Path(source_path)
     items_text = re.search(r"print \*, (.*)", source.read_text(encoding="utf-8"))
     require(items_text is not None, "source has no PRINT list")
