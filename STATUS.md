@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage, sequence, STOP and PRINT waves are integrated; its central replay passes 37 routes
+storage, sequence, STOP and PRINT waves are integrated; its central replay passes 38 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -31,7 +31,9 @@ controls, and produces exact stdout `7` plus newline followed by `8` plus
 newline and `9` plus newline and `10` plus newline and `11` plus newline and
 `12` plus newline and `13` plus newline under qemu. The next parallel boundary
 `14` plus newline and `15` plus newline under qemu. The next parallel boundary
-is a ten-item output list; this does not parse
+is a ten-item output list; the next slice removes the current cardinality/value
+specialization from the generated PRINT item path and checks novel values
+`17, 18, 19`. This does not parse
 arbitrary Fortran, implement general I/O controls or formats, or promote M3
 semantics.
 
@@ -155,9 +157,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `6b72188c0e11dbdce2e45af4dab418302b913c40` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `95820d9ef09660162ed3ea434d6ab01ac414246b` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7 and PRINT one- through nine-item routes; `fo` passes |
-| ffc-new | lazy-fortran/ffc-new | `5b70852452db502f9f96f32572ebca28fb52c1ae` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and typed STOP/PRINT one- through nine-item MIR routes; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `28802ea06622c91fe2f57c9bd577777a7d250909` | backend | generated stack-slot/sequence routes, STOP 7 termination, and exact PRINT one- through nine-item RISC-V Linux output policies; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `47565c8fe888a88e2334bb5f916128d07bd6dceb` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7 and PRINT one- through ten-item routes; `fo` passes |
+| ffc-new | lazy-fortran/ffc-new | `18c2fbc5d962f453ce92292180201477b7be20e4` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and typed STOP/PRINT one- through ten-item MIR routes; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `4761ef7c5481884143e95f2785f93949115609d1` | backend | generated stack-slot/sequence routes, STOP 7 termination, and exact PRINT one- through ten-item RISC-V Linux output policies; `fo` passes |
 
 ## Historical milestone evidence
 

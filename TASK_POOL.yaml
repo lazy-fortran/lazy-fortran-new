@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generated-print-ten-item-wave
+  - T-L3-generated-print-generic-items-wave
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-ten-item-wave
+active_task: T-L3-generated-print-generic-items-wave
 
 milestones:
   - id: L0
@@ -9712,8 +9712,8 @@ tasks:
   - id: T-L3-generated-print-ten-item-wave
     milestone: L3
     title: Generate and execute a bounded ten-item PRINT output list
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 104
     depends_on: [T-L3-generated-print-nine-item-wave]
@@ -9721,11 +9721,11 @@ tasks:
       - component: standard-new
         commit: 6b72188c0e11dbdce2e45af4dab418302b913c40
       - component: fortfront-new
-        commit: 95820d9ef09660162ed3ea434d6ab01ac414246b
+        commit: 47565c8fe888a88e2334bb5f916128d07bd6dceb
       - component: ffc-new
-        commit: 5b70852452db502f9f96f32572ebca28fb52c1ae
+        commit: 18c2fbc5d962f453ce92292180201477b7be20e4
       - component: fortback-new
-        commit: 28802ea06622c91fe2f57c9bd577777a7d250909
+        commit: 4761ef7c5481884143e95f2785f93949115609d1
       - normative-source: J3-24-007
         rules: [R1212, R1215, R1217]
         printed-pages: [242, 244, 248]
@@ -9764,6 +9764,62 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS with the bounded ten-item PRINT route; regenerate with bash tests/e2e/check-generated-chain.sh
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-generic-items-wave
+    milestone: L3
+    title: Generalize generated PRINT output-item list handling
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 105
+    depends_on: [T-L3-generated-print-ten-item-wave]
+    inputs:
+      - component: standard-new
+        commit: 6b72188c0e11dbdce2e45af4dab418302b913c40
+      - component: fortfront-new
+        commit: 47565c8fe888a88e2334bb5f916128d07bd6dceb
+      - component: ffc-new
+        commit: 18c2fbc5d962f453ce92292180201477b7be20e4
+      - component: fortback-new
+        commit: 4761ef7c5481884143e95f2785f93949115609d1
+      - normative-source: J3-24-007
+        rules: [R708, R1212, R1215, R1217]
+        printed-pages: [183, 242, 244, 248]
+      - path: tests/fixtures/l3-ast-program-print-generic-items-v1.f90
+      - path: tests/negative/l3-ast-program-print-generic-items-missing-third-v1.f90
+      - path: tests/negative/l3-ast-program-print-generic-items-wrong-third-v1.f90
+      - path: tests/negative/l3-ast-program-write-generic-items-v1.f90
+    output: >-
+      central PASS preserving all 38 existing routes while accepting the novel
+      source-backed PRINT *, 17, 18, 19 route through generated AST-v2, MIR-v0,
+      RISC-V and qemu. The implementation must consume repeated generated
+      output-item data rather than add another value/cardinality-specific branch.
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generated-print-generic-items
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 38 existing routes; accept exactly PRINT *, 17, 18, 19 and
+      reject missing-third, wrong-third, WRITE, provenance and shape mutations.
+      The independent oracle must check repeated output-item correspondence,
+      literals 17/18/19, three const/output pairs, return, and exact qemu bytes
+      `17\n18\n19\n`. No general I/O controls, formats, runtime library or semantic
+      promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS for the novel generic PRINT item route; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:
