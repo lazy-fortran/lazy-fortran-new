@@ -178,13 +178,14 @@ frontend records, FFC MIR with `(storage-key x)`, and policy-driven fortback
 stack slots. The six-assignment route uses the distinct generated MIR source
 rule `frontend-ast-v1/storage-sequence-6` and exits 12.
 The program-unit-v2 envelope now carries the declaration and source-backed R509
-execution-part into that same generated chain. Its five-assignment extension
-uses the distinct generated MIR source rule
-`frontend-ast-v2/execution-part-5`. The central replay passes 22 routes;
+execution-part into that same generated chain. Its five- and six-assignment
+extensions use the distinct generated MIR source rules
+`frontend-ast-v2/execution-part-5` and
+`frontend-ast-v2/execution-part-6`. The central replay passes 23 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
-six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-/five-assignment
-v2 envelopes exit 8 and 11; all prove matching
+six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and
+six-assignment v2 envelopes exit 8, 11 and 12; all prove matching
 `sp + 0` load/store encodings. This is still a bounded sequence, not general
 statement parsing, name resolution, arbitrary storage, or full Fortran runtime
 semantics. The source-backed R509 execution-part fact is now consumed by the

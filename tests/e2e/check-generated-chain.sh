@@ -595,10 +595,14 @@ for negative_envelope_six in "${negative_sequence_six_files[@]}"; do
     rm -f "$run_dir/negative-envelope-six.ast.sx"
     if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_envelope_six" \
             "$run_dir/negative-envelope-six.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid six-assignment execution envelope source was accepted' >&2
-        exit 1
+        if grep -q '^(program-unit-v2 ' "$run_dir/negative-envelope-six.ast.sx" && \
+                grep -q '(assignment-count 6)' "$run_dir/negative-envelope-six.ast.sx"; then
+            printf '%s\n' 'invalid six-assignment execution envelope source was promoted' >&2
+            exit 1
+        fi
+    else
+        [ ! -e "$run_dir/negative-envelope-six.ast.sx" ]
     fi
-    [ ! -e "$run_dir/negative-envelope-six.ast.sx" ]
 done
 if qemu-riscv64 "$envelope_six_elf_file" > /dev/null; then
     envelope_six_status=0
