@@ -298,10 +298,13 @@ AST/MIR/ELF mutations, four rejected source neighbours, and preservation of
 the prior generic PRINT-list route. This remains a fixed expression witness;
 it does not claim general expressions, precedence, formatted I/O, arrays,
 non-integer output or semantic promotion.
-The next executable slice is prepared as `l3-print-expression-variable-v0`:
+The next bounded successor is now integrated as `l3-print-expression-variable-v0`:
 the same generated PRINT item shape with two variable operands, `x + x`,
 checked independently through AST, MIR `load/load/add/output`, RISC-V and
-qemu. It is not implemented or promoted yet.
+qemu. The central command also preserves the x+1 expression and generic
+integer-list routes. This remains one fixed expression witness; it does not
+claim general expressions, precedence, formatted I/O, arrays, non-integer
+output or semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

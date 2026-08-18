@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generic-print-variable-expression
+  []
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-variable-expression
+active_task: null
 
 milestones:
   - id: L0
@@ -8007,11 +8007,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: efd8c0482b3dab358008c018ed803b687f537ca7
+        commit: 67fa5e52ee957e39317e3eddc211ee2df1c42ac3
       - component: ffc-new
-        commit: 794e19d65469f212714bc1ee556c630e34575089
+        commit: fa7799d8f076e5ad7ee6fad3fcfd1bd503cb9c29
       - component: fortback-new
-        commit: e628d9028913f5464d4c3094f7b7ea572257cd3c
+        commit: 4bf8db60eb95c8109450fe5b0bf729c1c76a2b6c
       - normative-source: J3-24-007
         rules: [R901, R1212, R1215, R1217]
         printed-pages: [155, 242, 244, 248]
@@ -11462,9 +11462,9 @@ tasks:
   - id: T-L3-generic-print-variable-expression
     milestone: L3
     title: Add a generated two-variable integer expression item to the generic PRINT list
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
     priority: 145
     depends_on: [T-L3-generic-print-expression]
     inputs:
@@ -11473,11 +11473,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: efd8c0482b3dab358008c018ed803b687f537ca7
+        commit: 14d06fb71b577396ec41390b0833d4c5cdf7de91
       - component: ffc-new
-        commit: 794e19d65469f212714bc1ee556c630e34575089
+        commit: d14950dccb1da134c3b54f918da83450abadc3cb
       - component: fortback-new
-        commit: e628d9028913f5464d4c3094f7b7ea572257cd3c
+        commit: bf9f80a487a42539ab10ca88a3a7efec8270cb00
       - normative-source: J3-24-007
         rules: [R901, R1010, R1212, R1215, R1217]
         printed-pages: [155, 170, 242, 244, 248]
@@ -11522,7 +11522,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-expression-variable.sh
     final_observable: central generic-print-variable-expression PASS with prior expression and generic PRINT routes preserved
-    evidence: contract and independent oracle prepared; implementation wave not yet replayed
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 

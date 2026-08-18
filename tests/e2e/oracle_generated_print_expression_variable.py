@@ -112,7 +112,7 @@ def parse_items(source: pathlib.Path) -> list[tuple[str, str]]:
 
 def check_ast(path: pathlib.Path, source: pathlib.Path, items: list[tuple[str, str]]) -> None:
     text = path.read_text(encoding="utf-8")
-    identity = "l3-raw-program-generic-print-expression-variable-v0"
+    identity = "l3-raw-program-generic-print-expression-v0"
     require("(program-unit-v2 " in text, "variable-expression AST root differs")
     require(f"(file {source})" in text, "variable-expression AST source path differs")
     spans = groups(text, "(source-span ")

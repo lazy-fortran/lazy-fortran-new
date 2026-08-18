@@ -57,9 +57,13 @@ also remains green. This is still one bounded integer-expression item, not
 general expression parsing, formatted I/O, arrays, non-integer output or
 semantic promotion.
 
-The next active L3 slice `T-L3-generic-print-variable-expression` is prepared
-with a pinned contract and independent oracle for `x + x` as one generic PRINT
-item. Its component implementation wave is the next action.
+The L3 slice `T-L3-generic-print-variable-expression` now passes
+`bash tests/e2e/check-generated-print-expression-variable.sh`: two positive
+generic PRINT sources carry the fixed `x + x` item through typed AST,
+load/load/add/output MIR, RISC-V and qemu, while AST/MIR/ELF mutations and
+four source neighbours are rejected. The prior x+1 expression and generic
+PRINT-list replays remain green. This is still one bounded two-variable
+expression item, not general expression parsing or semantic promotion.
 
 ## Central goal
 
@@ -181,9 +185,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `efd8c0482b3dab358008c018ed803b687f537ca7` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and generic integer-expression output items; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `794e19d65469f212714bc1ee556c630e34575089` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and typed expression-item load/const/add/output lowering; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `e628d9028913f5464d4c3094f7b7ea572257cd3c` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and generic expression-item arithmetic emission; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `14d06fb71b577396ec41390b0833d4c5cdf7de91` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and bounded x+1/x+x expression items; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `d14950dccb1da134c3b54f918da83450abadc3cb` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and bounded expression-item load/const/add/output lowering; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `bf9f80a487a42539ab10ca88a3a7efec8270cb00` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and bounded expression-item arithmetic emission; `fo` passes |
 
 ## Historical milestone evidence
 
