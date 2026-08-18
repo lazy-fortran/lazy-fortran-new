@@ -182,7 +182,7 @@ The program-unit-v2 envelope now carries the declaration and source-backed R509
 execution-part into that same generated chain. Its five- and six-assignment
 extensions use the distinct generated MIR source rules
 `frontend-ast-v2/execution-part-5` and
-`frontend-ast-v2/execution-part-6`. The central replay passes 27 routes;
+`frontend-ast-v2/execution-part-6`. The central replay passes 28 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
 six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and
@@ -190,13 +190,13 @@ six-assignment v2 envelopes exit 8, 11 and 12; all prove matching
 `sp + 0` load/store encodings. This is still a bounded sequence, not general
 statement parsing, name resolution, arbitrary storage, or full Fortran runtime
 semantics. The source-backed R509 execution-part fact is now consumed by the
-envelope path; the active next wave is the bounded `STOP 7` statement. It is
-pinned to R1162 and R1164 on printed page 214 and is being implemented in
-parallel across standard-new, fortfront-new, ffc-new and fortback-new. The
-intended observable is qemu exit status 7, with rejection controls for
-`STOP 8`, bare `STOP` and `ERROR STOP 7`. Keep all existing generated policy
-lanes and their independent negative controls. This wave is not general
-statement parsing or full STOP semantics.
+envelope path; the bounded `STOP 7` statement is integrated. Its R1162/R1164
+source correspondence, qemu exit status 7 and three mutation controls pass in
+the central replay. The next parallel wave is the bounded `PRINT *, 7`
+statement, pinned to R1212, R1215 and R1217; its target observable is exact
+stdout `7` plus newline. Keep all existing generated policy lanes and their
+independent negative controls. This wave is not general I/O, format processing
+or full STOP semantics.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
