@@ -8459,7 +8459,7 @@ tasks:
       - path: tests/golden/frontend-ast-v1-double-precision.oracle.toml
         sha256: 013600c36c22a45fa62f72204dd1a1c0ef01cefe4f408bb1ffea57498463831b
       - path: tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
-        sha256: 17c8b43f9680d6d0db478f8ece32f748bf83e72870803dfa59db357076832c1c
+        sha256: 6ede4305cca28c7dcfff8d6cc3fc9d097649ac7e6f00d881644054c31b733002
       - research/runs/2026-08.jsonl#R000710
       - research/runs/2026-08.jsonl#R000711
       - component: fortfront-new

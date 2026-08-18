@@ -54,6 +54,8 @@ def main() -> int:
     oracle = tomllib.loads(oracle_path.read_text(encoding="utf-8"))
     canonical = root / manifest["source_evidence_canonical_text"]
     witness_text = witness.read_text(encoding="utf-8")
+    require(manifest["boundary"] == "raw-source-to-typed-frontend-ast-v1-source-derived-double-precision-type-spec", "boundary differs")
+    require(manifest["property"] == "source-derived-double-precision-type-spec", "property differs")
     require(manifest["origin"] == "LLM", "fixture origin differs")
     require(manifest["model_calls"] == 0 and manifest["semantic_promotions"] == 0, "promotion guard differs")
     require(digest(schema) == manifest["contract_schema_sha256"], "schema hash differs")
@@ -71,6 +73,8 @@ def main() -> int:
     require(manifest["source_evidence_rules"] == RULES and manifest["source_evidence_pages"] == PAGES, "source evidence differs")
     require(manifest["source_evidence_canonical_lines"] == CANONICAL_LINES and manifest["source_evidence_canonical_line_text"] == CANONICAL_TEXT, "canonical pins differ")
     require(oracle["origin"] == "LLM" and oracle["model_calls"] == 0 and oracle["semantic_promotions"] == 0, "oracle guard differs")
+    require(oracle["property"] == "source-derived-double-precision-type-spec", "oracle property differs")
+    require("(property source-derived-double-precision-type-spec)" in witness_text, "witness property differs")
     expected = {case["id"]: case for case in manifest["case"]}
     oracle_cases = {case["id"]: case for case in oracle["case"]}
     require(list(expected) == ["double-precision", "real-control"], "case order differs")
