@@ -105,6 +105,13 @@ AST-v1 `character`, MIR-v0 `character/character`, and the generated RISC-V
 bridge now pass the same positive, malformed-negative, qemu and typed-oracle
 replay. This remains a declaration-only transport path; it does not claim
 character length, encoding, storage ABI, expressions, or runtime semantics.
+The next parallel slice adds source-backed R1033 `assignment-stmt is variable =
+expr`: generated StandardIR grammar fact, generated frontend assignment AST,
+generated MIR `store`/`return` with source rule `frontend-ast-v1/assignment`,
+and the generated RISC-V bridge now pass the positive, malformed, wrong-name,
+qemu and typed-oracle replay. This is a structural assignment path only; it
+does not claim name resolution, general expression parsing, constant
+evaluation, runtime memory semantics, or arbitrary executable Fortran.
 The next implementation step is another disjoint generated source shape or
 declaration boundary whose downstream central oracle is ready.
 `lazy-fortran-new` is the sole Goal Mode control

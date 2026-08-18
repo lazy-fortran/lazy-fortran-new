@@ -14,6 +14,7 @@ double_source_file="$ROOT/tests/fixtures/l3-ast-program-double-precision-main-v1
 complex_source_file="$ROOT/tests/fixtures/l3-ast-program-complex-type-main-v1.f90"
 logical_source_file="$ROOT/tests/fixtures/l3-ast-program-logical-type-main-v1.f90"
 character_source_file="$ROOT/tests/fixtures/l3-ast-program-character-type-main-v1.f90"
+assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -21,6 +22,8 @@ negative_double_file="$ROOT/tests/negative/l3-ast-program-double-precision-missi
 negative_complex_file="$ROOT/tests/negative/l3-ast-program-complex-type-missing-entity-v1.f90"
 negative_logical_file="$ROOT/tests/negative/l3-ast-program-logical-type-missing-entity-v1.f90"
 negative_character_file="$ROOT/tests/negative/l3-ast-program-character-type-missing-entity-v1.f90"
+negative_assignment_file="$ROOT/tests/negative/l3-ast-program-integer-assignment-missing-rhs-v1.f90"
+negative_assignment_name_file="$ROOT/tests/negative/l3-ast-program-integer-assignment-wrong-variable-v1.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 (cd "$standard" && fo clean && fo test test_standardir_lexical_generated && \
@@ -161,5 +164,25 @@ fi
 [ ! -e "$run_dir/negative-character.ast.sx" ]
 qemu-riscv64 "$character_elf_file" > /dev/null
 python3 "$oracle" "$character_ast_file" "$character_mir_file" "$character_elf_file" main character
+
+assignment_ast_file="$run_dir/assignment.frontend.ast.sx"
+assignment_mir_file="$run_dir/assignment.mir.sx"
+assignment_elf_file="$run_dir/assignment.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$assignment_source_file" "$assignment_ast_file") \
+    > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$assignment_ast_file" "$assignment_mir_file") \
+    > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$assignment_mir_file" "$assignment_elf_file") \
+    > /dev/null 2>&1
+for negative_assignment in "$negative_assignment_file" "$negative_assignment_name_file"; do
+    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_assignment" \
+            "$run_dir/negative-assignment.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid assignment source was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-assignment.ast.sx" ]
+done
+qemu-riscv64 "$assignment_elf_file" > /dev/null
+python3 "$oracle" "$assignment_ast_file" "$assignment_mir_file" "$assignment_elf_file" main integer assignment
 
 printf '%s\n' 'generated compiler chain PASS'

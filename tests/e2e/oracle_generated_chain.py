@@ -12,14 +12,15 @@ def fail(message: str) -> None:
 
 
 def main() -> None:
-    if len(sys.argv) not in (4, 5, 6):
-        fail("usage: oracle_generated_chain.py AST MIR ELF [PROGRAM_NAME] [TYPE_SPEC]")
+    if len(sys.argv) not in (4, 5, 6, 7):
+        fail("usage: oracle_generated_chain.py AST MIR ELF [PROGRAM_NAME] [TYPE_SPEC] [MODE]")
 
     ast = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
     mir = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
     elf = pathlib.Path(sys.argv[3]).read_bytes()
     program_name = sys.argv[4] if len(sys.argv) >= 5 else "p"
     type_spec = sys.argv[5] if len(sys.argv) == 6 else "integer"
+    mode = sys.argv[6] if len(sys.argv) == 7 else "declaration"
     type_shapes = {
         "integer": ("integer", "i32"),
         "real": ("real", "f32"),
@@ -43,8 +44,19 @@ def main() -> None:
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
         fail("MIR-v0 function witness is wrong")
-    if mir.count("source-rule frontend-ast-v1/program") != 2:
-        fail("MIR-v0 source correspondence is wrong")
+    if mode == "declaration":
+        if mir.count("source-rule frontend-ast-v1/program") != 2:
+            fail("MIR-v0 source correspondence is wrong")
+    elif mode == "assignment":
+        if "(assignment-count 1)" not in ast or \
+                "(assignment (assignment-stmt (variable x) (expression 1)" not in ast:
+            fail("AST-v1 assignment witness is wrong")
+        if mir.count("source-rule frontend-ast-v1/assignment") != 2:
+            fail("MIR-v0 assignment correspondence is wrong")
+        if "(opcode store)" not in mir or "(opcode return)" not in mir:
+            fail("MIR-v0 assignment opcode shape is wrong")
+    else:
+        fail("unsupported generated chain mode")
     if mir.count(f"(kind {mir_kind}) (type {mir_type})") != 2:
         fail("MIR-v0 typed result is wrong")
 
