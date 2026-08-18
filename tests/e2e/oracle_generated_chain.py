@@ -104,9 +104,18 @@ def main() -> None:
                 "(source-rule frontend-ast-v1/assignment)" not in mir or \
                 "(opcode store)" not in mir or "(opcode return)" not in mir:
             fail("MIR-v0 literal value shape is wrong")
+    elif mode == "variable-expression":
+        if "(assignment-count 1)" not in ast or \
+                "(assignment-expression (kind binary-expression) (operator +) (left-operand x) (right-operand 1)" not in ast:
+            fail("AST-v1 variable expression witness is wrong")
+        if mir.count("source-rule frontend-ast-v1/expression") != 5 or \
+                "(opcode load)" not in mir or "(opcode const)" not in mir or \
+                "(literal 1)" not in mir or "(opcode add)" not in mir or \
+                "(opcode store)" not in mir or "(opcode return)" not in mir:
+            fail("MIR-v0 variable expression shape is wrong")
     else:
         fail("unsupported generated chain mode")
-    expected_result_count = 5 if mode in ("expression", "multiplication", "division", "subtraction") else \
+    expected_result_count = 5 if mode in ("expression", "multiplication", "division", "subtraction", "variable-expression") else \
         3 if mode in ("literal", "literal-boundary") else 2
     if mir.count(f"(kind {mir_kind}) (type {mir_type})") != expected_result_count:
         fail("MIR-v0 typed result is wrong")

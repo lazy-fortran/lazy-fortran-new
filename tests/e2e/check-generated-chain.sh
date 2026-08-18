@@ -21,6 +21,7 @@ division_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-div
 subtraction_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-subtract-assignment-v1.f90"
 literal_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-7-assignment-v1.f90"
 literal_boundary_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-2047-assignment-v1.f90"
+variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-variable-add-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -40,6 +41,7 @@ negative_subtraction_file="$ROOT/tests/negative/l3-ast-program-integer-subtract-
 negative_subtraction_operator_file="$ROOT/tests/negative/l3-ast-program-integer-subtract-assignment-wrong-operator-v1.f90"
 negative_literal_range_file="$ROOT/tests/negative/l3-ast-program-integer-literal-2048-assignment-v1.f90"
 negative_literal_form_file="$ROOT/tests/negative/l3-ast-program-real-literal-assignment-v1.f90"
+negative_variable_expression_file="$ROOT/tests/negative/l3-ast-program-integer-variable-multiply-assignment-v1.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 (cd "$standard" && fo clean && fo test test_standardir_lexical_generated && \
@@ -344,5 +346,29 @@ fi
 [ "$literal_boundary_status" -eq 255 ]
 python3 "$oracle" "$literal_boundary_ast_file" "$literal_boundary_mir_file" \
     "$literal_boundary_elf_file" main integer literal-boundary
+
+variable_expression_ast_file="$run_dir/variable-expression.frontend.ast.sx"
+variable_expression_mir_file="$run_dir/variable-expression.mir.sx"
+variable_expression_elf_file="$run_dir/variable-expression.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$variable_expression_source_file" \
+        "$variable_expression_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$variable_expression_ast_file" \
+        "$variable_expression_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$variable_expression_mir_file" \
+        "$variable_expression_elf_file") > /dev/null 2>&1
+if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_variable_expression_file" \
+        "$run_dir/negative-variable-expression.ast.sx") > /dev/null 2>&1; then
+    printf '%s\n' 'invalid variable expression source was accepted' >&2
+    exit 1
+fi
+[ ! -e "$run_dir/negative-variable-expression.ast.sx" ]
+if qemu-riscv64 "$variable_expression_elf_file" > /dev/null; then
+    variable_expression_status=0
+else
+    variable_expression_status=$?
+fi
+[ "$variable_expression_status" -eq 1 ]
+python3 "$oracle" "$variable_expression_ast_file" "$variable_expression_mir_file" \
+    "$variable_expression_elf_file" main integer variable-expression
 
 printf '%s\n' 'generated compiler chain PASS'
