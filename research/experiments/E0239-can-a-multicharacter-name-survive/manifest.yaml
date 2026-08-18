@@ -3,9 +3,9 @@ title: "Can a multi-character name survive the typed AST v1 boundary"
 question: >
   Does the pinned typed AST v1 producer accept alpha with the changed
   declaration span while preserving the z control and rejecting integer ::?
-status: running         # draft | running | reported | abandoned
+status: reported         # draft | running | reported | abandoned
 opened: "2026-08-18"
-closed: ""
+closed: "2026-08-18"
 
 repos:
   lazy-fortran-new: "6694ff2fe5db8249a5a24b04f9baa630555a656c"
@@ -82,7 +82,16 @@ gate: >-
 
 result:
   technical_run: research/runs/2026-08.jsonl#R000686
-  technical_status: PENDING
-  promotion_status: PENDING
+  technical_status: PASS
+  promotion_status: PASS-BOUNDED-ONLY
+  evidence_packet_revision: f5111ec5f594fc53746b2d2a8a16fa742172ee84
+  frozen_executable_revision: 7e9e8a4a41d7956ad4c367b42c46121ae9e7a8e1
+  review_report: artifacts/reports/L3/frontend-ast-v1-name-multichar-focused-review-v1.md
+  review_report_sha256: 8b1f903d883885fb8e6c7df40504d5f0b37ac01e45b6a2dcd0d763d091a219fb
+  review_runs:
+    - research/runs/2026-08.jsonl#R000687
+    - research/runs/2026-08.jsonl#R000688
+  retained_failures:
+    - research/runs/2026-08.jsonl#R000685
   model_calls: 0
   semantic_promotions: 0

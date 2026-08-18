@@ -487,11 +487,14 @@ R000668 retains the rejected broader wording. D0178 freezes the changed-name
 `z` contract as the next task. R000673 passes the contract gate; the isolated
 fortfront z-name producer passes its component gate as R000674 at pushed
 revision `a657f36`. E0237/R000678 and focused reviews R000681/R000682 promote
-the exact z witness only. D0179 now freezes the next multi-character name and
-span contract; R000683 passes its contract gate, and the alpha producer passes
-its component gate as R000684 at pushed fortfront `1019652`. The active task
-is the central alpha replay. The C768 implementation result is parked and is
-not promoted by this pivot.
+the exact z witness only. D0179 froze the multi-character name and span
+contract; R000683 passed its contract gate, R000684 passed the alpha producer
+at pushed fortfront `101965227a3583872eb7db22c04cd6ff40738c82`, and corrected
+replay R000686 plus focused reviews R000687/R000688 promote the exact `alpha`
+witness only. The initial golden mismatch remains retained as R000685. D0180
+now stops the exact-name ladder and opens the next contract task: select a
+source-derived identifier boundary over the existing AST v1 shape. The C768
+implementation result is parked and is not promoted by this pivot.
 
 ## Next executable task
 
@@ -507,10 +510,11 @@ task is the central E0236 replay. The replay and two final focused reviews now
 pass for the exact y witness only. D0178/R000673 freeze the changed-name
 contract, R000674 passes the pushed fortfront component gate, and
 E0237/R000678/R000681/R000682 promote the exact z witness only. R000683 passes
-the D0179 contract gate; R000684 passes the pushed alpha producer, and the
-active task is the central alpha replay. This remains outside full M3. Do not
-resume E0172 or start broad semantic work. The C768 worker result remains
-parked and is not promoted by this pivot.
+the D0179 contract gate; R000684 passed the pushed alpha producer, and
+R000686/R000687/R000688 now promote the exact alpha witness only. D0180 opens
+the next source-derived identifier-boundary contract task. This remains
+outside full M3. Do not resume E0172 or start broad semantic work. The C768
+worker result remains parked and is not promoted by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

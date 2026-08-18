@@ -1162,10 +1162,13 @@ narrows the claim to that exact y witness. Fortfront `d20041c` passes its
 component gate, and E0236/R000670/R000671/R000672 promote the exact y leaf
 only. D0178/R000673 freeze the changed-name `z` contract; R000674 passes the
 producer at fortfront `a657f36`, and E0237/R000678/R000681/R000682 promote the
-exact z leaf only. D0179 freezes the next multi-character name/span contract;
-R000683 passes it, R000684 passes the producer at fortfront `1019652`, and
-the next task is the central alpha replay.
-Full M3 remains open.
+exact z leaf only. D0179 froze the next multi-character name/span contract;
+R000683 passed it, R000684 passed the producer at fortfront
+`101965227a3583872eb7db22c04cd6ff40738c82`, and corrected replay R000686 plus
+focused reviews R000687/R000688 promote the exact `alpha` witness only.
+R000685 remains retained as the caught golden mismatch. D0180 stops the
+exact-name ladder; the next task is an independently verifiable
+source-derived identifier-boundary contract. Full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 
