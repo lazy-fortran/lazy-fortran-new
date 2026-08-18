@@ -8168,6 +8168,18 @@ tasks:
         sha256: c3f05b84f448c5fff3fab339c6940eebcf3132c3492f4c4352de714b7cb3992c
       - component: fortfront-new
         commit: 04ca10b9d191366f328a39d0133375fd6aa62e4e
+      - path: contracts/fixtures/frontend-ast-v1-real-type.sx
+        sha256: 8850ef627ec8fc94d89cd31defed00a7d2dbea118b9b6523c6e8a8f6f2432d38
+      - path: tests/fixtures/frontend-ast-v1-real-type-contract.toml
+        sha256: 2d106af3a40589707682ae7694cca85f319fa259e174240ae52da97103aae887
+      - path: tests/fixtures/l3-ast-program-real-type-main-v1.f90
+        sha256: c102d7dff1a068fbd977acea1283fbec3bbd78a200b60f7758bf782c972eaf76
+      - path: tests/negative/l3-ast-program-real-type-missing-entity-v1.f90
+        sha256: dda994436bfa069d89c39a7a082b138672989357adb9cedbffd6b96413f847f2
+      - path: tests/golden/frontend-ast-v1-real-type.oracle.toml
+        sha256: b34d5c5ca611633b918693bfcdd8fcfb00a273a59220179204c9a0b6ef01014b
+      - path: tests/e2e/validate_frontend_ast_v1_real_type_contract.py
+        sha256: ed7cc69fdc846e617590057a72b3c32a46608713a0c006e86147c455f5beddb1
       - research/runs/2026-08.jsonl#R000698
       - path: artifacts/reports/L3/frontend-ast-v1-program-root-name-focused-review-v1.md
         sha256: 97204506c15cc14e73d3303d94f1bd3cae524d1c5a0745d8d44fd709627aa8df
@@ -8287,6 +8299,8 @@ tasks:
       independent oracle before any producer change. Do not add a schema
       revision or broaden intrinsic-type parsing.
     verifier_command: >-
+      python3 tests/e2e/validate_frontend_ast_v1_real_type_contract.py
+      tests/fixtures/frontend-ast-v1-real-type-contract.toml &&
       scripts/check-contracts.sh && scripts/check-decisions.sh && git diff --check
     final_observable: frozen REAL type-spec contract or one precise blocker
     retry_count: 0

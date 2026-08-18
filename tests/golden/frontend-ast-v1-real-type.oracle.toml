@@ -1,0 +1,26 @@
+schema_version = "frontend-ast-v1-real-type-oracle-v1"
+origin = "LLM"
+property = "source-derived-real-type-spec"
+source_rules = ["R702", "R703", "R704", "R801"]
+model_calls = 0
+semantic_promotions = 0
+
+[[case]]
+id = "real"
+expected_outcome = "ACCEPTED"
+expected_root_name = "main"
+expected_program_declaration_name = "main"
+expected_variable_type = "real"
+expected_variable_name = "x"
+
+[[case]]
+id = "integer-control"
+expected_outcome = "ACCEPTED"
+expected_root_name = "main"
+expected_program_declaration_name = "main"
+expected_variable_type = "integer"
+expected_variable_name = "x"
+
+[[negative]]
+id = "missing-entity"
+expected_outcome = "REJECTED"
