@@ -51,6 +51,17 @@ R000727/R000728 promote the exact producer/replay leaf at pushed component
 `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`. R000724 remains retained stale
 metadata. The active task selects the next bounded source-backed boundary. The
 path still does not parse arbitrary Fortran or close full M3.
+
+The selected COMPLEX boundary is now implemented as a bounded typed-AST
+producer and checked centrally with an independent positive, changed-type and
+malformed-source oracle. This remains bootstrap evidence, not a claim of a
+general intrinsic-type parser. In parallel, the compiler-generation wave has
+started across all production levels: StandardIR grammar-fact records,
+frontend type handling, MIR metadata, and RISC-V backend opcode metadata each
+have an independent generator lane. Their component pushes are not yet a
+single end-to-end promotion; the next integration step is to connect the
+generated artifacts through the existing interfaces and remove the remaining
+handwritten rule tables.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
