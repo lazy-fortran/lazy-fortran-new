@@ -60,12 +60,14 @@ general intrinsic-type parser. In parallel, the generated compiler wave has
 landed in every production repository: StandardIR grammar facts, frontend
 type and program-envelope tables, MIR metadata, and RISC-V opcode/immediate
 metadata are now generated artifacts with component-level behavioral gates.
-These pushes are not yet a single end-to-end promotion; the next integration
-step is to connect the generated artifacts through the existing interfaces
-and remove the remaining handwritten rule tables. The post-integration
-component gates and central COMPLEX replay pass; the next wave is extending
-the same generated interfaces to the adjacent type-spec and backend format
-boundaries.
+The bounded generated chain now passes
+`tests/e2e/check-generated-chain.sh`: the selected raw source becomes
+frontend AST-v1, then MIR-v0, then a RISC-V ELF, with an independent oracle
+checking the correspondence and output class. This is still one exact
+`program main` / `integer :: x` witness, not arbitrary Fortran or full M3.
+The post-integration component gates and central COMPLEX replay also pass.
+The next implementation step is to broaden the generated interfaces only
+when another bounded source shape and its downstream oracle are ready.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
