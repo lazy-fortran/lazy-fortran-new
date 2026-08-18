@@ -10182,20 +10182,20 @@ tasks:
   - id: T-L3-generated-print-variable-power-value-batch
     milestone: L3
     title: Generalize stored power PRINT to a second bounded value pair
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 106
     depends_on: [T-L3-generated-print-variable-power-expression-batch]
     inputs:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: a8503484d8aef8afd83e4b7bd9542c8408a74e83
+        commit: 531cf38d2298a3f8e499a7c302479e50df512544
       - component: ffc-new
-        commit: f9430b2f0a84dd70dd4caef81a0238b0be729f8b
+        commit: e6f803da1cbac61e5bc80510e8f5233bcabe9d39
       - component: fortback-new
-        commit: 182ab07fd00a36222ed31be0ce556afeb96a4714
+        commit: 7de65e4144f20f685db67b97c978ec6bcbfe162f
       - normative-source: J3-24-007
         rules: [R704, R901, R1008, R1033, R1212, R1215]
         printed-pages: [155, 183, 205, 242, 244, 248]
@@ -10234,6 +10234,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for the second stored power value pair; regenerate with bash tests/e2e/check-generated-chain.sh
+    evidence: two focused reviews pass; bounded-only promotion
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:
