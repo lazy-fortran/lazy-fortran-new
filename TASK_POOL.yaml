@@ -7708,9 +7708,9 @@ tasks:
     depends_on: [T-L3-fortfront-typed-variable-name-mutation]
     inputs:
       - path: research/experiments/E0237-can-a-changed-source-name-survive/manifest.yaml
-        sha256: 7e052ce73fb1da3316b6e73afbcb74224c00fcc727e2dc8dcd62bf1aa4a6773f
+        sha256: 8594c947c15edc9c2ba207419a1fa39b06b392ab96b6cf253457b73d8d7c9f02
       - path: tests/fixtures/frontend-ast-v1-name-mutation-replay.toml
-        sha256: 89fbcba752015a86f2c41874ed5ea4bc6f8c49320121fca954e396e03f412aa5
+        sha256: 98e83252cffb63023bc9de9f0f53b601f1ecd00704b2a92904a22b17d0e58546
       - path: tests/e2e/run-frontend-ast-v1-name-mutation.sh
         sha256: 5d2be956484ffe4f62191262e5d8be0d53d17a785d7c7bab4d57856128a71f12
       - path: tests/e2e/validate_frontend_ast_v1_name_mutation.py
@@ -7749,7 +7749,7 @@ tasks:
       trace, zero model calls and zero semantic promotions. Promote only this
       exact z witness and do not infer general identifier parsing.
     verifier_command: >-
-      AST_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+      AST_EXPECTED_CENTRAL_COMMIT=2282138d6573def2c13f8fb287d8d13d7b8f3909
       tests/e2e/run-frontend-ast-v1-name-mutation.sh --fresh
     final_observable: typed AST v1 oracle PASS for exact z witness with y control and malformed neighbour rejected
     retry_count: 0

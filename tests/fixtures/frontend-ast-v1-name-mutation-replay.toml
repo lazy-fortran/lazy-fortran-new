@@ -22,6 +22,7 @@ output_golden_sha256 = "10fc6a7a411f7f87be91899af7c509e4735c28173f57763fb0e66bf6
 oracle = "tests/golden/frontend-ast-v1-name-mutation.oracle.toml"
 oracle_sha256 = "7a9705f00d5045914c1f68ebf23c936801ae3fb6c659ae74ae27321ba261948d"
 trace = "artifacts/traces/frontend-ast-v1-name-mutation.json"
+trace_sha256 = "01631728dc85f5a5c187874ff4e746d9141015ddc675c3efd56da1cc45ba424e"
 runner = "tests/e2e/run-frontend-ast-v1-name-mutation.sh"
 runner_sha256 = "5d2be956484ffe4f62191262e5d8be0d53d17a785d7c7bab4d57856128a71f12"
 validator = "tests/e2e/validate_frontend_ast_v1_name_mutation.py"
