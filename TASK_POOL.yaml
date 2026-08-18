@@ -7877,7 +7877,7 @@ tasks:
     depends_on: [T-L3-fortfront-typed-variable-name-multichar]
     inputs:
       - path: research/experiments/E0239-can-a-multicharacter-name-survive/manifest.yaml
-        sha256: 3cc2e719a05880603530b3ad6cb713d4d3aab870403fd89abbaf579f2a4c9a4d
+        sha256: 89c040d68215259f01a9eedc1d8b9910f059c1c591f64f923e94bc3666eac072
       - path: tests/fixtures/frontend-ast-v1-name-multichar-replay.toml
         sha256: ad874b15eb59e2f07c98a9ee1ccf72c291a65c097f2703f8446f470bac9461f0
       - path: tests/e2e/run-frontend-ast-v1-name-multichar.sh
@@ -7920,7 +7920,7 @@ tasks:
       model calls and zero semantic promotions. Promote only this exact alpha
       witness and do not infer general identifier parsing.
     verifier_command: >-
-      AST_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+      AST_EXPECTED_CENTRAL_COMMIT=7e9e8a4a41d7956ad4c367b42c46121ae9e7a8e1
       tests/e2e/run-frontend-ast-v1-name-multichar.sh --fresh
     final_observable: typed AST v1 oracle PASS for exact alpha witness with z control and malformed neighbour rejected
     retry_count: 0

@@ -81,6 +81,7 @@ gate: >-
   once; subsequent replays compare it without bootstrap.
 
 result:
+  technical_run: research/runs/2026-08.jsonl#R000686
   technical_status: PENDING
   promotion_status: PENDING
   model_calls: 0
