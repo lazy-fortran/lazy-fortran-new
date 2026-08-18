@@ -582,6 +582,33 @@ fi
 python3 "$oracle" "$envelope_five_ast_file" "$envelope_five_mir_file" \
     "$envelope_five_elf_file" main integer envelope-5
 
+envelope_six_ast_file="$run_dir/envelope-six.frontend.ast.sx"
+envelope_six_mir_file="$run_dir/envelope-six.mir.sx"
+envelope_six_elf_file="$run_dir/envelope-six.program.elf"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$sequence_six_source_file" \
+        "$envelope_six_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$envelope_six_ast_file" \
+        "$envelope_six_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$envelope_six_mir_file" \
+        "$envelope_six_elf_file") > /dev/null 2>&1
+for negative_envelope_six in "${negative_sequence_six_files[@]}"; do
+    rm -f "$run_dir/negative-envelope-six.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_envelope_six" \
+            "$run_dir/negative-envelope-six.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid six-assignment execution envelope source was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-envelope-six.ast.sx" ]
+done
+if qemu-riscv64 "$envelope_six_elf_file" > /dev/null; then
+    envelope_six_status=0
+else
+    envelope_six_status=$?
+fi
+[ "$envelope_six_status" -eq 12 ]
+python3 "$oracle" "$envelope_six_ast_file" "$envelope_six_mir_file" \
+    "$envelope_six_elf_file" main integer envelope-6
+
 envelope_ast_file="$run_dir/envelope.frontend.ast.sx"
 envelope_mir_file="$run_dir/envelope.mir.sx"
 envelope_elf_file="$run_dir/envelope.program.elf"

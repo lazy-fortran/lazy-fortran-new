@@ -9050,6 +9050,56 @@ tasks:
     final_observable: central generated chain PASS with the six-assignment sequence witness
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-generated-program-execution-envelope-six-wave
+    milestone: L3
+    title: Extend the generated program-unit envelope to six assignments
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 94
+    depends_on: [T-L3-generated-six-assignment-sequence-wave]
+    inputs:
+      - component: standard-new
+        commit: f23943b8badf4b8971b65dafe36a9915e6c5b5d4
+      - component: fortfront-new
+        commit: 4c3fe165071e9351a2f66146361532437fec5ec3
+      - component: ffc-new
+        commit: 9252bf921c6d49bebf90de88a03b3cd9a066018e
+      - component: fortback-new
+        commit: d090959a52c2907fbc326cb91ce1401ac4c31312
+      - path: tests/fixtures/l3-ast-program-integer-six-assignment-v1.f90
+      - path: tests/negative/l3-ast-program-integer-six-assignment-wrong-operator-v1.f90
+      - path: tests/negative/l3-ast-program-integer-six-assignment-missing-sixth-v1.f90
+      - path: tests/negative/l3-ast-program-integer-six-assignment-wrong-variable-v1.f90
+    output: >-
+      central PASS for the additive program-unit-v2 envelope carrying six
+      ordered assignments, generated twenty-three-instruction MIR with
+      frontend-ast-v2/execution-part-6 provenance, and qemu exit 12, or one
+      precise interface blocker
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-envelope
+    ownership:
+      component: fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 22 existing routes and reject wrong operator, missing sixth
+      assignment and wrong variable neighbours. Require the exact six-
+      assignment program-unit-v2 AST, twenty-three-opcode generated MIR,
+      storage-key x on loads and stores, matching backend stack slot and qemu
+      exit 12. No general program parser, name resolution or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS with the six-assignment execution envelope
+    retry_count: 0
+    integration_cycle_trigger: next_replay
 integration_cycle:
   triggers:
     verified_deltas: 4
