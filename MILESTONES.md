@@ -1151,8 +1151,10 @@ observable and does not yet expose a typed variable declaration.
 The declaration technical replay R000651, post-technical regression R000652
 and focused review R000653 pass. The successor is promoted only as the exact
 source-shape claim. D0175 and the `frontend-ast-v1` contract now pass the
-central contract gate; the next task is the isolated fortfront generator/
-producer slice. Full M3 remains open.
+central contract gate. The isolated fortfront producer is pinned at
+`394f34d`; E0235/R000654 retains a golden mismatch caught by the independent
+oracle, and corrected replay R000655 passes. Focused review is the next gate;
+full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

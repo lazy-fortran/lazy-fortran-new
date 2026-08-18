@@ -1,6 +1,6 @@
 # Roadmap
 
-Snapshot: 2026-08-17. Live repository state is reported by
+Snapshot: 2026-08-18. Live repository state is reported by
 `scripts/status.sh`. Experiment manifests pin the exact commits used by each
 result. The lab and `standard-new` checkouts are clean and their current
 default-branch CI state is reported separately from those immutable pins.
@@ -12,11 +12,14 @@ the command that regenerates it.
 
 **Active delivery path.** D0120 changes the optimization target from an
 unbounded research-frontier loop to one centrally controlled, independently
-verified vertical slice. D0173 now makes that slice a raw-source executable
-path: `program p` / `end program p` through `fortfront-new`, `ffc-new` and the
-existing `fortback-new` path. The next bounded successor is the exact source
-shape with one `integer :: x` declaration; its contract is D0174 and its
-implementation task is `T-L3-fortfront-integer-declaration-source`.
+verified vertical slice. D0173 made that slice a raw-source executable path:
+`program p` / `end program p` through `fortfront-new`, `ffc-new` and the
+existing `fortback-new` path. D0174 then added the exact source shape with one
+`integer :: x` declaration. D0175 now defines one typed frontend AST v1 record;
+fortfront `394f34d` emits it, and E0235/R000655 passes its independent replay
+after retaining the failed golden control R000654. The next gate is focused
+review of that bounded typed-AST claim. It does not parse arbitrary Fortran or
+close full M3.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

@@ -472,9 +472,12 @@ declaration implementation is now committed as fortfront revision
 exactly one named main program with `integer :: x`, rejects `integer ::`, and
 preserves the existing frontend-v0/MIR-v0 observable. The active task is
 `T-L3-declaration-source-executable-replay`; focused review R000653 passes and
-the successor is promoted only as a bounded L3 claim. The next step is to
-define a typed declaration contract; the C768 implementation result is parked
-and is not promoted by this pivot.
+the successor is promoted only as a bounded L3 claim. The typed AST v1 producer
+is pinned at fortfront `394f34d`; R000654 retains the golden mismatch caught by
+the independent oracle and corrected replay R000655 passes. The active task is
+`T-L3-frontend-ast-v1-replay`; focused review is still required before bounded
+promotion. The C768 implementation result is parked and is not promoted by
+this pivot.
 
 ## Next executable task
 
@@ -482,9 +485,10 @@ The L3 declaration contract is frozen by D0174 and passes
 `scripts/check-contracts.sh`. The implementation, technical replay and focused
 review pass; the bounded successor is promoted. The typed declaration contract
 D0175 is now frozen and passes `scripts/check-contracts.sh`; the active task is
-the isolated fortfront AST v1 implementation. The producer is now pinned at
-`394f34d`; the active gate is its clean central replay. This remains outside
-full M3.
+the isolated fortfront AST v1 implementation, which is complete at pinned
+fortfront `394f34d`. The active gate is the central replay task, with R000655
+passing after the retained R000654 oracle failure. This remains outside full
+M3.
 Do not resume E0172 or start broad semantic work. The C768 worker result
 remains parked and is not promoted by this pivot.
 
