@@ -23,6 +23,8 @@ def main() -> None:
     type_spec = sys.argv[5] if len(sys.argv) >= 6 else "integer"
     mode = sys.argv[6] if len(sys.argv) >= 7 else "declaration"
     source_path = pathlib.Path(sys.argv[7]) if len(sys.argv) == 8 else None
+    if mode == "print-variable-expression":
+        mode = "print-variable"
     type_shapes = {
         "integer": ("integer", "i32"),
         "real": ("real", "f32"),
@@ -557,12 +559,24 @@ def main() -> None:
             b"end program main\n"
         )
         expected_source_23 = expected_source_17.replace(b"x = 17", b"x = 23")
+        expected_source_expression = (
+            b"program main\n"
+            b"  integer :: x\n"
+            b"  x = 23\n"
+            b"  x = x + 1\n"
+            b"  print *, x\n"
+            b"end program main\n"
+        )
+        is_expression = source_bytes == expected_source_expression
         if source_bytes == expected_source_17:
             expected_literal = 17
             expected_source_hash = "e30b7f0f50e828d6dea378ed426ae5117691a6943dbfb63da590b074d33730e1"
         elif source_bytes == expected_source_23:
             expected_literal = 23
             expected_source_hash = "390dbc3f3f29b0bcb1fedcf37aaee26f1e37c6611cdc8d4528a6f81f66c4c24b"
+        elif is_expression:
+            expected_literal = 23
+            expected_source_hash = "57598821b9bf538e1f9781c9d9a1a3f18482ec2f1eae95130400bb9848971f15"
         else:
             fail("stored-variable source fixture bytes changed")
         if hashlib.sha256(source_bytes).hexdigest() != expected_source_hash:
@@ -571,13 +585,56 @@ def main() -> None:
             17: "7f0355d86cc212318582099617ebea686ff4df43f949b5033ec20859734aa355",
             23: "10fd1f27538000dc6c1544eb12dea40b7e2341851ceb2bd17b9b29c75ed91238",
         }[expected_literal]
+        if is_expression:
+            expected_elf_hash = "d57426ffb421821ae2f450d6694c65523fcb9e10fcf91f45a321e87fe19cb6f4"
         if hashlib.sha256(elf).hexdigest() != expected_elf_hash:
             fail("stored-variable ELF identity changed")
         expected_file_marker = f"(file {source_path})"
-        if ast.count("(file ") != 5 or ast.count(expected_file_marker) != 5:
+        expected_span_count = 6 if is_expression else 5
+        if ast.count("(file ") != expected_span_count or ast.count(expected_file_marker) != expected_span_count:
             fail("stored-variable AST source-file identity is wrong")
-        if ast.count("(source-hash l3-raw-program-v2)") != 5:
+        expected_source_hash_marker = "l3-raw-program-two-assignment-v1" if is_expression else "l3-raw-program-v2"
+        if ast.count(f"(source-hash {expected_source_hash_marker})") != expected_span_count:
             fail("stored-variable AST source-hash identity is wrong")
+        if is_expression:
+            required_expression = [
+                "(program-unit-v2 ", "(root (program-root (name main)",
+                "(declaration-count 1)", "(variable-count 1)",
+                "(variable (variable-declaration (type-spec integer) (name x)",
+                "(execution-part (assignment-sequence (assignment-count 2)",
+                "(kind integer-literal)", "(left-operand 23)",
+                "(kind binary-expression)", "(operator +)",
+                "(left-operand x)", "(right-operand 1)",
+                "(start-byte 28)", "(end-byte 34)",
+                "(start-byte 37)", "(end-byte 47)",
+                "(start-byte 49)", "(end-byte 60)",
+                "(output-kind variable)", "(output-name x)",
+                "(statement-rule R1212)", "(format-rule R1215)",
+                "(output-rule R901)", "(source-document J3-24-007)",
+                "(statement-clause 12.6.1)", "(format-clause 12.6.2.2)",
+                "(output-clause 12.6.3)", "(statement-page 242)",
+                "(format-page 244)", "(output-page 248)",
+                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
+            ]
+            if any(item not in ast for item in required_expression) or \
+                    ast.count("(assignment (assignment-stmt ") != 2 or \
+                    ast.count("(print-stmt ") != 1:
+                fail("AST-v2 variable-expression PRINT witness is wrong")
+            if mir.count("(instruction-count 9)") != 1 or \
+                    mir.count("(opcode const)") != 2 or \
+                    mir.count("(opcode store)") != 2 or \
+                    mir.count("(opcode load)") != 2 or \
+                    mir.count("(opcode add)") != 1 or \
+                    mir.count("(opcode output)") != 1 or \
+                    mir.count("(opcode return)") != 1 or \
+                    mir.count("(literal 23)") != 1 or \
+                    mir.count("(literal 1)") != 1 or \
+                    mir.count("(storage-key x)") != 4 or \
+                    mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
+                    mir.count("(source-rule frontend-ast-v2/print-stmt)") != 3:
+                fail("MIR-v0 variable-expression PRINT shape is wrong")
+            print("generated chain oracle: accepted")
+            return
         required = [
             "(program-unit-v2 ", "(root (program-root (name main)",
             "(declaration-count 1)", "(variable-count 1)",

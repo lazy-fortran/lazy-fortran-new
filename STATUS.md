@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage, sequence, STOP and PRINT waves are integrated; its central replay passes 41 routes
+storage, sequence, STOP and PRINT waves are integrated; its central replay passes 42 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -37,7 +37,7 @@ specialization from the generated PRINT item path and checks novel values
 now carries `integer :: x`, `x = 17` and `x = 23` with `PRINT *, x` through
 generated AST-v2, MIR-v0 and RISC-V/qemu with exact stdout `17\n` and `23\n`;
 its source-bound oracle also
-rejects three source neighbours and eight artifact mutations. This does not parse
+rejects three source neighbours and eleven artifact mutations. This does not parse
 arbitrary Fortran, implement general I/O controls or formats, or promote M3
 semantics.
 
@@ -161,9 +161,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `ea8520b9eee662c0e0bda6a70a242903db6d782f` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `e6e95857fcef4fdd362112bbe7a73de725e606ca` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, mechanically repeated PRINT items, and stored-variable AST-v2 for 17 and 23; focused gate passes |
-| ffc-new | lazy-fortran/ffc-new | `1436c5eec9735cc19828f80a036ba214eb773659` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, mechanically repeated PRINT lowering, and stored-variable load/store MIR for 17 and 23; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `e25da8bdf49065833fa0cc5cc8b24efd15896786` | backend | generated stack-slot/sequence routes, STOP 7 termination, mechanically repeated PRINT emission, and stored-variable RISC-V lowering for 17 and 23; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `8dbaecd611b39c32cd3374af87efdb25f5ab7f83` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, mechanically repeated PRINT items, and stored-variable AST-v2/expression sequence; `fo` passes |
+| ffc-new | lazy-fortran/ffc-new | `8ee78d0cdad3ae3e3e63f03b079e2b551faf1543` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, mechanically repeated PRINT lowering, and stored-variable expression MIR; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `a9964d93e56950915dc3dfc3e1ead6185a07eed2` | backend | generated stack-slot/sequence routes, STOP 7 termination, mechanically repeated PRINT emission, and stored-variable expression RISC-V lowering; `fo` passes |
 
 ## Historical milestone evidence
 
@@ -288,10 +288,11 @@ emission contract interchange.
 
 ## Active fixture
 
-Current fixture: `T-L3-generated-print-variable-value-wave`.
-Its source-bound generated replay passes 41 routes; regenerate that count with
+Current fixture: `T-L3-generated-print-variable-expression-wave`.
+Its source-bound generated replay passes 42 routes; regenerate that count with
 `bash tests/e2e/check-generated-chain.sh`. The exact stored-variable witness
-is bounded to `program main`, `integer :: x`, `x = 17` or `x = 23`, and `PRINT *, x`; it does
+is bounded to `program main`, `integer :: x`, `x = 17` or `x = 23`, and `PRINT *, x`; the
+active expression successor is not yet integrated. It does
 not promote general variable handling or full M3 semantics.
 The following M3 records are retained historical evidence, not the active
 fixture.
@@ -344,10 +345,11 @@ bounded oracle leaf; full M3 remains open. E0219/R000598 selects C751@1.
 
 ## Active task
 
-ID: `T-L3-generated-print-variable-value-wave` — PASS. The central verifier
-passes 41 routes; regenerate it with
-`bash tests/e2e/check-generated-chain.sh`. Focused review passes for this
-bounded leaf. The following M3 material is retained historical evidence.
+ID: `T-L3-generated-print-variable-expression-wave` — PASS. The central
+verifier passes 42 routes; regenerate it with
+`bash tests/e2e/check-generated-chain.sh`. The expression fixture and four
+negative neighbours pass, and focused review passes for this bounded leaf.
+The following M3 material is retained historical evidence.
 Historical task: `T-M3-c763-pass-arg-name-oracle` — OPEN. Selection R000635 passes for
 `T-M3-core0-next-bounded-property-selection-after-c762`. The exact residual
 command is recorded in `TASK_POOL.yaml`; it yields 133 rows, 77 `disputed` and

@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generated-print-variable-value-wave
+active_task: T-L3-generated-print-variable-expression-wave
 
 milestones:
   - id: L0
@@ -9893,7 +9893,7 @@ tasks:
       - component: standard-new
         commit: ea8520b9eee662c0e0bda6a70a242903db6d782f
       - component: fortfront-new
-        commit: e6e95857fcef4fdd362112bbe7a73de725e606ca
+        commit: 8dbaecd611b39c32cd3374af87efdb25f5ab7f83
       - component: ffc-new
         commit: 1436c5eec9735cc19828f80a036ba214eb773659
       - component: fortback-new
@@ -9936,6 +9936,65 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for PRINT of a stored integer literal 23; regenerate with bash tests/e2e/check-generated-chain.sh
+    retry_count: 0
+    integration_cycle_trigger: next_replay
+  - id: T-L3-generated-print-variable-expression-wave
+    milestone: L3
+    title: Generate and execute PRINT of a stored variable expression
+    status: PASS
+    verification: PASS
+    review_state: PASS
+    priority: 108
+    depends_on: [T-L3-generated-print-variable-value-wave]
+    inputs:
+      - component: standard-new
+        commit: ea8520b9eee662c0e0bda6a70a242903db6d782f
+      - component: fortfront-new
+        commit: 8dbaecd611b39c32cd3374af87efdb25f5ab7f83
+      - component: ffc-new
+        commit: 8ee78d0cdad3ae3e3e63f03b079e2b551faf1543
+      - component: fortback-new
+        commit: a9964d93e56950915dc3dfc3e1ead6185a07eed2
+      - normative-source: J3-24-007
+        rules: [R704, R901, R1007, R1033, R1212, R1215]
+        printed-pages: [183, 205, 233, 242, 244, 248]
+      - path: tests/fixtures/l3-ast-program-print-variable-expression-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-expression-missing-second-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-expression-wrong-name-v1.f90
+      - path: tests/negative/l3-ast-program-print-variable-expression-wrong-operator-v1.f90
+      - path: tests/negative/l3-ast-program-write-variable-expression-v1.f90
+    output: >-
+      central PASS for the exact source-backed `x = 23; x = x + 1; PRINT *, x`
+      witness through generated AST-v2, MIR-v0, RISC-V and qemu with exact
+      stdout `24\n`, preserving all 41 earlier routes
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generated-print-variable-expression
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-chain.sh
+        - tests/e2e/oracle_generated_chain.py
+        - tests/fixtures/**
+        - tests/negative/**
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all 41 earlier routes; accept only the source-backed two-
+      assignment variable expression and PRINT witness; reject missing second
+      assignment, wrong variable, wrong operator and WRITE source neighbours.
+      Check exact source bytes/hash, source-file identity, declaration,
+      assignment/expression/PRINT spans and provenance, const/store/load/add/
+      output/return correspondence, three expression AST/MIR/ELF mutation
+      controls and exact qemu bytes `24\n`. No general
+      expression evaluation, name resolution, runtime library or semantic
+      promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-chain.sh
+    final_observable: central generated chain PASS for PRINT of a stored variable expression; regenerate with bash tests/e2e/check-generated-chain.sh
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:
