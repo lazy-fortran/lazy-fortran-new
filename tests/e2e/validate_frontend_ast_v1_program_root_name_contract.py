@@ -15,7 +15,7 @@ class ValidationError(RuntimeError):
 
 
 NAME = re.compile(rb"^[A-Za-z][A-Za-z0-9_]*$")
-RULES = ["R501", "R1401", "R1402", "R1403", "R601", "R603", "R704", "R705", "R801"]
+RULES = ["R501", "R1401", "R1402", "R1403", "C1401", "R601", "R603", "R704", "R705", "R801"]
 PREFIX = b"program "
 MIDDLE = b"\n  integer :: x\nend program "
 SUFFIX = b"\n"
@@ -51,11 +51,13 @@ def main() -> int:
     require(manifest["source_evidence_source_sha256"] == "1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e", "source evidence hash differs")
     require(manifest["source_evidence_rules"] == RULES, "source rules differ")
     require(manifest["source_evidence_pages"] == [53, 54, 67, 68, 80, 117, 317], "source pages differ")
+    require(manifest["source_evidence_canonical_lines"] == [13669, 13670], "canonical constraint lines differ")
     witness_text = witness.read_text(encoding="utf-8")
     require(f"(property {manifest['property']})" in witness_text, "witness property differs")
     require("(pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" in witness_text, "witness PDF hash differs")
     require("(source-sha256 1cf538329c57e4f617adb36f2c7cd91a5a5561c78bcce16ec96f7ff1a9979f9e)" in witness_text, "witness source hash differs")
-    require("(rules R501 R1401 R1402 R1403 R601 R603 R704 R705 R801)" in witness_text, "witness rules differ")
+    require("(rules R501 R1401 R1402 R1403 C1401 R601 R603 R704 R705 R801)" in witness_text, "witness rules differ")
+    require("(canonical-lines 13669 13670)" in witness_text, "witness constraint lines differ")
     oracle_cases = {case["id"]: case for case in oracle["case"]}
     cases = manifest["case"]
     require([case["id"] for case in cases] == ["main", "unit"], "case order differs")

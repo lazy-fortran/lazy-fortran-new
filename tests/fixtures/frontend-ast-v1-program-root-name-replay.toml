@@ -1,0 +1,15 @@
+id = "frontend-ast-v1-program-root-name"
+milestone = "L3"
+boundary = "raw-source-to-typed-frontend-ast-v1-source-derived-program-root-name"
+contract_manifest = "tests/fixtures/frontend-ast-v1-program-root-name-contract.toml"
+contract_manifest_sha256 = "9ff7c4e7c0361ea1ec3cef718673da41654c17393d7b3b0b6451703908b6fc67"
+runner = "tests/e2e/run-frontend-ast-v1-program-root-name.sh"
+runner_sha256 = "dd62a5b30374a13879ba9cf8370d43f83e502a01045f150a584302ff8ebd14fa"
+validator = "tests/e2e/validate_frontend_ast_v1_program_root_name.py"
+validator_sha256 = "45a774e6b22d52b94b07715d461a6497d57b32ea8c4beb111db7295728f64827"
+trace_writer = "tests/e2e/write_frontend_ast_v1_program_root_name_trace.py"
+trace_writer_sha256 = "9e0ada9c977def77a43c7c53974da417c7e229919065e55ba5514140e2002a07"
+trace = "artifacts/traces/frontend-ast-v1-program-root-name.json"
+frontend_component_commit = "157236b11540d6a55676e159062e6f9423577a0d"
+model_calls = 0
+semantic_promotions = 0

@@ -8072,18 +8072,28 @@ tasks:
     inputs:
       - path: research/decisions/D0184-next-program-root-name-boundary.md
         sha256: 5857ee09ef62ed3b4557e0ef124724a21ab9dfeece8d5bf2c057ab7edeb04572
+      - path: research/decisions/D0185-correct-program-root-provenance.md
+        sha256: 6f9b5ea62c2e352f5f77da36f932efcdbb0513055b26c4b02ff6f8a4e310784d
       - path: contracts/frontend-ast-v1.sxs
         sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
       - path: research/decisions/D0183-authoritative-source-derived-name-replay.md
         sha256: 4cac42d76c1c15529a6ff9975bddb50397d336f3403440f46b1bf41725a7c5ad
       - path: contracts/fixtures/frontend-ast-v1-program-root-name.sx
-        sha256: cf2712857fcb0e6057f8e4a078bda32f3c680b648b3e67968ba919c4dc64e1db
+        sha256: ed1e932509f37d812926d33f0bc670e8740879918e0a3d8dba8186a65132f6b5
       - path: tests/fixtures/frontend-ast-v1-program-root-name-contract.toml
-        sha256: 35f3b8e5af402c04087f4f8a401a9541e10527b47aeea1c31f23a6381c06d47a
+        sha256: 9ff7c4e7c0361ea1ec3cef718673da41654c17393d7b3b0b6451703908b6fc67
       - path: tests/golden/frontend-ast-v1-program-root-name.oracle.toml
         sha256: bc51e6b3a3f9370c73d54b4f51b3baeebf46cc5494429599ec11ba2f80b11b90
       - path: tests/e2e/validate_frontend_ast_v1_program_root_name_contract.py
-        sha256: 22a2348740d965467b16664f8f52005b43b9a0939c3961eb91d19c26e64ae1e4
+        sha256: 5fde577c0c8174a09b94e7c719d34ab4c5e537803da27f54f1ddab9c26163989
+      - path: tests/fixtures/frontend-ast-v1-program-root-name-replay.toml
+        sha256: ec526af9dfbee02794ace9f5cc1739f19e1ff4c1ab0ffa72ea6dd69a080646eb
+      - path: tests/e2e/run-frontend-ast-v1-program-root-name.sh
+        sha256: dd62a5b30374a13879ba9cf8370d43f83e502a01045f150a584302ff8ebd14fa
+      - path: tests/e2e/validate_frontend_ast_v1_program_root_name.py
+        sha256: 45a774e6b22d52b94b07715d461a6497d57b32ea8c4beb111db7295728f64827
+      - path: tests/e2e/write_frontend_ast_v1_program_root_name_trace.py
+        sha256: 9e0ada9c977def77a43c7c53974da417c7e229919065e55ba5514140e2002a07
       - path: tests/fixtures/l3-ast-program-root-name-main-v1.f90
         sha256: 80be862de3aa64e45bb7e5c921037eb4aae482cd10ea4e70eac23fdcb9e941fe
       - path: tests/fixtures/l3-ast-program-root-name-unit-v1.f90
@@ -8102,9 +8112,15 @@ tasks:
       owner: controller
       allowed_paths:
         - research/decisions/D0184-next-program-root-name-boundary.md
+        - research/decisions/D0185-correct-program-root-provenance.md
         - contracts/fixtures/frontend-ast-v1-*
         - tests/fixtures/frontend-ast-v1-*
+        - tests/e2e/validate_frontend_ast_v1_program_root_name_contract.py
+        - tests/e2e/validate_frontend_ast_v1_program_root_name.py
+        - tests/e2e/run-frontend-ast-v1-program-root-name.sh
+        - tests/e2e/write_frontend_ast_v1_program_root_name_trace.py
         - tests/golden/frontend-ast-v1-*
+        - tests/negative/l3-ast-program-root-name-mismatch-v1.f90
         - TASK_POOL.yaml
         - STATUS.md
         - MILESTONES.md

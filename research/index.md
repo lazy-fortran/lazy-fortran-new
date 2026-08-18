@@ -449,6 +449,7 @@ Runs recorded: 746
 | [D0182](decisions/D0182-correct-source-derived-name-provenance.md) | amended by D0183 | Amends D0181 | Correct D0181 source-document provenance |
 | [D0183](decisions/D0183-authoritative-source-derived-name-replay.md) | accepted | Amends D0182 | Identify the authoritative source-derived-name replay |
 | [D0184](decisions/D0184-next-program-root-name-boundary.md) | accepted |  | Select the next source-derived main-program-name boundary |
+| [D0185](decisions/D0185-correct-program-root-provenance.md) | accepted | Amends D0184 | Correct the program-root boundary provenance |
 
 ### Proposed decisions
 
