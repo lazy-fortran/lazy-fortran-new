@@ -47,6 +47,8 @@ print_variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-v
 print_variable_23_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-23-v1.f90"
 print_variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-expression-v1.f90"
 print_variable_multiply_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-multiply-expression-v1.f90"
+print_variable_subtract_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-subtract-expression-v1.f90"
+print_variable_divide_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-divide-expression-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -178,6 +180,18 @@ negative_print_variable_multiply_expression_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-multiply-expression-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-multiply-expression-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-multiply-expression-v1.f90"
+)
+negative_print_variable_subtract_expression_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-variable-subtract-expression-missing-second-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-variable-subtract-expression-wrong-name-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-variable-subtract-expression-wrong-operator-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-variable-subtract-expression-v1.f90"
+)
+negative_print_variable_divide_expression_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-variable-divide-expression-missing-second-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-variable-divide-expression-wrong-name-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-variable-divide-expression-wrong-operator-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-variable-divide-expression-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -1230,6 +1244,71 @@ if python3 "$oracle" "$print_variable_multiply_expression_ast_file" \
     exit 1
 fi
 
+for arithmetic_operator in subtract divide; do
+    if [ "$arithmetic_operator" = subtract ]; then
+        arithmetic_source_file="$print_variable_subtract_expression_source_file"
+        arithmetic_negative_files=("${negative_print_variable_subtract_expression_files[@]}")
+        arithmetic_output='21\n'
+        arithmetic_ast_mutation='s/(operator –)/(operator +)/'
+        arithmetic_mir_mutation='s/(opcode sub)/(opcode add)/'
+    else
+        arithmetic_source_file="$print_variable_divide_expression_source_file"
+        arithmetic_negative_files=("${negative_print_variable_divide_expression_files[@]}")
+        arithmetic_output='12\n'
+        arithmetic_ast_mutation='s/(operator \/)/(operator +)/'
+        arithmetic_mir_mutation='s/(opcode div)/(opcode add)/'
+    fi
+    arithmetic_ast_file="$run_dir/print-variable-$arithmetic_operator-expression.frontend.ast.sx"
+    arithmetic_mir_file="$run_dir/print-variable-$arithmetic_operator-expression.mir.sx"
+    arithmetic_elf_file="$run_dir/print-variable-$arithmetic_operator-expression.program.elf"
+    arithmetic_output_file="$run_dir/print-variable-$arithmetic_operator-expression.stdout"
+    (cd "$frontend" && fo exec fortfront-program-unit-v2 "$arithmetic_source_file" \
+            "$arithmetic_ast_file") > /dev/null 2>&1
+    (cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$arithmetic_ast_file" \
+            "$arithmetic_mir_file") > /dev/null 2>&1
+    (cd "$backend" && fo exec fortback-mir-v0 "$arithmetic_mir_file" \
+            "$arithmetic_elf_file") > /dev/null 2>&1
+    for negative_arithmetic in "${arithmetic_negative_files[@]}"; do
+        rm -f "$run_dir/negative-print-variable-$arithmetic_operator-expression.ast.sx"
+        if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_arithmetic" \
+                "$run_dir/negative-print-variable-$arithmetic_operator-expression.ast.sx") > /dev/null 2>&1; then
+            printf 'invalid variable-%s-expression PRINT mutation was accepted\n' "$arithmetic_operator" >&2
+            exit 1
+        fi
+        [ ! -e "$run_dir/negative-print-variable-$arithmetic_operator-expression.ast.sx" ]
+    done
+    qemu-riscv64 "$arithmetic_elf_file" > "$arithmetic_output_file"
+    printf "$arithmetic_output" | cmp -s - "$arithmetic_output_file"
+    python3 "$oracle" "$arithmetic_ast_file" "$arithmetic_mir_file" \
+        "$arithmetic_elf_file" main integer print-variable-expression "$arithmetic_source_file"
+    arithmetic_mutated_ast_file="$run_dir/print-variable-$arithmetic_operator-expression.mutated-operator.ast.sx"
+    sed "$arithmetic_ast_mutation" "$arithmetic_ast_file" > "$arithmetic_mutated_ast_file"
+    if python3 "$oracle" "$arithmetic_mutated_ast_file" "$arithmetic_mir_file" \
+            "$arithmetic_elf_file" main integer print-variable-expression "$arithmetic_source_file" \
+            > /dev/null 2>&1; then
+        printf 'variable-%s-expression AST operator mutation was accepted\n' "$arithmetic_operator" >&2
+        exit 1
+    fi
+    arithmetic_mutated_mir_file="$run_dir/print-variable-$arithmetic_operator-expression.mutated-opcode.mir.sx"
+    sed "$arithmetic_mir_mutation" "$arithmetic_mir_file" > "$arithmetic_mutated_mir_file"
+    if python3 "$oracle" "$arithmetic_ast_file" "$arithmetic_mutated_mir_file" \
+            "$arithmetic_elf_file" main integer print-variable-expression "$arithmetic_source_file" \
+            > /dev/null 2>&1; then
+        printf 'variable-%s-expression MIR opcode mutation was accepted\n' "$arithmetic_operator" >&2
+        exit 1
+    fi
+    arithmetic_mutated_elf_file="$run_dir/print-variable-$arithmetic_operator-expression.mutated.elf"
+    cp "$arithmetic_elf_file" "$arithmetic_mutated_elf_file"
+    printf '\0' | dd of="$arithmetic_mutated_elf_file" bs=1 seek=0 count=1 conv=notrunc \
+        > /dev/null 2>&1
+    if python3 "$oracle" "$arithmetic_ast_file" "$arithmetic_mir_file" \
+            "$arithmetic_mutated_elf_file" main integer print-variable-expression "$arithmetic_source_file" \
+            > /dev/null 2>&1; then
+        printf 'variable-%s-expression ELF mutation was accepted\n' "$arithmetic_operator" >&2
+        exit 1
+    fi
+done
+
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
 envelope_five_elf_file="$run_dir/envelope-five.program.elf"
@@ -1318,8 +1397,8 @@ python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
 oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 43 ]; then
-    printf 'generated chain route count: expected 43, got %s\n' \
+if [ "$oracle_route_count" -ne 45 ]; then
+    printf 'generated chain route count: expected 45, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi

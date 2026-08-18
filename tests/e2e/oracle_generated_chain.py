@@ -568,8 +568,20 @@ def main() -> None:
             b"end program main\n"
         )
         expected_source_multiply = expected_source_expression.replace(b"x + 1", b"x * 2")
+        expected_source_subtract = expected_source_expression.replace(b"x + 1", "x – 2".encode())
+        expected_source_divide = (
+            b"program main\n"
+            b"  integer :: x\n"
+            b"  x = 24\n"
+            b"  x = x / 2\n"
+            b"  print *, x\n"
+            b"end program main\n"
+        )
         is_multiply = source_bytes == expected_source_multiply
-        is_expression = source_bytes == expected_source_expression or is_multiply
+        is_subtract = source_bytes == expected_source_subtract
+        is_divide = source_bytes == expected_source_divide
+        is_expression = source_bytes == expected_source_expression or is_multiply or \
+            is_subtract or is_divide
         if source_bytes == expected_source_17:
             expected_literal = 17
             expected_source_hash = "e30b7f0f50e828d6dea378ed426ae5117691a6943dbfb63da590b074d33730e1"
@@ -577,9 +589,13 @@ def main() -> None:
             expected_literal = 23
             expected_source_hash = "390dbc3f3f29b0bcb1fedcf37aaee26f1e37c6611cdc8d4528a6f81f66c4c24b"
         elif is_expression:
-            expected_literal = 23
+            expected_literal = 24 if is_divide else 23
             if is_multiply:
                 expected_source_hash = "5714f3e548f0eafbc1853be1c1ef3bf9a3e685e475ffcc673621ddaf0a2aa53e"
+            elif is_subtract:
+                expected_source_hash = "dbe6766fcf84970c11a7a2d0c7680b45aea80ee6628df71af72a6e48a469eac7"
+            elif is_divide:
+                expected_source_hash = "701ce2b90e5b8eec3c6a21ccc11b1054a6fabd64b7947204fd2b04ba96a7e02b"
             else:
                 expected_source_hash = "57598821b9bf538e1f9781c9d9a1a3f18482ec2f1eae95130400bb9848971f15"
         else:
@@ -589,10 +605,14 @@ def main() -> None:
         expected_elf_hash = {
             17: "7f0355d86cc212318582099617ebea686ff4df43f949b5033ec20859734aa355",
             23: "10fd1f27538000dc6c1544eb12dea40b7e2341851ceb2bd17b9b29c75ed91238",
-        }[expected_literal]
+        }.get(expected_literal, "")
         if is_expression:
             if is_multiply:
                 expected_elf_hash = "8e1b8646e3b8ec689596d844578ce4ee8579ced6c9c4ce4af3bfd520fa126474"
+            elif is_subtract:
+                expected_elf_hash = "cec67a413a9e9774cae8c5a5336ebc4b124239e37c0ab989834075f92ccb8605"
+            elif is_divide:
+                expected_elf_hash = "bd295eb5eaa9cac3faa6d7312fe2879ef7bf973c2e6970479e2b7177d25edc39"
             else:
                 expected_elf_hash = "d57426ffb421821ae2f450d6694c65523fcb9e10fcf91f45a321e87fe19cb6f4"
         if hashlib.sha256(elf).hexdigest() != expected_elf_hash:
@@ -605,20 +625,25 @@ def main() -> None:
         if ast.count(f"(source-hash {expected_source_hash_marker})") != expected_span_count:
             fail("stored-variable AST source-hash identity is wrong")
         if is_expression:
-            expression_operator = "*" if is_multiply else "+"
-            expression_rhs = 2 if is_multiply else 1
-            expression_opcode = "mul" if is_multiply else "add"
+            expression_operator = "*" if is_multiply else \
+                "–" if is_subtract else "/" if is_divide else "+"
+            expression_rhs = 2 if (is_multiply or is_subtract or is_divide) else 1
+            expression_opcode = "mul" if is_multiply else \
+                "sub" if is_subtract else "div" if is_divide else "add"
+            expression_left = expected_literal
+            print_start_byte = 51 if is_subtract else 49
+            print_end_byte = 62 if is_subtract else 60
             required_expression = [
                 "(program-unit-v2 ", "(root (program-root (name main)",
                 "(declaration-count 1)", "(variable-count 1)",
                 "(variable (variable-declaration (type-spec integer) (name x)",
                 "(execution-part (assignment-sequence (assignment-count 2)",
-                "(kind integer-literal)", "(left-operand 23)",
+                "(kind integer-literal)", f"(left-operand {expression_left})",
                 "(kind binary-expression)", f"(operator {expression_operator})",
                 "(left-operand x)", "(right-operand 1)",
                 "(start-byte 28)", "(end-byte 34)",
                 "(start-byte 37)", "(end-byte 47)",
-                "(start-byte 49)", "(end-byte 60)",
+                f"(start-byte {print_start_byte})", f"(end-byte {print_end_byte})",
                 "(output-kind variable)", "(output-name x)",
                 "(statement-rule R1212)", "(format-rule R1215)",
                 "(output-rule R901)", "(source-document J3-24-007)",
@@ -640,7 +665,7 @@ def main() -> None:
                     mir.count(f"(opcode {expression_opcode})") != 1 or \
                     mir.count("(opcode output)") != 1 or \
                     mir.count("(opcode return)") != 1 or \
-                    mir.count("(literal 23)") != 1 or \
+                    mir.count(f"(literal {expression_left})") != 1 or \
                     mir.count(f"(literal {expression_rhs})") != 1 or \
                     mir.count("(storage-key x)") != 4 or \
                     mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \

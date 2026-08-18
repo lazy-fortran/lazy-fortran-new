@@ -182,7 +182,7 @@ The program-unit-v2 envelope now carries the declaration and source-backed R509
 execution-part into that same generated chain. Its five- and six-assignment
 extensions use the distinct generated MIR source rules
 `frontend-ast-v2/execution-part-5` and
-`frontend-ast-v2/execution-part-6`. The central replay passes 43 routes;
+`frontend-ast-v2/execution-part-6`. The central replay passes 45 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
 six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and
@@ -242,11 +242,11 @@ output and three expression-specific artifact mutations. The multiplication
 successor is now integrated as the exact witness
 `x = 23; x = x * 2; PRINT *, x`, with expected output `46\n`, four rejected
 source neighbours and three rejected multiplication-specific artifact
-mutations. The next prepared batch extends the generated policy with stored
-subtraction `x = x – 2` and integer division `x = x / 2`, with positive outputs
-`21\n` and `12\n` and eight negative neighbours. Three isolated production
-workers are implementing the batch from the promoted pins; the controller will
-add both routes only after the central oracle and clean replay pass.
+mutations. The arithmetic successor is now integrated as stored subtraction
+`x = x – 2` and integer division `x = x / 2`, with positive outputs `21\n` and
+`12\n`, eight negative neighbours and six rejected artifact mutations. The
+next generated source-backed fact available for a future route is R1008 power
+operator `**`; it is not yet executable compiler behavior.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
