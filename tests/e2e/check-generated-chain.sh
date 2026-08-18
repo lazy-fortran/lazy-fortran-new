@@ -23,6 +23,7 @@ literal_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-lite
 literal_boundary_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-2047-assignment-v1.f90"
 variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-variable-add-assignment-v1.f90"
 sequence_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-two-assignment-v1.f90"
+sequence_three_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-three-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -48,6 +49,10 @@ negative_sequence_files=(
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-wrong-variable-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-wrong-operator-v1.f90"
+)
+negative_sequence_three_files=(
+    "$ROOT/tests/negative/l3-ast-program-integer-three-assignment-wrong-operator-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-three-assignment-missing-third-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -407,5 +412,36 @@ fi
 [ "$sequence_status" -eq 8 ]
 python3 "$oracle" "$sequence_ast_file" "$sequence_mir_file" \
     "$sequence_elf_file" main integer sequence
+
+sequence_three_ast_file="$run_dir/sequence-three.frontend.ast.sx"
+sequence_three_mir_file="$run_dir/sequence-three.mir.sx"
+sequence_three_elf_file="$run_dir/sequence-three.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$sequence_three_source_file" \
+        "$sequence_three_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$sequence_three_ast_file" \
+        "$sequence_three_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$sequence_three_mir_file" \
+        "$sequence_three_elf_file") > /dev/null 2>&1
+for negative_sequence_three in "${negative_sequence_three_files[@]}"; do
+    rm -f "$run_dir/negative-sequence-three.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_sequence_three" \
+            "$run_dir/negative-sequence-three.ast.sx") > /dev/null 2>&1; then
+        if grep -q '^(assignment-sequence ' "$run_dir/negative-sequence-three.ast.sx" && \
+                grep -q '(assignment-count 3)' "$run_dir/negative-sequence-three.ast.sx"; then
+            printf '%s\n' 'invalid three-assignment sequence source was promoted' >&2
+            exit 1
+        fi
+    else
+        [ ! -e "$run_dir/negative-sequence-three.ast.sx" ]
+    fi
+done
+if qemu-riscv64 "$sequence_three_elf_file" > /dev/null; then
+    sequence_three_status=0
+else
+    sequence_three_status=$?
+fi
+[ "$sequence_three_status" -eq 9 ]
+python3 "$oracle" "$sequence_three_ast_file" "$sequence_three_mir_file" \
+    "$sequence_three_elf_file" main integer sequence-3
 
 printf '%s\n' 'generated compiler chain PASS'

@@ -8774,24 +8774,24 @@ tasks:
   - id: T-L3-generated-three-assignment-sequence-wave
     milestone: L3
     title: Extend generated storage transport to three ordered assignments
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 95
     depends_on: [T-L3-generated-two-assignment-sequence-wave]
     inputs:
       - component: fortfront-new
-        commit: cb9469ff3c4bc9ba62a020eae4ec3d1fa893ec23
+        commit: e3a568a7167f5603c75087061dee9d4abc0b5e21
       - component: ffc-new
-        commit: b29d63a90327cd1f0ff3c1dbec6924ac47d31e47
+        commit: 0cbc4d0471506c23d797760455da85a81f7443cd
       - component: fortback-new
-        commit: d612f2e67d81e23be6b266c9ee0208cf2ab65a68
+        commit: e7566c5d5bbc5fa35b5e664179606161b9c32de3
       - path: tests/fixtures/l3-ast-program-integer-three-assignment-v1.f90
       - path: tests/negative/l3-ast-program-integer-three-assignment-wrong-operator-v1.f90
       - path: tests/negative/l3-ast-program-integer-three-assignment-missing-third-v1.f90
     output: >-
-      central PASS for the exact ordered x = 7; x = x + 1; x = x + 1 source,
-      generated eleven-instruction MIR and qemu exit 9, or one exact blocker
+      central replay PASS for the exact ordered x = 7; x = x + 1; x = x + 1
+      source, generated eleven-instruction MIR and qemu exit 9
     integration: component workers then controller replay
     estimated_cost: medium
     parallel_group: l3-generated-sequence-3

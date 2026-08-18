@@ -33,13 +33,13 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
 
-    if mode != "sequence" and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode not in ("sequence", "sequence-3") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode != "sequence" and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode not in ("sequence", "sequence-3") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode != "sequence" and ast.count("(variable (variable-declaration ") != 1:
+    if mode not in ("sequence", "sequence-3") and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode != "sequence" and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode not in ("sequence", "sequence-3") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
@@ -61,6 +61,23 @@ def main() -> None:
                 mir.count("(source-rule frontend-ast-v1/storage-sequence)") != 7 or \
                 "(literal 7)" not in mir or "(literal 1)" not in mir:
             fail("MIR-v0 two-assignment sequence shape is wrong")
+    elif mode == "sequence-3":
+        if not ast.startswith("(assignment-sequence ") or \
+                "(assignment-count 3)" not in ast or \
+                ast.count("(assignment (assignment-stmt ") != 3 or \
+                ast.count("(kind binary-expression)") != 2 or \
+                "(kind integer-literal)" not in ast or \
+                ast.count("(operator +) (left-operand x) (right-operand 1)") != 2:
+            fail("AST-v1 three-assignment sequence witness is wrong")
+        if mir.count("(opcode const)") != 3 or \
+                mir.count("(opcode store)") != 3 or \
+                mir.count("(opcode load)") != 2 or \
+                mir.count("(opcode add)") != 2 or \
+                mir.count("(opcode return)") != 1 or \
+                mir.count("(storage-key x)") != 5 or \
+                mir.count("(source-rule frontend-ast-v1/storage-sequence-3)") != 11 or \
+                "(literal 7)" not in mir or "(literal 1)" not in mir:
+            fail("MIR-v0 three-assignment sequence shape is wrong")
     elif mode == "declaration":
         if mir.count("source-rule frontend-ast-v1/program") != 2:
             fail("MIR-v0 source correspondence is wrong")
@@ -134,7 +151,8 @@ def main() -> None:
             fail("MIR-v0 variable storage identity is wrong")
     else:
         fail("unsupported generated chain mode")
-    expected_result_count = 7 if mode == "sequence" else \
+    expected_result_count = 11 if mode == "sequence-3" else \
+        7 if mode == "sequence" else \
         5 if mode in ("expression", "multiplication", "division", "subtraction", "variable-expression") else \
         3 if mode in ("literal", "literal-boundary") else 2
     if mir.count(f"(kind {mir_kind}) (type {mir_type})") != expected_result_count:
