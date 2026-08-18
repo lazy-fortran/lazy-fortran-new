@@ -1,0 +1,16 @@
+id = "frontend-ast-v1-double-precision"
+milestone = "L3"
+boundary = "raw-source-to-typed-frontend-ast-v1-source-derived-double-precision-type-spec"
+contract_manifest = "tests/fixtures/frontend-ast-v1-double-precision-contract.toml"
+contract_manifest_sha256 = "9c8625a5ad4737189dfb1c6cf03bfec99cff80186152fba83520ee9be9bdd677"
+runner = "tests/e2e/run-frontend-ast-v1-double-precision.sh"
+runner_sha256 = "1919ff8e33843d6b877cd783b3d10ab4c3ac1b0bd1513f92ed242e3e14c40bd4"
+validator = "tests/e2e/validate_frontend_ast_v1_double_precision.py"
+validator_sha256 = "63f081f2f3be807b4144783110fb05206a7eac38a8157fd9e99ccd7e2c6929d3"
+trace_writer = "tests/e2e/write_frontend_ast_v1_double_precision_trace.py"
+trace_writer_sha256 = "0845c34315316159de0d1ff6f17612b1797a7f747a6630ea1ec76d4d7c03e7f0"
+trace = "artifacts/traces/frontend-ast-v1-double-precision.json"
+trace_sha256 = "PLACEHOLDER-trace-sha256"
+frontend_component_commit = "c91595db71aa353564ec5a7f8c2a61b80e82b389"
+model_calls = 0
+semantic_promotions = 0

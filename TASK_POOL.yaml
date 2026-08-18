@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-double-precision-implementation
+  - T-L3-frontend-double-precision-representation-correction
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-double-precision-implementation
+active_task: T-L3-frontend-double-precision-representation-correction
 
 milestones:
   - id: L0
@@ -8502,6 +8502,58 @@ tasks:
     final_observable: independently reviewed frozen DOUBLE PRECISION contract
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-L3-frontend-double-precision-representation-correction
+    milestone: L3
+    title: Reconcile DOUBLE PRECISION with the existing AST-v1 atom representation
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-double-precision-contract]
+    inputs:
+      - path: research/decisions/D0188-canonicalize-double-precision-ast-atom.md
+        sha256: 2ab2b9e45402ce829474c3dd61ca5a764d6d2678ca707462988879c0e395ac12
+      - path: contracts/frontend-ast-v1.sxs
+        sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+      - path: contracts/fixtures/frontend-ast-v1-double-precision.sx
+        sha256: 4730b6877450066a37f83453ab95ce1244d0336a2f429ff1b608629a40fe54ef
+      - path: tests/fixtures/frontend-ast-v1-double-precision-contract.toml
+        sha256: 9c8625a5ad4737189dfb1c6cf03bfec99cff80186152fba83520ee9be9bdd677
+      - path: tests/golden/frontend-ast-v1-double-precision.oracle.toml
+        sha256: 093c703d65e1170c5c97b8455838abf883e435570f39ccb0ab31054fec62b482
+      - path: tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
+        sha256: 67fcdaa05eb039d6c60584eade3102bdc7fbc42e8727bea3e9463179698914d6
+      - research/runs/2026-08.jsonl#R000720
+    output: PASS-BOUNDED-ONLY canonical DOUBLE PRECISION AST-v1 contract
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - research/decisions/D0188-*.md
+        - contracts/fixtures/frontend-ast-v1-double-precision.sx
+        - tests/fixtures/frontend-ast-v1-double-precision-contract.toml
+        - tests/golden/frontend-ast-v1-double-precision.oracle.toml
+        - tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+        - MILESTONES.md
+    verifier: >-
+      verify that the exact source spelling remains double precision while the
+      existing AST-v1 name atom is normalized to double-precision; retain the
+      REAL changed-type control and malformed negative. Do not revise the
+      schema or broaden intrinsic-type parsing.
+    verifier_command: >-
+      python3 tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
+      tests/fixtures/frontend-ast-v1-double-precision-contract.toml &&
+      scripts/check-contracts.sh && scripts/check-decisions.sh && git diff --check
+    final_observable: independently reviewed corrected DOUBLE PRECISION contract
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
   - id: T-L3-frontend-double-precision-implementation
     milestone: L3
     title: Implement the bounded source-derived DOUBLE PRECISION type-spec boundary
@@ -8509,24 +8561,23 @@ tasks:
     verification: PENDING
     review_state: PENDING
     priority: 80
-    depends_on: [T-L3-frontend-double-precision-contract]
+    depends_on: [T-L3-frontend-double-precision-representation-correction]
     inputs:
-      - path: research/decisions/D0187-next-bounded-double-precision-type-spec.md
-        sha256: 6a4dad0f9fa57b9a844d8881ba8cda40e9578951d0918bb01d9a8d78f0c01eb
+      - path: research/decisions/D0188-canonicalize-double-precision-ast-atom.md
+        sha256: 2ab2b9e45402ce829474c3dd61ca5a764d6d2678ca707462988879c0e395ac12
       - path: contracts/fixtures/frontend-ast-v1-double-precision.sx
-        sha256: f488b04512c382fc218f403eac8be4f8a6c8ba123c8dbdef3359f60a930d7cd7
+        sha256: 4730b6877450066a37f83453ab95ce1244d0336a2f429ff1b608629a40fe54ef
       - path: tests/fixtures/frontend-ast-v1-double-precision-contract.toml
-        sha256: 463246e3272cd5d5654bfc0b69393fcb3b66cc862aa6c0fb2c0225f62e270fac
+        sha256: 9c8625a5ad4737189dfb1c6cf03bfec99cff80186152fba83520ee9be9bdd677
       - path: tests/fixtures/l3-ast-program-double-precision-main-v1.f90
         sha256: 9bc6d9e602f629355e2c4772d5cbf58df2a4e3204945841e93643e6091decb26
       - path: tests/negative/l3-ast-program-double-precision-missing-entity-v1.f90
         sha256: 3c4beadfc75dd9f1ac30123e888bbda37e653aabaa83653e679f43b09d7faad1
       - path: tests/golden/frontend-ast-v1-double-precision.oracle.toml
-        sha256: 013600c36c22a45fa62f72204dd1a1c0ef01cefe4f408bb1ffea57498463831b
-      - path: artifacts/reports/L3/frontend-ast-v1-double-precision-contract-focused-review-v1.md
-        sha256: fc5f6fac7a21bec3b1812baccb733c61492d1206509eee0df98021bb43919353
-      - research/runs/2026-08.jsonl#R000718
-      - research/runs/2026-08.jsonl#R000719
+        sha256: 093c703d65e1170c5c97b8455838abf883e435570f39ccb0ab31054fec62b482
+      - path: tests/e2e/validate_frontend_ast_v1_double_precision_contract.py
+        sha256: 67fcdaa05eb039d6c60584eade3102bdc7fbc42e8727bea3e9463179698914d6
+      - research/runs/2026-08.jsonl#R000720
       - component: fortfront-new
         commit: c91595db71aa353564ec5a7f8c2a61b80e82b389
     output: one pushed fortfront implementation commit plus central DOUBLE PRECISION replay, or one precise blocker
@@ -8535,14 +8586,15 @@ tasks:
     parallel_group: fortfront-exclusive
     ownership:
       component: fortfront-new
-      worktree: /home/ert/code/fortfront-new-l4-double-precision-medium
+      worktree: /home/ert/code/fortfront-new-l4-double-precision-canonical-medium
       owner: controller
       allowed_paths:
         - src/fortfront_frontend.f90
     verifier: >-
       implement only source extraction for program main / double precision :: x /
-      end program main; preserve existing REAL and integer behavior, reject the
-      malformed DOUBLE PRECISION declaration, and keep frontend-v0/MIR-v0.
+      end program main; emit canonical AST-v1 atom double-precision, preserve
+      existing REAL and integer behavior, reject the malformed declaration, and
+      keep frontend-v0/MIR-v0.
       Do not add kind selectors, general type parsing, general program parsing,
       semantic analysis or schema changes.
     verifier_command: >-

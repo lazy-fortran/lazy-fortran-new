@@ -24,7 +24,8 @@
     (expected-outcome accepted)
     (root-name main)
     (program-declaration-name main)
-    (variable-type double precision)
+    (source-type-spec double precision)
+    (variable-type double-precision)
     (variable-name x))
   (mutation
     (id real-control)

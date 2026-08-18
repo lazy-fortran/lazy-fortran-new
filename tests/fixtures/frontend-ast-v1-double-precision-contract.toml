@@ -2,11 +2,13 @@ id = "frontend-ast-v1-double-precision"
 milestone = "L3"
 boundary = "raw-source-to-typed-frontend-ast-v1-source-derived-double-precision-type-spec"
 property = "source-derived-double-precision-type-spec"
+representation_decision = "research/decisions/D0188-canonicalize-double-precision-ast-atom.md"
+representation_decision_sha256 = "2ab2b9e45402ce829474c3dd61ca5a764d6d2678ca707462988879c0e395ac12"
 origin = "LLM"
 contract_schema = "contracts/frontend-ast-v1.sxs"
 contract_witness = "contracts/fixtures/frontend-ast-v1-double-precision.sx"
 contract_schema_sha256 = "0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274"
-contract_witness_sha256 = "f488b04512c382fc218f403eac8be4f8a6c8ba123c8dbdef3359f60a930d7cd7"
+contract_witness_sha256 = "4730b6877450066a37f83453ab95ce1244d0336a2f429ff1b608629a40fe54ef"
 source_evidence_document = "J3-24-007"
 source_evidence_pdf_sha256 = "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2"
 source_evidence_standardir = ".cache/runs/E0171/R000433-provenance-replay/standardir.sx"
@@ -31,7 +33,7 @@ source_evidence_canonical_line_text = [
   "13 stmt is used. If included, it shall be identical to the program-name specified in the program-stmt."
 ]
 expected_oracle = "tests/golden/frontend-ast-v1-double-precision.oracle.toml"
-expected_oracle_sha256 = "013600c36c22a45fa62f72204dd1a1c0ef01cefe4f408bb1ffea57498463831b"
+expected_oracle_sha256 = "093c703d65e1170c5c97b8455838abf883e435570f39ccb0ab31054fec62b482"
 negative = "tests/negative/l3-ast-program-double-precision-missing-entity-v1.f90"
 negative_sha256 = "3c4beadfc75dd9f1ac30123e888bbda37e653aabaa83653e679f43b09d7faad1"
 model_calls = 0
@@ -44,7 +46,8 @@ source_sha256 = "9bc6d9e602f629355e2c4772d5cbf58df2a4e3204945841e93643e6091decb2
 expected_outcome = "ACCEPTED"
 expected_root_name = "main"
 expected_program_declaration_name = "main"
-expected_variable_type = "double precision"
+expected_source_type_spec = "double precision"
+expected_variable_type = "double-precision"
 expected_variable_name = "x"
 
 [[case]]

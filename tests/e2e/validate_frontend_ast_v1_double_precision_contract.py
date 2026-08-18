@@ -56,6 +56,10 @@ def main() -> int:
     witness_text = witness.read_text(encoding="utf-8")
     require(manifest["boundary"] == "raw-source-to-typed-frontend-ast-v1-source-derived-double-precision-type-spec", "boundary differs")
     require(manifest["property"] == "source-derived-double-precision-type-spec", "property differs")
+    require(manifest["representation_decision"] == "research/decisions/D0188-canonicalize-double-precision-ast-atom.md", "representation decision differs")
+    representation_decision = root / manifest["representation_decision"]
+    require(representation_decision.is_file() and digest(representation_decision) == manifest["representation_decision_sha256"], "representation decision path/hash differs")
+    require(manifest["representation_decision_sha256"] == "2ab2b9e45402ce829474c3dd61ca5a764d6d2678ca707462988879c0e395ac12", "representation decision pin differs")
     require(manifest["origin"] == "LLM", "fixture origin differs")
     require(manifest["model_calls"] == 0 and manifest["semantic_promotions"] == 0, "promotion guard differs")
     require(digest(schema) == manifest["contract_schema_sha256"], "schema hash differs")
@@ -79,18 +83,22 @@ def main() -> int:
     oracle_cases = {case["id"]: case for case in oracle["case"]}
     require(list(expected) == ["double-precision", "real-control"], "case order differs")
     require(set(expected) == set(oracle_cases), "oracle cases differ")
-    expected_types = {"double-precision": "double precision", "real-control": "real"}
+    expected_types = {"double-precision": "double-precision", "real-control": "real"}
     for case_id, case in expected.items():
         source = root / case["source"]
         require(digest(source) == case["source_sha256"], f"{case_id} source hash differs")
         require(source.read_bytes() == (DOUBLE_SOURCE if case_id == "double-precision" else REAL_SOURCE), f"{case_id} source spelling differs")
         require(case["expected_outcome"] == "ACCEPTED" and case["expected_variable_type"] == expected_types[case_id], f"{case_id} expected fields differ")
+        if case_id == "double-precision":
+            require(case["expected_source_type_spec"] == "double precision", "source type spelling differs")
         require(case["expected_root_name"] == "main" and case["expected_program_declaration_name"] == "main" and case["expected_variable_name"] == "x", f"{case_id} identity fields differ")
         oracle_case = oracle_cases[case_id]
         require(oracle_case["expected_outcome"] == "ACCEPTED" and oracle_case["expected_variable_type"] == expected_types[case_id], f"{case_id} oracle fields differ")
         require(oracle_case["expected_root_name"] == "main" and oracle_case["expected_program_declaration_name"] == "main" and oracle_case["expected_variable_name"] == "x", f"{case_id} oracle identity fields differ")
         require(f"(id {case_id})" in witness_text and f"(source {case['source']})" in witness_text, f"{case_id} witness differs")
         require(f"(source-sha256 {case['source_sha256']})" in witness_text and f"(variable-type {case['expected_variable_type']})" in witness_text, f"{case_id} witness hash/type differs")
+        if case_id == "double-precision":
+            require("(source-type-spec double precision)" in witness_text, "source type spelling witness differs")
         require("(root-name main)" in witness_text and "(program-declaration-name main)" in witness_text and "(variable-name x)" in witness_text, f"{case_id} witness identity differs")
     require(expected["double-precision"]["source"] != expected["real-control"]["source"], "changed-type control reuses positive source")
     negative = root / manifest["negative"]

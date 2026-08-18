@@ -1,7 +1,7 @@
 # D0187. Select the next bounded DOUBLE PRECISION type-spec boundary
 
 Date: 2026-08-18
-Status: accepted
+Status: amended by D0188
 
 ## Context
 

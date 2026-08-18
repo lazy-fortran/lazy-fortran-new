@@ -10,7 +10,8 @@ id = "double-precision"
 expected_outcome = "ACCEPTED"
 expected_root_name = "main"
 expected_program_declaration_name = "main"
-expected_variable_type = "double precision"
+expected_source_type_spec = "double precision"
+expected_variable_type = "double-precision"
 expected_variable_name = "x"
 
 [[case]]
