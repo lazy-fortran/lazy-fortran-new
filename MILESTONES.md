@@ -1159,8 +1159,9 @@ R000661 and focused reviews R000664/R000665 pass. The exact typed-AST leaf is
 promoted only as a bounded claim. D0176 now freezes the next additive source
 shape `integer :: y` using the same v1 schema and malformed neighbour; D0177
 narrows the claim to that exact y witness. Fortfront `d20041c` passes its
-component gate and the next task is the central E0236 replay. Full M3 remains
-open.
+component gate, and E0236/R000670/R000671/R000672 promote the exact y leaf
+only. D0178 now freezes the changed-name `z` contract before producer work;
+full M3 remains open.
 
 ## M1-M2 — Source-valid StandardIR and sane generated grammars
 

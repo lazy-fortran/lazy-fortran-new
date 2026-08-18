@@ -482,8 +482,10 @@ bounded claim by E0235. D0176 now freezes the next additive source shape
 `integer :: y` using the same v1 schema and malformed neighbour. The producer
 is pinned at fortfront `d20041c`; its central replay is active. D0177 narrows
 the claim to the exact y witness and explicitly refuses general source-name
-derivation. The C768 implementation result is parked and is not promoted by
-this pivot.
+derivation. E0236/R000670/R000671/R000672 now promote that exact y leaf only;
+R000668 retains the rejected broader wording. D0178 freezes the changed-name
+`z` contract as the next task. The C768 implementation result is parked and
+is not promoted by this pivot.
 
 ## Next executable task
 
@@ -495,9 +497,12 @@ the isolated fortfront AST v1 implementation, which is complete at pinned
 fortfront `d20041c`; E0235/R000661, focused reviews R000664/R000665 and the
 path-independent/schema-lineage gates pass. D0176/D0177 freeze the exact y
 witness boundary, and the y producer passes its component gate. The active
-task is the central E0236 replay. This remains outside full M3.
-Do not resume E0172 or start broad semantic work. The C768 worker result
-remains parked and is not promoted by this pivot.
+task is the central E0236 replay. The replay and two final focused reviews now
+pass for the exact y witness only. The active task is the D0178 changed-name
+contract, which must pass `scripts/check-contracts.sh` before another producer
+implementation. This remains outside full M3. Do not resume E0172 or start
+broad semantic work. The C768 worker result remains parked and is not promoted
+by this pivot.
 
 The completed C744 contract selected by D0150/E0205 is a bounded oracle only:
 typed END TYPE name presence, name relation and context, a deterministic

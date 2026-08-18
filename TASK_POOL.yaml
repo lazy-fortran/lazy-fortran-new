@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-ast-v1-name-replay
+  - T-L3-frontend-ast-v1-name-mutation-contract
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-ast-v1-name-replay
+active_task: T-L3-frontend-ast-v1-name-mutation-contract
 
 milestones:
   - id: L0
@@ -7535,13 +7535,13 @@ tasks:
   - id: T-L3-frontend-ast-v1-name-replay
     milestone: L3
     title: Replay the exact typed AST v1 y witness
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-fortfront-typed-variable-name]
     inputs:
-      - research/decisions/D0176-l3-typed-variable-name-successor.md
+      - research/decisions/D0177-l3-y-witness-claim-boundary.md
       - research/experiments/E0236-can-one-source-derived-typed-variable-na/manifest.yaml
       - path: tests/fixtures/frontend-ast-v1-name-replay.toml
         sha256: 96039a32b80d33cf11767bcd27d6cfdf6c515913c8f5e2e4559690d640fce019
@@ -7553,9 +7553,15 @@ tasks:
         sha256: 897296d1419d5c9ea5be34c08b44a3c480b5b12fefd46771310fab9cf3206b0b
       - path: artifacts/traces/frontend-ast-v1-name.json
         sha256: 0f89c638f4f9eb7900989c275d0d810838f99b9c1d1613615c19c17f9c7f64ea
+      - path: artifacts/reports/L3/frontend-ast-v1-name-focused-review-v1.md
+        sha256: 2c62617f102e978a5c243a8d70de0eda3a7051428fd11e4eb5b248c5f6897a8d
+      - research/runs/2026-08.jsonl#R000667
+      - research/runs/2026-08.jsonl#R000670
+      - research/runs/2026-08.jsonl#R000671
+      - research/runs/2026-08.jsonl#R000672
       - component: fortfront-new
         commit: d20041cc8854cd4bf501e5ac8b890c9782e32204
-    output: clean exact-y raw-source-to-typed-AST trace and independent oracle result
+    output: PASS-BOUNDED-ONLY exact-y raw-source-to-typed-AST trace and independent oracle result
     integration: controller-only
     estimated_cost: small
     parallel_group: controller-exclusive
@@ -7571,6 +7577,7 @@ tasks:
         - tests/fixtures/frontend-ast-v1-name-replay.toml
         - artifacts/traces/frontend-ast-v1-name.json
         - artifacts/reports/L3/frontend-ast-v1-name-raw-source-replay.md
+        - artifacts/reports/L3/frontend-ast-v1-name-focused-review-v1.md
         - research/experiments/E0236-*
         - research/runs/2026-08.jsonl
         - TASK_POOL.yaml
@@ -7584,11 +7591,57 @@ tasks:
       promotions. Promote only this exact y witness, not general source-name
       derivation or identifier parsing.
     verifier_command: >-
-      AST_EXPECTED_CENTRAL_COMMIT=eaca690504abc1a2c218d86e38fdc188b199540d
+      AST_EXPECTED_CENTRAL_COMMIT=b5910ac46432f411edb7f436d119ca68b39acf1e
       tests/e2e/run-frontend-ast-v1-name.sh --fresh
     final_observable: typed AST v1 oracle PASS for exact y witness with malformed neighbour rejected
     retry_count: 0
     integration_cycle_trigger: milestone_pass
+  - id: T-L3-frontend-ast-v1-name-mutation-contract
+    milestone: L3
+    title: Freeze an independent changed-name contract for typed AST v1
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-ast-v1-name-replay]
+    inputs:
+      - path: research/decisions/D0178-l3-name-mutation-contract.md
+        sha256: 6824281ffab31380771d33dbee3231c8e42554dacde0161eea09eda90e1b6df3
+      - path: contracts/frontend-ast-v1.sxs
+        sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+      - path: contracts/fixtures/frontend-ast-v1-name-mutation.sx
+        sha256: ed592f01d9cc6149933c6464794d60a282788af98c7e8cb27609953c8194b11f
+      - path: tests/fixtures/frontend-ast-v1-name-mutation.toml
+        sha256: 702e5e520c062bec102cf3f5d8daa787afdfdf6ce9ce64e7ebfa9d70dd4b3af2
+      - path: tests/fixtures/l3-ast-variable-name-mutation-v1.f90
+        sha256: afc8d9b191524061008c3ce5bef6f889c526ffd221591834fe0fe9850e910d8a
+      - path: tests/negative/l3-declaration-v0-missing-entity.f90
+        sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
+    output: frozen z-name witness, changed-name control and independent-oracle contract
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - contracts/fixtures/frontend-ast-v1-name-mutation.sx
+        - tests/fixtures/frontend-ast-v1-name-mutation.toml
+        - tests/fixtures/l3-ast-variable-name-mutation-v1.f90
+        - research/decisions/D0178-l3-name-mutation-contract.md
+        - TASK_POOL.yaml
+        - STATUS.md
+        - MILESTONES.md
+    verifier: >-
+      validate the exact z source, its changed-name relation to the promoted y
+      witness, the malformed integer :: neighbour, the existing v1 schema and
+      the origin/contract pins. Do not implement the producer or promote a
+      source-derived property in this task.
+    verifier_command: scripts/check-contracts.sh
+    final_observable: contract gate PASS or one precise evidence blocker
+    retry_count: 0
+    integration_cycle_trigger: next_implementation
 integration_cycle:
   triggers:
     verified_deltas: 4
