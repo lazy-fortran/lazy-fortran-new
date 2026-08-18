@@ -281,8 +281,15 @@ forty-one-through-sixty and sixty-one-through-eighty successors add forty more
 generated routes with four rejected source neighbours and three AST/MIR/ELF
 mutation controls per route. The central replay now passes 126 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`. The next
-frontier remains another bounded generated route, not general parsing,
-semantics, or full-language support.
+frontier is now a generic integer output-list route rather than another
+item-count expansion. Contract `l3-print-list-v0` carries mixed stored-variable
+and literal items through one generated AST-v2 list representation, generic MIR
+output pairs and one backend encoder. The central command
+`bash tests/e2e/check-generated-print-list.sh` passes two positive source shapes,
+four rejected neighbours, exact qemu output and the preserved 146-route replay.
+This is still list-directed integer output only; formatted I/O, WRITE, arrays,
+non-integer output, general expression items and corpus breadth remain outside
+the claim.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

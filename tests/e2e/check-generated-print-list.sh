@@ -25,7 +25,8 @@ run_positive() {
 }
 
 run_negative() {
-    local source="$1" stem="$2" output="$run_dir/$stem.ast.sx"
+    local source="$1" stem="$2"
+    local output="$run_dir/$stem.ast.sx"
     if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$source" "$output") >/dev/null 2>&1; then
         printf 'generic print-list negative accepted: %s\n' "$source" >&2
         exit 1

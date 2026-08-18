@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage, sequence, STOP and PRINT waves are integrated; its central replay passes 126 routes
+storage, sequence, STOP and PRINT waves are integrated; its central replay passes 146 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -39,7 +39,12 @@ generated AST-v2, MIR-v0 and RISC-V/qemu with exact stdout `17\n` and `23\n`;
 its source-bound oracle also
 rejects three source neighbours and fourteen artifact mutations. This does not parse
 arbitrary Fortran, implement general I/O controls or formats, or promote M3
-semantics.
+semantics. The generic integer PRINT-list successor now passes
+`bash tests/e2e/check-generated-print-list.sh` for mixed three-item and
+five-item lists, four rejected source neighbours, exact qemu output and the
+preserved 146-route replay. It replaces item-numbered fields for this new
+source shape but does not yet provide general I/O, formatted output, arrays,
+non-integer output or corpus breadth.
 
 ## Central goal
 
@@ -161,9 +166,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `c5207ad0ab8bffcf6c4cba7a6837fc0a441a1c58` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, and stored-variable add/multiply/subtract/divide/power/two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-one-hundred-item PRINT AST-v2; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `3d07c1f45dc244c8ea8702ca1567edae5413ea87` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, stored-variable add/multiply/subtract/divide/power expression and two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-one-hundred-item PRINT MIR lowering; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `ba5ec51518fab819a3d1c2d2b2cc7512d90b1ce4` | backend | generated stack-slot/sequence routes, STOP 7 termination, stored-variable add/multiply/subtract/divide/power expression and two-item/three-item/four-item/five-item/six-item/seven-item/eight-item/nine-item/ten-item/eleven-item-through-one-hundred-item PRINT RISC-V lowering; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `fbcbd9c7ff2de7bb1d0f10bdd0a4ff507f952050` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, and generic mixed integer output-list AST-v2; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `168a49cf42710c1ff9df7e319ee9d7b61cd3b6d0` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and generic mixed integer output-list lowering; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `4bf8db60eb95c8109450fe5b0bf729c1c76a2b6c` | backend | generated stack-slot/sequence routes and generic mixed integer output-list RISC-V lowering; `fo` passes |
 
 ## Historical milestone evidence
 

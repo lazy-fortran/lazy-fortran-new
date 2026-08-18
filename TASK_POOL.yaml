@@ -7996,9 +7996,9 @@ tasks:
   - id: T-L3-generic-integer-print-list
     milestone: L3
     title: Replace PRINT item-count routes with a generic integer output list
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: CLOSED
+    verification: PASS
+    review_state: PASS
     priority: 143
     depends_on: [T-L3-generated-print-variable-eighty-one-one-hundred-batch]
     inputs:
@@ -8007,11 +8007,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: c5207ad0ab8bffcf6c4cba7a6837fc0a441a1c58
+        commit: fbcbd9c7ff2de7bb1d0f10bdd0a4ff507f952050
       - component: ffc-new
-        commit: 3d07c1f45dc244c8ea8702ca1567edae5413ea87
+        commit: 168a49cf42710c1ff9df7e319ee9d7b61cd3b6d0
       - component: fortback-new
-        commit: ba5ec51518fab819a3d1c2d2b2cc7512d90b1ce4
+        commit: 4bf8db60eb95c8109450fe5b0bf729c1c76a2b6c
       - normative-source: J3-24-007
         rules: [R901, R1212, R1215, R1217]
         printed-pages: [155, 242, 244, 248]
@@ -8055,7 +8055,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-list.sh
     final_observable: central generic-print-list PASS with the prior generated-chain replay preserved
-    evidence: central replay PENDING; bounded-only promotion; focused review required at interface change
+    evidence: central replay PASS; bounded-only promotion; focused review PASS; evidence gate PASS
     retry_count: 0
     integration_cycle_trigger: interface_change
 
