@@ -271,7 +271,11 @@ This does not promote general I/O, arbitrary output lists, or full M3 semantics.
 The seven-, eight-, nine- and ten-item batch extends the same source-backed
 stored-variable route in one parallel implementation wave. It carries sixteen
 rejected source neighbors and three artifact mutation controls per route; the
-central replay now passes 56 routes.
+central replay passes 56 routes. The eleven-through-twenty successor extends
+the same generated frontend, MIR and backend route, with forty rejected source
+neighbors and three artifact mutation controls per route; the central replay
+now passes 66 routes. The next frontier remains another bounded generated
+route, not general parsing, semantics, or full-language support.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
