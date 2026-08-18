@@ -20,11 +20,11 @@ golden and path-independent trace were then pinned.
 Technical replay:
 
 ```text
-AST_EXPECTED_CENTRAL_COMMIT=a3aa8e052bbd325167c55616d9dc244fc9e83544 \
+AST_EXPECTED_CENTRAL_COMMIT=2a0c97576adc2fe3e64054cbae8a363a502f024d \
 tests/e2e/run-frontend-ast-v1.sh --fresh
 ```
 
-Result R000660: positive accepted, negative rejected, repeated output
+Result R000661: positive accepted, negative rejected, repeated output
 identical, independent oracle PASS, trace comparison PASS, zero model calls and
 zero semantic promotions. The trace hash canonicalizes the source path while
 the output oracle still checks the actual checkout path. The committed trace
