@@ -60,6 +60,9 @@ general intrinsic-type parser. In parallel, the generated compiler wave has
 landed in every production repository: StandardIR grammar facts, frontend
 type and program-envelope tables, MIR metadata, and RISC-V opcode/immediate
 metadata are now generated artifacts with component-level behavioral gates.
+The completed parallel slice also moves the typed declaration policy, bounded
+integer AST-v1 lowering policy, and MIR bridge acceptance policy into generated
+inputs and outputs.
 The bounded generated chain now passes
 `tests/e2e/check-generated-chain.sh`: the selected raw source becomes
 frontend AST-v1, then MIR-v0, then a RISC-V ELF, with an independent oracle
@@ -68,7 +71,10 @@ checking the correspondence and output class, and executes it under
 `integer :: x` declaration through both source-derived program-name witnesses,
 not arbitrary Fortran or full M3. The latest wave also moved the program
 grammar and frontend/MIR bridge source-rule policies into generated artifacts.
-The post-integration component gates and central COMPLEX replay also pass.
+The post-integration component gates and central COMPLEX replay also pass. The
+focused StandardIR grammar-fact gate and the central generated chain pass; the
+StandardIR full suite still has the pre-existing schema declaration-count
+failure.
 The next implementation step is to broaden the generated interfaces only
 when another bounded source shape and its downstream oracle are ready.
 `lazy-fortran-new` is the sole Goal Mode control
@@ -106,9 +112,10 @@ ffc generated MIR/lowering ────────────┤
 fortback generated TargetIR/emission ───┘
 ```
 
-The active next wave therefore includes one independent generator slice in
-each production repository. No lane waits for unrelated frontend, MIR or
-backend work; a lane blocks only on the exact interface it consumes.
+The completed wave used one independent generator slice in each production
+repository. No lane waited for unrelated frontend, MIR or backend work; a
+lane blocked only on the exact interface it consumed. The next wave follows
+the same rule and broadens only when its downstream central oracle is ready.
 
 The initial delivery setup completed L0 and L1. L2 is now promoted by the
 corrected central replay and focused review `R000444`. The active central
