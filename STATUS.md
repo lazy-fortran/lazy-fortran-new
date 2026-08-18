@@ -166,8 +166,8 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `fbcbd9c7ff2de7bb1d0f10bdd0a4ff507f952050` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, and generic mixed integer output-list AST-v2; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `168a49cf42710c1ff9df7e319ee9d7b61cd3b6d0` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and generic mixed integer output-list lowering; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `67fa5e52ee957e39317e3eddc211ee2df1c42ac3` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, and generic mixed integer output-list AST-v2 with complete PRINT/item provenance; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `fa7799d8f076e5ad7ee6fad3fcfd1bd503cb9c29` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, and generic mixed integer output-list lowering with item provenance validation; `fo` passes |
 | fortback-new | lazy-fortran/fortback-new | `4bf8db60eb95c8109450fe5b0bf729c1c76a2b6c` | backend | generated stack-slot/sequence routes and generic mixed integer output-list RISC-V lowering; `fo` passes |
 
 ## Historical milestone evidence

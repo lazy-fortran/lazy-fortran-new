@@ -11,6 +11,7 @@ run_dir="$(mktemp -d)"
 
 printf '%s\n' 'generic print-list: contract gate'
 bash "$ROOT/scripts/check-contracts.sh" >/dev/null
+bash "$ROOT/scripts/check_pins.sh" >/dev/null
 
 printf '%s\n' 'generic print-list: preserving prior generated chain'
 bash "$ROOT/tests/e2e/check-generated-chain.sh" >/dev/null
@@ -22,6 +23,26 @@ run_positive() {
     (cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$ast" "$mir") >/dev/null
     (cd "$backend" && fo exec fortback-mir-v0 "$mir" "$elf") >/dev/null
     python3 "$oracle" "$ast" "$mir" "$elf" "$source"
+
+    local mutated_ast="$run_dir/$stem.mutated.ast.sx"
+    local mutated_mir="$run_dir/$stem.mutated.mir.sx"
+    local mutated_elf="$run_dir/$stem.mutated.elf"
+    sed '0,/(value 7)/s//(value 9)/' "$ast" > "$mutated_ast"
+    if python3 "$oracle" "$mutated_ast" "$mir" "$elf" "$source" >/dev/null 2>&1; then
+        printf 'generic print-list AST mutation was accepted: %s\n' "$source" >&2
+        exit 1
+    fi
+    sed '0,/(opcode output)/s//(opcode load)/' "$mir" > "$mutated_mir"
+    if python3 "$oracle" "$ast" "$mutated_mir" "$elf" "$source" >/dev/null 2>&1; then
+        printf 'generic print-list MIR mutation was accepted: %s\n' "$source" >&2
+        exit 1
+    fi
+    cp "$elf" "$mutated_elf"
+    dd if=/dev/zero of="$mutated_elf" bs=1 count=1 conv=notrunc status=none
+    if python3 "$oracle" "$ast" "$mir" "$mutated_elf" "$source" >/dev/null 2>&1; then
+        printf 'generic print-list ELF mutation was accepted: %s\n' "$source" >&2
+        exit 1
+    fi
 }
 
 run_negative() {

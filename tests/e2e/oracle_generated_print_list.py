@@ -57,21 +57,31 @@ def check_ast(path: pathlib.Path, source: pathlib.Path, items: list[tuple[str, s
             "AST source identity differs")
     require("(output-items " in text, "generic output-list node is absent")
     require(f"(output-count {len(items)})" in text, "AST output count differs")
+    for witness in (
+        "(statement-rule R1212)",
+        "(format-rule R1215)",
+        "(source-document J3-24-007)",
+        "(statement-clause 12.6.1)",
+        "(format-clause 12.6.2.2)",
+        "(output-clause 12.6.3)",
+        "(statement-page 242)",
+        "(format-page 244)",
+        "(output-page 248)",
+        "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
+        "(source-identity l3-raw-program-generic-print-list-v0)",
+    ):
+        require(witness in text, f"AST provenance witness missing: {witness}")
     require("(output-kind-2 " not in text and "(output-name-2 " not in text,
             "AST retained numbered output fields")
     cursor = text.index("(output-items ")
     for kind, value in items:
         if kind == "variable":
-            witness = f"(output-item (kind variable) (name {value}) (rule R901))"
+            witness = f"(output-item (kind variable) (name {value}) (rule R901) (clause 12.6.3) (page 248))"
         else:
-            witness = f"(output-item (kind integer-literal) (value {value}) (rule R1217))"
+            witness = f"(output-item (kind integer-literal) (value {value}) (rule R1217) (clause 12.6.3) (page 248))"
         position = text.find(witness, cursor)
         require(position >= 0, f"AST item missing: {witness}")
         cursor = position + len(witness)
-    require("(statement-rule R1212)" in text and "(format-rule R1215)" in text,
-            "PRINT provenance differs")
-
-
 def check_mir(path: pathlib.Path, items: list[tuple[str, str]]) -> None:
     text = path.read_text(encoding="utf-8")
     instructions = groups(text, "(instruction ")
