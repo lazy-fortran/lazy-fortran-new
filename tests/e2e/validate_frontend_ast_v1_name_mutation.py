@@ -46,6 +46,7 @@ def main() -> int:
     schema = root / manifest["contract_schema"]
     witness = root / manifest["contract_witness"]
     golden = root / manifest["output_golden"]
+    control_golden = root / manifest["changed_name_control_output_golden"]
     oracle_path = root / manifest["oracle"]
     oracle = tomllib.loads(oracle_path.read_text(encoding="utf-8"))
 
@@ -65,6 +66,7 @@ def main() -> int:
         ("changed_name_control", control),
         ("negative", negative),
         ("output_golden", golden),
+        ("changed_name_control_output_golden", control_golden),
         ("oracle", oracle_path),
     ):
         expected_hash = manifest.get(field + "_sha256")
@@ -74,6 +76,7 @@ def main() -> int:
             "frontend component commit differs")
     records = schema_records(schema)
     validate_output_structure(parse_sx(normalized(golden)), records)
+    validate_output_structure(parse_sx(normalized(control_golden)), records)
     require(oracle["root_name"] == manifest["expected_root_name"], "root name differs")
     require(oracle["variable_type_spec"] == manifest["expected_variable_type"],
             "variable type differs")
@@ -91,8 +94,13 @@ def main() -> int:
             "positive AST differs from golden")
     require(normalized(run_dir / "positive.ast.repeat.sx") == expected,
             "repeated AST differs from golden")
+    control_expected = normalized(control_golden).replace(
+        "(file SOURCE)", f"(file {control})"
+    )
+    require(normalized(run_dir / "control.ast.sx") == control_expected,
+            "changed-name control AST differs from established y golden")
     require(not (run_dir / "negative.ast.sx").exists(), "negative AST was written")
-    print("frontend AST v1 name mutation oracle PASS: z preserved, y control and malformed neighbour checked")
+    print("frontend AST v1 name mutation oracle PASS: z and y control executed, malformed neighbour rejected")
     return 0
 
 

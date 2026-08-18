@@ -7708,13 +7708,13 @@ tasks:
     depends_on: [T-L3-fortfront-typed-variable-name-mutation]
     inputs:
       - path: research/experiments/E0237-can-a-changed-source-name-survive/manifest.yaml
-        sha256: 8594c947c15edc9c2ba207419a1fa39b06b392ab96b6cf253457b73d8d7c9f02
+        sha256: 78ef6159120ee4363b98b8c5ecc49fd34a880fd10e71939cb4c864e7be1ef791
       - path: tests/fixtures/frontend-ast-v1-name-mutation-replay.toml
-        sha256: 98e83252cffb63023bc9de9f0f53b601f1ecd00704b2a92904a22b17d0e58546
+        sha256: ed108dfc1d3003d3df90609ff8aed45f82704a0870aae958418cacd750f9939a
       - path: tests/e2e/run-frontend-ast-v1-name-mutation.sh
         sha256: 5d2be956484ffe4f62191262e5d8be0d53d17a785d7c7bab4d57856128a71f12
       - path: tests/e2e/validate_frontend_ast_v1_name_mutation.py
-        sha256: a199a5769cdf5b69c94d3c687e8acaacbaa0fa3be571754f416598b8299ac62b
+        sha256: 3256bcc86b618c732f8fc5fdd1ced03bd02f390306aad95dbc61301c1b1c8b24
       - path: tests/golden/frontend-ast-v1-name-mutation.sx
         sha256: 10fc6a7a411f7f87be91899af7c509e4735c28173f57763fb0e66bf6ef8d304f
       - path: tests/golden/frontend-ast-v1-name-mutation.oracle.toml

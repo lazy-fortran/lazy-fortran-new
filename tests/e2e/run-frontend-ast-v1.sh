@@ -52,7 +52,10 @@ import tomllib
 from pathlib import Path
 manifest = tomllib.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 root = Path(sys.argv[2])
-for field in ("contract_schema", "contract_witness", "source", "negative", "output_golden", "oracle", "runner", "validator"):
+fields = ["contract_schema", "contract_witness", "source", "negative", "output_golden", "oracle", "runner", "validator"]
+if "changed_name_control" in manifest:
+    fields.extend(("changed_name_control", "changed_name_control_output_golden"))
+for field in fields:
     path = root / manifest[field]
     if not path.is_file():
         raise SystemExit(f"missing AST v1 input: {manifest[field]}")
@@ -99,6 +102,18 @@ if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative" "$negative_out
     exit 1
 fi
 [ ! -e "$negative_output" ]
+control_rel="$(python3 - "$manifest" <<'PY'
+import sys, tomllib
+from pathlib import Path
+print(tomllib.loads(Path(sys.argv[1]).read_text()).get('changed_name_control', ''))
+PY
+)"
+if [ -n "$control_rel" ]; then
+    control="$ROOT/$control_rel"
+    control_output="$run_dir/control.ast.sx"
+    (cd "$frontend" && fo exec fortfront-source-ast-v1 "$control" "$control_output") \
+        >"$run_dir/control.log" 2>&1
+fi
 
 python3 "$validator" "$manifest" "$run_dir" "$actual_frontend"
 python3 - "$run_dir/trace.json" "$manifest" "$run_dir" "$actual_frontend" <<'PY'
@@ -118,6 +133,9 @@ def digest(name):
     if name == "positive.ast.sx":
         source = (root / manifest["source"]).resolve()
         payload = payload.replace(f"(file {source})", "(file SOURCE)")
+    if name == "control.ast.sx":
+        source = (root / manifest["changed_name_control"]).resolve()
+        payload = payload.replace(f"(file {source})", "(file CONTROL)")
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 def tool(command):
     return subprocess.run(command, text=True, capture_output=True, check=False).stdout.splitlines()[0]
@@ -132,6 +150,11 @@ trace = {
     "model_calls": 0,
     "semantic_promotions": 0,
 }
+if "changed_name_control" in manifest:
+    trace["changed_name_control"] = {
+        "path": manifest["changed_name_control"],
+        "ast_sha256": digest("control.ast.sx"),
+    }
 Path(trace_path).write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 PY
 
