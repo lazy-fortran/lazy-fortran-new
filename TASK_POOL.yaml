@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  []
+  - T-L3-generic-print-expression-divide
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-L3-generic-print-expression-divide
 
 milestones:
   - id: L0
@@ -11590,6 +11590,74 @@ tasks:
       bash tests/e2e/check-generated-print-expression-multiply.sh
     final_observable: central generic-print-expression-multiply PASS with prior expression and generic PRINT routes preserved
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
+  - id: T-L3-generic-print-expression-divide
+    milestone: L3
+    title: Add a generated integer division expression item to the generic PRINT list
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 147
+    depends_on: [T-L3-generic-print-expression-multiply]
+    inputs:
+      - contract: contracts/l3-print-expression-divide-v0.sxs
+      - contract-witness: contracts/fixtures/l3-print-expression-divide-v0.sx
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 575f531c72ff0127b80dfe8a2190e11916b57441
+      - component: ffc-new
+        commit: ed9273993b6cb9ed67e13134db84cea109f0462e
+      - component: fortback-new
+        commit: 8960e63afbbdbae7c356b0d69382d0bcae8651b9
+      - normative-source: J3-24-007
+        rules: [R901, R1006, R1009, R1212, R1215, R1217]
+        printed-pages: [155, 169, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-expression-divide-v0.f90
+          - tests/fixtures/l3-print-expression-divide-wide-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-expression-divide-v0-missing-operand.f90
+          - tests/negative/l3-print-expression-divide-v0-wrong-operator.f90
+          - tests/negative/l3-print-expression-divide-v0-write.f90
+          - tests/negative/l3-print-expression-divide-v0-wrong-name.f90
+    output: >-
+      central PASS for one generated output-list expression item with the
+      fixed AST shape `(kind integer-expression) (operator /) (left x)
+      (right 2)`, typed MIR load/const/div/output lowering, and RISC-V/qemu
+      execution; preserve the prior generic expression and integer-list
+      routes and reject the four listed source neighbours
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-expression-divide
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - contracts/l3-print-expression-divide-v0.sxs
+        - contracts/fixtures/l3-print-expression-divide-v0.sx
+        - tests/e2e/check-generated-print-expression-divide.sh
+        - tests/e2e/oracle_generated_print_expression_divide.py
+        - tests/fixtures/l3-print-expression-divide-*
+        - tests/negative/l3-print-expression-divide-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve the generic integer PRINT-list, x+1, x+x and x*2 expression
+      routes; accept both positive x/2 sources using the fixed expression-item
+      AST shape; reject missing operand, wrong operator, WRITE, and
+      undeclared-name neighbours; check source provenance, MIR
+      load/const/div/output order, exact stdout, and AST/MIR/ELF mutations.
+      No general expressions, formatted I/O, arrays, non-integer output, or
+      semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-expression-divide.sh
+    final_observable: central generic-print-expression-divide PASS with prior expression and generic PRINT routes preserved
+    evidence: contract and independent oracle prepared; implementation wave not yet replayed
     retry_count: 0
     integration_cycle_trigger: interface_change
 

@@ -71,6 +71,10 @@ as one generic PRINT item. The component implementation and central replay now
 pass; this remains one bounded multiplication expression item, not general
 operator parsing or semantic promotion.
 
+The next active L3 slice `T-L3-generic-print-expression-divide` is prepared
+with source-backed R1006/R1009 evidence and an independent oracle for `x / 2`
+as one generic PRINT item. Its component implementation wave is next.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

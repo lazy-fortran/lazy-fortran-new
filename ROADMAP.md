@@ -314,6 +314,10 @@ The multiplication successor is now integrated as a bounded `x * 2` item:
 source-backed R1006/R1009 AST, typed MIR `load/const/mul/output`, qemu result,
 four source neighbors and three artifact mutations while preserving the prior
 expression and generic-list routes. General operator parsing remains open.
+The next executable slice is prepared as `l3-print-expression-divide-v0`:
+the generic PRINT expression item uses source-backed integer division `x / 2`,
+with an independent AST/MIR/qemu oracle. It is not implemented or promoted
+yet.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

@@ -57,4 +57,5 @@
   (contract l3-print-list 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
   (contract l3-print-expression 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
   (contract l3-print-expression-variable 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
-  (contract l3-print-expression-multiply 0 lazy-fortran-new fortfront-new ffc-new fortback-new))
+  (contract l3-print-expression-multiply 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
+  (contract l3-print-expression-divide 0 lazy-fortran-new fortfront-new ffc-new fortback-new))
