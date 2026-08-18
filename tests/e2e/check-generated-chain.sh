@@ -601,12 +601,9 @@ fi
 python3 "$oracle" "$sequence_six_ast_file" "$sequence_six_mir_file" \
     "$sequence_six_elf_file" main integer sequence-6
 
-run_sequence_batch_route 7 "$sequence_seven_source_file" 13 sequence-7 \
-    "${negative_sequence_ten_files[@]}"
-run_sequence_batch_route 8 "$sequence_eight_source_file" 14 sequence-8 \
-    "${negative_sequence_ten_files[@]}"
-run_sequence_batch_route 9 "$sequence_nine_source_file" 15 sequence-9 \
-    "${negative_sequence_ten_files[@]}"
+run_sequence_batch_route 7 "$sequence_seven_source_file" 13 sequence-7
+run_sequence_batch_route 8 "$sequence_eight_source_file" 14 sequence-8
+run_sequence_batch_route 9 "$sequence_nine_source_file" 15 sequence-9
 run_sequence_batch_route 10 "$sequence_ten_source_file" 16 sequence-10 \
     "${negative_sequence_ten_files[@]}"
 

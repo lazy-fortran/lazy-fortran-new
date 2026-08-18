@@ -183,12 +183,16 @@ def main() -> None:
     elif mode in ("sequence-7", "sequence-8", "sequence-9", "sequence-10"):
         assignment_count = int(mode.split("-")[1])
         instruction_count = 4 * assignment_count - 1
+        first_literal = "(assignment (assignment-stmt (variable x) (expression (assignment-expression (kind integer-literal) (operator ) (left-operand 7) (right-operand )))"
+        repeated_assignment = "(assignment (assignment-stmt (variable x) (expression (assignment-expression (kind binary-expression) (operator +) (left-operand x) (right-operand 1)))"
         if not ast.startswith("(assignment-sequence ") or \
                 f"(assignment-count {assignment_count})" not in ast or \
-                ast.count("(assignment (assignment-stmt ") != assignment_count or \
+                ast.count("(assignment (assignment-stmt (variable x)") != assignment_count or \
+                ast.count(first_literal) != 1 or \
+                ast.count("(kind integer-literal)") != 1 or \
                 ast.count("(kind binary-expression)") != assignment_count - 1 or \
-                "(kind integer-literal)" not in ast or \
-                ast.count("(operator +) (left-operand x) (right-operand 1)") != assignment_count - 1:
+                ast.count(repeated_assignment) != assignment_count - 1 or \
+                ast.find(first_literal) > ast.find(repeated_assignment):
             fail(f"AST-v1 {assignment_count}-assignment sequence witness is wrong")
         if mir.count("(opcode const)") != assignment_count or \
                 mir.count("(opcode store)") != assignment_count or \
