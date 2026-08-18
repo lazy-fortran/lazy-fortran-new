@@ -10,7 +10,7 @@ closed: ""
 repos:
   lazy-fortran-new: "6694ff2fe5db8249a5a24b04f9baa630555a656c"
   standard-new: "f94c4c51b51fce22b533b7eeda08741970320913"
-  fortfront-new: "a657f367251e0d8e4b638d0ff5362565c4d73685"
+  fortfront-new: "101965227a3583872eb7db22c04cd6ff40738c82"
 
 inputs:
   decision: research/decisions/D0179-l3-multichar-name-span-contract.md

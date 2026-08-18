@@ -134,7 +134,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f94c4c51b51fce22b533b7eeda08741970320913` | normative source → StandardIR | clean main; full `fo` recorded in E0174/R000010 |
-| fortfront-new | lazy-fortran/fortfront-new | `a657f367251e0d8e4b638d0ff5362565c4d73685` | frontend | clean main; L3 raw-source, declaration and typed AST v1 x/y/z entrypoints |
+| fortfront-new | lazy-fortran/fortfront-new | `101965227a3583872eb7db22c04cd6ff40738c82` | frontend | clean main; L3 raw-source, declaration and typed AST v1 x/y/z/alpha entrypoints |
 | ffc-new | lazy-fortran/ffc-new | `bcaadcb58c24af613204aa398541c0d2e35abf91` | compiler driver and middle end | clean main; registered L2 MIR trace |
 | fortback-new | lazy-fortran/fortback-new | `c578904a8d18e9d5410934f5489a21d5dadfad05` | backend | clean main; registered L2 executable trace |
 
@@ -488,9 +488,10 @@ R000668 retains the rejected broader wording. D0178 freezes the changed-name
 fortfront z-name producer passes its component gate as R000674 at pushed
 revision `a657f36`. E0237/R000678 and focused reviews R000681/R000682 promote
 the exact z witness only. D0179 now freezes the next multi-character name and
-span contract; R000683 passes its contract gate and the active implementation
-task starts from fortfront `a657f36`. The C768 implementation result is
-parked and is not promoted by this pivot.
+span contract; R000683 passes its contract gate, and the alpha producer passes
+its component gate as R000684 at pushed fortfront `1019652`. The active task
+is the central alpha replay. The C768 implementation result is parked and is
+not promoted by this pivot.
 
 ## Next executable task
 
@@ -506,8 +507,8 @@ task is the central E0236 replay. The replay and two final focused reviews now
 pass for the exact y witness only. D0178/R000673 freeze the changed-name
 contract, R000674 passes the pushed fortfront component gate, and
 E0237/R000678/R000681/R000682 promote the exact z witness only. R000683 passes
-the D0179 contract gate; the active task is the isolated fortfront alpha-name
-producer slice from base `a657f36`. This remains outside full M3. Do not
+the D0179 contract gate; R000684 passes the pushed alpha producer, and the
+active task is the central alpha replay. This remains outside full M3. Do not
 resume E0172 or start broad semantic work. The C768 worker result remains
 parked and is not promoted by this pivot.
 

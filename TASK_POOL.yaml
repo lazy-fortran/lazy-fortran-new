@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-fortfront-typed-variable-name-multichar
+  - T-L3-frontend-ast-v1-name-multichar-replay
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-fortfront-typed-variable-name-multichar
+active_task: T-L3-frontend-ast-v1-name-multichar-replay
 
 milestones:
   - id: L0
@@ -7816,8 +7816,8 @@ tasks:
   - id: T-L3-fortfront-typed-variable-name-multichar
     milestone: L3
     title: Implement the bounded typed AST v1 alpha-name witness
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 80
     depends_on: [T-L3-frontend-ast-v1-name-multichar-contract]
@@ -7838,7 +7838,8 @@ tasks:
         sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
       - component: fortfront-new
         commit: a657f367251e0d8e4b638d0ff5362565c4d73685
-    output: fortfront producer commit that accepts alpha and preserves x/y/z behavior
+      - research/runs/2026-08.jsonl#R000684
+    output: fortfront producer commit 101965227a3583872eb7db22c04cd6ff40738c82 that accepts alpha and preserves x/y/z behavior
     integration: controller-only
     estimated_cost: medium
     parallel_group: l3-production
@@ -7866,6 +7867,62 @@ tasks:
     final_observable: deterministic typed AST v1 output with variable name alpha
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-frontend-ast-v1-name-multichar-replay
+    milestone: L3
+    title: Replay the multi-character typed AST v1 alpha witness
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-fortfront-typed-variable-name-multichar]
+    inputs:
+      - path: research/experiments/E0239-can-a-multicharacter-name-survive/manifest.yaml
+        sha256: 868b96f836854be759d249844122d2c47a0051a3ba95d939476b921bd44790b7
+      - path: tests/fixtures/frontend-ast-v1-name-multichar-replay.toml
+        sha256: 29d0c9f4470befc9fb7e62f1b5faf16eeca20289ed593a9979b94317c0c6a3bf
+      - path: tests/e2e/run-frontend-ast-v1-name-multichar.sh
+        sha256: ce27feb87de6f502e39a3c249d6bf51660458cfc223819d76558a0cf88446c44
+      - path: tests/e2e/validate_frontend_ast_v1_name_multichar.py
+        sha256: 723a33397392d3291d67da383948871eeb2c98af64fcdcd5844edc18bbd80c28
+      - path: tests/golden/frontend-ast-v1-name-multichar.sx
+        sha256: eaf8b3459166bbeee0e00e83219d797fb09860568c3ef9363151f54e17cd857d
+      - path: tests/golden/frontend-ast-v1-name-multichar.oracle.toml
+        sha256: b26bc801b8627690c8b80256db032592c5001af5244efeca7172bd5fade31507
+      - component: fortfront-new
+        commit: 101965227a3583872eb7db22c04cd6ff40738c82
+    output: clean exact-alpha raw-source-to-typed-AST trace and independent oracle result
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - tests/e2e/run-frontend-ast-v1-name-multichar.sh
+        - tests/e2e/validate_frontend_ast_v1_name_multichar.py
+        - tests/golden/frontend-ast-v1-name-multichar.sx
+        - tests/golden/frontend-ast-v1-name-multichar.oracle.toml
+        - tests/fixtures/frontend-ast-v1-name-multichar-replay.toml
+        - artifacts/traces/frontend-ast-v1-name-multichar.json
+        - research/experiments/E0239-*
+        - research/runs/2026-08.jsonl
+        - TASK_POOL.yaml
+        - STATUS.md
+        - MILESTONES.md
+    verifier: >-
+      from the frozen central revision run exact alpha, the z changed-name
+      control and malformed integer :: through fortfront-source-ast-v1; require
+      the independent schema-linked field oracle, exact alpha span 10..28,
+      byte-identical repeat output, no negative output, stable trace, zero
+      model calls and zero semantic promotions. Promote only this exact alpha
+      witness and do not infer general identifier parsing.
+    verifier_command: >-
+      AST_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+      tests/e2e/run-frontend-ast-v1-name-multichar.sh --fresh
+    final_observable: typed AST v1 oracle PASS for exact alpha witness with z control and malformed neighbour rejected
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4
