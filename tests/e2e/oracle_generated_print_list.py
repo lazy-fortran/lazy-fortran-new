@@ -28,6 +28,13 @@ def check_contract_fixture(root: pathlib.Path) -> None:
     text = fixture.read_text(encoding="utf-8")
     require("(contract-witness" in text and "(contract l3-print-list)" in text,
             "PRINT-list contract witness differs")
+    for witness in (
+        "(version 0)",
+        "(origin mechanical)",
+        "(resolution resolved)",
+        "(property generic-integer-list-directed-print)",
+    ):
+        require(witness in text, f"contract witness metadata differs: {witness}")
     source_cases = {
         "tests/fixtures/l3-print-list-v0.f90":
             "a992439011f29067faeef7688206580f7fe9a24cdd914a0486047a3a2d89a3df",
@@ -104,6 +111,12 @@ def check_ast(path: pathlib.Path, source: pathlib.Path, items: list[tuple[str, s
     require(f"(file {source})" in text, "AST source path differs")
     require("(source-hash l3-raw-program-generic-print-list-v0)" in text,
             "AST source identity differs")
+    spans = groups(text, "(source-span ")
+    require(spans, "AST has no source spans")
+    for span in spans:
+        require(f"(file {source})" in span and
+                "(source-hash l3-raw-program-generic-print-list-v0)" in span,
+                "AST source-span provenance differs")
     require("(output-items " in text, "generic output-list node is absent")
     require(f"(output-count {len(items)})" in text, "AST output count differs")
     for witness in (
