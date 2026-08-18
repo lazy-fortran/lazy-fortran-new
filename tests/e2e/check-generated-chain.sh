@@ -24,6 +24,7 @@ literal_boundary_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-litera
 variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-variable-add-assignment-v1.f90"
 sequence_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-two-assignment-v1.f90"
 sequence_three_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-three-assignment-v1.f90"
+sequence_four_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-four-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -53,6 +54,11 @@ negative_sequence_files=(
 negative_sequence_three_files=(
     "$ROOT/tests/negative/l3-ast-program-integer-three-assignment-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-three-assignment-missing-third-v1.f90"
+)
+negative_sequence_four_files=(
+    "$ROOT/tests/negative/l3-ast-program-integer-four-assignment-wrong-operator-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-four-assignment-missing-fourth-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-four-assignment-wrong-variable-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -443,5 +449,63 @@ fi
 [ "$sequence_three_status" -eq 9 ]
 python3 "$oracle" "$sequence_three_ast_file" "$sequence_three_mir_file" \
     "$sequence_three_elf_file" main integer sequence-3
+
+sequence_four_ast_file="$run_dir/sequence-four.frontend.ast.sx"
+sequence_four_mir_file="$run_dir/sequence-four.mir.sx"
+sequence_four_elf_file="$run_dir/sequence-four.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$sequence_four_source_file" \
+        "$sequence_four_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$sequence_four_ast_file" \
+        "$sequence_four_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$sequence_four_mir_file" \
+        "$sequence_four_elf_file") > /dev/null 2>&1
+for negative_sequence_four in "${negative_sequence_four_files[@]}"; do
+    rm -f "$run_dir/negative-sequence-four.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_sequence_four" \
+            "$run_dir/negative-sequence-four.ast.sx") > /dev/null 2>&1; then
+        if grep -q '^(assignment-sequence ' "$run_dir/negative-sequence-four.ast.sx" && \
+                grep -q '(assignment-count 4)' "$run_dir/negative-sequence-four.ast.sx"; then
+            printf '%s\n' 'invalid four-assignment sequence source was promoted' >&2
+            exit 1
+        fi
+    else
+        [ ! -e "$run_dir/negative-sequence-four.ast.sx" ]
+    fi
+done
+if qemu-riscv64 "$sequence_four_elf_file" > /dev/null; then
+    sequence_four_status=0
+else
+    sequence_four_status=$?
+fi
+[ "$sequence_four_status" -eq 10 ]
+python3 "$oracle" "$sequence_four_ast_file" "$sequence_four_mir_file" \
+    "$sequence_four_elf_file" main integer sequence-4
+
+envelope_ast_file="$run_dir/envelope.frontend.ast.sx"
+envelope_mir_file="$run_dir/envelope.mir.sx"
+envelope_elf_file="$run_dir/envelope.program.elf"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$sequence_source_file" \
+        "$envelope_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$envelope_ast_file" \
+        "$envelope_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$envelope_mir_file" \
+        "$envelope_elf_file") > /dev/null 2>&1
+for negative_envelope in "${negative_sequence_files[@]}"; do
+    rm -f "$run_dir/negative-envelope.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_envelope" \
+            "$run_dir/negative-envelope.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid program execution envelope source was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-envelope.ast.sx" ]
+done
+if qemu-riscv64 "$envelope_elf_file" > /dev/null; then
+    envelope_status=0
+else
+    envelope_status=$?
+fi
+[ "$envelope_status" -eq 8 ]
+python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
+    "$envelope_elf_file" main integer envelope
 
 printf '%s\n' 'generated compiler chain PASS'

@@ -8,14 +8,16 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage and sequence wave is integrated; its central replay passes 17 routes
+storage and sequence wave is integrated; its central replay passes 19 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
-single-expression witness exits 1, the ordered `x = 7; x = x + 1` witness exits
-8, and the three-assignment witness exits 9 through matching stack slots. This
-remains bounded sequence transport, not general statement parsing, name
-resolution, arbitrary storage or full M3 semantics. The next executable wave
-expands the statement grammar around the prepared R509 fact. This does not
-parse arbitrary Fortran or promote M3 semantics.
+single-expression witness exits 1, the ordered two-, three- and four-assignment
+witnesses exit 8, 9 and 10, and the program-unit-v2 declaration/execution
+envelope exits 8 through matching stack slots. The envelope carries the
+source-backed R509 execution-part boundary into FFC and fortback. This remains
+bounded sequence transport, not general statement parsing, name resolution,
+arbitrary storage or full M3 semantics. The next executable wave expands the
+statement grammar around the prepared R509 fact. This does not parse arbitrary
+Fortran or promote M3 semantics.
 
 ## Central goal
 
@@ -137,9 +139,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f23943b8badf4b8971b65dafe36a9915e6c5b5d4` | normative source → StandardIR | generated R708/R901/R902/R903/R509 facts; focused gate passes; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `e3a568a7167f5603c75087061dee9d4abc0b5e21` | frontend | generated bounded literal, variable-expression and additive two-/three-assignment sequence routes; `fo` passes |
-| ffc-new | lazy-fortran/ffc-new | `0cbc4d0471506c23d797760455da85a81f7443cd` | compiler driver and middle end | generated variable and two-/three-assignment `(storage-key x)` MIR routes; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `e7566c5d5bbc5fa35b5e664179606161b9c32de3` | backend | generated stack-slot expression and two-/three-assignment routes; `fo` passes with pre-existing array-temporary warnings |
+| fortfront-new | lazy-fortran/fortfront-new | `ac6fa6c8023b51f18c97ae40f18a9e3297236ef7` | frontend | generated program-unit-v2 CLI and bounded two-/three-/four-assignment sequence routes; `fo` passes |
+| ffc-new | lazy-fortran/ffc-new | `69f2a4695973bdfbe717ea99aff4a29c91162bcf` | compiler driver and middle end | generated v2 envelope and two-/three-/four-assignment `(storage-key x)` MIR routes; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `bf8de6739e68e48c1d81084962c973cdffff3ac1` | backend | generated stack-slot expression, v2 envelope and two-/three-/four-assignment routes; `fo` passes |
 
 ## Historical milestone evidence
 
