@@ -1,0 +1,22 @@
+schema_version = "frontend-ast-v1-program-root-name-oracle-v1"
+origin = "LLM"
+property = "source-derived-program-root-name"
+source_rules = ["R1402", "R1403", "R603"]
+model_calls = 0
+semantic_promotions = 0
+
+[[case]]
+id = "main"
+expected_outcome = "ACCEPTED"
+expected_root_name = "main"
+expected_program_declaration_name = "main"
+
+[[case]]
+id = "unit"
+expected_outcome = "ACCEPTED"
+expected_root_name = "unit"
+expected_program_declaration_name = "unit"
+
+[[negative]]
+id = "mismatched-end"
+expected_outcome = "REJECTED"
