@@ -217,7 +217,12 @@ for negative_expression in "$negative_expression_file" "$negative_expression_ope
     fi
     [ ! -e "$run_dir/negative-expression.ast.sx" ]
 done
-qemu-riscv64 "$expression_elf_file" > /dev/null
+if qemu-riscv64 "$expression_elf_file" > /dev/null; then
+    expression_status=0
+else
+    expression_status=$?
+fi
+[ "$expression_status" -eq 3 ]
 python3 "$oracle" "$expression_ast_file" "$expression_mir_file" "$expression_elf_file" main integer expression
 
 multiplication_ast_file="$run_dir/multiplication-assignment.frontend.ast.sx"

@@ -164,10 +164,11 @@ non-decimal and out-of-range negatives and qemu exit status 7. The replay
 currently passes 13 routes; regenerate that count with
 `bash tests/e2e/check-generated-chain.sh`. This is still a bounded literal
 contract, not general literal parsing, constant evaluation, or arbitrary
-Fortran execution. Fortback also has an independently tested generated route
-for materialized `1 + 2` and qemu exit status 3; the next integration slice is
-the matching FFC producer and central source fixture. Existing structural
-routes remain deliberately bounded until their operands are materialized.
+Fortran execution. The existing `1 + 2` expression leaf now also materializes
+both operands through FFC, emits RISC-V `add`, and exits 3 under qemu; the
+central oracle checks the five-instruction MIR shape and exact literals.
+Multiplication, division and subtraction remain structural until their
+operands receive the same materialization treatment.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
