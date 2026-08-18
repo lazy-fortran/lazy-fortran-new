@@ -16,6 +16,7 @@ logical_source_file="$ROOT/tests/fixtures/l3-ast-program-logical-type-main-v1.f9
 character_source_file="$ROOT/tests/fixtures/l3-ast-program-character-type-main-v1.f90"
 assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-assignment-v1.f90"
 expression_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-add-assignment-v1.f90"
+multiplication_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-multiply-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -27,6 +28,8 @@ negative_assignment_file="$ROOT/tests/negative/l3-ast-program-integer-assignment
 negative_assignment_name_file="$ROOT/tests/negative/l3-ast-program-integer-assignment-wrong-variable-v1.f90"
 negative_expression_file="$ROOT/tests/negative/l3-ast-program-integer-add-assignment-missing-operand-v1.f90"
 negative_expression_operator_file="$ROOT/tests/negative/l3-ast-program-integer-add-assignment-wrong-operator-v1.f90"
+negative_multiplication_file="$ROOT/tests/negative/l3-ast-program-integer-multiply-assignment-missing-operand-v1.f90"
+negative_multiplication_operator_file="$ROOT/tests/negative/l3-ast-program-integer-multiply-assignment-wrong-operator-v1.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 (cd "$standard" && fo clean && fo test test_standardir_lexical_generated && \
@@ -207,5 +210,25 @@ for negative_expression in "$negative_expression_file" "$negative_expression_ope
 done
 qemu-riscv64 "$expression_elf_file" > /dev/null
 python3 "$oracle" "$expression_ast_file" "$expression_mir_file" "$expression_elf_file" main integer expression
+
+multiplication_ast_file="$run_dir/multiplication-assignment.frontend.ast.sx"
+multiplication_mir_file="$run_dir/multiplication-assignment.mir.sx"
+multiplication_elf_file="$run_dir/multiplication-assignment.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$multiplication_assignment_source_file" \
+        "$multiplication_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$multiplication_ast_file" "$multiplication_mir_file") \
+    > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$multiplication_mir_file" "$multiplication_elf_file") \
+    > /dev/null 2>&1
+for negative_multiplication in "$negative_multiplication_file" "$negative_multiplication_operator_file"; do
+    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_multiplication" \
+            "$run_dir/negative-multiplication.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid multiplication assignment source was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-multiplication.ast.sx" ]
+done
+qemu-riscv64 "$multiplication_elf_file" > /dev/null
+python3 "$oracle" "$multiplication_ast_file" "$multiplication_mir_file" "$multiplication_elf_file" main integer multiplication
 
 printf '%s\n' 'generated compiler chain PASS'

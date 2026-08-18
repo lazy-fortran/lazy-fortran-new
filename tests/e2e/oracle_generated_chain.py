@@ -64,9 +64,18 @@ def main() -> None:
         if "(opcode add)" not in mir or "(opcode store)" not in mir or \
                 "(opcode return)" not in mir:
             fail("MIR-v0 expression opcode shape is wrong")
+    elif mode == "multiplication":
+        if "(assignment-count 1)" not in ast or \
+                "(assignment-expression (kind binary-expression) (operator *) (left-operand 2) (right-operand 3)" not in ast:
+            fail("AST-v1 multiplication assignment witness is wrong")
+        if mir.count("source-rule frontend-ast-v1/expression") != 3:
+            fail("MIR-v0 multiplication correspondence is wrong")
+        if "(opcode mul)" not in mir or "(opcode store)" not in mir or \
+                "(opcode return)" not in mir:
+            fail("MIR-v0 multiplication opcode shape is wrong")
     else:
         fail("unsupported generated chain mode")
-    expected_result_count = 3 if mode == "expression" else 2
+    expected_result_count = 3 if mode in ("expression", "multiplication") else 2
     if mir.count(f"(kind {mir_kind}) (type {mir_type})") != expected_result_count:
         fail("MIR-v0 typed result is wrong")
 
