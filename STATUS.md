@@ -22,8 +22,15 @@ corrected contract review. E0243/R000726 plus R000727/R000728 promote the exact
 DOUBLE PRECISION producer/replay leaf at pushed component
 `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19`. R000724 remains retained stale
 metadata, and R000720 remains the caught implementation-boundary failure. The
-active task selects the next bounded source-backed boundary. This does not
-parse arbitrary Fortran or promote M3 semantics.
+the generated variable-expression wave is now integrated: central commit
+`1cb98bb` with standard-new `c52836f`, fortfront-new `1c2989c`, ffc-new
+`3c3a92a` and fortback-new `02b9dfa` passes 15 routes; regenerate that result
+with `bash tests/e2e/check-generated-chain.sh`. The `x = x + 1` route is
+structural: fortback loads zero and the qemu witness exits 1. Storage,
+initialization, name resolution and full M3 semantics remain open. The next
+executable wave is real storage transport, split across independent source,
+frontend, MIR and backend lanes once its small interface is frozen. This does
+not parse arbitrary Fortran or promote M3 semantics.
 
 ## Central goal
 
@@ -144,10 +151,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `f94c4c51b51fce22b533b7eeda08741970320913` | normative source → StandardIR | clean main; full `fo` recorded in E0174/R000010 |
-| fortfront-new | lazy-fortran/fortfront-new | `c3647c4ba3d8740afcf2b96af0ea0cdf39dfad19` | frontend | clean main; bounded REAL and canonical DOUBLE PRECISION typed-AST v1 producer |
-| ffc-new | lazy-fortran/ffc-new | `bcaadcb58c24af613204aa398541c0d2e35abf91` | compiler driver and middle end | clean main; registered L2 MIR trace |
-| fortback-new | lazy-fortran/fortback-new | `c578904a8d18e9d5410934f5489a21d5dadfad05` | backend | clean main; registered L2 executable trace |
+| standard-new | lazy-fortran/standard-new | `c52836f037545ced6f88df0dbaa6174ff9a706af` | normative source → StandardIR | generated R708/R901/R902/R903 facts; focused gate passes; full `fo` retains the known schema declaration-count failure |
+| fortfront-new | lazy-fortran/fortfront-new | `1c2989c56743c6ecbc5072159ee1983909329bcb` | frontend | generated bounded literal and variable-expression routes; `fo` passes |
+| ffc-new | lazy-fortran/ffc-new | `3c3a92a400cd5e9447e1eaf7cad6de42cbe2030e` | compiler driver and middle end | generated `load`/`const`/`add`/`store`/`return` MIR route; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `02b9dfa095207eb2420379b8a711fe9f30d52785` | backend | generated structural load route; `fo` passes |
 
 ## Historical milestone evidence
 

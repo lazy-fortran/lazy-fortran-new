@@ -171,8 +171,16 @@ five-instruction MIR shape and exact literals. Broader expression parsing,
 typing, overflow and divide-by-zero semantics remain out of scope. The
 fortfront literal range is now generated from its assignment-policy input, and
 standard-new has prepared source-backed generated R901/R902/R903 designator,
-variable and variable-name facts for the next frontend slice; those facts are
-not yet consumed by the central executable chain.
+variable and variable-name facts. The next generated wave consumes those
+facts: `x = x + 1` now travels through the frontend variable-expression
+record, FFC `load`/`const`/`add`/`store`/`return` MIR and the generated fortback
+route. The central replay passes 15 routes; regenerate that count with
+`bash tests/e2e/check-generated-chain.sh`. The current backend load is an
+explicit structural zero-value placeholder and the qemu witness exits 1, so
+this is not yet storage, initialization, name resolution or runtime variable
+semantics. The next parallel slice is real storage transport, with multiple
+assignments or an equivalent source-backed initialization shape. Keep all
+existing generated policy lanes and their independent negative controls.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
