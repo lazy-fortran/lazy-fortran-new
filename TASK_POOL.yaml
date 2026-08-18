@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generic-print-expression-power
+  []
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-power
+active_task: null
 
 milestones:
   - id: L0
@@ -11664,9 +11664,9 @@ tasks:
   - id: T-L3-generic-print-expression-power
     milestone: L3
     title: Add a generated integer power expression item to the generic PRINT list
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
     priority: 148
     depends_on: [T-L3-generic-print-expression-divide]
     inputs:
@@ -11675,11 +11675,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 4da73c95fdd04bb4473212d2a807415a8c61cb8c
+        commit: 799bc3548d8398f4baa73773c5abc0ddf7302834
       - component: ffc-new
-        commit: 1682ab8b87edb371182e937b686d7fc301db79f3
+        commit: f098d11f30161275aec22a42e0cfcc45aa8a9f66
       - component: fortback-new
-        commit: ee35285b2acbbdbb496ee9056a5afd43924e1f12
+        commit: dae6c3738e5d80ea7e925a5ae8cd760560eb6be2
       - normative-source: J3-24-007
         rules: [R901, R1006, R1008, R1009, R1212, R1215, R1217]
         printed-pages: [155, 169, 242, 244, 248]
@@ -11725,7 +11725,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-expression-power.sh
     final_observable: central generic-print-expression-power PASS with prior expression and generic PRINT routes preserved
-    evidence: contract and independent oracle prepared; implementation wave not yet replayed
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 

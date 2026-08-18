@@ -322,6 +322,12 @@ The next executable slice is prepared as `l3-print-expression-power-v0`:
 the generic PRINT expression item uses source-backed integer power `x ** 2`,
 with R1008 evidence and an independent AST/MIR/qemu oracle. It is not
 implemented or promoted yet.
+The power successor is now integrated as a bounded `x ** 2` item:
+`bash tests/e2e/check-generated-print-expression-power.sh` checks its
+source-backed R1008 AST, typed MIR `load/const/pow/output`, qemu result, four
+source neighbors and three artifact mutations while preserving all prior
+expression routes. The negative value neighbor is `x ** 3`; general power
+semantics remain open.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,
