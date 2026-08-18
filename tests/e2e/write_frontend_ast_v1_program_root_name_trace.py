@@ -35,11 +35,16 @@ def main() -> int:
     for case in contract["case"]:
         source = (root / case["source"]).resolve()
         cases.append({"id": case["id"], "source": {"path": case["source"], "sha256": case["source_sha256"]}, "ast_sha256": digest(run_dir / f"case-{case['id']}.ast.sx", source)})
+    negative_log = run_dir / "negative.log"
+    rejection_marker = "typed frontend rejected source:"
+    if rejection_marker not in negative_log.read_text(encoding="utf-8"):
+        raise SystemExit("negative rejection marker differs")
     trace = {
         "milestone": "L3",
         "fixture": replay["id"],
         "boundary": replay["boundary"],
         "cases": cases,
+        "negative": {"id": "mismatched-end", "expected_outcome": "REJECTED", "rejection_marker": rejection_marker},
         "components": {"fortfront-new": frontend},
         "toolchain": {"fo": tool(["fo", "version"]), "python": tool(["python3", "--version"])},
         "model_calls": 0,

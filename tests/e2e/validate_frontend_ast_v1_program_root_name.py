@@ -99,6 +99,9 @@ def main() -> int:
         oracle_case = oracle_cases[case_id]
         require(oracle_case["expected_root_name"] == field(root_record, "name"), f"oracle root name differs for {case_id}")
     require(not (run_dir / "negative.ast.sx").exists(), "negative AST was written")
+    negative_log = run_dir / "negative.log"
+    require(negative_log.is_file(), "negative rejection log is missing")
+    require("typed frontend rejected source:" in negative_log.read_text(encoding="utf-8"), "negative rejection marker differs")
     print("frontend AST v1 program-root-name oracle PASS: 2 source names, repeats identical, mismatched end rejected")
     return 0
 
