@@ -79,10 +79,13 @@ def main() -> int:
         require(digest(source) == case["source_sha256"], f"{case_id} source hash differs")
         require(source.read_bytes() == (DOUBLE_SOURCE if case_id == "double-precision" else REAL_SOURCE), f"{case_id} source spelling differs")
         require(case["expected_outcome"] == "ACCEPTED" and case["expected_variable_type"] == expected_types[case_id], f"{case_id} expected fields differ")
+        require(case["expected_root_name"] == "main" and case["expected_program_declaration_name"] == "main" and case["expected_variable_name"] == "x", f"{case_id} identity fields differ")
         oracle_case = oracle_cases[case_id]
         require(oracle_case["expected_outcome"] == "ACCEPTED" and oracle_case["expected_variable_type"] == expected_types[case_id], f"{case_id} oracle fields differ")
+        require(oracle_case["expected_root_name"] == "main" and oracle_case["expected_program_declaration_name"] == "main" and oracle_case["expected_variable_name"] == "x", f"{case_id} oracle identity fields differ")
         require(f"(id {case_id})" in witness_text and f"(source {case['source']})" in witness_text, f"{case_id} witness differs")
         require(f"(source-sha256 {case['source_sha256']})" in witness_text and f"(variable-type {case['expected_variable_type']})" in witness_text, f"{case_id} witness hash/type differs")
+        require("(root-name main)" in witness_text and "(program-declaration-name main)" in witness_text and "(variable-name x)" in witness_text, f"{case_id} witness identity differs")
     require(expected["double-precision"]["source"] != expected["real-control"]["source"], "changed-type control reuses positive source")
     negative = root / manifest["negative"]
     require(digest(negative) == manifest["negative_sha256"] and negative.read_bytes() == NEGATIVE_SOURCE, "negative source differs")
