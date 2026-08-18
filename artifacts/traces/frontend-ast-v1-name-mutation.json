@@ -1,5 +1,9 @@
 {
   "boundary": "raw-source-to-typed-frontend-ast-v1-variable-name",
+  "changed_name_control": {
+    "ast_sha256": "5b3284c668a703eb34e924a8a24454020a54aad8adc85e223b7c4b651c08ca2a",
+    "path": "tests/fixtures/l3-ast-variable-name-v1.f90"
+  },
   "components": {
     "fortfront-new": "a657f367251e0d8e4b638d0ff5362565c4d73685"
   },

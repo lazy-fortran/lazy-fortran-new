@@ -7708,9 +7708,9 @@ tasks:
     depends_on: [T-L3-fortfront-typed-variable-name-mutation]
     inputs:
       - path: research/experiments/E0237-can-a-changed-source-name-survive/manifest.yaml
-        sha256: 78ef6159120ee4363b98b8c5ecc49fd34a880fd10e71939cb4c864e7be1ef791
+        sha256: f48178b75a8cde96d04ee9e13eee9c8d677bdd25c8b744e383de1d45c0dc1571
       - path: tests/fixtures/frontend-ast-v1-name-mutation-replay.toml
-        sha256: ed108dfc1d3003d3df90609ff8aed45f82704a0870aae958418cacd750f9939a
+        sha256: 7aa978f922ee3654eb52a74f247b86bc7f4547738742ca9a8db37696cde687a6
       - path: tests/e2e/run-frontend-ast-v1-name-mutation.sh
         sha256: 5d2be956484ffe4f62191262e5d8be0d53d17a785d7c7bab4d57856128a71f12
       - path: tests/e2e/validate_frontend_ast_v1_name_mutation.py
@@ -7719,6 +7719,8 @@ tasks:
         sha256: 10fc6a7a411f7f87be91899af7c509e4735c28173f57763fb0e66bf6ef8d304f
       - path: tests/golden/frontend-ast-v1-name-mutation.oracle.toml
         sha256: 7a9705f00d5045914c1f68ebf23c936801ae3fb6c659ae74ae27321ba261948d
+      - path: artifacts/traces/frontend-ast-v1-name-mutation.json
+        sha256: 51ccf8128a298cc68d578acb1fec9c22578da07b6c6d3c48d7c7852335306b89
       - component: fortfront-new
         commit: a657f367251e0d8e4b638d0ff5362565c4d73685
     output: clean exact-z raw-source-to-typed-AST trace and independent oracle result

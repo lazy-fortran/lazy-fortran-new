@@ -38,7 +38,7 @@ inputs:
   validator: tests/e2e/validate_frontend_ast_v1_name_mutation.py
   validator_sha256: 3256bcc86b618c732f8fc5fdd1ced03bd02f390306aad95dbc61301c1b1c8b24
   trace: artifacts/traces/frontend-ast-v1-name-mutation.json
-  trace_sha256: 01631728dc85f5a5c187874ff4e746d9141015ddc675c3efd56da1cc45ba424e
+  trace_sha256: 51ccf8128a298cc68d578acb1fec9c22578da07b6c6d3c48d7c7852335306b89
 
 variables:
   source_case: "one exact named free-form main program with integer declaration name z"
