@@ -1749,7 +1749,7 @@ if python3 "$oracle" "$print_variable_six_item_ast_file" \
     exit 1
 fi
 
-for variable_output_count in 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80; do
+for variable_output_count in 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100; do
     case "$variable_output_count" in
         7) variable_output_word=seven; variable_output_ordinal=seventh ;;
         8) variable_output_word=eight; variable_output_ordinal=eighth ;;
@@ -1825,6 +1825,26 @@ for variable_output_count in 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 
         78) variable_output_word=seventy-eight; variable_output_ordinal=seventy-eighth ;;
         79) variable_output_word=seventy-nine; variable_output_ordinal=seventy-ninth ;;
         80) variable_output_word=eighty; variable_output_ordinal=eightieth ;;
+        81) variable_output_word=eighty-one; variable_output_ordinal=eighty-first ;;
+        82) variable_output_word=eighty-two; variable_output_ordinal=eighty-second ;;
+        83) variable_output_word=eighty-three; variable_output_ordinal=eighty-third ;;
+        84) variable_output_word=eighty-four; variable_output_ordinal=eighty-fourth ;;
+        85) variable_output_word=eighty-five; variable_output_ordinal=eighty-fifth ;;
+        86) variable_output_word=eighty-six; variable_output_ordinal=eighty-sixth ;;
+        87) variable_output_word=eighty-seven; variable_output_ordinal=eighty-seventh ;;
+        88) variable_output_word=eighty-eight; variable_output_ordinal=eighty-eighth ;;
+        89) variable_output_word=eighty-nine; variable_output_ordinal=eighty-ninth ;;
+        90) variable_output_word=ninety; variable_output_ordinal=ninetieth ;;
+        91) variable_output_word=ninety-one; variable_output_ordinal=ninety-first ;;
+        92) variable_output_word=ninety-two; variable_output_ordinal=ninety-second ;;
+        93) variable_output_word=ninety-three; variable_output_ordinal=ninety-third ;;
+        94) variable_output_word=ninety-four; variable_output_ordinal=ninety-fourth ;;
+        95) variable_output_word=ninety-five; variable_output_ordinal=ninety-fifth ;;
+        96) variable_output_word=ninety-six; variable_output_ordinal=ninety-sixth ;;
+        97) variable_output_word=ninety-seven; variable_output_ordinal=ninety-seventh ;;
+        98) variable_output_word=ninety-eight; variable_output_ordinal=ninety-eighth ;;
+        99) variable_output_word=ninety-nine; variable_output_ordinal=ninety-ninth ;;
+        100) variable_output_word=one-hundred; variable_output_ordinal=hundredth ;;
     esac
     variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-${variable_output_word}-item-v1.f90"
     variable_negative_files=(
@@ -1977,8 +1997,8 @@ python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
 oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 126 ]; then
-    printf 'generated chain route count: expected 126, got %s\n' \
+if [ "$oracle_route_count" -ne 146 ]; then
+    printf 'generated chain route count: expected 146, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi
