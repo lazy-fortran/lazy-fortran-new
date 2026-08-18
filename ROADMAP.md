@@ -63,7 +63,8 @@ metadata are now generated artifacts with component-level behavioral gates.
 The bounded generated chain now passes
 `tests/e2e/check-generated-chain.sh`: the selected raw source becomes
 frontend AST-v1, then MIR-v0, then a RISC-V ELF, with an independent oracle
-checking the correspondence and output class. This is still one exact
+checking the correspondence and output class, and executes it under
+`qemu-riscv64` with exit status zero. This is still one exact
 `program main` / `integer :: x` witness, not arbitrary Fortran or full M3.
 The post-integration component gates and central COMPLEX replay also pass.
 The next implementation step is to broaden the generated interfaces only
