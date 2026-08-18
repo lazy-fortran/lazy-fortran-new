@@ -8605,6 +8605,7 @@ tasks:
         sha256: aa5adef35b113a6a3b8583675670adc782b1a3847e1712c0cead5f67a18dccf0
       - research/runs/2026-08.jsonl#R000727
       - research/runs/2026-08.jsonl#R000728
+      - research/runs/2026-08.jsonl#R000729
     output: one pushed fortfront implementation commit plus central DOUBLE PRECISION replay, or one precise blocker
     integration: component worker then controller replay
     estimated_cost: small
