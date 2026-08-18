@@ -26,6 +26,7 @@ def main() -> None:
         "double-precision": ("real", "f64"),
         "complex": ("complex", "c32"),
         "logical": ("logical", "logical"),
+        "character": ("character", "character"),
     }
     if type_spec not in type_shapes:
         fail("unsupported typed chain oracle shape")

@@ -13,12 +13,14 @@ real_source_file="$ROOT/tests/fixtures/l3-ast-program-real-type-main-v1.f90"
 double_source_file="$ROOT/tests/fixtures/l3-ast-program-double-precision-main-v1.f90"
 complex_source_file="$ROOT/tests/fixtures/l3-ast-program-complex-type-main-v1.f90"
 logical_source_file="$ROOT/tests/fixtures/l3-ast-program-logical-type-main-v1.f90"
+character_source_file="$ROOT/tests/fixtures/l3-ast-program-character-type-main-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
 negative_double_file="$ROOT/tests/negative/l3-ast-program-double-precision-missing-entity-v1.f90"
 negative_complex_file="$ROOT/tests/negative/l3-ast-program-complex-type-missing-entity-v1.f90"
 negative_logical_file="$ROOT/tests/negative/l3-ast-program-logical-type-missing-entity-v1.f90"
+negative_character_file="$ROOT/tests/negative/l3-ast-program-character-type-missing-entity-v1.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 (cd "$standard" && fo clean && fo test test_standardir_lexical_generated && \
@@ -141,5 +143,23 @@ fi
 [ ! -e "$run_dir/negative-logical.ast.sx" ]
 qemu-riscv64 "$logical_elf_file" > /dev/null
 python3 "$oracle" "$logical_ast_file" "$logical_mir_file" "$logical_elf_file" main logical
+
+character_ast_file="$run_dir/character.frontend.ast.sx"
+character_mir_file="$run_dir/character.mir.sx"
+character_elf_file="$run_dir/character.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$character_source_file" "$character_ast_file") \
+    > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$character_ast_file" "$character_mir_file") \
+    > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$character_mir_file" "$character_elf_file") \
+    > /dev/null 2>&1
+if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_character_file" \
+        "$run_dir/negative-character.ast.sx") > /dev/null 2>&1; then
+    printf '%s\n' 'CHARACTER source with missing declaration entity was accepted' >&2
+    exit 1
+fi
+[ ! -e "$run_dir/negative-character.ast.sx" ]
+qemu-riscv64 "$character_elf_file" > /dev/null
+python3 "$oracle" "$character_ast_file" "$character_mir_file" "$character_elf_file" main character
 
 printf '%s\n' 'generated compiler chain PASS'

@@ -99,9 +99,14 @@ generated frontend `logical`, AST-v1 `logical`, MIR-v0 `logical/logical`, and
 the generated RISC-V bridge now pass the same positive, malformed-negative,
 qemu and typed-oracle replay. This remains a declaration-only transport path;
 it does not claim logical width, storage ABI, expressions, arithmetic, or
-runtime logical semantics. The next implementation step is another disjoint
-generated source shape or declaration boundary whose downstream central oracle
-is ready.
+runtime logical semantics. The following parallel slice adds the no-selector `CHARACTER`
+alternative: generated StandardIR R704, generated frontend `character`,
+AST-v1 `character`, MIR-v0 `character/character`, and the generated RISC-V
+bridge now pass the same positive, malformed-negative, qemu and typed-oracle
+replay. This remains a declaration-only transport path; it does not claim
+character length, encoding, storage ABI, expressions, or runtime semantics.
+The next implementation step is another disjoint generated source shape or
+declaration boundary whose downstream central oracle is ready.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
