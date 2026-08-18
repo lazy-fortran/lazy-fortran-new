@@ -157,11 +157,11 @@ existing central replay remains green after this refactor; adding a future
 source-backed operator is now primarily a generated policy-row change rather
 than four new handwritten dispatch branches.
 The next executable slice is integer value transport. Source-backed R708
-integer-literal coverage now accepts the bounded fixture `x = 7` in
-fortfront, lowers it through a generated FFC `const`/`store`/`return` route,
-and emits `addi a0, x0, 7` in fortback; the central replay checks positive,
-non-decimal and out-of-range negatives and qemu exit status 7. The replay
-currently passes 13 routes; regenerate that count with
+integer-literal coverage now accepts bounded decimal values `0..2047` in
+fortfront, lowers them through a generated FFC `const`/`store`/`return` route,
+and emits them through the generated fortback policy; the central replay
+checks `x = 7`, the `2047` boundary, non-decimal input and out-of-range
+negatives. The replay currently passes 14 routes; regenerate that count with
 `bash tests/e2e/check-generated-chain.sh`. This is still a bounded literal
 contract, not general literal parsing, constant evaluation, or arbitrary
 Fortran execution. The bounded integer expression leaves now materialize both
