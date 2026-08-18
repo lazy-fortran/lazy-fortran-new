@@ -11,13 +11,16 @@ source_file="$ROOT/tests/fixtures/l3-declaration-v0.f90"
 main_source_file="$ROOT/tests/fixtures/l3-ast-program-root-name-main-v1.f90"
 real_source_file="$ROOT/tests/fixtures/l3-ast-program-real-type-main-v1.f90"
 double_source_file="$ROOT/tests/fixtures/l3-ast-program-double-precision-main-v1.f90"
+complex_source_file="$ROOT/tests/fixtures/l3-ast-program-complex-type-main-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
 negative_double_file="$ROOT/tests/negative/l3-ast-program-double-precision-missing-entity-v1.f90"
+negative_complex_file="$ROOT/tests/negative/l3-ast-program-complex-type-missing-entity-v1.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
-(cd "$standard" && fo clean && fo test test_standardir_lexical_generated) > /dev/null 2>&1
+(cd "$standard" && fo clean && fo test test_standardir_lexical_generated && \
+    fo clean && fo test test_standardir_grammar_fact) > /dev/null 2>&1
 
 mkdir -p "$ROOT/.cache/fast-checks"
 run_dir="$(mktemp -d "$ROOT/.cache/fast-checks/generated-chain.XXXXXX")"
@@ -100,5 +103,23 @@ fi
 [ ! -e "$run_dir/negative-double.ast.sx" ]
 qemu-riscv64 "$double_elf_file" > /dev/null
 python3 "$oracle" "$double_ast_file" "$double_mir_file" "$double_elf_file" main double-precision
+
+complex_ast_file="$run_dir/complex.frontend.ast.sx"
+complex_mir_file="$run_dir/complex.mir.sx"
+complex_elf_file="$run_dir/complex.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$complex_source_file" "$complex_ast_file") \
+    > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$complex_ast_file" "$complex_mir_file") \
+    > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$complex_mir_file" "$complex_elf_file") \
+    > /dev/null 2>&1
+if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_complex_file" \
+        "$run_dir/negative-complex.ast.sx") > /dev/null 2>&1; then
+    printf '%s\n' 'COMPLEX source with missing declaration entity was accepted' >&2
+    exit 1
+fi
+[ ! -e "$run_dir/negative-complex.ast.sx" ]
+qemu-riscv64 "$complex_elf_file" > /dev/null
+python3 "$oracle" "$complex_ast_file" "$complex_mir_file" "$complex_elf_file" main complex
 
 printf '%s\n' 'generated compiler chain PASS'
