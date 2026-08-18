@@ -8274,7 +8274,7 @@ tasks:
       - component: fortfront-new
         commit: 04ca10b9d191366f328a39d0133375fd6aa62e4e
       - path: research/experiments/E0242-can-a-bounded-ast-v1-real-type-spec-be-d/manifest.yaml
-        sha256: 1df3512e3532ce2442079d4162de4e369b0075a77e22d82e2a071bc63c30cfa3
+        sha256: f2dc1b5c06ec51cee28ae50efb9c4a62d5778cfd9f996bd1bd46f678c3be99e0
       - path: artifacts/reports/L3/frontend-ast-v1-real-type-contract-focused-review-v1.md
         sha256: a09700ffef2eed4cd778a8b288dbbe425dfeb84c24351f8e06abaae3aef4f2ea
       - research/runs/2026-08.jsonl#R000701
@@ -8325,7 +8325,7 @@ tasks:
     depends_on: [T-L3-frontend-real-type-contract]
     inputs:
       - path: research/experiments/E0242-can-a-bounded-ast-v1-real-type-spec-be-d/manifest.yaml
-        sha256: 1df3512e3532ce2442079d4162de4e369b0075a77e22d82e2a071bc63c30cfa3
+        sha256: f2dc1b5c06ec51cee28ae50efb9c4a62d5778cfd9f996bd1bd46f678c3be99e0
       - path: contracts/fixtures/frontend-ast-v1-real-type.sx
         sha256: 8850ef627ec8fc94d89cd31defed00a7d2dbea118b9b6523c6e8a8f6f2432d38
       - path: tests/fixtures/frontend-ast-v1-real-type-contract.toml
