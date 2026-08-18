@@ -22,7 +22,11 @@ def main() -> None:
 
     if not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast:
         fail("AST-v1 root witness is wrong")
-    if "(type-spec integer)" not in ast or "(name x)" not in ast:
+    if "(declaration-count 1)" not in ast or "(variable-count 1)" not in ast:
+        fail("AST-v1 declaration cardinality is wrong")
+    if ast.count("(variable (variable-declaration ") != 1:
+        fail("AST-v1 variable declaration cardinality is wrong")
+    if "(variable (variable-declaration (type-spec integer) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):

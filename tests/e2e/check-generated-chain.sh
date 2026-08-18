@@ -9,6 +9,7 @@ backend="$(resolve_repo fortback-new)"
 source_file="$ROOT/tests/fixtures/l3-declaration-v0.f90"
 main_source_file="$ROOT/tests/fixtures/l3-ast-program-root-name-main-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
+negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
 mkdir -p "$ROOT/.cache/fast-checks"
@@ -32,6 +33,13 @@ if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_file" \
     exit 1
 fi
 [ ! -e "$run_dir/negative.ast.sx" ]
+
+if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_declaration_file" \
+        "$run_dir/negative-declaration.ast.sx") > /dev/null 2>&1; then
+    printf '%s\n' 'source with missing declaration entity was accepted' >&2
+    exit 1
+fi
+[ ! -e "$run_dir/negative-declaration.ast.sx" ]
 
 command -v qemu-riscv64 > /dev/null
 qemu-riscv64 "$elf_file" > /dev/null
