@@ -168,7 +168,11 @@ Fortran execution. The bounded integer expression leaves now materialize both
 operands through FFC, emit generated RISC-V `add`, `mul`, `div` and `sub`, and
 exit 3, 6, 3 and 2 respectively under qemu; the central oracle checks each
 five-instruction MIR shape and exact literals. Broader expression parsing,
-typing, overflow and divide-by-zero semantics remain out of scope.
+typing, overflow and divide-by-zero semantics remain out of scope. The
+fortfront literal range is now generated from its assignment-policy input, and
+standard-new has prepared source-backed generated R901/R902/R903 designator,
+variable and variable-name facts for the next frontend slice; those facts are
+not yet consumed by the central executable chain.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
