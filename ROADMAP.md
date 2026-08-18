@@ -130,6 +130,16 @@ wrong-operator, qemu and typed-oracle replay. This is a structural
 multiplication path only; it does not claim division, power, precedence
 closure, operand evaluation, overflow semantics, or arbitrary executable
 Fortran.
+The next parallel slice adds source-backed R1006/R1009 integer division:
+generated StandardIR `div-op` for `/`, generated frontend binary-expression AST
+for `6 / 2`, generated MIR `div`/`store`/`return` with source rule
+`frontend-ast-v1/expression`, and the generated RISC-V bridge now pass the
+positive, missing-operand, unsupported-power, qemu and typed-oracle replay.
+The qemu witness intentionally returns 255 because this bounded MIR path does
+not materialize operands; that is an encoding/execution witness, not a claim
+of division-result semantics. This slice does not claim constant evaluation,
+divide-by-zero diagnostics, precedence closure, or arbitrary executable
+Fortran.
 The next implementation step is another disjoint generated source shape or
 declaration boundary whose downstream central oracle is ready.
 `lazy-fortran-new` is the sole Goal Mode control
