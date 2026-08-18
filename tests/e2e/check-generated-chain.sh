@@ -26,6 +26,7 @@ sequence_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-two-assignment
 sequence_three_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-three-assignment-v1.f90"
 sequence_four_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-four-assignment-v1.f90"
 sequence_five_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-five-assignment-v1.f90"
+sequence_six_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-six-assignment-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -65,6 +66,11 @@ negative_sequence_five_files=(
     "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-missing-fifth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-wrong-variable-v1.f90"
+)
+negative_sequence_six_files=(
+    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-wrong-operator-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-missing-sixth-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-wrong-variable-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -517,6 +523,37 @@ fi
 [ "$sequence_five_status" -eq 11 ]
 python3 "$oracle" "$sequence_five_ast_file" "$sequence_five_mir_file" \
     "$sequence_five_elf_file" main integer sequence-5
+
+sequence_six_ast_file="$run_dir/sequence-six.frontend.ast.sx"
+sequence_six_mir_file="$run_dir/sequence-six.mir.sx"
+sequence_six_elf_file="$run_dir/sequence-six.program.elf"
+(cd "$frontend" && fo exec fortfront-source-ast-v1 "$sequence_six_source_file" \
+        "$sequence_six_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$sequence_six_ast_file" \
+        "$sequence_six_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$sequence_six_mir_file" \
+        "$sequence_six_elf_file") > /dev/null 2>&1
+for negative_sequence_six in "${negative_sequence_six_files[@]}"; do
+    rm -f "$run_dir/negative-sequence-six.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_sequence_six" \
+            "$run_dir/negative-sequence-six.ast.sx") > /dev/null 2>&1; then
+        if grep -q '^(assignment-sequence ' "$run_dir/negative-sequence-six.ast.sx" && \
+                grep -q '(assignment-count 6)' "$run_dir/negative-sequence-six.ast.sx"; then
+            printf '%s\n' 'invalid six-assignment sequence source was promoted' >&2
+            exit 1
+        fi
+    else
+        [ ! -e "$run_dir/negative-sequence-six.ast.sx" ]
+    fi
+done
+if qemu-riscv64 "$sequence_six_elf_file" > /dev/null; then
+    sequence_six_status=0
+else
+    sequence_six_status=$?
+fi
+[ "$sequence_six_status" -eq 12 ]
+python3 "$oracle" "$sequence_six_ast_file" "$sequence_six_mir_file" \
+    "$sequence_six_elf_file" main integer sequence-6
 
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
