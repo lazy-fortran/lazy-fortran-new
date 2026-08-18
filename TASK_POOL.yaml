@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-fortfront-typed-variable-name-mutation
+  - T-L3-frontend-ast-v1-name-mutation-replay
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-fortfront-typed-variable-name-mutation
+active_task: T-L3-frontend-ast-v1-name-mutation-replay
 
 milestones:
   - id: L0
@@ -7646,8 +7646,8 @@ tasks:
   - id: T-L3-fortfront-typed-variable-name-mutation
     milestone: L3
     title: Implement the bounded typed AST v1 z-name witness
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 80
     depends_on: [T-L3-frontend-ast-v1-name-mutation-contract]
@@ -7668,7 +7668,8 @@ tasks:
         sha256: 3c0cfb4b399e5e925f29e806b85ffffda7a13d01f5e1b73151bd3aa2056dfcf9
       - component: fortfront-new
         commit: d20041cc8854cd4bf501e5ac8b890c9782e32204
-    output: fortfront producer commit that accepts z and preserves x/y behavior
+      - research/runs/2026-08.jsonl#R000674
+    output: fortfront producer commit a657f367251e0d8e4b638d0ff5362565c4d73685 that accepts z and preserves x/y behavior
     integration: controller-only
     estimated_cost: medium
     parallel_group: l3-production
@@ -7697,6 +7698,62 @@ tasks:
     final_observable: deterministic typed AST v1 output with variable name z
     retry_count: 0
     integration_cycle_trigger: next_replay
+  - id: T-L3-frontend-ast-v1-name-mutation-replay
+    milestone: L3
+    title: Replay the changed-name typed AST v1 z witness
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-fortfront-typed-variable-name-mutation]
+    inputs:
+      - path: research/experiments/E0237-can-a-changed-source-name-survive/manifest.yaml
+        sha256: 7e052ce73fb1da3316b6e73afbcb74224c00fcc727e2dc8dcd62bf1aa4a6773f
+      - path: tests/fixtures/frontend-ast-v1-name-mutation-replay.toml
+        sha256: 89fbcba752015a86f2c41874ed5ea4bc6f8c49320121fca954e396e03f412aa5
+      - path: tests/e2e/run-frontend-ast-v1-name-mutation.sh
+        sha256: 5d2be956484ffe4f62191262e5d8be0d53d17a785d7c7bab4d57856128a71f12
+      - path: tests/e2e/validate_frontend_ast_v1_name_mutation.py
+        sha256: a199a5769cdf5b69c94d3c687e8acaacbaa0fa3be571754f416598b8299ac62b
+      - path: tests/golden/frontend-ast-v1-name-mutation.sx
+        sha256: 10fc6a7a411f7f87be91899af7c509e4735c28173f57763fb0e66bf6ef8d304f
+      - path: tests/golden/frontend-ast-v1-name-mutation.oracle.toml
+        sha256: 7a9705f00d5045914c1f68ebf23c936801ae3fb6c659ae74ae27321ba261948d
+      - component: fortfront-new
+        commit: a657f367251e0d8e4b638d0ff5362565c4d73685
+    output: clean exact-z raw-source-to-typed-AST trace and independent oracle result
+    integration: controller-only
+    estimated_cost: small
+    parallel_group: controller-exclusive
+    ownership:
+      component: lazy-fortran-new
+      worktree: /home/ert/code/lazy-fortran-new
+      owner: controller
+      allowed_paths:
+        - tests/e2e/run-frontend-ast-v1-name-mutation.sh
+        - tests/e2e/validate_frontend_ast_v1_name_mutation.py
+        - tests/golden/frontend-ast-v1-name-mutation.sx
+        - tests/golden/frontend-ast-v1-name-mutation.oracle.toml
+        - tests/fixtures/frontend-ast-v1-name-mutation-replay.toml
+        - artifacts/traces/frontend-ast-v1-name-mutation.json
+        - research/experiments/E0237-*
+        - research/runs/2026-08.jsonl
+        - TASK_POOL.yaml
+        - STATUS.md
+        - MILESTONES.md
+    verifier: >-
+      from the frozen central revision run the exact z source, promoted y
+      changed-name control and malformed neighbour through
+      fortfront-source-ast-v1; require the independent schema-linked typed
+      field oracle, byte-identical repeat output, no negative output, stable
+      trace, zero model calls and zero semantic promotions. Promote only this
+      exact z witness and do not infer general identifier parsing.
+    verifier_command: >-
+      AST_EXPECTED_CENTRAL_COMMIT=<pinned-central>
+      tests/e2e/run-frontend-ast-v1-name-mutation.sh --fresh
+    final_observable: typed AST v1 oracle PASS for exact z witness with y control and malformed neighbour rejected
+    retry_count: 0
+    integration_cycle_trigger: milestone_pass
 integration_cycle:
   triggers:
     verified_deltas: 4
