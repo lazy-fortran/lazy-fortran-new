@@ -148,6 +148,14 @@ pass the positive, missing-operand, unsupported-power, qemu and typed-oracle
 replay. The AST preserves the exact U+2013 spelling. This remains a bounded
 structural subtraction path; it does not claim ASCII-minus normalization,
 constant evaluation, precedence closure, or arbitrary executable Fortran.
+The subsequent implementation wave removes the operator-specific handoff
+branches from the current family. StandardIR now emits a generated expression
+fact table, the frontend consumes one generated assignment-policy table, FFC
+uses generated operator metadata with one common MIR emitter, and fortback
+maps MIR opcodes to machine operations through generated policy data. The
+existing central replay remains green after this refactor; adding a future
+source-backed operator is now primarily a generated policy-row change rather
+than four new handwritten dispatch branches.
 The next implementation step is another disjoint generated source shape or
 declaration boundary whose downstream central oracle is ready.
 `lazy-fortran-new` is the sole Goal Mode control
