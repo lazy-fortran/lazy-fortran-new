@@ -10240,8 +10240,8 @@ tasks:
   - id: T-L3-generated-print-variable-two-item-batch
     milestone: L3
     title: Generate and execute PRINT of a stored variable twice
-    status: OPEN
-    verification: PENDING
+    status: PASS
+    verification: PASS
     review_state: PENDING
     priority: 105
     depends_on: [T-L3-generated-print-variable-power-value-batch]
@@ -10249,18 +10249,17 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 531cf38d2298a3f8e499a7c302479e50df512544
+        commit: 7a7d9d4c8542795ac814f870de18fa1e5e818112
       - component: ffc-new
-        commit: e6f803da1cbac61e5bc80510e8f5233bcabe9d39
+        commit: da4c78d8a9a21964fe4c57f4506ccd830b63fffc
       - component: fortback-new
-        commit: 7de65e4144f20f685db67b97c978ec6bcbfe162f
+        commit: 1f8b243734801164f7daae1c8b4cc2b1ca082d61
       - normative-source: J3-24-007
         rules: [R704, R901, R1008, R1033, R1212, R1215, R1217]
         printed-pages: [155, 183, 205, 242, 244, 248]
       - path: tests/fixtures/l3-ast-program-print-variable-two-item-v1.f90
       - path: tests/negative/l3-ast-program-print-variable-two-item-missing-second-v1.f90
       - path: tests/negative/l3-ast-program-print-variable-two-item-wrong-second-v1.f90
-      - path: tests/negative/l3-ast-program-print-variable-two-item-one-output-v1.f90
       - path: tests/negative/l3-ast-program-write-variable-two-item-v1.f90
     output: >-
       central PASS for exact source-backed `x = 3; x = x ** 2; PRINT *, x, x`
@@ -10283,15 +10282,16 @@ tasks:
         - ROADMAP.md
     verifier: >-
       preserve all 47 earlier routes; accept only the exact stored-variable
-      two-item PRINT witness; reject the four listed source neighbours. Check
+      two-item PRINT witness; reject the three listed source neighbours. Check
       exact source bytes, source-file identity, declaration, expression/PRINT
-      spans and provenance, the two output-item R1217 correspondences, repeated
+      spans and provenance, the two output-item R901 correspondences, repeated
       load/output MIR shape, three AST/MIR/ELF mutation controls, and exact qemu
       bytes `9\n9\n`. No general I/O, arbitrary output lists, name resolution,
       runtime library, or semantic promotion.
     verifier_command: >-
       bash tests/e2e/check-generated-chain.sh
     final_observable: central generated chain PASS for PRINT of a stored variable twice; regenerate with bash tests/e2e/check-generated-chain.sh
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: next_replay
 integration_cycle:

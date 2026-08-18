@@ -51,6 +51,7 @@ print_variable_subtract_expression_source_file="$ROOT/tests/fixtures/l3-ast-prog
 print_variable_divide_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-divide-expression-v1.f90"
 print_variable_power_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-power-expression-v1.f90"
 print_variable_power_value_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-power-value-v1.f90"
+print_variable_two_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-two-item-v1.f90"
 negative_file="$ROOT/tests/negative/l3-ast-program-root-name-mismatch-v1.f90"
 negative_declaration_file="$ROOT/tests/negative/l3-declaration-v0-missing-entity.f90"
 negative_real_file="$ROOT/tests/negative/l3-ast-program-real-type-missing-entity-v1.f90"
@@ -206,6 +207,11 @@ negative_print_variable_power_value_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-power-value-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-power-value-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-power-value-v1.f90"
+)
+negative_print_variable_two_item_files=(
+    "$ROOT/tests/negative/l3-ast-program-print-variable-two-item-missing-second-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-print-variable-two-item-wrong-second-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-write-variable-two-item-v1.f90"
 )
 oracle="$ROOT/tests/e2e/oracle_generated_chain.py"
 
@@ -1435,6 +1441,62 @@ if python3 "$oracle" "$print_variable_power_value_ast_file" \
     exit 1
 fi
 
+print_variable_two_item_ast_file="$run_dir/print-variable-two-item.frontend.ast.sx"
+print_variable_two_item_mir_file="$run_dir/print-variable-two-item.mir.sx"
+print_variable_two_item_elf_file="$run_dir/print-variable-two-item.program.elf"
+print_variable_two_item_output_file="$run_dir/print-variable-two-item.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_variable_two_item_source_file" \
+        "$print_variable_two_item_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_variable_two_item_ast_file" \
+        "$print_variable_two_item_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$print_variable_two_item_mir_file" \
+        "$print_variable_two_item_elf_file") > /dev/null 2>&1
+for negative_print_variable_two_item in "${negative_print_variable_two_item_files[@]}"; do
+    rm -f "$run_dir/negative-print-variable-two-item.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_variable_two_item" \
+            "$run_dir/negative-print-variable-two-item.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid variable-two-item PRINT mutation was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/negative-print-variable-two-item.ast.sx" ]
+done
+qemu-riscv64 "$print_variable_two_item_elf_file" > "$print_variable_two_item_output_file"
+printf '9\n9\n' | cmp -s - "$print_variable_two_item_output_file"
+python3 "$oracle" "$print_variable_two_item_ast_file" \
+    "$print_variable_two_item_mir_file" "$print_variable_two_item_elf_file" \
+    main integer print-variable-two-item "$print_variable_two_item_source_file"
+print_variable_two_item_mutated_ast_file="$run_dir/print-variable-two-item.mutated-output.ast.sx"
+sed 's/(output-name-2 x)/(output-name-2 y)/' "$print_variable_two_item_ast_file" \
+    > "$print_variable_two_item_mutated_ast_file"
+if python3 "$oracle" "$print_variable_two_item_mutated_ast_file" \
+        "$print_variable_two_item_mir_file" "$print_variable_two_item_elf_file" \
+        main integer print-variable-two-item "$print_variable_two_item_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'variable-two-item AST output mutation was accepted' >&2
+    exit 1
+fi
+print_variable_two_item_mutated_mir_file="$run_dir/print-variable-two-item.mutated-load.mir.sx"
+sed 's/(opcode load)/(opcode add)/2' "$print_variable_two_item_mir_file" \
+    > "$print_variable_two_item_mutated_mir_file"
+if python3 "$oracle" "$print_variable_two_item_ast_file" \
+        "$print_variable_two_item_mutated_mir_file" "$print_variable_two_item_elf_file" \
+        main integer print-variable-two-item "$print_variable_two_item_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'variable-two-item MIR load mutation was accepted' >&2
+    exit 1
+fi
+print_variable_two_item_mutated_elf_file="$run_dir/print-variable-two-item.mutated.elf"
+cp "$print_variable_two_item_elf_file" "$print_variable_two_item_mutated_elf_file"
+printf '\0' | dd of="$print_variable_two_item_mutated_elf_file" bs=1 seek=0 count=1 conv=notrunc \
+    > /dev/null 2>&1
+if python3 "$oracle" "$print_variable_two_item_ast_file" \
+        "$print_variable_two_item_mir_file" "$print_variable_two_item_mutated_elf_file" \
+        main integer print-variable-two-item "$print_variable_two_item_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'variable-two-item ELF mutation was accepted' >&2
+    exit 1
+fi
+
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
 envelope_five_elf_file="$run_dir/envelope-five.program.elf"
@@ -1523,8 +1585,8 @@ python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
 oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 47 ]; then
-    printf 'generated chain route count: expected 47, got %s\n' \
+if [ "$oracle_route_count" -ne 48 ]; then
+    printf 'generated chain route count: expected 48, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi

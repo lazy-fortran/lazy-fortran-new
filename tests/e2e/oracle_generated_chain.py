@@ -23,7 +23,10 @@ def main() -> None:
     type_spec = sys.argv[5] if len(sys.argv) >= 6 else "integer"
     mode = sys.argv[6] if len(sys.argv) >= 7 else "declaration"
     source_path = pathlib.Path(sys.argv[7]) if len(sys.argv) == 8 else None
+    requested_mode = mode
     if mode == "print-variable-expression":
+        mode = "print-variable"
+    elif mode == "print-variable-two-item":
         mode = "print-variable"
     type_shapes = {
         "integer": ("integer", "i32"),
@@ -550,6 +553,59 @@ def main() -> None:
     elif mode == "print-variable":
         if source_path is None:
             fail("stored-variable oracle requires a source fixture")
+        if requested_mode == "print-variable-two-item":
+            source_bytes = source_path.read_bytes()
+            expected_source = (
+                b"program main\n"
+                b"  integer :: x\n"
+                b"  x = 3\n"
+                b"  x = x ** 2\n"
+                b"  print *, x, x\n"
+                b"end program main\n"
+            )
+            if source_bytes != expected_source or \
+                    hashlib.sha256(source_bytes).hexdigest() != \
+                    "c7dc1f449caf651bdeea13f57a8921d3a3c4a7309d8ac87e276123cd0e0d8b35":
+                fail("stored-variable two-item source fixture bytes changed")
+            if hashlib.sha256(elf).hexdigest() != \
+                    "c44f212bed55cfdb7ff2d2d0ba8aa3d159ac1f603ff5e134fdc93c5046d02b1d":
+                fail("stored-variable two-item ELF identity changed")
+            expected_file_marker = f"(file {source_path})"
+            if ast.count("(file ") != 6 or ast.count(expected_file_marker) != 6 or \
+                    ast.count("(source-hash l3-raw-program-two-assignment-v1)") != 6:
+                fail("stored-variable two-item AST source identity is wrong")
+            required_two_item = [
+                "(program-unit-v2 ", "(root (program-root (name main)",
+                "(declaration-count 1)", "(variable-count 1)",
+                "(execution-part (assignment-sequence (assignment-count 2)",
+                "(kind integer-literal)", "(left-operand 3)",
+                "(kind binary-expression)", "(operator **)",
+                "(left-operand x)", "(right-operand 2)",
+                "(output-count 2)", "(output-kind variable)",
+                "(output-name x)", "(output-kind-2 variable)",
+                "(output-name-2 x)", "(statement-rule R1212)",
+                "(format-rule R1215)", "(output-rule R901)",
+                "(output-rule-2 R901)", "(source-document J3-24-007)",
+                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
+            ]
+            if any(item not in ast for item in required_two_item) or \
+                    ast.count("(assignment (assignment-stmt ") != 2 or \
+                    ast.count("(print-stmt ") != 1:
+                fail("AST-v2 stored-variable two-item PRINT witness is wrong")
+            if mir.count("(instruction-count 11)") != 1 or \
+                    mir.count("(opcode const)") != 2 or \
+                    mir.count("(opcode store)") != 2 or \
+                    mir.count("(opcode load)") != 3 or \
+                    mir.count("(opcode pow)") != 1 or \
+                    mir.count("(opcode output)") != 2 or \
+                    mir.count("(opcode return)") != 1 or \
+                    mir.count("(literal 3)") != 1 or mir.count("(literal 2)") != 1 or \
+                    mir.count("(storage-key x)") != 5 or \
+                    mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
+                    mir.count("(source-rule frontend-ast-v2/print-stmt)") != 5:
+                fail("MIR-v0 stored-variable two-item PRINT shape is wrong")
+            print("generated chain oracle: accepted")
+            return
         source_bytes = source_path.read_bytes()
         expected_source_17 = (
             b"program main\n"

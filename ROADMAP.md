@@ -182,7 +182,7 @@ The program-unit-v2 envelope now carries the declaration and source-backed R509
 execution-part into that same generated chain. Its five- and six-assignment
 extensions use the distinct generated MIR source rules
 `frontend-ast-v2/execution-part-5` and
-`frontend-ast-v2/execution-part-6`. The central replay passes 47 routes;
+`frontend-ast-v2/execution-part-6`. The central replay passes 48 routes;
 regenerate that count with `bash tests/e2e/check-generated-chain.sh`.
 The single-expression witness exits 1, the two-, three-, four-, five- and
 six-assignment witnesses exit 8, 9, 10, 11 and 12, and the two-, five- and
@@ -251,9 +251,10 @@ neighbours and three rejected artifact mutations. The value-generalization slice
 is now integrated as `x = 3; x = x ** 2` with exact output `9\n`, four negative
 neighbours and three rejected artifact mutations. It remains a bounded value
 pair, not a general literal or power implementation.
-The next prepared source-backed slice carries the stored variable through two
-`R1217` output items, `PRINT *, x, x`, with expected output `9\n9\n`; it remains
-a bounded two-item path, not general I/O or arbitrary output-list handling.
+The stored-variable two-item slice carries two `R901` output items through
+`PRINT *, x, x`, with exact output `9\n9\n`, three rejected source neighbours
+and three rejected AST/MIR/ELF mutations. It remains a bounded two-item path,
+not general I/O or arbitrary output-list handling.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
