@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-frontend-ast-v1-name-multichar-contract
+  - T-L3-fortfront-typed-variable-name-multichar
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-frontend-ast-v1-name-multichar-contract
+active_task: T-L3-fortfront-typed-variable-name-multichar
 
 milestones:
   - id: L0
@@ -7765,14 +7765,16 @@ tasks:
   - id: T-L3-frontend-ast-v1-name-multichar-contract
     milestone: L3
     title: Freeze the bounded multi-character name and span contract
-    status: OPEN
-    verification: PENDING
-    review_state: PENDING
+    status: PASS
+    verification: PASS
+    review_state: PASS
     priority: 80
     depends_on: [T-L3-frontend-ast-v1-name-mutation-replay]
     inputs:
       - path: research/decisions/D0179-l3-multichar-name-span-contract.md
         sha256: 61d8df37f31a48c47743195ab4eec2328e408256d18f12b3fc433c3328f9a291
+      - path: research/experiments/E0238-can-a-multicharacter-name-survive/manifest.yaml
+        sha256: 6da798ac012c61084d28a8f6ad98b177dd3f0fa392c8175058f99d95cc91151c
       - path: contracts/frontend-ast-v1.sxs
         sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
       - path: contracts/fixtures/frontend-ast-v1-name-multichar.sx
@@ -7785,6 +7787,7 @@ tasks:
         sha256: afc8d9b191524061008c3ce5bef6f889c526ffd221591834fe0fe9850e910d8a
       - path: tests/negative/l3-declaration-v0-missing-entity.f90
         sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
+      - research/runs/2026-08.jsonl#R000683
     output: frozen alpha-name witness, z changed-name control and independent-oracle contract
     integration: controller-only
     estimated_cost: small
@@ -7810,6 +7813,59 @@ tasks:
     final_observable: contract gate PASS or one precise evidence blocker
     retry_count: 0
     integration_cycle_trigger: next_implementation
+  - id: T-L3-fortfront-typed-variable-name-multichar
+    milestone: L3
+    title: Implement the bounded typed AST v1 alpha-name witness
+    status: OPEN
+    verification: PENDING
+    review_state: PENDING
+    priority: 80
+    depends_on: [T-L3-frontend-ast-v1-name-multichar-contract]
+    inputs:
+      - path: research/decisions/D0179-l3-multichar-name-span-contract.md
+        sha256: 61d8df37f31a48c47743195ab4eec2328e408256d18f12b3fc433c3328f9a291
+      - path: research/experiments/E0238-can-a-multicharacter-name-survive/manifest.yaml
+        sha256: 6da798ac012c61084d28a8f6ad98b177dd3f0fa392c8175058f99d95cc91151c
+      - path: contracts/frontend-ast-v1.sxs
+        sha256: 0c2f1d3caf4039d1e8c643b700ed69a8bb907d513cb1e685af31a229f5c2f274
+      - path: contracts/fixtures/frontend-ast-v1-name-multichar.sx
+        sha256: e0d8d95d0c1e330fdd3505fa28d9d5ea808777a004c2397fdd5439387705b251
+      - path: tests/fixtures/l3-ast-variable-name-multichar-v1.f90
+        sha256: e58243991e715e8f2ed9b8e8ba2d7062727efb5e640ec44faf02541b30c923df
+      - path: tests/fixtures/l3-ast-variable-name-mutation-v1.f90
+        sha256: afc8d9b191524061008c3ce5bef6f889c526ffd221591834fe0fe9850e910d8a
+      - path: tests/negative/l3-declaration-v0-missing-entity.f90
+        sha256: 9a5dc9434cf12516ad2d1865a67ac2cfbc554858ef761096c54ec27c27d35ebd
+      - component: fortfront-new
+        commit: a657f367251e0d8e4b638d0ff5362565c4d73685
+    output: fortfront producer commit that accepts alpha and preserves x/y/z behavior
+    integration: controller-only
+    estimated_cost: medium
+    parallel_group: l3-production
+    ownership:
+      component: fortfront-new
+      worktree: /home/ert/code/fortfront-new-l3-ast-name-multichar-medium
+      owner: controller
+      allowed_paths:
+        - src/fortfront_frontend.f90
+        - src/generated/frontend_ast_v1_generated.f90
+        - app/fortfront_source_ast_v1.f90
+        - test/test_frontend_typed_variable_name_v1.f90
+        - test/test_frontend_typed_variable_name_mutation_v1.f90
+        - test/test_frontend_typed_variable_name_multichar_v1.f90
+        - fpm.toml
+        - README.md
+    verifier: >-
+      consume the frozen alpha source and existing v1 schema, emit variable
+      name alpha with span 10..28 and source-hash label
+      l3-raw-program-variable-name-alpha-v1, preserve exact x/y/z behavior and
+      reject integer ::. Do not add arbitrary declarations, semantics, MIR or
+      model calls; this remains a bounded witness implementation.
+    verifier_command: >-
+      (cd /home/ert/code/fortfront-new && fo clean && fo && fo test)
+    final_observable: deterministic typed AST v1 output with variable name alpha
+    retry_count: 0
+    integration_cycle_trigger: next_replay
 integration_cycle:
   triggers:
     verified_deltas: 4
