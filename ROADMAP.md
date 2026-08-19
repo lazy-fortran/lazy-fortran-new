@@ -477,6 +477,13 @@ with wrong operator, right operand, PRINT name and real-initializer neighbours
 plus AST/MIR/ELF mutations rejected. This is a bounded initialized arithmetic
 transport witness, not general expression parsing, name resolution, integer
 semantics or semantic promotion.
+The bounded-addend successor is now integrated. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-addend.sh` checks
+`x = 42; x = x + 2` and `x = -42; x = x + 10` through AST-v2, exact
+nine-instruction MIR, generated RISC-V and qemu, while addends outside 1..10,
+malformed source neighbours and AST/MIR/ELF mutations reject. This removes the
+fixed `+1` specialization only for the generated initialized-add policy; full
+expression parsing and semantic promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

@@ -12543,6 +12543,75 @@ tasks:
     retry_count: 1
     integration_cycle_trigger: interface_change
 
+  - id: T-L3-generic-print-variable-generic-addend
+    milestone: L3
+    title: Generalize initialized integer addition to bounded addends
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
+    priority: 155
+    depends_on: [T-L3-generic-print-expression-decimal-constant-zero]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: d71ef0b99d25368cd417c437cdb1a8541291bd85
+      - component: ffc-new
+        commit: d6ac7f57a7d04171ac99be946bd124ef65fb3e18
+      - component: fortback-new
+        commit: 71ffec8f48dd919c8332c1f99b02672b8cdc38a7
+      - normative-source: J3-24-007
+        rules: [R1007, R1010, R708, R901, R1033, R1212, R1215, R1217]
+        printed-pages: [66, 150, 155, 188, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-variable-generic-addend-v0.f90
+          - tests/fixtures/l3-print-variable-generic-addend-signed-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-variable-generic-addend-out-of-range-v0.f90
+          - tests/negative/l3-print-variable-generic-addend-wrong-operator-v0.f90
+          - tests/negative/l3-print-variable-generic-addend-wrong-name-v0.f90
+          - tests/negative/l3-print-variable-generic-addend-real-v0.f90
+    writes:
+      - tests/e2e/check-generated-print-variable-generic-addend.sh
+      - tests/e2e/oracle_generated_print_variable_generic_addend.py
+      - tests/fixtures/l3-print-variable-generic-addend-*
+      - tests/negative/l3-print-variable-generic-addend-*
+      - STATUS.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - repos.toml
+    output: >-
+      central PASS for initialized x+n transport with n in the generated
+      bounded addend range, typed AST/MIR and RISC-V/qemu execution; preserve
+      the initialized-add route and reject out-of-range and malformed forms
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-variable-generic-addend
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in assigned worktrees
+        - tests/e2e/check-generated-print-variable-generic-addend.sh
+        - tests/e2e/oracle_generated_print_variable_generic_addend.py
+        - tests/fixtures/l3-print-variable-generic-addend-*
+        - tests/negative/l3-print-variable-generic-addend-*
+        - STATUS.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - repos.toml
+    verifier: >-
+      preserve initialized x+1, accept novel 42+2 and -42+10 with one source
+      provenance identity, exact nine-instruction MIR and qemu output; reject
+      addend 0/11, real or wrong-operator/name neighbours, and AST/MIR/ELF
+      mutations. No general expressions or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-variable-generic-addend.sh
+    final_observable: central generic initialized addend PASS with prior routes preserved
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 1
+    integration_cycle_trigger: interface_change
+
 integration_cycle:
   triggers:
     verified_deltas: 4
