@@ -538,6 +538,14 @@ typed MIR, RISC-V and qemu, with exact outputs `6` and `8`; a signed
 out-of-range initializer, real initializer, wrong-name/operator/RHS neighbours,
 and AST/MIR/ELF mutations reject. This remains a bounded initialized
 variable-add witness, not general expression parsing or semantic promotion.
+The initialized variable-multiply successor is now integrated. Its central
+command `bash tests/e2e/check-generated-print-variable-generic-variable-multiply.sh`
+checks `x = 3; x = x * x` and `x = 4; x = x * x` through the generated
+frontend, typed MIR, RISC-V and qemu, with exact outputs `9` and `16`; a signed
+out-of-range initializer, real initializer, wrong-name/operator/RHS neighbours,
+and AST/MIR/ELF mutations reject. This remains a bounded initialized
+variable-multiply witness, not general expression parsing or semantic
+promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

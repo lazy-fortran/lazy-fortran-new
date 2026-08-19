@@ -13111,6 +13111,78 @@ tasks:
     retry_count: 1
     integration_cycle_trigger: interface_change
 
+  - id: T-L3-generic-print-variable-generic-variable-multiply
+    milestone: L3
+    title: Carry initialized integer variable-multiply through the generated path
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
+    priority: 161
+    depends_on: [T-L3-generic-print-variable-generic-variable-add]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 4bb5bef96bc809c219b1f5d345c8760c08d1e680
+      - component: ffc-new
+        commit: b3b61c44a0a17f78c99f76cca9335ac86afdaef0
+      - component: fortback-new
+        commit: d68713cff48ebea82693e7b5cea611df72ed37dd
+      - normative-source: J3-24-007
+        rules: [R1006, R1009, R1033, R901, R902, R903, R1212, R1215, R1217]
+        printed-pages: [150, 155, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-variable-generic-variable-multiply-v0.f90
+          - tests/fixtures/l3-print-variable-generic-variable-multiply-value-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-variable-generic-variable-multiply-negative-v0.f90
+          - tests/negative/l3-print-variable-generic-variable-multiply-real-v0.f90
+          - tests/negative/l3-print-variable-generic-variable-multiply-wrong-name-v0.f90
+          - tests/negative/l3-print-variable-generic-variable-multiply-wrong-operator-v0.f90
+          - tests/negative/l3-print-variable-generic-variable-multiply-wrong-rhs-v0.f90
+    writes:
+      - tests/e2e/check-generated-print-variable-generic-variable-multiply.sh
+      - tests/e2e/oracle_generated_print_variable_generic_variable_multiply.py
+      - tests/fixtures/l3-print-variable-generic-variable-multiply-*
+      - tests/negative/l3-print-variable-generic-variable-multiply-*
+      - STATUS.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - repos.toml
+    output: >-
+      central PASS for initialized x*x transport with source-backed AST-v2,
+      typed nine-instruction MIR, RISC-V/qemu execution, independent oracle,
+      and prior-route preservation; no general expression or semantic claim
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generic-print-variable-generic-variable-multiply
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-print-variable-generic-variable-multiply.sh
+        - tests/e2e/oracle_generated_print_variable_generic_variable_multiply.py
+        - tests/fixtures/l3-print-variable-generic-variable-multiply-*
+        - tests/negative/l3-print-variable-generic-variable-multiply-*
+        - STATUS.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - repos.toml
+    verifier: >-
+      preserve initialized add/subtract/divide/power and variable-add routes,
+      accept x=3; x=x*x and x=4; x=x*x with exact source identity,
+      const/store/load/load/mul/store/load/output/return MIR and qemu output
+      9/16; reject a signed out-of-range initializer, real initializer, wrong
+      operator/RHS/name, and AST/MIR/ELF mutations. No general expressions or
+      semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-variable-generic-variable-multiply.sh
+    final_observable: central initialized variable-multiply PASS with prior routes preserved
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 1
+    integration_cycle_trigger: interface_change
+
 integration_cycle:
   triggers:
     verified_deltas: 4
