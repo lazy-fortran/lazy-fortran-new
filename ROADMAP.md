@@ -290,6 +290,16 @@ four rejected neighbours, exact qemu output and the preserved 146-route replay.
 This is still list-directed integer output only; formatted I/O, WRITE, arrays,
 non-integer output, general expression items and corpus breadth remain outside
 the claim.
+
+The next literal generalization is also integrated as
+`l3-print-list-literals-v0`. Its central command
+`bash tests/e2e/check-generated-print-list-literals.sh` preserves the prior
+generic-list and generated-chain routes, accepts mixed raw-source lists with
+novel nonnegative decimal literals, and checks the exact AST, MIR, RISC-V and
+QEMU observables with four rejected source neighbours and AST/MIR mutation
+controls. The frontend, FFC and fortback revisions are pinned centrally. This
+remains a bounded mixed integer-list route, not signed expression parsing,
+general I/O, arrays, non-integer output or semantic promotion.
 The next bounded successor is integrated: one generated integer expression
 item `x + 1` may occur in the generic PRINT list. The central command
 `bash tests/e2e/check-generated-print-expression.sh` checks two positive source

@@ -26,12 +26,12 @@ run_positive() {
 
     local mutated_ast="$run_dir/$stem.mutated.ast.sx"
     local mutated_mir="$run_dir/$stem.mutated.mir.sx"
-    sed '0,/(value 20)/s//(value 99)/' "$ast" >"$mutated_ast"
+    sed -E '0,/(value [0-9]+)/s//(value 999)/' "$ast" >"$mutated_ast"
     if python3 "$oracle" "$mutated_ast" "$mir" "$elf" "$source" >/dev/null 2>&1; then
         printf 'literal-list AST mutation was accepted: %s\n' "$source" >&2
         exit 1
     fi
-    sed '0,/(literal 20)/s//(literal 99)/' "$mir" >"$mutated_mir"
+    sed -E 's/\(literal (20|21|22|100|200|300|400|500)\)/(literal 999)/' "$mir" >"$mutated_mir"
     if python3 "$oracle" "$ast" "$mutated_mir" "$elf" "$source" >/dev/null 2>&1; then
         printf 'literal-list MIR mutation was accepted: %s\n' "$source" >&2
         exit 1

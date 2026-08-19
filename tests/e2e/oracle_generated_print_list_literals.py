@@ -31,13 +31,13 @@ def check_contract(root: pathlib.Path) -> None:
             "literal-list contract differs")
     cases = {
         "tests/fixtures/l3-print-list-literals-v0.f90":
-            "154b7cade7a0881ecc0921f8021d5027b359e957ebbf68ba5eeeaf6fd1c796a0",
+            "b4c1bdfd103aa29f035a91b7a16f8dc941034be38694791df6d05090de8703af",
         "tests/fixtures/l3-print-list-literals-wide-v0.f90":
-            "31a0c61de7cadb90cf970115fb01695bdfe3cc42d617c0d67840d9ebf73558b7",
+            "ecff4c7c879a482521adc22bf83234e05849bb6fe320fea9f84dcdb0ee7b5a14",
         "tests/negative/l3-print-list-literals-v0-trailing-comma.f90":
             "e62d6b2c06d7102ce2746da5a6ff0a39e3c1b7a39ce94f2d28f0988784182ddb",
         "tests/negative/l3-print-list-literals-v0-real.f90":
-            "362090bb631407df454adea0073ef9693dcb4e9870ed9a3f4d42902c1d1b68be",
+            "11b3b3162652c2bec191ecb621daa4cc237d45523ac524dd65ca4015662925cf",
         "tests/negative/l3-print-list-literals-v0-write.f90":
             "94d3d630b5e4fb8154f49cc4a8ad1fab764da3b55f869b9e41edc1ef8de61e0e",
         "tests/negative/l3-print-list-literals-v0-name.f90":
@@ -52,7 +52,7 @@ def check_contract(root: pathlib.Path) -> None:
     standardir = root / ".cache/runs/E0171/R000433-provenance-replay/standardir.sx"
     require(digest(pdf) == "7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2",
             "normative PDF hash differs")
-    require(digest(standardir) == "106389186689ae819783ab6742ba4a469f8d1a84ec3bbf25e9baf98a32cf25c2",
+    require(digest(standardir) == "106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2",
             "StandardIR hash differs")
     require("(rules R901 R1212 R1215 R1217)" in fixture and
             "(pages 155 242 244 248)" in fixture,
@@ -106,7 +106,10 @@ def check_ast(ast: pathlib.Path, source: pathlib.Path, values: list[str]) -> Non
         require(witness in text, f"AST provenance missing: {witness}")
     cursor = text.index("(output-items ")
     for value in values:
-        witness = f"(output-item (kind integer-literal) (value {value}) (rule R1217) (clause 12.6.3) (page 248))"
+        if value == "x":
+            witness = "(output-item (kind variable) (name x) (rule R901) (clause 12.6.3) (page 248))"
+        else:
+            witness = f"(output-item (kind integer-literal) (value {value}) (rule R1217) (clause 12.6.3) (page 248))"
         position = text.find(witness, cursor)
         require(position >= 0, f"AST literal missing: {value}")
         cursor = position + len(witness)
@@ -123,10 +126,15 @@ def check_mir(mir: pathlib.Path, values: list[str]) -> None:
             "MIR print instruction count differs")
     cursor = 0
     for value in values:
-        require("(opcode const)" in print_instructions[cursor],
-                "literal item is not const")
-        require(f"(literal {value})" in print_instructions[cursor],
-                f"MIR literal differs: {value}")
+        if value == "x":
+            require("(opcode load)" in print_instructions[cursor] and
+                    "(storage-key x)" in print_instructions[cursor],
+                    "variable item is not a load")
+        else:
+            require("(opcode const)" in print_instructions[cursor],
+                    "literal item is not const")
+            require(f"(literal {value})" in print_instructions[cursor],
+                    f"MIR literal differs: {value}")
         require("(opcode output)" in print_instructions[cursor + 1],
                 "literal item has no output")
         cursor += 2
@@ -141,15 +149,15 @@ def main() -> int:
     values_match = re.search(r"print \*, (.*)", source.read_text(encoding="utf-8"))
     require(values_match is not None, "source has no PRINT list")
     values = [value.strip() for value in values_match.group(1).split(",")]
-    require(values and all(value.isdigit() for value in values),
-            "source values are not nonnegative decimal literals")
+    require(values and all(value == "x" or value.isdigit() for value in values),
+            "source values are not variables or nonnegative decimal literals")
     check_source(source, values)
     check_ast(ast, source, values)
     check_mir(mir, values)
     require(elf.read_bytes().startswith(b"\x7fELF"), "artifact is not ELF")
     runtime = subprocess.run(["qemu-riscv64", str(elf)], capture_output=True, check=False)
     require(runtime.returncode == 0, "runtime returned nonzero")
-    require(runtime.stdout == "".join(f"{value}\n" for value in values).encode(),
+    require(runtime.stdout == "".join(f"{'3' if value == 'x' else value}\n" for value in values).encode(),
             "runtime stdout differs")
     print(f"generic print-list-literals oracle PASS: {len(values)} items")
     return 0

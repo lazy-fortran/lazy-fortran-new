@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generic-print-list-literals
+  []
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-list-literals
+active_task: null
 
 milestones:
   - id: L0
@@ -12068,8 +12068,8 @@ tasks:
   - id: T-L3-generic-print-list-literals
     milestone: L3
     title: Admit novel nonnegative integer literals in generic PRINT lists
-    status: OPEN
-    verification: OPEN
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 154
     depends_on: [T-L3-generic-integer-print-list]
@@ -12079,11 +12079,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 9f2e2639aa83ad7ccd15722ea37d7eb7a7ec77dc
+        commit: a2424072a38199a0af406c207d5edb0907d08207
       - component: ffc-new
-        commit: b398e97e3bddc92592607db76dc7304043fd08d8
+        commit: 4cb731724dc83b6bfae93d53f40df7af9ea7a164
       - component: fortback-new
-        commit: ef8d2ba04c1cd7b92b558d1977a273762634f061
+        commit: 4f608c0069742e99643cd96fc73eeeecb262545a
       - normative-source: J3-24-007
         rules: [R901, R1212, R1215, R1217]
         printed-pages: [155, 242, 244, 248]
@@ -12096,8 +12096,8 @@ tasks:
           - tests/negative/l3-print-list-literals-v0-write.f90
           - tests/negative/l3-print-list-literals-v0-name.f90
     output: >-
-      central PASS for two raw-source generic PRINT lists containing novel
-      nonnegative decimal integer literals, through AST, MIR and RISC-V
+      central PASS for two mixed raw-source generic PRINT lists containing
+      novel nonnegative decimal integer literals, through AST, MIR and RISC-V
       execution, while preserving the prior generic list route
     integration: component workers then controller replay
     estimated_cost: medium
@@ -12128,7 +12128,7 @@ tasks:
         - ROADMAP.md
     verifier: >-
       preserve the prior generic PRINT-list and generated-chain routes; accept
-      both literal-only positive sources with exact R1217 AST items, generic
+      both mixed positive sources with exact R1217 AST items, generic
       const/output MIR pairs and exact qemu stdout; reject trailing comma,
       real literal, WRITE and undeclared-name neighbours; reject AST and MIR
       mutations. This is bounded nonnegative decimal literal admission, not
@@ -12137,7 +12137,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-list-literals.sh
     final_observable: central generic-print-list-literals PASS with prior generic list preserved
-    evidence: central replay required; no model-driven promotion; focused review skipped for ordinary slice
+    evidence: central replay PASS; no model-driven promotion; focused review skipped for ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 
