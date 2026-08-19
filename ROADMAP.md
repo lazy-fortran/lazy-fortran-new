@@ -531,6 +531,13 @@ qemu, with exact outputs `27` and `256`. Negative, real, wrong-name,
 wrong-operator and wrong-RHS neighbours plus AST/MIR/ELF mutations reject.
 This remains a bounded initialized variable-power witness, not general
 variable-exponent semantics, general expression parsing or semantic promotion.
+The initialized variable-add successor is now integrated. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-variable-add.sh` checks
+`x = 3; x = x + x` and `x = 4; x = x + x` through the generated frontend,
+typed MIR, RISC-V and qemu, with exact outputs `6` and `8`; a signed
+out-of-range initializer, real initializer, wrong-name/operator/RHS neighbours,
+and AST/MIR/ELF mutations reject. This remains a bounded initialized
+variable-add witness, not general expression parsing or semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
