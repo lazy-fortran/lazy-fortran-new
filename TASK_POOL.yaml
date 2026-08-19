@@ -12027,13 +12027,20 @@ tasks:
     output: >-
       central PASS for generated PRINT x**x with x=4, exact qemu output 256,
       preserved x=3 behavior, and the four listed source neighbours rejected
-    integration: backend worker then controller replay
+    integration: frontend/backend workers then controller replay
     estimated_cost: medium
     parallel_group: l3-generic-print-expression-power-variable-value
     ownership:
-      component: fortback-new
+      component: fortfront-new/fortback-new
       owner: controller
       allowed_paths:
+        - fortfront-new/specs/frontend-print-policy-v0.sxs
+        - fortfront-new/src/fortfront_program_unit_v2.f90
+        - fortfront-new/src/generated/frontend_print_policy_generated.f90
+        - fortfront-new/tools/generate_print_policy.py
+        - fortfront-new/tools/test_generated_print_policy.py
+        - fortfront-new/specs/fixtures/l3_generic_print_expression_power.f90
+        - fortfront-new/test/test_frontend_generic_print_list.f90
         - fortback-new/src/fortback_mir_v0_riscv_linux.f90
         - fortback-new/test/fixtures/generic-expression-power.sx
         - fortback-new/test/test_mir_v0_print_variable.f90

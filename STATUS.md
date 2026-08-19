@@ -116,9 +116,11 @@ not arbitrary variable-exponent semantics or general semantic analysis.
 
 The next active L3 slice is `T-L3-generic-print-expression-power-variable-value`:
 reuse the promoted AST/MIR shape with `x = 4` and require exact `4 ** 4 = 256`
-in both list positions. Frontend and FFC revisions are reused; only backend
-behavior is expected to require implementation. The contract and independent
-oracle are prepared, but this second initialized value is not yet promoted.
+in both list positions. The baseline exposed a frontend initializer boundary
+before backend lowering, so frontend and backend behavior are now the active
+implementation scopes; FFC is verified on the resulting MIR. The contract and
+independent oracle are prepared, but this second initialized value is not yet
+promoted.
 
 ## Central goal
 
