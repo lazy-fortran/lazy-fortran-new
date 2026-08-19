@@ -93,6 +93,14 @@ AST/MIR/ELF/qemu oracle passes both positive list shapes, four negative
 controls and three artifact mutations. This is a bounded value extension,
 not general power semantics or semantic promotion.
 
+The next active L3 slice is `T-L3-generic-print-expression-power-four`:
+the same source-backed generic PRINT item shape with exponent `4`, exact
+expected output `81`, and the existing x**2/x**3 routes preserved. Its
+contract, fixtures and independent AST/MIR/ELF/qemu oracle are prepared;
+component implementation and central replay are pending. The unsupported
+x**5, missing-operand, WRITE and undeclared-name neighbours are explicit
+negative controls.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

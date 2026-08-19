@@ -334,6 +334,10 @@ the generated PRINT expression path accepts `x ** 3`, produces exact output
 `27`, preserves x**2, and passes its independent AST/MIR/ELF/qemu oracle with
 explicit x**4, missing-operand, WRITE and undeclared-name controls. This
 extends one generated value shape and does not claim general power semantics.
+The next prepared bounded successor is `l3-print-expression-power-four-v0`:
+it carries `x ** 4` to exact output `81` through the same generated
+AST/MIR/RISC-V path, with x**5, missing-operand, WRITE and undeclared-name
+controls. It is not implemented or promoted yet.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,

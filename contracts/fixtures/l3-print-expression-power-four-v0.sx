@@ -1,0 +1,49 @@
+(contract-witness
+  (contract l3-print-expression-power-four)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (property generic-integer-power-four-expression-output)
+  (positive
+    (source-case
+      (id expression-power-four-first)
+      (path tests/fixtures/l3-print-expression-power-four-v0.f90)
+      (sha256 92420f247ec9cc1a377999b91e7a5b7579970f9984f620b505c94d30b35c173e)
+      (expected accepted)))
+  (positive-wide
+    (source-case
+      (id expression-power-four-second)
+      (path tests/fixtures/l3-print-expression-power-four-wide-v0.f90)
+      (sha256 985e6e2b697e7dc5bf54458476e48f84fe08032f540cc08506ca347361f78afa)
+      (expected accepted)))
+  (negative-missing-operand
+    (source-case
+      (id missing-operand)
+      (path tests/negative/l3-print-expression-power-four-v0-missing-operand.f90)
+      (sha256 3b7c0a788a5c9bd6a42df32124f069a778f759656491975958615eafee844496)
+      (expected rejected)))
+  (negative-wrong-value
+    (source-case
+      (id unsupported-exponent)
+      (path tests/negative/l3-print-expression-power-four-v0-wrong-value.f90)
+      (sha256 e87b9505334234168df36c727a7988acb4d182b1722b78935a353d5b2b833977)
+      (expected rejected)))
+  (negative-write
+    (source-case
+      (id write-not-print)
+      (path tests/negative/l3-print-expression-power-four-v0-write.f90)
+      (sha256 ca1a5ab447d16638ba0c4ccd1b9f134ce98b5ad13730be6cc7b96d07882dc04c)
+      (expected rejected)))
+  (negative-name
+    (source-case
+      (id undeclared-name)
+      (path tests/negative/l3-print-expression-power-four-v0-wrong-name.f90)
+      (sha256 1450cee87c799e4038a40eaabc61cd404b04786a400f247b4e7aef3d4fe25a05)
+      (expected rejected)))
+  (source-evidence
+    (document J3-24-007)
+    (pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)
+    (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R901 R1006 R1008 R1009 R1212 R1215 R1217)
+    (pages 155 169 242 244 248)))
