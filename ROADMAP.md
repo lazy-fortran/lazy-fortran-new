@@ -344,6 +344,10 @@ fixed x**2/x**3/x**4 branches are replaced by generated integer-literal
 exponents 2–10, exercised at 5, 7 and 10 so the backend emits multi-digit
 results. Its dynamic oracle rejects variable/negative/malformed exponents and
 WRITE. Arbitrary expression semantics remain open.
+The next prepared frontier is `l3-print-expression-power-variable-v0`:
+carry `x ** x` through generated AST, MIR load/load/pow and the RISC-V backend,
+with exact output `27` and explicit malformed, undeclared, negative and WRITE
+controls. It is not implemented or promoted yet.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,

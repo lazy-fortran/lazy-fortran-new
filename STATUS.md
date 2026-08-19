@@ -107,6 +107,13 @@ independent dynamic AST/MIR/ELF/qemu oracle passes three positives, four
 negative controls and artifact mutations. Variable, negative and malformed
 exponents remain explicit refusals; arbitrary expression semantics remain open.
 
+The next active L3 slice is `T-L3-generic-print-expression-power-variable`:
+the bounded source-backed shape `x ** x`, requiring dynamic AST/MIR
+load/load/pow lowering and runtime output `27`. Its contract, fixtures and
+independent oracle are prepared; frontend, FFC, backend implementation and
+central replay are pending. This is one variable-exponent property, not
+general semantic analysis.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

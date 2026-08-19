@@ -1,0 +1,74 @@
+(schema l3-print-expression-power-variable-v0
+  (primitive name)
+  (primitive int)
+  (enum result accepted rejected)
+  (record source-case
+    (id name)
+    (path name)
+    (sha256 name)
+    (expected result))
+  (record source-evidence
+    (document name)
+    (pdf-sha256 name)
+    (standardir-path name)
+    (standardir-sha256 name)
+    (rules name)
+    (pages int))
+  (record print-expression-power-variable-contract
+    (property name)
+    (positive source-case)
+    (positive-wide source-case)
+    (negative-missing-operand source-case)
+    (negative-variable-exponent source-case)
+    (negative-negative-exponent source-case)
+    (negative-write source-case)
+    (evidence source-evidence)))
+(contract-witness
+  (contract l3-print-expression-power-variable)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (property generic-integer-variable-power-expression-output)
+  (positive
+    (source-case
+      (id expression-power-variable-first)
+      (path tests/fixtures/l3-print-expression-power-variable-v0.f90)
+      (sha256 e031beda704c7b0a3f660b05142da9ed1549314d138405d1527d45d4337de723)
+      (expected accepted)))
+  (positive-wide
+    (source-case
+      (id expression-power-variable-second)
+      (path tests/fixtures/l3-print-expression-power-variable-wide-v0.f90)
+      (sha256 96a0e8901de1f3fe312d00ab1ca187ad3d4a9bbe18f2b2c1c10ce3fce8e6823e)
+      (expected accepted)))
+  (negative-missing-operand
+    (source-case
+      (id missing-operand)
+      (path tests/negative/l3-print-expression-power-variable-v0-missing-operand.f90)
+      (sha256 3b7c0a788a5c9bd6a42df32124f069a778f759656491975958615eafee844496)
+      (expected rejected)))
+  (negative-variable-exponent
+    (source-case
+      (id undeclared-exponent)
+      (path tests/negative/l3-print-expression-power-variable-v0-variable-exponent.f90)
+      (sha256 1450cee87c799e4038a40eaabc61cd404b04786a400f247b4e7aef3d4fe25a05)
+      (expected rejected)))
+  (negative-negative-exponent
+    (source-case
+      (id negative-exponent)
+      (path tests/negative/l3-print-expression-power-variable-v0-negative-exponent.f90)
+      (sha256 c0031f58cac515fedd39d1e752a35c1c42bfc1f91ccaad74defef1301b5a727b)
+      (expected rejected)))
+  (negative-write
+    (source-case
+      (id write-not-print)
+      (path tests/negative/l3-print-expression-power-variable-v0-write.f90)
+      (sha256 e5116a55a2610291e94de65d0f888e810ddaa6e3b7d0af842a8563075d17b0e8)
+      (expected rejected)))
+  (source-evidence
+    (document J3-24-007)
+    (pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)
+    (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R901 R1008 R1212 R1215 R1217)
+    (pages 155 242 244 248)))
