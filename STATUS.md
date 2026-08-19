@@ -114,6 +114,12 @@ QEMU oracle for `27`, `7`, and `3`. Four source neighbors and AST/MIR/ELF
 mutations are rejected. This is a bounded witness for one initialized value,
 not arbitrary variable-exponent semantics or general semantic analysis.
 
+The next active L3 slice is `T-L3-generic-print-expression-power-variable-value`:
+reuse the promoted AST/MIR shape with `x = 4` and require exact `4 ** 4 = 256`
+in both list positions. Frontend and FFC revisions are reused; only backend
+behavior is expected to require implementation. The contract and independent
+oracle are prepared, but this second initialized value is not yet promoted.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

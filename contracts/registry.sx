@@ -63,4 +63,5 @@
   (contract l3-print-expression-power-three 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
   (contract l3-print-expression-power-four 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
   (contract l3-print-expression-power-literal 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
-  (contract l3-print-expression-power-variable 0 lazy-fortran-new fortfront-new ffc-new fortback-new))
+  (contract l3-print-expression-power-variable 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
+  (contract l3-print-expression-power-variable-value 0 lazy-fortran-new fortfront-new ffc-new fortback-new))
