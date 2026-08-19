@@ -44,7 +44,7 @@
     (source-case
       (id ascii-hyphen-mutation)
       (path tests/negative/l3-print-expression-subtract-v0-ascii-hyphen.f90)
-      (sha256 f0f05ec771f9f0ab3c4cfc48d8e598e9b8d9b8616b44d1093cf886c4aca1977c)
+      (sha256 8c12ccfcbb31820eac9edd41a2e8d64a3ee734110d28c2053129db167ec0f4f6)
       (expected rejected)))
   (source-evidence
     (document J3-24-007)

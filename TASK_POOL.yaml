@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generic-print-expression-ascii-subtract
+  []
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-ascii-subtract
+active_task: null
 
 milestones:
   - id: L0
@@ -12348,8 +12348,8 @@ tasks:
   - id: T-L3-generic-print-expression-ascii-subtract
     milestone: L3
     title: Add the canonical ASCII minus form to the generated generic PRINT expression route
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 151
     depends_on: [T-L3-generic-print-expression-add-constant]
@@ -12359,9 +12359,9 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: a190c870c306c5296e4f164547b9e734b518ad4f
+        commit: 98cf7fb8ad0299a7c0521ca7161c3576cc873f00
       - component: ffc-new
-        commit: 32cee0affd228e51839f010b535b064f7d93c1df
+        commit: 6706cd1fb28edb1bfef3b68a7b1b939703145bb6
       - component: fortback-new
         commit: a7b64f60b3f9e7eaaea2009081a829df02697984
       - normative-source: J3-24-007
@@ -12408,8 +12408,8 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-expression-ascii-subtract.sh
     final_observable: central generic-print-expression-ascii-subtract PASS with prior routes preserved
-    evidence: pending central replay; bounded-only promotion; focused review skipped for this ordinary slice
-    retry_count: 0
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 1
     integration_cycle_trigger: interface_change
 
 integration_cycle:

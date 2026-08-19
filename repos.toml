@@ -27,13 +27,13 @@ commit = "08209c87a7d463b9a121b6f80ed763711d9bf98e"
 url  = "https://github.com/lazy-fortran/fortfront-new"
 path = "fortfront-new"
 role = "Generated frontend: lexer, parser, AST, semantics, emitter."
-commit = "a190c870c306c5296e4f164547b9e734b518ad4f"
+commit = "98cf7fb8ad0299a7c0521ca7161c3576cc873f00"
 
 [repos.compiler]
 url  = "https://github.com/lazy-fortran/ffc-new"
 path = "ffc-new"
 role = "Driver and middle end: MIR, optimization, command line."
-commit = "32cee0affd228e51839f010b535b064f7d93c1df"
+commit = "6706cd1fb28edb1bfef3b68a7b1b939703145bb6"
 
 [repos.backend]
 url  = "https://github.com/lazy-fortran/fortback-new"

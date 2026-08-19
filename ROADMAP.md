@@ -390,6 +390,15 @@ positions, five rejected source neighbours and AST/MIR/ELF mutation controls.
 The bounded source uses the existing EN_DASH convention and `x = 5` frontend
 initializer shape; ASCII `-`, general expression parsing and semantic
 promotion remain open.
+The canonical ASCII-minus successor is now integrated as
+`l3-print-expression-ascii-subtract-v0`: ordinary Fortran `x - 2` reaches
+exact output through generated frontend policy, typed MIR
+`load/const/sub/output`, the existing RISC-V sub route and qemu, while the
+Unicode en-dash witness remains accepted. Its central command
+`bash tests/e2e/check-generated-print-expression-ascii-subtract.sh` passes
+both list positions, five rejected source neighbours and AST/MIR/ELF mutation
+controls. The earlier en-dash verifier's obsolete ASCII `x - 2` negative was
+replaced by `x - 3`; general expressions and semantic promotion remain open.
 The next generated compiler boundary is now integrated as
 `l3-print-expression-add-constant-v0`: ordinary ASCII `x + 2` reaches exact
 output through generated frontend policy, typed MIR `load/const/add/output`,
