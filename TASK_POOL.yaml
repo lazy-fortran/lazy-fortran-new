@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generic-print-expression-add-constant
+  []
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-add-constant
+active_task: null
 
 milestones:
   - id: L0
@@ -12155,11 +12155,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 5596b34762cc38138c57fed21d9496619b838211
+        commit: a2424072a38199a0af406c207d5edb0907d08207
       - component: ffc-new
-        commit: bbe5db75fad00d844375c8e8619d436a328b795a
+        commit: 4cb731724dc83b6bfae93d53f40df7af9ea7a164
       - component: fortback-new
-        commit: e317a614711ae9a10c518bdf190b1e7e1185ea2e
+        commit: 82b45416e653dee14f763228e296d048cec492ca
       - normative-source: J3-24-007
         rules: [R901, R1212, R1215, R1217]
         printed-pages: [155, 242, 244, 248]
@@ -12279,8 +12279,8 @@ tasks:
   - id: T-L3-generic-print-expression-add-constant
     milestone: L3
     title: Add a generated integer x plus constant expression item to the generic PRINT list
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 150
     depends_on: [T-L3-generic-print-expression-subtract]
@@ -12290,11 +12290,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 5596b34762cc38138c57fed21d9496619b838211
+        commit: a190c870c306c5296e4f164547b9e734b518ad4f
       - component: ffc-new
-        commit: bbe5db75fad00d844375c8e8619d436a328b795a
+        commit: 32cee0affd228e51839f010b535b064f7d93c1df
       - component: fortback-new
-        commit: e317a614711ae9a10c518bdf190b1e7e1185ea2e
+        commit: a7b64f60b3f9e7eaaea2009081a829df02697984
       - normative-source: J3-24-007
         rules: [R901, R1006, R1007, R1009, R1212, R1215, R1217]
         printed-pages: [155, 169, 242, 244, 248]
@@ -12341,8 +12341,8 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-expression-add-constant.sh
     final_observable: central generic-print-expression-add-constant PASS with prior expression and generic PRINT routes preserved
-    evidence: pending central replay; bounded-only promotion; focused review skipped for this ordinary slice
-    retry_count: 0
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 1
     integration_cycle_trigger: interface_change
 
 integration_cycle:
