@@ -27,19 +27,19 @@ commit = "08209c87a7d463b9a121b6f80ed763711d9bf98e"
 url  = "https://github.com/lazy-fortran/fortfront-new"
 path = "fortfront-new"
 role = "Generated frontend: lexer, parser, AST, semantics, emitter."
-commit = "e4f4853041df2a8f729973e7cc86dd96f80e40e8"
+commit = "d71ef0b99d25368cd417c437cdb1a8541291bd85"
 
 [repos.compiler]
 url  = "https://github.com/lazy-fortran/ffc-new"
 path = "ffc-new"
 role = "Driver and middle end: MIR, optimization, command line."
-commit = "6e2d32869542bdbdc4b0da2bfb3356340f086004"
+commit = "d6ac7f57a7d04171ac99be946bd124ef65fb3e18"
 
 [repos.backend]
 url  = "https://github.com/lazy-fortran/fortback-new"
 path = "fortback-new"
 role = "Target description to generated encoder, object writer, ISel."
-commit = "faa285cb738d7174763b74d3fe68fa3509663219"
+commit = "71ffec8f48dd919c8332c1f99b02672b8cdc38a7"
 
 # ---------------------------------------------------------------------------
 # Oracles. None of these constrains any interface in the repositories above.

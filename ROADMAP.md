@@ -468,6 +468,15 @@ mutations, and preserves the prior initializer replays. The generated
 frontend, lowering and backend policies now cover the bounded `-100..2047`
 initializer range without value-specific dispatch; general assignment parsing
 and semantic promotion remain open.
+The initialized-add successor is now integrated as
+`l3-print-variable-generic-add-v0`. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-add.sh` checks novel
+`x = 42; x = x + 1` and `x = -42; x = x + 1` sources through one consistent
+AST-v2 provenance identity, nine-instruction MIR, generated RISC-V and qemu,
+with wrong operator, right operand, PRINT name and real-initializer neighbours
+plus AST/MIR/ELF mutations rejected. This is a bounded initialized arithmetic
+transport witness, not general expression parsing, name resolution, integer
+semantics or semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
