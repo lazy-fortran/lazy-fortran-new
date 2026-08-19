@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  - T-L3-generic-print-list-literals-only
+  []
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-list-literals-only
+active_task: null
 
 milestones:
   - id: L0
@@ -12144,8 +12144,8 @@ tasks:
   - id: T-L3-generic-print-list-literals-only
     milestone: L3
     title: Permit literal-only generic PRINT lists
-    status: OPEN
-    verification: OPEN
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 155
     depends_on: [T-L3-generic-print-list-literals]
@@ -12159,7 +12159,7 @@ tasks:
       - component: ffc-new
         commit: 4cb731724dc83b6bfae93d53f40df7af9ea7a164
       - component: fortback-new
-        commit: 4f608c0069742e99643cd96fc73eeeecb262545a
+        commit: 82b45416e653dee14f763228e296d048cec492ca
       - normative-source: J3-24-007
         rules: [R901, R1212, R1215, R1217]
         printed-pages: [155, 242, 244, 248]
@@ -12172,7 +12172,7 @@ tasks:
           - tests/negative/l3-print-list-literals-only-v0-write.f90
           - tests/negative/l3-print-list-literals-only-v0-name.f90
     output: >-
-      central PASS for literal-only mixed-free generic PRINT lists with
+      central PASS for literal-only generic PRINT lists with
       nonnegative decimal literals through AST, MIR and RISC-V execution,
       preserving the prior mixed-list and generated-chain routes
     integration: backend worker then controller replay
@@ -12203,7 +12203,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-list-literals-only.sh
     final_observable: central generic-print-list-literals-only PASS with prior routes preserved
-    evidence: central replay required; no model-driven promotion; focused review skipped for ordinary slice
+    evidence: central replay PASS; no model-driven promotion; focused review skipped for ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 

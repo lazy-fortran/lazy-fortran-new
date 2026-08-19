@@ -300,6 +300,14 @@ QEMU observables with four rejected source neighbours and AST/MIR mutation
 controls. The frontend, FFC and fortback revisions are pinned centrally. This
 remains a bounded mixed integer-list route, not signed expression parsing,
 general I/O, arrays, non-integer output or semantic promotion.
+The literal-only successor is now integrated as
+`l3-print-list-literals-only-v0`. Its central command
+`bash tests/e2e/check-generated-print-list-literals-only.sh` removes the
+backend route's former load requirement while preserving the mixed-list and
+generated-chain regressions. It accepts two literal-only lists and checks
+exact AST, MIR, RISC-V and QEMU output with four rejected neighbours and AST/MIR
+mutation controls. This remains bounded nonnegative integer output, not a
+general I/O or expression implementation.
 The next bounded successor is integrated: one generated integer expression
 item `x + 1` may occur in the generic PRINT list. The central command
 `bash tests/e2e/check-generated-print-expression.sh` checks two positive source

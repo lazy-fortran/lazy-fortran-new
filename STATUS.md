@@ -58,6 +58,14 @@ still list-directed integer output with one stored variable; signed
 expressions, formatted I/O, arrays, non-integer output and semantic promotion
 remain outside the claim.
 
+The follow-on `T-L3-generic-print-list-literals-only` slice now passes
+`bash tests/e2e/check-generated-print-list-literals-only.sh`: literal-only
+lists `20, 21, 22` and `100, 200, 300, 400, 500` pass exact AST/MIR/QEMU
+checks, four source neighbours reject, and AST/MIR mutation controls reject.
+This removes the prior backend-only requirement that a generic list contain a
+variable load. It remains nonnegative integer list output; signed expressions,
+formatted I/O, arrays, non-integer output and semantic promotion remain open.
+
 The L3 slice `T-L3-generic-print-expression` now passes
 `bash tests/e2e/check-generated-print-expression.sh`: two positive generic
 PRINT sources carry the fixed `x + 1` expression item through typed AST,
@@ -254,7 +262,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
 | fortfront-new | lazy-fortran/fortfront-new | `a2424072a38199a0af406c207d5edb0907d08207` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, novel nonnegative decimal PRINT literals, and bounded x=3/x=4 variable power expressions; focused gates pass |
 | ffc-new | lazy-fortran/ffc-new | `4cb731724dc83b6bfae93d53f40df7af9ea7a164` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering including arbitrary decimal literal values, initializer transport, and x=3/x=4 load/load/pow plus decimal power-expression lowering; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `4f608c0069742e99643cd96fc73eeeecb262545a` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering including multi-digit decimal literals, and bounded x=3/x=4 x**x plus integer-power decimal emission; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `82b45416e653dee14f763228e296d048cec492ca` | backend | generated stack-slot/sequence routes, generic mixed and literal-only integer output-list RISC-V lowering including multi-digit decimal literals, and bounded x=3/x=4 x**x plus integer-power decimal emission; `fo` passes |
 
 ## Historical milestone evidence
 
