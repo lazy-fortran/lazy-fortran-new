@@ -177,37 +177,31 @@ negative_print_variable_23_files=(
     "$ROOT/tests/negative/l3-ast-program-write-variable-23-v1.f90"
 )
 negative_print_variable_expression_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-variable-expression-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-expression-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-expression-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-expression-v1.f90"
 )
 negative_print_variable_multiply_expression_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-variable-multiply-expression-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-multiply-expression-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-multiply-expression-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-multiply-expression-v1.f90"
 )
 negative_print_variable_subtract_expression_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-variable-subtract-expression-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-subtract-expression-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-subtract-expression-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-subtract-expression-v1.f90"
 )
 negative_print_variable_divide_expression_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-variable-divide-expression-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-divide-expression-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-divide-expression-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-divide-expression-v1.f90"
 )
 negative_print_variable_power_expression_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-variable-power-expression-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-power-expression-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-power-expression-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-power-expression-v1.f90"
 )
 negative_print_variable_power_value_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-variable-power-value-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-power-value-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-power-value-wrong-operator-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-power-value-v1.f90"

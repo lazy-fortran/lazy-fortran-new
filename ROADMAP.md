@@ -459,6 +459,15 @@ the generated `x = 0` and `x = 2047` policy edges through AST-v2, typed MIR,
 RISC-V and qemu, rejects `2048` and real initialization, and rejects
 AST/MIR/ELF mutations. This remains a bounded stored-variable transport
 witness, not general assignment parsing or semantic promotion.
+The generic-initializer successor is now integrated as
+`l3-print-variable-generic-initializer-v0`. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-initializer.sh` checks
+novel `x = 42` and `x = -42` through AST-v2, typed MIR, RISC-V and qemu,
+rejects `2048`, `-101`, real initialization, wrong PRINT names and artifact
+mutations, and preserves the prior initializer replays. The generated
+frontend, lowering and backend policies now cover the bounded `-100..2047`
+initializer range without value-specific dispatch; general assignment parsing
+and semantic promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
