@@ -523,6 +523,14 @@ AST-v2, exact nine-instruction MIR, generated RISC-V and qemu, while exponents
 The frontend consumes the generated print-policy 2..10 bounds and the FFC and
 backend carry the same range. General expression parsing, full power semantics
 and semantic promotion remain open.
+The initialized variable-power successor is now integrated. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-power-variable.sh` checks
+`x = 3; x = x ** x` and `x = 4; x = x ** x` through AST-v2, exact
+`const/store/load/load/pow/store/load/output/return` MIR, generated RISC-V and
+qemu, with exact outputs `27` and `256`. Negative, real, wrong-name,
+wrong-operator and wrong-RHS neighbours plus AST/MIR/ELF mutations reject.
+This remains a bounded initialized variable-power witness, not general
+variable-exponent semantics, general expression parsing or semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
