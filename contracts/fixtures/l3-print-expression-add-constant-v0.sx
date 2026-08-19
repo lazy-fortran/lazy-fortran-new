@@ -1,0 +1,55 @@
+(contract-witness
+  (contract l3-print-expression-add-constant)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (property generic-integer-add-constant-expression-output)
+  (positive
+    (source-case
+      (id expression-add-constant-first)
+      (path tests/fixtures/l3-print-expression-add-constant-v0.f90)
+      (sha256 c7e3ee57b4b815cbee20b4eaa8044b2a66a713b0ad6e3a244b479202f0d69eb4)
+      (expected accepted)))
+  (positive-wide
+    (source-case
+      (id expression-add-constant-second)
+      (path tests/fixtures/l3-print-expression-add-constant-wide-v0.f90)
+      (sha256 a85755f5a85481d041fd7e479312daa64b7435005c3567c6e0dadc5cf5608129)
+      (expected accepted)))
+  (negative-missing-operand
+    (source-case
+      (id missing-operand)
+      (path tests/negative/l3-print-expression-add-constant-v0-missing-operand.f90)
+      (sha256 06688957a17099f13ddec436fc81487be060931c845eeb168ffd79cd3583e7d6)
+      (expected rejected)))
+  (negative-wrong-operator
+    (source-case
+      (id wrong-operator)
+      (path tests/negative/l3-print-expression-add-constant-v0-wrong-operator.f90)
+      (sha256 65f2d97d0a8ee66ddd875ffffc6d3531d2152eb92bbb768674d54aa764d98b20)
+      (expected rejected)))
+  (negative-write
+    (source-case
+      (id write-not-print)
+      (path tests/negative/l3-print-expression-add-constant-v0-write.f90)
+      (sha256 e6e4f0b58867ccb3b4787121c52f5a982f835b8c828e59c3a2cca66bc00fd62e)
+      (expected rejected)))
+  (negative-name
+    (source-case
+      (id undeclared-name)
+      (path tests/negative/l3-print-expression-add-constant-v0-wrong-name.f90)
+      (sha256 aa7847a0ead2b7cae6dc03f25c1d7b9517478004d2f847104f4403619658a4e0)
+      (expected rejected)))
+  (negative-right-value
+    (source-case
+      (id unsupported-right-value)
+      (path tests/negative/l3-print-expression-add-constant-v0-wrong-right.f90)
+      (sha256 8771f33783d9736daff348dcf1b7ad288d0d021e1524f456be955aaf838d11d8)
+      (expected rejected)))
+  (source-evidence
+    (document J3-24-007)
+    (pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)
+    (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R901 R1006 R1007 R1009 R1212 R1215 R1217)
+    (pages 155 169 242 244 248)))
