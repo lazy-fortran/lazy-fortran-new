@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-power-variable-value
+active_task: null
 
 milestones:
   - id: L0
@@ -11810,11 +11810,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: a540a54814a070a1a4d6a879353af5e6b4f22a20
+        commit: 9f2e2639aa83ad7ccd15722ea37d7eb7a7ec77dc
       - component: ffc-new
-        commit: 977ef76fb76fc9acf2ef2a2ea538b13a6a27a9f6
+        commit: b398e97e3bddc92592607db76dc7304043fd08d8
       - component: fortback-new
-        commit: 26658a4f66428befa21e4e23e564a0f6f8d1a4e6
+        commit: ef8d2ba04c1cd7b92b558d1977a273762634f061
       - normative-source: J3-24-007
         rules: [R901, R1006, R1008, R1009, R1212, R1215, R1217]
         printed-pages: [155, 169, 242, 244, 248]
@@ -11997,8 +11997,8 @@ tasks:
   - id: T-L3-generic-print-expression-power-variable-value
     milestone: L3
     title: Stress generated variable-exponent x**x at initializer value four
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 153
     depends_on: [T-L3-generic-print-expression-power-variable]
@@ -12008,11 +12008,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: a540a54814a070a1a4d6a879353af5e6b4f22a20
+        commit: 9f2e2639aa83ad7ccd15722ea37d7eb7a7ec77dc
       - component: ffc-new
-        commit: 977ef76fb76fc9acf2ef2a2ea538b13a6a27a9f6
+        commit: 8b4a5ba86a9e781b1394bf625a972b2f8d82075d
       - component: fortback-new
-        commit: 26658a4f66428befa21e4e23e564a0f6f8d1a4e6
+        commit: ef8d2ba04c1cd7b92b558d1977a273762634f061
       - normative-source: J3-24-007
         rules: [R901, R1008, R1212, R1215, R1217]
         printed-pages: [155, 242, 244, 248]
@@ -12061,7 +12061,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-expression-power-variable-value.sh
     final_observable: central generic-print-expression-power-variable-value PASS with x=3 regression preserved
-    evidence: pending central replay; bounded second initialized value; focused review skipped for this ordinary slice
+    evidence: central replay PASS; bounded x=3/x=4 initialized values; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 

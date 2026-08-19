@@ -351,10 +351,12 @@ The independent oracle rejects malformed, undeclared, negative and WRITE
 neighbors plus AST/MIR/ELF mutations. This proves one initialized witness, not
 arbitrary variable-exponent semantics; the next useful stress is a second
 initializer value.
-The next active slice is `l3-print-expression-power-variable-value-v0`: reuse
-the same source-backed `x ** x` shape with `x = 4`, requiring exact output
-`256` and preserving the promoted `x = 3` witness. This is a targeted backend
-stress for value dependence, not a claim of arbitrary exponentiation.
+The bounded successor `l3-print-expression-power-variable-value-v0` is now
+integrated: frontend, FFC, and backend carry the same source-backed `x ** x`
+shape with `x = 4` to exact output `256` in both list positions, while the
+previous `x = 3` witness remains green. The baseline replay found and repaired
+frontend rejection and FFC initializer loss. This proves two initialized
+values, not arbitrary variable-exponent semantics.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,

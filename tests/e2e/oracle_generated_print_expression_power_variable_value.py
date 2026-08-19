@@ -24,7 +24,7 @@ def check_contract(root: pathlib.Path) -> None:
     fixture = root / "contracts/fixtures/l3-print-expression-power-variable-value-v0.sx"
     text = fixture.read_text(encoding="utf-8")
     for witness in (
-        "(contract l3-print-expression-power-variable)",
+        "(contract l3-print-expression-power-variable-value)",
         "(version 0)",
         "(origin mechanical)",
         "(resolution resolved)",
