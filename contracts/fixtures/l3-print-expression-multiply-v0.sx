@@ -26,7 +26,7 @@
     (source-case
       (id wrong-operator)
       (path tests/negative/l3-print-expression-multiply-v0-wrong-operator.f90)
-      (sha256 cc6632421360d22a371734adc90ece96b02ba1c4ed683c69d44fddc55c461ec1)
+      (sha256 5d7bb07d48c7a0ee32541a5eb5ad73893a133a29ab293255cf3ac8c421e99b1d)
       (expected rejected)))
   (negative-write
     (source-case

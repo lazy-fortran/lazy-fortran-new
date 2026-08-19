@@ -34,7 +34,7 @@ def check_contract(root: pathlib.Path) -> None:
         "tests/negative/l3-print-expression-multiply-v0-missing-operand.f90":
             "1e3755b45265b4fbd0d071e8e97efd6bed08e89a46d1ce422df33fbf7e118fdb",
         "tests/negative/l3-print-expression-multiply-v0-wrong-operator.f90":
-            "cc6632421360d22a371734adc90ece96b02ba1c4ed683c69d44fddc55c461ec1",
+            "5d7bb07d48c7a0ee32541a5eb5ad73893a133a29ab293255cf3ac8c421e99b1d",
         "tests/negative/l3-print-expression-multiply-v0-write.f90":
             "3c0f74b75245defbdd15a5ed69ed564e334257d276346e3a5e5d21a47edf5077",
         "tests/negative/l3-print-expression-multiply-v0-wrong-name.f90":

@@ -33,7 +33,7 @@ def check_contract(root: pathlib.Path) -> None:
         "tests/negative/l3-print-expression-add-constant-v0-wrong-operator.f90": "65f2d97d0a8ee66ddd875ffffc6d3531d2152eb92bbb768674d54aa764d98b20",
         "tests/negative/l3-print-expression-add-constant-v0-write.f90": "e6e4f0b58867ccb3b4787121c52f5a982f835b8c828e59c3a2cca66bc00fd62e",
         "tests/negative/l3-print-expression-add-constant-v0-wrong-name.f90": "aa7847a0ead2b7cae6dc03f25c1d7b9517478004d2f847104f4403619658a4e0",
-        "tests/negative/l3-print-expression-add-constant-v0-wrong-right.f90": "8771f33783d9736daff348dcf1b7ad288d0d021e1524f456be955aaf838d11d8",
+        "tests/negative/l3-print-expression-add-constant-v0-wrong-right.f90": "3ba13cdc307183eff203bf4c42f2bc3c1ce34b768bbb3e1a2639dcb5d6a47bff",
     }
     for relative, expected in cases.items():
         source = root / relative

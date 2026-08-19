@@ -1,5 +1,5 @@
 program main
   integer :: x
   x = 5
-  print *, x + 11, 7
+  print *, 7, x + 4, x - 4
 end program main

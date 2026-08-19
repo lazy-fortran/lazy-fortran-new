@@ -1,0 +1,55 @@
+(contract-witness
+  (contract l3-print-expression-decimal-constant)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (property generic-integer-decimal-expression-constant-output)
+  (positive
+    (source-case
+      (id expression-decimal-constant-first)
+      (path tests/fixtures/l3-print-expression-decimal-constant-v0.f90)
+      (sha256 8915241870000c81b2e28248a1825d8a3b139ce8e02135e42c6ecef9e126b0d5)
+      (expected accepted)))
+  (positive-wide
+    (source-case
+      (id expression-decimal-constant-second)
+      (path tests/fixtures/l3-print-expression-decimal-constant-wide-v0.f90)
+      (sha256 0cc946a116972a39f58baefdfae3c65a2ab6a1d50f9794dc7b6b1d1cdf21c0f9)
+      (expected accepted)))
+  (negative-missing-operand
+    (source-case
+      (id missing-operand)
+      (path tests/negative/l3-print-expression-decimal-constant-v0-missing-operand.f90)
+      (sha256 06688957a17099f13ddec436fc81487be060931c845eeb168ffd79cd3583e7d6)
+      (expected rejected)))
+  (negative-real-right
+    (source-case
+      (id real-right)
+      (path tests/negative/l3-print-expression-decimal-constant-v0-real-right.f90)
+      (sha256 ec11fe6806e6ecc56d521552e913ddb16354c2aa55c5f0e75804a9e305316e00)
+      (expected rejected)))
+  (negative-out-of-range
+    (source-case
+      (id out-of-range)
+      (path tests/negative/l3-print-expression-decimal-constant-v0-out-of-range.f90)
+      (sha256 3ba13cdc307183eff203bf4c42f2bc3c1ce34b768bbb3e1a2639dcb5d6a47bff)
+      (expected rejected)))
+  (negative-write
+    (source-case
+      (id write-not-print)
+      (path tests/negative/l3-print-expression-decimal-constant-v0-write.f90)
+      (sha256 3f2ca90ac826a22ed5630bd8054ce77284432e734a0c2f33d3d477fe3e8a0c5a)
+      (expected rejected)))
+  (negative-name
+    (source-case
+      (id undeclared-name)
+      (path tests/negative/l3-print-expression-decimal-constant-v0-wrong-name.f90)
+      (sha256 78739f2375f86d8ed6b2a49a66694244b02679556b48dd4f3f15d7145c4a9cb5)
+      (expected rejected)))
+  (source-evidence
+    (document J3-24-007)
+    (pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)
+    (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R901 R1006 R1007 R1010 R1212 R1215 R1217)
+    (pages 69 155 242 244 248)))

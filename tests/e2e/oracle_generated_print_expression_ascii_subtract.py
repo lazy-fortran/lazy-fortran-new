@@ -33,7 +33,7 @@ def check_contract(root: pathlib.Path) -> None:
         "tests/negative/l3-print-expression-ascii-subtract-v0-wrong-operator.f90": "65f2d97d0a8ee66ddd875ffffc6d3531d2152eb92bbb768674d54aa764d98b20",
         "tests/negative/l3-print-expression-ascii-subtract-v0-write.f90": "ea07d97eef93893846662079f94a369978ae7bc75923b1a8cbe1a62d2d819de8",
         "tests/negative/l3-print-expression-ascii-subtract-v0-wrong-name.f90": "78739f2375f86d8ed6b2a49a66694244b02679556b48dd4f3f15d7145c4a9cb5",
-        "tests/negative/l3-print-expression-ascii-subtract-v0-wrong-right.f90": "8c12ccfcbb31820eac9edd41a2e8d64a3ee734110d28c2053129db167ec0f4f6",
+        "tests/negative/l3-print-expression-ascii-subtract-v0-wrong-right.f90": "62791c0a47ba4b71288e66bc2bd924a894dec1ae90ab75d21916d70ec17b005e",
     }
     for relative, expected in cases.items():
         source = root / relative

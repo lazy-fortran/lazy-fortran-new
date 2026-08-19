@@ -69,4 +69,5 @@
   (contract l3-print-expression-power-variable-value 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
   (contract l3-print-expression-subtract 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
   (contract l3-print-expression-add-constant 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
-  (contract l3-print-expression-ascii-subtract 0 lazy-fortran-new fortfront-new ffc-new fortback-new))
+  (contract l3-print-expression-ascii-subtract 0 lazy-fortran-new fortfront-new ffc-new fortback-new)
+  (contract l3-print-expression-decimal-constant 0 lazy-fortran-new fortfront-new ffc-new fortback-new))
