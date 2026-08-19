@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-L3-generic-print-variable-generic-variable-y-initializer
 
 milestones:
   - id: L0
@@ -13325,6 +13325,76 @@ tasks:
     final_observable: central initialized variable-subtract PASS with prior routes preserved
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 2
+    integration_cycle_trigger: interface_change
+
+  - id: T-L3-generic-print-variable-generic-variable-y-initializer
+    milestone: L3
+    title: Carry a source-derived initialized integer variable y through the generated path
+    status: OPEN
+    verification: PENDING
+    review_state: SKIPPED
+    priority: 164
+    depends_on: [T-L3-generic-print-variable-generic-variable-subtract]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: b3c0e25921bba3d66aea193375a8a394385c9780
+      - component: ffc-new
+        commit: 430b4c2b16b4fcb8aa5aa7139aab614db465064a
+      - component: fortback-new
+        commit: aea376363ed85056bdc2a0b2b36764c71bb3a63f
+      - normative-source: J3-24-007
+        rules: [R1006, R1009, R1033, R901, R902, R903, R1212, R1215, R1217]
+        printed-pages: [150, 155, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-variable-generic-variable-y-initializer-v0.f90
+          - tests/fixtures/l3-print-variable-generic-variable-y-initializer-signed-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-variable-generic-variable-y-initializer-high-v0.f90
+          - tests/negative/l3-print-variable-generic-variable-y-initializer-real-v0.f90
+          - tests/negative/l3-print-variable-generic-variable-y-initializer-wrong-declaration-v0.f90
+          - tests/negative/l3-print-variable-generic-variable-y-initializer-wrong-name-v0.f90
+    writes:
+      - tests/e2e/check-generated-print-variable-generic-variable-y-initializer.sh
+      - tests/e2e/oracle_generated_print_variable_generic_variable_y_initializer.py
+      - tests/fixtures/l3-print-variable-generic-variable-y-initializer-*
+      - tests/negative/l3-print-variable-generic-variable-y-initializer-*
+      - STATUS.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - repos.toml
+    output: >-
+      central PASS for source-derived initialized y transport with source-backed
+      AST-v2, five-instruction MIR, RISC-V/qemu execution, independent oracle,
+      and prior-route preservation; no general name resolution or semantic claim
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generic-print-variable-generic-variable-y-initializer
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-print-variable-generic-variable-y-initializer.sh
+        - tests/e2e/oracle_generated_print_variable_generic_variable_y_initializer.py
+        - tests/fixtures/l3-print-variable-generic-variable-y-initializer-*
+        - tests/negative/l3-print-variable-generic-variable-y-initializer-*
+        - STATUS.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - repos.toml
+    verifier: >-
+      preserve the initialized x arithmetic and prior variable routes, accept
+      y=3 and y=-4 source shapes with exact source identity, const/store/load/
+      output/return MIR using storage-key y and qemu output 3/-4; reject an
+      out-of-range value, real declaration, wrong declaration/use, and AST/MIR/
+      ELF mutations. No general name resolution or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-variable-generic-variable-y-initializer.sh
+    final_observable: central source-derived variable-y initializer PASS with prior routes preserved
+    evidence: central replay pending; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 0
     integration_cycle_trigger: interface_change
 
 integration_cycle:
