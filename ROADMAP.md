@@ -430,6 +430,13 @@ consume the frontend's source-span/source-identity fields while retaining
 strict item and provenance checks. Negative constants, general expression
 parsing, formatted I/O, arrays, non-integer output and semantic promotion
 remain open.
+The generic PRINT-list cardinality successor is now integrated as a generated
+1..10 output-count boundary. Its central command
+`bash tests/e2e/check-generated-print-list-cardinality.sh` passes one-, four-
+and ten-item literal lists through AST-v2, typed MIR, RISC-V and qemu, rejects
+the eleven-item neighbour, and rejects AST/MIR/ELF mutations. The output-count
+range is generated from the frontend PRINT policy and enforced again by FFC
+and fortback; general I/O and semantic promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
