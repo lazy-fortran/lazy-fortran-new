@@ -1,6 +1,6 @@
 schema: 1
 
-MAX_PARALLEL_WORKERS: 4
+MAX_PARALLEL_WORKERS: 8
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-L3-generic-print-variable-generic-subtrahend
 
 milestones:
   - id: L0
@@ -12610,6 +12610,76 @@ tasks:
     final_observable: central generic initialized addend PASS with prior routes preserved
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 1
+    integration_cycle_trigger: interface_change
+
+  - id: T-L3-generic-print-variable-generic-subtrahend
+    milestone: L3
+    title: Generalize initialized integer subtraction to bounded subtrahends
+    status: OPEN
+    verification: NOT_STARTED
+    review_state: SKIPPED
+    priority: 154
+    depends_on: [T-L3-generic-print-variable-generic-addend]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: a92cf6e5f8557e886820eb524e20169e06838bb6
+      - component: ffc-new
+        commit: 34f7d9a5ce01af5d5a78482eae52ba847c7ac6d7
+      - component: fortback-new
+        commit: 4d630cbf22e14a2f5ddaa3d7c4505ea4f5dd0b81
+      - normative-source: J3-24-007
+        rules: [R1007, R1010, R708, R901, R1033, R1212, R1215, R1217]
+        printed-pages: [66, 150, 155, 188, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-variable-generic-subtrahend-v0.f90
+          - tests/fixtures/l3-print-variable-generic-subtrahend-signed-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-variable-generic-subtrahend-out-of-range-v0.f90
+          - tests/negative/l3-print-variable-generic-subtrahend-zero-v0.f90
+          - tests/negative/l3-print-variable-generic-subtrahend-wrong-operator-v0.f90
+          - tests/negative/l3-print-variable-generic-subtrahend-wrong-name-v0.f90
+          - tests/negative/l3-print-variable-generic-subtrahend-real-v0.f90
+    writes:
+      - tests/e2e/check-generated-print-variable-generic-subtrahend.sh
+      - tests/e2e/oracle_generated_print_variable_generic_subtrahend.py
+      - tests/fixtures/l3-print-variable-generic-subtrahend-*
+      - tests/negative/l3-print-variable-generic-subtrahend-*
+      - STATUS.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - repos.toml
+    output: >-
+      central PASS for initialized x-n transport with n in the generated
+      bounded subtrahend range, typed AST/MIR and RISC-V/qemu execution;
+      preserve initialized-add and reject out-of-range and malformed forms
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-variable-generic-subtrahend
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in assigned worktrees
+        - tests/e2e/check-generated-print-variable-generic-subtrahend.sh
+        - tests/e2e/oracle_generated_print_variable_generic_subtrahend.py
+        - tests/fixtures/l3-print-variable-generic-subtrahend-*
+        - tests/negative/l3-print-variable-generic-subtrahend-*
+        - STATUS.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - repos.toml
+    verifier: >-
+      preserve initialized x+1, accept novel 42-2 and -42-10 with one source
+      provenance identity, exact nine-instruction MIR and qemu output; reject
+      subtrahend 0/11, real or wrong-operator/name neighbours, and AST/MIR/ELF
+      mutations. No general expressions or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-variable-generic-subtrahend.sh
+    final_observable: central generic initialized subtrahend PASS with prior routes preserved
+    evidence: pending component commits and central replay
+    retry_count: 0
     integration_cycle_trigger: interface_change
 
 integration_cycle:
