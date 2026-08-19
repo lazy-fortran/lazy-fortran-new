@@ -33,10 +33,10 @@ def check_contract(root: pathlib.Path) -> None:
         require(witness in text, f"zero-constant contract differs: {witness}")
     cases = {
         "tests/fixtures/l3-print-expression-decimal-constant-zero-v0.f90": "98ee081bdbab4e77e79c9a4fd379428d2de8d8820afa136569fb974c497d60a3",
-        "tests/fixtures/l3-print-expression-decimal-constant-boundary-v0.f90": "d39610e9ec9a7844289d4bc037c5730f9b2e0aba50e37cc27f62554c944b0f4d",
+        "tests/fixtures/l3-print-expression-decimal-constant-boundary-v0.f90": "f9f4a7dc0c7917550b39b631efab7b26faefb63b36f6e4d92149d6a05a810e03",
         "tests/negative/l3-print-expression-decimal-constant-zero-v0-missing-operand.f90": "06688957a17099f13ddec436fc81487be060931c845eeb168ffd79cd3583e7d6",
         "tests/negative/l3-print-expression-decimal-constant-zero-v0-real-right.f90": "7712c90a8cb37a6cb490fd9a011cd11d75df380cfc2609b9ab29f339372500e6",
-        "tests/negative/l3-print-expression-decimal-constant-zero-v0-out-of-range.f90": "3ba13cdc307183eff203bf4c42f2bc3c1ce34b768bbb3e1a2639dcb5d6a47bff",
+        "tests/negative/l3-print-expression-decimal-constant-zero-v0-out-of-range.f90": "f27253825d41a4ebbb1129a7a0b6d856e0f4c3717675cf8fe502b4f4c6486547",
         "tests/negative/l3-print-expression-decimal-constant-zero-v0-write.f90": "a42288e565021e182a8b91053825743cde7c2e80d0b34dd5038f83ff5be70fb7",
         "tests/negative/l3-print-expression-decimal-constant-zero-v0-wrong-name.f90": "aa7847a0ead2b7cae6dc03f25c1d7b9517478004d2f847104f4403619658a4e0",
     }

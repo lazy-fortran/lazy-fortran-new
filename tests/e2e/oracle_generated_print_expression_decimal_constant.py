@@ -31,7 +31,7 @@ def check_contract(root: pathlib.Path) -> None:
         "tests/fixtures/l3-print-expression-decimal-constant-wide-v0.f90": "0cc946a116972a39f58baefdfae3c65a2ab6a1d50f9794dc7b6b1d1cdf21c0f9",
         "tests/negative/l3-print-expression-decimal-constant-v0-missing-operand.f90": "06688957a17099f13ddec436fc81487be060931c845eeb168ffd79cd3583e7d6",
         "tests/negative/l3-print-expression-decimal-constant-v0-real-right.f90": "ec11fe6806e6ecc56d521552e913ddb16354c2aa55c5f0e75804a9e305316e00",
-        "tests/negative/l3-print-expression-decimal-constant-v0-out-of-range.f90": "3ba13cdc307183eff203bf4c42f2bc3c1ce34b768bbb3e1a2639dcb5d6a47bff",
+        "tests/negative/l3-print-expression-decimal-constant-v0-out-of-range.f90": "f27253825d41a4ebbb1129a7a0b6d856e0f4c3717675cf8fe502b4f4c6486547",
         "tests/negative/l3-print-expression-decimal-constant-v0-write.f90": "3f2ca90ac826a22ed5630bd8054ce77284432e734a0c2f33d3d477fe3e8a0c5a",
         "tests/negative/l3-print-expression-decimal-constant-v0-wrong-name.f90": "78739f2375f86d8ed6b2a49a66694244b02679556b48dd4f3f15d7145c4a9cb5",
     }

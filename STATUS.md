@@ -52,8 +52,8 @@ parsing, signed or zero constants, formatted I/O, or semantic promotion. The
 generic integer PRINT-list successor now passes
 
 The zero/boundary successor is also now promoted as bounded-only: generated
-integer PRINT items `x + n` and ASCII `x - n` accept `n=0` through `n=10`,
-with central witnesses for zero and ten, through AST-v2, typed MIR,
+integer PRINT items `x + n` and ASCII `x - n` accept `n=0` through `n=100`,
+with central witnesses for zero and one hundred, through AST-v2, typed MIR,
 RISC-V and qemu. The exact central gate is
 `bash tests/e2e/check-generated-print-expression-decimal-constant-zero.sh`;
 it passes both positives, five source neighbours, the prior decimal slice and
@@ -312,9 +312,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `dd365e4650274e4f5cd0b02e760b59a00004d23b` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, novel nonnegative decimal PRINT literals, bounded x=3/x=4 variable power expressions, source-backed generic x–2, x+2 and canonical ASCII x-2 expression items, and bounded decimal x+n/x-n constants including zero through ten; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `450711fa24e2a0801689b92194e59fef8a77fdf4` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering including arbitrary decimal literal values, initializer transport, x=3/x=4 load/load/pow plus decimal power-expression lowering, and bounded load/const/add-or-sub/output for decimal x+n/x-n constants including zero through ten with preserved AST provenance; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `f1def6f10698d7e6d1aaed383cc9aa14690b0584` | backend | generated stack-slot/sequence routes, generic mixed and literal-only integer output-list RISC-V lowering including multi-digit decimal literals, bounded x=3/x=4 x**x plus integer-power decimal emission, generic load/const/sub/output plus x+2 add emission, and bounded decimal add/sub constants including zero through ten; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `e113f0f391e2f35035216b25c596e2a7a253f7e7` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, novel nonnegative decimal PRINT literals, bounded x=3/x=4 variable power expressions, source-backed generic x–2, x+2 and canonical ASCII x-2 expression items, and bounded decimal x+n/x-n constants including zero through one hundred; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `6cef832be621222550801183a078667646f25bb1` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering including arbitrary decimal literal values, initializer transport, x=3/x=4 load/load/pow plus decimal power-expression lowering, and bounded load/const/add-or-sub/output for decimal x+n/x-n constants including zero through one hundred with preserved AST provenance; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `bfc6a63d594f8be6eff093621ef91b2179638e7f` | backend | generated stack-slot/sequence routes, generic mixed and literal-only integer output-list RISC-V lowering including multi-digit decimal literals, bounded x=3/x=4 x**x plus integer-power decimal emission, generic load/const/sub/output plus x+2 add emission, and bounded decimal add/sub constants including zero through one hundred; `fo` passes |
 
 ## Historical milestone evidence
 

@@ -26,11 +26,11 @@ run_positive() {
     local constant
     constant="$(sed -n 's/.*x [+-] \([0-9][0-9]*\).*/\1/p' "$source" | head -1)"
     [ -n "$constant" ] || { printf 'decimal-constant source has no expression constant: %s\n' "$source" >&2; exit 1; }
-    sed "0,/(right $constant)/s//(right 11)/" "$ast" > "$mutated_ast"
+    sed "0,/(right $constant)/s//(right 101)/" "$ast" > "$mutated_ast"
     if python3 "$oracle" "$mutated_ast" "$mir" "$elf" "$source" >/dev/null 2>&1; then
         printf 'decimal-constant AST mutation was accepted: %s\n' "$source" >&2; exit 1
     fi
-    sed "0,/(literal $constant)/s//(literal 11)/" "$mir" > "$mutated_mir"
+    sed "0,/(literal $constant)/s//(literal 101)/" "$mir" > "$mutated_mir"
     if python3 "$oracle" "$ast" "$mutated_mir" "$elf" "$source" >/dev/null 2>&1; then
         printf 'decimal-constant MIR mutation was accepted: %s\n' "$source" >&2; exit 1
     fi

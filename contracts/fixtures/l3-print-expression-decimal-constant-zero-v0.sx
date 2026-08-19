@@ -14,7 +14,7 @@
     (source-case
       (id expression-decimal-constant-boundary)
       (path tests/fixtures/l3-print-expression-decimal-constant-boundary-v0.f90)
-      (sha256 d39610e9ec9a7844289d4bc037c5730f9b2e0aba50e37cc27f62554c944b0f4d)
+      (sha256 f9f4a7dc0c7917550b39b631efab7b26faefb63b36f6e4d92149d6a05a810e03)
       (expected accepted)))
   (negative-missing-operand
     (source-case
@@ -32,7 +32,7 @@
     (source-case
       (id out-of-range)
       (path tests/negative/l3-print-expression-decimal-constant-zero-v0-out-of-range.f90)
-      (sha256 3ba13cdc307183eff203bf4c42f2bc3c1ce34b768bbb3e1a2639dcb5d6a47bff)
+      (sha256 f27253825d41a4ebbb1129a7a0b6d856e0f4c3717675cf8fe502b4f4c6486547)
       (expected rejected)))
   (negative-write
     (source-case

@@ -30,10 +30,10 @@ def check_contract(root: pathlib.Path) -> None:
         "tests/fixtures/l3-print-expression-subtract-v0.f90": "8c6c43c2a5f617bc399568552a435da06bbed94709bdae75faf8e6ff472e2865",
         "tests/fixtures/l3-print-expression-subtract-wide-v0.f90": "9c8cb32c2830e7f3af87da00e9417ffa9c4ca314aa0ad55b3ede8a7697bdeb15",
         "tests/negative/l3-print-expression-subtract-v0-missing-operand.f90": "63521a1ae244d68e0d02f5a509b8a3fc94628cfa9037fffea92d7c6675390f47",
-        "tests/negative/l3-print-expression-subtract-v0-wrong-operator.f90": "3ba13cdc307183eff203bf4c42f2bc3c1ce34b768bbb3e1a2639dcb5d6a47bff",
+        "tests/negative/l3-print-expression-subtract-v0-wrong-operator.f90": "f27253825d41a4ebbb1129a7a0b6d856e0f4c3717675cf8fe502b4f4c6486547",
         "tests/negative/l3-print-expression-subtract-v0-write.f90": "a4023c08e1779828d3fce026c6d937e178789f2033f38f62434e18deb28adad6",
         "tests/negative/l3-print-expression-subtract-v0-wrong-name.f90": "9c0d7687263f821d935f817792a4439106058c3a23273a19dea65b5285e23e3e",
-        "tests/negative/l3-print-expression-subtract-v0-ascii-hyphen.f90": "62791c0a47ba4b71288e66bc2bd924a894dec1ae90ab75d21916d70ec17b005e",
+        "tests/negative/l3-print-expression-subtract-v0-ascii-hyphen.f90": "d49536870a4092cfc798e2af5ba8a0eb1307ce3e3c2490edebdec44b3f94a7ac",
     }
     for relative, expected in cases.items():
         source = root / relative

@@ -44,7 +44,7 @@
     (source-case
       (id unsupported-right-value)
       (path tests/negative/l3-print-expression-ascii-subtract-v0-wrong-right.f90)
-      (sha256 62791c0a47ba4b71288e66bc2bd924a894dec1ae90ab75d21916d70ec17b005e)
+      (sha256 d49536870a4092cfc798e2af5ba8a0eb1307ce3e3c2490edebdec44b3f94a7ac)
       (expected rejected)))
   (source-evidence
     (document J3-24-007)

@@ -32,7 +32,7 @@
     (source-case
       (id out-of-range)
       (path tests/negative/l3-print-expression-decimal-constant-v0-out-of-range.f90)
-      (sha256 3ba13cdc307183eff203bf4c42f2bc3c1ce34b768bbb3e1a2639dcb5d6a47bff)
+      (sha256 f27253825d41a4ebbb1129a7a0b6d856e0f4c3717675cf8fe502b4f4c6486547)
       (expected rejected)))
   (negative-write
     (source-case
