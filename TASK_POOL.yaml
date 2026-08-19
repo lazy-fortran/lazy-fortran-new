@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-variable-generic-variable-y-initializer
+active_task: null
 
 milestones:
   - id: L0
@@ -13330,8 +13330,8 @@ tasks:
   - id: T-L3-generic-print-variable-generic-variable-y-initializer
     milestone: L3
     title: Carry a source-derived initialized integer variable y through the generated path
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 164
     depends_on: [T-L3-generic-print-variable-generic-variable-subtract]
@@ -13339,11 +13339,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: b3c0e25921bba3d66aea193375a8a394385c9780
+        commit: 32a3016003d9ba722044bd6decbbe632a5258fa9
       - component: ffc-new
-        commit: 430b4c2b16b4fcb8aa5aa7139aab614db465064a
+        commit: fc7e98e4ca9702ffee0acb1eec938d24e325c32b
       - component: fortback-new
-        commit: aea376363ed85056bdc2a0b2b36764c71bb3a63f
+        commit: 7bf724247ca9c85781ae9a43a0f7a1394331854b
       - normative-source: J3-24-007
         rules: [R1006, R1009, R1033, R901, R902, R903, R1212, R1215, R1217]
         printed-pages: [150, 155, 242, 244, 248]
@@ -13393,8 +13393,8 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-variable-generic-variable-y-initializer.sh
     final_observable: central source-derived variable-y initializer PASS with prior routes preserved
-    evidence: central replay pending; bounded-only promotion; focused review skipped for this ordinary slice
-    retry_count: 0
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 1
     integration_cycle_trigger: interface_change
 
 integration_cycle:

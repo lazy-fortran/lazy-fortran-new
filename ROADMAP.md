@@ -561,6 +561,14 @@ out-of-range initializer, real initializer, wrong-name/operator/RHS neighbours,
 and AST/MIR/ELF mutations reject. This remains a bounded initialized
 variable-subtract witness, not general expression parsing or semantic
 promotion.
+The source-derived variable-y initializer successor is now integrated. Its
+central command `bash tests/e2e/check-generated-print-variable-generic-variable-y-initializer.sh`
+checks `y = 3` and `y = -4` through AST-v2, the exact
+`const/store/load/output/return` MIR route, generated RISC-V and qemu, with
+outputs `3` and `-4`; an out-of-range value, real declaration, wrong
+declaration/use neighbour, and AST/MIR/ELF mutations reject. This remains a
+bounded source-derived variable-name witness, not general name resolution or
+semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
