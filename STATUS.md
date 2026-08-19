@@ -75,14 +75,14 @@ The L3 slice `T-L3-generic-print-expression-divide` was prepared
 with source-backed R1006/R1009 evidence and an independent oracle for `x / 2`
 as one generic PRINT item. Its component implementation wave is next.
 The division component implementation and central replay now pass; the
-negative neighbor is the still-out-of-scope `x ** 4` form. This remains one
+negative neighbor is the still-out-of-scope `x ** 5` form. This remains one
 bounded division expression item, not general operator parsing or semantic
 promotion.
 
 The L3 slice `T-L3-generic-print-expression-power` was prepared
 with source-backed R1008 evidence and an independent oracle for `x ** 2` as
 one generic PRINT item. Its component implementation and central replay now
-pass; the preserved power negative is now the still-out-of-scope `x ** 4`.
+pass; the preserved power negative is now the still-out-of-scope `x ** 5`.
 This remains one bounded power expression item, not general operator parsing
 or semantic promotion.
 
@@ -93,13 +93,12 @@ AST/MIR/ELF/qemu oracle passes both positive list shapes, four negative
 controls and three artifact mutations. This is a bounded value extension,
 not general power semantics or semantic promotion.
 
-The next active L3 slice is `T-L3-generic-print-expression-power-four`:
-the same source-backed generic PRINT item shape with exponent `4`, exact
-expected output `81`, and the existing x**2/x**3 routes preserved. Its
-contract, fixtures and independent AST/MIR/ELF/qemu oracle are prepared;
-component implementation and central replay are pending. The unsupported
-x**5, missing-operand, WRITE and undeclared-name neighbours are explicit
-negative controls.
+The L3 slice `T-L3-generic-print-expression-power-four` is now integrated:
+the same source-backed generic PRINT item shape with exponent `4` produces
+exact output `81`, while x**2 and x**3 remain supported. Its independent
+AST/MIR/ELF/qemu oracle passes both positive list shapes, four negative
+controls and three artifact mutations. The unsupported x**5 neighbor remains
+explicit; this is a bounded value extension, not general power semantics.
 
 ## Central goal
 
@@ -221,9 +220,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `be8b9a4b5a1e34829c11987f274bc9ed55f1f29e` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and bounded x+1/x+x/x*2/x/2/x**2/x**3 expression items; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `e467c58e7bca490f020b413640fb9922c788330c` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and bounded expression-item load/const/pow/div/mul/add/output lowering for x**2 and x**3; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `68211a8e88a314ea108182592452c8e6c506a513` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and bounded expression-item arithmetic emission including x**3; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `2469e8195980b1e4001f7833fbb98cc43a1a5c1c` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and bounded x+1/x+x/x*2/x/2/x**2/x**3/x**4 expression items; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `fbad2ba762ea3b4edcf3fdaee692da2e80e85690` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and bounded expression-item load/const/pow/div/mul/add/output lowering for x**2, x**3 and x**4; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `00876815d3b8a9f54a45bc48a4be88cdaa628daf` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and bounded expression-item arithmetic emission including x**3 and x**4; `fo` passes |
 
 ## Historical milestone evidence
 

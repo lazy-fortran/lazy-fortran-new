@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-power-four
+active_task: null
 
 milestones:
   - id: L0
@@ -11717,7 +11717,7 @@ tasks:
     verifier: >-
       preserve the generic PRINT-list, x+1, x+x, x*2 and x/2 expression
       routes; accept both positive x**2 sources using the fixed expression
-      item AST shape; reject missing operand, unsupported x**4, WRITE, and
+      item AST shape; reject missing operand, unsupported x**5, WRITE, and
       undeclared-name neighbors; check source provenance, MIR
       load/const/pow/output order, exact stdout, and AST/MIR/ELF mutations.
       No general expressions, formatted I/O, arrays, non-integer output, or
@@ -11785,7 +11785,7 @@ tasks:
     verifier: >-
       preserve the generic PRINT-list, x+1, x+x, x*2, x/2 and x**2 routes;
       accept both positive x**3 sources using the fixed expression-item AST
-      shape; reject missing operand, unsupported x**4, WRITE, and undeclared
+      shape; reject missing operand, unsupported x**5, WRITE, and undeclared
       name neighbours; check source provenance, MIR load/const/pow/output
       order, exact stdout, and AST/MIR/ELF mutations. No general expressions,
       formatted I/O, arrays, non-integer output, or semantic promotion.
@@ -11799,8 +11799,8 @@ tasks:
   - id: T-L3-generic-print-expression-power-four
     milestone: L3
     title: Add a generated integer power-four expression item to the generic PRINT list
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 150
     depends_on: [T-L3-generic-print-expression-power-three]
@@ -11810,11 +11810,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: be8b9a4b5a1e34829c11987f274bc9ed55f1f29e
+        commit: 2469e8195980b1e4001f7833fbb98cc43a1a5c1c
       - component: ffc-new
-        commit: e467c58e7bca490f020b413640fb9922c788330c
+        commit: fbad2ba762ea3b4edcf3fdaee692da2e80e85690
       - component: fortback-new
-        commit: 68211a8e88a314ea108182592452c8e6c506a513
+        commit: 00876815d3b8a9f54a45bc48a4be88cdaa628daf
       - normative-source: J3-24-007
         rules: [R901, R1006, R1008, R1009, R1212, R1215, R1217]
         printed-pages: [155, 169, 242, 244, 248]
