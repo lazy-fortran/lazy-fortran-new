@@ -491,6 +491,14 @@ nine-instruction MIR, generated RISC-V and qemu, while addends outside 1..10,
 malformed source neighbours and AST/MIR/ELF mutations reject. ASCII source
 minus is normalized at the FFC AST boundary. This extends one initialized
 subtraction shape; full expression parsing and semantic promotion remain open.
+The bounded-multiplier successor is now integrated. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-multiplier.sh` checks
+`x = 42; x = x * 3` and `x = -42; x = x * 10` through AST-v2, exact
+nine-instruction MIR, generated RISC-V and qemu, while multiplier zero/eleven,
+real and malformed source neighbours, and AST/MIR/ELF mutations reject. The
+runner directly replays the existing addend and subtrahend routes. This extends
+one initialized multiplication shape; full expression parsing and semantic
+promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

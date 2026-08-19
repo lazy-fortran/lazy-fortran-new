@@ -12682,6 +12682,76 @@ tasks:
     retry_count: 3
     integration_cycle_trigger: interface_change
 
+  - id: T-L3-generic-print-variable-generic-multiplier
+    milestone: L3
+    title: Generalize initialized integer multiplication to bounded multipliers
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
+    priority: 155
+    depends_on: [T-L3-generic-print-variable-generic-subtrahend]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 382fd1d3c3de317a45d5b45e932adafb232562ac
+      - component: ffc-new
+        commit: 22d2b6ea1858b6739ae55eda559427735be0029e
+      - component: fortback-new
+        commit: c740238679bed4c7d9b2d503e94646980a18be4d
+      - normative-source: J3-24-007
+        rules: [R1007, R1010, R708, R901, R1033, R1212, R1215, R1217]
+        printed-pages: [66, 150, 155, 188, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-variable-generic-multiplier-v0.f90
+          - tests/fixtures/l3-print-variable-generic-multiplier-signed-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-variable-generic-multiplier-out-of-range-v0.f90
+          - tests/negative/l3-print-variable-generic-multiplier-zero-v0.f90
+          - tests/negative/l3-print-variable-generic-multiplier-wrong-operator-v0.f90
+          - tests/negative/l3-print-variable-generic-multiplier-wrong-name-v0.f90
+          - tests/negative/l3-print-variable-generic-multiplier-real-v0.f90
+    writes:
+      - tests/e2e/check-generated-print-variable-generic-multiplier.sh
+      - tests/e2e/oracle_generated_print_variable_generic_multiplier.py
+      - tests/fixtures/l3-print-variable-generic-multiplier-*
+      - tests/negative/l3-print-variable-generic-multiplier-*
+      - STATUS.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - repos.toml
+    output: >-
+      central PASS for initialized x*n transport with n in the generated
+      bounded multiplier range, typed AST/MIR and RISC-V/qemu execution;
+      preserve initialized add/subtract and reject out-of-range and malformed forms
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-variable-generic-multiplier
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-print-variable-generic-multiplier.sh
+        - tests/e2e/oracle_generated_print_variable_generic_multiplier.py
+        - tests/fixtures/l3-print-variable-generic-multiplier-*
+        - tests/negative/l3-print-variable-generic-multiplier-*
+        - STATUS.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - repos.toml
+    verifier: >-
+      preserve initialized x+1 and x-1, accept novel 42*3 and -42*10 with one
+      source provenance identity, exact nine-instruction MIR and qemu output;
+      reject multiplier 0/11, real or wrong-operator/name neighbours, and
+      AST/MIR/ELF mutations. No general expressions or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-variable-generic-multiplier.sh
+    final_observable: central generic initialized multiplier PASS with prior routes preserved
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
 integration_cycle:
   triggers:
     verified_deltas: 4
