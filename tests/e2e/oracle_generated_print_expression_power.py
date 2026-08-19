@@ -34,7 +34,7 @@ def check_contract(root: pathlib.Path) -> None:
         "tests/negative/l3-print-expression-power-v0-missing-operand.f90":
             "3b7c0a788a5c9bd6a42df32124f069a778f759656491975958615eafee844496",
         "tests/negative/l3-print-expression-power-v0-wrong-value.f90":
-            "e87b9505334234168df36c727a7988acb4d182b1722b78935a353d5b2b833977",
+            "be6224946df187f22417e21b01698f64c785f597c9a6d08b3b24bf6fa7d9be97",
         "tests/negative/l3-print-expression-power-v0-write.f90":
             "89d2a84f56a6051ff02d85a2adde18266499c3f64e172ad38a333f0b1d88abde",
         "tests/negative/l3-print-expression-power-v0-wrong-name.f90":

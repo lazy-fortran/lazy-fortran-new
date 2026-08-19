@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-power-literal
+active_task: null
 
 milestones:
   - id: L0
@@ -11717,7 +11717,7 @@ tasks:
     verifier: >-
       preserve the generic PRINT-list, x+1, x+x, x*2 and x/2 expression
       routes; accept both positive x**2 sources using the fixed expression
-      item AST shape; reject missing operand, unsupported x**5, WRITE, and
+      item AST shape; reject missing operand, unsupported x**11, WRITE, and
       undeclared-name neighbors; check source provenance, MIR
       load/const/pow/output order, exact stdout, and AST/MIR/ELF mutations.
       No general expressions, formatted I/O, arrays, non-integer output, or
@@ -11785,7 +11785,7 @@ tasks:
     verifier: >-
       preserve the generic PRINT-list, x+1, x+x, x*2, x/2 and x**2 routes;
       accept both positive x**3 sources using the fixed expression-item AST
-      shape; reject missing operand, unsupported x**5, WRITE, and undeclared
+      shape; reject missing operand, unsupported x**11, WRITE, and undeclared
       name neighbours; check source provenance, MIR load/const/pow/output
       order, exact stdout, and AST/MIR/ELF mutations. No general expressions,
       formatted I/O, arrays, non-integer output, or semantic promotion.
@@ -11810,11 +11810,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 2469e8195980b1e4001f7833fbb98cc43a1a5c1c
+        commit: f12a4104a52b0c03dcf1ec0615d4d85d73bf1923
       - component: ffc-new
-        commit: fbad2ba762ea3b4edcf3fdaee692da2e80e85690
+        commit: 6cfc59e85e81f60429a5c03fc98dced0e2fdc235
       - component: fortback-new
-        commit: 00876815d3b8a9f54a45bc48a4be88cdaa628daf
+        commit: 6025b5e5c29af7bf807d8c1721c84be32926f6ca
       - normative-source: J3-24-007
         rules: [R901, R1006, R1008, R1009, R1212, R1215, R1217]
         printed-pages: [155, 169, 242, 244, 248]
@@ -11852,7 +11852,7 @@ tasks:
     verifier: >-
       preserve the generic PRINT-list, x+1, x+x, x*2, x/2, x**2 and x**3
       routes; accept both positive x**4 sources using the fixed expression-item
-      AST shape; reject missing operand, unsupported x**5, WRITE, and
+      AST shape; reject missing operand, unsupported x**11, WRITE, and
       undeclared-name neighbours; check source provenance, MIR
       load/const/pow/output order, exact stdout, and AST/MIR/ELF mutations.
       No general expressions, formatted I/O, arrays, non-integer output, or
@@ -11867,8 +11867,8 @@ tasks:
   - id: T-L3-generic-print-expression-power-literal
     milestone: L3
     title: Generalize generated PRINT power to integer literal exponents
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 151
     depends_on: [T-L3-generic-print-expression-power-four]
@@ -11878,11 +11878,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 2469e8195980b1e4001f7833fbb98cc43a1a5c1c
+        commit: f12a4104a52b0c03dcf1ec0615d4d85d73bf1923
       - component: ffc-new
-        commit: fbad2ba762ea3b4edcf3fdaee692da2e80e85690
+        commit: 6cfc59e85e81f60429a5c03fc98dced0e2fdc235
       - component: fortback-new
-        commit: 00876815d3b8a9f54a45bc48a4be88cdaa628daf
+        commit: 6025b5e5c29af7bf807d8c1721c84be32926f6ca
       - normative-source: J3-24-007
         rules: [R901, R1008, R1212, R1215, R1217]
         printed-pages: [155, 242, 244, 248]

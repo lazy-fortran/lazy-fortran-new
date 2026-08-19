@@ -75,14 +75,14 @@ The L3 slice `T-L3-generic-print-expression-divide` was prepared
 with source-backed R1006/R1009 evidence and an independent oracle for `x / 2`
 as one generic PRINT item. Its component implementation wave is next.
 The division component implementation and central replay now pass; the
-negative neighbor is the still-out-of-scope `x ** 5` form. This remains one
+negative neighbor is the still-out-of-scope `x ** 11` form. This remains one
 bounded division expression item, not general operator parsing or semantic
 promotion.
 
 The L3 slice `T-L3-generic-print-expression-power` was prepared
 with source-backed R1008 evidence and an independent oracle for `x ** 2` as
 one generic PRINT item. Its component implementation and central replay now
-pass; the preserved power negative is now the still-out-of-scope `x ** 5`.
+pass; the preserved power negative is now the still-out-of-scope `x ** 11`.
 This remains one bounded power expression item, not general operator parsing
 or semantic promotion.
 
@@ -97,15 +97,15 @@ The L3 slice `T-L3-generic-print-expression-power-four` is now integrated:
 the same source-backed generic PRINT item shape with exponent `4` produces
 exact output `81`, while x**2 and x**3 remain supported. Its independent
 AST/MIR/ELF/qemu oracle passes both positive list shapes, four negative
-controls and three artifact mutations. The unsupported x**5 neighbor remains
+controls and three artifact mutations. The unsupported x**11 neighbor remains
 explicit; this is a bounded value extension, not general power semantics.
 
-The next active L3 slice is `T-L3-generic-print-expression-power-literal`:
-it generalizes the generated PRINT power path from fixed exponents 2/3/4 to
-integer-literal exponents 5, 7 and 10, including multi-digit runtime output.
-Its source-backed contract, fixtures and independent dynamic AST/MIR/ELF/qemu
-oracle are prepared; component implementation and central replay are pending.
-Variable, negative and malformed exponents remain explicit refusals.
+The L3 slice `T-L3-generic-print-expression-power-literal` is now integrated:
+the generated PRINT power path accepts integer-literal exponents 2–10,
+including x**5, x**7 and x**10 with exact multi-digit runtime output. Its
+independent dynamic AST/MIR/ELF/qemu oracle passes three positives, four
+negative controls and artifact mutations. Variable, negative and malformed
+exponents remain explicit refusals; arbitrary expression semantics remain open.
 
 ## Central goal
 
@@ -227,9 +227,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `2469e8195980b1e4001f7833fbb98cc43a1a5c1c` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and bounded x+1/x+x/x*2/x/2/x**2/x**3/x**4 expression items; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `fbad2ba762ea3b4edcf3fdaee692da2e80e85690` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and bounded expression-item load/const/pow/div/mul/add/output lowering for x**2, x**3 and x**4; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `00876815d3b8a9f54a45bc48a4be88cdaa628daf` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and bounded expression-item arithmetic emission including x**3 and x**4; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `f12a4104a52b0c03dcf1ec0615d4d85d73bf1923` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and generated integer-literal power expressions 2–10; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `6cfc59e85e81f60429a5c03fc98dced0e2fdc235` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and dynamic decimal power-expression lowering; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `6025b5e5c29af7bf807d8c1721c84be32926f6ca` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and dynamic integer-power decimal emission for exponents 2–10; `fo` passes |
 
 ## Historical milestone evidence
 

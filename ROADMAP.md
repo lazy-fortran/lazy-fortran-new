@@ -327,28 +327,28 @@ The power successor is now integrated as a bounded `x ** 2` item:
 source-backed R1008 AST, typed MIR `load/const/pow/output`, qemu result, four
 source neighbors and three artifact mutations while preserving all prior
 expression routes. The negative value neighbor was `x ** 3` at that boundary;
-the current still-out-of-scope neighbor is `x ** 5`; general power
+the current still-out-of-scope neighbor is `x ** 11`; general power
 semantics remain open.
 The bounded successor `l3-print-expression-power-three-v0` is now integrated:
 the generated PRINT expression path accepts `x ** 3`, produces exact output
 `27`, preserves x**2, and passes its independent AST/MIR/ELF/qemu oracle with
-explicit x**5, missing-operand, WRITE and undeclared-name controls. This
+explicit x**11, missing-operand, WRITE and undeclared-name controls. This
 extends one generated value shape and does not claim general power semantics.
 The bounded successor `l3-print-expression-power-four-v0` is now integrated:
 it carries `x ** 4` to exact output `81` through the same generated
 AST/MIR/RISC-V path, preserves x**2/x**3, and passes its independent oracle
-with x**5, missing-operand, WRITE and undeclared-name controls. This remains
+with x**11, missing-operand, WRITE and undeclared-name controls. This remains
 a bounded value extension, not general power semantics.
-The next prepared frontier is `l3-print-expression-power-literal-v0`:
-replace the fixed x**2/x**3/x**4 branches with generated integer-literal
-exponents, exercised at 5, 7 and 10 so the backend must emit multi-digit
+The bounded frontier `l3-print-expression-power-literal-v0` is now integrated:
+fixed x**2/x**3/x**4 branches are replaced by generated integer-literal
+exponents 2–10, exercised at 5, 7 and 10 so the backend emits multi-digit
 results. Its dynamic oracle rejects variable/negative/malformed exponents and
-WRITE; implementation and replay are pending.
+WRITE. Arbitrary expression semantics remain open.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,
 four source neighbors and three artifact mutations while preserving the prior
-expression routes. The negative operator neighbor is now `x ** 5`; general power
+expression routes. The negative operator neighbor is now `x ** 11`; general power
 and operator parsing remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are

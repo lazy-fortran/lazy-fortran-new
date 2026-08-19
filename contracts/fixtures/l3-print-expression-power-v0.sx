@@ -26,7 +26,7 @@
     (source-case
       (id wrong-value)
       (path tests/negative/l3-print-expression-power-v0-wrong-value.f90)
-      (sha256 e87b9505334234168df36c727a7988acb4d182b1722b78935a353d5b2b833977)
+      (sha256 be6224946df187f22417e21b01698f64c785f597c9a6d08b3b24bf6fa7d9be97)
       (expected rejected)))
   (negative-write
     (source-case
