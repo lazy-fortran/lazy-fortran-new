@@ -107,12 +107,12 @@ independent dynamic AST/MIR/ELF/qemu oracle passes three positives, four
 negative controls and artifact mutations. Variable, negative and malformed
 exponents remain explicit refusals; arbitrary expression semantics remain open.
 
-The next active L3 slice is `T-L3-generic-print-expression-power-variable`:
-the bounded source-backed shape `x ** x`, requiring dynamic AST/MIR
-load/load/pow lowering and runtime output `27`. Its contract, fixtures and
-independent oracle are prepared; frontend, FFC, backend implementation and
-central replay are pending. This is one variable-exponent property, not
-general semantic analysis.
+The L3 slice `T-L3-generic-print-expression-power-variable` is now integrated:
+the source-backed `x ** x` witness (with `x = 3`) is accepted in both PRINT
+list positions, produces AST/MIR `load/load/pow/output`, and passes the exact
+QEMU oracle for `27`, `7`, and `3`. Four source neighbors and AST/MIR/ELF
+mutations are rejected. This is a bounded witness for one initialized value,
+not arbitrary variable-exponent semantics or general semantic analysis.
 
 ## Central goal
 
@@ -234,9 +234,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `f12a4104a52b0c03dcf1ec0615d4d85d73bf1923` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and generated integer-literal power expressions 2–10; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `6cfc59e85e81f60429a5c03fc98dced0e2fdc235` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and dynamic decimal power-expression lowering; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `6025b5e5c29af7bf807d8c1721c84be32926f6ca` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and dynamic integer-power decimal emission for exponents 2–10; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `a540a54814a070a1a4d6a879353af5e6b4f22a20` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, and generated integer-literal/variable power expressions; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `977ef76fb76fc9acf2ef2a2ea538b13a6a27a9f6` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering, and dynamic load/load/pow plus decimal power-expression lowering; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `26658a4f66428befa21e4e23e564a0f6f8d1a4e6` | backend | generated stack-slot/sequence routes, generic mixed integer output-list RISC-V lowering, and bounded x**x plus integer-power decimal emission; `fo` passes |
 
 ## Historical milestone evidence
 

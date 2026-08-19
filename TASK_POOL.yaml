@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-power-variable
+active_task: null
 
 milestones:
   - id: L0
@@ -11810,11 +11810,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: f12a4104a52b0c03dcf1ec0615d4d85d73bf1923
+        commit: a540a54814a070a1a4d6a879353af5e6b4f22a20
       - component: ffc-new
-        commit: 6cfc59e85e81f60429a5c03fc98dced0e2fdc235
+        commit: 977ef76fb76fc9acf2ef2a2ea538b13a6a27a9f6
       - component: fortback-new
-        commit: 6025b5e5c29af7bf807d8c1721c84be32926f6ca
+        commit: 26658a4f66428befa21e4e23e564a0f6f8d1a4e6
       - normative-source: J3-24-007
         rules: [R901, R1006, R1008, R1009, R1212, R1215, R1217]
         printed-pages: [155, 169, 242, 244, 248]
@@ -11933,8 +11933,8 @@ tasks:
   - id: T-L3-generic-print-expression-power-variable
     milestone: L3
     title: Add a generated variable-exponent x**x item to the generic PRINT list
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 152
     depends_on: [T-L3-generic-print-expression-power-literal]
@@ -11944,11 +11944,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: f12a4104a52b0c03dcf1ec0615d4d85d73bf1923
+        commit: a540a54814a070a1a4d6a879353af5e6b4f22a20
       - component: ffc-new
-        commit: 6cfc59e85e81f60429a5c03fc98dced0e2fdc235
+        commit: 977ef76fb76fc9acf2ef2a2ea538b13a6a27a9f6
       - component: fortback-new
-        commit: 6025b5e5c29af7bf807d8c1721c84be32926f6ca
+        commit: 26658a4f66428befa21e4e23e564a0f6f8d1a4e6
       - normative-source: J3-24-007
         rules: [R901, R1008, R1212, R1215, R1217]
         printed-pages: [155, 242, 244, 248]
@@ -11961,9 +11961,9 @@ tasks:
           - tests/negative/l3-print-expression-power-variable-v0-negative-exponent.f90
           - tests/negative/l3-print-expression-power-variable-v0-write.f90
     output: >-
-      central PASS for generated PRINT x**x with dynamic AST/MIR load/load/pow
-      lowering, exact qemu output 27, and the four listed source neighbours
-      rejected
+      central PASS for the bounded generated PRINT x**x witness with x=3,
+      dynamic AST/MIR load/load/pow shape, exact qemu output, and the four
+      listed source neighbours rejected
     integration: component workers then controller replay
     estimated_cost: high
     parallel_group: l3-generic-print-expression-power-variable
@@ -11990,7 +11990,7 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-expression-power-variable.sh
     final_observable: central generic-print-expression-power-variable PASS with literal-power and prior routes preserved
-    evidence: central replay PASS; bounded variable-exponent extension; focused review skipped for this ordinary slice
+    evidence: central replay PASS; bounded x**x witness initialized to 3; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 
