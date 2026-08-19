@@ -507,14 +507,22 @@ real and malformed source neighbours, and AST/MIR/ELF mutations reject. The
 independent oracle checks integer truncation toward zero. This extends one
 initialized division shape; full expression parsing and semantic promotion
 remain open.
-The initialized-power successor is now integrated. Its central command
+The initialized-power predecessor remains integrated. Its central command
 `bash tests/e2e/check-generated-print-variable-generic-power.sh` checks
 `x = 3; x = x ** 2` and `x = -3; x = x ** 3` through AST-v2, exact
-nine-instruction MIR, generated RISC-V and qemu, while exponents outside 2..4,
-real and malformed source neighbours, and AST/MIR/ELF mutations reject. The
-frontend generic route now precedes the older exact power fixtures, so this
-slice exercises source-driven bounded power transport. General expression
-parsing, full power semantics and semantic promotion remain open.
+nine-instruction MIR, generated RISC-V and qemu, while exponents outside the
+generated 2..10 range, real and malformed source neighbours, and AST/MIR/ELF
+mutations reject. The range successor extends this predecessor; both remain
+source-driven bounded power transport. General expression parsing, full power
+semantics and semantic promotion remain open.
+The initialized-power range successor is now integrated. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-power-range.sh` checks
+`x = 3; x = x ** 5`, `x = -3; x = x ** 5` and `x = 3; x = x ** 10` through
+AST-v2, exact nine-instruction MIR, generated RISC-V and qemu, while exponents
+0, 1 and 11, real and malformed neighbours, and AST/MIR/ELF mutations reject.
+The frontend consumes the generated print-policy 2..10 bounds and the FFC and
+backend carry the same range. General expression parsing, full power semantics
+and semantic promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

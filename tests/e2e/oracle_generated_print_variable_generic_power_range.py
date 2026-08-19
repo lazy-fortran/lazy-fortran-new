@@ -1,4 +1,4 @@
-"""Independent oracle for bounded initialized x ** n transport."""
+"""Independent oracle for initialized x ** n across the generated range."""
 
 from __future__ import annotations
 
@@ -87,7 +87,7 @@ def check_mir(path: pathlib.Path, initializer: str, exponent: str) -> None:
 
 def main() -> int:
     if len(sys.argv) != 5:
-        raise OracleFailure("usage: oracle_generated_print_variable_generic_power.py AST MIR ELF SOURCE")
+        raise OracleFailure("usage: oracle_generated_print_variable_generic_power_range.py AST MIR ELF SOURCE")
     ast, mir, elf, source = map(pathlib.Path, sys.argv[1:])
     initializer, exponent = source_values(source)
     check_ast(ast, source, initializer, exponent)
@@ -97,7 +97,7 @@ def main() -> int:
     require(runtime.returncode == 0, "runtime returned nonzero")
     require(runtime.stdout == f"{int(initializer) ** int(exponent)}\n".encode(),
             "runtime output differs")
-    print("generic initialized power oracle PASS")
+    print("generic initialized power range oracle PASS")
     return 0
 
 
@@ -105,5 +105,5 @@ if __name__ == "__main__":
     try:
         raise SystemExit(main())
     except (OracleFailure, OSError, ValueError) as error:
-        print(f"generic initialized power oracle failure: {error}", file=sys.stderr)
+        print(f"generic initialized power range oracle failure: {error}", file=sys.stderr)
         raise SystemExit(1)
