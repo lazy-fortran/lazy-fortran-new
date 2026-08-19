@@ -418,6 +418,18 @@ both positive list shapes, five rejected source neighbours, prior-route
 regression and AST/MIR/ELF mutation controls. This remains a bounded
 generated policy slice; general expression parsing, signed or zero constants,
 formatted I/O, arrays, non-integer output and semantic promotion remain open.
+The zero/boundary successor is now integrated as
+`l3-print-expression-decimal-constant-zero-v0`: generated integer PRINT items
+`x + n` and ASCII `x - n` accept `n=0` through `n=10`, with positive witnesses
+at zero and ten through source-backed AST-v2, typed MIR, RISC-V and qemu. Its
+central command
+`bash tests/e2e/check-generated-print-expression-decimal-constant-zero.sh`
+passes both positives, five rejected source neighbours, the prior decimal
+slice and AST/MIR/ELF mutation controls. The FFC lowering path was repaired to
+consume the frontend's source-span/source-identity fields while retaining
+strict item and provenance checks. Negative constants, general expression
+parsing, formatted I/O, arrays, non-integer output and semantic promotion
+remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

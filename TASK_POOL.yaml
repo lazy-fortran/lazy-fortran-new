@@ -4,8 +4,7 @@ MAX_PARALLEL_WORKERS: 4
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier:
-  - T-L3-generic-print-expression-decimal-constant-zero
+ready_frontier: []
 
 controller_ownership:
   owner: controller
@@ -64,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-decimal-constant-zero
+active_task: null
 
 milestones:
   - id: L0
@@ -12359,11 +12358,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: deab97a924d992b8dbb04f3c29ab27bed3d161c6
+        commit: dd365e4650274e4f5cd0b02e760b59a00004d23b
       - component: ffc-new
-        commit: 03ef10cc4b273fb2efbdf5bd926285da4eccbc51
+        commit: 597cfdf75501bce294fe8e411f4896d44ee98926
       - component: fortback-new
-        commit: 03b11fa7ba0cfd7d557fe2e7b3d501834bf37906
+        commit: f1def6f10698d7e6d1aaed383cc9aa14690b0584
       - normative-source: J3-24-007
         rules: [R901, R1006, R1010, R1212, R1215, R1217]
         printed-pages: [69, 155, 242, 244, 248]
@@ -12481,8 +12480,8 @@ tasks:
   - id: T-L3-generic-print-expression-decimal-constant-zero
     milestone: L3
     title: Extend generated integer PRINT constants to zero and the upper bound
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 153
     depends_on: [T-L3-generic-print-expression-decimal-constant]
@@ -12492,11 +12491,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: deab97a924d992b8dbb04f3c29ab27bed3d161c6
+        commit: dd365e4650274e4f5cd0b02e760b59a00004d23b
       - component: ffc-new
-        commit: 03ef10cc4b273fb2efbdf5bd926285da4eccbc51
+        commit: 450711fa24e2a0801689b92194e59fef8a77fdf4
       - component: fortback-new
-        commit: 03b11fa7ba0cfd7d557fe2e7b3d501834bf37906
+        commit: f1def6f10698d7e6d1aaed383cc9aa14690b0584
       - normative-source: J3-24-007
         rules: [R901, R1006, R1007, R1010, R1212, R1215, R1217]
         printed-pages: [69, 155, 242, 244, 248]
@@ -12540,8 +12539,8 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-expression-decimal-constant-zero.sh
     final_observable: central generic-print-expression-decimal-constant-zero PASS with prior routes preserved
-    evidence: pending central replay; bounded-only promotion; focused review skipped for this ordinary slice
-    retry_count: 0
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 1
     integration_cycle_trigger: interface_change
 
 integration_cycle:
