@@ -452,6 +452,13 @@ central command
 AST-v2, typed MIR, RISC-V and qemu, with rejected `-101` and real neighbours
 plus AST/MIR/ELF mutation controls. It does not provide general assignment
 parsing, name resolution or semantic promotion.
+The positive-initializer edge successor is now integrated as
+`l3-print-variable-positive-initializer-v0`. Its central command
+`bash tests/e2e/check-generated-print-variable-positive-initializer.sh` checks
+the generated `x = 0` and `x = 2047` policy edges through AST-v2, typed MIR,
+RISC-V and qemu, rejects `2048` and real initialization, and rejects
+AST/MIR/ELF mutations. This remains a bounded stored-variable transport
+witness, not general assignment parsing or semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

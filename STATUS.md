@@ -83,6 +83,13 @@ and the generated policy boundary `x = -100` reach AST-v2, typed MIR,
 RISC-V and qemu with exact output, while `-101`, real initialization and
 AST/MIR/ELF mutations reject. This is bounded initializer transport, not
 general assignment parsing, name resolution or semantic promotion.
+The positive-initializer edge successor is now integrated as a bounded
+extension: `bash tests/e2e/check-generated-print-variable-positive-initializer.sh`
+checks `x = 0` and `x = 2047` through AST-v2, typed MIR, RISC-V and qemu,
+rejects `x = 2048` and real initialization, and rejects AST/MIR/ELF mutations.
+This completes only the generated positive policy edges for this stored-
+variable witness; general assignment parsing and semantic promotion remain
+open.
 `bash tests/e2e/check-generated-print-list.sh` for mixed three-item and
 five-item lists, four rejected source neighbours, exact qemu output and the
 preserved 146-route replay; its focused promotion review is retained at
@@ -333,9 +340,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `09bbfed4fab3f34effeb5ed77759a0b0024f5489` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, signed integer initializer policy -100..-1 alongside 0..2047 literals, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2 with source-driven 1..10 cardinality, bounded signed integer PRINT literals, signed stored-variable initializer transport at -5 and -100, bounded x=3/x=4 variable power expressions, source-backed generic x–2, x+2 and canonical ASCII x-2 expression items, and bounded decimal x+n/x-n constants including zero through one hundred; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `1f41174ac4807d239a110cc112328971405b3afc` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering with enforced 1..10 cardinality, signed AST-v2 initializer const/store transport, bounded signed integer PRINT literal values, x=3/x=4 load/load/pow plus decimal power-expression lowering, and bounded load/const/add-or-sub/output for decimal x+n/x-n constants including zero through one hundred with preserved AST provenance; focused gates pass; full fo retains its executable-name truncation failure |
-| fortback-new | lazy-fortran/fortback-new | `5cd6e5323fc3aed98e8129bafc9e5e48c6d78f61` | backend | generated stack-slot/sequence routes, generic mixed and literal-only integer output-list lowering with 1..10 cardinality, signed and multi-digit decimal literals, bounded signed stored-variable PRINT emission for -100..-1, bounded x=3/x=4 x**x plus integer-power decimal emission, generic load/const/sub/output plus x+2 add emission, and bounded decimal add/sub constants including zero through one hundred; focused gates pass |
+| fortfront-new | lazy-fortran/fortfront-new | `ef7a60daace0fb9a2fb6c80147a3fbe96b7f02d9` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, signed integer initializer policy -100..-1 alongside 0..2047 literals, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2 with source-driven 1..10 cardinality, bounded signed integer PRINT literals, signed stored-variable initializer transport at -5 and -100, positive stored-variable initializer transport at 0 and 2047, bounded x=3/x=4 variable power expressions, source-backed generic x–2, x+2 and canonical ASCII x-2 expression items, and bounded decimal x+n/x-n constants including zero through one hundred; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `8c1432e899c4a7d5b0956ba9f761011ef5350c10` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering with enforced 1..10 cardinality, signed AST-v2 initializer const/store transport, bounded signed integer PRINT literal values, positive stored-variable initializer const/store transport at 0 and 2047, x=3/x=4 load/load/pow plus decimal power-expression lowering, and bounded load/const/add-or-sub/output for decimal x+n/x-n constants including zero through one hundred with preserved AST provenance; focused gates pass; full fo retains its executable-name truncation failure |
+| fortback-new | lazy-fortran/fortback-new | `328cedee21f4d4298810c4b04b591dce16828a47` | backend | generated stack-slot/sequence routes, generic mixed and literal-only integer output-list lowering with 1..10 cardinality, signed and multi-digit decimal literals, signed stored-variable PRINT emission for -100..-1, positive stored-variable PRINT emission at 0 and 2047, bounded x=3/x=4 x**x plus integer-power decimal emission, generic load/const/sub/output plus x+2 add emission, and bounded decimal add/sub constants including zero through one hundred; focused gates pass; generated-policy formatting warning remains |
 
 ## Historical milestone evidence
 
