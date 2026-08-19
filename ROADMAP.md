@@ -444,6 +444,14 @@ out-of-range, real and malformed neighbours, and rejects AST/MIR/ELF
 mutations. Nonnegative and signed literal output are now both bounded policy
 routes; general expression parsing, general I/O and semantic promotion remain
 open.
+The signed-initializer successor is now integrated as a bounded transport
+slice. Its
+central command
+`bash tests/e2e/check-generated-print-variable-signed-initializer.sh` checks
+`integer :: x; x = -5; print *, x` and the generated `-100` boundary through
+AST-v2, typed MIR, RISC-V and qemu, with rejected `-101` and real neighbours
+plus AST/MIR/ELF mutation controls. It does not provide general assignment
+parsing, name resolution or semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
