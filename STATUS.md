@@ -100,6 +100,13 @@ AST/MIR/ELF/qemu oracle passes both positive list shapes, four negative
 controls and three artifact mutations. The unsupported x**5 neighbor remains
 explicit; this is a bounded value extension, not general power semantics.
 
+The next active L3 slice is `T-L3-generic-print-expression-power-literal`:
+it generalizes the generated PRINT power path from fixed exponents 2/3/4 to
+integer-literal exponents 5, 7 and 10, including multi-digit runtime output.
+Its source-backed contract, fixtures and independent dynamic AST/MIR/ELF/qemu
+oracle are prepared; component implementation and central replay are pending.
+Variable, negative and malformed exponents remain explicit refusals.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

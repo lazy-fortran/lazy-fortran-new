@@ -1,0 +1,55 @@
+(contract-witness
+  (contract l3-print-expression-power-literal)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (property generic-integer-power-literal-expression-output)
+  (positive
+    (source-case
+      (id expression-power-literal-first)
+      (path tests/fixtures/l3-print-expression-power-literal-v0.f90)
+      (sha256 e87b9505334234168df36c727a7988acb4d182b1722b78935a353d5b2b833977)
+      (expected accepted)))
+  (positive-wide
+    (source-case
+      (id expression-power-literal-second)
+      (path tests/fixtures/l3-print-expression-power-literal-wide-v0.f90)
+      (sha256 1155b18477f47b1f032c47c1c46564f49eabb4c917487ec33a5c53eb3659dfbe)
+      (expected accepted)))
+  (positive-large
+    (source-case
+      (id expression-power-literal-large)
+      (path tests/fixtures/l3-print-expression-power-literal-large-v0.f90)
+      (sha256 754cf953141432880bab77a85e453e27b9d902836758498aceb8f4041957fd24)
+      (expected accepted)))
+  (negative-missing-operand
+    (source-case
+      (id missing-operand)
+      (path tests/negative/l3-print-expression-power-literal-v0-missing-operand.f90)
+      (sha256 3b7c0a788a5c9bd6a42df32124f069a778f759656491975958615eafee844496)
+      (expected rejected)))
+  (negative-variable-exponent
+    (source-case
+      (id variable-exponent)
+      (path tests/negative/l3-print-expression-power-literal-v0-variable-exponent.f90)
+      (sha256 1450cee87c799e4038a40eaabc61cd404b04786a400f247b4e7aef3d4fe25a05)
+      (expected rejected)))
+  (negative-negative-exponent
+    (source-case
+      (id negative-exponent)
+      (path tests/negative/l3-print-expression-power-literal-v0-negative-exponent.f90)
+      (sha256 c0031f58cac515fedd39d1e752a35c1c42bfc1f91ccaad74defef1301b5a727b)
+      (expected rejected)))
+  (negative-write
+    (source-case
+      (id write-not-print)
+      (path tests/negative/l3-print-expression-power-literal-v0-write.f90)
+      (sha256 6640792fad5f57968aa7c6b1cfa396ace308a5d039bd7bc61891d8dc8762a68f)
+      (expected rejected)))
+  (source-evidence
+    (document J3-24-007)
+    (pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)
+    (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R901 R1008 R1212 R1215 R1217)
+    (pages 155 242 244 248)))

@@ -339,6 +339,11 @@ it carries `x ** 4` to exact output `81` through the same generated
 AST/MIR/RISC-V path, preserves x**2/x**3, and passes its independent oracle
 with x**5, missing-operand, WRITE and undeclared-name controls. This remains
 a bounded value extension, not general power semantics.
+The next prepared frontier is `l3-print-expression-power-literal-v0`:
+replace the fixed x**2/x**3/x**4 branches with generated integer-literal
+exponents, exercised at 5, 7 and 10 so the backend must emit multi-digit
+results. Its dynamic oracle rejects variable/negative/malformed exponents and
+WRITE; implementation and replay are pending.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,

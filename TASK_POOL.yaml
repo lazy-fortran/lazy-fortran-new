@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-L3-generic-print-expression-power-literal
 
 milestones:
   - id: L0
@@ -11861,6 +11861,72 @@ tasks:
       bash tests/e2e/check-generated-print-expression-power-four.sh
     final_observable: central generic-print-expression-power-four PASS with x**3, x**2 and prior expression/list routes preserved
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
+  - id: T-L3-generic-print-expression-power-literal
+    milestone: L3
+    title: Generalize generated PRINT power to integer literal exponents
+    status: OPEN
+    verification: PENDING
+    review_state: SKIPPED
+    priority: 151
+    depends_on: [T-L3-generic-print-expression-power-four]
+    inputs:
+      - contract: contracts/l3-print-expression-power-literal-v0.sxs
+      - contract-witness: contracts/fixtures/l3-print-expression-power-literal-v0.sx
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 2469e8195980b1e4001f7833fbb98cc43a1a5c1c
+      - component: ffc-new
+        commit: fbad2ba762ea3b4edcf3fdaee692da2e80e85690
+      - component: fortback-new
+        commit: 00876815d3b8a9f54a45bc48a4be88cdaa628daf
+      - normative-source: J3-24-007
+        rules: [R901, R1008, R1212, R1215, R1217]
+        printed-pages: [155, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-expression-power-literal-v0.f90
+          - tests/fixtures/l3-print-expression-power-literal-wide-v0.f90
+          - tests/fixtures/l3-print-expression-power-literal-large-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-expression-power-literal-v0-missing-operand.f90
+          - tests/negative/l3-print-expression-power-literal-v0-variable-exponent.f90
+          - tests/negative/l3-print-expression-power-literal-v0-negative-exponent.f90
+          - tests/negative/l3-print-expression-power-literal-v0-write.f90
+    output: >-
+      central PASS for generated PRINT power with integer literal exponents
+      5, 7 and 10, dynamic AST/MIR operands, generic backend integer output,
+      exact qemu results, and the four listed source neighbours rejected
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-expression-power-literal
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - contracts/l3-print-expression-power-literal-v0.sxs
+        - contracts/fixtures/l3-print-expression-power-literal-v0.sx
+        - tests/e2e/check-generated-print-expression-power-literal.sh
+        - tests/e2e/oracle_generated_print_expression_power_literal.py
+        - tests/fixtures/l3-print-expression-power-literal-*
+        - tests/negative/l3-print-expression-power-literal-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve all prior PRINT list and x**2/x**3/x**4 routes; accept three
+      positive sources with literal exponents 5, 7 and 10; check source-linked
+      AST rights, matching MIR const/pow order, exact computed stdout including
+      multi-digit results, and AST/MIR/ELF mutations; reject missing operand,
+      variable exponent, negative exponent and WRITE. This is integer-literal
+      power only, not arbitrary expression parsing or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-expression-power-literal.sh
+    final_observable: central generic-print-expression-power-literal PASS with prior power/list routes preserved
+    evidence: central replay PASS; bounded generated generalization; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 
