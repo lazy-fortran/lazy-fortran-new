@@ -28,7 +28,7 @@ def check_contract(root: pathlib.Path) -> None:
         require(witness in text, f"subtract contract differs: {witness}")
     cases = {
         "tests/fixtures/l3-print-expression-subtract-v0.f90": "8c6c43c2a5f617bc399568552a435da06bbed94709bdae75faf8e6ff472e2865",
-        "tests/fixtures/l3-print-expression-subtract-wide-v0.f90": "fd94d23b36dc4987c7bc51c2bda5ac647a380f6dfaf598f0603186796276fcc6",
+        "tests/fixtures/l3-print-expression-subtract-wide-v0.f90": "9c8cb32c2830e7f3af87da00e9417ffa9c4ca314aa0ad55b3ede8a7697bdeb15",
         "tests/negative/l3-print-expression-subtract-v0-missing-operand.f90": "63521a1ae244d68e0d02f5a509b8a3fc94628cfa9037fffea92d7c6675390f47",
         "tests/negative/l3-print-expression-subtract-v0-wrong-operator.f90": "3ba13cdc307183eff203bf4c42f2bc3c1ce34b768bbb3e1a2639dcb5d6a47bff",
         "tests/negative/l3-print-expression-subtract-v0-write.f90": "a4023c08e1779828d3fce026c6d937e178789f2033f38f62434e18deb28adad6",
@@ -127,7 +127,7 @@ def main() -> int:
     check_mir(mir, items)
     require(elf.read_bytes().startswith(b"\x7fELF"), "subtract artifact is not ELF")
     runtime = subprocess.run(["qemu-riscv64", str(elf)], capture_output=True, check=False)
-    expected = b"".join((b"3\n" if kind == "expression" else b"9\n" if kind == "variable" else f"{value}\n".encode())
+    expected = b"".join((b"3\n" if kind == "expression" else b"5\n" if kind == "variable" else f"{value}\n".encode())
                          for kind, value in items)
     require(runtime.returncode == 0 and runtime.stdout == expected, "subtract runtime output differs")
     print(f"generic subtract-expression oracle PASS: {len(items)} items")

@@ -140,6 +140,16 @@ failure was useful: it exposed initializer rejection, then initializer loss in
 FFC, before the final QEMU gate passed. This remains a bounded two-value
 witness, not arbitrary variable-exponent semantics.
 
+The L3 subtraction successor is now integrated as a bounded source-backed
+generic PRINT item using the existing EN_DASH convention: `x – 2` lowers
+through generated AST, typed MIR `load/const/sub/output`, RISC-V and qemu. The
+central command `bash tests/e2e/check-generated-print-expression-subtract.sh`
+passes both list positions, five rejected source neighbours, and AST/MIR/ELF
+mutation controls. The second witness uses the generated frontend's existing
+`x = 5` initializer shape; ASCII `-`, arbitrary expressions, general operator
+parsing, formatted I/O, arrays, non-integer output and semantic promotion
+remain out of scope.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to
@@ -260,9 +270,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `a2424072a38199a0af406c207d5edb0907d08207` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, novel nonnegative decimal PRINT literals, and bounded x=3/x=4 variable power expressions; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `4cb731724dc83b6bfae93d53f40df7af9ea7a164` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering including arbitrary decimal literal values, initializer transport, and x=3/x=4 load/load/pow plus decimal power-expression lowering; `fo` passes |
-| fortback-new | lazy-fortran/fortback-new | `82b45416e653dee14f763228e296d048cec492ca` | backend | generated stack-slot/sequence routes, generic mixed and literal-only integer output-list RISC-V lowering including multi-digit decimal literals, and bounded x=3/x=4 x**x plus integer-power decimal emission; `fo` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `5596b34762cc38138c57fed21d9496619b838211` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2, novel nonnegative decimal PRINT literals, bounded x=3/x=4 variable power expressions, and source-backed generic x–2 expression items; focused gates pass |
+| ffc-new | lazy-fortran/ffc-new | `bbe5db75fad00d844375c8e8619d436a328b795a` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering including arbitrary decimal literal values, initializer transport, x=3/x=4 load/load/pow plus decimal power-expression lowering, and bounded load/const/sub/output lowering; `fo` passes |
+| fortback-new | lazy-fortran/fortback-new | `e317a614711ae9a10c518bdf190b1e7e1185ea2e` | backend | generated stack-slot/sequence routes, generic mixed and literal-only integer output-list RISC-V lowering including multi-digit decimal literals, bounded x=3/x=4 x**x plus integer-power decimal emission, and generic load/const/sub/output emission; `fo` passes |
 
 ## Historical milestone evidence
 

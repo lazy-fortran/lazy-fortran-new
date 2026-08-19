@@ -381,6 +381,15 @@ source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,
 four source neighbors and three artifact mutations while preserving the prior
 expression routes. The negative operator neighbor is now `x ** 11`; general power
 and operator parsing remain open.
+The next generated compiler boundary is now integrated as
+`l3-print-expression-subtract-v0`: the source-backed generic PRINT item
+`x – 2` reaches exact output through generated frontend policy, typed MIR
+`load/const/sub/output`, RISC-V and qemu. Its central command
+`bash tests/e2e/check-generated-print-expression-subtract.sh` passes both list
+positions, five rejected source neighbours and AST/MIR/ELF mutation controls.
+The bounded source uses the existing EN_DASH convention and `x = 5` frontend
+initializer shape; ASCII `-`, general expression parsing and semantic
+promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

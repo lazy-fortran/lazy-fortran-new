@@ -14,7 +14,7 @@
     (source-case
       (id expression-subtract-second)
       (path tests/fixtures/l3-print-expression-subtract-wide-v0.f90)
-      (sha256 fd94d23b36dc4987c7bc51c2bda5ac647a380f6dfaf598f0603186796276fcc6)
+      (sha256 9c8cb32c2830e7f3af87da00e9417ffa9c4ca314aa0ad55b3ede8a7697bdeb15)
       (expected accepted)))
   (negative-missing-operand
     (source-case
