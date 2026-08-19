@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-variable-generic-variable-subtract
+active_task: null
 
 milestones:
   - id: L0
@@ -13245,7 +13245,7 @@ tasks:
       preserve initialized add/subtract/multiply/power and variable-add/multiply
       routes, accept x=3; x=x/x and x=-4; x=x/x with exact source identity,
       const/store/load/load/div/store/load/output/return MIR and qemu output
-      0/0; reject a signed out-of-range initializer, real initializer, wrong
+      1/1; reject a signed out-of-range initializer, real initializer, wrong
       operator/RHS/name, and AST/MIR/ELF mutations. No general expressions or
       semantic promotion.
     verifier_command: >-
@@ -13258,8 +13258,8 @@ tasks:
   - id: T-L3-generic-print-variable-generic-variable-subtract
     milestone: L3
     title: Carry initialized integer variable-subtract through the generated path
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 163
     depends_on: [T-L3-generic-print-variable-generic-variable-divide]
@@ -13267,11 +13267,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 3ada4031322b02cfb53e8943c5569e14fb8a141b
+        commit: b3c0e25921bba3d66aea193375a8a394385c9780
       - component: ffc-new
-        commit: f4837f7d390ce78c25ad57874f4387011041b9b3
+        commit: 430b4c2b16b4fcb8aa5aa7139aab614db465064a
       - component: fortback-new
-        commit: 484f835952f4903c8dbdca37a0cbd4b0b9ae7e7e
+        commit: aea376363ed85056bdc2a0b2b36764c71bb3a63f
       - normative-source: J3-24-007
         rules: [R1006, R1009, R1033, R901, R902, R903, R1212, R1215, R1217]
         printed-pages: [150, 155, 242, 244, 248]
@@ -13314,17 +13314,17 @@ tasks:
         - TASK_POOL.yaml
         - repos.toml
     verifier: >-
-      preserve initialized add/subtract/multiply/power and variable-add/multiply
+      preserve initialized add/subtract/multiply/divide/power and variable-add/multiply/divide
       routes, accept x=3; x=x-x and x=-4; x=x-x with exact source identity,
       const/store/load/load/sub/store/load/output/return MIR and qemu output
-      1/1; reject a signed out-of-range initializer, real initializer, wrong
+      0/0; reject a signed out-of-range initializer, real initializer, wrong
       operator/RHS/name, and AST/MIR/ELF mutations. No general expressions or
       semantic promotion.
     verifier_command: >-
       bash tests/e2e/check-generated-print-variable-generic-variable-subtract.sh
-    final_observable: central initialized variable-subtract pending with prior routes preserved
+    final_observable: central initialized variable-subtract PASS with prior routes preserved
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
-    retry_count: 1
+    retry_count: 2
     integration_cycle_trigger: interface_change
 
 integration_cycle:
