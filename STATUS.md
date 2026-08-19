@@ -86,6 +86,15 @@ pass; the preserved division negative is the still-out-of-scope `x ** 3`.
 This remains one bounded power expression item, not general operator parsing
 or semantic promotion.
 
+The next active L3 slice is `T-L3-generic-print-expression-power-three`:
+the same source-backed generic PRINT item shape with exponent `3`, exact
+expected output `27`, and the existing x**2 route preserved. Its contract,
+fixtures and independent AST/MIR/ELF/qemu oracle are prepared; component
+implementation and central replay are still pending. The unsupported x**4,
+missing-operand, WRITE and undeclared-name neighbours remain explicit
+negative controls. This is a bounded value extension, not general power
+semantics or semantic promotion.
+
 ## Central goal
 
 Progress through the cross-repository delivery path from normative source to

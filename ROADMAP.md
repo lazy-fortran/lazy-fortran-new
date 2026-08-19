@@ -328,6 +328,12 @@ source-backed R1008 AST, typed MIR `load/const/pow/output`, qemu result, four
 source neighbors and three artifact mutations while preserving all prior
 expression routes. The negative value neighbor is `x ** 3`; general power
 semantics remain open.
+The next active bounded successor is `l3-print-expression-power-three-v0`:
+it prepares the same generated PRINT expression path for `x ** 3`, expected
+output `27`, an independent AST/MIR/ELF/qemu oracle, and explicit x**4,
+missing-operand, WRITE and undeclared-name controls. Component implementation
+and central replay are pending; this extends one generated value shape and
+does not claim general power semantics.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,
