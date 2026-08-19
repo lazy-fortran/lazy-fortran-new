@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  []
+  - T-L3-generic-print-expression-ascii-subtract
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-L3-generic-print-expression-ascii-subtract
 
 milestones:
   - id: L0
@@ -12343,6 +12343,73 @@ tasks:
     final_observable: central generic-print-expression-add-constant PASS with prior expression and generic PRINT routes preserved
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 1
+    integration_cycle_trigger: interface_change
+
+  - id: T-L3-generic-print-expression-ascii-subtract
+    milestone: L3
+    title: Add the canonical ASCII minus form to the generated generic PRINT expression route
+    status: OPEN
+    verification: PENDING
+    review_state: SKIPPED
+    priority: 151
+    depends_on: [T-L3-generic-print-expression-add-constant]
+    inputs:
+      - contract: contracts/l3-print-expression-ascii-subtract-v0.sxs
+      - contract-witness: contracts/fixtures/l3-print-expression-ascii-subtract-v0.sx
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: a190c870c306c5296e4f164547b9e734b518ad4f
+      - component: ffc-new
+        commit: 32cee0affd228e51839f010b535b064f7d93c1df
+      - component: fortback-new
+        commit: a7b64f60b3f9e7eaaea2009081a829df02697984
+      - normative-source: J3-24-007
+        rules: [R901, R1006, R1010, R1212, R1215, R1217]
+        printed-pages: [69, 155, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-expression-ascii-subtract-v0.f90
+          - tests/fixtures/l3-print-expression-ascii-subtract-wide-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-expression-ascii-subtract-v0-missing-operand.f90
+          - tests/negative/l3-print-expression-ascii-subtract-v0-wrong-operator.f90
+          - tests/negative/l3-print-expression-ascii-subtract-v0-write.f90
+          - tests/negative/l3-print-expression-ascii-subtract-v0-wrong-name.f90
+          - tests/negative/l3-print-expression-ascii-subtract-v0-wrong-right.f90
+    output: >-
+      central PASS for canonical ASCII `x - 2` in one generated output-list
+      expression item with AST operator `-`, typed MIR load/const/sub/output,
+      and RISC-V/qemu execution; preserve the EN_DASH route and all prior
+      generic PRINT expression and integer-list routes
+    integration: component workers then controller replay
+    estimated_cost: medium
+    parallel_group: l3-generic-print-expression-ascii-subtract
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - contracts/l3-print-expression-ascii-subtract-v0.sxs
+        - contracts/fixtures/l3-print-expression-ascii-subtract-v0.sx
+        - tests/e2e/check-generated-print-expression-ascii-subtract.sh
+        - tests/e2e/oracle_generated_print_expression_ascii_subtract.py
+        - tests/fixtures/l3-print-expression-ascii-subtract-*
+        - tests/negative/l3-print-expression-ascii-subtract-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve x+1, x+x, x+2, x*2, x/2, EN_DASH x–2 and power routes; accept
+      both ASCII-minus positive list positions with the fixed AST shape;
+      reject missing operand, wrong operator, WRITE, undeclared-name and
+      unsupported-right-value neighbours; check source provenance, MIR
+      load/const/sub/output order, exact stdout and AST/MIR/ELF mutations.
+      No general expressions or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-expression-ascii-subtract.sh
+    final_observable: central generic-print-expression-ascii-subtract PASS with prior routes preserved
+    evidence: pending central replay; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 0
     integration_cycle_trigger: interface_change
 
 integration_cycle:

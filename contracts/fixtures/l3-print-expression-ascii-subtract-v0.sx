@@ -1,0 +1,55 @@
+(contract-witness
+  (contract l3-print-expression-ascii-subtract)
+  (version 0)
+  (origin mechanical)
+  (resolution resolved)
+  (property generic-integer-ascii-subtraction-expression-output)
+  (positive
+    (source-case
+      (id expression-ascii-subtract-first)
+      (path tests/fixtures/l3-print-expression-ascii-subtract-v0.f90)
+      (sha256 f0f05ec771f9f0ab3c4cfc48d8e598e9b8d9b8616b44d1093cf886c4aca1977c)
+      (expected accepted)))
+  (positive-wide
+    (source-case
+      (id expression-ascii-subtract-second)
+      (path tests/fixtures/l3-print-expression-ascii-subtract-wide-v0.f90)
+      (sha256 5be319e3aca8d9442b4d93f93981c0c7c57f7ece820291ed6ecc2e5d99b7028e)
+      (expected accepted)))
+  (negative-missing-operand
+    (source-case
+      (id missing-operand)
+      (path tests/negative/l3-print-expression-ascii-subtract-v0-missing-operand.f90)
+      (sha256 ea6495f4e541260012dbbe2037bb8318e4845d464b81740a61fe9693a6165ddd)
+      (expected rejected)))
+  (negative-wrong-operator
+    (source-case
+      (id wrong-operator)
+      (path tests/negative/l3-print-expression-ascii-subtract-v0-wrong-operator.f90)
+      (sha256 65f2d97d0a8ee66ddd875ffffc6d3531d2152eb92bbb768674d54aa764d98b20)
+      (expected rejected)))
+  (negative-write
+    (source-case
+      (id write-not-print)
+      (path tests/negative/l3-print-expression-ascii-subtract-v0-write.f90)
+      (sha256 ea07d97eef93893846662079f94a369978ae7bc75923b1a8cbe1a62d2d819de8)
+      (expected rejected)))
+  (negative-name
+    (source-case
+      (id undeclared-name)
+      (path tests/negative/l3-print-expression-ascii-subtract-v0-wrong-name.f90)
+      (sha256 78739f2375f86d8ed6b2a49a66694244b02679556b48dd4f3f15d7145c4a9cb5)
+      (expected rejected)))
+  (negative-right-value
+    (source-case
+      (id unsupported-right-value)
+      (path tests/negative/l3-print-expression-ascii-subtract-v0-wrong-right.f90)
+      (sha256 8c12ccfcbb31820eac9edd41a2e8d64a3ee734110d28c2053129db167ec0f4f6)
+      (expected rejected)))
+  (source-evidence
+    (document J3-24-007)
+    (pdf-sha256 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)
+    (standardir-path .cache/runs/E0171/R000433-provenance-replay/standardir.sx)
+    (standardir-sha256 106389186689ae819783ab6742ba4a469f8d1a84ce3bbf25e9baf98a32cf25c2)
+    (rules R901 R1006 R1010 R1212 R1215 R1217)
+    (pages 69 155 242 244 248)))
