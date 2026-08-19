@@ -390,6 +390,15 @@ positions, five rejected source neighbours and AST/MIR/ELF mutation controls.
 The bounded source uses the existing EN_DASH convention and `x = 5` frontend
 initializer shape; ASCII `-`, general expression parsing and semantic
 promotion remain open.
+The next generated compiler boundary is now integrated as
+`l3-print-expression-add-constant-v0`: ordinary ASCII `x + 2` reaches exact
+output through generated frontend policy, typed MIR `load/const/add/output`,
+RISC-V and qemu. Its central command
+`bash tests/e2e/check-generated-print-expression-add-constant.sh` passes both
+list positions, five rejected source neighbours and AST/MIR/ELF mutation
+controls while preserving the prior chain. The earlier multiply verifier's
+obsolete `x + 2` negative was replaced by `x + 3`; general expressions and
+semantic promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
