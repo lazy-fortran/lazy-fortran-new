@@ -569,6 +569,14 @@ outputs `3` and `-4`; an out-of-range value, real declaration, wrong
 declaration/use neighbour, and AST/MIR/ELF mutations reject. This remains a
 bounded source-derived variable-name witness, not general name resolution or
 semantic promotion.
+The source-derived variable-z initializer successor is now integrated. Its
+central command `bash tests/e2e/check-generated-print-variable-generic-variable-z-initializer.sh`
+checks `z = 5` and `z = -6` through AST-v2, the exact
+`const/store/load/output/return` MIR route, generated RISC-V and qemu, with
+outputs `5` and `-6`; an out-of-range value, real declaration, wrong
+declaration/use neighbour, and AST/MIR/ELF mutations reject. This remains a
+bounded source-derived variable-name witness, not general name resolution or
+semantic promotion.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or

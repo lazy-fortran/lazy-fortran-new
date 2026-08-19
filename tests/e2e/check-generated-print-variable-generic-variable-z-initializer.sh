@@ -35,7 +35,8 @@ run_positive() {
 }
 
 run_negative() {
-    local source="$1" stem="$2" ast="$run_dir/$stem.ast.sx"
+    local source="$1" stem="$2"
+    local ast="$run_dir/$stem.ast.sx"
     if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$source" "$ast") >/dev/null 2>&1; then exit 1; fi
     [ ! -e "$ast" ]
 }
