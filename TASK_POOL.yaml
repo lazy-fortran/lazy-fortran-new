@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-variable-generic-subtrahend
+active_task: null
 
 milestones:
   - id: L0
@@ -12615,8 +12615,8 @@ tasks:
   - id: T-L3-generic-print-variable-generic-subtrahend
     milestone: L3
     title: Generalize initialized integer subtraction to bounded subtrahends
-    status: OPEN
-    verification: NOT_STARTED
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 154
     depends_on: [T-L3-generic-print-variable-generic-addend]
@@ -12678,8 +12678,8 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-variable-generic-subtrahend.sh
     final_observable: central generic initialized subtrahend PASS with prior routes preserved
-    evidence: pending component commits and central replay
-    retry_count: 0
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 3
     integration_cycle_trigger: interface_change
 
 integration_cycle:

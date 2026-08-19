@@ -484,6 +484,13 @@ nine-instruction MIR, generated RISC-V and qemu, while addends outside 1..10,
 malformed source neighbours and AST/MIR/ELF mutations reject. This removes the
 fixed `+1` specialization only for the generated initialized-add policy; full
 expression parsing and semantic promotion remain open.
+The bounded-subtrahend successor is now integrated. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-subtrahend.sh` checks
+`x = 42; x = x - 2` and `x = -42; x = x - 10` through AST-v2, exact
+nine-instruction MIR, generated RISC-V and qemu, while addends outside 1..10,
+malformed source neighbours and AST/MIR/ELF mutations reject. ASCII source
+minus is normalized at the FFC AST boundary. This extends one initialized
+subtraction shape; full expression parsing and semantic promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
