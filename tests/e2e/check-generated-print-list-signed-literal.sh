@@ -54,6 +54,7 @@ run_negative() {
 
 run_positive "$ROOT/tests/fixtures/l3-print-list-signed-literal-one-v0.f90" one
 run_positive "$ROOT/tests/fixtures/l3-print-list-signed-literal-boundary-v0.f90" boundary
+run_positive "$ROOT/tests/fixtures/l3-print-list-signed-literal-mixed-v0.f90" mixed
 run_negative "$ROOT/tests/negative/l3-print-list-signed-literal-out-of-range-v0.f90" out-of-range
 run_negative "$ROOT/tests/negative/l3-print-list-signed-literal-real-v0.f90" real
 
