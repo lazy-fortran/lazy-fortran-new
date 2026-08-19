@@ -34,7 +34,7 @@ def check_contract(root: pathlib.Path) -> None:
         "tests/negative/l3-print-expression-divide-v0-missing-operand.f90":
             "71b7bdee588d5efb5183d7f99753571712cf991dbc243a5a74403244047edb81",
         "tests/negative/l3-print-expression-divide-v0-wrong-operator.f90":
-            "373a5260c68ca30b7e9e4b55564dd0e63e680835429ad43f183e4bbbe8181644",
+            "92420f247ec9cc1a377999b91e7a5b7579970f9984f620b505c94d30b35c173e",
         "tests/negative/l3-print-expression-divide-v0-write.f90":
             "4dbbed6c26c728c99b049d247acfa53b631d8ca9f072aa253c41560692c192b5",
         "tests/negative/l3-print-expression-divide-v0-wrong-name.f90":

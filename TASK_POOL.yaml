@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-L3-generic-print-expression-power-three
+active_task: null
 
 milestones:
   - id: L0
@@ -11717,7 +11717,7 @@ tasks:
     verifier: >-
       preserve the generic PRINT-list, x+1, x+x, x*2 and x/2 expression
       routes; accept both positive x**2 sources using the fixed expression
-      item AST shape; reject missing operand, x**3 wrong-value, WRITE, and
+      item AST shape; reject missing operand, unsupported x**4, WRITE, and
       undeclared-name neighbors; check source provenance, MIR
       load/const/pow/output order, exact stdout, and AST/MIR/ELF mutations.
       No general expressions, formatted I/O, arrays, non-integer output, or
@@ -11732,8 +11732,8 @@ tasks:
   - id: T-L3-generic-print-expression-power-three
     milestone: L3
     title: Add a generated integer power-three expression item to the generic PRINT list
-    status: OPEN
-    verification: PENDING
+    status: CLOSED
+    verification: PASS
     review_state: SKIPPED
     priority: 149
     depends_on: [T-L3-generic-print-expression-power]
@@ -11743,11 +11743,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 799bc3548d8398f4baa73773c5abc0ddf7302834
+        commit: be8b9a4b5a1e34829c11987f274bc9ed55f1f29e
       - component: ffc-new
-        commit: f098d11f30161275aec22a42e0cfcc45aa8a9f66
+        commit: e467c58e7bca490f020b413640fb9922c788330c
       - component: fortback-new
-        commit: dae6c3738e5d80ea7e925a5ae8cd760560eb6be2
+        commit: 68211a8e88a314ea108182592452c8e6c506a513
       - normative-source: J3-24-007
         rules: [R901, R1006, R1008, R1009, R1212, R1215, R1217]
         printed-pages: [155, 169, 242, 244, 248]

@@ -326,19 +326,19 @@ The power successor is now integrated as a bounded `x ** 2` item:
 `bash tests/e2e/check-generated-print-expression-power.sh` checks its
 source-backed R1008 AST, typed MIR `load/const/pow/output`, qemu result, four
 source neighbors and three artifact mutations while preserving all prior
-expression routes. The negative value neighbor is `x ** 3`; general power
+expression routes. The negative value neighbor was `x ** 3` at that boundary;
+the current still-out-of-scope neighbor is `x ** 4`; general power
 semantics remain open.
-The next active bounded successor is `l3-print-expression-power-three-v0`:
-it prepares the same generated PRINT expression path for `x ** 3`, expected
-output `27`, an independent AST/MIR/ELF/qemu oracle, and explicit x**4,
-missing-operand, WRITE and undeclared-name controls. Component implementation
-and central replay are pending; this extends one generated value shape and
-does not claim general power semantics.
+The bounded successor `l3-print-expression-power-three-v0` is now integrated:
+the generated PRINT expression path accepts `x ** 3`, produces exact output
+`27`, preserves x**2, and passes its independent AST/MIR/ELF/qemu oracle with
+explicit x**4, missing-operand, WRITE and undeclared-name controls. This
+extends one generated value shape and does not claim general power semantics.
 The division successor is now integrated as a bounded `x / 2` item:
 `bash tests/e2e/check-generated-print-expression-divide.sh` checks its
 source-backed R1006/R1009 AST, typed MIR `load/const/div/output`, qemu result,
 four source neighbors and three artifact mutations while preserving the prior
-expression routes. The negative operator neighbor is `x ** 2`; general power
+expression routes. The negative operator neighbor is now `x ** 4`; general power
 and operator parsing remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
