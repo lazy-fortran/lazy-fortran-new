@@ -12694,11 +12694,11 @@ tasks:
       - component: standard-new
         commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
       - component: fortfront-new
-        commit: 382fd1d3c3de317a45d5b45e932adafb232562ac
+        commit: 14fb15010a4566eec87c5192923aa442fc0f8eaf
       - component: ffc-new
-        commit: 22d2b6ea1858b6739ae55eda559427735be0029e
+        commit: 48237870a118830befa3cae3aef1141cb5eeb32d
       - component: fortback-new
-        commit: c740238679bed4c7d9b2d503e94646980a18be4d
+        commit: 89a9b6a1cc218cbf6fd680734e9626c403447b3b
       - normative-source: J3-24-007
         rules: [R1007, R1010, R708, R901, R1033, R1212, R1215, R1217]
         printed-pages: [66, 150, 155, 188, 242, 244, 248]
@@ -12748,6 +12748,78 @@ tasks:
     verifier_command: >-
       bash tests/e2e/check-generated-print-variable-generic-multiplier.sh
     final_observable: central generic initialized multiplier PASS with prior routes preserved
+    evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
+  - id: T-L3-generic-print-variable-generic-divisor
+    milestone: L3
+    title: Generalize initialized integer division to bounded nonzero divisors
+    status: CLOSED
+    verification: PASS
+    review_state: SKIPPED
+    priority: 156
+    depends_on: [T-L3-generic-print-variable-generic-multiplier]
+    inputs:
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: 14fb15010a4566eec87c5192923aa442fc0f8eaf
+      - component: ffc-new
+        commit: 48237870a118830befa3cae3aef1141cb5eeb32d
+      - component: fortback-new
+        commit: 89a9b6a1cc218cbf6fd680734e9626c403447b3b
+      - normative-source: J3-24-007
+        rules: [R1007, R1010, R708, R901, R1033, R1212, R1215, R1217]
+        printed-pages: [66, 150, 155, 188, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-variable-generic-divisor-v0.f90
+          - tests/fixtures/l3-print-variable-generic-divisor-signed-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-variable-generic-divisor-zero-v0.f90
+          - tests/negative/l3-print-variable-generic-divisor-out-of-range-v0.f90
+          - tests/negative/l3-print-variable-generic-divisor-wrong-operator-v0.f90
+          - tests/negative/l3-print-variable-generic-divisor-wrong-name-v0.f90
+          - tests/negative/l3-print-variable-generic-divisor-real-v0.f90
+    writes:
+      - tests/e2e/check-generated-print-variable-generic-divisor.sh
+      - tests/e2e/oracle_generated_print_variable_generic_divisor.py
+      - tests/fixtures/l3-print-variable-generic-divisor-*
+      - tests/negative/l3-print-variable-generic-divisor-*
+      - STATUS.md
+      - ROADMAP.md
+      - TASK_POOL.yaml
+      - repos.toml
+    output: >-
+      central PASS for initialized x/n transport with n in the generated
+      bounded nonzero divisor range, typed AST/MIR and RISC-V/qemu execution;
+      preserve initialized add/subtract/multiply and reject zero, out-of-range
+      and malformed forms
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-variable-generic-divisor
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - tests/e2e/check-generated-print-variable-generic-divisor.sh
+        - tests/e2e/oracle_generated_print_variable_generic_divisor.py
+        - tests/fixtures/l3-print-variable-generic-divisor-*
+        - tests/negative/l3-print-variable-generic-divisor-*
+        - STATUS.md
+        - ROADMAP.md
+        - TASK_POOL.yaml
+        - repos.toml
+    verifier: >-
+      preserve initialized x+1, x-1 and x*1, accept novel 42/2 and -42/10
+      with one source provenance identity, exact nine-instruction MIR and qemu
+      output; reject divisor 0/11, real or wrong-operator/name neighbours, and
+      AST/MIR/ELF mutations. Check integer truncation toward zero. No general
+      expressions or semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-variable-generic-divisor.sh
+    final_observable: central generic initialized divisor PASS with prior routes preserved
     evidence: central replay PASS; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change

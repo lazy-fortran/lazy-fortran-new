@@ -499,6 +499,14 @@ real and malformed source neighbours, and AST/MIR/ELF mutations reject. The
 runner directly replays the existing addend and subtrahend routes. This extends
 one initialized multiplication shape; full expression parsing and semantic
 promotion remain open.
+The bounded-divisor successor is now integrated. Its central command
+`bash tests/e2e/check-generated-print-variable-generic-divisor.sh` checks
+`x = 42; x = x / 2` and `x = -42; x = x / 10` through AST-v2, exact
+nine-instruction MIR, generated RISC-V and qemu, while divisor zero/eleven,
+real and malformed source neighbours, and AST/MIR/ELF mutations reject. The
+independent oracle checks integer truncation toward zero. This extends one
+initialized division shape; full expression parsing and semantic promotion
+remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
