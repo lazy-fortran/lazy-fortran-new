@@ -408,6 +408,16 @@ list positions, five rejected source neighbours and AST/MIR/ELF mutation
 controls while preserving the prior chain. The earlier multiply verifier's
 obsolete `x + 2` negative was replaced by `x + 3`; general expressions and
 semantic promotion remain open.
+The bounded decimal-constant successor is now integrated as
+`l3-print-expression-decimal-constant-v0`: generated integer PRINT items
+`x + n` and ASCII `x - n` carry sampled constants `n=3` and `n=4` through
+source-backed AST-v2, typed MIR `load/const/add-or-sub/output`, RISC-V and
+qemu. Its central command
+`bash tests/e2e/check-generated-print-expression-decimal-constant.sh` passes
+both positive list shapes, five rejected source neighbours, prior-route
+regression and AST/MIR/ELF mutation controls. This remains a bounded
+generated policy slice; general expression parsing, signed or zero constants,
+formatted I/O, arrays, non-integer output and semantic promotion remain open.
 `lazy-fortran-new` is the sole Goal Mode control
 plane. `standard-new`, `fortfront-new`, `ffc-new` and `fortback-new` are
 implementation repositories and do not own cross-repository milestones or
