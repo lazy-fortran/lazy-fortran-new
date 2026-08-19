@@ -5,7 +5,7 @@ MAX_PARALLEL_WORKERS: 4
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
 ready_frontier:
-  []
+  - T-L3-generic-print-expression-subtract
 
 controller_ownership:
   owner: controller
@@ -64,7 +64,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-L3-generic-print-expression-subtract
 
 milestones:
   - id: L0
@@ -12204,6 +12204,75 @@ tasks:
       bash tests/e2e/check-generated-print-list-literals-only.sh
     final_observable: central generic-print-list-literals-only PASS with prior routes preserved
     evidence: central replay PASS; no model-driven promotion; focused review skipped for ordinary slice
+    retry_count: 0
+    integration_cycle_trigger: interface_change
+
+  - id: T-L3-generic-print-expression-subtract
+    milestone: L3
+    title: Add a generated integer subtraction expression item to the generic PRINT list
+    status: OPEN
+    verification: PENDING
+    review_state: SKIPPED
+    priority: 149
+    depends_on: [T-L3-generic-print-expression-divide]
+    inputs:
+      - contract: contracts/l3-print-expression-subtract-v0.sxs
+      - contract-witness: contracts/fixtures/l3-print-expression-subtract-v0.sx
+      - component: standard-new
+        commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      - component: fortfront-new
+        commit: a2424072a38199a0af406c207d5edb0907d08207
+      - component: ffc-new
+        commit: 4cb731724dc83b6bfae93d53f40df7af9ea7a164
+      - component: fortback-new
+        commit: 82b45416e653dee14f763228e296d048cec492ca
+      - normative-source: J3-24-007
+        rules: [R901, R1006, R1009, R1212, R1215, R1217]
+        printed-pages: [155, 169, 242, 244, 248]
+      - positive-paths:
+          - tests/fixtures/l3-print-expression-subtract-v0.f90
+          - tests/fixtures/l3-print-expression-subtract-wide-v0.f90
+      - negative-paths:
+          - tests/negative/l3-print-expression-subtract-v0-missing-operand.f90
+          - tests/negative/l3-print-expression-subtract-v0-wrong-operator.f90
+          - tests/negative/l3-print-expression-subtract-v0-write.f90
+          - tests/negative/l3-print-expression-subtract-v0-wrong-name.f90
+          - tests/negative/l3-print-expression-subtract-v0-ascii-hyphen.f90
+    output: >-
+      central PASS for one generated output-list expression item with the
+      fixed AST shape `(kind integer-expression) (operator –) (left x)
+      (right 2)`, typed MIR load/const/sub/output lowering, and RISC-V/qemu
+      execution; preserve all prior generic PRINT expression and integer-list
+      routes and reject the five listed source neighbours
+    integration: component workers then controller replay
+    estimated_cost: high
+    parallel_group: l3-generic-print-expression-subtract
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      allowed_paths:
+        - component repositories only in their assigned worktrees
+        - contracts/l3-print-expression-subtract-v0.sxs
+        - contracts/fixtures/l3-print-expression-subtract-v0.sx
+        - tests/e2e/check-generated-print-expression-subtract.sh
+        - tests/e2e/oracle_generated_print_expression_subtract.py
+        - tests/fixtures/l3-print-expression-subtract-*
+        - tests/negative/l3-print-expression-subtract-*
+        - TASK_POOL.yaml
+        - STATUS.md
+        - ROADMAP.md
+    verifier: >-
+      preserve the generic integer PRINT-list, x+1, x+x, x*2, x/2 and power
+      routes; accept both positive x–2 sources using the fixed expression-item
+      AST shape; reject missing operand, wrong operator, WRITE, undeclared-name
+      and ASCII-hyphen neighbours; check source provenance, MIR
+      load/const/sub/output order, exact stdout, and AST/MIR/ELF mutations.
+      No general expressions, formatted I/O, arrays, non-integer output, or
+      semantic promotion.
+    verifier_command: >-
+      bash tests/e2e/check-generated-print-expression-subtract.sh
+    final_observable: central generic-print-expression-subtract PASS with prior expression and generic PRINT routes preserved
+    evidence: pending central replay; bounded-only promotion; focused review skipped for this ordinary slice
     retry_count: 0
     integration_cycle_trigger: interface_change
 
