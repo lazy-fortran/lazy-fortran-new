@@ -1,6 +1,6 @@
 program main
   integer :: x
   x = 3
-  x = x // x
+  x = x - y
   print *, x
 end program main
