@@ -143,7 +143,9 @@ bounded PRINT expression items now use one typed parser and the AST-v2
 two-assignment expression reuses the generic expression parser. Fortfront's
 initialized update parser now uses one operator/policy path and its variable
 PRINT batch dispatch derives metadata from the parsed count instead of one
-branch per historical item count. FFC's initialized variable arithmetic uses
+branch per historical item count, and its bounded assignment-sequence assembly
+reuses one typed repeated-assignment path with generic span calculation. FFC's
+initialized variable arithmetic uses
 one parameterized MIR path without operator-specific wrappers, its legacy PRINT
 route matcher uses one count-driven check for consecutive literal routes, its
 variable PRINT counts 2 through 10 use one parameterized emitter and validator,

@@ -27,7 +27,7 @@ commit = "f6e9e5e2d47adeae7e45568f299997198d92bb1b"
 url  = "https://github.com/lazy-fortran/fortfront-new"
 path = "fortfront-new"
 role = "Generated frontend: lexer, parser, AST, semantics, emitter."
-commit = "6ac1b982214b8b41696c5fc57fcf0a5394d80dac"
+commit = "d87cec677ea053539212697027397a614bd17d0e"
 
 [repos.compiler]
 url  = "https://github.com/lazy-fortran/ffc-new"
