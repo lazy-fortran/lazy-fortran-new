@@ -33,15 +33,6 @@ sequence_nine_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-nine-assi
 sequence_ten_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-ten-assignment-v1.f90"
 stop_source_file="$ROOT/tests/fixtures/l3-ast-program-stop-7-v1.f90"
 print_source_file="$ROOT/tests/fixtures/l3-ast-program-print-7-v1.f90"
-print_two_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-two-item-v1.f90"
-print_three_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-three-item-v1.f90"
-print_four_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-four-item-v1.f90"
-print_five_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-five-item-v1.f90"
-print_six_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-six-item-v1.f90"
-print_seven_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-seven-item-v1.f90"
-print_eight_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-eight-item-v1.f90"
-print_nine_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-nine-item-v1.f90"
-print_ten_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-ten-item-v1.f90"
 print_generic_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-generic-items-v1.f90"
 print_variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-v1.f90"
 print_variable_23_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-23-v1.f90"
@@ -114,42 +105,6 @@ negative_stop_files=(
 negative_print_files=(
     "$ROOT/tests/negative/l3-ast-program-write-7-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-missing-item-v1.f90"
-)
-negative_print_two_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-two-item-missing-second-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-two-item-v1.f90"
-)
-negative_print_three_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-three-item-missing-third-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-three-item-v1.f90"
-)
-negative_print_four_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-four-item-missing-fourth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-four-item-v1.f90"
-)
-negative_print_five_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-five-item-missing-fifth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-five-item-v1.f90"
-)
-negative_print_six_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-six-item-missing-sixth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-six-item-v1.f90"
-)
-negative_print_seven_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-seven-item-missing-seventh-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-seven-item-v1.f90"
-)
-negative_print_eight_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-eight-item-missing-eighth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-eight-item-v1.f90"
-)
-negative_print_nine_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-nine-item-missing-ninth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-nine-item-v1.f90"
-)
-negative_print_ten_item_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-ten-item-missing-tenth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-write-ten-item-v1.f90"
 )
 negative_print_generic_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-generic-items-missing-third-v1.f90"
@@ -686,10 +641,6 @@ qemu-riscv64 "$print_elf_file" > "$print_output_file"
 printf '7\n' | cmp -s - "$print_output_file"
 python3 "$oracle" "$print_ast_file" "$print_mir_file" "$print_elf_file" p integer print-7
 
-print_two_item_ast_file="$run_dir/print-two-item.frontend.ast.sx"
-print_two_item_mir_file="$run_dir/print-two-item.mir.sx"
-print_two_item_elf_file="$run_dir/print-two-item.program.elf"
-print_two_item_output_file="$run_dir/print-two-item.stdout"
 run_print_literal_route() {
     local count="$1"
     local source="$2"
@@ -728,24 +679,25 @@ run_print_literal_route() {
     python3 "$oracle" "$ast" "$mir" "$elf" p integer "$mode"
 }
 
-run_print_literal_route 2 "$print_two_item_source_file" two-item two-item \
-    print-7-8 "${negative_print_two_item_files[@]}"
-run_print_literal_route 3 "$print_three_item_source_file" three-item three-item \
-    print-7-8-9 "${negative_print_three_item_files[@]}"
-run_print_literal_route 4 "$print_four_item_source_file" four-item four-item \
-    print-7-8-9-10 "${negative_print_four_item_files[@]}"
-run_print_literal_route 5 "$print_five_item_source_file" five-item five-item \
-    print-7-8-9-10-11 "${negative_print_five_item_files[@]}"
-run_print_literal_route 6 "$print_six_item_source_file" six-item six-item \
-    print-7-8-9-10-11-12 "${negative_print_six_item_files[@]}"
-run_print_literal_route 7 "$print_seven_item_source_file" seven-item seven-item \
-    print-7-8-9-10-11-12-13 "${negative_print_seven_item_files[@]}"
-run_print_literal_route 8 "$print_eight_item_source_file" eight-item eight-item \
-    print-7-8-9-10-11-12-13-14 "${negative_print_eight_item_files[@]}"
-run_print_literal_route 9 "$print_nine_item_source_file" nine-item nine-item \
-    print-7-8-9-10-11-12-13-14-15 "${negative_print_nine_item_files[@]}"
-run_print_literal_route 10 "$print_ten_item_source_file" ten-item ten-item \
-    print-7-8-9-10-11-12-13-14-15-16 "${negative_print_ten_item_files[@]}"
+for print_source_file in "$ROOT"/tests/fixtures/l3-ast-program-print-*-item-v1.f90; do
+    case "$print_source_file" in
+        *-variable-*) continue ;;
+    esac
+    print_output_word="${print_source_file##*-print-}"
+    print_output_word="${print_output_word%-item-v1.f90}"
+    print_output_count="$(awk -F, '/^  print \*,/ { print NF - 1 }' "$print_source_file")"
+    print_negative_files=(
+        "$ROOT"/tests/negative/l3-ast-program-print-${print_output_word}-item-missing-*.f90
+        "$ROOT/tests/negative/l3-ast-program-write-${print_output_word}-item-v1.f90"
+    )
+    print_mode='print-7'
+    for ((print_value = 8; print_value <= 6 + print_output_count; print_value++)); do
+        print_mode+="-${print_value}"
+    done
+    run_print_literal_route "$print_output_count" "$print_source_file" \
+        "${print_output_word}-item" "${print_output_word}-item" "$print_mode" \
+        "${print_negative_files[@]}"
+done
 print_generic_item_ast_file="$run_dir/print-generic-items.frontend.ast.sx"
 print_generic_item_mir_file="$run_dir/print-generic-items.mir.sx"
 print_generic_item_elf_file="$run_dir/print-generic-items.program.elf"
