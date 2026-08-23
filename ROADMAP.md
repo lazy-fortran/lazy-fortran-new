@@ -137,8 +137,10 @@ parser. FFC lowers both representations through one generic item traversal,
 with the fixed three-item `17, 18, 19` route removed. Fortback validates and
 encodes pure-literal and stored-variable lists through generic paths. The clean
 bounded PRINT expression items now use one typed parser and the AST-v2
-two-assignment expression reuses the generic expression parser. The central
-gate
+two-assignment expression reuses the generic expression parser. Fortfront's
+initialized update parser now uses one operator/policy path, and FFC's four
+initialized variable arithmetic emitters and validators share one parameterized
+path. The central gate
 `bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
 expression parsing, assignment sequences, and broader language coverage remain
 open.

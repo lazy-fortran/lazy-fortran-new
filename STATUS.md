@@ -522,15 +522,17 @@ tests/e2e/check-generated-chain.sh` pass. `T-WAVE-J-whole-set-composition` has
 L3. No central contract, parser dispatch, MIR schema, ABI or semantic fact was
 promoted.
 
-The current generic PRINT continuation is pushed at `fortfront-new`
-`cdaa55047d2f184a5f92091c34afe9a4e6538e05` and `ffc-new`
-`c447807f37f99b168c568672a3c130a2c265dccd`. Their full `fo` gates pass, and
+The current generic continuation is pushed at `fortfront-new`
+`73f1aff99b40b1a54c80ec16bdc8ef442a4a0a94` and `ffc-new`
+`86deee3816a52dd728a571a6d45329008c9d4c03`. Their full `fo` gates pass, and
 the central replay passes 146 routes. Fortfront now parses bounded PRINT
-expression items through one typed path, and FFC validates the AST-v2
-two-assignment expression through its generic expression parser. The verifier
-derives stored-variable source spans from the pinned fixture, so it does not
-preserve old fixture-specific span constants. General expression parsing and
-assignment sequences remain open.
+expression items through one typed path and uses one operator/policy path for
+initialized updates. FFC validates the AST-v2 two-assignment expression
+through its generic expression parser and uses one parameterized MIR
+emit/validation path for initialized variable arithmetic. The verifier derives
+stored-variable source spans from the pinned fixture, so it does not preserve
+old fixture-specific span constants. General expression parsing and assignment
+sequences remain open.
 
 ## Component pins
 
@@ -541,8 +543,8 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
-| fortfront-new | lazy-fortran/fortfront-new | `cdaa55047d2f184a5f92091c34afe9a4e6538e05` | frontend | transactional whole-stream lexical-to-grammar composition plus generic pure, stored-variable, and bounded PRINT expression items, with `fo` passing |
-| ffc-new | lazy-fortran/ffc-new | `c447807f37f99b168c568672a3c130a2c265dccd` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, and generic PRINT-list traversal plus AST-v2 expression validation, with `fo` passing |
+| fortfront-new | lazy-fortran/fortfront-new | `73f1aff99b40b1a54c80ec16bdc8ef442a4a0a94` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items and initialized update policy, with `fo` passing |
+| ffc-new | lazy-fortran/ffc-new | `86deee3816a52dd728a571a6d45329008c9d4c03` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, and parameterized initialized arithmetic MIR paths, with `fo` passing |
 | fortback-new | lazy-fortran/fortback-new | `13a836585895371a986a2038e2106f4f1f909918` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence
