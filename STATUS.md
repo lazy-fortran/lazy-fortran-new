@@ -553,7 +553,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
 | fortfront-new | lazy-fortran/fortfront-new | `6ac1b982214b8b41696c5fc57fcf0a5394d80dac` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, and count-derived PRINT batches, with `fo` passing |
 | ffc-new | lazy-fortran/ffc-new | `63c1c053a336d80410902c1f5156b79f2215fa1d` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, and one parameterized initialized literal-binary path, with `fo` passing |
-| fortback-new | lazy-fortran/fortback-new | `13a836585895371a986a2038e2106f4f1f909918` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, with `fo clean && fo && fo test --all` passing |
+| fortback-new | lazy-fortran/fortback-new | `4750bc30271623d01be929ede0d8d5f690fcce31` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, and one count-driven variable PRINT validator, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence
 

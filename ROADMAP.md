@@ -135,7 +135,9 @@ frontend now allocates one `output-items` list for pure integer PRINT values.
 It now derives stored-variable PRINT lists from the existing initializer
 parser. FFC lowers both representations through one generic item traversal,
 with the fixed three-item `17, 18, 19` route removed. Fortback validates and
-encodes pure-literal and stored-variable lists through generic paths. The clean
+encodes pure-literal and stored-variable lists through generic paths, with one
+count-driven validator replacing the fixed two-through-six item validators.
+The clean
 bounded PRINT expression items now use one typed parser and the AST-v2
 two-assignment expression reuses the generic expression parser. Fortfront's
 initialized update parser now uses one operator/policy path and its variable
