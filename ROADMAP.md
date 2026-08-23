@@ -106,6 +106,10 @@ and cardinality bounds, repeated route scripts, and coordination text that
 outgrows the capability it describes. Those artifacts are evidence of what
 worked. They are not architectural commitments.
 
+The first simplification slice has landed in `fortback-new`: result-shape
+validation now consumes a generated fact table through one generic lookup.
+The source-specific route and literal policies remain open for later slices.
+
 ## Current goal: generic scalar pipeline
 
 Replace the bounded scalar path with a compact generic implementation while

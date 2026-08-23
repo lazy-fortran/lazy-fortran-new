@@ -507,6 +507,15 @@ statuses are `CLOSED`. Its evidence-gate verdict is `PENDING`, and L3 remains
 `OPEN`. No central contract, parser dispatch, MIR schema, ABI or semantic fact
 was promoted.
 
+Wave J is complete as `T-WAVE-J-whole-set-composition` at the component
+revisions below. The focused independent review and controller command
+`scripts/check_pins.sh && scripts/check-contracts.sh && bash
+tests/e2e/check-generated-chain.sh` pass. `T-WAVE-J-whole-set-composition` has
+`leaf_status: PASS`, `claim_status: CLOSED`, `parent_status: OPEN`,
+`review_verdict: PASS` and `evidence_gate_verdict: PENDING`. Its named parent is
+L3. No central contract, parser dispatch, MIR schema, ABI or semantic fact was
+promoted.
+
 ## Component pins
 
 These are the clean component revisions currently pinned by the control plane.
@@ -515,10 +524,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `ecbce03626740c262f150fe400209abc1c308cf6` | normative source → StandardIR | source-backed grammar-fact generation and ordered table; `fo clean && fo && fo test --all` passes |
-| fortfront-new | lazy-fortran/fortfront-new | `0fd4b5bdfcb93a79b7c3d02ef0ecc164e8720588` | frontend | token-to-grammar session with an independent stream model; `fo clean && fo && fo test --all` passes |
-| ffc-new | lazy-fortran/ffc-new | `31443ffa6d023f8d5e2e43a29785d4405c908e0b` | compiler driver and middle end | target-independent block-local opcode histogram; `fo clean && fo && fo test --all` passes |
-| fortback-new | lazy-fortran/fortback-new | `c458b273bb1378e978ea302b2b4517a8bf349d67` | backend | transactional R-format source-record batching; `fo clean && fo && fo test --all` passes |
+| standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
+| fortfront-new | lazy-fortran/fortfront-new | `2101b9fd92d5164b79e80804196bd47b7ff05a38` | frontend | transactional whole-stream lexical-to-grammar composition with independent ambiguous-token rollback coverage, with `fo clean && fo && fo test --all` passing |
+| ffc-new | lazy-fortran/ffc-new | `89b3c7f565b97a0fc6ed64e304dfcc1444494306` | compiler driver and middle end | source-order opcode-histogram table for validated MIR block ranges, with `fo clean && fo && fo test --all` passing |
+| fortback-new | lazy-fortran/fortback-new | `7fc98e57f5af357fd6130e01c50b2d1ff2c0a938` | backend | generated result-shape fact lookup plus transactional mixed source-record normalization and generic encoding, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence
 
