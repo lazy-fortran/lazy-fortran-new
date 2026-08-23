@@ -77,6 +77,10 @@ of creating a new process to authorize the exception.
   regeneration would be an unreasonable burden.
 - Add a generator only when it lowers total surface, prevents a demonstrated
   class of defects, or produces a measured performance benefit.
+- Treat schemas, task records, fixtures, review reports, and coordination
+  steps as surface too. Before adding one, try the existing interface. Add the
+  smallest new artifact only when the capability cannot be expressed there,
+  and delete the superseded path in the same change when possible.
 - Before an external consumer exists, change contracts in place when that is
   cheaper than maintaining compatibility machinery.
 - Delete superseded generator code, generated policy, fixtures, and prose in
