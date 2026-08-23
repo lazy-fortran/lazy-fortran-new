@@ -144,7 +144,8 @@ branch per historical item count. FFC's initialized variable arithmetic uses
 one parameterized MIR path without operator-specific wrappers, its legacy PRINT
 route matcher uses one count-driven check for consecutive literal routes, its
 variable PRINT counts 2 through 10 use one parameterized emitter and validator,
-and its literal-list emitters share one constructor. The central gate
+and its literal-list emitters share one constructor. Its four initialized
+literal-binary lowering branches now share one parameterized path. The central gate
 `bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
 binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
