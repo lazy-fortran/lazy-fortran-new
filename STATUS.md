@@ -539,8 +539,9 @@ binary-expression parsers share one parameterized token walk, and its four
 initialized literal-binary lowering branches share one parameterized path. The
 central replay's assignment routes for counts 3 through 6 now share the existing
 runner while count 2 retains its stricter negative control. Its pure literal
-PRINT routes for counts 2 through 10 now share one replay helper. The verifier
-derives
+PRINT routes for counts 2 through 10 now share one replay helper, and its
+stored-variable routes for counts 2 through 100 share one loop while retaining
+the historical oracle mode names for counts 2 through 6. The verifier derives
 stored-variable source spans from the pinned fixture, so it does not preserve
 old fixture-specific span constants. General expression parsing and assignment
 sequences remain open.

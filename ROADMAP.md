@@ -151,7 +151,9 @@ literal-binary lowering branches now share one parameterized path. The central
 replay routes for assignment counts 3 through 6 now share the existing runner,
 count 2 retains its stricter negative control. Pure literal PRINT routes for
 counts 2 through 10 also share one replay helper, while the standalone and
-generic-item routes remain explicit. The central gate
+generic-item routes remain explicit. Stored-variable PRINT routes for counts
+2 through 100 now use one count-driven replay loop, preserving the historical
+oracle mode names for counts 2 through 6. The central gate
 `bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
 binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
