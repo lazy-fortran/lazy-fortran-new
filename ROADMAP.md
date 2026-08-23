@@ -161,6 +161,8 @@ oracle mode names for counts 2 through 6. That replay discovers fixture keys
 and item counts from the source files instead of carrying a number-to-name
 dispatch. The central gate
 `bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
+Pure-literal PRINT routes use the same fixture-driven discovery and derive
+their oracle mode from the source item count.
 binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
 branch. General expression parsing, assignment sequences, and broader language
