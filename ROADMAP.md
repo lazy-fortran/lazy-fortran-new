@@ -142,6 +142,12 @@ tests/e2e/check-generated-chain.sh` passes. StandardIR retains six unrelated
 legacy CLI/timeout failures and FFC retains two unrelated full-suite failures;
 frontend and fortback full suites pass. No compiler behavior or central
 contract changed in this maintenance wave.
+Wave D is the next maintenance wave, `T-WAVE-D-ffc-suite-repair`: two disjoint
+test-only scopes reconcile the remaining FFC full-suite negative controls at
+the current compiler pin. No production source or central contract change is
+authorized; the controller verifier remains
+`scripts/check_pins.sh && scripts/check-contracts.sh && bash
+tests/e2e/check-generated-chain.sh` plus the two focused FFC tests.
 The next parallel slice adds source-backed R1033 `assignment-stmt is variable =
 expr`: generated StandardIR grammar fact, generated frontend assignment AST,
 generated MIR `store`/`return` with source rule `frontend-ast-v1/assignment`,

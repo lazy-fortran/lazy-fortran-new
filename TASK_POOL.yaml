@@ -4,7 +4,9 @@ MAX_PARALLEL_WORKERS: 8
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier: []
+ready_frontier:
+  - T-WAVE-D-ffc-v1-suite-repair
+  - T-WAVE-D-ffc-v2-suite-repair
 
 controller_ownership:
   owner: controller
@@ -63,7 +65,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-WAVE-D-ffc-suite-repair
 
 milestones:
   - id: L0
@@ -13874,6 +13876,77 @@ tasks:
       three bounded-route mutation controls pass and the full 48-test component
       suite passes at 6850db72f71bd8613af90575a5953c6449489594
     parallel_group: wave-c-suite-repair
+
+  - id: T-WAVE-D-ffc-suite-repair
+    milestone: L3
+    title: Repair the two retained FFC full-suite negative controls
+    status: OPEN
+    verification: OPEN
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    priority: 230
+    depends_on: [T-WAVE-C-component-suite-repair]
+    children:
+      - T-WAVE-D-ffc-v1-suite-repair
+      - T-WAVE-D-ffc-v2-suite-repair
+    verifier_command: >-
+      scripts/check_pins.sh && scripts/check-contracts.sh &&
+      bash tests/e2e/check-generated-chain.sh
+    ownership:
+      component: ffc-new
+      owner: controller
+      central_writes: [STATUS.md, ROADMAP.md, TASK_POOL.yaml, repos.toml]
+    claim_status: OPEN
+    claim_id: CL-WAVE-D-ffc-suite-repair
+    output: >-
+      test-only repairs for the two retained FFC full-suite negative controls;
+      production source and contracts remain unchanged
+    integration: worker commits then controller fast-forward, focused/full gates, central replay, push, verify, and cleanup
+    parallel_group: wave-d-ffc-suite-repair
+
+  - id: T-WAVE-D-ffc-v1-suite-repair
+    milestone: L3
+    title: Repair the retained AST-v1 integer variable-add negative control
+    status: OPEN
+    verification: OPEN
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-D-ffc-v1-suite-repair
+    parent_status: OPEN
+    parent_id: T-WAVE-D-ffc-suite-repair
+    inputs:
+      component: ffc-new
+      base_commit: e4c8b9ca0b691603e750bbdab12d0506e002c3c8
+    writes:
+      - ffc-new/test/test_frontend_ast_v1_integer_variable_add.f90
+    verifier_command: >-
+      (cd /home/ert/code/ffc-new && fo test test_frontend_ast_v1_integer_variable_add)
+    output: one independent AST-v1 wrong-operand control aligned with current bounded policy
+    parallel_group: wave-d-ffc-suite-repair
+
+  - id: T-WAVE-D-ffc-v2-suite-repair
+    milestone: L3
+    title: Repair the retained AST-v2 initialized-add negative control
+    status: OPEN
+    verification: OPEN
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-D-ffc-v2-suite-repair
+    parent_status: OPEN
+    parent_id: T-WAVE-D-ffc-suite-repair
+    inputs:
+      component: ffc-new
+      base_commit: e4c8b9ca0b691603e750bbdab12d0506e002c3c8
+    writes:
+      - ffc-new/test/test_frontend_ast_v2_print_variable_expression_initializer_range.f90
+    verifier_command: >-
+      (cd /home/ert/code/ffc-new && fo test test_frontend_ast_v2_print_variable_expression_initializer_range)
+    output: one independent AST-v2 wrong-operator control aligned with current bounded policy
+    parallel_group: wave-d-ffc-suite-repair
 
 integration_cycle:
   triggers:
