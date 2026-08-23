@@ -35,6 +35,7 @@ raw_scalar_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-count
 raw_scalar_add_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-add-v0.f90"
 raw_scalar_sub_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-sub-v0.f90"
 raw_scalar_mul_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-mul-v0.f90"
+raw_scalar_div_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-div-v0.f90"
 print_variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-expression-v1.f90"
 print_variable_multiply_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-multiply-expression-v1.f90"
 print_variable_subtract_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-subtract-expression-v1.f90"
@@ -116,6 +117,9 @@ negative_raw_scalar_sub_files=(
 )
 negative_raw_scalar_mul_files=(
     "$ROOT/tests/negative/l3-print-variable-generic-raw-counter-mul-wrong-print-v0.f90"
+)
+negative_raw_scalar_div_files=(
+    "$ROOT/tests/negative/l3-print-variable-generic-raw-counter-div-wrong-print-v0.f90"
 )
 negative_print_variable_expression_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-expression-wrong-name-v1.f90"
@@ -1243,6 +1247,9 @@ run_raw_scalar_binary_route() {
     if [ "$operator" = '*' ]; then
         sed "0,/(operator \\*)/s//(operator ${mutated_operator})/" "$ast_file" \
             > "$run_dir/raw-scalar-${label}.mutated-operator.ast.sx"
+    elif [ "$operator" = '/' ]; then
+        sed "0,/(operator \\/)/s//(operator ${mutated_operator})/" "$ast_file" \
+            > "$run_dir/raw-scalar-${label}.mutated-operator.ast.sx"
     else
         sed "0,/(operator ${operator})/s//(operator ${mutated_operator})/" "$ast_file" \
             > "$run_dir/raw-scalar-${label}.mutated-operator.ast.sx"
@@ -1267,6 +1274,8 @@ run_raw_scalar_binary_route sub "$raw_scalar_sub_source_file" \
     "${negative_raw_scalar_sub_files[0]}" print-variable-raw-sub 41 - 1
 run_raw_scalar_binary_route mul "$raw_scalar_mul_source_file" \
     "${negative_raw_scalar_mul_files[0]}" print-variable-raw-mul 84 '*' 2
+run_raw_scalar_binary_route div "$raw_scalar_div_source_file" \
+    "${negative_raw_scalar_div_files[0]}" print-variable-raw-div 21 / 2
 
 raw_scalar_ast_file="$run_dir/raw-scalar.frontend.ast.sx"
 raw_scalar_mir_file="$run_dir/raw-scalar.mir.sx"
@@ -1397,8 +1406,8 @@ oracle_route_count="$(grep -Ec '^generated chain( raw scalar)? oracle: accepted$
     "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 150 ]; then
-    printf 'generated chain route count: expected 150, got %s\n' \
+if [ "$oracle_route_count" -ne 151 ]; then
+    printf 'generated chain route count: expected 151, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi

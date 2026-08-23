@@ -85,13 +85,13 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
 
-    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul", "print-variable-raw-div") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul", "print-variable-raw-div") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
+    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul", "print-variable-raw-div") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul", "print-variable-raw-div") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
@@ -621,13 +621,14 @@ def main() -> None:
         require(runtime.returncode == 0 and runtime.stdout == b"42\n", "raw scalar runtime differs")
         print("generated chain raw scalar oracle: accepted")
         return
-    elif mode in ("print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul"):
+    elif mode in ("print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul", "print-variable-raw-div"):
         is_subtraction = mode == "print-variable-raw-sub"
         is_multiplication = mode == "print-variable-raw-mul"
-        operator = "*" if is_multiplication else "-" if is_subtraction else "+"
-        opcode = "mul" if is_multiplication else "sub" if is_subtraction else "add"
-        right_operand = "2" if is_multiplication else "1"
-        expected_output = b"84\n" if is_multiplication else b"41\n" if is_subtraction else b"43\n"
+        is_division = mode == "print-variable-raw-div"
+        operator = "/" if is_division else "*" if is_multiplication else "-" if is_subtraction else "+"
+        opcode = "div" if is_division else "mul" if is_multiplication else "sub" if is_subtraction else "add"
+        right_operand = "2" if is_multiplication or is_division else "1"
+        expected_output = b"21\n" if is_division else b"84\n" if is_multiplication else b"41\n" if is_subtraction else b"43\n"
         expected_source = (
             "program main\n"
             "  integer :: counter_2\n"
