@@ -201,7 +201,9 @@ as the primary path for legal identifiers and integer literals. Fortback now der
 generated PRINT route-operation pattern from a compact rule with boundary
 controls while retaining explicit exceptional route facts. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
-Raw-source program-unit assembly remains open.
+Fortfront's generic initialized-update parser now handles the existing multiply,
+divide, power, and Unicode en-dash subtraction expression fixtures without
+source-specific fallback construction. Raw-source program-unit assembly remains open.
 The raw scalar program-unit route now carries legal variable names and bounded
 signed integer values through AST-v2, MIR, RISC-V, and qemu. The central replay
 checks `counter_2 = 42`, a malformed PRINT neighbor, AST/MIR mutations, and
