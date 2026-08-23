@@ -4,7 +4,11 @@ MAX_PARALLEL_WORKERS: 8
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier: []
+ready_frontier:
+  - T-WAVE-J-standardir-grammar-fact-collection
+  - T-WAVE-J-frontend-lexical-grammar-stream
+  - T-WAVE-J-ffc-block-histogram-table
+  - T-WAVE-J-fortback-source-batch-codec
 
 controller_ownership:
   owner: controller
@@ -63,7 +67,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-WAVE-I-reusable-scale-slices
+active_task: T-WAVE-J-whole-set-composition
 
 milestones:
   - id: L0
@@ -14387,6 +14391,154 @@ tasks:
       48570f1b1e626179e42ced53ac0aed71ae9bcbab is integrated as
       c458b273bb1378e978ea302b2b4517a8bf349d67
     parallel_group: wave-i-reusable-scale-slices
+
+  - id: T-WAVE-J-whole-set-composition
+    milestone: L3
+    title: Collect grammar facts, run token streams, tabulate MIR blocks, encode source batches
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    evidence_gate_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-J-whole-set-composition
+    parent_status: OPEN
+    parent_id: L3
+    priority: 290
+    depends_on: [T-WAVE-I-reusable-scale-slices]
+    children:
+      - T-WAVE-J-standardir-grammar-fact-collection
+      - T-WAVE-J-frontend-lexical-grammar-stream
+      - T-WAVE-J-ffc-block-histogram-table
+      - T-WAVE-J-fortback-source-batch-codec
+    verifier_command: >-
+      scripts/check_pins.sh && scripts/check-contracts.sh &&
+      bash tests/e2e/check-generated-chain.sh
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      central_writes: [STATUS.md, ROADMAP.md, TASK_POOL.yaml, repos.toml]
+    output: >-
+      the child composition commits with independent behavioral oracles, the
+      child verifier commands, central replay, remote-main verification and
+      task-worktree cleanup. No central contract or L3 semantic promotion
+    integration: worker commits then controller review, cherry-pick, full gates, push, remote verification, central pin update, and cleanup
+    parallel_group: wave-j-whole-set-composition
+
+  - id: T-WAVE-J-standardir-grammar-fact-collection
+    milestone: L3
+    title: Collect generated grammar facts for one source rule identifier
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    evidence_gate_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-J-standardir-grammar-fact-collection
+    parent_status: OPEN
+    parent_id: T-WAVE-J-whole-set-composition
+    depends_on: [T-WAVE-I-standardir-grammar-fact-table]
+    inputs:
+      component: standard-new
+      base_commit: ecbce03626740c262f150fe400209abc1c308cf6
+      decisions: [D0076, D0078]
+    writes:
+      - standard-new/src/standardir_grammar_fact_codegen.f90
+      - standard-new/src/standardir_grammar_fact_table_generated.f90
+      - standard-new/test/test_grammar_fact_table_collection.f90
+      - standard-new/fpm.toml
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_grammar_fact_table_collection)
+    independent_oracle: test-local literal source-order records and direct rule-identifier filtering, including duplicate alternatives, provenance, capacity and missing-rule output clearing
+    output: generated rule-identifier collection over the complete table without reparsing expressions, changing source order or adding parser dispatch
+    parallel_group: wave-j-whole-set-composition
+
+  - id: T-WAVE-J-frontend-lexical-grammar-stream
+    milestone: L3
+    title: Run one caller-supplied lexical stream through a grammar session
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    evidence_gate_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-J-frontend-lexical-grammar-stream
+    parent_status: OPEN
+    parent_id: T-WAVE-J-whole-set-composition
+    depends_on: [T-WAVE-I-frontend-lexical-grammar-session]
+    inputs:
+      component: fortfront-new
+      base_commit: 0fd4b5bdfcb93a79b7c3d02ef0ecc164e8720588
+      decisions: [D0075, D0076, D0078]
+    writes:
+      - fortfront-new/src/fortfront_lexical_grammar_session.f90
+      - fortfront-new/test/test_fortfront_lexical_grammar_stream.f90
+      - fortfront-new/tools/oracle_lexical_grammar_stream.py
+      - fortfront-new/fpm.toml
+    verifier_command: >-
+      (cd /home/ert/code/fortfront-new && fo test test_fortfront_lexical_grammar_stream && python3 tools/oracle_lexical_grammar_stream.py)
+    independent_oracle: standalone whole-stream state model with ordered source-token projection, final grammar outcome, capacity retry and transactional lexical-failure controls
+    output: whole-stream generic lexical-to-grammar composition with no Fortran-specific token or parser dispatch
+    parallel_group: wave-j-whole-set-composition
+
+  - id: T-WAVE-J-ffc-block-histogram-table
+    milestone: L3
+    title: Compute opcode histograms for every validated MIR block range
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    evidence_gate_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-J-ffc-block-histogram-table
+    parent_status: OPEN
+    parent_id: T-WAVE-J-whole-set-composition
+    depends_on: [T-WAVE-I-ffc-block-opcode-histogram]
+    inputs:
+      component: ffc-new
+      base_commit: 31443ffa6d023f8d5e2e43a29785d4405c908e0b
+      decision: D0078
+    writes:
+      - ffc-new/src/ffc_mir.f90
+      - ffc-new/test/test_mir_block_table_opcode_histograms.f90
+      - ffc-new/fpm.toml
+    verifier_command: >-
+      (cd /home/ert/code/ffc-new && fo test test_mir_block_table_opcode_histograms)
+    independent_oracle: test-local direct iteration over every raw block range with per-block totals, empty-range coverage, capacity and malformed-table output clearing
+    output: source-order block-by-opcode histogram table without target behavior or a MIR contract change
+    parallel_group: wave-j-whole-set-composition
+
+  - id: T-WAVE-J-fortback-source-batch-codec
+    milestone: L3
+    title: Normalize and encode a mixed source-record batch through the generic codec
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    evidence_gate_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-J-fortback-source-batch-codec
+    parent_status: OPEN
+    parent_id: T-WAVE-J-whole-set-composition
+    depends_on: [T-WAVE-I-fortback-r-format-batch]
+    inputs:
+      component: fortback-new
+      base_commit: c458b273bb1378e978ea302b2b4517a8bf349d67
+      decisions: [D0072, D0077, D0078]
+    writes:
+      - fortback-new/src/fortback_targetir_source_batch_codec.f90
+      - fortback-new/test/test_targetir_source_batch_codec.f90
+      - fortback-new/fpm.toml
+    verifier_command: >-
+      (cd /home/ert/code/fortback-new && fo test test_targetir_source_batch_codec)
+    independent_oracle: independently computed instruction words, operand-field order, source-record order, provenance and transactional malformed, operand and capacity controls
+    output: mixed source-batch normalization and generic-codec encoding without mnemonic dispatch, MIR, ABI or contract changes
+    parallel_group: wave-j-whole-set-composition
 
 integration_cycle:
   triggers:
