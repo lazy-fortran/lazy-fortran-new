@@ -464,6 +464,12 @@ component gates retain only their pre-existing failures, and the central
 reusable producer, token, MIR-accessor and bridge boundaries; it does not
 promote a new L3 semantic claim.
 
+The active controller task is `T-WAVE-B-production-slices`. Its four child
+scopes are recorded in `TASK_POOL.yaml`, and the controller verifier is
+`scripts/check_pins.sh && scripts/check-contracts.sh && bash
+tests/e2e/check-generated-chain.sh`. No Wave B child is promoted until its
+focused component oracle and the central replay pass.
+
 ## Component pins
 
 These are the clean component revisions currently pinned by the control plane.

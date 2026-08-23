@@ -118,6 +118,14 @@ component commands and retained baseline failures are reported in `STATUS.md`.
 The replay also corrected two stale expression-oracle expectations against the
 pre-wave frontend output. This wave extends reusable boundaries and does not
 claim parser completion, general expression semantics, or full M3.
+Wave B is now the active parallel frontier: StandardIR grammar-v0 batching,
+the caller-supplied frontend token cursor, per-block target-independent MIR
+opcode counts, and a provenance-preserving generic R-format TargetIR bridge.
+Each child has its own production worktree and focused oracle; the controller
+verifier is `scripts/check_pins.sh && scripts/check-contracts.sh && bash
+tests/e2e/check-generated-chain.sh`. These are reusable boundaries, not a
+claim of parser dispatch, MIR schema revision, or general instruction
+selection.
 The next parallel slice adds source-backed R1033 `assignment-stmt is variable =
 expr`: generated StandardIR grammar fact, generated frontend assignment AST,
 generated MIR `store`/`return` with source rule `frontend-ast-v1/assignment`,
