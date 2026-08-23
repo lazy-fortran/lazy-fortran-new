@@ -49,7 +49,11 @@ AST/MIR/ELF mutation controls. The first replay caught and repaired a
 hard-coded mutation-control value in the runner. The implementation remains
 bounded to the generated policy range and does not claim general expression
 parsing, signed or zero constants, formatted I/O, or semantic promotion. The
-generic integer PRINT-list successor now passes
+generic integer PRINT-list successor now uses one allocated `output-items`
+path in fortfront and one generic FFC traversal for pure literal and
+stored-variable lists. The clean central gate
+`bash tests/e2e/check-generated-chain.sh` passes 146 routes. Source-specific
+expression and assignment routes remain open.
 
 The zero/boundary successor is also now promoted as bounded-only: generated
 integer PRINT items `x + n` and ASCII `x - n` accept `n=0` through `n=100`,
@@ -525,9 +529,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
-| fortfront-new | lazy-fortran/fortfront-new | `2101b9fd92d5164b79e80804196bd47b7ff05a38` | frontend | transactional whole-stream lexical-to-grammar composition with independent ambiguous-token rollback coverage, with `fo clean && fo && fo test --all` passing |
-| ffc-new | lazy-fortran/ffc-new | `2bf05eea6ca605e10357f2bd5fb559985fb5933c` | compiler driver and middle end | source-order opcode-histogram table plus generic single integer-expression lowering with known-route fallback, with `fo clean && fo && fo test --all` passing |
-| fortback-new | lazy-fortran/fortback-new | `7fc98e57f5af357fd6130e01c50b2d1ff2c0a938` | backend | generated result-shape fact lookup plus transactional mixed source-record normalization and generic encoding, with `fo clean && fo && fo test --all` passing |
+| fortfront-new | lazy-fortran/fortfront-new | `8d71be5014e802530567c290892cb2ed6839f59b` | frontend | transactional whole-stream lexical-to-grammar composition plus generic pure integer PRINT item lists, with `fo clean && fo && fo test --all` passing |
+| ffc-new | lazy-fortran/ffc-new | `50ebaacb582e709e5232a55148a0a995d0c64e81` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, and generic pure-literal and stored PRINT-list traversal with known-route fallback, with `fo clean && fo && fo test --all` passing |
+| fortback-new | lazy-fortran/fortback-new | `13a836585895371a986a2038e2106f4f1f909918` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence
 

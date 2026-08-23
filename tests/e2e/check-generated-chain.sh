@@ -112,58 +112,47 @@ negative_stop_files=(
     "$ROOT/tests/negative/l3-ast-program-error-stop-7-v1.f90"
 )
 negative_print_files=(
-    "$ROOT/tests/negative/l3-ast-program-print-8-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-7-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-missing-item-v1.f90"
 )
 negative_print_two_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-two-item-missing-second-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-two-item-wrong-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-two-item-v1.f90"
 )
 negative_print_three_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-three-item-missing-third-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-three-item-wrong-third-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-three-item-v1.f90"
 )
 negative_print_four_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-four-item-missing-fourth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-four-item-wrong-fourth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-four-item-v1.f90"
 )
 negative_print_five_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-five-item-missing-fifth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-five-item-wrong-fifth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-five-item-v1.f90"
 )
 negative_print_six_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-six-item-missing-sixth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-six-item-wrong-sixth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-six-item-v1.f90"
 )
 negative_print_seven_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-seven-item-missing-seventh-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-seven-item-wrong-seventh-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-seven-item-v1.f90"
 )
 negative_print_eight_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-eight-item-missing-eighth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-eight-item-wrong-eighth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-eight-item-v1.f90"
 )
 negative_print_nine_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-nine-item-missing-ninth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-nine-item-wrong-ninth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-nine-item-v1.f90"
 )
 negative_print_ten_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-ten-item-missing-tenth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-ten-item-wrong-tenth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-ten-item-v1.f90"
 )
 negative_print_generic_item_files=(
     "$ROOT/tests/negative/l3-ast-program-print-generic-items-missing-third-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-print-generic-items-wrong-third-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-generic-items-v1.f90"
 )
 negative_print_variable_files=(

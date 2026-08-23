@@ -63,6 +63,26 @@ of creating a new process to authorize the exception.
   development attempts need no permanent record beyond useful tests or commit
   history.
 
+## Fast execution rule
+
+For two behavior-preserving designs, choose the one with the lower total
+review surface. Count source, generator code, declarative input, generated
+output, tests, fixtures, documentation, schemas, task records, reports, and
+review material.
+
+The execution loop is one existing capability, one smallest vertical change,
+one independent behavioral check, and one central replay. Parallelize only
+disjoint production files that already have a specified interface. Integrate
+the verified commit immediately, push it, and continue from the next failing
+boundary. Ordinary implementation adds only the code, tests, and central pin
+or status line required to make the result reproducible.
+
+Do not add a task record, decision, run, report, fixture, script, schema, or
+generated table when the existing interface can express the change. Add one
+only when it is required for a distinct capability, an independent oracle, or
+reproducibility, and remove the superseded artifact in the same change when
+possible.
+
 ## Surface discipline
 
 - Prefer one general algorithm to branches generated for names, values, list
@@ -110,12 +130,14 @@ and cardinality bounds, repeated route scripts, and coordination text that
 outgrows the capability it describes. Those artifacts are evidence of what
 worked. They are not architectural commitments.
 
-The first simplification slice has landed in `fortback-new`: result-shape
-validation now consumes a generated fact table through one generic lookup.
-The source-specific route and literal policies remain open for later slices.
-The next slice has landed in `ffc-new`: single integer expressions now use one
-generic operand/operator traversal and MIR sequence. AST-v2 routes and
-assignment sequences remain open for later slices.
+The first simplification slice has landed across the scalar pipeline. The
+frontend now allocates one `output-items` list for pure integer PRINT values.
+FFC lowers that representation through one generic item traversal, and
+fortback validates and encodes both pure-literal and stored-variable lists
+through generic paths. The clean central gate
+`bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
+expression parsing, assignment sequences, and broader language coverage remain
+open.
 
 ## Current goal: generic scalar pipeline
 

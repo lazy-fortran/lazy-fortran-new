@@ -6,10 +6,37 @@ from __future__ import annotations
 import pathlib
 import sys
 import hashlib
+import re
 
 
 def fail(message: str) -> None:
     raise SystemExit(message)
+
+
+def add_legacy_print_fields(ast: str) -> str:
+    """Expose old item fields to the unchanged cardinality checks.
+
+    The frontend now stores literal PRINT items in one allocated list. The
+    older chain modes still name their expected items individually, so derive
+    those check tokens from the canonical list in the oracle only.
+    """
+    if "(output-items " not in ast:
+        return ast
+    items = re.findall(
+        r"\(output-item \(kind ([^)]+)\) \(value ([^)]+)\).*?\(rule ([^)]+)\)",
+        ast,
+    )
+    if not items:
+        fail("generic PRINT item list is malformed")
+    fields = []
+    for index, (kind, value, rule) in enumerate(items, start=1):
+        suffix = "" if index == 1 else f"-{index}"
+        fields.extend((
+            f"(output-kind{suffix} {kind})",
+            f"(output-value{suffix} {value})",
+            f"(output-rule{suffix} {rule})",
+        ))
+    return ast + " " + " ".join(fields)
 
 
 def main() -> None:
@@ -17,6 +44,7 @@ def main() -> None:
         fail("usage: oracle_generated_chain.py AST MIR ELF [PROGRAM_NAME] [TYPE_SPEC] [MODE] [SOURCE]")
 
     ast = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
+    ast = add_legacy_print_fields(ast)
     mir = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
     elf = pathlib.Path(sys.argv[3]).read_bytes()
     program_name = sys.argv[4] if len(sys.argv) >= 5 else "p"
