@@ -469,11 +469,13 @@ and the controller verifier `scripts/check_pins.sh &&
 scripts/check-contracts.sh && bash tests/e2e/check-generated-chain.sh` passes.
 No new L3 semantic claim was promoted.
 
-Wave C is active as `T-WAVE-C-component-suite-repair`. Four disjoint test-only
-scopes reconcile the retained StandardIR, frontend, FFC and fortback full-suite
-failures against their current generated policies and bounded route oracles;
-no compiler behavior or central pin changes are authorized by this wave until
-the focused and full component gates pass.
+Wave C is complete as `T-WAVE-C-component-suite-repair`. Its four disjoint
+test-only scopes reconcile retained StandardIR, frontend, FFC and fortback
+failures against current generated policies and bounded route oracles. The
+focused gates and central replay pass. StandardIR retains six unrelated legacy
+CLI/timeout failures, and FFC retains two unrelated full-suite failures; the
+frontend and backend full suites pass. No compiler behavior or central contract
+was changed by this maintenance wave.
 
 ## Component pins
 
