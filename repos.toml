@@ -33,7 +33,7 @@ commit = "6ac1b982214b8b41696c5fc57fcf0a5394d80dac"
 url  = "https://github.com/lazy-fortran/ffc-new"
 path = "ffc-new"
 role = "Driver and middle end: MIR, optimization, command line."
-commit = "63c1c053a336d80410902c1f5156b79f2215fa1d"
+commit = "825e9843c236fdb99717119ed9cdd2af052beb22"
 
 [repos.backend]
 url  = "https://github.com/lazy-fortran/fortback-new"
