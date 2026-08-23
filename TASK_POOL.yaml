@@ -4,7 +4,12 @@ MAX_PARALLEL_WORKERS: 8
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier: []
+ready_frontier:
+  - T-WAVE-E-standard-cli-pdfstandardir
+  - T-WAVE-E-standard-cli-pdfvalidity
+  - T-WAVE-E-standard-cli-grammar-export
+  - T-WAVE-E-standard-cli-statement-sequence
+  - T-WAVE-E-standard-cli-boundary-map
 
 controller_ownership:
   owner: controller
@@ -63,7 +68,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-WAVE-E-standard-cli-suite-repair
 
 milestones:
   - id: L0
@@ -13955,6 +13960,160 @@ tasks:
       814bd43ec1760829c62361e72b35ea778a34d983, integrated main pin
       8bfa92f205a42f474653aaa4350ac03d685f19c7
     parallel_group: wave-d-ffc-suite-repair
+
+  - id: T-WAVE-E-standard-cli-suite-repair
+    milestone: L3
+    title: Repair the five stale StandardIR CLI test controls
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    priority: 240
+    depends_on: [T-WAVE-D-ffc-suite-repair]
+    children:
+      - T-WAVE-E-standard-cli-pdfstandardir
+      - T-WAVE-E-standard-cli-pdfvalidity
+      - T-WAVE-E-standard-cli-grammar-export
+      - T-WAVE-E-standard-cli-statement-sequence
+      - T-WAVE-E-standard-cli-boundary-map
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo clean && fo && fo test --all)
+    ownership:
+      component: standard-new
+      owner: controller
+      central_writes: [STATUS.md, ROADMAP.md, TASK_POOL.yaml, repos.toml]
+    claim_status: OPEN
+    claim_id: CL-WAVE-E-standard-cli-suite-repair
+    output: >-
+      five disjoint test-only repairs, full StandardIR suite PASS, central pins
+      unchanged except for the verified standard-new test commits
+    integration: worker commits then controller cherry-pick, full suite, push, remote verification, and cleanup
+    parallel_group: wave-e-standard-suite-repair
+
+  - id: T-WAVE-E-standard-cli-pdfstandardir
+    milestone: L3
+    title: Repair the pdfstandardir CLI test build control
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-E-standard-cli-pdfstandardir
+    parent_status: OPEN
+    parent_id: T-WAVE-E-standard-cli-suite-repair
+    depends_on: [T-WAVE-D-ffc-suite-repair]
+    inputs:
+      component: standard-new
+      base_commit: 9591841ccfbf9514819c765bbda4d6820f1b6f68
+    writes:
+      - standard-new/test/test_pdfstandardir.f90
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_pdfstandardir)
+    output: >-
+      focused pdfstandardir CLI test PASS with its target built when invoked;
+      no production source or provenance behavior changes
+    parallel_group: wave-e-standard-suite-repair
+
+  - id: T-WAVE-E-standard-cli-pdfvalidity
+    milestone: L3
+    title: Repair the pdfvalidity CLI test build control
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-E-standard-cli-pdfvalidity
+    parent_status: OPEN
+    parent_id: T-WAVE-E-standard-cli-suite-repair
+    depends_on: [T-WAVE-D-ffc-suite-repair]
+    inputs:
+      component: standard-new
+      base_commit: 9591841ccfbf9514819c765bbda4d6820f1b6f68
+    writes:
+      - standard-new/test/test_pdfvalidity.f90
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_pdfvalidity)
+    output: >-
+      focused pdfvalidity CLI test PASS with its target built when invoked;
+      no production source or provenance behavior changes
+    parallel_group: wave-e-standard-suite-repair
+
+  - id: T-WAVE-E-standard-cli-grammar-export
+    milestone: L3
+    title: Repair the sxgrammar CLI test build control
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-E-standard-cli-grammar-export
+    parent_status: OPEN
+    parent_id: T-WAVE-E-standard-cli-suite-repair
+    depends_on: [T-WAVE-D-ffc-suite-repair]
+    inputs:
+      component: standard-new
+      base_commit: 9591841ccfbf9514819c765bbda4d6820f1b6f68
+    writes:
+      - standard-new/test/test_standardir_grammar_export.f90
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_standardir_grammar_export)
+    output: >-
+      focused sxgrammar CLI test PASS with its target built when invoked;
+      no grammar generation behavior changes
+    parallel_group: wave-e-standard-suite-repair
+
+  - id: T-WAVE-E-standard-cli-statement-sequence
+    milestone: L3
+    title: Repair the sxstatementsequence CLI test build control
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-E-standard-cli-statement-sequence
+    parent_status: OPEN
+    parent_id: T-WAVE-E-standard-cli-suite-repair
+    depends_on: [T-WAVE-D-ffc-suite-repair]
+    inputs:
+      component: standard-new
+      base_commit: 9591841ccfbf9514819c765bbda4d6820f1b6f68
+    writes:
+      - standard-new/test/test_sxstatementsequence_cli.f90
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_sxstatementsequence_cli)
+    output: >-
+      focused sxstatementsequence CLI test PASS with its target built when
+      invoked; no statement-sequence behavior changes
+    parallel_group: wave-e-standard-suite-repair
+
+  - id: T-WAVE-E-standard-cli-boundary-map
+    milestone: L3
+    title: Repair the sxstatementboundarymap CLI test build control
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-E-standard-cli-boundary-map
+    parent_status: OPEN
+    parent_id: T-WAVE-E-standard-cli-suite-repair
+    depends_on: [T-WAVE-D-ffc-suite-repair]
+    inputs:
+      component: standard-new
+      base_commit: 9591841ccfbf9514819c765bbda4d6820f1b6f68
+    writes:
+      - standard-new/test/test_sxstatementboundarymap_cli.f90
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_sxstatementboundarymap_cli)
+    output: >-
+      focused sxstatementboundarymap CLI test PASS with its target built when
+      invoked; no statement-boundary behavior changes
+    parallel_group: wave-e-standard-suite-repair
 
 integration_cycle:
   triggers:
