@@ -1294,7 +1294,14 @@ for variable_output_count in 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
     for ((variable_expected_index = 0; variable_expected_index < variable_output_count; variable_expected_index++)); do
         variable_expected+=$'9\n'
     done
-    variable_mode="print-variable-${variable_output_count}-item"
+    case "$variable_output_count" in
+        2) variable_mode=print-variable-two-item ;;
+        3) variable_mode=print-variable-three-item ;;
+        4) variable_mode=print-variable-four-item ;;
+        5) variable_mode=print-variable-five-item ;;
+        6) variable_mode=print-variable-six-item ;;
+        *) variable_mode="print-variable-${variable_output_count}-item" ;;
+    esac
     variable_base="$run_dir/$variable_mode"
     variable_ast_file="$variable_base.frontend.ast.sx"
     variable_mir_file="$variable_base.mir.sx"
