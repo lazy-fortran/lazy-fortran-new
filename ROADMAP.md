@@ -168,6 +168,9 @@ generated PRINT route-operation pattern from a compact rule with boundary
 controls while retaining explicit exceptional route facts. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
 Raw-source program-unit assembly remains open.
+The raw-source program-unit envelope and legacy PRINT compatibility fields
+remain explicit. Genericizing either is deferred until it reduces total review
+surface without changing the public SX shape.
 
 ## Current goal: generic scalar pipeline
 
