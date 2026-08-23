@@ -524,7 +524,7 @@ promoted.
 
 The current generic continuation is pushed at `fortfront-new`
 `6ac1b982214b8b41696c5fc57fcf0a5394d80dac` and `ffc-new`
-`1f7fda44db431bf1fca69fbdd906f0db211ecf0e`. Its full `fo` gate passes, and
+`a37086ed33bead3f77a5c4a396040ac3d0756261`. Its full `fo` gate passes, and
 the central replay passes 146 routes. Fortfront now parses bounded PRINT
 expression items through one typed path and uses one operator/policy path for
 initialized updates; its variable PRINT batch metadata derives from the parsed
@@ -534,7 +534,8 @@ parameterized MIR emit/validation path for initialized variable arithmetic,
 without operator-specific wrappers; its legacy literal PRINT route matcher now
 uses one count-driven check for routes 19 through 28, its variable PRINT
 counts 2 through 10 use one parameterized emitter and validator, and its ten
-legacy literal-list emitters share one constructor. The verifier derives
+legacy literal-list emitters share one constructor, and its four bounded
+binary-expression parsers share one parameterized token walk. The verifier derives
 stored-variable source spans from the pinned fixture, so it does not preserve
 old fixture-specific span constants. General expression parsing and assignment
 sequences remain open.
@@ -549,7 +550,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
 | fortfront-new | lazy-fortran/fortfront-new | `6ac1b982214b8b41696c5fc57fcf0a5394d80dac` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, and count-derived PRINT batches, with `fo` passing |
-| ffc-new | lazy-fortran/ffc-new | `1f7fda44db431bf1fca69fbdd906f0db211ecf0e` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, and shared literal-list emission, with `fo` passing |
+| ffc-new | lazy-fortran/ffc-new | `a37086ed33bead3f77a5c4a396040ac3d0756261` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, shared literal-list emission, and one parameterized bounded binary-expression parser, with `fo` passing |
 | fortback-new | lazy-fortran/fortback-new | `13a836585895371a986a2038e2106f4f1f909918` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence
