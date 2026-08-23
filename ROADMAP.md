@@ -118,14 +118,22 @@ component commands and retained baseline failures are reported in `STATUS.md`.
 The replay also corrected two stale expression-oracle expectations against the
 pre-wave frontend output. This wave extends reusable boundaries and does not
 claim parser completion, general expression semantics, or full M3.
-Wave B is now the active parallel frontier: StandardIR grammar-v0 batching,
-the caller-supplied frontend token cursor, per-block target-independent MIR
-opcode counts, and a provenance-preserving generic R-format TargetIR bridge.
-Each child has its own production worktree and focused oracle; the controller
-verifier is `scripts/check_pins.sh && scripts/check-contracts.sh && bash
-tests/e2e/check-generated-chain.sh`. These are reusable boundaries, not a
-claim of parser dispatch, MIR schema revision, or general instruction
-selection.
+Wave B completed four disjoint production slices and pushed each verified
+branch to `main`: StandardIR grammar-v0 batching at
+`965f1963512b428307536c481ff9f639a44e7f6f`, the caller-supplied frontend token
+cursor at `8395f15881a3fffb75c47aa58b1756c7b6b128f7`, per-block
+target-independent MIR opcode counts at
+`a094db138cdf87032f61a32a0c568fe6f0fc225a`, and the provenance-preserving
+generic R-format TargetIR bridge at
+`e6135ef761c8f78b25f40956736129ad39c22ce6`. The final backend pin also
+contains replay repair `28a7877a09c7d69af71e704ddb3febfb3555faa7`, which
+aligns the accepted initialized multiplier lower bound with the existing
+central oracle. Each focused oracle passed, the full component build checks
+retained only the documented baseline failures, and the controller verifier
+`scripts/check_pins.sh &&
+scripts/check-contracts.sh && bash tests/e2e/check-generated-chain.sh` passed.
+These are reusable boundaries, not a claim of parser dispatch, MIR schema
+revision, or general instruction selection.
 The next parallel slice adds source-backed R1033 `assignment-stmt is variable =
 expr`: generated StandardIR grammar fact, generated frontend assignment AST,
 generated MIR `store`/`return` with source rule `frontend-ast-v1/assignment`,

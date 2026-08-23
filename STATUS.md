@@ -464,11 +464,10 @@ component gates retain only their pre-existing failures, and the central
 reusable producer, token, MIR-accessor and bridge boundaries; it does not
 promote a new L3 semantic claim.
 
-The active controller task is `T-WAVE-B-production-slices`. Its four child
-scopes are recorded in `TASK_POOL.yaml`, and the controller verifier is
-`scripts/check_pins.sh && scripts/check-contracts.sh && bash
-tests/e2e/check-generated-chain.sh`. No Wave B child is promoted until its
-focused component oracle and the central replay pass.
+Wave B is complete. Its four child scopes are recorded in `TASK_POOL.yaml`,
+and the controller verifier `scripts/check_pins.sh &&
+scripts/check-contracts.sh && bash tests/e2e/check-generated-chain.sh` passes.
+No new L3 semantic claim was promoted.
 
 ## Component pins
 
@@ -478,10 +477,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `0f9b9bdb62128477730b99282e9c8a921a448326` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts plus grammar-v0 export; focused gate passes; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `4606a4131c17bedb3bf2d8a5ef3c3925aad6d50f` | frontend | prior generated frontend routes plus caller-supplied lexical-token projection; focused token gate and independent Python oracle pass; full `fo` retains unrelated existing failures |
-| ffc-new | lazy-fortran/ffc-new | `e885e46b8dd64a0679757c4a8863740fecb5e7f1` | compiler driver and middle end | prior generated MIR routes plus target-independent block-table instruction access; focused accessor gate passes; full `fo` retains unrelated existing failures |
-| fortback-new | lazy-fortran/fortback-new | `fde9eca704ffd87161bae6395b49b78705b102db` | backend | prior generated RISC-V/QEMU routes plus generic `z = z + z` bridge support; focused bridge gate passes; full `fo` retains unrelated existing failures and the generated-policy formatting warning |
+| standard-new | lazy-fortran/standard-new | `965f1963512b428307536c481ff9f639a44e7f6f` | normative source → StandardIR | generated grammar-v0 producer plus transactional ordered batch export; focused gate passes; full `fo` retains the known schema declaration-count failure |
+| fortfront-new | lazy-fortran/fortfront-new | `8395f15881a3fffb75c47aa58b1756c7b6b128f7` | frontend | caller-supplied lexical-token projection plus bounded token cursor; focused gate and independent Python oracle pass; full `fo` retains unrelated existing failures |
+| ffc-new | lazy-fortran/ffc-new | `a094db138cdf87032f61a32a0c568fe6f0fc225a` | compiler driver and middle end | target-independent block-table instruction access plus per-block opcode counts; focused gates pass; full `fo` retains unrelated existing failures |
+| fortback-new | lazy-fortran/fortback-new | `28a7877a09c7d69af71e704ddb3febfb3555faa7` | backend | generic `z = z + z` bridge, provenance-preserving R-format TargetIR encoding, and replay repair for the initialized multiplier lower bound; focused gates pass; full `fo` retains unrelated existing failures and the generated-policy formatting warning |
 
 ## Historical milestone evidence
 

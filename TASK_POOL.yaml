@@ -63,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-WAVE-B-production-slices
+active_task: null
 
 milestones:
   - id: L0
@@ -13596,9 +13596,11 @@ tasks:
   - id: T-WAVE-B-production-slices
     milestone: L3
     title: Execute the next four disjoint reusable-boundary slices
-    status: OPEN
-    verification: OPEN
+    status: PASS
+    verification: PASS
     review_state: SKIPPED
+    review_verdict: SKIPPED
+    claim_status: CLOSED
     priority: 210
     depends_on:
       - T-WAVE-A-standardir-grammar-export
@@ -13617,16 +13619,21 @@ tasks:
       component: standard-new/fortfront-new/ffc-new/fortback-new
       owner: controller
       central_writes: [STATUS.md, ROADMAP.md, TASK_POOL.yaml, repos.toml]
-    output: four parallel worker commits, focused component gates, central replay, and clean remote mains
+    output: four parallel worker commits, focused component gates, central replay, and clean remote mains at standard-new 965f1963512b428307536c481ff9f639a44e7f6f, fortfront-new 8395f15881a3fffb75c47aa58b1756c7b6b128f7, ffc-new a094db138cdf87032f61a32a0c568fe6f0fc225a, and fortback-new 28a7877a09c7d69af71e704ddb3febfb3555faa7; backend replay repair follows the R-format slice at e6135ef761c8f78b25f40956736129ad39c22ce6
     integration: worker commits then controller fast-forward, push, verify, and cleanup
     parallel_group: wave-b-production-slices
 
   - id: T-WAVE-B-standardir-grammar-batch
     milestone: L3
     title: Add transactional batch production for grammar-v0 rules
-    status: OPEN
-    verification: OPEN
+    status: PASS
+    verification: PASS
     review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    claim_id: CL-WAVE-B-standardir-grammar-batch
+    parent_status: PASS
     parent_id: T-WAVE-B-production-slices
     depends_on: [T-WAVE-A-standardir-grammar-export]
     inputs:
@@ -13638,15 +13645,20 @@ tasks:
       - standard-new/test/test_standardir_grammar_v0_export.f90
     verifier_command: >-
       (cd /home/ert/code/standard-new && fo test test_standardir_grammar_v0_export)
-    output: ordered transactional batch of independent grammar-v0 records; no contract wrapper
+    output: ordered transactional batch of independent grammar-v0 records; no contract wrapper; commit 965f1963512b428307536c481ff9f639a44e7f6f pushed to origin/main
     parallel_group: wave-b-production-slices
 
   - id: T-WAVE-B-frontend-token-cursor
     milestone: L3
     title: Add a caller-supplied lexical token-stream cursor
-    status: OPEN
-    verification: OPEN
+    status: PASS
+    verification: PASS
     review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    claim_id: CL-WAVE-B-frontend-token-cursor
+    parent_status: PASS
     parent_id: T-WAVE-B-production-slices
     depends_on: [T-WAVE-A-frontend-lexical-token-projection]
     inputs:
@@ -13661,15 +13673,20 @@ tasks:
     verifier_command: >-
       (cd /home/ert/code/fortfront-new && fo test test_fortfront_lexical_token_cursor
       && python3 tools/oracle_lexical_token_cursor.py)
-    output: ordered peek/advance over caller-supplied tokens with explicit EOS and malformed states
+    output: ordered peek/advance over caller-supplied tokens with explicit EOS and malformed states; commit 8395f15881a3fffb75c47aa58b1756c7b6b128f7 pushed to origin/main
     parallel_group: wave-b-production-slices
 
   - id: T-WAVE-B-ffc-block-opcode-count
     milestone: L3
     title: Add per-block opcode counts over target-independent MIR tables
-    status: OPEN
-    verification: OPEN
+    status: PASS
+    verification: PASS
     review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    claim_id: CL-WAVE-B-ffc-block-opcode-count
+    parent_status: PASS
     parent_id: T-WAVE-B-production-slices
     depends_on: [T-WAVE-A-ffc-block-table-instruction-access]
     inputs:
@@ -13682,15 +13699,20 @@ tasks:
       - ffc-new/test/test_mir_block_table_opcode_count.f90
     verifier_command: >-
       (cd /home/ert/code/ffc-new && fo test test_mir_block_table_opcode_count)
-    output: selected-block opcode histogram query with malformed and boundary rejection
+    output: selected-block opcode histogram query with malformed and boundary rejection; commit a094db138cdf87032f61a32a0c568fe6f0fc225a pushed to origin/main
     parallel_group: wave-b-production-slices
 
   - id: T-WAVE-B-fortback-r-format-bridge
     milestone: L3
     title: Normalize and encode a generic R-format TargetIR record
-    status: OPEN
-    verification: OPEN
+    status: PASS
+    verification: PASS
     review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    claim_id: CL-WAVE-B-fortback-r-format-bridge
+    parent_status: PASS
     parent_id: T-WAVE-B-production-slices
     depends_on: [T-WAVE-A-fortback-z-add-bridge]
     inputs:
@@ -13702,9 +13724,10 @@ tasks:
       - fortback-new/src/fortback_targetir_encoding.f90
       - fortback-new/src/fortback_mir_v0_riscv_linux.f90
       - fortback-new/test/test_targetir_r_format_bridge.f90
+      - fortback-new/test/test_mir_v0_bridge_generic_multiplier.f90
     verifier_command: >-
       (cd /home/ert/code/fortback-new && fpm test --test test_targetir_r_format_bridge)
-    output: provenance-preserving generic R-format bridge; I/S immediate paths unchanged
+    output: provenance-preserving generic R-format bridge; I/S immediate paths unchanged; commit e6135ef761c8f78b25f40956736129ad39c22ce6 pushed to origin/main; replay repair commit 28a7877a09c7d69af71e704ddb3febfb3555faa7 pushed to origin/main and lower-bound QEMU coverage passes
     parallel_group: wave-b-production-slices
 
 integration_cycle:
