@@ -163,7 +163,9 @@ binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
 branch. General expression parsing, assignment sequences, and broader language
 coverage remain open. FFC now has a generic AST-v1 assignment-sequence fallback
-for legal identifiers and integer literals. Fortfront's generated PRINT policy
+for legal identifiers and integer literals. Fortback now derives the repeated
+generated PRINT route-operation pattern from a compact rule with boundary
+controls while retaining explicit exceptional route facts. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
 Raw-source program-unit assembly remains open.
 

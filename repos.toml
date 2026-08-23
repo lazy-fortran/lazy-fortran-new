@@ -39,7 +39,7 @@ commit = "61fccc517f405996c213d57ff5dd3f4e0500f63e"
 url  = "https://github.com/lazy-fortran/fortback-new"
 path = "fortback-new"
 role = "Target description to generated encoder, object writer, ISel."
-commit = "a934291fc41046fb3da2658b3462d717d22c79f2"
+commit = "c6d7203248e1d7fe4232ee69597d1a7f58edf29c"
 
 # ---------------------------------------------------------------------------
 # Oracles. None of these constrains any interface in the repositories above.
