@@ -493,7 +493,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `9591841ccfbf9514819c765bbda4d6820f1b6f68` | normative source → StandardIR | schema declaration-count repair; focused gate passes; full suite retains six unrelated legacy CLI/timeout failures |
 | fortfront-new | lazy-fortran/fortfront-new | `ac1b669d6664449bf9a5d7322e2e88e8a23a5b37` | frontend | five generated-policy-aligned negative controls; `fo clean && fo` and `fo test --all` pass |
-| ffc-new | lazy-fortran/ffc-new | `e4c8b9ca0b691603e750bbdab12d0506e002c3c8` | compiler driver and middle end | nine generated-policy-aligned AST-v2 negative controls; scoped gate passes; full `fo test --all` retains two unrelated failures |
+| ffc-new | lazy-fortran/ffc-new | `8bfa92f205a42f474653aaa4350ac03d685f19c7` | compiler driver and middle end | nine AST-v2 plus two AST-v1/v2 full-suite negative-control repairs; `fo clean && fo` and `fo test --all` pass |
 | fortback-new | lazy-fortran/fortback-new | `6850db72f71bd8613af90575a5953c6449489594` | backend | three bounded-route mutation controls; `fo clean && fo test --all` passes |
 
 ## Historical milestone evidence
