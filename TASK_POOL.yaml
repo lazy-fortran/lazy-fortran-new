@@ -4,9 +4,7 @@ MAX_PARALLEL_WORKERS: 8
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier:
-  - T-WAVE-D-ffc-v1-suite-repair
-  - T-WAVE-D-ffc-v2-suite-repair
+ready_frontier: []
 
 controller_ownership:
   owner: controller
@@ -65,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-WAVE-D-ffc-suite-repair
+active_task: null
 
 milestones:
   - id: L0
@@ -13880,8 +13878,8 @@ tasks:
   - id: T-WAVE-D-ffc-suite-repair
     milestone: L3
     title: Repair the two retained FFC full-suite negative controls
-    status: OPEN
-    verification: OPEN
+    status: PASS
+    verification: PASS
     review_state: SKIPPED
     review_verdict: SKIPPED
     priority: 230
@@ -13896,25 +13894,27 @@ tasks:
       component: ffc-new
       owner: controller
       central_writes: [STATUS.md, ROADMAP.md, TASK_POOL.yaml, repos.toml]
-    claim_status: OPEN
+    claim_status: CLOSED
     claim_id: CL-WAVE-D-ffc-suite-repair
     output: >-
-      test-only repairs for the two retained FFC full-suite negative controls;
-      production source and contracts remain unchanged
+      test-only repairs integrated at ffc-new
+      8bfa92f205a42f474653aaa4350ac03d685f19c7; both focused controls, fo
+      clean && fo, fo test --all and central replay pass; production source
+      and contracts remain unchanged
     integration: worker commits then controller fast-forward, focused/full gates, central replay, push, verify, and cleanup
     parallel_group: wave-d-ffc-suite-repair
 
   - id: T-WAVE-D-ffc-v1-suite-repair
     milestone: L3
     title: Repair the retained AST-v1 integer variable-add negative control
-    status: OPEN
-    verification: OPEN
+    status: PASS
+    verification: PASS
     review_state: SKIPPED
     review_verdict: SKIPPED
-    leaf_status: OPEN
-    claim_status: OPEN
+    leaf_status: PASS
+    claim_status: CLOSED
     claim_id: CL-WAVE-D-ffc-v1-suite-repair
-    parent_status: OPEN
+    parent_status: PASS
     parent_id: T-WAVE-D-ffc-suite-repair
     inputs:
       component: ffc-new
@@ -13923,20 +13923,23 @@ tasks:
       - ffc-new/test/test_frontend_ast_v1_integer_variable_add.f90
     verifier_command: >-
       (cd /home/ert/code/ffc-new && fo test test_frontend_ast_v1_integer_variable_add)
-    output: one independent AST-v1 wrong-operand control aligned with current bounded policy
+    output: >-
+      AST-v1 wrong-operand control changed from accepted RHS 2 to rejected
+      out-of-range RHS 11; worker commit 59b8fbed2dbdb7cf3ce3842c71a55d7220520d9e,
+      integrated main pin 8bfa92f205a42f474653aaa4350ac03d685f19c7
     parallel_group: wave-d-ffc-suite-repair
 
   - id: T-WAVE-D-ffc-v2-suite-repair
     milestone: L3
     title: Repair the retained AST-v2 initialized-add negative control
-    status: OPEN
-    verification: OPEN
+    status: PASS
+    verification: PASS
     review_state: SKIPPED
     review_verdict: SKIPPED
-    leaf_status: OPEN
-    claim_status: OPEN
+    leaf_status: PASS
+    claim_status: CLOSED
     claim_id: CL-WAVE-D-ffc-v2-suite-repair
-    parent_status: OPEN
+    parent_status: PASS
     parent_id: T-WAVE-D-ffc-suite-repair
     inputs:
       component: ffc-new
@@ -13945,7 +13948,12 @@ tasks:
       - ffc-new/test/test_frontend_ast_v2_print_variable_expression_initializer_range.f90
     verifier_command: >-
       (cd /home/ert/code/ffc-new && fo test test_frontend_ast_v2_print_variable_expression_initializer_range)
-    output: one independent AST-v2 wrong-operator control aligned with current bounded policy
+    output: >-
+      AST-v2 wrong-operator control changed to unsupported `%`, and wrong
+      right-shape control changed from accepted x to rejected y; worker commits
+      9ac07b5fa5c5136498c03059944ada8d7a3f816b and
+      814bd43ec1760829c62361e72b35ea778a34d983, integrated main pin
+      8bfa92f205a42f474653aaa4350ac03d685f19c7
     parallel_group: wave-d-ffc-suite-repair
 
 integration_cycle:

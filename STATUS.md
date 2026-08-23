@@ -477,11 +477,11 @@ CLI/timeout failures, and FFC retains two unrelated full-suite failures; the
 frontend and backend full suites pass. No compiler behavior or central contract
 was changed by this maintenance wave.
 
-Wave D is active as `T-WAVE-D-ffc-suite-repair`. Two disjoint FFC test-only
-scopes repair the remaining full-suite negative controls at the current
-`e4c8b9ca0b691603e750bbdab12d0506e002c3c8` pin. Production source and central
-contracts are out of scope; each child must retain an independent rejection
-control and pass the central replay before closure.
+Wave D is complete as `T-WAVE-D-ffc-suite-repair`. Its two disjoint FFC
+test-only scopes repair the remaining full-suite negative controls at
+`8bfa92f205a42f474653aaa4350ac03d685f19c7`; `fo clean && fo`, `fo test --all`
+and the central generated-chain replay pass. Production source and central
+contracts were unchanged.
 
 ## Component pins
 
