@@ -34,6 +34,7 @@ print_variable_23_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variabl
 raw_scalar_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-v0.f90"
 raw_scalar_add_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-add-v0.f90"
 raw_scalar_sub_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-sub-v0.f90"
+raw_scalar_mul_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-mul-v0.f90"
 print_variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-expression-v1.f90"
 print_variable_multiply_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-multiply-expression-v1.f90"
 print_variable_subtract_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-subtract-expression-v1.f90"
@@ -112,6 +113,9 @@ negative_raw_scalar_add_files=(
 )
 negative_raw_scalar_sub_files=(
     "$ROOT/tests/negative/l3-print-variable-generic-raw-counter-sub-wrong-print-v0.f90"
+)
+negative_raw_scalar_mul_files=(
+    "$ROOT/tests/negative/l3-print-variable-generic-raw-counter-mul-wrong-print-v0.f90"
 )
 negative_print_variable_expression_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-expression-wrong-name-v1.f90"
@@ -1206,15 +1210,22 @@ run_raw_scalar_binary_route() {
     local mode=$4
     local expected_output=$5
     local operator=$6
+    local literal=$7
     local ast_file="$run_dir/raw-scalar-${label}.frontend.ast.sx"
     local mir_file="$run_dir/raw-scalar-${label}.mir.sx"
     local elf_file="$run_dir/raw-scalar-${label}.program.elf"
     local output_file="$run_dir/raw-scalar-${label}.stdout"
     local mutated_operator
+    local mutated_literal
     if [ "$operator" = '+' ]; then
         mutated_operator='-'
     else
         mutated_operator='+'
+    fi
+    if [ "$literal" = 1 ]; then
+        mutated_literal=2
+    else
+        mutated_literal=1
     fi
     (cd "$frontend" && fo exec fortfront-program-unit-v2 "$source" "$ast_file") > /dev/null 2>&1
     (cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$ast_file" "$mir_file") > /dev/null 2>&1
@@ -1229,14 +1240,19 @@ run_raw_scalar_binary_route() {
     qemu-riscv64 "$elf_file" > "$output_file"
     printf '%s\n' "$expected_output" | cmp -s - "$output_file"
     python3 "$oracle" "$ast_file" "$mir_file" "$elf_file" main integer "$mode" "$source"
-    sed "0,/(operator ${operator})/s//(operator ${mutated_operator})/" "$ast_file" \
-        > "$run_dir/raw-scalar-${label}.mutated-operator.ast.sx"
+    if [ "$operator" = '*' ]; then
+        sed "0,/(operator \\*)/s//(operator ${mutated_operator})/" "$ast_file" \
+            > "$run_dir/raw-scalar-${label}.mutated-operator.ast.sx"
+    else
+        sed "0,/(operator ${operator})/s//(operator ${mutated_operator})/" "$ast_file" \
+            > "$run_dir/raw-scalar-${label}.mutated-operator.ast.sx"
+    fi
     if python3 "$oracle" "$run_dir/raw-scalar-${label}.mutated-operator.ast.sx" \
             "$mir_file" "$elf_file" main integer "$mode" "$source" > /dev/null 2>&1; then
         printf 'raw scalar %s AST operator mutation was accepted\n' "$label" >&2
         exit 1
     fi
-    sed '0,/(literal 1)/s//(literal 2)/' "$mir_file" \
+    sed "0,/(literal ${literal})/s//(literal ${mutated_literal})/" "$mir_file" \
         > "$run_dir/raw-scalar-${label}.mutated-literal.mir.sx"
     if python3 "$oracle" "$ast_file" "$run_dir/raw-scalar-${label}.mutated-literal.mir.sx" \
             "$elf_file" main integer "$mode" "$source" > /dev/null 2>&1; then
@@ -1246,9 +1262,11 @@ run_raw_scalar_binary_route() {
 }
 
 run_raw_scalar_binary_route add "$raw_scalar_add_source_file" \
-    "${negative_raw_scalar_add_files[0]}" print-variable-raw-add 43 +
+    "${negative_raw_scalar_add_files[0]}" print-variable-raw-add 43 + 1
 run_raw_scalar_binary_route sub "$raw_scalar_sub_source_file" \
-    "${negative_raw_scalar_sub_files[0]}" print-variable-raw-sub 41 -
+    "${negative_raw_scalar_sub_files[0]}" print-variable-raw-sub 41 - 1
+run_raw_scalar_binary_route mul "$raw_scalar_mul_source_file" \
+    "${negative_raw_scalar_mul_files[0]}" print-variable-raw-mul 84 '*' 2
 
 raw_scalar_ast_file="$run_dir/raw-scalar.frontend.ast.sx"
 raw_scalar_mir_file="$run_dir/raw-scalar.mir.sx"
@@ -1379,8 +1397,8 @@ oracle_route_count="$(grep -Ec '^generated chain( raw scalar)? oracle: accepted$
     "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 149 ]; then
-    printf 'generated chain route count: expected 149, got %s\n' \
+if [ "$oracle_route_count" -ne 150 ]; then
+    printf 'generated chain route count: expected 150, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi

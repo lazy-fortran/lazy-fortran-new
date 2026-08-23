@@ -85,13 +85,13 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
 
-    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
+    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode not in ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
@@ -621,16 +621,18 @@ def main() -> None:
         require(runtime.returncode == 0 and runtime.stdout == b"42\n", "raw scalar runtime differs")
         print("generated chain raw scalar oracle: accepted")
         return
-    elif mode in ("print-variable-raw-add", "print-variable-raw-sub"):
+    elif mode in ("print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul"):
         is_subtraction = mode == "print-variable-raw-sub"
-        operator = "-" if is_subtraction else "+"
-        opcode = "sub" if is_subtraction else "add"
-        expected_output = b"41\n" if is_subtraction else b"43\n"
+        is_multiplication = mode == "print-variable-raw-mul"
+        operator = "*" if is_multiplication else "-" if is_subtraction else "+"
+        opcode = "mul" if is_multiplication else "sub" if is_subtraction else "add"
+        right_operand = "2" if is_multiplication else "1"
+        expected_output = b"84\n" if is_multiplication else b"41\n" if is_subtraction else b"43\n"
         expected_source = (
             "program main\n"
             "  integer :: counter_2\n"
             "  counter_2 = 42\n"
-            f"  counter_2 = counter_2 {operator} 1\n"
+            f"  counter_2 = counter_2 {operator} {right_operand}\n"
             "  print *, counter_2\n"
             "end program main\n"
         )
@@ -640,14 +642,14 @@ def main() -> None:
         require(ast.startswith("(program-unit-v2 "), "raw scalar binary AST root differs")
         require(f"(file {source_path})" in ast, "raw scalar binary AST source differs")
         for marker in ("(name counter_2)", "(assignment-count 2)", "(left-operand 42)",
-                       f"(operator {operator})", "(left-operand counter_2)", "(right-operand 1)",
+                       f"(operator {operator})", "(left-operand counter_2)", f"(right-operand {right_operand})",
                        "(output-name counter_2)", "(source-hash l3-raw-program-v2)"):
             require(marker in ast, f"raw scalar binary AST marker missing: {marker}")
         require(mir.count("(instruction ") == 9, "raw scalar binary MIR instruction count differs")
         require(re.findall(r"\(opcode ([^)]+)\)", mir) ==
                 ["const", "store", "load", "const", opcode, "store", "load", "output", "return"],
                 "raw scalar binary MIR opcode sequence differs")
-        require(re.findall(r"\(literal (-?[0-9]+)\)", mir) == ["42", "1"],
+        require(re.findall(r"\(literal (-?[0-9]+)\)", mir) == ["42", right_operand],
                 "raw scalar binary MIR literals differ")
         require(re.findall(r"\(storage-key ([^)]+)\)", mir) ==
                 ["counter_2", "counter_2", "counter_2", "counter_2"],
