@@ -551,8 +551,9 @@ PRINT routes for counts 2 through 10 now share one replay helper, and its
 stored-variable routes for counts 2 through 100 share one loop while retaining
 the historical oracle mode names for counts 2 through 6. The verifier derives
 stored-variable source spans from the pinned fixture, so it does not preserve
-old fixture-specific span constants. General expression parsing and assignment
-sequences remain open.
+old fixture-specific span constants. Its literal and assignment batch routes
+also discover fixture keys and counts from the source files. General expression
+parsing and assignment sequences remain open.
 
 ## Component pins
 
