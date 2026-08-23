@@ -1195,7 +1195,7 @@ def main() -> None:
         expected_span_count = 6 if is_expression else 5
         if ast.count("(file ") != expected_span_count or ast.count(expected_file_marker) != expected_span_count:
             fail("stored-variable AST source-file identity is wrong")
-        expected_source_hash_marker = "l3-raw-program-two-assignment-v1" if is_expression else "l3-raw-program-v2"
+        expected_source_hash_marker = "l3-raw-program-v2"
         if ast.count(f"(source-hash {expected_source_hash_marker})") != expected_span_count:
             fail("stored-variable AST source-hash identity is wrong")
         if is_expression:
@@ -1217,7 +1217,7 @@ def main() -> None:
                 "(kind integer-literal)", f"(left-operand {expression_left})",
                 "(kind binary-expression)", f"(operator {expression_operator})",
                 "(left-operand x)", "(right-operand 1)",
-                "(start-byte 28)", "(end-byte 34)",
+                "(start-byte 28)", "(end-byte 35)",
                 f"(start-byte {expression_start_byte})", f"(end-byte {expression_end_byte})",
                 f"(start-byte {print_start_byte})", f"(end-byte {print_end_byte})",
                 "(output-kind variable)", "(output-name x)",

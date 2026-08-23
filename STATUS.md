@@ -449,6 +449,21 @@ schema-to-fixture correspondence defect; the corrected replay and two fresh
 focused reviews pass. C759 is closed only as a bounded oracle leaf; full M3
 remains open.
 
+Wave A (2026-08-23) completed four disjoint production slices. The pushed
+revisions are `standard-new` `0f9b9bdb62128477730b99282e9c8a921a448326`,
+`fortfront-new` `4606a4131c17bedb3bf2d8a5ef3c3925aad6d50f`, `ffc-new`
+`e885e46b8dd64a0679757c4a8863740fecb5e7f1`, and `fortback-new`
+`fde9eca704ffd87161bae6395b49b78705b102db`. The focused commands were
+`fo test test_standardir_grammar_v0_export`,
+`fo test test_fortfront_lexical_tokens` plus
+`python3 tools/oracle_lexical_tokens.py`,
+`fo test test_mir_block_table_instruction_at`, and
+`fo test test_mir_v0_bridge_generic_variable_z_add`; each passed. The full
+component gates retain only their pre-existing failures, and the central
+`bash tests/e2e/check-generated-chain.sh` replay passes. The wave adds
+reusable producer, token, MIR-accessor and bridge boundaries; it does not
+promote a new L3 semantic claim.
+
 ## Component pins
 
 These are the clean component revisions currently pinned by the control plane.
@@ -457,10 +472,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `08209c87a7d463b9a121b6f80ed763711d9bf98e` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts; focused gates pass; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `499b2fcac20d7328ca68dd048773db7d090acdd8` | frontend | generated program-unit-v2 CLI, bounded assignment sequences, generic stored-variable initializer transport across generated -100..2047 integer policy values including 42 and -42, generic initialized `x = x + n`, `x = x - n`, `x = x * n`, `x = x / n`, `x = x + x`, `x = x * x` and `x = x ** n` transport with generated 2..10 power-policy bounds and consistent source provenance, STOP 7, repeated PRINT items, generic mixed integer output-list AST-v2 with source-driven 1..10 cardinality, bounded signed integer PRINT literals, bounded x=3/x=4 variable power expressions, source-backed generic x–2, x+2 and canonical ASCII x-2 expression items, bounded decimal x+n/x-n constants including zero through one hundred, bounded initialized x = x - x transport, and source-derived initialized variable y and z transport; focused gates pass |
-| ffc-new | lazy-fortran/ffc-new | `c8c2a9b967548e13ce1db3d80598a9c9e6214e96` | compiler driver and middle end | generated v2 assignment envelopes, sequence MIR routes, generic mixed integer output-list lowering with enforced 1..10 cardinality, generated stored-variable initializer const/store transport across -100..2047 including 42 and -42, generic initialized `x = x + n`, `x = x - n`, `x = x * n`, `x = x / n`, `x = x + x` and `x = x * x` nine-instruction MIR lowering, bounded initialized `x = x ** n` lowering for generated exponents 2..10, bounded signed integer PRINT literal values, positive stored-variable initializer transport, x=3/x=4 load/load/pow plus decimal power-expression lowering, and bounded load/const/add-or-sub/output for decimal x+n/x-n constants including zero through one hundred with preserved AST provenance, bounded initialized x = x - x nine-instruction MIR lowering, and source-derived initialized variable y and z lowering; focused multiplier/divisor/subtraction/power-range/variable-power/y/z gates pass; full `fo` retains unrelated existing failures |
-| fortback-new | lazy-fortran/fortback-new | `498850a57d7e38b6157c850d2a7d6e1428d91208` | backend | generated stack-slot/sequence routes, generic mixed and literal-only integer output-list lowering with 1..10 cardinality, generated stored-variable PRINT emission across -100..2047 including 42 and -42, generic initialized `x = x + n`, `x = x - n`, `x = x * n`, `x = x / n`, `x = x + x` and `x = x * x` RISC-V/QEMU emission for bounded n=1..10, generic initialized integer-power emission through exponent 10, bounded x=3/x=4 x**x plus integer-power decimal emission, generic load/const/sub/output plus x+2 add emission, and bounded decimal add/sub constants including zero through one hundred, bounded initialized x = x - x RISC-V/QEMU emission, and source-derived initialized variable y and z RISC-V/QEMU emission; focused gates pass; generated-policy formatting warning remains |
+| standard-new | lazy-fortran/standard-new | `0f9b9bdb62128477730b99282e9c8a921a448326` | normative source → StandardIR | generated R708/R901/R902/R903/R509/R1008/R1162/R1164/R1212/R1215/R1217 facts plus grammar-v0 export; focused gate passes; full `fo` retains the known schema declaration-count failure |
+| fortfront-new | lazy-fortran/fortfront-new | `4606a4131c17bedb3bf2d8a5ef3c3925aad6d50f` | frontend | prior generated frontend routes plus caller-supplied lexical-token projection; focused token gate and independent Python oracle pass; full `fo` retains unrelated existing failures |
+| ffc-new | lazy-fortran/ffc-new | `e885e46b8dd64a0679757c4a8863740fecb5e7f1` | compiler driver and middle end | prior generated MIR routes plus target-independent block-table instruction access; focused accessor gate passes; full `fo` retains unrelated existing failures |
+| fortback-new | lazy-fortran/fortback-new | `fde9eca704ffd87161bae6395b49b78705b102db` | backend | prior generated RISC-V/QEMU routes plus generic `z = z + z` bridge support; focused bridge gate passes; full `fo` retains unrelated existing failures and the generated-policy formatting warning |
 
 ## Historical milestone evidence
 

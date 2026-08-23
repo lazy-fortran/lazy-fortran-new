@@ -13467,6 +13467,132 @@ tasks:
     retry_count: 2
     integration_cycle_trigger: interface_change
 
+  - id: T-WAVE-A-standardir-grammar-export
+    milestone: L3
+    title: Export the accepted StandardIR grammar-v0 handoff
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    parent_id: L3
+    parent_status: OPEN
+    priority: 200
+    depends_on: [T-L3-generic-print-variable-generic-variable-z-initializer]
+    inputs:
+      component: standard-new
+      base_commit: 08209c87a7d463b9a121b6f80ed763711d9bf98e
+      decision: D0076
+    writes:
+      - standard-new/fpm.toml
+      - standard-new/src/standardir_grammar_v0_export.f90
+      - standard-new/test/test_standardir_grammar_v0_export.f90
+    output: >-
+      pushed standard-new grammar-v0 producer at
+      0f9b9bdb62128477730b99282e9c8a921a448326; no parser-generation or
+      StandardIR semantic promotion claim
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_standardir_grammar_v0_export)
+    final_observable: focused grammar-v0 producer gate PASS
+    evidence: fast-lane component result; central replay PASS; evidence gate not applicable
+    integration: worker commit, coordinator fast-forward, remote-main verification, cleanup
+    parallel_group: wave-a-production-slices
+
+  - id: T-WAVE-A-frontend-lexical-token-projection
+    milestone: L3
+    title: Project caller-supplied lexical spans into token records
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    parent_id: L3
+    parent_status: OPEN
+    priority: 201
+    depends_on: [T-L3-generic-print-variable-generic-variable-z-initializer]
+    inputs:
+      component: fortfront-new
+      base_commit: 499b2fcac20d7328ca68dd048773db7d090acdd8
+      decisions: [D0075, D0106, D0108, D0110]
+    writes:
+      - fortfront-new/fpm.toml
+      - fortfront-new/src/fortfront_lexical_tokens.f90
+      - fortfront-new/test/test_fortfront_lexical_tokens.f90
+      - fortfront-new/tools/oracle_lexical_tokens.py
+    output: >-
+      pushed fortfront lexical-token projection at
+      4606a4131c17bedb3bf2d8a5ef3c3925aad6d50f; token names remain
+      caller-supplied and no parser dispatch was added
+    verifier_command: >-
+      (cd /home/ert/code/fortfront-new && fo test test_fortfront_lexical_tokens
+      && python3 tools/oracle_lexical_tokens.py)
+    final_observable: focused token projection and independent oracle PASS
+    evidence: fast-lane component result; central replay PASS; evidence gate not applicable
+    integration: worker commit, coordinator fast-forward, remote-main verification, cleanup
+    parallel_group: wave-a-production-slices
+
+  - id: T-WAVE-A-ffc-block-table-instruction-access
+    milestone: L3
+    title: Expose target-independent instruction access over block tables
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    parent_id: L3
+    parent_status: OPEN
+    priority: 202
+    depends_on: [T-L3-generic-print-variable-generic-variable-z-initializer]
+    inputs:
+      component: ffc-new
+      base_commit: c8c2a9b967548e13ce1db3d80598a9c9e6214e96
+      lane: roadmaps/middle-end.md
+    writes:
+      - ffc-new/fpm.toml
+      - ffc-new/src/ffc_mir.f90
+      - ffc-new/test/test_mir_block_table_instruction_at.f90
+    output: >-
+      pushed target-independent block-table accessor at
+      e885e46b8dd64a0679757c4a8863740fecb5e7f1; no target or MIR schema
+      revision was introduced
+    verifier_command: >-
+      (cd /home/ert/code/ffc-new && fo test test_mir_block_table_instruction_at)
+    final_observable: focused block-table accessor gate PASS
+    evidence: fast-lane component result; central replay PASS; evidence gate not applicable
+    integration: worker commit, coordinator fast-forward, remote-main verification, cleanup
+    parallel_group: wave-a-production-slices
+
+  - id: T-WAVE-A-fortback-z-add-bridge
+    milestone: L3
+    title: Extend the bounded generic RISC-V bridge to z-plus-z
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    parent_id: L3
+    parent_status: OPEN
+    priority: 203
+    depends_on: [T-L3-generic-print-variable-generic-variable-z-initializer]
+    inputs:
+      component: fortback-new
+      base_commit: 498850a57d7e38b6157c850d2a7d6e1428d91208
+      lane: roadmaps/backend.md
+    writes:
+      - fortback-new/fpm.toml
+      - fortback-new/src/fortback_mir_v0_riscv_linux.f90
+      - fortback-new/test/test_mir_v0_bridge_generic_variable_z_add.f90
+    output: >-
+      pushed bounded z-plus-z bridge at
+      fde9eca704ffd87161bae6395b49b78705b102db; malformed and mutation
+      controls remain rejected
+    verifier_command: >-
+      (cd /home/ert/code/fortback-new && fo test test_mir_v0_bridge_generic_variable_z_add)
+    final_observable: focused z-plus-z bridge and mutation gate PASS
+    evidence: fast-lane component result; central replay PASS; evidence gate not applicable
+    integration: worker commit, coordinator fast-forward, remote-main verification, cleanup
+    parallel_group: wave-a-production-slices
+
 integration_cycle:
   triggers:
     verified_deltas: 4

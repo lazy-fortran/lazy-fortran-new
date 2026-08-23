@@ -1,6 +1,6 @@
 # Roadmap
 
-Snapshot: 2026-08-19. Live repository state is reported by
+Snapshot: 2026-08-23. Live repository state is reported by
 `scripts/status.sh`. Experiment manifests pin the exact commits used by each
 result. The lab and `standard-new` checkouts are clean and their current
 default-branch CI state is reported separately from those immutable pins.
@@ -105,6 +105,19 @@ AST-v1 `character`, MIR-v0 `character/character`, and the generated RISC-V
 bridge now pass the same positive, malformed-negative, qemu and typed-oracle
 replay. This remains a declaration-only transport path; it does not claim
 character length, encoding, storage ABI, expressions, or runtime semantics.
+Wave A (2026-08-23) executed four disjoint production slices in parallel and
+fast-forwarded each verified branch to its remote `main`: `standard-new`
+grammar-v0 export at `0f9b9bdb62128477730b99282e9c8a921a448326`,
+`fortfront-new` caller-supplied lexical-token projection at
+`4606a4131c17bedb3bf2d8a5ef3c3925aad6d50f`, `ffc-new` target-independent
+block-table instruction access at `e885e46b8dd64a0679757c4a8863740fecb5e7f1`,
+and `fortback-new` generic `z = z + z` bridge support at
+`fde9eca704ffd87161bae6395b49b78705b102db`. Focused gates were run in each
+component, followed by `bash tests/e2e/check-generated-chain.sh`; the full
+component commands and retained baseline failures are reported in `STATUS.md`.
+The replay also corrected two stale expression-oracle expectations against the
+pre-wave frontend output. This wave extends reusable boundaries and does not
+claim parser completion, general expression semantics, or full M3.
 The next parallel slice adds source-backed R1033 `assignment-stmt is variable =
 expr`: generated StandardIR grammar fact, generated frontend assignment AST,
 generated MIR `store`/`return` with source rule `frontend-ast-v1/assignment`,
