@@ -134,6 +134,12 @@ retained only the documented baseline failures, and the controller verifier
 scripts/check-contracts.sh && bash tests/e2e/check-generated-chain.sh` passed.
 These are reusable boundaries, not a claim of parser dispatch, MIR schema
 revision, or general instruction selection.
+The current maintenance wave is `T-WAVE-C-component-suite-repair`: four
+disjoint test-only scopes reconcile retained full-suite failures against the
+current generated policies and bounded route oracles. It changes no compiler
+behavior or central contract; the controller verifier remains
+`scripts/check_pins.sh && scripts/check-contracts.sh && bash
+tests/e2e/check-generated-chain.sh`, followed by full component suites.
 The next parallel slice adds source-backed R1033 `assignment-stmt is variable =
 expr`: generated StandardIR grammar fact, generated frontend assignment AST,
 generated MIR `store`/`return` with source rule `frontend-ast-v1/assignment`,

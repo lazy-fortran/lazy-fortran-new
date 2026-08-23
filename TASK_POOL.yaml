@@ -4,7 +4,11 @@ MAX_PARALLEL_WORKERS: 8
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier: []
+ready_frontier:
+  - T-WAVE-C-standard-suite-repair
+  - T-WAVE-C-frontend-suite-repair
+  - T-WAVE-C-ffc-suite-repair
+  - T-WAVE-C-backend-suite-repair
 
 controller_ownership:
   owner: controller
@@ -63,7 +67,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: null
+active_task: T-WAVE-C-component-suite-repair
 
 milestones:
   - id: L0
@@ -13729,6 +13733,135 @@ tasks:
       (cd /home/ert/code/fortback-new && fpm test --test test_targetir_r_format_bridge)
     output: provenance-preserving generic R-format bridge; I/S immediate paths unchanged; commit e6135ef761c8f78b25f40956736129ad39c22ce6 pushed to origin/main; replay repair commit 28a7877a09c7d69af71e704ddb3febfb3555faa7 pushed to origin/main and lower-bound QEMU coverage passes
     parallel_group: wave-b-production-slices
+
+  - id: T-WAVE-C-component-suite-repair
+    milestone: L3
+    title: Repair retained component-suite baseline failures without weakening behavior
+    status: OPEN
+    verification: OPEN
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    priority: 220
+    depends_on: [T-WAVE-B-production-slices]
+    children:
+      - T-WAVE-C-standard-suite-repair
+      - T-WAVE-C-frontend-suite-repair
+      - T-WAVE-C-ffc-suite-repair
+      - T-WAVE-C-backend-suite-repair
+    verifier_command: >-
+      scripts/check_pins.sh && scripts/check-contracts.sh &&
+      bash tests/e2e/check-generated-chain.sh
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      central_writes: [STATUS.md, ROADMAP.md, TASK_POOL.yaml, repos.toml]
+    output: >-
+      test-only repairs for the retained full-suite failures, with independent
+      behavioral controls preserved and clean remote production mains
+    integration: worker commits then controller fast-forward, focused/full gates, central replay, push, verify, and cleanup
+    parallel_group: wave-c-suite-repair
+
+  - id: T-WAVE-C-standard-suite-repair
+    milestone: L3
+    title: Reconcile the StandardIR schema test with the checked-in schema
+    status: OPEN
+    verification: OPEN
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-C-standard-suite-repair
+    parent_status: OPEN
+    parent_id: T-WAVE-C-component-suite-repair
+    inputs:
+      component: standard-new
+      base_commit: 965f1963512b428307536c481ff9f639a44e7f6f
+    writes:
+      - standard-new/test/test_schema_ir.f90
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_schema_ir && fo clean && fo && fo test)
+    output: checked-in schema oracle and full StandardIR suite pass
+    parallel_group: wave-c-suite-repair
+
+  - id: T-WAVE-C-frontend-suite-repair
+    milestone: L3
+    title: Reconcile retained frontend program-unit v2 negative controls
+    status: OPEN
+    verification: OPEN
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-C-frontend-suite-repair
+    parent_status: OPEN
+    parent_id: T-WAVE-C-component-suite-repair
+    inputs:
+      component: fortfront-new
+      base_commit: 8395f15881a3fffb75c47aa58b1756c7b6b128f7
+    writes:
+      - fortfront-new/test/test_frontend_program_unit_v2_initialized_subtraction.f90
+      - fortfront-new/test/test_frontend_program_unit_v2_initialized_variable_divide.f90
+      - fortfront-new/test/test_frontend_program_unit_v2_initialized_variable_multiply.f90
+      - fortfront-new/test/test_frontend_program_unit_v2_initializer.f90
+      - fortfront-new/test/test_frontend_program_unit_v2_print.f90
+    verifier_command: >-
+      (cd /home/ert/code/fortfront-new && fo test test_frontend_program_unit_v2_initialized_subtraction && fo test test_frontend_program_unit_v2_initialized_variable_divide && fo test test_frontend_program_unit_v2_initialized_variable_multiply && fo test test_frontend_program_unit_v2_initializer && fo test test_frontend_program_unit_v2_print && fo clean && fo && fo test)
+    output: generated-policy-aligned frontend tests with preserved rejection controls and full suite pass
+    parallel_group: wave-c-suite-repair
+
+  - id: T-WAVE-C-ffc-suite-repair
+    milestone: L3
+    title: Reconcile retained frontend-AST-v2 negative controls
+    status: OPEN
+    verification: OPEN
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-C-ffc-suite-repair
+    parent_status: OPEN
+    parent_id: T-WAVE-C-component-suite-repair
+    inputs:
+      component: ffc-new
+      base_commit: a094db138cdf87032f61a32a0c568fe6f0fc225a
+    writes:
+      - ffc-new/test/test_frontend_ast_v2_init_xdiv_range.f90
+      - ffc-new/test/test_frontend_ast_v2_init_xmul_range.f90
+      - ffc-new/test/test_frontend_ast_v2_print_mul.f90
+      - ffc-new/test/test_frontend_ast_v2_print_power.f90
+      - ffc-new/test/test_frontend_ast_v2_print_variable.f90
+      - ffc-new/test/test_frontend_ast_v2_print_variable_arithmetic.f90
+      - ffc-new/test/test_frontend_ast_v2_print_variable_expression.f90
+      - ffc-new/test/test_frontend_ast_v2_print_variable_signed_initializer.f90
+      - ffc-new/test/test_frontend_ast_v2_print_variable_two_items.f90
+    verifier_command: >-
+      (cd /home/ert/code/ffc-new && fo test test_frontend_ast_v2_init_xdiv_range && fo test test_frontend_ast_v2_init_xmul_range && fo test test_frontend_ast_v2_print_mul && fo test test_frontend_ast_v2_print_power && fo test test_frontend_ast_v2_print_variable && fo test test_frontend_ast_v2_print_variable_arithmetic && fo test test_frontend_ast_v2_print_variable_expression && fo test test_frontend_ast_v2_print_variable_signed_initializer && fo test test_frontend_ast_v2_print_variable_two_items && fo clean && fo && fo test)
+    output: generated-policy-aligned FFC tests with preserved rejection controls and full suite pass
+    parallel_group: wave-c-suite-repair
+
+  - id: T-WAVE-C-backend-suite-repair
+    milestone: L3
+    title: Reconcile retained MIR-v0 arithmetic mutation controls
+    status: OPEN
+    verification: OPEN
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-C-backend-suite-repair
+    parent_status: OPEN
+    parent_id: T-WAVE-C-component-suite-repair
+    inputs:
+      component: fortback-new
+      base_commit: 28a7877a09c7d69af71e704ddb3febfb3555faa7
+    writes:
+      - fortback-new/test/test_mir_v0_bridge_generic_divisor.f90
+      - fortback-new/test/test_mir_v0_bridge_generic_power.f90
+      - fortback-new/test/test_mir_v0_print_variable.f90
+    verifier_command: >-
+      (cd /home/ert/code/fortback-new && fo test test_mir_v0_bridge_generic_divisor && fo test test_mir_v0_bridge_generic_power && fo test test_mir_v0_print_variable && fo clean && fo && fo test)
+    output: backend mutation controls aligned with supported bounded routes and full suite pass
+    parallel_group: wave-c-suite-repair
 
 integration_cycle:
   triggers:
