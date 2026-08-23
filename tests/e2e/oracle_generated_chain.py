@@ -7,10 +7,16 @@ import pathlib
 import sys
 import hashlib
 import re
+import subprocess
 
 
 def fail(message: str) -> None:
     raise SystemExit(message)
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        fail(message)
 
 
 def add_legacy_print_fields(ast: str) -> str:
@@ -46,7 +52,8 @@ def main() -> None:
     ast = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
     ast = add_legacy_print_fields(ast)
     mir = pathlib.Path(sys.argv[2]).read_text(encoding="utf-8")
-    elf = pathlib.Path(sys.argv[3]).read_bytes()
+    elf_path = pathlib.Path(sys.argv[3])
+    elf = elf_path.read_bytes()
     program_name = sys.argv[4] if len(sys.argv) >= 5 else "p"
     type_spec = sys.argv[5] if len(sys.argv) >= 6 else "integer"
     mode = sys.argv[6] if len(sys.argv) >= 7 else "declaration"
@@ -78,13 +85,13 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
 
-    if mode != "print-variable" and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode not in ("print-variable", "print-variable-raw") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode != "print-variable" and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode not in ("print-variable", "print-variable-raw") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode != "print-variable" and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
+    if mode not in ("print-variable", "print-variable-raw") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode != "print-variable" and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode not in ("print-variable", "print-variable-raw") and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
@@ -588,6 +595,32 @@ def main() -> None:
                 mir.count("(source-rule frontend-ast-v2/print-stmt)") != 7 or \
                 "(opcode store)" in mir:
             fail("MIR-v0 generic PRINT item shape is wrong")
+    elif mode == "print-variable-raw":
+        require(source_path is not None, "raw scalar source is missing")
+        source = source_path.read_text(encoding="utf-8")
+        require(source == "program main\n  integer :: counter_2\n  counter_2 = 42\n  print *, counter_2\nend program main\n", "raw scalar source changed")
+        require(ast.startswith("(program-unit-v2 "), "raw scalar AST root differs")
+        require(f"(file {source_path})" in ast, "raw scalar AST source differs")
+        for marker in ("(name main)", "(name counter_2)", "(assignment-count 1)",
+                       "(left-operand 42)", "(output-name counter_2)",
+                       "(source-hash l3-raw-program-v2)", "(statement-rule R1212)",
+                       "(source-document J3-24-007)"):
+            require(marker in ast, f"raw scalar AST marker missing: {marker}")
+        require(mir.count("(instruction ") == 5, "raw scalar MIR instruction count differs")
+        require(re.findall(r"\(opcode ([^)]+)\)", mir) ==
+                ["const", "store", "load", "output", "return"],
+                "raw scalar MIR opcode sequence differs")
+        require("(literal 42)" in mir, "raw scalar MIR literal differs")
+        require(re.findall(r"\(storage-key ([^)]+)\)", mir) == ["counter_2", "counter_2"],
+                "raw scalar MIR storage keys differ")
+        require(mir.count("(source-rule frontend-ast-v2/execution-part)") == 2 and
+                mir.count("(source-rule frontend-ast-v2/print-stmt)") == 3,
+                "raw scalar MIR provenance differs")
+        require(elf.startswith(b"\x7fELF"), "raw scalar artifact is not ELF")
+        runtime = subprocess.run(["qemu-riscv64", str(elf_path)], capture_output=True, check=False)
+        require(runtime.returncode == 0 and runtime.stdout == b"42\n", "raw scalar runtime differs")
+        print("generated chain raw scalar oracle: accepted")
+        return
     elif mode == "print-variable":
         if source_path is None:
             fail("stored-variable oracle requires a source fixture")

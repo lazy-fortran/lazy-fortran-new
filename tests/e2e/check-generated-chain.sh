@@ -28,6 +28,7 @@ print_source_file="$ROOT/tests/fixtures/l3-ast-program-print-7-v1.f90"
 print_generic_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-generic-items-v1.f90"
 print_variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-v1.f90"
 print_variable_23_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-23-v1.f90"
+raw_scalar_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-v0.f90"
 print_variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-expression-v1.f90"
 print_variable_multiply_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-multiply-expression-v1.f90"
 print_variable_subtract_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-subtract-expression-v1.f90"
@@ -87,6 +88,9 @@ negative_print_variable_23_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-23-missing-assignment-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-print-variable-23-wrong-name-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-write-variable-23-v1.f90"
+)
+negative_raw_scalar_files=(
+    "$ROOT/tests/negative/l3-print-variable-generic-raw-counter-wrong-print-v0.f90"
 )
 negative_print_variable_expression_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-expression-wrong-name-v1.f90"
@@ -1174,6 +1178,46 @@ for variable_source_file in "$ROOT"/tests/fixtures/l3-ast-program-print-variable
     fi
 done
 
+raw_scalar_ast_file="$run_dir/raw-scalar.frontend.ast.sx"
+raw_scalar_mir_file="$run_dir/raw-scalar.mir.sx"
+raw_scalar_elf_file="$run_dir/raw-scalar.program.elf"
+raw_scalar_output_file="$run_dir/raw-scalar.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$raw_scalar_source_file" \
+        "$raw_scalar_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$raw_scalar_ast_file" \
+        "$raw_scalar_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$raw_scalar_mir_file" \
+        "$raw_scalar_elf_file") > /dev/null 2>&1
+for negative_raw_scalar in "${negative_raw_scalar_files[@]}"; do
+    rm -f "$run_dir/raw-scalar.negative.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_raw_scalar" \
+            "$run_dir/raw-scalar.negative.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid raw scalar source was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/raw-scalar.negative.ast.sx" ]
+done
+qemu-riscv64 "$raw_scalar_elf_file" > "$raw_scalar_output_file"
+printf '42\n' | cmp -s - "$raw_scalar_output_file"
+python3 "$oracle" "$raw_scalar_ast_file" "$raw_scalar_mir_file" \
+    "$raw_scalar_elf_file" main integer print-variable-raw "$raw_scalar_source_file"
+sed '0,/(output-name counter_2)/s//(output-name other_2)/' "$raw_scalar_ast_file" \
+    > "$run_dir/raw-scalar.mutated-output.ast.sx"
+if python3 "$oracle" "$run_dir/raw-scalar.mutated-output.ast.sx" "$raw_scalar_mir_file" \
+        "$raw_scalar_elf_file" main integer print-variable-raw "$raw_scalar_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'raw scalar AST output mutation was accepted' >&2
+    exit 1
+fi
+sed '0,/(storage-key counter_2)/s//(storage-key other_2)/' "$raw_scalar_mir_file" \
+    > "$run_dir/raw-scalar.mutated-storage.mir.sx"
+if python3 "$oracle" "$raw_scalar_ast_file" "$run_dir/raw-scalar.mutated-storage.mir.sx" \
+        "$raw_scalar_elf_file" main integer print-variable-raw "$raw_scalar_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'raw scalar MIR storage mutation was accepted' >&2
+    exit 1
+fi
+
 envelope_five_ast_file="$run_dir/envelope-five.frontend.ast.sx"
 envelope_five_mir_file="$run_dir/envelope-five.mir.sx"
 envelope_five_elf_file="$run_dir/envelope-five.program.elf"
@@ -1262,8 +1306,8 @@ python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
 oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 146 ]; then
-    printf 'generated chain route count: expected 146, got %s\n' \
+if [ "$oracle_route_count" -ne 147 ]; then
+    printf 'generated chain route count: expected 147, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi

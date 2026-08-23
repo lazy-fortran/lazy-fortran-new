@@ -188,7 +188,7 @@ generic-item routes remain explicit. Stored-variable PRINT routes for counts
 oracle mode names for counts 2 through 6. That replay discovers fixture keys
 and item counts from the source files instead of carrying a number-to-name
 dispatch. The central gate
-`bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
+`bash tests/e2e/check-generated-chain.sh` passes 147 routes. General
 Pure-literal PRINT routes use the same fixture-driven discovery and derive
 their oracle mode from the source item count.
 Assignment-sequence routes likewise derive their count and matching negative
@@ -202,6 +202,11 @@ generated PRINT route-operation pattern from a compact rule with boundary
 controls while retaining explicit exceptional route facts. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
 Raw-source program-unit assembly remains open.
+The raw scalar program-unit route now carries legal variable names and bounded
+signed integer values through AST-v2, MIR, RISC-V, and qemu. The central replay
+checks `counter_2 = 42`, a malformed PRINT neighbor, AST/MIR mutations, and
+exact `42` output. General declarations, expressions, and statement parsing
+remain open.
 The raw-source program-unit envelope and legacy PRINT compatibility fields
 remain explicit. Genericizing either is deferred until it reduces total review
 surface without changing the public SX shape.

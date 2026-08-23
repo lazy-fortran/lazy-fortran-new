@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage, sequence, STOP and PRINT waves are integrated; its central replay passes 146 routes
+storage, sequence, STOP and PRINT waves are integrated; its central replay passes 147 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -523,9 +523,10 @@ L3. No central contract, parser dispatch, MIR schema, ABI or semantic fact was
 promoted.
 
 The current generic continuation is pushed at `fortfront-new`
-`9845ba70ecbc76c57b686c9132abd5190d639c48`, `ffc-new`
-`8e38f18c40187dd4b285bfd0486ca8de9571d79c`. Its full `fo` gate passes, and
-the central replay passes 146 routes. Fortfront now parses bounded PRINT
+`5c0a7dcc45f8e6d336371c5375f8916a5ffbc844`, `ffc-new`
+`b9e007ac6383362fc570abe97f1133e047552411`, and `fortback-new`
+`675cff9b5dd277d9ecdd9a5e694acd3e531bb8f9`. Its full `fo` gates pass, and
+`bash tests/e2e/check-generated-chain.sh` passes 147 routes. Fortfront now parses bounded PRINT
 expression items through one typed path and uses one operator/policy path for
 initialized updates; its variable PRINT batch metadata derives from the parsed
 item count instead of historical source names, and its bounded assignment
@@ -552,8 +553,10 @@ stored-variable routes for counts 2 through 100 share one loop while retaining
 the historical oracle mode names for counts 2 through 6. The verifier derives
 stored-variable source spans from the pinned fixture, so it does not preserve
 old fixture-specific span constants. Its literal and assignment batch routes
-also discover fixture keys and counts from the source files. General expression
-parsing and assignment sequences remain open.
+also discover fixture keys and counts from the source files. The raw scalar
+route now carries legal `counter_2` and value `42` through AST-v2, MIR, the
+backend, and qemu, while rejecting a wrong PRINT name and malformed storage
+key. General expression parsing and assignment sequences remain open.
 
 ## Component pins
 
@@ -564,9 +567,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
-| fortfront-new | lazy-fortran/fortfront-new | `9845ba70ecbc76c57b686c9132abd5190d639c48` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, count-derived PRINT batches, compact repeated assignment-sequence assembly, and generated PRINT validation for legal variable names and the declared scalar value range, with `fo` passing |
-| ffc-new | lazy-fortran/ffc-new | `8e38f18c40187dd4b285bfd0486ca8de9571d79c` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, one parameterized initialized literal-binary path, one parameterized AST-v2 literal-list validator, and direct generic AST-v1 assignment-sequence lowering, with `fo` passing |
-| fortback-new | lazy-fortran/fortback-new | `c6d7203248e1d7fe4232ee69597d1a7f58edf29c` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, one count-driven variable PRINT validator, shared initialized-expression validation, and compact generated PRINT route-operation facts with boundary controls, with `fo clean && fo && fo test --all` passing |
+| fortfront-new | lazy-fortran/fortfront-new | `5c0a7dcc45f8e6d336371c5375f8916a5ffbc844` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, count-derived PRINT batches, compact repeated assignment-sequence assembly, generated PRINT validation for legal variable names and the declared scalar value range, and raw scalar program-unit assembly, with `fo` passing |
+| ffc-new | lazy-fortran/ffc-new | `b9e007ac6383362fc570abe97f1133e047552411` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, one parameterized initialized literal-binary path, one parameterized AST-v2 literal-list validator, direct generic AST-v1 assignment-sequence lowering, and raw scalar AST-v2 lowering, with `fo` passing |
+| fortback-new | lazy-fortran/fortback-new | `675cff9b5dd277d9ecdd9a5e694acd3e531bb8f9` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, one count-driven variable PRINT validator, shared initialized-expression validation, compact generated PRINT route-operation facts with boundary controls, and generic legal scalar storage validation, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence
 
