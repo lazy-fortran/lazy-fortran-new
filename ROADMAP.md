@@ -132,9 +132,11 @@ worked. They are not architectural commitments.
 
 The first simplification slice has landed across the scalar pipeline. The
 frontend now allocates one `output-items` list for pure integer PRINT values.
-FFC lowers that representation through one generic item traversal, and
-fortback validates and encodes both pure-literal and stored-variable lists
-through generic paths. The clean central gate
+It now derives stored-variable PRINT lists from the existing initializer
+parser. FFC lowers both representations through one generic item traversal,
+with the fixed three-item `17, 18, 19` route removed. Fortback validates and
+encodes pure-literal and stored-variable lists through generic paths. The clean
+central gate
 `bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
 expression parsing, assignment sequences, and broader language coverage remain
 open.

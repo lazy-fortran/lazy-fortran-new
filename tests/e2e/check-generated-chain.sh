@@ -1084,7 +1084,7 @@ if python3 "$oracle" "$print_variable_mutated_file_ast_file" "$print_variable_mi
     exit 1
 fi
 print_variable_mutated_span_ast_file="$run_dir/print-variable.mutated-span.ast.sx"
-sed 's/(start-byte 34) (end-byte 45)/(start-byte 99) (end-byte 100)/' \
+sed 's/(start-byte 37) (end-byte 48)/(start-byte 99) (end-byte 100)/' \
     "$print_variable_ast_file" > "$print_variable_mutated_span_ast_file"
 if python3 "$oracle" "$print_variable_mutated_span_ast_file" "$print_variable_mir_file" \
         "$print_variable_elf_file" main integer print-variable "$print_variable_source_file" \

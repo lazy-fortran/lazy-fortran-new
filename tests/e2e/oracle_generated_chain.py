@@ -1279,16 +1279,21 @@ def main() -> None:
                 fail("MIR-v0 variable-expression PRINT shape is wrong")
             print("generated chain oracle: accepted")
             return
+        source_bytes = source_path.read_bytes()
+        assignment_start = source_bytes.index(b"  x = ")
+        assignment_end = source_bytes.index(b"\n", assignment_start) - 1
+        print_start = source_bytes.index(b"  print *, x")
+        print_end = source_bytes.index(b"\n", print_start) - 1
         required = [
             "(program-unit-v2 ", "(root (program-root (name main)",
             "(declaration-count 1)", "(variable-count 1)",
             "(variable (variable-declaration (type-spec integer) (name x)",
             "(execution-part (assignment-sequence (assignment-count 1)",
             "(assignment-stmt (variable x)",
-            "(start-byte 28)", "(end-byte 31)",
+            f"(start-byte {assignment_start})", f"(end-byte {assignment_end})",
             "(source-hash l3-raw-program-v2)",
             "(kind integer-literal)", f"(left-operand {expected_literal})",
-            "(start-byte 34)", "(end-byte 45)",
+            f"(start-byte {print_start})", f"(end-byte {print_end})",
             "(output-kind variable)", "(output-name x)",
             "(statement-rule R1212)", "(format-rule R1215)",
             "(output-rule R901)", "(source-document J3-24-007)",
