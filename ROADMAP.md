@@ -163,6 +163,16 @@ source mutation controls and route-derived power spans, and rebind the second
 power ELF identity to the current backend implementation. The complete gate
 passes 146 routes; regenerate that count with
 `bash tests/e2e/check-generated-chain.sh`.
+Wave I, `T-WAVE-I-reusable-scale-slices`, is complete. StandardIR now generates
+an ordered source-backed grammar-fact table. The frontend feeds
+source-preserving tokens into a generic grammar session. FFC reports a
+target-independent opcode histogram for a MIR block. The backend batches
+normalized R-format source records transactionally. The component commands in
+`STATUS.md`, focused independent review and the controller command
+`scripts/check_pins.sh && scripts/check-contracts.sh && bash
+tests/e2e/check-generated-chain.sh` pass. The evidence-gate verdict remains
+pending, and L3 remains open. No central contract or semantic fact was
+promoted.
 The next parallel slice adds source-backed R1033 `assignment-stmt is variable =
 expr`: generated StandardIR grammar fact, generated frontend assignment AST,
 generated MIR `store`/`return` with source rule `frontend-ast-v1/assignment`,

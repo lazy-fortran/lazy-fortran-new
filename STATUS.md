@@ -454,7 +454,7 @@ revisions are `standard-new` `0f9b9bdb62128477730b99282e9c8a921a448326`,
 `fortfront-new` `4606a4131c17bedb3bf2d8a5ef3c3925aad6d50f`, `ffc-new`
 `e885e46b8dd64a0679757c4a8863740fecb5e7f1`, and `fortback-new`
 `fde9eca704ffd87161bae6395b49b78705b102db`. The focused commands were
-`fo test test_standardir_grammar_v0_export`,
+`fo test --all test_standardir_grammar_v0_export_slow`,
 `fo test test_fortfront_lexical_tokens` plus
 `python3 tools/oracle_lexical_tokens.py`,
 `fo test test_mir_block_table_instruction_at`, and
@@ -497,6 +497,16 @@ H repaired three obsolete operator controls and the stale power replay span
 and ELF expectations. `bash tests/e2e/check-generated-chain.sh` passes all 146
 routes.
 
+Wave I is complete as `T-WAVE-I-reusable-scale-slices` at the component
+revisions below. Its behavioral oracles and the component commands in the table
+pass. Focused independent review of the frozen integration packet returns
+`PASS`, and the controller command
+`scripts/check_pins.sh && scripts/check-contracts.sh && bash
+tests/e2e/check-generated-chain.sh` passes. The named Wave I leaf and claim
+statuses are `CLOSED`. Its evidence-gate verdict is `PENDING`, and L3 remains
+`OPEN`. No central contract, parser dispatch, MIR schema, ABI or semantic fact
+was promoted.
+
 ## Component pins
 
 These are the clean component revisions currently pinned by the control plane.
@@ -505,10 +515,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `ccf7c1425ef2c1a40d103c33c8e3c574c475cb72` | normative source → StandardIR | CLI build-control repairs with `fo clean && fo` and `fo test --all` passing |
-| fortfront-new | lazy-fortran/fortfront-new | `7604765b6a0e93c7b59bf530e16ea5710ad75be1` | frontend | exact UTF-8 subtraction provenance repair with `fo clean && fo` and `fo test --all` passing |
-| ffc-new | lazy-fortran/ffc-new | `8bfa92f205a42f474653aaa4350ac03d685f19c7` | compiler driver and middle end | nine AST-v2 plus two AST-v1/v2 full-suite negative-control repairs; `fo clean && fo` and `fo test --all` pass |
-| fortback-new | lazy-fortran/fortback-new | `6850db72f71bd8613af90575a5953c6449489594` | backend | three bounded-route mutation controls; `fo clean && fo test --all` passes |
+| standard-new | lazy-fortran/standard-new | `ecbce03626740c262f150fe400209abc1c308cf6` | normative source → StandardIR | source-backed grammar-fact generation and ordered table; `fo clean && fo && fo test --all` passes |
+| fortfront-new | lazy-fortran/fortfront-new | `0fd4b5bdfcb93a79b7c3d02ef0ecc164e8720588` | frontend | token-to-grammar session with an independent stream model; `fo clean && fo && fo test --all` passes |
+| ffc-new | lazy-fortran/ffc-new | `31443ffa6d023f8d5e2e43a29785d4405c908e0b` | compiler driver and middle end | target-independent block-local opcode histogram; `fo clean && fo && fo test --all` passes |
+| fortback-new | lazy-fortran/fortback-new | `c458b273bb1378e978ea302b2b4517a8bf349d67` | backend | transactional R-format source-record batching; `fo clean && fo && fo test --all` passes |
 
 ## Historical milestone evidence
 
