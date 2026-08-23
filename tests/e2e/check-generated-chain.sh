@@ -690,218 +690,62 @@ print_two_item_ast_file="$run_dir/print-two-item.frontend.ast.sx"
 print_two_item_mir_file="$run_dir/print-two-item.mir.sx"
 print_two_item_elf_file="$run_dir/print-two-item.program.elf"
 print_two_item_output_file="$run_dir/print-two-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_two_item_source_file" \
-        "$print_two_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_two_item_ast_file" \
-        "$print_two_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_two_item_mir_file" \
-        "$print_two_item_elf_file") > /dev/null 2>&1
-for negative_print_two_item in "${negative_print_two_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-two-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_two_item" \
-            "$run_dir/negative-print-two-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid two-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-two-item.ast.sx" ]
-done
-qemu-riscv64 "$print_two_item_elf_file" > "$print_two_item_output_file"
-printf '7\n8\n' | cmp -s - "$print_two_item_output_file"
-python3 "$oracle" "$print_two_item_ast_file" "$print_two_item_mir_file" \
-    "$print_two_item_elf_file" p integer print-7-8
+run_print_literal_route() {
+    local count="$1"
+    local source="$2"
+    local route="$3"
+    local error_label="$4"
+    local mode="$5"
+    shift 5
+    local ast="$run_dir/print-${route}.frontend.ast.sx"
+    local mir="$run_dir/print-${route}.mir.sx"
+    local elf="$run_dir/print-${route}.program.elf"
+    local output="$run_dir/print-${route}.stdout"
+    local negative
+    local value
 
-print_three_item_ast_file="$run_dir/print-three-item.frontend.ast.sx"
-print_three_item_mir_file="$run_dir/print-three-item.mir.sx"
-print_three_item_elf_file="$run_dir/print-three-item.program.elf"
-print_three_item_output_file="$run_dir/print-three-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_three_item_source_file" \
-        "$print_three_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_three_item_ast_file" \
-        "$print_three_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_three_item_mir_file" \
-        "$print_three_item_elf_file") > /dev/null 2>&1
-for negative_print_three_item in "${negative_print_three_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-three-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_three_item" \
-            "$run_dir/negative-print-three-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid three-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-three-item.ast.sx" ]
-done
-qemu-riscv64 "$print_three_item_elf_file" > "$print_three_item_output_file"
-printf '7\n8\n9\n' | cmp -s - "$print_three_item_output_file"
-python3 "$oracle" "$print_three_item_ast_file" "$print_three_item_mir_file" \
-    "$print_three_item_elf_file" p integer print-7-8-9
+    (cd "$frontend" && fo exec fortfront-program-unit-v2 "$source" "$ast") \
+        > /dev/null 2>&1
+    (cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$ast" "$mir") \
+        > /dev/null 2>&1
+    (cd "$backend" && fo exec fortback-mir-v0 "$mir" "$elf") \
+        > /dev/null 2>&1
+    for negative in "$@"; do
+        rm -f "$run_dir/negative-print-${route}.ast.sx"
+        if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative" \
+                "$run_dir/negative-print-${route}.ast.sx") > /dev/null 2>&1; then
+            printf 'invalid %s PRINT mutation was accepted\n' "$error_label" >&2
+            exit 1
+        fi
+        [ ! -e "$run_dir/negative-print-${route}.ast.sx" ]
+    done
+    qemu-riscv64 "$elf" > "$output"
+    {
+        for ((value = 7; value <= 6 + count; value++)); do
+            printf '%s\n' "$value"
+        done
+    } | cmp -s - "$output"
+    python3 "$oracle" "$ast" "$mir" "$elf" p integer "$mode"
+}
 
-print_four_item_ast_file="$run_dir/print-four-item.frontend.ast.sx"
-print_four_item_mir_file="$run_dir/print-four-item.mir.sx"
-print_four_item_elf_file="$run_dir/print-four-item.program.elf"
-print_four_item_output_file="$run_dir/print-four-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_four_item_source_file" \
-        "$print_four_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_four_item_ast_file" \
-        "$print_four_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_four_item_mir_file" \
-        "$print_four_item_elf_file") > /dev/null 2>&1
-for negative_print_four_item in "${negative_print_four_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-four-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_four_item" \
-            "$run_dir/negative-print-four-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid four-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-four-item.ast.sx" ]
-done
-qemu-riscv64 "$print_four_item_elf_file" > "$print_four_item_output_file"
-printf '7\n8\n9\n10\n' | cmp -s - "$print_four_item_output_file"
-python3 "$oracle" "$print_four_item_ast_file" "$print_four_item_mir_file" \
-    "$print_four_item_elf_file" p integer print-7-8-9-10
-
-print_five_item_ast_file="$run_dir/print-five-item.frontend.ast.sx"
-print_five_item_mir_file="$run_dir/print-five-item.mir.sx"
-print_five_item_elf_file="$run_dir/print-five-item.program.elf"
-print_five_item_output_file="$run_dir/print-five-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_five_item_source_file" \
-        "$print_five_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_five_item_ast_file" \
-        "$print_five_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_five_item_mir_file" \
-        "$print_five_item_elf_file") > /dev/null 2>&1
-for negative_print_five_item in "${negative_print_five_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-five-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_five_item" \
-            "$run_dir/negative-print-five-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid five-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-five-item.ast.sx" ]
-done
-qemu-riscv64 "$print_five_item_elf_file" > "$print_five_item_output_file"
-printf '7\n8\n9\n10\n11\n' | cmp -s - "$print_five_item_output_file"
-python3 "$oracle" "$print_five_item_ast_file" "$print_five_item_mir_file" \
-    "$print_five_item_elf_file" p integer print-7-8-9-10-11
-
-print_six_item_ast_file="$run_dir/print-six-item.frontend.ast.sx"
-print_six_item_mir_file="$run_dir/print-six-item.mir.sx"
-print_six_item_elf_file="$run_dir/print-six-item.program.elf"
-print_six_item_output_file="$run_dir/print-six-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_six_item_source_file" \
-        "$print_six_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_six_item_ast_file" \
-        "$print_six_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_six_item_mir_file" \
-        "$print_six_item_elf_file") > /dev/null 2>&1
-for negative_print_six_item in "${negative_print_six_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-six-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_six_item" \
-            "$run_dir/negative-print-six-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid six-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-six-item.ast.sx" ]
-done
-qemu-riscv64 "$print_six_item_elf_file" > "$print_six_item_output_file"
-printf '7\n8\n9\n10\n11\n12\n' | cmp -s - "$print_six_item_output_file"
-python3 "$oracle" "$print_six_item_ast_file" "$print_six_item_mir_file" \
-    "$print_six_item_elf_file" p integer print-7-8-9-10-11-12
-
-print_seven_item_ast_file="$run_dir/print-seven-item.frontend.ast.sx"
-print_seven_item_mir_file="$run_dir/print-seven-item.mir.sx"
-print_seven_item_elf_file="$run_dir/print-seven-item.program.elf"
-print_seven_item_output_file="$run_dir/print-seven-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_seven_item_source_file" \
-        "$print_seven_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_seven_item_ast_file" \
-        "$print_seven_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_seven_item_mir_file" \
-        "$print_seven_item_elf_file") > /dev/null 2>&1
-for negative_print_seven_item in "${negative_print_seven_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-seven-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_seven_item" \
-            "$run_dir/negative-print-seven-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid seven-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-seven-item.ast.sx" ]
-done
-qemu-riscv64 "$print_seven_item_elf_file" > "$print_seven_item_output_file"
-printf '7\n8\n9\n10\n11\n12\n13\n' | cmp -s - "$print_seven_item_output_file"
-python3 "$oracle" "$print_seven_item_ast_file" "$print_seven_item_mir_file" \
-    "$print_seven_item_elf_file" p integer print-7-8-9-10-11-12-13
-
-print_eight_item_ast_file="$run_dir/print-eight-item.frontend.ast.sx"
-print_eight_item_mir_file="$run_dir/print-eight-item.mir.sx"
-print_eight_item_elf_file="$run_dir/print-eight-item.program.elf"
-print_eight_item_output_file="$run_dir/print-eight-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_eight_item_source_file" \
-        "$print_eight_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_eight_item_ast_file" \
-        "$print_eight_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_eight_item_mir_file" \
-        "$print_eight_item_elf_file") > /dev/null 2>&1
-for negative_print_eight_item in "${negative_print_eight_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-eight-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_eight_item" \
-            "$run_dir/negative-print-eight-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid eight-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-eight-item.ast.sx" ]
-done
-qemu-riscv64 "$print_eight_item_elf_file" > "$print_eight_item_output_file"
-printf '7\n8\n9\n10\n11\n12\n13\n14\n' | cmp -s - "$print_eight_item_output_file"
-python3 "$oracle" "$print_eight_item_ast_file" "$print_eight_item_mir_file" \
-    "$print_eight_item_elf_file" p integer print-7-8-9-10-11-12-13-14
-
-print_nine_item_ast_file="$run_dir/print-nine-item.frontend.ast.sx"
-print_nine_item_mir_file="$run_dir/print-nine-item.mir.sx"
-print_nine_item_elf_file="$run_dir/print-nine-item.program.elf"
-print_nine_item_output_file="$run_dir/print-nine-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_nine_item_source_file" \
-        "$print_nine_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_nine_item_ast_file" \
-        "$print_nine_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_nine_item_mir_file" \
-        "$print_nine_item_elf_file") > /dev/null 2>&1
-for negative_print_nine_item in "${negative_print_nine_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-nine-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_nine_item" \
-            "$run_dir/negative-print-nine-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid nine-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-nine-item.ast.sx" ]
-done
-qemu-riscv64 "$print_nine_item_elf_file" > "$print_nine_item_output_file"
-printf '7\n8\n9\n10\n11\n12\n13\n14\n15\n' | cmp -s - "$print_nine_item_output_file"
-python3 "$oracle" "$print_nine_item_ast_file" "$print_nine_item_mir_file" \
-    "$print_nine_item_elf_file" p integer print-7-8-9-10-11-12-13-14-15
-
-print_ten_item_ast_file="$run_dir/print-ten-item.frontend.ast.sx"
-print_ten_item_mir_file="$run_dir/print-ten-item.mir.sx"
-print_ten_item_elf_file="$run_dir/print-ten-item.program.elf"
-print_ten_item_output_file="$run_dir/print-ten-item.stdout"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$print_ten_item_source_file" \
-        "$print_ten_item_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$print_ten_item_ast_file" \
-        "$print_ten_item_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$print_ten_item_mir_file" \
-        "$print_ten_item_elf_file") > /dev/null 2>&1
-for negative_print_ten_item in "${negative_print_ten_item_files[@]}"; do
-    rm -f "$run_dir/negative-print-ten-item.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_print_ten_item" \
-            "$run_dir/negative-print-ten-item.ast.sx") > /dev/null 2>&1; then
-        printf '%s\n' 'invalid ten-item PRINT mutation was accepted' >&2
-        exit 1
-    fi
-    [ ! -e "$run_dir/negative-print-ten-item.ast.sx" ]
-done
-qemu-riscv64 "$print_ten_item_elf_file" > "$print_ten_item_output_file"
-printf '7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n' | cmp -s - "$print_ten_item_output_file"
-python3 "$oracle" "$print_ten_item_ast_file" "$print_ten_item_mir_file" \
-    "$print_ten_item_elf_file" p integer print-7-8-9-10-11-12-13-14-15-16
-
+run_print_literal_route 2 "$print_two_item_source_file" two-item two-item \
+    print-7-8 "${negative_print_two_item_files[@]}"
+run_print_literal_route 3 "$print_three_item_source_file" three-item three-item \
+    print-7-8-9 "${negative_print_three_item_files[@]}"
+run_print_literal_route 4 "$print_four_item_source_file" four-item four-item \
+    print-7-8-9-10 "${negative_print_four_item_files[@]}"
+run_print_literal_route 5 "$print_five_item_source_file" five-item five-item \
+    print-7-8-9-10-11 "${negative_print_five_item_files[@]}"
+run_print_literal_route 6 "$print_six_item_source_file" six-item six-item \
+    print-7-8-9-10-11-12 "${negative_print_six_item_files[@]}"
+run_print_literal_route 7 "$print_seven_item_source_file" seven-item seven-item \
+    print-7-8-9-10-11-12-13 "${negative_print_seven_item_files[@]}"
+run_print_literal_route 8 "$print_eight_item_source_file" eight-item eight-item \
+    print-7-8-9-10-11-12-13-14 "${negative_print_eight_item_files[@]}"
+run_print_literal_route 9 "$print_nine_item_source_file" nine-item nine-item \
+    print-7-8-9-10-11-12-13-14-15 "${negative_print_nine_item_files[@]}"
+run_print_literal_route 10 "$print_ten_item_source_file" ten-item ten-item \
+    print-7-8-9-10-11-12-13-14-15-16 "${negative_print_ten_item_files[@]}"
 print_generic_item_ast_file="$run_dir/print-generic-items.frontend.ast.sx"
 print_generic_item_mir_file="$run_dir/print-generic-items.mir.sx"
 print_generic_item_elf_file="$run_dir/print-generic-items.program.elf"
