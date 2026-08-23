@@ -21,25 +21,25 @@ role = "Research, wiring, evidence, papers. This repository."
 url  = "https://github.com/lazy-fortran/standard-new"
 path = "standard-new"
 role = "Normative document to StandardIR and derived artifacts."
-commit = "965f1963512b428307536c481ff9f639a44e7f6f"
+commit = "9591841ccfbf9514819c765bbda4d6820f1b6f68"
 
 [repos.frontend]
 url  = "https://github.com/lazy-fortran/fortfront-new"
 path = "fortfront-new"
 role = "Generated frontend: lexer, parser, AST, semantics, emitter."
-commit = "8395f15881a3fffb75c47aa58b1756c7b6b128f7"
+commit = "ac1b669d6664449bf9a5d7322e2e88e8a23a5b37"
 
 [repos.compiler]
 url  = "https://github.com/lazy-fortran/ffc-new"
 path = "ffc-new"
 role = "Driver and middle end: MIR, optimization, command line."
-commit = "a094db138cdf87032f61a32a0c568fe6f0fc225a"
+commit = "e4c8b9ca0b691603e750bbdab12d0506e002c3c8"
 
 [repos.backend]
 url  = "https://github.com/lazy-fortran/fortback-new"
 path = "fortback-new"
 role = "Target description to generated encoder, object writer, ISel."
-commit = "28a7877a09c7d69af71e704ddb3febfb3555faa7"
+commit = "6850db72f71bd8613af90575a5953c6449489594"
 
 # ---------------------------------------------------------------------------
 # Oracles. None of these constrains any interface in the repositories above.

@@ -483,10 +483,10 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `965f1963512b428307536c481ff9f639a44e7f6f` | normative source → StandardIR | generated grammar-v0 producer plus transactional ordered batch export; focused gate passes; full `fo` retains the known schema declaration-count failure |
-| fortfront-new | lazy-fortran/fortfront-new | `8395f15881a3fffb75c47aa58b1756c7b6b128f7` | frontend | caller-supplied lexical-token projection plus bounded token cursor; focused gate and independent Python oracle pass; full `fo` retains unrelated existing failures |
-| ffc-new | lazy-fortran/ffc-new | `a094db138cdf87032f61a32a0c568fe6f0fc225a` | compiler driver and middle end | target-independent block-table instruction access plus per-block opcode counts; focused gates pass; full `fo` retains unrelated existing failures |
-| fortback-new | lazy-fortran/fortback-new | `28a7877a09c7d69af71e704ddb3febfb3555faa7` | backend | generic `z = z + z` bridge, provenance-preserving R-format TargetIR encoding, and replay repair for the initialized multiplier lower bound; focused gates pass; full `fo` retains unrelated existing failures and the generated-policy formatting warning |
+| standard-new | lazy-fortran/standard-new | `9591841ccfbf9514819c765bbda4d6820f1b6f68` | normative source → StandardIR | schema declaration-count repair; focused gate passes; full suite retains six unrelated legacy CLI/timeout failures |
+| fortfront-new | lazy-fortran/fortfront-new | `ac1b669d6664449bf9a5d7322e2e88e8a23a5b37` | frontend | five generated-policy-aligned negative controls; `fo clean && fo` and `fo test --all` pass |
+| ffc-new | lazy-fortran/ffc-new | `e4c8b9ca0b691603e750bbdab12d0506e002c3c8` | compiler driver and middle end | nine generated-policy-aligned AST-v2 negative controls; scoped gate passes; full `fo test --all` retains two unrelated failures |
+| fortback-new | lazy-fortran/fortback-new | `6850db72f71bd8613af90575a5953c6449489594` | backend | three bounded-route mutation controls; `fo clean && fo test --all` passes |
 
 ## Historical milestone evidence
 
