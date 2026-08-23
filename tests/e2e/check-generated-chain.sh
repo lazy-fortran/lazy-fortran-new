@@ -23,14 +23,6 @@ literal_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-lite
 literal_boundary_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-2047-assignment-v1.f90"
 variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-variable-add-assignment-v1.f90"
 sequence_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-two-assignment-v1.f90"
-sequence_three_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-three-assignment-v1.f90"
-sequence_four_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-four-assignment-v1.f90"
-sequence_five_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-five-assignment-v1.f90"
-sequence_six_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-six-assignment-v1.f90"
-sequence_seven_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-seven-assignment-v1.f90"
-sequence_eight_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-eight-assignment-v1.f90"
-sequence_nine_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-nine-assignment-v1.f90"
-sequence_ten_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-ten-assignment-v1.f90"
 stop_source_file="$ROOT/tests/fixtures/l3-ast-program-stop-7-v1.f90"
 print_source_file="$ROOT/tests/fixtures/l3-ast-program-print-7-v1.f90"
 print_generic_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-generic-items-v1.f90"
@@ -72,30 +64,6 @@ negative_sequence_files=(
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-wrong-variable-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-wrong-operator-v1.f90"
-)
-negative_sequence_three_files=(
-    "$ROOT/tests/negative/l3-ast-program-integer-three-assignment-wrong-operator-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-three-assignment-missing-third-v1.f90"
-)
-negative_sequence_four_files=(
-    "$ROOT/tests/negative/l3-ast-program-integer-four-assignment-wrong-operator-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-four-assignment-missing-fourth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-four-assignment-wrong-variable-v1.f90"
-)
-negative_sequence_five_files=(
-    "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-wrong-operator-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-missing-fifth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-wrong-variable-v1.f90"
-)
-negative_sequence_six_files=(
-    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-wrong-operator-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-missing-sixth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-wrong-variable-v1.f90"
-)
-negative_sequence_ten_files=(
-    "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-wrong-operator-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-missing-tenth-v1.f90"
-    "$ROOT/tests/negative/l3-ast-program-integer-ten-assignment-wrong-variable-v1.f90"
 )
 negative_stop_files=(
     "$ROOT/tests/negative/l3-ast-program-stop-8-v1.f90"
@@ -577,20 +545,20 @@ fi
 python3 "$oracle" "$sequence_ast_file" "$sequence_mir_file" \
     "$sequence_elf_file" main integer sequence
 
-run_sequence_batch_route 3 "$sequence_three_source_file" 9 sequence-3 \
-    "${negative_sequence_three_files[@]}"
-run_sequence_batch_route 4 "$sequence_four_source_file" 10 sequence-4 \
-    "${negative_sequence_four_files[@]}"
-run_sequence_batch_route 5 "$sequence_five_source_file" 11 sequence-5 \
-    "${negative_sequence_five_files[@]}"
-run_sequence_batch_route 6 "$sequence_six_source_file" 12 sequence-6 \
-    "${negative_sequence_six_files[@]}"
-
-run_sequence_batch_route 7 "$sequence_seven_source_file" 13 sequence-7
-run_sequence_batch_route 8 "$sequence_eight_source_file" 14 sequence-8
-run_sequence_batch_route 9 "$sequence_nine_source_file" 15 sequence-9
-run_sequence_batch_route 10 "$sequence_ten_source_file" 16 sequence-10 \
-    "${negative_sequence_ten_files[@]}"
+for sequence_source_file in "$ROOT"/tests/fixtures/l3-ast-program-integer-*-assignment-v1.f90; do
+    sequence_count="$(awk '/^  x =/ { count++ } END { print count + 0 }' "$sequence_source_file")"
+    [ "$sequence_count" -ge 3 ] || continue
+    sequence_word="${sequence_source_file##*-integer-}"
+    sequence_word="${sequence_word%-assignment-v1.f90}"
+    sequence_negative_files=()
+    for sequence_negative_file in \
+            "$ROOT"/tests/negative/l3-ast-program-integer-${sequence_word}-assignment-*.f90; do
+        [ -f "$sequence_negative_file" ] && sequence_negative_files+=("$sequence_negative_file")
+    done
+    run_sequence_batch_route "$sequence_count" "$sequence_source_file" \
+        "$((sequence_count + 6))" "sequence-${sequence_count}" \
+        "${sequence_negative_files[@]}"
+done
 
 stop_ast_file="$run_dir/stop.frontend.ast.sx"
 stop_mir_file="$run_dir/stop.mir.sx"
