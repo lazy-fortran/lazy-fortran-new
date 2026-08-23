@@ -111,6 +111,18 @@ worked. They are not architectural commitments.
 Replace the bounded scalar path with a compact generic implementation while
 preserving its accepted behavior.
 
+This is the only active implementation goal until it closes. The target path
+is:
+
+```text
+Fortran source -> StandardIR and TargetIR facts -> generic frontend AST
+-> generic MIR -> table-driven RISC-V backend -> qemu
+```
+
+Use one dependency chain at a time. Keep the current central replay green
+through each boundary. Parallel work is useful only for already specified,
+non-overlapping files that do not create another coordination layer.
+
 The result should:
 
 - accept unseen legal identifiers and integer values without regenerating
@@ -132,18 +144,25 @@ and one clean central replay verifies the complete path.
 
 ## Simplification sequence
 
-Work in this order unless evidence exposes a better dependency:
+This is the implementation order for the active goal:
 
-- Stop extending fixture-specific policy ranges. New scalar witnesses must
-  exercise a general mechanism or expose what that mechanism still lacks.
-- Replace the generated backend policy with compact instruction and encoding
-  facts consumed by one validator and encoder.
-- Replace exact frontend source envelopes and list-cardinality ladders with a
-  tokenizer, grammar tables, generic expression parsing, and AST lists.
-- Replace route-specific lowering with generic AST traversal and MIR sequence
-  construction.
-- Collapse repeated fixtures and shell routes into corpus records consumed by
-  shared runners. Keep mutation controls and independent output checks.
+- First, stop extending fixture-specific policy ranges. A new source example
+  must exercise a general mechanism or expose what that mechanism lacks.
+- Next, change `fortback-new`. Replace the generated backend policy with
+  compact instruction and encoding facts consumed by one validator and
+  encoder. Preserve the current central replay before changing the language
+  front end.
+- Then, change `ffc-new`. Replace route-specific lowering with generic AST
+  traversal and MIR sequence construction.
+- Then, change `fortfront-new`. Replace exact source envelopes and
+  list-cardinality ladders with a tokenizer, grammar tables, generic
+  expression parsing, and AST lists.
+- Then, change `standard-new` only where its facts need consolidation for the
+  generic frontend. Keep one compact source-backed table per distinct language
+  rule.
+- Then, collapse repeated fixtures and shell routes into corpus records
+  consumed by shared runners. Keep mutation controls and independent output
+  checks.
 - Reconcile `STATUS.md`, `MILESTONES.md`, and `TASK_POOL.yaml` after the
   generic slice lands. Keep one concise statement of current capability and
   blockers. Leave historical detail in git and the research tree.
@@ -151,6 +170,17 @@ Work in this order unless evidence exposes a better dependency:
   workflow. If ordinary features still require synchronized changes
   everywhere, merge components or reserve cross-repository pin updates for
   experiments, audits, and releases.
+
+Do not open another witness wave for a new name, value, operator, list length,
+or source spelling. A source-specific branch, generated module, route script,
+or policy row is a stop signal. Add a table row only when it represents a
+distinct standard or target fact. Otherwise generalize the consumer first.
+
+Each slice closes against the same gate: the accepted corpus still passes, an
+unseen source passes, malformed neighbors and intermediate mutations fail, an
+independent behavioral oracle agrees, and the total implementation, generated,
+test, documentation, and review surface is lower. A local increase needs a
+measured reason recorded with the change.
 
 ## Later capability goals
 
@@ -195,6 +225,11 @@ not a large generated implementation derived from it.
 Store an accepted fact once as data. If the same reasoning pattern recurs,
 replace repeated model calls with a deterministic translator. Model call count
 and generated volume are observations, not success metrics.
+
+For the generic scalar pipeline, use existing source-backed facts first. Invoke
+an LLM only when a missing standard or target fact blocks deterministic work.
+The model produces a typed fact or a bounded proposal. It does not produce a
+fixture-specific compiler route.
 
 ## Progress criterion
 
