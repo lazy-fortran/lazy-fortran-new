@@ -8,7 +8,7 @@ M3 bounded semantic-oracle slices remain retained evidence; full Core 0 remains
 pending. D0173 retires residual CXXX intake as the default frontier. The
 bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
-storage, sequence, STOP and PRINT waves are integrated; its central replay passes 148 routes
+storage, sequence, STOP and PRINT waves are integrated; its central replay passes 149 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
@@ -523,10 +523,10 @@ L3. No central contract, parser dispatch, MIR schema, ABI or semantic fact was
 promoted.
 
 The current generic continuation is pushed at `fortfront-new`
-`d9501109102f52990cee8f96faa862a706c62503`, `ffc-new`
-`b823a83e475a69a3c1892ee06147d915d04c0554`, and `fortback-new`
-`f841f9d77d720c55e9c754909366f6041b8c1b1b`. Its full `fo` gates pass, and
-`bash tests/e2e/check-generated-chain.sh` passes 148 routes. Fortfront now parses bounded PRINT
+`32b29cdcbd5544999eced4b0cb48a13e091c5519`, `ffc-new`
+`11292911783c2c67673893a5662441d836fbcadd`, and `fortback-new`
+`0c5cce95b655a0a567917530f2348811feae54d5`. Their full `fo` gates pass, and
+`bash tests/e2e/check-generated-chain.sh` passes 149 routes. Fortfront now parses bounded PRINT
 expression items through one typed path and uses one operator/policy path for
 initialized updates; its variable PRINT batch metadata derives from the parsed
 item count instead of historical source names, and its bounded assignment
@@ -560,6 +560,10 @@ key. The raw scalar initialized-add route now carries `counter_2 = 42` and
 `counter_2 = counter_2 + 1` through the same AST-v2, MIR, backend, and qemu
 path, with exact `43` output. General expression parsing and assignment
 sequences remain open.
+The raw scalar initialized-subtraction route now carries `counter_2 = 42` and
+`counter_2 = counter_2 - 1` through the same AST-v2, MIR, backend, and qemu
+path, with exact `41` output. General expression parsing and assignment
+sequences remain open.
 
 ## Component pins
 
@@ -570,9 +574,9 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
-| fortfront-new | lazy-fortran/fortfront-new | `d9501109102f52990cee8f96faa862a706c62503` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, count-derived PRINT batches, compact repeated assignment-sequence assembly, generated PRINT validation for legal variable names and the declared scalar value range, and generic raw scalar initialized-update assembly, with `fo` passing |
-| ffc-new | lazy-fortran/ffc-new | `b823a83e475a69a3c1892ee06147d915d04c0554` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, one parameterized initialized literal-binary path, one parameterized AST-v2 literal-list validator, direct generic AST-v1 assignment-sequence lowering, and generic raw scalar initialized-add lowering, with `fo` passing |
-| fortback-new | lazy-fortran/fortback-new | `f841f9d77d720c55e9c754909366f6041b8c1b1b` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, one count-driven variable PRINT validator, shared initialized-expression validation, compact generated PRINT route-operation facts with boundary controls, and generic legal scalar storage validation for initialized expressions, with `fo clean && fo && fo test --all` passing |
+| fortfront-new | lazy-fortran/fortfront-new | `32b29cdcbd5544999eced4b0cb48a13e091c5519` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, count-derived PRINT batches, compact repeated assignment-sequence assembly, generated PRINT validation for legal variable names and the declared scalar value range, generic raw scalar initialized-update assembly, and subtraction AST-v2 regression coverage, with `fo` passing |
+| ffc-new | lazy-fortran/ffc-new | `11292911783c2c67673893a5662441d836fbcadd` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, one parameterized initialized literal-binary path, one parameterized AST-v2 literal-list validator, direct generic AST-v1 assignment-sequence lowering, generic raw scalar initialized-add lowering, and raw scalar subtraction lowering, with `fo` passing |
+| fortback-new | lazy-fortran/fortback-new | `0c5cce95b655a0a567917530f2348811feae54d5` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, one count-driven variable PRINT validator, shared initialized-expression validation, compact generated PRINT route-operation facts with boundary controls, generic legal scalar storage validation for initialized expressions, and counter subtraction regression coverage, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence
 
