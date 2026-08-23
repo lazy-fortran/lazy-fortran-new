@@ -1181,114 +1181,14 @@ if python3 "$oracle" "$print_variable_power_value_ast_file" \
     exit 1
 fi
 
-for variable_output_count in {2..100}; do
-    case "$variable_output_count" in
-        2) variable_output_word=two; variable_output_ordinal=second ;;
-        3) variable_output_word=three; variable_output_ordinal=third ;;
-        4) variable_output_word=four; variable_output_ordinal=fourth ;;
-        5) variable_output_word=five; variable_output_ordinal=fifth ;;
-        6) variable_output_word=six; variable_output_ordinal=sixth ;;
-        7) variable_output_word=seven; variable_output_ordinal=seventh ;;
-        8) variable_output_word=eight; variable_output_ordinal=eighth ;;
-        9) variable_output_word=nine; variable_output_ordinal=ninth ;;
-        10) variable_output_word=ten; variable_output_ordinal=tenth ;;
-        11) variable_output_word=eleven; variable_output_ordinal=eleventh ;;
-        12) variable_output_word=twelve; variable_output_ordinal=twelfth ;;
-        13) variable_output_word=thirteen; variable_output_ordinal=thirteenth ;;
-        14) variable_output_word=fourteen; variable_output_ordinal=fourteenth ;;
-        15) variable_output_word=fifteen; variable_output_ordinal=fifteenth ;;
-        16) variable_output_word=sixteen; variable_output_ordinal=sixteenth ;;
-        17) variable_output_word=seventeen; variable_output_ordinal=seventeenth ;;
-        18) variable_output_word=eighteen; variable_output_ordinal=eighteenth ;;
-        19) variable_output_word=nineteen; variable_output_ordinal=nineteenth ;;
-        20) variable_output_word=twenty; variable_output_ordinal=twentieth ;;
-        21) variable_output_word=twenty-one; variable_output_ordinal=twenty-first ;;
-        22) variable_output_word=twenty-two; variable_output_ordinal=twenty-second ;;
-        23) variable_output_word=twenty-three; variable_output_ordinal=twenty-third ;;
-        24) variable_output_word=twenty-four; variable_output_ordinal=twenty-fourth ;;
-        25) variable_output_word=twenty-five; variable_output_ordinal=twenty-fifth ;;
-        26) variable_output_word=twenty-six; variable_output_ordinal=twenty-sixth ;;
-        27) variable_output_word=twenty-seven; variable_output_ordinal=twenty-seventh ;;
-        28) variable_output_word=twenty-eight; variable_output_ordinal=twenty-eighth ;;
-        29) variable_output_word=twenty-nine; variable_output_ordinal=twenty-ninth ;;
-        30) variable_output_word=thirty; variable_output_ordinal=thirtieth ;;
-        31) variable_output_word=thirty-one; variable_output_ordinal=thirty-first ;;
-        32) variable_output_word=thirty-two; variable_output_ordinal=thirty-second ;;
-        33) variable_output_word=thirty-three; variable_output_ordinal=thirty-third ;;
-        34) variable_output_word=thirty-four; variable_output_ordinal=thirty-fourth ;;
-        35) variable_output_word=thirty-five; variable_output_ordinal=thirty-fifth ;;
-        36) variable_output_word=thirty-six; variable_output_ordinal=thirty-sixth ;;
-        37) variable_output_word=thirty-seven; variable_output_ordinal=thirty-seventh ;;
-        38) variable_output_word=thirty-eight; variable_output_ordinal=thirty-eighth ;;
-        39) variable_output_word=thirty-nine; variable_output_ordinal=thirty-ninth ;;
-        40) variable_output_word=forty; variable_output_ordinal=fortieth ;;
-        41) variable_output_word=forty-one; variable_output_ordinal=forty-first ;;
-        42) variable_output_word=forty-two; variable_output_ordinal=forty-second ;;
-        43) variable_output_word=forty-three; variable_output_ordinal=forty-third ;;
-        44) variable_output_word=forty-four; variable_output_ordinal=forty-fourth ;;
-        45) variable_output_word=forty-five; variable_output_ordinal=forty-fifth ;;
-        46) variable_output_word=forty-six; variable_output_ordinal=forty-sixth ;;
-        47) variable_output_word=forty-seven; variable_output_ordinal=forty-seventh ;;
-        48) variable_output_word=forty-eight; variable_output_ordinal=forty-eighth ;;
-        49) variable_output_word=forty-nine; variable_output_ordinal=forty-ninth ;;
-        50) variable_output_word=fifty; variable_output_ordinal=fiftieth ;;
-        51) variable_output_word=fifty-one; variable_output_ordinal=fifty-first ;;
-        52) variable_output_word=fifty-two; variable_output_ordinal=fifty-second ;;
-        53) variable_output_word=fifty-three; variable_output_ordinal=fifty-third ;;
-        54) variable_output_word=fifty-four; variable_output_ordinal=fifty-fourth ;;
-        55) variable_output_word=fifty-five; variable_output_ordinal=fifty-fifth ;;
-        56) variable_output_word=fifty-six; variable_output_ordinal=fifty-sixth ;;
-        57) variable_output_word=fifty-seven; variable_output_ordinal=fifty-seventh ;;
-        58) variable_output_word=fifty-eight; variable_output_ordinal=fifty-eighth ;;
-        59) variable_output_word=fifty-nine; variable_output_ordinal=fifty-ninth ;;
-        60) variable_output_word=sixty; variable_output_ordinal=sixtieth ;;
-        61) variable_output_word=sixty-one; variable_output_ordinal=sixty-first ;;
-        62) variable_output_word=sixty-two; variable_output_ordinal=sixty-second ;;
-        63) variable_output_word=sixty-three; variable_output_ordinal=sixty-third ;;
-        64) variable_output_word=sixty-four; variable_output_ordinal=sixty-fourth ;;
-        65) variable_output_word=sixty-five; variable_output_ordinal=sixty-fifth ;;
-        66) variable_output_word=sixty-six; variable_output_ordinal=sixty-sixth ;;
-        67) variable_output_word=sixty-seven; variable_output_ordinal=sixty-seventh ;;
-        68) variable_output_word=sixty-eight; variable_output_ordinal=sixty-eighth ;;
-        69) variable_output_word=sixty-nine; variable_output_ordinal=sixty-ninth ;;
-        70) variable_output_word=seventy; variable_output_ordinal=seventieth ;;
-        71) variable_output_word=seventy-one; variable_output_ordinal=seventy-first ;;
-        72) variable_output_word=seventy-two; variable_output_ordinal=seventy-second ;;
-        73) variable_output_word=seventy-three; variable_output_ordinal=seventy-third ;;
-        74) variable_output_word=seventy-four; variable_output_ordinal=seventy-fourth ;;
-        75) variable_output_word=seventy-five; variable_output_ordinal=seventy-fifth ;;
-        76) variable_output_word=seventy-six; variable_output_ordinal=seventy-sixth ;;
-        77) variable_output_word=seventy-seven; variable_output_ordinal=seventy-seventh ;;
-        78) variable_output_word=seventy-eight; variable_output_ordinal=seventy-eighth ;;
-        79) variable_output_word=seventy-nine; variable_output_ordinal=seventy-ninth ;;
-        80) variable_output_word=eighty; variable_output_ordinal=eightieth ;;
-        81) variable_output_word=eighty-one; variable_output_ordinal=eighty-first ;;
-        82) variable_output_word=eighty-two; variable_output_ordinal=eighty-second ;;
-        83) variable_output_word=eighty-three; variable_output_ordinal=eighty-third ;;
-        84) variable_output_word=eighty-four; variable_output_ordinal=eighty-fourth ;;
-        85) variable_output_word=eighty-five; variable_output_ordinal=eighty-fifth ;;
-        86) variable_output_word=eighty-six; variable_output_ordinal=eighty-sixth ;;
-        87) variable_output_word=eighty-seven; variable_output_ordinal=eighty-seventh ;;
-        88) variable_output_word=eighty-eight; variable_output_ordinal=eighty-eighth ;;
-        89) variable_output_word=eighty-nine; variable_output_ordinal=eighty-ninth ;;
-        90) variable_output_word=ninety; variable_output_ordinal=ninetieth ;;
-        91) variable_output_word=ninety-one; variable_output_ordinal=ninety-first ;;
-        92) variable_output_word=ninety-two; variable_output_ordinal=ninety-second ;;
-        93) variable_output_word=ninety-three; variable_output_ordinal=ninety-third ;;
-        94) variable_output_word=ninety-four; variable_output_ordinal=ninety-fourth ;;
-        95) variable_output_word=ninety-five; variable_output_ordinal=ninety-fifth ;;
-        96) variable_output_word=ninety-six; variable_output_ordinal=ninety-sixth ;;
-        97) variable_output_word=ninety-seven; variable_output_ordinal=ninety-seventh ;;
-        98) variable_output_word=ninety-eight; variable_output_ordinal=ninety-eighth ;;
-        99) variable_output_word=ninety-nine; variable_output_ordinal=ninety-ninth ;;
-        100) variable_output_word=one-hundred; variable_output_ordinal=hundredth ;;
-    esac
+for variable_source_file in "$ROOT"/tests/fixtures/l3-ast-program-print-variable-*-item-v1.f90; do
+    variable_output_word="${variable_source_file##*-variable-}"
+    variable_output_word="${variable_output_word%-item-v1.f90}"
+    variable_output_count="$(awk '/^  print \*,/ { print gsub(/x/, "&") }' "$variable_source_file")"
     variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-${variable_output_word}-item-v1.f90"
     variable_negative_files=(
-        "$ROOT/tests/negative/l3-ast-program-print-variable-${variable_output_word}-item-wrong-second-v1.f90"
-        "$ROOT/tests/negative/l3-ast-program-print-variable-${variable_output_word}-item-wrong-${variable_output_ordinal}-v1.f90"
+        "$ROOT"/tests/negative/l3-ast-program-print-variable-${variable_output_word}-item-*.f90
         "$ROOT/tests/negative/l3-ast-program-write-variable-${variable_output_word}-item-v1.f90"
-        "$ROOT/tests/negative/l3-ast-program-print-variable-${variable_output_word}-item-malformed-v1.f90"
     )
     variable_expected=''
     for ((variable_expected_index = 0; variable_expected_index < variable_output_count; variable_expected_index++)); do
@@ -1314,6 +1214,7 @@ for variable_output_count in {2..100}; do
     (cd "$backend" && fo exec fortback-mir-v0 "$variable_mir_file" \
             "$variable_elf_file") > /dev/null 2>&1
     for variable_negative_file in "${variable_negative_files[@]}"; do
+        [ -f "$variable_negative_file" ] || continue
         rm -f "$run_dir/$variable_mode.negative.ast.sx"
         if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$variable_negative_file" \
                 "$run_dir/$variable_mode.negative.ast.sx") > /dev/null 2>&1; then
