@@ -141,7 +141,9 @@ two-assignment expression reuses the generic expression parser. Fortfront's
 initialized update parser now uses one operator/policy path and its variable
 PRINT batch dispatch derives metadata from the parsed count instead of one
 branch per historical item count. FFC's initialized variable arithmetic uses
-one parameterized MIR path without operator-specific wrappers. The central gate
+one parameterized MIR path without operator-specific wrappers, and its legacy
+PRINT route matcher uses one count-driven check for consecutive literal routes.
+The central gate
 `bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
 expression parsing, assignment sequences, and broader language coverage remain
 open.
