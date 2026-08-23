@@ -4,12 +4,7 @@ MAX_PARALLEL_WORKERS: 8
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier:
-  - T-WAVE-E-standard-cli-pdfstandardir
-  - T-WAVE-E-standard-cli-pdfvalidity
-  - T-WAVE-E-standard-cli-grammar-export
-  - T-WAVE-E-standard-cli-statement-sequence
-  - T-WAVE-E-standard-cli-boundary-map
+ready_frontier: []
 
 controller_ownership:
   owner: controller
@@ -68,7 +63,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-WAVE-E-standard-cli-suite-repair
+active_task: T-WAVE-H-central-power-replay-oracle
 
 milestones:
   - id: L0
@@ -13964,10 +13959,10 @@ tasks:
   - id: T-WAVE-E-standard-cli-suite-repair
     milestone: L3
     title: Repair the five stale StandardIR CLI test controls
-    status: OPEN
-    verification: OPEN
-    review_state: PENDING
-    review_verdict: PENDING
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
     priority: 240
     depends_on: [T-WAVE-D-ffc-suite-repair]
     children:
@@ -13982,25 +13977,27 @@ tasks:
       component: standard-new
       owner: controller
       central_writes: [STATUS.md, ROADMAP.md, TASK_POOL.yaml, repos.toml]
-    claim_status: OPEN
+    claim_status: CLOSED
     claim_id: CL-WAVE-E-standard-cli-suite-repair
     output: >-
-      five disjoint test-only repairs, full StandardIR suite PASS, central pins
-      unchanged except for the verified standard-new test commits
+      all child test-only repairs integrated at standard-new
+      ccf7c1425ef2c1a40d103c33c8e3c574c475cb72. The exact parent verifier
+      passes with deployed fo 2e956e245ffaf98a41c49b11cd8159dec1f1288c.
+      Production source and central contracts are unchanged
     integration: worker commits then controller cherry-pick, full suite, push, remote verification, and cleanup
     parallel_group: wave-e-standard-suite-repair
 
   - id: T-WAVE-E-standard-cli-pdfstandardir
     milestone: L3
     title: Repair the pdfstandardir CLI test build control
-    status: OPEN
-    verification: OPEN
-    review_state: PENDING
-    review_verdict: PENDING
-    leaf_status: OPEN
-    claim_status: OPEN
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
     claim_id: CL-WAVE-E-standard-cli-pdfstandardir
-    parent_status: OPEN
+    parent_status: PASS
     parent_id: T-WAVE-E-standard-cli-suite-repair
     depends_on: [T-WAVE-D-ffc-suite-repair]
     inputs:
@@ -14011,21 +14008,23 @@ tasks:
     verifier_command: >-
       (cd /home/ert/code/standard-new && fo test test_pdfstandardir)
     output: >-
-      focused pdfstandardir CLI test PASS with its target built when invoked;
-      no production source or provenance behavior changes
+      focused clean CLI oracle PASS. Worker commit
+      6926d88cfeb545701d04582cb6c66c4a3f1a7286 integrated as
+      09308f38ab2e1f5abcea123509b5874cba464261. No production source or
+      provenance behavior changes
     parallel_group: wave-e-standard-suite-repair
 
   - id: T-WAVE-E-standard-cli-pdfvalidity
     milestone: L3
     title: Repair the pdfvalidity CLI test build control
-    status: OPEN
-    verification: OPEN
-    review_state: PENDING
-    review_verdict: PENDING
-    leaf_status: OPEN
-    claim_status: OPEN
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
     claim_id: CL-WAVE-E-standard-cli-pdfvalidity
-    parent_status: OPEN
+    parent_status: PASS
     parent_id: T-WAVE-E-standard-cli-suite-repair
     depends_on: [T-WAVE-D-ffc-suite-repair]
     inputs:
@@ -14036,21 +14035,23 @@ tasks:
     verifier_command: >-
       (cd /home/ert/code/standard-new && fo test test_pdfvalidity)
     output: >-
-      focused pdfvalidity CLI test PASS with its target built when invoked;
-      no production source or provenance behavior changes
+      focused clean CLI oracle PASS. Worker commit
+      652d405b8f1971ef9bb519e6e8a10c1951695351 integrated as
+      6eeb53d9ff8dac6c82b2f23c0539394f4c13774c. No production source or
+      provenance behavior changes
     parallel_group: wave-e-standard-suite-repair
 
   - id: T-WAVE-E-standard-cli-grammar-export
     milestone: L3
     title: Repair the sxgrammar CLI test build control
-    status: OPEN
-    verification: OPEN
-    review_state: PENDING
-    review_verdict: PENDING
-    leaf_status: OPEN
-    claim_status: OPEN
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
     claim_id: CL-WAVE-E-standard-cli-grammar-export
-    parent_status: OPEN
+    parent_status: PASS
     parent_id: T-WAVE-E-standard-cli-suite-repair
     depends_on: [T-WAVE-D-ffc-suite-repair]
     inputs:
@@ -14061,21 +14062,23 @@ tasks:
     verifier_command: >-
       (cd /home/ert/code/standard-new && fo test test_standardir_grammar_export)
     output: >-
-      focused sxgrammar CLI test PASS with its target built when invoked;
-      no grammar generation behavior changes
+      focused clean CLI oracle PASS. Worker commit
+      abc31cb93a277a285ff8103077609869a4d8083c integrated as
+      f29e8f39e6ffbeba0558acf3d252d2d94cbdafe8. No grammar generation
+      behavior changes
     parallel_group: wave-e-standard-suite-repair
 
   - id: T-WAVE-E-standard-cli-statement-sequence
     milestone: L3
     title: Repair the sxstatementsequence CLI test build control
-    status: OPEN
-    verification: OPEN
-    review_state: PENDING
-    review_verdict: PENDING
-    leaf_status: OPEN
-    claim_status: OPEN
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
     claim_id: CL-WAVE-E-standard-cli-statement-sequence
-    parent_status: OPEN
+    parent_status: PASS
     parent_id: T-WAVE-E-standard-cli-suite-repair
     depends_on: [T-WAVE-D-ffc-suite-repair]
     inputs:
@@ -14086,21 +14089,23 @@ tasks:
     verifier_command: >-
       (cd /home/ert/code/standard-new && fo test test_sxstatementsequence_cli)
     output: >-
-      focused sxstatementsequence CLI test PASS with its target built when
-      invoked; no statement-sequence behavior changes
+      focused clean CLI oracle PASS. Worker final commit
+      6df75eb36f4f5e658648397a1fec5c0fdd30f8d5 reduced to the minimal
+      integrated commit ccf7c1425ef2c1a40d103c33c8e3c574c475cb72. No
+      statement-sequence behavior changes
     parallel_group: wave-e-standard-suite-repair
 
   - id: T-WAVE-E-standard-cli-boundary-map
     milestone: L3
     title: Repair the sxstatementboundarymap CLI test build control
-    status: OPEN
-    verification: OPEN
-    review_state: PENDING
-    review_verdict: PENDING
-    leaf_status: OPEN
-    claim_status: OPEN
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
     claim_id: CL-WAVE-E-standard-cli-boundary-map
-    parent_status: OPEN
+    parent_status: PASS
     parent_id: T-WAVE-E-standard-cli-suite-repair
     depends_on: [T-WAVE-D-ffc-suite-repair]
     inputs:
@@ -14111,9 +14116,102 @@ tasks:
     verifier_command: >-
       (cd /home/ert/code/standard-new && fo test test_sxstatementboundarymap_cli)
     output: >-
-      focused sxstatementboundarymap CLI test PASS with its target built when
-      invoked; no statement-boundary behavior changes
+      focused clean CLI oracle PASS. Worker commit
+      74aa787937a5ff7712cea8bfdfeabd3c28c4fa07 integrated as
+      415657a23ef47b179f4cb255cdb5408fb9e22e06. No statement-boundary
+      behavior changes
     parallel_group: wave-e-standard-suite-repair
+
+  - id: T-WAVE-F-frontend-en-dash-replay-repair
+    milestone: L3
+    title: Repair the retained UTF-8 subtraction route under clean CLI replay
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    claim_id: CL-WAVE-F-frontend-en-dash-replay-repair
+    parent_status: OPEN
+    parent_id: L3
+    priority: 250
+    depends_on: [T-WAVE-E-standard-cli-suite-repair]
+    inputs:
+      component: fortfront-new
+      base_commit: ac1b669d6664449bf9a5d7322e2e88e8a23a5b37
+      failing_fixture: tests/fixtures/l3-ast-program-print-variable-subtract-expression-v1.f90
+    writes:
+      - fortfront-new/src/fortfront_program_unit_v2.f90
+      - fortfront-new/test/test_frontend_program_unit_v2_initialized_subtraction.f90
+    verifier_command: >-
+      (cd /home/ert/code/lazy-fortran-new && bash tests/e2e/check-generated-chain.sh)
+    output: >-
+      worker final commit 76c6d4feb12f964564831d9f236d42f845938dc4
+      integrated as fortfront-new 7604765b6a0e93c7b59bf530e16ea5710ad75be1.
+      Clean CLI replay accepts the retained source-backed UTF-8 subtraction
+      fixture with exact provenance and spans; malformed and out-of-policy
+      neighbours reject. The component suite and 146-route central chain pass
+    parallel_group: wave-f-frontend-replay-repair
+
+  - id: T-WAVE-G-central-operator-controls
+    milestone: L3
+    title: Repair retained central operator mutation controls
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    claim_id: CL-WAVE-G-central-operator-controls
+    parent_status: OPEN
+    parent_id: L3
+    priority: 260
+    depends_on: [T-WAVE-F-frontend-en-dash-replay-repair]
+    inputs:
+      component: lazy-fortran-new
+      base_commit: 9bf754c0372319f81496044c47e0e9bc24ed7478
+      accepted_mutation: generated-policy-valid multiplication
+    writes:
+      - tests/negative/l3-ast-program-print-variable-divide-expression-wrong-operator-v1.f90
+      - tests/negative/l3-ast-program-print-variable-power-expression-wrong-operator-v1.f90
+      - tests/negative/l3-ast-program-print-variable-power-value-wrong-operator-v1.f90
+    verifier_command: >-
+      (cd /home/ert/code/lazy-fortran-new && bash tests/e2e/check-generated-chain.sh)
+    output: >-
+      retained divide and power operator controls now use unsupported percent
+      neighbours and reject under the current generated frontend policy; the
+      146-route central chain passes
+    parallel_group: wave-g-central-suite-repair
+
+  - id: T-WAVE-H-central-power-replay-oracle
+    milestone: L3
+    title: Reconcile retained power replay spans and ELF identity
+    status: PASS
+    verification: PASS
+    review_state: SKIPPED
+    review_verdict: SKIPPED
+    leaf_status: PASS
+    claim_status: CLOSED
+    claim_id: CL-WAVE-H-central-power-replay-oracle
+    parent_status: OPEN
+    parent_id: L3
+    priority: 270
+    depends_on: [T-WAVE-G-central-operator-controls]
+    inputs:
+      component: lazy-fortran-new
+      base_commit: 9bf754c0372319f81496044c47e0e9bc24ed7478
+      frontend_commit: 7604765b6a0e93c7b59bf530e16ea5710ad75be1
+      backend_commit: 6850db72f71bd8613af90575a5953c6449489594
+    writes:
+      - tests/e2e/oracle_generated_chain.py
+    verifier_command: >-
+      (cd /home/ert/code/lazy-fortran-new && bash tests/e2e/check-generated-chain.sh)
+    output: >-
+      initializer and expression spans are derived from each bounded power
+      route, and the second power ELF identity matches the current runtime
+      variable-power lowering. Both qemu outputs, artifact mutations and all
+      146 central routes pass
+    parallel_group: wave-h-central-suite-repair
 
 integration_cycle:
   triggers:

@@ -483,6 +483,20 @@ test-only scopes repair the remaining full-suite negative controls at
 and the central generated-chain replay pass. Production source and central
 contracts were unchanged.
 
+Wave E is complete as `T-WAVE-E-standard-cli-suite-repair`. Its stale
+StandardIR CLI build controls now build each required app target on first use
+at `ccf7c1425ef2c1a40d103c33c8e3c574c475cb72`. The exact parent command
+`(cd /home/ert/code/standard-new && fo clean && fo && fo test --all)` passes.
+Production source and central contracts were unchanged.
+
+Wave F is complete as `T-WAVE-F-frontend-en-dash-replay-repair` at
+`fortfront-new` `7604765b6a0e93c7b59bf530e16ea5710ad75be1`. Clean CLI
+replay now preserves the retained en-dash operator, caller source hash and
+exact assignment spans while malformed neighbours still reject. Waves G and
+H repaired three obsolete operator controls and the stale power replay span
+and ELF expectations. `bash tests/e2e/check-generated-chain.sh` passes all 146
+routes.
+
 ## Component pins
 
 These are the clean component revisions currently pinned by the control plane.
@@ -491,8 +505,8 @@ with `scripts/check_pins.sh` after changing a component pin.
 
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
-| standard-new | lazy-fortran/standard-new | `9591841ccfbf9514819c765bbda4d6820f1b6f68` | normative source → StandardIR | schema declaration-count repair; focused gate passes; full suite retains six unrelated legacy CLI/timeout failures |
-| fortfront-new | lazy-fortran/fortfront-new | `ac1b669d6664449bf9a5d7322e2e88e8a23a5b37` | frontend | five generated-policy-aligned negative controls; `fo clean && fo` and `fo test --all` pass |
+| standard-new | lazy-fortran/standard-new | `ccf7c1425ef2c1a40d103c33c8e3c574c475cb72` | normative source → StandardIR | CLI build-control repairs with `fo clean && fo` and `fo test --all` passing |
+| fortfront-new | lazy-fortran/fortfront-new | `7604765b6a0e93c7b59bf530e16ea5710ad75be1` | frontend | exact UTF-8 subtraction provenance repair with `fo clean && fo` and `fo test --all` passing |
 | ffc-new | lazy-fortran/ffc-new | `8bfa92f205a42f474653aaa4350ac03d685f19c7` | compiler driver and middle end | nine AST-v2 plus two AST-v1/v2 full-suite negative-control repairs; `fo clean && fo` and `fo test --all` pass |
 | fortback-new | lazy-fortran/fortback-new | `6850db72f71bd8613af90575a5953c6449489594` | backend | three bounded-route mutation controls; `fo clean && fo test --all` passes |
 

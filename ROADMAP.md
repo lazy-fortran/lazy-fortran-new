@@ -72,9 +72,9 @@ checking the correspondence and output class, and executes it under
 not arbitrary Fortran or full M3. The latest wave also moved the program
 grammar and frontend/MIR bridge source-rule policies into generated artifacts.
 The post-integration component gates and central COMPLEX replay also pass. The
-focused StandardIR grammar-fact gate and the central generated chain pass; the
-StandardIR full suite still has the pre-existing schema declaration-count
-failure. The following parallel wave also generates the StandardIR lexical
+focused StandardIR grammar-fact gate, the full StandardIR suite and the
+central generated chain pass. The following parallel wave also generates the
+StandardIR lexical
 constructor, typed-AST cardinality policies at the frontend and MIR boundary,
 and the RISC-V Linux ecall emission policy. The central replay now runs the
 generated StandardIR lexical gate before the source-to-executable chain.
@@ -149,6 +149,20 @@ and the controller verifier
 `scripts/check_pins.sh && scripts/check-contracts.sh && bash
 tests/e2e/check-generated-chain.sh` pass. No production source or central
 contract changed.
+Wave E, `T-WAVE-E-standard-cli-suite-repair`, is complete at `standard-new`
+`ccf7c1425ef2c1a40d103c33c8e3c574c475cb72`. The stale CLI controls now build
+their required app targets on first use, and
+`(cd /home/ert/code/standard-new && fo clean && fo && fo test --all)` passes.
+This is a test-only repair. Production source and central contracts are
+unchanged.
+Wave F, `T-WAVE-F-frontend-en-dash-replay-repair`, is complete at
+`fortfront-new` `7604765b6a0e93c7b59bf530e16ea5710ad75be1`. The retained
+UTF-8 subtraction route now preserves its exact operator, caller source hash
+and assignment spans under clean CLI replay. Waves G and H repair three stale
+source mutation controls and route-derived power spans, and rebind the second
+power ELF identity to the current backend implementation. The complete gate
+passes 146 routes; regenerate that count with
+`bash tests/e2e/check-generated-chain.sh`.
 The next parallel slice adds source-backed R1033 `assignment-stmt is variable =
 expr`: generated StandardIR grammar fact, generated frontend assignment AST,
 generated MIR `store`/`return` with source rule `frontend-ast-v1/assignment`,

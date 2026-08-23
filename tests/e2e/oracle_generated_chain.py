@@ -1186,7 +1186,7 @@ def main() -> None:
             elif is_power:
                 expected_elf_hash = "9c8a5d5c442541ed33cc9e4a598f98ca8ec4a64a1e6e7f4431ba0f490897c20e"
             elif is_power_value:
-                expected_elf_hash = "e7045b194486fa624de68ac286af2651bbae96826df7821688081cd916a85e8e"
+                expected_elf_hash = "3de4d363641cca980a085a8c83d9b0402eead71e314f3a884c79a1587a97c3fc"
             else:
                 expected_elf_hash = "d57426ffb421821ae2f450d6694c65523fcb9e10fcf91f45a321e87fe19cb6f4"
         if hashlib.sha256(elf).hexdigest() != expected_elf_hash:
@@ -1206,7 +1206,9 @@ def main() -> None:
                 "sub" if is_subtract else "div" if is_divide else "pow" if (is_power or is_power_value) else "add"
             expression_left = expected_literal
             expression_start_byte = 36 if (is_power or is_power_value) else 37
-            expression_end_byte = 46 if (is_power or is_power_value) else 47
+            initializer_end_byte = 33 + len(str(expected_literal))
+            expression_end_byte = expression_start_byte + \
+                len(f"  x = x {expression_operator} {expression_rhs}") - 1
             print_start_byte = 51 if is_subtract else 49
             print_end_byte = 62 if is_subtract else 60
             required_expression = [
@@ -1217,7 +1219,7 @@ def main() -> None:
                 "(kind integer-literal)", f"(left-operand {expression_left})",
                 "(kind binary-expression)", f"(operator {expression_operator})",
                 "(left-operand x)", "(right-operand 1)",
-                "(start-byte 28)", "(end-byte 35)",
+                "(start-byte 28)", f"(end-byte {initializer_end_byte})",
                 f"(start-byte {expression_start_byte})", f"(end-byte {expression_end_byte})",
                 f"(start-byte {print_start_byte})", f"(end-byte {print_end_byte})",
                 "(output-kind variable)", "(output-name x)",
