@@ -188,7 +188,7 @@ generic-item routes remain explicit. Stored-variable PRINT routes for counts
 oracle mode names for counts 2 through 6. That replay discovers fixture keys
 and item counts from the source files instead of carrying a number-to-name
 dispatch. The central gate
-`bash tests/e2e/check-generated-chain.sh` passes 147 routes. General
+`bash tests/e2e/check-generated-chain.sh` passes 148 routes. General
 Pure-literal PRINT routes use the same fixture-driven discovery and derive
 their oracle mode from the source item count.
 Assignment-sequence routes likewise derive their count and matching negative
@@ -207,6 +207,10 @@ signed integer values through AST-v2, MIR, RISC-V, and qemu. The central replay
 checks `counter_2 = 42`, a malformed PRINT neighbor, AST/MIR mutations, and
 exact `42` output. General declarations, expressions, and statement parsing
 remain open.
+The same raw route now carries `counter_2 = 42` followed by
+`counter_2 = counter_2 + 1`
+through the shared binary-expression path with exact `43` output. General
+expression coverage remains open.
 The raw-source program-unit envelope and legacy PRINT compatibility fields
 remain explicit. Genericizing either is deferred until it reduces total review
 surface without changing the public SX shape.

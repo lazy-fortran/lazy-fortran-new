@@ -22,13 +22,17 @@ subtraction_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-
 literal_assignment_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-7-assignment-v1.f90"
 literal_boundary_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-literal-2047-assignment-v1.f90"
 variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-variable-add-assignment-v1.f90"
-sequence_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-two-assignment-v1.f90"
+sequence_two_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-two-assignment-v1.f90"
+sequence_source_file="$sequence_two_source_file"
+sequence_five_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-five-assignment-v1.f90"
+sequence_six_source_file="$ROOT/tests/fixtures/l3-ast-program-integer-six-assignment-v1.f90"
 stop_source_file="$ROOT/tests/fixtures/l3-ast-program-stop-7-v1.f90"
 print_source_file="$ROOT/tests/fixtures/l3-ast-program-print-7-v1.f90"
 print_generic_item_source_file="$ROOT/tests/fixtures/l3-ast-program-print-generic-items-v1.f90"
 print_variable_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-v1.f90"
 print_variable_23_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-23-v1.f90"
 raw_scalar_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-v0.f90"
+raw_scalar_add_source_file="$ROOT/tests/fixtures/l3-print-variable-generic-raw-counter-add-v0.f90"
 print_variable_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-expression-v1.f90"
 print_variable_multiply_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-multiply-expression-v1.f90"
 print_variable_subtract_expression_source_file="$ROOT/tests/fixtures/l3-ast-program-print-variable-subtract-expression-v1.f90"
@@ -66,6 +70,16 @@ negative_sequence_files=(
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-missing-second-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-wrong-operator-v1.f90"
 )
+negative_sequence_five_files=(
+    "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-missing-fifth-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-wrong-variable-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-wrong-operator-v1.f90"
+)
+negative_sequence_six_files=(
+    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-missing-sixth-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-wrong-variable-v1.f90"
+    "$ROOT/tests/negative/l3-ast-program-integer-six-assignment-wrong-operator-v1.f90"
+)
 negative_stop_files=(
     "$ROOT/tests/negative/l3-ast-program-stop-8-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-stop-missing-code-v1.f90"
@@ -91,6 +105,9 @@ negative_print_variable_23_files=(
 )
 negative_raw_scalar_files=(
     "$ROOT/tests/negative/l3-print-variable-generic-raw-counter-wrong-print-v0.f90"
+)
+negative_raw_scalar_add_files=(
+    "$ROOT/tests/negative/l3-print-variable-generic-raw-counter-add-wrong-print-v0.f90"
 )
 negative_print_variable_expression_files=(
     "$ROOT/tests/negative/l3-ast-program-print-variable-expression-wrong-name-v1.f90"
@@ -1178,6 +1195,46 @@ for variable_source_file in "$ROOT"/tests/fixtures/l3-ast-program-print-variable
     fi
 done
 
+raw_scalar_add_ast_file="$run_dir/raw-scalar-add.frontend.ast.sx"
+raw_scalar_add_mir_file="$run_dir/raw-scalar-add.mir.sx"
+raw_scalar_add_elf_file="$run_dir/raw-scalar-add.program.elf"
+raw_scalar_add_output_file="$run_dir/raw-scalar-add.stdout"
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$raw_scalar_add_source_file" \
+        "$raw_scalar_add_ast_file") > /dev/null 2>&1
+(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$raw_scalar_add_ast_file" \
+        "$raw_scalar_add_mir_file") > /dev/null 2>&1
+(cd "$backend" && fo exec fortback-mir-v0 "$raw_scalar_add_mir_file" \
+        "$raw_scalar_add_elf_file") > /dev/null 2>&1
+for negative_raw_scalar_add in "${negative_raw_scalar_add_files[@]}"; do
+    rm -f "$run_dir/raw-scalar-add.negative.ast.sx"
+    if (cd "$frontend" && fo exec fortfront-program-unit-v2 "$negative_raw_scalar_add" \
+            "$run_dir/raw-scalar-add.negative.ast.sx") > /dev/null 2>&1; then
+        printf '%s\n' 'invalid raw scalar add source was accepted' >&2
+        exit 1
+    fi
+    [ ! -e "$run_dir/raw-scalar-add.negative.ast.sx" ]
+done
+qemu-riscv64 "$raw_scalar_add_elf_file" > "$raw_scalar_add_output_file"
+printf '43\n' | cmp -s - "$raw_scalar_add_output_file"
+python3 "$oracle" "$raw_scalar_add_ast_file" "$raw_scalar_add_mir_file" \
+    "$raw_scalar_add_elf_file" main integer print-variable-raw-add "$raw_scalar_add_source_file"
+sed '0,/(operator +)/s//(operator -)/' "$raw_scalar_add_ast_file" \
+    > "$run_dir/raw-scalar-add.mutated-operator.ast.sx"
+if python3 "$oracle" "$run_dir/raw-scalar-add.mutated-operator.ast.sx" "$raw_scalar_add_mir_file" \
+        "$raw_scalar_add_elf_file" main integer print-variable-raw-add "$raw_scalar_add_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'raw scalar add AST operator mutation was accepted' >&2
+    exit 1
+fi
+sed '0,/(literal 1)/s//(literal 2)/' "$raw_scalar_add_mir_file" \
+    > "$run_dir/raw-scalar-add.mutated-literal.mir.sx"
+if python3 "$oracle" "$raw_scalar_add_ast_file" "$run_dir/raw-scalar-add.mutated-literal.mir.sx" \
+        "$raw_scalar_add_elf_file" main integer print-variable-raw-add "$raw_scalar_add_source_file" \
+        > /dev/null 2>&1; then
+    printf '%s\n' 'raw scalar add MIR literal mutation was accepted' >&2
+    exit 1
+fi
+
 raw_scalar_ast_file="$run_dir/raw-scalar.frontend.ast.sx"
 raw_scalar_mir_file="$run_dir/raw-scalar.mir.sx"
 raw_scalar_elf_file="$run_dir/raw-scalar.program.elf"
@@ -1279,7 +1336,7 @@ python3 "$oracle" "$envelope_six_ast_file" "$envelope_six_mir_file" \
 envelope_ast_file="$run_dir/envelope.frontend.ast.sx"
 envelope_mir_file="$run_dir/envelope.mir.sx"
 envelope_elf_file="$run_dir/envelope.program.elf"
-(cd "$frontend" && fo exec fortfront-program-unit-v2 "$sequence_source_file" \
+(cd "$frontend" && fo exec fortfront-program-unit-v2 "$sequence_two_source_file" \
         "$envelope_ast_file") > /dev/null 2>&1
 (cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$envelope_ast_file" \
         "$envelope_mir_file") > /dev/null 2>&1
@@ -1303,11 +1360,12 @@ fi
 python3 "$oracle" "$envelope_ast_file" "$envelope_mir_file" \
     "$envelope_elf_file" main integer envelope
 
-oracle_route_count="$(grep -c '^generated chain oracle: accepted$' "$run_dir/transcript.log")"
+oracle_route_count="$(grep -Ec '^generated chain( raw scalar)? oracle: accepted$' \
+    "$run_dir/transcript.log")"
 cat "$run_dir/transcript.log" >&3
 exec >&3
-if [ "$oracle_route_count" -ne 147 ]; then
-    printf 'generated chain route count: expected 147, got %s\n' \
+if [ "$oracle_route_count" -ne 148 ]; then
+    printf 'generated chain route count: expected 148, got %s\n' \
         "$oracle_route_count" >&2
     exit 1
 fi
