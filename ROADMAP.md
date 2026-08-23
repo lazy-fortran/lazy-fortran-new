@@ -162,8 +162,8 @@ oracle mode names for counts 2 through 6. The central gate
 binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
 branch. General expression parsing, assignment sequences, and broader language
-coverage remain open. FFC now has a generic AST-v1 assignment-sequence fallback
-for legal identifiers and integer literals. Fortback now derives the repeated
+coverage remain open. FFC now uses generic AST-v1 assignment-sequence lowering
+as the primary path for legal identifiers and integer literals. Fortback now derives the repeated
 generated PRINT route-operation pattern from a compact rule with boundary
 controls while retaining explicit exceptional route facts. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.

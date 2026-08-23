@@ -524,7 +524,7 @@ promoted.
 
 The current generic continuation is pushed at `fortfront-new`
 `9845ba70ecbc76c57b686c9132abd5190d639c48`, `ffc-new`
-`61fccc517f405996c213d57ff5dd3f4e0500f63e`. Its full `fo` gate passes, and
+`8e38f18c40187dd4b285bfd0486ca8de9571d79c`. Its full `fo` gate passes, and
 the central replay passes 146 routes. Fortfront now parses bounded PRINT
 expression items through one typed path and uses one operator/policy path for
 initialized updates; its variable PRINT batch metadata derives from the parsed
@@ -533,7 +533,8 @@ sequence assembly reuses one typed repeated-assignment path with generic span
 calculation. Its generated PRINT policy validates legal variable names and the
 declared scalar value range. FFC validates the AST-v2 and now falls back from
 exact route keys to generic MIR construction for legal AST-v1 assignment
-identifiers and integer literals. Fortback now derives the repeated generated
+identifiers and integer literals, and its AST-v1 assignment-sequence API now
+uses that generic path directly. Fortback now derives the repeated generated
 PRINT route-operation pattern from a compact rule with boundary controls while
 retaining explicit exceptional route facts. FFC validates the AST-v2
 two-assignment expression through its generic expression parser and uses one
@@ -563,7 +564,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
 | fortfront-new | lazy-fortran/fortfront-new | `9845ba70ecbc76c57b686c9132abd5190d639c48` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, count-derived PRINT batches, compact repeated assignment-sequence assembly, and generated PRINT validation for legal variable names and the declared scalar value range, with `fo` passing |
-| ffc-new | lazy-fortran/ffc-new | `61fccc517f405996c213d57ff5dd3f4e0500f63e` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, one parameterized initialized literal-binary path, one parameterized AST-v2 literal-list validator, and generic AST-v1 assignment-sequence lowering fallback, with `fo` passing |
+| ffc-new | lazy-fortran/ffc-new | `8e38f18c40187dd4b285bfd0486ca8de9571d79c` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, one parameterized initialized literal-binary path, one parameterized AST-v2 literal-list validator, and direct generic AST-v1 assignment-sequence lowering, with `fo` passing |
 | fortback-new | lazy-fortran/fortback-new | `c6d7203248e1d7fe4232ee69597d1a7f58edf29c` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, one count-driven variable PRINT validator, shared initialized-expression validation, and compact generated PRINT route-operation facts with boundary controls, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence
