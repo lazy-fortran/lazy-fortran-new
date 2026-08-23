@@ -163,6 +163,8 @@ dispatch. The central gate
 `bash tests/e2e/check-generated-chain.sh` passes 146 routes. General
 Pure-literal PRINT routes use the same fixture-driven discovery and derive
 their oracle mode from the source item count.
+Assignment-sequence routes likewise derive their count and matching negative
+controls from the fixture files.
 binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
 branch. General expression parsing, assignment sequences, and broader language
