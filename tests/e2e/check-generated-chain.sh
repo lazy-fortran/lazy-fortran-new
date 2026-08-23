@@ -622,129 +622,14 @@ fi
 python3 "$oracle" "$sequence_ast_file" "$sequence_mir_file" \
     "$sequence_elf_file" main integer sequence
 
-sequence_three_ast_file="$run_dir/sequence-three.frontend.ast.sx"
-sequence_three_mir_file="$run_dir/sequence-three.mir.sx"
-sequence_three_elf_file="$run_dir/sequence-three.program.elf"
-(cd "$frontend" && fo exec fortfront-source-ast-v1 "$sequence_three_source_file" \
-        "$sequence_three_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$sequence_three_ast_file" \
-        "$sequence_three_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$sequence_three_mir_file" \
-        "$sequence_three_elf_file") > /dev/null 2>&1
-for negative_sequence_three in "${negative_sequence_three_files[@]}"; do
-    rm -f "$run_dir/negative-sequence-three.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_sequence_three" \
-            "$run_dir/negative-sequence-three.ast.sx") > /dev/null 2>&1; then
-        if grep -q '^(assignment-sequence ' "$run_dir/negative-sequence-three.ast.sx" && \
-                grep -q '(assignment-count 3)' "$run_dir/negative-sequence-three.ast.sx"; then
-            printf '%s\n' 'invalid three-assignment sequence source was promoted' >&2
-            exit 1
-        fi
-    else
-        [ ! -e "$run_dir/negative-sequence-three.ast.sx" ]
-    fi
-done
-if qemu-riscv64 "$sequence_three_elf_file" > /dev/null; then
-    sequence_three_status=0
-else
-    sequence_three_status=$?
-fi
-[ "$sequence_three_status" -eq 9 ]
-python3 "$oracle" "$sequence_three_ast_file" "$sequence_three_mir_file" \
-    "$sequence_three_elf_file" main integer sequence-3
-
-sequence_four_ast_file="$run_dir/sequence-four.frontend.ast.sx"
-sequence_four_mir_file="$run_dir/sequence-four.mir.sx"
-sequence_four_elf_file="$run_dir/sequence-four.program.elf"
-(cd "$frontend" && fo exec fortfront-source-ast-v1 "$sequence_four_source_file" \
-        "$sequence_four_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$sequence_four_ast_file" \
-        "$sequence_four_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$sequence_four_mir_file" \
-        "$sequence_four_elf_file") > /dev/null 2>&1
-for negative_sequence_four in "${negative_sequence_four_files[@]}"; do
-    rm -f "$run_dir/negative-sequence-four.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_sequence_four" \
-            "$run_dir/negative-sequence-four.ast.sx") > /dev/null 2>&1; then
-        if grep -q '^(assignment-sequence ' "$run_dir/negative-sequence-four.ast.sx" && \
-                grep -q '(assignment-count 4)' "$run_dir/negative-sequence-four.ast.sx"; then
-            printf '%s\n' 'invalid four-assignment sequence source was promoted' >&2
-            exit 1
-        fi
-    else
-        [ ! -e "$run_dir/negative-sequence-four.ast.sx" ]
-    fi
-done
-if qemu-riscv64 "$sequence_four_elf_file" > /dev/null; then
-    sequence_four_status=0
-else
-    sequence_four_status=$?
-fi
-[ "$sequence_four_status" -eq 10 ]
-python3 "$oracle" "$sequence_four_ast_file" "$sequence_four_mir_file" \
-    "$sequence_four_elf_file" main integer sequence-4
-
-sequence_five_ast_file="$run_dir/sequence-five.frontend.ast.sx"
-sequence_five_mir_file="$run_dir/sequence-five.mir.sx"
-sequence_five_elf_file="$run_dir/sequence-five.program.elf"
-(cd "$frontend" && fo exec fortfront-source-ast-v1 "$sequence_five_source_file" \
-        "$sequence_five_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$sequence_five_ast_file" \
-        "$sequence_five_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$sequence_five_mir_file" \
-        "$sequence_five_elf_file") > /dev/null 2>&1
-for negative_sequence_five in "${negative_sequence_five_files[@]}"; do
-    rm -f "$run_dir/negative-sequence-five.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_sequence_five" \
-            "$run_dir/negative-sequence-five.ast.sx") > /dev/null 2>&1; then
-        if grep -q '^(assignment-sequence ' "$run_dir/negative-sequence-five.ast.sx" && \
-                grep -q '(assignment-count 5)' "$run_dir/negative-sequence-five.ast.sx"; then
-            printf '%s\n' 'invalid five-assignment sequence source was promoted' >&2
-            exit 1
-        fi
-    else
-        [ ! -e "$run_dir/negative-sequence-five.ast.sx" ]
-    fi
-done
-if qemu-riscv64 "$sequence_five_elf_file" > /dev/null; then
-    sequence_five_status=0
-else
-    sequence_five_status=$?
-fi
-[ "$sequence_five_status" -eq 11 ]
-python3 "$oracle" "$sequence_five_ast_file" "$sequence_five_mir_file" \
-    "$sequence_five_elf_file" main integer sequence-5
-
-sequence_six_ast_file="$run_dir/sequence-six.frontend.ast.sx"
-sequence_six_mir_file="$run_dir/sequence-six.mir.sx"
-sequence_six_elf_file="$run_dir/sequence-six.program.elf"
-(cd "$frontend" && fo exec fortfront-source-ast-v1 "$sequence_six_source_file" \
-        "$sequence_six_ast_file") > /dev/null 2>&1
-(cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$sequence_six_ast_file" \
-        "$sequence_six_mir_file") > /dev/null 2>&1
-(cd "$backend" && fo exec fortback-mir-v0 "$sequence_six_mir_file" \
-        "$sequence_six_elf_file") > /dev/null 2>&1
-for negative_sequence_six in "${negative_sequence_six_files[@]}"; do
-    rm -f "$run_dir/negative-sequence-six.ast.sx"
-    if (cd "$frontend" && fo exec fortfront-source-ast-v1 "$negative_sequence_six" \
-            "$run_dir/negative-sequence-six.ast.sx") > /dev/null 2>&1; then
-        if grep -q '^(assignment-sequence ' "$run_dir/negative-sequence-six.ast.sx" && \
-                grep -q '(assignment-count 6)' "$run_dir/negative-sequence-six.ast.sx"; then
-            printf '%s\n' 'invalid six-assignment sequence source was promoted' >&2
-            exit 1
-        fi
-    else
-        [ ! -e "$run_dir/negative-sequence-six.ast.sx" ]
-    fi
-done
-if qemu-riscv64 "$sequence_six_elf_file" > /dev/null; then
-    sequence_six_status=0
-else
-    sequence_six_status=$?
-fi
-[ "$sequence_six_status" -eq 12 ]
-python3 "$oracle" "$sequence_six_ast_file" "$sequence_six_mir_file" \
-    "$sequence_six_elf_file" main integer sequence-6
+run_sequence_batch_route 3 "$sequence_three_source_file" 9 sequence-3 \
+    "${negative_sequence_three_files[@]}"
+run_sequence_batch_route 4 "$sequence_four_source_file" 10 sequence-4 \
+    "${negative_sequence_four_files[@]}"
+run_sequence_batch_route 5 "$sequence_five_source_file" 11 sequence-5 \
+    "${negative_sequence_five_files[@]}"
+run_sequence_batch_route 6 "$sequence_six_source_file" 12 sequence-6 \
+    "${negative_sequence_six_files[@]}"
 
 run_sequence_batch_route 7 "$sequence_seven_source_file" 13 sequence-7
 run_sequence_batch_route 8 "$sequence_eight_source_file" 14 sequence-8
