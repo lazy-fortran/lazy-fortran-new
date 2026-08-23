@@ -526,7 +526,7 @@ with `scripts/check_pins.sh` after changing a component pin.
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
 | fortfront-new | lazy-fortran/fortfront-new | `2101b9fd92d5164b79e80804196bd47b7ff05a38` | frontend | transactional whole-stream lexical-to-grammar composition with independent ambiguous-token rollback coverage, with `fo clean && fo && fo test --all` passing |
-| ffc-new | lazy-fortran/ffc-new | `89b3c7f565b97a0fc6ed64e304dfcc1444494306` | compiler driver and middle end | source-order opcode-histogram table for validated MIR block ranges, with `fo clean && fo && fo test --all` passing |
+| ffc-new | lazy-fortran/ffc-new | `2bf05eea6ca605e10357f2bd5fb559985fb5933c` | compiler driver and middle end | source-order opcode-histogram table plus generic single integer-expression lowering with known-route fallback, with `fo clean && fo && fo test --all` passing |
 | fortback-new | lazy-fortran/fortback-new | `7fc98e57f5af357fd6130e01c50b2d1ff2c0a938` | backend | generated result-shape fact lookup plus transactional mixed source-record normalization and generic encoding, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence

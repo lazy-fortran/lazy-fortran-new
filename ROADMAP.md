@@ -109,6 +109,9 @@ worked. They are not architectural commitments.
 The first simplification slice has landed in `fortback-new`: result-shape
 validation now consumes a generated fact table through one generic lookup.
 The source-specific route and literal policies remain open for later slices.
+The next slice has landed in `ffc-new`: single integer expressions now use one
+generic operand/operator traversal and MIR sequence. AST-v2 routes and
+assignment sequences remain open for later slices.
 
 ## Current goal: generic scalar pipeline
 
