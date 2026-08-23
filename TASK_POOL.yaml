@@ -4,7 +4,11 @@ MAX_PARALLEL_WORKERS: 8
 
 # A task is READY when it is OPEN and its declared dependencies, immutable
 # inputs, verifier, output and ownership are all available.
-ready_frontier: []
+ready_frontier:
+  - T-WAVE-I-standardir-grammar-fact-table
+  - T-WAVE-I-frontend-lexical-grammar-session
+  - T-WAVE-I-ffc-block-opcode-histogram
+  - T-WAVE-I-fortback-r-format-batch
 
 controller_ownership:
   owner: controller
@@ -63,7 +67,7 @@ milestone_pass_requires:
   - regression-corpus entry
   - trace and artifact evidence
 
-active_task: T-WAVE-H-central-power-replay-oracle
+active_task: T-WAVE-I-reusable-scale-slices
 
 milestones:
   - id: L0
@@ -14212,6 +14216,145 @@ tasks:
       variable-power lowering. Both qemu outputs, artifact mutations and all
       146 central routes pass
     parallel_group: wave-h-central-suite-repair
+
+  - id: T-WAVE-I-reusable-scale-slices
+    milestone: L3
+    title: Scale reusable generated-compiler boundaries
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    claim_status: OPEN
+    claim_id: CL-WAVE-I-reusable-scale-slices
+    priority: 280
+    depends_on: [T-WAVE-H-central-power-replay-oracle]
+    children:
+      - T-WAVE-I-standardir-grammar-fact-table
+      - T-WAVE-I-frontend-lexical-grammar-session
+      - T-WAVE-I-ffc-block-opcode-histogram
+      - T-WAVE-I-fortback-r-format-batch
+    verifier_command: >-
+      scripts/check_pins.sh && scripts/check-contracts.sh &&
+      bash tests/e2e/check-generated-chain.sh
+    ownership:
+      component: standard-new/fortfront-new/ffc-new/fortback-new
+      owner: controller
+      central_writes: [STATUS.md, ROADMAP.md, TASK_POOL.yaml, repos.toml]
+    output: >-
+      all child reusable-boundary commits, focused independent oracles,
+      full component gates, central replay, remote-main verification and clean
+      task-worktree removal
+    integration: worker commits then controller review, cherry-pick, full gates, push, remote verification, central pin update, and cleanup
+    parallel_group: wave-i-reusable-scale-slices
+
+  - id: T-WAVE-I-standardir-grammar-fact-table
+    milestone: L3
+    title: Generate one ordered table over the source-backed grammar facts
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-I-standardir-grammar-fact-table
+    parent_status: OPEN
+    parent_id: T-WAVE-I-reusable-scale-slices
+    depends_on: [T-WAVE-H-central-power-replay-oracle]
+    inputs:
+      component: standard-new
+      base_commit: ccf7c1425ef2c1a40d103c33c8e3c574c475cb72
+      decisions: [D0076, D0078]
+    writes:
+      - standard-new/src/standardir_grammar_fact_codegen.f90
+      - standard-new/src/standardir_grammar_fact_table_generated.f90
+      - standard-new/test/test_generate_grammar_fact_table.f90
+      - standard-new/fpm.toml
+    verifier_command: >-
+      (cd /home/ert/code/standard-new && fo test test_generate_grammar_fact_table)
+    independent_oracle: independently specified ordered records, duplicate identifiers, provenance and unsupported lookup rejection
+    output: source-backed whole-set generated table with transactional malformed-input rejection
+    parallel_group: wave-i-reusable-scale-slices
+
+  - id: T-WAVE-I-frontend-lexical-grammar-session
+    milestone: L3
+    title: Feed source-preserving lexical tokens into the generic grammar session
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-I-frontend-lexical-grammar-session
+    parent_status: OPEN
+    parent_id: T-WAVE-I-reusable-scale-slices
+    depends_on: [T-WAVE-H-central-power-replay-oracle]
+    inputs:
+      component: fortfront-new
+      base_commit: 7604765b6a0e93c7b59bf530e16ea5710ad75be1
+      decisions: [D0075, D0076, D0078]
+    writes:
+      - fortfront-new/src/fortfront_lexical_grammar_session.f90
+      - fortfront-new/test/test_fortfront_lexical_grammar_session.f90
+      - fortfront-new/tools/oracle_lexical_grammar_session.py
+      - fortfront-new/fpm.toml
+    verifier_command: >-
+      (cd /home/ert/code/fortfront-new && fo test test_fortfront_lexical_grammar_session && python3 tools/oracle_lexical_grammar_session.py)
+    independent_oracle: standalone token-status and abstract-grammar model with ordered transactional controls
+    output: source-preserving token-stream adapter with explicit lexical and grammar outcomes and no Fortran-specific dispatch
+    parallel_group: wave-i-reusable-scale-slices
+
+  - id: T-WAVE-I-ffc-block-opcode-histogram
+    milestone: L3
+    title: Compute a target-independent opcode histogram for one MIR block range
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-I-ffc-block-opcode-histogram
+    parent_status: OPEN
+    parent_id: T-WAVE-I-reusable-scale-slices
+    depends_on: [T-WAVE-H-central-power-replay-oracle]
+    inputs:
+      component: ffc-new
+      base_commit: 8bfa92f205a42f474653aaa4350ac03d685f19c7
+      decision: D0078
+    writes:
+      - ffc-new/src/ffc_mir.f90
+      - ffc-new/test/test_mir_block_table_opcode_histogram.f90
+      - ffc-new/fpm.toml
+    verifier_command: >-
+      (cd /home/ert/code/ffc-new && fo test test_mir_block_table_opcode_histogram)
+    independent_oracle: test-local direct iteration over the selected raw instruction range with failure output clearing
+    output: complete block-local opcode histogram without a MIR contract or target behavior change
+    parallel_group: wave-i-reusable-scale-slices
+
+  - id: T-WAVE-I-fortback-r-format-batch
+    milestone: L3
+    title: Batch R-format source records into the normalized TargetIR table
+    status: OPEN
+    verification: OPEN
+    review_state: PENDING
+    review_verdict: PENDING
+    leaf_status: OPEN
+    claim_status: OPEN
+    claim_id: CL-WAVE-I-fortback-r-format-batch
+    parent_status: OPEN
+    parent_id: T-WAVE-I-reusable-scale-slices
+    depends_on: [T-WAVE-H-central-power-replay-oracle]
+    inputs:
+      component: fortback-new
+      base_commit: 6850db72f71bd8613af90575a5953c6449489594
+      decisions: [D0072, D0077, D0078]
+    writes:
+      - fortback-new/src/fortback_targetir_source_batch.f90
+      - fortback-new/test/test_targetir_source_batch.f90
+    verifier_command: >-
+      (cd /home/ert/code/fortback-new && fo test test_targetir_source_batch)
+    independent_oracle: independently encoded ADD and SUB words plus ordering, provenance and transactional malformed controls
+    output: normalized generated R-format record batching without mnemonic dispatch, MIR, ABI or contract changes
+    parallel_group: wave-i-reusable-scale-slices
 
 integration_cycle:
   triggers:
