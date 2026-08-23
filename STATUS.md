@@ -537,7 +537,8 @@ counts 2 through 10 use one parameterized emitter and validator, and its ten
 legacy literal-list emitters share one constructor, and its four bounded
 binary-expression parsers share one parameterized token walk, and its four
 initialized literal-binary lowering branches share one parameterized path. The
-verifier derives
+central replay's assignment routes for counts 3 through 6 now share the existing
+runner while count 2 retains its stricter negative control. The verifier derives
 stored-variable source spans from the pinned fixture, so it does not preserve
 old fixture-specific span constants. General expression parsing and assignment
 sequences remain open.
