@@ -63,6 +63,34 @@ of creating a new process to authorize the exception.
   development attempts need no permanent record beyond useful tests or commit
   history.
 
+## Minimum-surface rule
+
+The fastest route is the route that leaves the fewest lines for the next person
+to understand, verify, regenerate, and maintain. This is the primary design
+criterion for the active goal.
+
+For every proposed change, compare the complete result, including handwritten
+code, generator code, declarative input, generated output, tests, fixtures,
+documentation, schemas, coordination records, and review steps. Choose the
+change with the smaller total review surface when behavior and evidence are
+equivalent. Keep a larger local implementation only when it buys a measured
+capability, correctness property, performance result, or reusable mechanism.
+
+The default implementation unit is one existing capability, one smallest
+vertical change, one independent behavioral check, and one central replay.
+Ordinary work creates no new ledger, report, schema, generator, fixture family,
+or coordination procedure unless the existing interface cannot express the
+capability or the new artifact is required for an independent check. A goal is
+finished when its stated capability passes. It does not expand merely because
+adjacent improvements remain available.
+
+The specification-to-code pipeline remains justified only when its compact
+facts and generic consumers reduce this total surface. Deterministic
+extraction, checked LLM proposals, and optional specialization are means to
+that reduction. If a generator, compatibility layer, or generated table adds
+more review surface than the behavior it removes, keep the simpler explicit
+representation and record the boundary in the roadmap.
+
 ## Fast execution rule
 
 For two behavior-preserving designs, choose the one with the lower total
