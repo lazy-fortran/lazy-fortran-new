@@ -130,7 +130,7 @@ and cardinality bounds, repeated route scripts, and coordination text that
 outgrows the capability it describes. Those artifacts are evidence of what
 worked. They are not architectural commitments.
 
-The first simplification slice has landed across the scalar pipeline. The
+The first scalar-pipeline simplification is now in place. The
 frontend now allocates one `output-items` list for pure integer PRINT values.
 It now derives stored-variable PRINT lists from the existing initializer
 parser. FFC lowers both representations through one generic item traversal,
@@ -162,7 +162,9 @@ oracle mode names for counts 2 through 6. The central gate
 binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
 branch. General expression parsing, assignment sequences, and broader language
-coverage remain open.
+coverage remain open. FFC now has a generic AST-v1 assignment-sequence fallback
+for legal identifiers and integer literals. Raw-source program-unit assembly
+still has a generated PRINT-name policy boundary.
 
 ## Current goal: generic scalar pipeline
 
