@@ -526,8 +526,8 @@ L3. No central contract, parser dispatch, MIR schema, ABI or semantic fact was
 promoted.
 
 The current generic continuation is pushed at `fortfront-new`
-`064eb6f566abf97a6630093dd54ba68536f85332`, `ffc-new`
-`0f787ce87909c9a986104502a78e7a143e5cfd25`, and `fortback-new`
+`f5fb4cdff205a4ee33284661034c190adcd5eb71`, `ffc-new`
+`871fa3831d62c0d5246f8ada3c3d34f52d881f60`, and `fortback-new`
 `65664d24893fd91d7e39d603c3fbce52210280e4`. Their full `fo` gates pass, and
 `bash tests/e2e/check-generated-chain.sh` passes 151 routes. Fortfront now parses bounded PRINT
 expression items through one typed path and uses one operator/policy path for
@@ -592,9 +592,12 @@ bounded loop instead of a branch per count. Its AST-v1 assignment-sequence
 reader now parses one canonical numeric count and checks its bounds instead of
 a string ladder. The superseded private per-count
 source constants are deleted; the three public source facts remain for current
-frontend consumers. The legacy 2/5/6 assignment dispatch now selects its
-retained source hash from the parsed count rather than matching complete source
-strings.
+frontend consumers. Program-unit-v2 now accepts every bounded assignment count
+accepted by the typed sequence parser and stamps assignment spans with the
+caller source identity. FFC validates that identity against the program root
+instead of a 2/5/6 fixture-hash whitelist. The central replay keeps the
+backend-compatible v2 routes and uses the AST-v1 sequence route for counts
+whose v2 backend facts are not yet present.
 The typed assignment-sequence module no longer carries unused operator-specific
 two-assignment variants. Broader expression and statement parsing remain open.
 The raw scalar initialized-multiplication route now carries `counter_2 = 42`
@@ -619,8 +622,8 @@ with `scripts/check_pins.sh` after changing a component pin.
 | Component | Repository | Commit | Purpose | Local verification |
 |---|---|---|---|---|
 | standard-new | lazy-fortran/standard-new | `f6e9e5e2d47adeae7e45568f299997198d92bb1b` | normative source → StandardIR | generated fact collection, a valid zero-length batch fixture and the restored ordinary test target, with `fo clean && fo && fo test --all` passing |
-| fortfront-new | lazy-fortran/fortfront-new | `064eb6f566abf97a6630093dd54ba68536f85332` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, count-derived PRINT batches and source-derived batch spans, compact repeated assignment-sequence assembly, generated PRINT validation for legal variable names and the declared scalar value range, generic raw scalar initialized-update assembly, generic multiply, divide, power and Unicode en-dash subtraction update parsing, source-derived bounded assignment-sequence parsing, generic bounded assignment-sequence SX serialization, count-driven legacy 2/5/6 assignment dispatch, superseded private per-count source constants deleted, dead operator-specific two-assignment variants removed, and subtraction, multiplication and division AST-v2 regression coverage, with `fo` passing |
-| ffc-new | lazy-fortran/ffc-new | `0f787ce87909c9a986104502a78e7a143e5cfd25` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, one count-driven dispatch for large stored-variable PRINT emitters, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, one parameterized initialized literal-binary path, one parameterized AST-v2 literal-list validator, direct generic AST-v1 assignment-sequence lowering, generic AST-v2 raw assignment-sequence lowering, count-driven AST-v1 assignment-sequence parsing, generic raw scalar initialized-add, subtraction, multiplication and division lowering, one parameterized variable-binary expression recognizer, one shared assignment-expression serializer retaining four raw exceptions, one parameterized multiply/divide/subtract AST-v1 shape validator, one parameterized two-instruction scalar-program shape validator, one parameterized no-assignment scalar lowering helper, with `fo` passing |
+| fortfront-new | lazy-fortran/fortfront-new | `f5fb4cdff205a4ee33284661034c190adcd5eb71` | frontend | transactional whole-stream lexical-to-grammar composition plus generic PRINT expression items, initialized update policy, count-derived PRINT batches and source-derived batch spans, compact repeated assignment-sequence assembly, generated PRINT validation for legal variable names and the declared scalar value range, generic raw scalar initialized-update assembly, generic multiply, divide, power and Unicode en-dash subtraction update parsing, source-derived bounded assignment-sequence parsing, generic bounded assignment-sequence SX serialization, generic program-unit-v2 assignment counts and caller-identity spans, superseded private per-count source constants deleted, dead operator-specific two-assignment variants removed, and subtraction, multiplication and division AST-v2 regression coverage, with `fo` passing |
+| ffc-new | lazy-fortran/ffc-new | `871fa3831d62c0d5246f8ada3c3d34f52d881f60` | compiler driver and middle end | source-order opcode-histogram table, generic expression lowering, generic PRINT-list traversal, wrapper-free parameterized initialized arithmetic MIR paths, count-driven legacy PRINT route matching, parameterized variable PRINT emission for counts 2 through 10, one count-driven dispatch for large stored-variable PRINT emitters, shared literal-list emission, one parameterized bounded binary-expression parser, shared variable-binary lowering, one parameterized initialized literal-binary path, one parameterized AST-v2 literal-list validator, direct generic AST-v1 assignment-sequence lowering, generic AST-v2 raw assignment-sequence lowering, count-driven AST-v1 assignment-sequence parsing, generic raw scalar initialized-add, subtraction, multiplication and division lowering, one parameterized variable-binary expression recognizer, one shared assignment-expression serializer retaining four raw exceptions, one parameterized multiply/divide/subtract AST-v1 shape validator, one parameterized two-instruction scalar-program shape validator, one parameterized no-assignment scalar lowering helper, root-identity AST-v2 assignment provenance for the bounded sequence range, with `fo` passing |
 | fortback-new | lazy-fortran/fortback-new | `65664d24893fd91d7e39d603c3fbce52210280e4` | backend | generated result-shape fact lookup plus generic encoding for pure-literal and stored PRINT lists, one count-driven variable PRINT matcher covering the bounded item range, one count-driven variable PRINT validator, shared initialized-expression validation, compact generated PRINT route-operation facts with boundary controls, one count-driven storage-sequence encoder, one loop-based stored-variable PRINT encoder for counts three through one hundred with a distinct two-item prologue, generic legal scalar storage validation for initialized expressions, and counter subtraction, multiplication and division regression coverage, with `fo clean && fo && fo test --all` passing |
 
 ## Historical milestone evidence

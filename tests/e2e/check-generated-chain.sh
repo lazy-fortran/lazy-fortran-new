@@ -74,7 +74,6 @@ negative_sequence_files=(
     "$ROOT/tests/negative/l3-ast-program-integer-two-assignment-wrong-operator-v1.f90"
 )
 negative_sequence_five_files=(
-    "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-missing-fifth-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-wrong-variable-v1.f90"
     "$ROOT/tests/negative/l3-ast-program-integer-five-assignment-wrong-operator-v1.f90"
 )

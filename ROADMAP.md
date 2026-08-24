@@ -243,9 +243,14 @@ AST-v1 assignment-sequence reader now parses one canonical numeric count and
 checks its bounds instead of a string ladder.
 The superseded per-count source constants are deleted. The three public source
 facts remain because existing frontend routes consume them.
-The legacy 2/5/6 assignment dispatch now selects its retained source hash from
-the parsed count rather than matching complete source strings.
-Raw-source program-unit assembly remains open.
+The program-unit-v2 assignment path now accepts every count accepted by the
+bounded typed-sequence parser and stamps all assignment spans with the caller's
+source identity. FFC validates that identity against the program root instead
+of maintaining a 2/5/6 fixture-hash whitelist. The central replay keeps the
+existing backend-compatible v2 routes and continues to use the generic AST-v1
+sequence route for counts whose v2 backend facts are not yet present.
+Raw-source program-unit assembly is therefore generic at the frontend/FFC
+boundary for the bounded sequence range; backend v2 coverage remains open.
 The raw scalar program-unit route now carries legal variable names and bounded
 signed integer values through AST-v2, MIR, RISC-V, and qemu. The central replay
 checks `counter_2 = 42`, a malformed PRINT neighbor, AST/MIR mutations, and
