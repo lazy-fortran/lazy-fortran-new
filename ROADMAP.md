@@ -204,7 +204,10 @@ now validates legal variable names and the declared scalar value range.
 Fortfront's generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
 source-specific fallback construction. Its typed assignment-sequence module
-also no longer carries unused operator-specific two-assignment variants.
+also no longer carries unused operator-specific two-assignment variants, and
+its bounded 2--10 assignment parser now derives each assignment and span from
+the source envelope instead of a source-and-count ladder. Broader expression
+and statement parsing remain open.
 Raw-source program-unit assembly remains open.
 The raw scalar program-unit route now carries legal variable names and bounded
 signed integer values through AST-v2, MIR, RISC-V, and qemu. The central replay
