@@ -72,16 +72,6 @@ def main() -> None:
     requested_mode = mode
     if mode == "print-variable-expression":
         mode = "print-variable"
-    elif mode == "print-variable-two-item":
-        mode = "print-variable"
-    elif mode == "print-variable-three-item":
-        mode = "print-variable"
-    elif mode == "print-variable-four-item":
-        mode = "print-variable"
-    elif mode == "print-variable-five-item":
-        mode = "print-variable"
-    elif mode == "print-variable-six-item":
-        mode = "print-variable"
     elif mode.startswith("print-variable-") and mode.endswith("-item"):
         mode = "print-variable"
     type_shapes = {
@@ -261,184 +251,25 @@ def main() -> None:
     elif mode == "print-variable":
         if source_path is None:
             fail("stored-variable oracle requires a source fixture")
-        if requested_mode == "print-variable-two-item":
-            source_bytes = source_path.read_bytes()
-            expected_source = (
-                b"program main\n"
-                b"  integer :: x\n"
-                b"  x = 3\n"
-                b"  x = x ** 2\n"
-                b"  print *, x, x\n"
-                b"end program main\n"
-            )
-            if source_bytes != expected_source or \
-                    hashlib.sha256(source_bytes).hexdigest() != \
-                    "c7dc1f449caf651bdeea13f57a8921d3a3c4a7309d8ac87e276123cd0e0d8b35":
-                fail("stored-variable two-item source fixture bytes changed")
-            if hashlib.sha256(elf).hexdigest() != \
-                    "c44f212bed55cfdb7ff2d2d0ba8aa3d159ac1f603ff5e134fdc93c5046d02b1d":
-                fail("stored-variable two-item ELF identity changed")
-            expected_file_marker = f"(file {source_path})"
-            if ast.count("(file ") != 6 or ast.count(expected_file_marker) != 6 or \
-                    ast.count("(source-hash l3-raw-program-two-assignment-v1)") != 6:
-                fail("stored-variable two-item AST source identity is wrong")
-            required_two_item = [
-                "(program-unit-v2 ", "(root (program-root (name main)",
-                "(declaration-count 1)", "(variable-count 1)",
-                "(execution-part (assignment-sequence (assignment-count 2)",
-                "(kind integer-literal)", "(left-operand 3)",
-                "(kind binary-expression)", "(operator **)",
-                "(left-operand x)", "(right-operand 2)",
-                "(output-count 2)", "(output-kind variable)",
-                "(output-name x)", "(output-kind-2 variable)",
-                "(output-name-2 x)", "(statement-rule R1212)",
-                "(format-rule R1215)", "(output-rule R901)",
-                "(output-rule-2 R901)", "(source-document J3-24-007)",
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
-            ]
-            if any(item not in ast for item in required_two_item) or \
-                    ast.count("(assignment (assignment-stmt ") != 2 or \
-                    ast.count("(print-stmt ") != 1:
-                fail("AST-v2 stored-variable two-item PRINT witness is wrong")
-            if mir.count("(instruction-count 11)") != 1 or \
-                    mir.count("(opcode const)") != 2 or \
-                    mir.count("(opcode store)") != 2 or \
-                    mir.count("(opcode load)") != 3 or \
-                    mir.count("(opcode pow)") != 1 or \
-                    mir.count("(opcode output)") != 2 or \
-                    mir.count("(opcode return)") != 1 or \
-                    mir.count("(literal 3)") != 1 or mir.count("(literal 2)") != 1 or \
-                    mir.count("(storage-key x)") != 5 or \
-                    mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
-                    mir.count("(source-rule frontend-ast-v2/print-stmt)") != 5:
-                fail("MIR-v0 stored-variable two-item PRINT shape is wrong")
-            print("generated chain oracle: accepted")
-            return
-        if requested_mode == "print-variable-five-item":
-            source_bytes = source_path.read_bytes()
-            expected_source = (
-                b"program main\n"
-                b"  integer :: x\n"
-                b"  x = 3\n"
-                b"  x = x ** 2\n"
-                b"  print *, x, x, x, x, x\n"
-                b"end program main\n"
-            )
-            if source_bytes != expected_source or \
-                    hashlib.sha256(source_bytes).hexdigest() != \
-                    "f8ba31749daad7b6b89dc45ba40986639d8cf77b27c702569b10468486b5b499":
-                fail("stored-variable five-item source fixture bytes changed")
-            if hashlib.sha256(elf).hexdigest() != \
-                    "4cbdd960fa9b8e2ae81f1f868bafadf6df20b8b8b557c6344befef99dcd54cfd":
-                fail("stored-variable five-item ELF identity changed")
-            expected_file_marker = f"(file {source_path})"
-            if ast.count("(file ") != 6 or ast.count(expected_file_marker) != 6 or \
-                    ast.count("(source-hash l3-raw-program-two-assignment-v1)") != 6:
-                fail("stored-variable five-item AST source identity is wrong")
-            required_five_item = [
-                "(program-unit-v2 ", "(root (program-root (name main)",
-                "(declaration-count 1)", "(variable-count 1)",
-                "(execution-part (assignment-sequence (assignment-count 2)",
-                "(kind integer-literal)", "(left-operand 3)",
-                "(kind binary-expression)", "(operator **)",
-                "(left-operand x)", "(right-operand 2)",
-                "(output-count 5)", "(output-kind variable)",
-                "(output-name x)", "(output-kind-2 variable)",
-                "(output-name-2 x)", "(output-kind-3 variable)",
-                "(output-name-3 x)", "(output-kind-4 variable)",
-                "(output-name-4 x)", "(output-kind-5 variable)",
-                "(output-name-5 x)", "(statement-rule R1212)",
-                "(format-rule R1215)", "(output-rule R901)",
-                "(output-rule-2 R901)", "(output-rule-3 R901)",
-                "(output-rule-4 R901)", "(output-rule-5 R901)",
-                "(source-document J3-24-007)",
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
-            ]
-            if any(item not in ast for item in required_five_item) or \
-                    ast.count("(assignment (assignment-stmt ") != 2 or \
-                    ast.count("(print-stmt ") != 1:
-                fail("AST-v2 stored-variable five-item PRINT witness is wrong")
-            if mir.count("(instruction-count 17)") != 1 or \
-                    mir.count("(opcode const)") != 2 or \
-                    mir.count("(opcode store)") != 2 or \
-                    mir.count("(opcode load)") != 6 or \
-                    mir.count("(opcode pow)") != 1 or \
-                    mir.count("(opcode output)") != 5 or \
-                    mir.count("(opcode return)") != 1 or \
-                    mir.count("(literal 3)") != 1 or mir.count("(literal 2)") != 1 or \
-                    mir.count("(storage-key x)") != 8 or \
-                    mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
-                    mir.count("(source-rule frontend-ast-v2/print-stmt)") != 11:
-                fail("MIR-v0 stored-variable five-item PRINT shape is wrong")
-            print("generated chain oracle: accepted")
-            return
-        if requested_mode == "print-variable-six-item":
-            source_bytes = source_path.read_bytes()
-            expected_source = (
-                b"program main\n"
-                b"  integer :: x\n"
-                b"  x = 3\n"
-                b"  x = x ** 2\n"
-                b"  print *, x, x, x, x, x, x\n"
-                b"end program main\n"
-            )
-            if source_bytes != expected_source or \
-                    hashlib.sha256(source_bytes).hexdigest() != \
-                    "d52841c478e4a791db7c31901b3198aa193eb29879699e2be3234ccf5a7626bb":
-                fail("stored-variable six-item source fixture bytes changed")
-            if hashlib.sha256(elf).hexdigest() != \
-                    "4b5ce4759e826883e665023d16f90b083525f1d0eca1d6c13634988097748667":
-                fail("stored-variable six-item ELF identity changed")
-            expected_file_marker = f"(file {source_path})"
-            if ast.count("(file ") != 6 or ast.count(expected_file_marker) != 6 or \
-                    ast.count("(source-hash l3-raw-program-two-assignment-v1)") != 6:
-                fail("stored-variable six-item AST source identity is wrong")
-            required_six_item = [
-                "(program-unit-v2 ", "(root (program-root (name main)",
-                "(declaration-count 1)", "(variable-count 1)",
-                "(execution-part (assignment-sequence (assignment-count 2)",
-                "(kind integer-literal)", "(left-operand 3)",
-                "(kind binary-expression)", "(operator **)",
-                "(left-operand x)", "(right-operand 2)",
-                "(output-count 6)", "(output-kind variable)",
-                "(output-name x)", "(output-kind-2 variable)",
-                "(output-name-2 x)", "(output-kind-3 variable)",
-                "(output-name-3 x)", "(output-kind-4 variable)",
-                "(output-name-4 x)", "(output-kind-5 variable)",
-                "(output-name-5 x)", "(output-kind-6 variable)",
-                "(output-name-6 x)", "(statement-rule R1212)",
-                "(format-rule R1215)", "(output-rule R901)",
-                "(output-rule-2 R901)", "(output-rule-3 R901)",
-                "(output-rule-4 R901)", "(output-rule-5 R901)",
-                "(output-rule-6 R901)", "(source-document J3-24-007)",
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
-            ]
-            if any(item not in ast for item in required_six_item) or \
-                    ast.count("(assignment (assignment-stmt ") != 2 or \
-                    ast.count("(print-stmt ") != 1:
-                fail("AST-v2 stored-variable six-item PRINT witness is wrong")
-            if mir.count("(instruction-count 19)") != 1 or \
-                    mir.count("(opcode const)") != 2 or \
-                    mir.count("(opcode store)") != 2 or \
-                    mir.count("(opcode load)") != 7 or \
-                    mir.count("(opcode pow)") != 1 or \
-                    mir.count("(opcode output)") != 6 or \
-                    mir.count("(opcode return)") != 1 or \
-                    mir.count("(literal 3)") != 1 or mir.count("(literal 2)") != 1 or \
-                    mir.count("(storage-key x)") != 9 or \
-                    mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
-                    mir.count("(source-rule frontend-ast-v2/print-stmt)") != 13:
-                fail("MIR-v0 stored-variable six-item PRINT shape is wrong")
-            print("generated chain oracle: accepted")
-            return
         if requested_mode.startswith("print-variable-") and requested_mode.endswith("-item"):
             count_text = requested_mode[len("print-variable-"):-len("-item")]
             try:
                 output_count = int(count_text)
             except ValueError:
-                output_count = 0
-            if output_count in range(7, 101):
+                output_count = {
+                    "two": 2,
+                    "three": 3,
+                    "four": 4,
+                    "five": 5,
+                    "six": 6,
+                }.get(count_text, 0)
+            if output_count in range(2, 101):
                 source_hashes = {
+                    2: "c7dc1f449caf651bdeea13f57a8921d3a3c4a7309d8ac87e276123cd0e0d8b35",
+                    3: "ea779c7f1510243caaf54443e4ed70a61e6e0a404399088454606e02f3dbcf1c",
+                    4: "a4d37442f36020cede92e34e5b756952cf99f32c90d6f02473d35ef12553cfd7",
+                    5: "f8ba31749daad7b6b89dc45ba40986639d8cf77b27c702569b10468486b5b499",
+                    6: "d52841c478e4a791db7c31901b3198aa193eb29879699e2be3234ccf5a7626bb",
                     7: "7c6021632b8035916749178f06ee778506cad38953db2de10fae28a39941f200",
                     8: "25fd7fa4285ba064d93a886d3033b43a09346b9e62cd152308941578f0c1d785",
                     9: "51b4e620e303d2193d59c74bd2d0141c301a29551732fe775c00f458c2cd142d",
@@ -535,6 +366,11 @@ def main() -> None:
                     100: "8ecadebd098e26e8f3e1603cf24daed5172463fc754440e82f9cd5d40a80b11d",
                 }
                 elf_hashes = {
+                    2: "c44f212bed55cfdb7ff2d2d0ba8aa3d159ac1f603ff5e134fdc93c5046d02b1d",
+                    3: "a790a4360aa36eb5c39d9e8f1fe119a8da9bb9d9f56dec559f0ff706720004f9",
+                    4: "7f771aa82b029d8177ab273eefc7f481f9d15b5b07109be99176461b057a2e30",
+                    5: "4cbdd960fa9b8e2ae81f1f868bafadf6df20b8b8b557c6344befef99dcd54cfd",
+                    6: "4b5ce4759e826883e665023d16f90b083525f1d0eca1d6c13634988097748667",
                     7: "27a377c55a74589b606f06f89840a58f52987b41ec1df659e93926a9b27ce5ff",
                     8: "1ebc4c8c2ef62db1cc426a536c39f8f84f0b60fbd2f665c1817e9cd96e370f31",
                     9: "9ae93def173c838df96748f87017230fab21201799ac56ad1a59dfe58b6130ef",
@@ -685,117 +521,6 @@ def main() -> None:
                     fail(f"MIR-v0 stored-variable {output_count}-item PRINT shape is wrong")
                 print("generated chain oracle: accepted")
                 return
-        if requested_mode == "print-variable-three-item":
-            source_bytes = source_path.read_bytes()
-            expected_source = (
-                b"program main\n"
-                b"  integer :: x\n"
-                b"  x = 3\n"
-                b"  x = x ** 2\n"
-                b"  print *, x, x, x\n"
-                b"end program main\n"
-            )
-            if source_bytes != expected_source or \
-                    hashlib.sha256(source_bytes).hexdigest() != \
-                    "ea779c7f1510243caaf54443e4ed70a61e6e0a404399088454606e02f3dbcf1c":
-                fail("stored-variable three-item source fixture bytes changed")
-            if hashlib.sha256(elf).hexdigest() != \
-                    "a790a4360aa36eb5c39d9e8f1fe119a8da9bb9d9f56dec559f0ff706720004f9":
-                fail("stored-variable three-item ELF identity changed")
-            expected_file_marker = f"(file {source_path})"
-            if ast.count("(file ") != 6 or ast.count(expected_file_marker) != 6 or \
-                    ast.count("(source-hash l3-raw-program-two-assignment-v1)") != 6:
-                fail("stored-variable three-item AST source identity is wrong")
-            required_three_item = [
-                "(program-unit-v2 ", "(root (program-root (name main)",
-                "(declaration-count 1)", "(variable-count 1)",
-                "(execution-part (assignment-sequence (assignment-count 2)",
-                "(kind integer-literal)", "(left-operand 3)",
-                "(kind binary-expression)", "(operator **)",
-                "(left-operand x)", "(right-operand 2)",
-                "(output-count 3)", "(output-kind variable)",
-                "(output-name x)", "(output-kind-2 variable)",
-                "(output-name-2 x)", "(output-kind-3 variable)",
-                "(output-name-3 x)", "(statement-rule R1212)",
-                "(format-rule R1215)", "(output-rule R901)",
-                "(output-rule-2 R901)", "(output-rule-3 R901)",
-                "(source-document J3-24-007)",
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
-            ]
-            if any(item not in ast for item in required_three_item) or \
-                    ast.count("(assignment (assignment-stmt ") != 2 or \
-                    ast.count("(print-stmt ") != 1:
-                fail("AST-v2 stored-variable three-item PRINT witness is wrong")
-            if mir.count("(instruction-count 13)") != 1 or \
-                    mir.count("(opcode const)") != 2 or \
-                    mir.count("(opcode store)") != 2 or \
-                    mir.count("(opcode load)") != 4 or \
-                    mir.count("(opcode pow)") != 1 or \
-                    mir.count("(opcode output)") != 3 or \
-                    mir.count("(opcode return)") != 1 or \
-                    mir.count("(literal 3)") != 1 or mir.count("(literal 2)") != 1 or \
-                    mir.count("(storage-key x)") != 6 or \
-                    mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
-                    mir.count("(source-rule frontend-ast-v2/print-stmt)") != 7:
-                fail("MIR-v0 stored-variable three-item PRINT shape is wrong")
-            print("generated chain oracle: accepted")
-            return
-        if requested_mode == "print-variable-four-item":
-            source_bytes = source_path.read_bytes()
-            expected_source = (
-                b"program main\n"
-                b"  integer :: x\n"
-                b"  x = 3\n"
-                b"  x = x ** 2\n"
-                b"  print *, x, x, x, x\n"
-                b"end program main\n"
-            )
-            if source_bytes != expected_source or \
-                    hashlib.sha256(source_bytes).hexdigest() != \
-                    "a4d37442f36020cede92e34e5b756952cf99f32c90d6f02473d35ef12553cfd7":
-                fail("stored-variable four-item source fixture bytes changed")
-            if hashlib.sha256(elf).hexdigest() != \
-                    "7f771aa82b029d8177ab273eefc7f481f9d15b5b07109be99176461b057a2e30":
-                fail("stored-variable four-item ELF identity changed")
-            expected_file_marker = f"(file {source_path})"
-            if ast.count("(file ") != 6 or ast.count(expected_file_marker) != 6 or \
-                    ast.count("(source-hash l3-raw-program-two-assignment-v1)") != 6:
-                fail("stored-variable four-item AST source identity is wrong")
-            required_four_item = [
-                "(program-unit-v2 ", "(root (program-root (name main)",
-                "(declaration-count 1)", "(variable-count 1)",
-                "(execution-part (assignment-sequence (assignment-count 2)",
-                "(kind integer-literal)", "(left-operand 3)",
-                "(kind binary-expression)", "(operator **)",
-                "(left-operand x)", "(right-operand 2)",
-                "(output-count 4)", "(output-kind variable)",
-                "(output-name x)", "(output-kind-2 variable)",
-                "(output-name-2 x)", "(output-kind-3 variable)",
-                "(output-name-3 x)", "(output-kind-4 variable)",
-                "(output-name-4 x)", "(statement-rule R1212)",
-                "(format-rule R1215)", "(output-rule R901)",
-                "(output-rule-2 R901)", "(output-rule-3 R901)",
-                "(output-rule-4 R901)", "(source-document J3-24-007)",
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
-            ]
-            if any(item not in ast for item in required_four_item) or \
-                    ast.count("(assignment (assignment-stmt ") != 2 or \
-                    ast.count("(print-stmt ") != 1:
-                fail("AST-v2 stored-variable four-item PRINT witness is wrong")
-            if mir.count("(instruction-count 15)") != 1 or \
-                    mir.count("(opcode const)") != 2 or \
-                    mir.count("(opcode store)") != 2 or \
-                    mir.count("(opcode load)") != 5 or \
-                    mir.count("(opcode pow)") != 1 or \
-                    mir.count("(opcode output)") != 4 or \
-                    mir.count("(opcode return)") != 1 or \
-                    mir.count("(literal 3)") != 1 or mir.count("(literal 2)") != 1 or \
-                    mir.count("(storage-key x)") != 7 or \
-                    mir.count("(source-rule frontend-ast-v2/execution-part)") != 6 or \
-                    mir.count("(source-rule frontend-ast-v2/print-stmt)") != 9:
-                fail("MIR-v0 stored-variable four-item PRINT shape is wrong")
-            print("generated chain oracle: accepted")
-            return
         source_bytes = source_path.read_bytes()
         expected_source_17 = (
             b"program main\n"
