@@ -194,7 +194,8 @@ their oracle mode from the source item count.
 Assignment-sequence routes likewise derive their count and matching negative
 controls from the fixture files. The oracle validates the consecutive literal
 PRINT value sequence through one value-derived check rather than one branch per
-list length.
+list length. It validates assignment sequences from two through ten through
+one count-derived check, retaining only the count-two source-rule exception.
 binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
 branch. General expression parsing, assignment sequences, and broader language
