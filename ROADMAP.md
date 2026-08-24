@@ -222,6 +222,8 @@ while retaining the range-specific generated facts. Fortfront's generated PRINT 
 now validates legal variable names and the declared scalar value range.
 FFC's four variable-binary expression recognizers now share one parameterized
 helper with unchanged operator behavior.
+Its assignment-expression serializer now shares one canonical construction
+path while retaining the four historical raw-expression exceptions.
 Fortfront's variable PRINT span now derives its end byte from the recognized
 source line instead of a per-count ladder. Its generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
