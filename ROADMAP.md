@@ -209,7 +209,9 @@ binary-expression parsing now shares one parameterized token walk. General
 variable-binary lowering now shares one opcode/name selection and validation
 branch. General expression parsing, assignment sequences, and broader language
 coverage remain open. FFC now uses generic AST-v1 assignment-sequence lowering
-as the primary path for legal identifiers and integer literals. Fortback now derives the repeated
+as the primary path for legal identifiers and integer literals, and its raw
+AST-v2 assignment-sequence route delegates to the same lowerer while retaining
+the v2 source-rule labels. Fortback now derives the repeated
 generated PRINT route-operation pattern from a compact rule with boundary
 controls while retaining explicit exceptional route facts, and its stored-variable
 PRINT matcher plus storage-sequence encoders share count-driven paths. Fortfront's generated PRINT policy
@@ -249,7 +251,10 @@ The central oracle checks the division opcode and divisor mutation. Broader
 expression coverage remains open.
 The raw-source program-unit envelope and legacy PRINT compatibility fields
 remain explicit. Genericizing either is deferred until it reduces total review
-surface without changing the public SX shape.
+surface without changing the public SX shape. The generated sequence route
+metadata also remains for now: deleting those entries would renumber later
+routes whose numeric IDs are consumed by other frontend paths, creating more
+churn than it removes.
 
 ## Current goal: generic scalar pipeline
 
