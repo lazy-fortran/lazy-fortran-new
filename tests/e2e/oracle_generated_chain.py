@@ -45,6 +45,17 @@ def add_legacy_print_fields(ast: str) -> str:
     return ast + " " + " ".join(fields)
 
 
+def parse_literal_print_values(mode: str) -> tuple[int, ...] | None:
+    if not re.fullmatch(r"print-\d+(?:-\d+){0,9}", mode):
+        return None
+    parts = mode.removeprefix("print-").split("-")
+    values = tuple(int(part) for part in parts)
+    if any(part != str(value) for part, value in zip(parts, values)):
+        return None
+    expected = tuple(range(7, 7 + len(values)))
+    return values if values == expected else None
+
+
 def main() -> None:
     if len(sys.argv) not in (4, 5, 6, 7, 8):
         fail("usage: oracle_generated_chain.py AST MIR ELF [PROGRAM_NAME] [TYPE_SPEC] [MODE] [SOURCE]")
@@ -85,14 +96,16 @@ def main() -> None:
         fail("unsupported typed chain oracle shape")
     mir_kind, mir_type = type_shapes[type_spec]
     raw_scalar_modes = ("print-variable", "print-variable-raw", "print-variable-raw-add", "print-variable-raw-sub", "print-variable-raw-mul", "print-variable-raw-div")
+    ast_v2_modes = ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-generic-items")
+    literal_print_values = parse_literal_print_values(mode)
 
-    if mode not in raw_scalar_modes and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
+    if mode not in raw_scalar_modes and mode not in ast_v2_modes and literal_print_values is None and (not ast.startswith("(program-unit ") or f"(name {program_name})" not in ast):
         fail("AST-v1 root witness is wrong")
-    if mode not in raw_scalar_modes and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
+    if mode not in raw_scalar_modes and mode not in ast_v2_modes and literal_print_values is None and ("(declaration-count 1)" not in ast or "(variable-count 1)" not in ast):
         fail("AST-v1 declaration cardinality is wrong")
-    if mode not in raw_scalar_modes and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and ast.count("(variable (variable-declaration ") != 1:
+    if mode not in raw_scalar_modes and mode not in ast_v2_modes and literal_print_values is None and ast.count("(variable (variable-declaration ") != 1:
         fail("AST-v1 variable declaration cardinality is wrong")
-    if mode not in raw_scalar_modes and mode not in ("sequence", "sequence-3", "sequence-4", "sequence-5", "sequence-6", "sequence-7", "sequence-8", "sequence-9", "sequence-10", "envelope", "envelope-5", "envelope-6", "stop-7", "print-7", "print-7-8", "print-7-8-9", "print-7-8-9-10", "print-7-8-9-10-11", "print-7-8-9-10-11-12", "print-7-8-9-10-11-12-13", "print-7-8-9-10-11-12-13-14", "print-7-8-9-10-11-12-13-14-15", "print-7-8-9-10-11-12-13-14-15-16", "print-generic-items") and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
+    if mode not in raw_scalar_modes and mode not in ast_v2_modes and literal_print_values is None and f"(variable (variable-declaration (type-spec {type_spec}) (name x)" not in ast:
         fail("AST-v1 declaration witness is wrong")
 
     if not mir.startswith(f"(mir-function (name {program_name}) "):
@@ -117,443 +130,23 @@ def main() -> None:
                 mir.count("(source-rule frontend-ast-v2/stop-stmt)") != 2 or \
                 "(opcode store)" in mir:
             fail("MIR-v0 STOP 7 shape is wrong")
-    elif mode == "print-7":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7 provenance witness is wrong")
-        if mir.count("(opcode const)") != 1 or \
-                mir.count("(opcode output)") != 1 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 3 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7 shape is wrong")
-    elif mode == "print-7-8":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(output-count 2)" not in ast or \
-                "(output-kind-2 integer-literal)" not in ast or \
-                "(output-value-2 8)" not in ast or \
-                "(output-rule-2 R1217)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8 provenance witness is wrong")
-        if mir.count("(opcode const)") != 2 or \
-                mir.count("(opcode output)") != 2 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(literal 8)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 5 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8 shape is wrong")
-    elif mode == "print-7-8-9":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(output-count 3)" not in ast or \
-                "(output-kind-2 integer-literal)" not in ast or \
-                "(output-value-2 8)" not in ast or \
-                "(output-rule-2 R1217)" not in ast or \
-                "(output-kind-3 integer-literal)" not in ast or \
-                "(output-value-3 9)" not in ast or \
-                "(output-rule-3 R1217)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8,9 provenance witness is wrong")
-        if mir.count("(opcode const)") != 3 or \
-                mir.count("(opcode output)") != 3 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(literal 8)") != 1 or \
-                mir.count("(literal 9)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 7 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8,9 shape is wrong")
-    elif mode == "print-7-8-9-10":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(output-count 4)" not in ast or \
-                "(output-kind-2 integer-literal)" not in ast or \
-                "(output-value-2 8)" not in ast or \
-                "(output-rule-2 R1217)" not in ast or \
-                "(output-kind-3 integer-literal)" not in ast or \
-                "(output-value-3 9)" not in ast or \
-                "(output-rule-3 R1217)" not in ast or \
-                "(output-kind-4 integer-literal)" not in ast or \
-                "(output-value-4 10)" not in ast or \
-                "(output-rule-4 R1217)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8,9,10 provenance witness is wrong")
-        if mir.count("(opcode const)") != 4 or \
-                mir.count("(opcode output)") != 4 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(literal 8)") != 1 or \
-                mir.count("(literal 9)") != 1 or \
-                mir.count("(literal 10)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 9 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8,9,10 shape is wrong")
-    elif mode == "print-7-8-9-10-11":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(output-count 5)" not in ast or \
-                "(output-kind-2 integer-literal)" not in ast or \
-                "(output-value-2 8)" not in ast or \
-                "(output-rule-2 R1217)" not in ast or \
-                "(output-kind-3 integer-literal)" not in ast or \
-                "(output-value-3 9)" not in ast or \
-                "(output-rule-3 R1217)" not in ast or \
-                "(output-kind-4 integer-literal)" not in ast or \
-                "(output-value-4 10)" not in ast or \
-                "(output-rule-4 R1217)" not in ast or \
-                "(output-kind-5 integer-literal)" not in ast or \
-                "(output-value-5 11)" not in ast or \
-                "(output-rule-5 R1217)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8,9,10,11 provenance witness is wrong")
-        if mir.count("(opcode const)") != 5 or \
-                mir.count("(opcode output)") != 5 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(literal 8)") != 1 or \
-                mir.count("(literal 9)") != 1 or \
-                mir.count("(literal 10)") != 1 or \
-                mir.count("(literal 11)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 11 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8,9,10,11 shape is wrong")
-    elif mode == "print-7-8-9-10-11-12":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(output-count 6)" not in ast or \
-                "(output-kind-2 integer-literal)" not in ast or \
-                "(output-value-2 8)" not in ast or \
-                "(output-rule-2 R1217)" not in ast or \
-                "(output-kind-3 integer-literal)" not in ast or \
-                "(output-value-3 9)" not in ast or \
-                "(output-rule-3 R1217)" not in ast or \
-                "(output-kind-4 integer-literal)" not in ast or \
-                "(output-value-4 10)" not in ast or \
-                "(output-rule-4 R1217)" not in ast or \
-                "(output-kind-5 integer-literal)" not in ast or \
-                "(output-value-5 11)" not in ast or \
-                "(output-rule-5 R1217)" not in ast or \
-                "(output-kind-6 integer-literal)" not in ast or \
-                "(output-value-6 12)" not in ast or \
-                "(output-rule-6 R1217)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8,9,10,11,12 provenance witness is wrong")
-        if mir.count("(opcode const)") != 6 or \
-                mir.count("(opcode output)") != 6 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(literal 8)") != 1 or \
-                mir.count("(literal 9)") != 1 or \
-                mir.count("(literal 10)") != 1 or \
-                mir.count("(literal 11)") != 1 or \
-                mir.count("(literal 12)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 13 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8,9,10,11,12 shape is wrong")
-    elif mode == "print-7-8-9-10-11-12-13":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(output-count 7)" not in ast or \
-                "(output-kind-2 integer-literal)" not in ast or \
-                "(output-value-2 8)" not in ast or \
-                "(output-rule-2 R1217)" not in ast or \
-                "(output-kind-3 integer-literal)" not in ast or \
-                "(output-value-3 9)" not in ast or \
-                "(output-rule-3 R1217)" not in ast or \
-                "(output-kind-4 integer-literal)" not in ast or \
-                "(output-value-4 10)" not in ast or \
-                "(output-rule-4 R1217)" not in ast or \
-                "(output-kind-5 integer-literal)" not in ast or \
-                "(output-value-5 11)" not in ast or \
-                "(output-rule-5 R1217)" not in ast or \
-                "(output-kind-6 integer-literal)" not in ast or \
-                "(output-value-6 12)" not in ast or \
-                "(output-rule-6 R1217)" not in ast or \
-                "(output-kind-7 integer-literal)" not in ast or \
-                "(output-value-7 13)" not in ast or \
-                "(output-rule-7 R1217)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8,9,10,11,12,13 provenance witness is wrong")
-        if mir.count("(opcode const)") != 7 or \
-                mir.count("(opcode output)") != 7 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(literal 8)") != 1 or \
-                mir.count("(literal 9)") != 1 or \
-                mir.count("(literal 10)") != 1 or \
-                mir.count("(literal 11)") != 1 or \
-                mir.count("(literal 12)") != 1 or \
-                mir.count("(literal 13)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 15 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8,9,10,11,12,13 shape is wrong")
-    elif mode == "print-7-8-9-10-11-12-13-14":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(output-count 8)" not in ast or \
-                "(output-kind-2 integer-literal)" not in ast or \
-                "(output-value-2 8)" not in ast or \
-                "(output-rule-2 R1217)" not in ast or \
-                "(output-kind-3 integer-literal)" not in ast or \
-                "(output-value-3 9)" not in ast or \
-                "(output-rule-3 R1217)" not in ast or \
-                "(output-kind-4 integer-literal)" not in ast or \
-                "(output-value-4 10)" not in ast or \
-                "(output-rule-4 R1217)" not in ast or \
-                "(output-kind-5 integer-literal)" not in ast or \
-                "(output-value-5 11)" not in ast or \
-                "(output-rule-5 R1217)" not in ast or \
-                "(output-kind-6 integer-literal)" not in ast or \
-                "(output-value-6 12)" not in ast or \
-                "(output-rule-6 R1217)" not in ast or \
-                "(output-kind-7 integer-literal)" not in ast or \
-                "(output-value-7 13)" not in ast or \
-                "(output-rule-7 R1217)" not in ast or \
-                "(output-kind-8 integer-literal)" not in ast or \
-                "(output-value-8 14)" not in ast or \
-                "(output-rule-8 R1217)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8,9,10,11,12,13,14 provenance witness is wrong")
-        if mir.count("(opcode const)") != 8 or \
-                mir.count("(opcode output)") != 8 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(literal 8)") != 1 or \
-                mir.count("(literal 9)") != 1 or \
-                mir.count("(literal 10)") != 1 or \
-                mir.count("(literal 11)") != 1 or \
-                mir.count("(literal 12)") != 1 or \
-                mir.count("(literal 13)") != 1 or \
-                mir.count("(literal 14)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 17 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8,9,10,11,12,13,14 shape is wrong")
-    elif mode == "print-7-8-9-10-11-12-13-14-15":
-        if not ast.startswith("(program-unit-v2 ") or \
-                "(root (program-root (name p)" not in ast or \
-                "(declaration-count 0)" not in ast or \
-                "(variable-count 0)" not in ast or \
-                ast.count("(print-stmt ") != 1 or \
-                "(format-kind default-char-expr)" not in ast or \
-                "(format-value *)" not in ast or \
-                "(output-kind integer-literal)" not in ast or \
-                "(output-value 7)" not in ast or \
-                "(output-count 9)" not in ast or \
-                "(output-kind-2 integer-literal)" not in ast or \
-                "(output-value-2 8)" not in ast or \
-                "(output-rule-2 R1217)" not in ast or \
-                "(output-kind-3 integer-literal)" not in ast or \
-                "(output-value-3 9)" not in ast or \
-                "(output-rule-3 R1217)" not in ast or \
-                "(output-kind-4 integer-literal)" not in ast or \
-                "(output-value-4 10)" not in ast or \
-                "(output-rule-4 R1217)" not in ast or \
-                "(output-kind-5 integer-literal)" not in ast or \
-                "(output-value-5 11)" not in ast or \
-                "(output-rule-5 R1217)" not in ast or \
-                "(output-kind-6 integer-literal)" not in ast or \
-                "(output-value-6 12)" not in ast or \
-                "(output-rule-6 R1217)" not in ast or \
-                "(output-kind-7 integer-literal)" not in ast or \
-                "(output-value-7 13)" not in ast or \
-                "(output-rule-7 R1217)" not in ast or \
-                "(output-kind-8 integer-literal)" not in ast or \
-                "(output-value-8 14)" not in ast or \
-                "(output-rule-8 R1217)" not in ast or \
-                "(output-kind-9 integer-literal)" not in ast or \
-                "(output-value-9 15)" not in ast or \
-                "(output-rule-9 R1217)" not in ast or \
-                "(statement-rule R1212)" not in ast or \
-                "(format-rule R1215)" not in ast or \
-                "(output-rule R1217)" not in ast or \
-                "(source-document J3-24-007)" not in ast or \
-                "(statement-clause 12.6.1)" not in ast or \
-                "(format-clause 12.6.2.2)" not in ast or \
-                "(output-clause 12.6.3)" not in ast or \
-                "(statement-page 242)" not in ast or \
-                "(format-page 244)" not in ast or \
-                "(output-page 248)" not in ast or \
-                "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)" not in ast or \
-                "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8,9,10,11,12,13,14,15 provenance witness is wrong")
-        if mir.count("(opcode const)") != 9 or \
-                mir.count("(opcode output)") != 9 or \
-                mir.count("(opcode return)") != 1 or \
-                mir.count("(literal 7)") != 1 or \
-                mir.count("(literal 8)") != 1 or \
-                mir.count("(literal 9)") != 1 or \
-                mir.count("(literal 10)") != 1 or \
-                mir.count("(literal 11)") != 1 or \
-                mir.count("(literal 12)") != 1 or \
-                mir.count("(literal 13)") != 1 or \
-                mir.count("(literal 14)") != 1 or \
-                mir.count("(literal 15)") != 1 or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 19 or \
-                "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8,9,10,11,12,13,14,15 shape is wrong")
-    elif mode == "print-7-8-9-10-11-12-13-14-15-16":
+    elif literal_print_values is not None:
+        literal_label = ",".join(str(value) for value in literal_print_values)
         required = [
             "(program-unit-v2 ", "(root (program-root (name p)",
             "(declaration-count 0)", "(variable-count 0)",
             "(format-kind default-char-expr)", "(format-value *)",
-            "(output-kind integer-literal)", "(output-value 7)",
-            "(output-count 10)", "(statement-rule R1212)",
-            "(format-rule R1215)", "(output-rule R1217)",
-            "(source-document J3-24-007)", "(statement-clause 12.6.1)",
-            "(format-clause 12.6.2.2)", "(output-clause 12.6.3)",
-            "(statement-page 242)", "(format-page 244)",
-            "(output-page 248)",
+            "(output-kind integer-literal)",
+            f"(output-value {literal_print_values[0]})",
+            f"(output-count {len(literal_print_values)})",
+            "(statement-rule R1212)", "(format-rule R1215)",
+            "(output-rule R1217)", "(source-document J3-24-007)",
+            "(statement-clause 12.6.1)", "(format-clause 12.6.2.2)",
+            "(output-clause 12.6.3)", "(statement-page 242)",
+            "(format-page 244)", "(output-page 248)",
             "(source-hash 7371e889f231cfb0316d30365d5083fb5af34cbb6d5f7cb1e01855c73021bfa2)",
         ]
-        for index, value in enumerate(range(8, 17), start=2):
+        for index, value in enumerate(literal_print_values[1:], start=2):
             required.extend([
                 f"(output-kind-{index} integer-literal)",
                 f"(output-value-{index} {value})",
@@ -562,14 +155,14 @@ def main() -> None:
         if any(item not in ast for item in required) or \
                 ast.count("(print-stmt ") != 1 or \
                 "(assignment-sequence" in ast:
-            fail("AST-v2 PRINT 7,8,9,10,11,12,13,14,15,16 provenance witness is wrong")
-        if mir.count("(opcode const)") != 10 or \
-                mir.count("(opcode output)") != 10 or \
+            fail(f"AST-v2 PRINT {literal_label} provenance witness is wrong")
+        if mir.count("(opcode const)") != len(literal_print_values) or \
+                mir.count("(opcode output)") != len(literal_print_values) or \
                 mir.count("(opcode return)") != 1 or \
-                any(mir.count(f"(literal {value})") != 1 for value in range(7, 17)) or \
-                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 21 or \
+                any(mir.count(f"(literal {value})") != 1 for value in literal_print_values) or \
+                mir.count("(source-rule frontend-ast-v2/print-stmt)") != 2 * len(literal_print_values) + 1 or \
                 "(opcode store)" in mir:
-            fail("MIR-v0 PRINT 7,8,9,10,11,12,13,14,15,16 shape is wrong")
+            fail(f"MIR-v0 PRINT {literal_label} shape is wrong")
     elif mode == "print-generic-items":
         required = [
             "(program-unit-v2 ", "(root (program-root (name p)",
@@ -1632,16 +1225,8 @@ def main() -> None:
         7 if mode == "envelope" else \
         5 if mode in ("expression", "multiplication", "division", "subtraction", "variable-expression", "print-variable") else \
         7 if mode == "print-generic-items" else \
-        21 if mode == "print-7-8-9-10-11-12-13-14-15-16" else \
-        19 if mode == "print-7-8-9-10-11-12-13-14-15" else \
-        17 if mode == "print-7-8-9-10-11-12-13-14" else \
-        15 if mode == "print-7-8-9-10-11-12-13" else \
-        13 if mode == "print-7-8-9-10-11-12" else \
-        11 if mode == "print-7-8-9-10-11" else \
-        9 if mode == "print-7-8-9-10" else \
-        7 if mode == "print-7-8-9" else \
-        5 if mode == "print-7-8" else \
-        3 if mode in ("literal", "literal-boundary", "print-7") else 2
+        2 * len(literal_print_values) + 1 if literal_print_values is not None else \
+        3 if mode in ("literal", "literal-boundary") else 2
     if mir.count(f"(kind {mir_kind}) (type {mir_type})") != expected_result_count:
         fail("MIR-v0 typed result is wrong")
 
