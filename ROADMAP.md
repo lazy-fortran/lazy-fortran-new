@@ -111,6 +111,14 @@ only when it is required for a distinct capability, an independent oracle, or
 reproducibility, and remove the superseded artifact in the same change when
 possible.
 
+The current fast path is explicit: select one missing generic boundary that
+the existing interfaces can express, make the smallest complete vertical
+change, run the component checks and `bash
+tests/e2e/check-generated-chain.sh`, push the verified commit, and continue
+from the next failing boundary. Do not add another sampled value, list length,
+route, ledger, schema, generator, or review layer unless it is required for a
+new capability or an independent behavioral check.
+
 ## Surface discipline
 
 - Prefer one general algorithm to branches generated for names, values, list

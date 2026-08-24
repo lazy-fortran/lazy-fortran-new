@@ -10,6 +10,9 @@ bounded L3 path has now passed the raw-source, declaration, typed-AST, source-
 derived-name, program-root-name and intrinsic-type leaves. The generated
 storage, sequence, STOP and PRINT waves are integrated; its central replay passes 151 routes
 and is regenerated with `bash tests/e2e/check-generated-chain.sh`. The
+central stored-variable oracle now uses one count-driven source/hash and
+AST/MIR shape check for counts 2 through 100, retaining historical mode names
+only at the fixture boundary; commit `003a5950` is pushed on `main`.
 single-expression witness exits 1, the ordered two-, three-, four-, five- and six-assignment
 witnesses exit 8, 9, 10, 11 and 12, and the program-unit-v2
 declaration/execution envelopes exit 8, 11 and 12 through matching stack
