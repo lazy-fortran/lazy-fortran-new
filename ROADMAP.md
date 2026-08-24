@@ -220,6 +220,8 @@ three through one hundred, retaining only the distinct two-item prologue.
 FFC's large stored-variable PRINT emitters now use one count-driven dispatch
 while retaining the range-specific generated facts. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
+FFC's four variable-binary expression recognizers now share one parameterized
+helper with unchanged operator behavior.
 Fortfront's variable PRINT span now derives its end byte from the recognized
 source line instead of a per-count ladder. Its generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
