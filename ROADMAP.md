@@ -209,6 +209,8 @@ its bounded 2--10 assignment parser now derives each assignment and span from
 the source envelope instead of a source-and-count ladder. Broader expression
 and statement parsing remain open. Its SX serializer now emits every accepted
 assignment count through one bounded loop instead of a branch per count.
+The superseded per-count source constants are deleted. The three public source
+facts remain because existing frontend routes consume them.
 Raw-source program-unit assembly remains open.
 The raw scalar program-unit route now carries legal variable names and bounded
 signed integer values through AST-v2, MIR, RISC-V, and qemu. The central replay
