@@ -203,7 +203,9 @@ controls while retaining explicit exceptional route facts. Fortfront's generated
 now validates legal variable names and the declared scalar value range.
 Fortfront's generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
-source-specific fallback construction. Raw-source program-unit assembly remains open.
+source-specific fallback construction. Its typed assignment-sequence module
+also no longer carries unused operator-specific two-assignment variants.
+Raw-source program-unit assembly remains open.
 The raw scalar program-unit route now carries legal variable names and bounded
 signed integer values through AST-v2, MIR, RISC-V, and qemu. The central replay
 checks `counter_2 = 42`, a malformed PRINT neighbor, AST/MIR mutations, and
