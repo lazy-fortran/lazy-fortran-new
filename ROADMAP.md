@@ -220,7 +220,8 @@ three through one hundred, retaining only the distinct two-item prologue.
 FFC's large stored-variable PRINT emitters now use one count-driven dispatch
 while retaining the range-specific generated facts. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
-Fortfront's generic initialized-update parser now handles the existing multiply,
+Fortfront's variable PRINT span now derives its end byte from the recognized
+source line instead of a per-count ladder. Its generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
 source-specific fallback construction. Its typed assignment-sequence module
 also no longer carries unused operator-specific two-assignment variants, and
