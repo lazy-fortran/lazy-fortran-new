@@ -172,8 +172,9 @@ It now derives stored-variable PRINT lists from the existing initializer
 parser. FFC lowers both representations through one generic item traversal,
 with the fixed three-item `17, 18, 19` route removed. Fortback validates and
 encodes pure-literal and stored-variable lists through generic paths, with one
-count-driven validator replacing the fixed two-through-six item validators, and
-its common initialized-expression checks now share one parameterized path.
+count-driven candidate and encoder route replacing fixed per-count route flags,
+one count-driven validator replacing the fixed two-through-six item validators,
+and its common initialized-expression checks now share one parameterized path.
 The clean
 bounded PRINT expression items now use one typed parser and the AST-v2
 two-assignment expression reuses the generic expression parser. Fortfront's
