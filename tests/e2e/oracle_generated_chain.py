@@ -766,9 +766,14 @@ def main() -> None:
         instruction_count = 4 * assignment_count - 1
         first_literal = "(assignment (assignment-stmt (variable x) (expression (assignment-expression (kind integer-literal) (operator ) (left-operand 7) (right-operand )))"
         repeated_assignment = "(assignment (assignment-stmt (variable x) (expression (assignment-expression (kind binary-expression) (operator +) (left-operand x) (right-operand 1)))"
-        source_rule = "frontend-ast-v1/storage-sequence" if assignment_count == 2 else \
-            f"frontend-ast-v1/storage-sequence-{assignment_count}"
-        if not ast.startswith("(assignment-sequence ") or \
+        if ast.startswith("(program-unit-v2 "):
+            source_rule = f"frontend-ast-v2/execution-part-{assignment_count}"
+            has_assignment_sequence = "(execution-part (assignment-sequence " in ast
+        else:
+            source_rule = "frontend-ast-v1/storage-sequence" if assignment_count == 2 else \
+                f"frontend-ast-v1/storage-sequence-{assignment_count}"
+            has_assignment_sequence = ast.startswith("(assignment-sequence ")
+        if not has_assignment_sequence or \
                 f"(assignment-count {assignment_count})" not in ast or \
                 ast.count("(assignment (assignment-stmt (variable x)") != assignment_count or \
                 ast.count(first_literal) != 1 or \

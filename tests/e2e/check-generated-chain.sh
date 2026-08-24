@@ -202,7 +202,7 @@ run_sequence_batch_route() {
     local negative
     local actual_status
 
-    (cd "$frontend" && fo exec fortfront-source-ast-v1 "$source" "$ast") > /dev/null 2>&1
+    (cd "$frontend" && fo exec fortfront-program-unit-v2 "$source" "$ast") > /dev/null 2>&1
     (cd "$ffc" && fo exec ffc-lower-frontend-ast-v1 "$ast" "$mir") > /dev/null 2>&1
     (cd "$backend" && fo exec fortback-mir-v0 "$mir" "$elf") > /dev/null 2>&1
     for negative in "$@"; do

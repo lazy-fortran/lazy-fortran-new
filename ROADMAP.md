@@ -246,11 +246,16 @@ facts remain because existing frontend routes consume them.
 The program-unit-v2 assignment path now accepts every count accepted by the
 bounded typed-sequence parser and stamps all assignment spans with the caller's
 source identity. FFC validates that identity against the program root instead
-of maintaining a 2/5/6 fixture-hash whitelist. The central replay keeps the
-existing backend-compatible v2 routes and continues to use the generic AST-v1
-sequence route for counts whose v2 backend facts are not yet present.
-Raw-source program-unit assembly is therefore generic at the frontend/FFC
-boundary for the bounded sequence range; backend v2 coverage remains open.
+of maintaining a 2/5/6 fixture-hash whitelist. FFC now emits counted
+frontend-ast-v2 execution-part identities for every bounded assignment count.
+Fortback generates the corresponding count-specific v2 route facts from one
+compact storage-sequence pattern, while retaining the separate old v1 route.
+The central replay now sends counts 3 through 10 through program-unit-v2 and
+checks the counted v2 identity, independent MIR shape, RISC-V output and qemu
+status. No v1 source-rule identity is used by this experimental v2 path.
+Raw-source program-unit assembly is therefore generic at the frontend/FFC and
+FFC/Fortback boundaries for the bounded sequence range; broader expression,
+statement and semantic coverage remain open.
 The raw scalar program-unit route now carries legal variable names and bounded
 signed integer values through AST-v2, MIR, RISC-V, and qemu. The central replay
 checks `counter_2 = 42`, a malformed PRINT neighbor, AST/MIR mutations, and
