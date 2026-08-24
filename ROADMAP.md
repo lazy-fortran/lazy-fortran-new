@@ -211,7 +211,8 @@ branch. General expression parsing, assignment sequences, and broader language
 coverage remain open. FFC now uses generic AST-v1 assignment-sequence lowering
 as the primary path for legal identifiers and integer literals. Fortback now derives the repeated
 generated PRINT route-operation pattern from a compact rule with boundary
-controls while retaining explicit exceptional route facts. Fortfront's generated PRINT policy
+controls while retaining explicit exceptional route facts, and its storage
+sequence encoders share one instruction-count loop. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
 Fortfront's generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
@@ -220,7 +221,9 @@ also no longer carries unused operator-specific two-assignment variants, and
 its bounded 2--10 assignment parser now derives each assignment and span from
 the source envelope instead of a source-and-count ladder. Broader expression
 and statement parsing remain open. Its SX serializer now emits every accepted
-assignment count through one bounded loop instead of a branch per count.
+assignment count through one bounded loop instead of a branch per count. Its
+AST-v1 assignment-sequence reader now parses one canonical numeric count and
+checks its bounds instead of a string ladder.
 The superseded per-count source constants are deleted. The three public source
 facts remain because existing frontend routes consume them.
 The legacy 2/5/6 assignment dispatch now selects its retained source hash from
