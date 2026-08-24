@@ -226,6 +226,8 @@ Its assignment-expression serializer now shares one canonical construction
 path while retaining the four historical raw-expression exceptions.
 Its multiply, divide, and subtract AST-v1 shape validators now share one
 parameterized validator while retaining their distinct diagnostics.
+Its six two-instruction scalar-program shape validators now share one
+parameterized validator while retaining their generated facts and diagnostics.
 Fortfront's variable PRINT span now derives its end byte from the recognized
 source line instead of a per-count ladder. Its generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
