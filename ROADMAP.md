@@ -228,6 +228,8 @@ Its multiply, divide, and subtract AST-v1 shape validators now share one
 parameterized validator while retaining their distinct diagnostics.
 Its six two-instruction scalar-program shape validators now share one
 parameterized validator while retaining their generated facts and diagnostics.
+Its six no-assignment scalar lowering branches now share one parameterized
+emitter/validator while retaining type-specific generated facts.
 Fortfront's variable PRINT span now derives its end byte from the recognized
 source line instead of a per-count ladder. Its generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
