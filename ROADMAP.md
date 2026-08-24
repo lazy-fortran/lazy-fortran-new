@@ -217,7 +217,8 @@ controls while retaining explicit exceptional route facts, and its stored-variab
 PRINT matcher plus one count-driven storage-sequence encoder share the same
 path. Fortback's stored-variable PRINT encoder now uses one loop for counts
 three through one hundred, retaining only the distinct two-item prologue.
-Fortfront's generated PRINT policy
+FFC's large stored-variable PRINT emitters now use one count-driven dispatch
+while retaining the range-specific generated facts. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
 Fortfront's generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
