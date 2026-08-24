@@ -214,7 +214,8 @@ AST-v2 assignment-sequence route delegates to the same lowerer while retaining
 the v2 source-rule labels. Fortback now derives the repeated
 generated PRINT route-operation pattern from a compact rule with boundary
 controls while retaining explicit exceptional route facts, and its stored-variable
-PRINT matcher plus storage-sequence encoders share count-driven paths. Fortfront's generated PRINT policy
+PRINT matcher plus one count-driven storage-sequence encoder share the same
+path. Fortfront's generated PRINT policy
 now validates legal variable names and the declared scalar value range.
 Fortfront's generic initialized-update parser now handles the existing multiply,
 divide, power, and Unicode en-dash subtraction expression fixtures without
