@@ -553,7 +553,9 @@ stored-variable routes for counts 2 through 100 share one loop while retaining
 the historical oracle mode names for counts 2 through 6. The verifier derives
 stored-variable source spans from the pinned fixture, so it does not preserve
 old fixture-specific span constants. Its literal and assignment batch routes
-also discover fixture keys and counts from the source files. The raw scalar
+also discover fixture keys and counts from the source files, and its consecutive
+literal PRINT oracle uses one value-derived check for all existing list lengths.
+The raw scalar
 route now carries legal `counter_2` and value `42` through AST-v2, MIR, the
 backend, and qemu, while rejecting a wrong PRINT name and malformed storage
 key. The raw scalar initialized-add route now carries `counter_2 = 42` and
