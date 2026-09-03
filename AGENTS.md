@@ -352,8 +352,8 @@ refusals, in the style of `fortad/ROADMAP.md`, are the target.
    a corrupted expected hash. A verifier that cannot be made to fail is not
    evidence that anything was verified. `scripts/check-contracts.sh` validates
    every central contract schema and witness, including its negative control.
-4. Run the `deslop` skill only when the user explicitly requests it. It is not
-   an automatic quality gate. `fo` is green wherever Fortran exists.
+4. Prose follows the `writing` skill; there is no automatic prose quality
+   gate. `fo` is green wherever Fortran exists.
 
 ## Cross-repository control-plane rule
 
