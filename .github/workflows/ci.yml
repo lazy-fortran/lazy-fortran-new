@@ -1,17 +1,24 @@
 name: ci
 
 on:
+  merge_group:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
+# Required checks run in the merge queue, not on pull_request events: the job
+# below is skipped (reported as success) for PRs and runs on merge_group and
+# on direct pushes to main that did not come from the merge queue.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || format('{0}-{1}', github.ref, github.run_id) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   gates:
+    if: >-
+      github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && github.actor != 'github-merge-queue[bot]')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
