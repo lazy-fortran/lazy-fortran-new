@@ -1,117 +1,94 @@
 # lazy-fortran-new
 
-The laboratory for a specification-generated Fortran compiler.
+Research repository for a Fortran compiler generated from the language
+standard. It holds the architecture, experiment records, decisions and papers,
+and wires together the component repositories. It contains no compiler code.
 
-The premise: a compiler is mostly the mechanical elaboration of information that
-already exists in a language standard. If that is true, the standard should be
-the maintained artifact and the compiler should be generated from it, with
-deterministic generation wherever the specification determines the answer,
-search and synthesis where it constrains without determining, and language
-models only for the residue. Nothing generated is trusted until it is checked
-against independent constraints, tests, differential oracles or formal
-properties.
+Status: research project; the generated toolchain covers only a small bounded
+slice of Fortran.
 
+## Idea
+
+Much of a compiler is a mechanical elaboration of information that is already
+in the language standard. The project therefore treats the standard as the
+maintained artifact and generates the compiler from it: deterministic
+generation where the specification determines the answer, search and synthesis
+where it only constrains it, and language models only for the remaining local
+tasks. Nothing generated is trusted until it has been checked against
+independent constraints, tests, differential oracles or formal properties.
+
+```text
+normative standard -> StandardIR -> generation or synthesis -> ImplIR
+  -> verification and benchmarking -> generated Fortran -> generated compiler
 ```
-normative standard → StandardIR → generation or synthesis → ImplIR
-  → verification and benchmarking → generated modern Fortran → generated compiler
-```
 
-This repository holds the architecture, the historical evidence, the
-experiments, the runs, the decisions and the papers. It contains no compiler
-code.
+## Current state
 
-## Start here
-
-- **`WHITEPAPER.md`**: the thesis and the method. Read this first.
-- **`LESSONS.md`**: what the existing Lazy Fortran toolchain's history
-  demonstrates, at commit level, including where it contradicts the argument.
-- **`DESIGN.md`**: repository hierarchy, StandardIR, ImplIR, contracts.
-- **`ROADMAP.md`**: phases, current position, what blocks what.
-- **`STATUS.md`** and **`MILESTONES.md`**: the active central delivery state
-  and the cross-repository definitions of done.
-- **`RESEARCH.md`**: how experiments, runs and decisions are recorded.
-- **`AGENTS.md`**: how to work in this repository. `CLAUDE.md` is a symlink to
-  it.
-- **`docs/goal-mode.md`** and **`docs/cross-repo-protocol.md`**: how one
-  verified vertical slice is selected, executed and integrated.
+The pinned components provide a bounded path from raw Fortran source through
+StandardIR, a generated frontend AST, MIR and RISC-V ELF output, executed under
+qemu. The accepted slice is a named main program with scalar integer
+declarations, simple assignments and arithmetic, `STOP` and list-directed
+`PRINT`. The current goal is to replace this bounded path with a generic
+implementation that preserves its behaviour. See [ROADMAP.md](ROADMAP.md) and
+[STATUS.md](STATUS.md).
 
 ## Repositories
 
 | Repository | Role |
 |---|---|
-| `lazy-fortran-new` | This one. Laboratory: research, wiring, papers. |
-| `standard-new` | Normative document to StandardIR and derived artifacts. |
-| `fortfront-new` | Generated frontend: lexer, parser, AST, semantics, emitter. |
-| `ffc-new` | Driver and middle end: MIR, optimization, command line. |
-| `fortback-new` | Target description to generated backend. |
+| `lazy-fortran-new` | This repository: research records, wiring, papers |
+| `standard-new` | Standard document to StandardIR and derived grammars |
+| `fortfront-new` | Generated frontend: lexer, parser, AST, semantics |
+| `ffc-new` | Driver and middle end: MIR, optimisation, command line |
+| `fortback-new` | Target description to generated backend |
 
-Existing repositories, `standard`, `fortfront`, `ffc`, `fortad`, `fluff`,
-`lfortran`, `liric`, `gcc`, are oracles, corpora and historical evidence. They
-constrain nothing here. The `-new` suffix is temporary and goes away at 1.0.
+The existing repositories (`standard`, `fortfront`, `ffc`, `fluff`, `lfortran`,
+`liric`, `gcc` and others) serve only as oracles, corpora and historical
+evidence. The `-new` suffix will be dropped at version 1.0.
 
-`repos.toml` lists all of them; `scripts/bootstrap.sh` clones what is missing and
-`scripts/status.sh` reports where each checkout stands.
+[repos.toml](repos.toml) lists all repositories with pinned commits.
+`scripts/bootstrap.sh` clones missing sibling checkouts and `scripts/status.sh`
+reports their state.
 
 ## Getting the sources
 
-Nothing external is committed here. Standards documents, grammars, ISA
+No external material is committed. Standards documents, grammars, ISA
 specifications and corpora are pinned by URL and SHA-256 in `artifacts/` and
-fetched into a gitignored cache:
+fetched into an ignored cache:
 
 ```sh
-scripts/fetch.sh --list        # what is pinned, and whether it is cached
+scripts/fetch.sh --list        # list pinned artifacts and whether they are cached
 scripts/fetch.sh j3-24-007     # fetch and verify one artifact
 scripts/fetch.sh --all
 ```
 
-A hash mismatch is a hard failure. `git status` stays clean after a fetch.
+A hash mismatch is an error.
 
-## Current state
+## Checking the pipeline
 
-Phase 0 is complete and Phase 1 is in progress. `standard-new` now performs
-layout-aware PDF extraction, canonical text projection, complete numbered syntax
-extraction for the selected J3/24-007 span, canonical StandardIR SX emission,
-dependency closure and deterministic EBNF, ANTLR4, Bison and tree-sitter
-projections. The current extraction gate reports 522/522 numbered production
-starts with zero model calls. The byte/span text layer, canonical SX reader and
-writer, flat SX arena, schema parser and first deterministic Fortran schema type
-emitter also exist. E0079 and E0080 compose generated complete-source, AST and
-expression operations over pinned real Fortran files. E0081 inventories 266
-source-linked semantic candidate spans and 287 Core 0-associated numbered
-constraints without accepting constraint bodies. E0082 accepts 10 typed
-definition/relation facts and retains the modal residue. E0083 mechanically
-formalizes 8 bounded predicates, derives 18 dependency edges and retains 279
-constraints unresolved. E0084 extends the same record and graph pattern to 6
-cross-clause predicates, 22 dependency edges and 281 unresolved constraints.
-Longer semantic alternatives and the completeness gate for the composite
-parser remain open. E0085 joins continuation-aware source text for 5 longer
-predicates, retains one implicit-typing rule unresolved and derives 19
-dependency edges. A disputed interpretation and the completeness gate remain
-open. E0086 preserves one disputed predicate with both competing candidates,
-derives 8 accepted dependency edges from two resolved rows, and keeps 284
-constraints unresolved without parser projections or model calls. E0087
-composes the four semantic slices into one 287-row ledger with 21 resolved,
-one disputed and 265 unresolved records, 67 accepted dependency edges, and no
-adjudication-gate violations.
-E0089 records the successor ledger with 22 resolved and 265 unresolved
-constraints and 71 accepted fact-dependency edges. E0090 generates 22 semantic
-rule rows and dispatch rows. E0091 and E0092 evaluate C601, C603 and C719
-through one generic evaluator. E0093 emits six structured source-linked
-diagnostic records without selected-rule IDs in its generated operation. E0094
-classifies all 22 accepted predicate rows with one generic dispatcher covering
-9 top-level constructors. The production `fortfront-new` repository has not
-been created yet. E0095 executes one nested `implies` predicate with generic
-`and`, `present` and `eq` interpretation over three source witnesses.
-E0096 executes a nested `not`/`or` predicate over intrinsic-type facts and
-agrees with gfortran and Flang on three witnesses. E0097 executes C7117 and
-C7118 through one generic finite-domain evaluator over six binary and octal
-DATA witnesses, agreeing with both compilers on all six.
-Regenerate the laboratory index with `scripts/index.sh`. The earlier
-syntax-only manuscript was retired under D0040. Its experiments and generated
-outputs remain in the research ledger and ignored run cache.
+With the component repositories checked out next to this one:
+
+```sh
+scripts/check_pins.sh
+scripts/check-contracts.sh
+bash tests/e2e/check-generated-chain.sh
+```
+
+## Documentation
+
+- [WHITEPAPER.md](WHITEPAPER.md): thesis and method
+- [LESSONS.md](LESSONS.md): what the history of the existing Lazy Fortran
+  toolchain shows, including where it contradicts the thesis
+- [DESIGN.md](DESIGN.md): repository hierarchy, StandardIR, ImplIR and contracts
+- [ROADMAP.md](ROADMAP.md), [STATUS.md](STATUS.md),
+  [MILESTONES.md](MILESTONES.md): plan and current state
+- [RESEARCH.md](RESEARCH.md): how experiments and decisions are recorded
+- [docs/glossary.md](docs/glossary.md): terms used across the project
+- [docs/provenance.md](docs/provenance.md): external sources consulted and
+  their terms
 
 ## Licence
 
-MIT for new Lazy Fortran software and specifications where legally applicable.
-See `LICENSE`. External sources keep their own licences and are never vendored;
-`docs/provenance.md` records what was consulted and under what terms.
+MIT for new Lazy Fortran software and specifications where legally applicable;
+see [LICENSE](LICENSE). External sources keep their own licences and are never
+vendored.
